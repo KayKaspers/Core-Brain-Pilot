@@ -2,7 +2,7 @@
 
 | Feld | Wert |
 | --- | --- |
-| Überarbeitet in | CBP-WP-003 |
+| Überarbeitet in | CBP-WP-004 |
 | Autoritätsklasse | A2 |
 | Stand | 2026-07-20 |
 
@@ -18,13 +18,14 @@ keine Laufzeit, keine Installation, kein Index, kein Wissensbestand.
 
 | Feld | Wert |
 | --- | --- |
-| Aktuelles Work Package | CBP-WP-003 (`in-review`) |
+| Aktuelles Work Package | CBP-WP-004 (`in-review`) |
 | Nächstes Gate | **G0 – Discovery and Scope Lock — NOT PASSED** |
 | G0-Kriterien | **47**, dreistufig klassifiziert |
 | davon blockierend | **25** Core Required (zuvor 45) |
-| davon `accepted` | 8 |
+| davon `accepted` | **18** |
+| verbleibende Blocker | **7** (davon 6 Benchmark) |
 | Implementierte Capabilities | **keine (0 von 29)** |
-| Commits | 3 |
+| Commits | 4 |
 
 ## Ziel
 
@@ -86,7 +87,7 @@ verweigert, bis eine Datenklasse sie erlaubt.**
 
 ## Entscheidungen
 
-Angenommene ADRs: **0**.
+Angenommene ADRs: **5** — ADR-0001 bis ADR-0005, alle `accepted` und A0/A5-belegt.
 
 26 getroffene Entscheidungen, davon 20 mit A0. 25 offene, davon 10 mit P0.
 Geführt in
@@ -101,7 +102,7 @@ CBP-WP-003 nicht änderbar.
 
 ## Risiken
 
-32 erfasste Risiken, davon 17 hoch. Geführt in
+32 erfasste Risiken, davon 17 hoch. Sieben in CBP-WP-004 verändert. Geführt in
 [project-system/RISK_REGISTER.md](../project-system/RISK_REGISTER.md).
 
 **Weiterhin kritisch:** Berechtigungen ohne technische Durchsetzung und ohne
@@ -112,15 +113,16 @@ kein Benchmark (R-21).
 
 ## Offene Fragen
 
-- **G0:** 25 Core-Required-Kriterien, davon **17 noch nicht `accepted`** —
+- **G0:** 25 Core-Required-Kriterien, davon **7 noch nicht `accepted`** —
   [G0_SCOPE_LOCK_CRITERIA.md](../docs/discovery/G0_SCOPE_LOCK_CRITERIA.md)
 - **Fragebogen:** 56 Fragen, davon 8 offen und Core Required —
   [DISCOVERY_QUESTIONS.md](../docs/discovery/DISCOVERY_QUESTIONS.md)
 - **Fehlende Information:** OI-02, OI-06 bis OI-09 offen —
   [OPEN_INFORMATION.md](../docs/discovery/OPEN_INFORMATION.md)
 
-Die drei größten Blöcke: Benchmarkplan (6 Kriterien), Berechtigungsmodell
-(4 Kriterien), Secret-Verfahren (1 Kriterium).
+Der dominierende Rest ist der **Benchmarkblock**: sechs der sieben Blocker.
+Der siebte ist D-1 — die Quellenarten sind entschieden, der konkrete Bestand
+nicht (OD-05, OD-06).
 
 ## Lessons Learned
 

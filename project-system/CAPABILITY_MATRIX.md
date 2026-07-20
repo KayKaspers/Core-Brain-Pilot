@@ -1,9 +1,9 @@
-# Capability Matrix – Core Brain Pilot
+﻿# Capability Matrix – Core Brain Pilot
 
 | Feld | Wert |
 | --- | --- |
 | Phase | Phase 0 – Discovery und Scope Lock |
-| Überarbeitet in | CBP-WP-002 |
+| Überarbeitet in | CBP-WP-004 |
 | Autoritätsklasse | A2 |
 | Stand | 2026-07-20 |
 
@@ -41,7 +41,7 @@ und 3: Datenbasis ordnen → Katalog → Suche → Brain-First-Regeln → Baseli
 | 3 | Stabile Source-ID und Content Hash | **P0** | `discovery` | ID muss Umbenennung überleben (OD-16) |
 | 4 | Owner- und Verifikationsmodell | P1 | `planned` | Rollenmodell für Einzelnutzer zu klären |
 | 5 | Ingest-Quarantäne | P1 | `planned` | Vertrauensgrenze TB-1; kein automatischer Pfad ins Kanonische |
-| 6 | Secret- und PII-Prüfung | **P0** | `planned` | Sicherheitskritisch; Verfahren OD-10 |
+| 6 | Secret- und PII-Prüfung | **P0** | `planned` | Sicherheitskritisch; **Schadensverfahren definiert** (SECRET_INCIDENT_RESPONSE); Erkennung offen |
 | 7 | Deterministischer Quellenindex | **P0** | `planned` | Determinismus ist Akzeptanzkriterium |
 | 8 | Inkrementelle Indexierung mit Tombstones | **P0** | `planned` | Löschungen müssen im Index nachvollziehbar bleiben |
 | 9 | Volltext-, semantische und hybride Suche | **P0** | `planned` | Lokal; qmd nur Kandidat mit Prüfvorbehalt (OD-25) |
@@ -55,7 +55,7 @@ und 3: Datenbasis ordnen → Katalog → Suche → Brain-First-Regeln → Baseli
 | 17 | Reproduzierbare Context Packs | **P0** | `planned` | Reproduzierbarkeit bei gleicher Eingabe ist Akzeptanzkriterium |
 | 18 | Konflikt- und Review-Queues | **P0** | `planned` | Auflösung bleibt menschlich; Workflow aus Bauanleitung, Seite 4 |
 | 19 | Verifikations-Queues | P1 | `planned` | Hängt an Capability 4 |
-| 20 | Quellen- und Collection-Berechtigungen | **P0** | `planned` | Fünf Stufen `read` bis `forbidden`; technisch, nicht per Prompt (R-25) |
+| 20 | Quellen- und Collection-Berechtigungen | **P0** | `planned` | **Modell vollständig** (PERMISSION_MODEL, ADR-0004); technische Durchsetzung offen (R-25) |
 | 21 | Vault Doctor | **P0** | `planned` | Periodische Bestandsprüfung; Prüfkatalog offen |
 | 22 | Retrieval-Benchmarks und Regressionstests | **P0** | `planned` | Mindestens 30 Fragen; noch keine formuliert (OI-06) |
 | 23 | Atomare Änderungen und Mehrschreiberschutz | P1 | `planned` | Verfahren offen (Fragebogen 6.8) |
@@ -63,8 +63,8 @@ und 3: Datenbasis ordnen → Katalog → Suche → Brain-First-Regeln → Baseli
 | 25 | Docker-Compose-Betrieb | P2 | `not-started` | Referenzprofil D; kein Pflichtziel der ersten Phase |
 | 26 | Austauschbare Web-UI | P2 | `not-started` | Erst nach Retrieval-Pilot-Gate (D-014) |
 | 27 | Read-only MCP/API | P2 | `not-started` | **Provenienz: CBP-WP-001 (A2).** In keiner Originalquelle belegt; Übergabe §10 fordert lediglich „keine unkontrollierten MCP-Server". Siehe Ü-05 |
-| 28 | Backup, Restore und Rebuild | **P0** | `planned` | Vier Stufen aus Übergabe §12; Zielwerte offen (OD-30) |
-| 29 | Deployment-neutrale Architektur | **P0** | `planned` | Querschnitt; fünf Referenzprofile A–E |
+| 28 | Backup, Restore und Rebuild | **P0** | `planned` | Rebuild-Vertrag in SYSTEM_ARCHITECTURE; Zielwerte im [DRC](../docs/operations/DEPLOYMENT_READINESS_CHECK.md) |
+| 29 | Deployment-neutrale Architektur | **P0** | `planned` | **ADR-0001 angenommen**; fünf Profile in DEPLOYMENT_PROFILES beschrieben |
 
 ## Zurückgestellt
 
@@ -109,7 +109,7 @@ Aus `CAPABILITY_MATRIX_TEMPLATE.md` (NDF v1.0.0):
 | Tests | P1 | `not-started` | Kein Code vorhanden |
 | CI/CD | P2 | `not-started` | In Phase 0 verboten |
 | Docker | P2 | `not-started` | Identisch mit Capability 25 |
-| Security | **P0** | `discovery` | Modell dokumentiert, technisch nicht durchgesetzt (R-30) |
+| Security | **P0** | `discovery` | Berechtigungs- und Incident-Modell dokumentiert (ADR-0004); **technisch nicht durchgesetzt** (R-25, R-27, R-30) |
 | Project Brain | **P0** | `planned` | `project-brain/PROJECT_BRAIN.md` angelegt |
 | Prompt Workflow | **P0** | `planned` | NDF-Lifecycle übernommen, WP-Queue geführt |
 | Release Process | P2 | `not-started` | Ohne Implementierung und Lizenz nicht definierbar (AB-07) |

@@ -2,7 +2,7 @@
 
 | Feld | Wert |
 | --- | --- |
-| Überarbeitet in | CBP-WP-003 |
+| Überarbeitet in | CBP-WP-004 |
 | Autoritätsklasse | A2 |
 | Stand | 2026-07-20 |
 
@@ -37,14 +37,14 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | Phase 0 – Discovery und Scope Lock |
-| Aktuelles Work Package | CBP-WP-003 (`in-review`) |
+| Aktuelles Work Package | CBP-WP-004 (`in-review`) |
 | Nächstes Gate | **G0 – Discovery and Scope Lock** |
 | **Gate-Status** | **NOT PASSED** |
 | G0-Kriterien | **47** |
 | davon blockierend (Core Required) | **25** |
-| davon `accepted` | 8 |
+| davon `accepted` | **18** |
 | Capabilities implementiert | **0** von 29 |
-| Angenommene ADRs | 0 |
+| Angenommene ADRs | **5** |
 | Scope gelockt | **nein** |
 
 ## Repository
@@ -53,7 +53,7 @@
 | --- | --- |
 | Pfad | `D:\Projects\Core-Brain-Pilot` |
 | Branch | `main` |
-| Commits | 3 |
+| Commits | 4 |
 | Remote | `origin` → `https://github.com/KayKaspers/Core-Brain-Pilot.git` |
 | Commit-Autorität | ausschließlich Human Maintainer |
 
@@ -79,7 +79,7 @@ Installationswerte.
 | Klasse | Anzahl | Blockiert G0 | Zuständiges Gate |
 | --- | --- | --- | --- |
 | **Core Required** | 25 | **ja** | G0 |
-| Deployment Required | 16 | nein | Deployment-Readiness-Gate, noch zu definieren (OD-33) |
+| Deployment Required | 16 | nein | [Deployment Readiness Check](../docs/operations/DEPLOYMENT_READINESS_CHECK.md) — **NOT EVALUATED** |
 | Conditional | 6 | nur bei aktivierter Funktion | je nach Funktion |
 
 ## Sichere Standardwerte

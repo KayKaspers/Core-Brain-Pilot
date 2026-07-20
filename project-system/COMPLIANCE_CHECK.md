@@ -1,9 +1,9 @@
-# Compliance Check – Core Brain Pilot
+﻿# Compliance Check – Core Brain Pilot
 
 | Feld | Wert |
 | --- | --- |
 | Phase | Phase 0 – Discovery und Scope Lock |
-| Letzte Prüfung | 2026-07-20, im Rahmen von CBP-WP-003 |
+| Letzte Prüfung | 2026-07-20, im Rahmen von CBP-WP-004 |
 | Autoritätsklasse | A2 |
 
 > Diese Datei gehört zur kanonischen NDF-Ordnerstruktur, war aber in der
@@ -24,14 +24,14 @@
 | Kein zweites Governance-System | erfüllt |
 | Vorprüfung vor jeder Änderung | erfüllt |
 
-## Scope-Compliance (CBP-WP-003)
+## Scope-Compliance (CBP-WP-004)
 
 | Prüfung | Ergebnis |
 | --- | --- |
 | Nur Markdown innerhalb `D:\Projects\Core-Brain-Pilot` | erfüllt |
 | Keine weiteren Dateitypen | erfüllt |
 | Nur erlaubte Dokumentdateien geändert | erfüllt |
-| `PROJECT_DEFINITION.md` **nicht** geändert, obwohl D-016 es erfordert | erfüllt — außerhalb der Erlaubnisliste, als OD-31 erfasst |
+| `PROJECT_DEFINITION.md` nach D-016 nachgeführt | erfüllt — in CBP-WP-004 erlaubt; OD-31 geschlossen |
 | Kein Anwendungscode, kein Dockerfile, keine `compose.yaml` | erfüllt |
 | Keine Skripte, CI/CD, GitHub Actions | erfüllt |
 | Keine Datenbanken, Suchindex, Embeddings, Modelle | erfüllt |
@@ -60,9 +60,9 @@
 | Prüfung | Ergebnis |
 | --- | --- |
 | **G0 bleibt NOT PASSED** | **erfüllt** |
-| Kein neuer Gate-Name eingeführt | erfüllt — Deployment-Readiness-Gate nur als zu definierende Aufgabe benannt |
+| Kein neuer Gate-Name eingeführt | erfüllt — DRC ist ein Prüfmodell, kein Gate (ADR-0005) |
 | Kriterienklassen gekennzeichnet | erfüllt — Core 25, Deployment 16, Conditional 6 |
-| Deployment-Kriterien vertagt, nicht gestrichen | erfüllt — alle 16 bleiben `open` und erfasst |
+| Deployment-Kriterien vertagt, nicht gestrichen | erfüllt — alle 16 im DRC erfasst, Status `not-evaluated` |
 | Fail-closed für fehlende Deploymentangaben dokumentiert | erfüllt |
 | Offene P0-Fragen bleiben sichtbar | erfüllt |
 | Blocker ausdrücklich markiert | erfüllt |
@@ -83,7 +83,7 @@
 | Prüfung | Ergebnis |
 | --- | --- |
 | Alle Statusdokumente nennen Phase 0 | erfüllt |
-| Aktuelles Work Package als CBP-WP-003 ausgewiesen | erfüllt |
+| Aktuelles Work Package als CBP-WP-004 ausgewiesen | erfüllt |
 | Keine Capability als `implemented` bezeichnet | erfüllt |
 | Alle Capabilities besitzen eine Priorität | erfüllt |
 | **Fehlerhafte Summen korrigiert** | **erfüllt** — 47/45/38/56 statt 41/39/35/55 |
@@ -91,16 +91,40 @@
 | Keine offene Entscheidung als A0 ausgegeben | erfüllt |
 | UTF-8 mit echten deutschen Umlauten | erfüllt |
 
+## Architektur-Compliance (CBP-WP-004)
+
+| Prüfung | Ergebnis |
+| --- | --- |
+| Architektur ohne Proxmox funktionsfähig beschrieben | erfüllt — Profil B als Neutralitätsnachweis |
+| Proxmox bleibt Referenz, nicht Produktgrenze | erfüllt (ADR-0001) |
+| Keine Proxmox-API-Abhängigkeit eingeführt | erfüllt |
+| Alle fünf Deploymentprofile dokumentiert | erfüllt (A–E) |
+| Docker Compose bevorzugt, aber keine Produktabhängigkeit | erfüllt (ADR-0002) |
+| Canonical und Derived eindeutig getrennt | erfüllt (ADR-0003, Rebuild-Vertrag) |
+| Jede logische Komponente mit klaren Schreibrechten | erfüllt — 14 Komponenten |
+| Nur ein autorisierter Pfad verändert Canonical | erfüllt — Review/Approval |
+| Alle fünf Aktionsklassen im Permission Model | erfüllt |
+| Technische Durchsetzungsebenen benannt | erfüllt — fünf Ebenen |
+| `excluded-from-ai` fail-closed gegenüber externer KI | erfüllt |
+| Rotation vor History Cleanup | erfüllt — ausdrücklich als Grundsatz |
+| Derived nach Secret-Vorfall gelöscht und neu aufgebaut | erfüllt — Schritte 8 und 9 |
+| DRC mappt alle 16 Deployment-Required-Kriterien | erfüllt — 16 von 16 auf 18 Prüfpunkte |
+| DRC steht auf NOT EVALUATED | erfüllt |
+| Deployment Required blockiert G0 nicht | erfüllt |
+| Keine Compose-Datei erzeugt | erfüllt |
+| Keine Repository-Datei verschoben | erfüllt |
+| Keine Infrastruktur bewertet oder bereitgestellt | erfüllt |
+| ADRs nach bestehender Konvention | erfüllt — ADR-NNNN-titel.md, 5 Stück |
+
 ## Offene Punkte
 
 | Punkt | Bezug |
 | --- | --- |
-| Berechtigungsmodell nicht erhoben | OI-08, R-25, R-27 |
-| Secret-Verfahren im Schadensfall offen | OI-09, R-01 |
+| Berechtigungsmodell dokumentiert, **technisch nicht durchgesetzt** | R-25, R-27 |
+| Secret-Erkennung und technische Unterstützung fehlen | R-01 |
 | Benchmarkplan fehlt vollständig | OI-06, R-21 |
-| 16 Deployment-Kriterien ohne zuständiges Gate | R-34, OD-33 |
-| D-016 in `PROJECT_DEFINITION.md` nicht nachgeführt | OD-31 |
-| Repository-Struktur nicht freigegeben | OI-07, OD-26 |
+| DRC definiert, aber **NOT EVALUATED** | R-34 |
+| Repository-Layout nur vorgeschlagen, nicht entschieden | OD-26 |
 
 ## Pflege
 

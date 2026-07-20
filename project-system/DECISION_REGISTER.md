@@ -1,9 +1,9 @@
-# Decision Register – Core Brain Pilot
+﻿# Decision Register – Core Brain Pilot
 
 | Feld | Wert |
 | --- | --- |
 | Phase | Phase 0 – Discovery und Scope Lock |
-| Überarbeitet in | CBP-WP-003 |
+| Überarbeitet in | CBP-WP-004 |
 | Autoritätsklasse | A2 |
 | Stand | 2026-07-20 |
 
@@ -58,9 +58,10 @@ getroffen. Quelle jeweils
 > Maintainer hat nun ausdrücklich „bevorzugte Anwendungslaufzeit" bestätigt.
 > **A0 schlägt A5** — die Abschwächung ist damit aufgehoben.
 >
-> `docs/architecture/PROJECT_DEFINITION.md` trägt die abgeschwächte
-> Formulierung weiterhin, ist aber in CBP-WP-003 **nicht änderbar**. Die
-> Nachführung ist als **OD-31** erfasst.
+> **Nachgeführt in CBP-WP-004:** `docs/architecture/PROJECT_DEFINITION.md`
+> trägt jetzt die korrigierte Formulierung mit ausdrücklicher Abgrenzung
+> („bevorzugt, aber nicht einzige Laufzeit und keine Produktgrenze"). OD-31 ist
+> damit geschlossen; festgehalten in **ADR-0002**.
 
 ## Geschlossene offene Entscheidungen
 
@@ -71,6 +72,10 @@ getroffen. Quelle jeweils
 | OD-01 | Kriterien für Gate G0 | G0_SCOPE_LOCK_CRITERIA.md, dreistufig klassifiziert | 2026-07-20 |
 | **OD-21** | Zugriffsweg für Mehrgeräte-Nutzung | **D-023** — privates VPN/Netz; Technologie bleibt Deployment Required | 2026-07-20 |
 | **OD-27** | Obsidian-Synchronisationsmodell | **D-025** — serverzentriert zuerst, native Nutzung vertagt | 2026-07-20 |
+| **OD-10** | Verfahren bei Secret in der Git-Historie | [SECRET_INCIDENT_RESPONSE.md](../docs/security/SECRET_INCIDENT_RESPONSE.md) — 14 Schritte, Rotation vor Cleanup. **Technische Unterstützung bleibt offen** | 2026-07-20 |
+| **OD-32** | Berechtigungsstufen je Bereich und Freigabeverfahren | [PERMISSION_MODEL.md](../docs/security/PERMISSION_MODEL.md) und ADR-0004 — 9 Rollen × 12 Ressourcen. **Technische Durchsetzung bleibt offen** | 2026-07-20 |
+| **OD-31** | Nachführungen außerhalb des CBP-WP-003-Scopes | CBP-WP-004: D-016 in `PROJECT_DEFINITION.md` korrigiert, Kriterienzahl auf 47 aktualisiert, Korrektur-Notiz in `CBP-WP-002.md` ergänzt | 2026-07-20 |
+| **OD-33** | Definition des Deployment-Readiness-Gates | [DEPLOYMENT_READINESS_CHECK.md](../docs/operations/DEPLOYMENT_READINESS_CHECK.md) und ADR-0005 — DRC vollständig dokumentiert und in G0, Manifest, Profil, README und Brain verlinkt | 2026-07-20 |
 
 ## Vertagte Entscheidungen
 
@@ -92,16 +97,14 @@ Legende: **P0** blockiert G0 · **P1** vor Architekturentscheidung · **P2** sp�
 
 | ID | Offene Entscheidung | Prio | Adressat | Bezug |
 | --- | --- | --- | --- | --- |
-| OD-03 | Rang der Kernprinzipien: ADR (A1) oder Verbleib bei A2 | **P0** | Human Maintainer | F-3 |
+| OD-03 | Rang der Kernprinzipien: weitere ADRs über ADR-0001 bis ADR-0005 hinaus | P1 | Human Maintainer | teilweise durch ADR-0001…0005 |
 | OD-04 | Minimal nützlicher Funktionsumfang des Piloten | **P0** | Nova | A-8 |
 | OD-05 | Ablageort des kanonischen Wissensbestands | **P0** | Human Maintainer | D-1 |
 | OD-06 | Quellen im ersten Scope und ausdrückliche Nicht-Quellen | **P0** | Nova | D-1, D-5 |
 | OD-07 | Vergabeverfahren für Autoritätsklassen A0–A6 | **P0** | Nova | — |
 | OD-08 | Vergabeverfahren für Datenklassen | **P0** | Human Maintainer | D-4 |
-| OD-10 | **Verfahren bei Secret in der Git-Historie** | **P0** | Human Maintainer | **D-8** |
 | OD-11 | Repository dauerhaft privat? | **P0** | Human Maintainer | A-8 |
 | OD-29 | Dauerhafte Behandlung der NDF-Abweichungen AB-03 bis AB-08 | **P0** | Nova + Human Maintainer | ADOPTION_NOTES |
-| **OD-32** | **Berechtigungsstufen je Bereich und Freigabeverfahren** | **P0** | Human Maintainer | **E-2 bis E-5** |
 | OD-02b | Kalibrierung der Token-Richtwerte für B0–B4 | P1 | Nova | CONTEXT_BUDGETS |
 | OD-13 | Manifest auf `project-manifest.yaml` umstellen | P1 | Nova | AB-03 |
 | OD-14 | NDF-Namensschema für Register | P1 | Nova | AB-04 |
@@ -113,8 +116,6 @@ Legende: **P0** blockiert G0 · **P1** vor Architekturentscheidung · **P2** sp�
 | OD-23 | Lizenzwahl | P1 | Human Maintainer | D-007 |
 | OD-25 | qmd als produktiver Suchdienst — nur nach Prüfung | P1 | Human Maintainer | — |
 | OD-26 | Endgültige Repository-Struktur | **P0** | Nova + Human Maintainer | W-05 |
-| **OD-31** | **Nachführung in Dateien außerhalb des CBP-WP-003-Scopes:** (a) D-016 in `PROJECT_DEFINITION.md` — Ü-02 ist durch A0 aufgehoben; (b) veraltete Kriterienzahl „41" in `PROJECT_DEFINITION.md` Zeile 194; (c) veraltete Zahlen „41 Kriterien, 39 blockierend" in `work-packages/CBP-WP-002.md` Zeile 163 | P1 | Nova | D-016, R-33 |
-| **OD-33** | **Definition des Deployment-Readiness-Gates** für die 16 Deployment-Required-Kriterien | P1 | Nova | D-026 |
 | OD-24 | Akzeptable Ausfallzeit | P2 | Human Maintainer | — |
 | OD-28 | Öffentlicher Produktname und Phase-7-Option | P2 | Human Maintainer | — |
 
@@ -123,11 +124,13 @@ Legende: **P0** blockiert G0 · **P1** vor Architekturentscheidung · **P2** sp�
 | Kategorie | Anzahl |
 | --- | --- |
 | Getroffene Entscheidungen | **26** (davon 20 mit A0) |
+| Angenommene ADRs | **5** (ADR-0001 bis ADR-0005, alle A1) |
 | Neu in CBP-WP-003 | 12 (D-015 bis D-026) |
-| Geschlossene offene Entscheidungen | 5 |
+| Neu in CBP-WP-004 | 0 Entscheidungen, 5 ADRs |
+| Geschlossene offene Entscheidungen | **9** (davon 4 in CBP-WP-004) |
 | Vertagte Entscheidungen | 4 |
-| Offene Entscheidungen | 25 |
-| davon **P0** | **10** |
+| Offene Entscheidungen | **21** |
+| davon **P0** | **8** |
 
 **Keine offene Entscheidung wird als A0 geführt.** Keine Entscheidung wurde aus
 reinen Sachangaben abgeleitet — die Infrastrukturangaben aus dem Intake sind

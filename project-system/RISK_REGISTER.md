@@ -1,9 +1,9 @@
-# Risk Register – Core Brain Pilot
+﻿# Risk Register – Core Brain Pilot
 
 | Feld | Wert |
 | --- | --- |
 | Phase | Phase 0 – Discovery und Scope Lock |
-| Überarbeitet in | CBP-WP-003 |
+| Überarbeitet in | CBP-WP-004 |
 | Autoritätsklasse | A2 |
 | Stand | 2026-07-20 |
 
@@ -23,22 +23,22 @@ Ein irreversibler Schaden ist mindestens **hoch**.
 
 | ID | Risiko | Schwere | Gegenmaßnahme | Status |
 | --- | --- | --- | --- | --- |
-| R-01 | Secret gelangt in die Git-Historie und ist praktisch nicht mehr entfernbar | **hoch** | `.gitignore`, keine Beispiel-Secrets, Secret-Prüfung beim Ingest. **Verfahren im Schadensfall weiterhin undefiniert** (OD-10, D-8) | teilweise gemindert |
+| R-01 | Secret gelangt in die Git-Historie und ist praktisch nicht mehr entfernbar | **hoch** | `.gitignore`; **Schadensverfahren jetzt definiert** (SECRET_INCIDENT_RESPONSE, 14 Schritte, Rotation vor Cleanup). Erkennung und Automatik fehlen | **verändert, teilweise gemindert** |
 | R-02 | `confidential` oder `excluded-from-ai` gelangt in den Modellkontext | **hoch** | Datenschutzfilter TB-4, fail-closed. **Standardwert 5:** Übertragung an externe KI standardmäßig verweigert | **konkretisiert** |
 | R-03 | Datenklassen werden nie konsequent vergeben; Filter laufen ins Leere | **hoch** | Klassenvergabe verpflichtend an TB-1, Vault Doctor. Vergabeverfahren offen (OD-08) | offen |
 | R-04 | Prompt Injection aus ingestiertem Material steuert einen Agenten | **hoch** | Ingest ist Daten, nie Anweisung; Quarantäne TB-1. **Durch D-019 verstärkt:** PDF/Office nur über kontrollierte Pipeline | **konkretisiert** |
 | R-05 | Inhalte werden an das Claude-Modell übertragen, obwohl ihre Klasse das nicht erlaubt | **hoch** | Datenschutzmatrix; **Standardwert 5** macht Verweigerung zum Normalzustand | **konkretisiert** |
-| R-25 | Berechtigungen bestehen nur als Promptregel und nicht technisch | **hoch** | Fünf Berechtigungsstufen dokumentiert. **Zuordnung je Bereich und Freigabeverfahren weiterhin offen** (OD-32, E-2 bis E-5) | **offen, kritisch** |
+| R-25 | Berechtigungen bestehen nur als Promptregel und nicht technisch | **hoch** | **Modell vollständig dokumentiert** (PERMISSION_MODEL, ADR-0004): 5 Aktionsklassen, 5 Durchsetzungsebenen, Default deny. **Technische Umsetzung existiert nicht** | **verändert, offen** |
 | R-26 | Betrieb als Root oder direkt auf dem Proxmox-Host | **hoch** | Ausdrückliches Verbot in TRUST_BOUNDARIES | offen |
-| R-27 | Pauschale GitHub-Schreibrechte oder allgemeiner Repository-Schreibzugriff | **hoch** | Verbot dokumentiert. **Erlaubte Zugriffe nicht erhoben** (E-2, E-3) | **offen, kritisch** |
+| R-27 | Pauschale GitHub-Schreibrechte oder allgemeiner Repository-Schreibzugriff | **hoch** | **Regel gesetzt:** Claude `forbidden` auf `github remote`, nur `draft` auf `git repository`; Push ausschließlich Human Maintainer. Technisch nicht durchgesetzt | **verändert, offen** |
 | **R-31** | **Die Sperrwirkung von `excluded-from-ai` wird nie mit Testdaten geprüft** | **hoch** | D-021 fordert die Prüfung ausdrücklich mit synthetischen oder unkritischen Testdaten | **neu, offen** |
 
 ## Wissensintegrität
 
 | ID | Risiko | Schwere | Gegenmaßnahme | Status |
 | --- | --- | --- | --- | --- |
-| R-06 | Abgeleitete Inhalte (A6) überschreiben kuratierte (A0–A5) | **hoch** | Autoritätsmodell, Einbahnregel TB-3 | offen |
-| R-07 | Indexverlust bedeutet Wissensverlust | **hoch** | Trennung kanonisch/abgeleitet, Rebuild-Fähigkeit. **ADR fehlt** (F-3) | offen |
+| R-06 | Abgeleitete Inhalte (A6) überschreiben kuratierte (A0–A5) | **hoch** | **ADR-0003:** Einbahnregel TB-3; nur ein autorisierter Schreibpfad nach kanonisch (COMPONENT_MODEL) | **gemindert** |
+| R-07 | Indexverlust bedeutet Wissensverlust | **hoch** | **ADR-0003 angenommen**; Rebuild-Vertrag mit Inputs, Versionen, Verifikation und Tombstone-Weg in SYSTEM_ARCHITECTURE | **gemindert** |
 | R-08 | Widersprüche werden automatisch aufgelöst statt vorgelegt | mittel | Konflikt-Queue, menschliche Auflösung. **Standardwert 7** | gemindert |
 | R-09 | Veraltetes Wissen wird als aktuell ausgeliefert | mittel | Aktualitätsfilter, Supersession | offen |
 | R-10 | Nichtdeterministische Indexierung macht Ergebnisse unreproduzierbar | mittel | Determinismus als Akzeptanzkriterium | offen |
@@ -66,7 +66,7 @@ Ein irreversibler Schaden ist mindestens **hoch**.
 
 | ID | Risiko | Schwere | Gegenmaßnahme | Status |
 | --- | --- | --- | --- | --- |
-| R-19 | Bindung an Proxmox oder Compose sickert in die Architektur ein | mittel | **D-017 bestätigt Deployment-Neutralität ausdrücklich** | **gemindert** |
+| R-19 | Bindung an Proxmox oder Compose sickert in die Architektur ein | mittel | **ADR-0001 angenommen**; fünf Profile beschrieben; Profil B ist der laufende Neutralitätsnachweis | **gemindert** |
 | R-20 | Fehlende Restore-Evidenz — Sicherung existiert, Wiederherstellung nie geprobt | **hoch** | **Standardwert 10:** Backup muss vor produktivem Betrieb eingerichtet **und getestet** sein. Zielwerte weiterhin offen (F-4) | offen |
 | R-21 | Retrieval-Qualität verschlechtert sich unbemerkt | mittel | Benchmarks und Regressionstests; **keine der mindestens 30 Fragen formuliert** | **offen, kritisch** |
 | R-29 | Produktive Synchronisation ohne Test-Vault führt zu Datenverlust | **hoch** | **D-025 vertagt native Obsidian-Nutzung**; Freigabe erst nach Test-Vault, Konflikt- und Restore-Prüfung | **gemindert** |
@@ -84,21 +84,31 @@ Ein irreversibler Schaden ist mindestens **hoch**.
 | Status | Anzahl |
 | --- | --- |
 | geschlossen | 2 |
-| gemindert | 9 |
+| gemindert | **12** |
 | konkretisiert | 4 |
 | dokumentiert | 1 |
 | teilweise gemindert | 1 |
-| offen | 15 |
+| offen | **12** |
 
-**Neu in CBP-WP-003:** R-31 bis R-34.
+**Neu in CBP-WP-004:** keine.
 
-**Verändert:** R-02, R-04, R-05, R-30 → `konkretisiert` durch A0-Entscheidungen;
-R-11, R-13, R-19, R-29 → `gemindert`; R-25, R-27, R-21 als **kritisch offen**
-hervorgehoben.
+**Verändert in CBP-WP-004:**
 
-**Kein Risiko wurde geschlossen, weil eine Absicht genannt wurde.** D-021 etwa
-verschärft R-30 zu einer prüfbaren Anforderung, schließt es aber nicht — der
-Nachweis steht aus.
+| ID | Änderung | Auslöser |
+| --- | --- | --- |
+| R-01 | Schadensverfahren definiert → `teilweise gemindert` | SECRET_INCIDENT_RESPONSE |
+| R-06 | Einbahnregel und einziger Schreibpfad festgeschrieben → `gemindert` | ADR-0003, COMPONENT_MODEL |
+| R-07 | Rebuild-Vertrag definiert → `gemindert` | ADR-0003, SYSTEM_ARCHITECTURE |
+| R-19 | Deployment-Neutralität als ADR → `gemindert` | ADR-0001, DEPLOYMENT_PROFILES |
+| R-25 | Berechtigungsmodell dokumentiert; **technisch weiterhin nicht durchgesetzt** | ADR-0004, PERMISSION_MODEL |
+| R-27 | Zugriffsregeln gesetzt; **technisch weiterhin nicht durchgesetzt** | PERMISSION_MODEL |
+| R-34 | DRC eingeführt → `gemindert` | ADR-0005, DEPLOYMENT_READINESS_CHECK |
+
+**Kein Risiko wurde geschlossen, weil ein Dokument entstanden ist.** R-25 und
+R-27 bleiben ausdrücklich **offen**: ein Berechtigungsmodell auf Papier ist
+keine Zugriffskontrolle. R-01 bleibt `teilweise gemindert`, weil Erkennung und
+technische Unterstützung fehlen. Der Nachweis der Wirksamkeit gehört in spätere
+Gates.
 
 ## Weiterhin kritisch
 

@@ -1,9 +1,9 @@
-# Project Profile – Core Brain Pilot
+﻿# Project Profile – Core Brain Pilot
 
 | Feld | Wert |
 | --- | --- |
 | Phase | Phase 0 – Discovery und Scope Lock |
-| Überarbeitet in | CBP-WP-003 |
+| Überarbeitet in | CBP-WP-004 |
 | Autoritätsklasse | A2 |
 | Stand | 2026-07-20 |
 
@@ -87,20 +87,19 @@ Es existiert **keine** Installation.
 
 **Weiterhin kritisch:**
 
-- Berechtigungen ohne technische Durchsetzung, Zuordnung nicht erhoben (R-25, R-27)
+- Berechtigungsmodell dokumentiert, aber **technisch nicht durchgesetzt** (R-25, R-27)
 - Sperrwirkung von `excluded-from-ai` ungeprüft (R-31)
 - Keine Quarantäne für Nicht-Markdown-Quellen (R-32)
-- 16 vertagte Deployment-Kriterien ohne zuständiges Gate (R-34)
+- 16 vertagte Deployment-Kriterien; DRC definiert, aber **NOT EVALUATED** (R-34)
 - Kein Benchmark, damit keine Qualitätsaussage (R-21)
-- Secret-Verbot ohne Schadensverfahren (R-01)
+- Secret-Schadensverfahren definiert, aber ohne technische Erkennung (R-01)
 
 ## Bekannte Einschränkungen
 
 - Kein lauffähiges System, kein Wissensbestand, kein Index
-- Scope **nicht** gelockt; G0 ist NOT PASSED, 19 Core-Required-Kriterien nicht `accepted`
+- Scope **nicht** gelockt; G0 ist NOT PASSED, **7** Core-Required-Kriterien nicht `accepted`
 - Sämtliche konkreten Infrastrukturwerte unbekannt und bewusst nicht erhoben
 - Keine der mindestens 30 Benchmarkfragen formuliert
-- Berechtigungsmodell nicht erhoben
 - Repository-Struktur nicht freigegeben
 - Keine Lizenz festgelegt
 - PDF-Fließtext lokal nicht extrahierbar; Auswertung über A6-Textfassung
@@ -111,7 +110,7 @@ Es existiert **keine** Installation.
 | --- | --- | --- |
 | **Phase 0** | Discovery und Scope Lock | **laufend** |
 | **Gate G0** | Discovery and Scope Lock | **NOT PASSED** |
-| Deployment-Readiness | 16 vertagte Kriterien | **Gate noch zu definieren** (OD-33) |
+| Deployment-Readiness | 16 vertagte Kriterien | [DRC](../docs/operations/DEPLOYMENT_READINESS_CHECK.md) definiert, **NOT EVALUATED** |
 | Phase 1 | Proxmox-Referenzumgebung | nicht begonnen |
 | Phase 2 | Wissensfundament | nicht begonnen |
 | Phase 3 | Retrieval-Pilot | nicht begonnen |

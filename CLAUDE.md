@@ -1,4 +1,4 @@
-# CLAUDE.md — Core Brain Pilot
+﻿# CLAUDE.md — Core Brain Pilot
 
 Betriebsanweisung für Implementation Agents in diesem Repository.
 Verbindlich nach **Nova Development Framework v1.0.0**.
@@ -123,9 +123,10 @@ nennen.
 | Feld | Wert |
 | --- | --- |
 | Phase | Phase 0 – Discovery und Scope Lock |
-| Aktuelles Work Package | CBP-WP-002 (`in-review`) |
+| Aktuelles Work Package | CBP-WP-004 (`in-review`) |
 | Nächstes Gate | G0 – Discovery and Scope Lock |
-| **Gate-Status** | **NOT PASSED** |
+| **Gate-Status** | **NOT PASSED** — 18 von 25 Core-Kriterien `accepted`, 7 offen |
+| Angenommene ADRs | 5 (A1) |
 | Implementierte Capabilities | keine |
 
 ## Sperrliste Phase 0

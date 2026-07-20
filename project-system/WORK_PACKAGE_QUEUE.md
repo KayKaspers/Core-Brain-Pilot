@@ -29,8 +29,9 @@ Spalten nach `WORK_PACKAGE_QUEUE_TEMPLATE.md` (NDF v1.0.0).
 | --- | --- | --- | --- | --- |
 | CBP-WP-001 | Repository Bootstrap und dokumentarisches Projektfundament | P0 | **`committed`** | [work-packages/CBP-WP-001.md](../work-packages/CBP-WP-001.md) |
 | CBP-WP-002 | Source Reconciliation und G0 Scope-Lock-Definition | P0 | **`committed`** | [work-packages/CBP-WP-002.md](../work-packages/CBP-WP-002.md) |
-| CBP-WP-003 | Human Discovery Intake and G0 Evidence Capture | P0 | **`in-review`** | [work-packages/CBP-WP-003.md](../work-packages/CBP-WP-003.md) |
-| CBP-WP-004 | Generic Architecture and Deployment Profiles | P0 | `proposed` | noch nicht erstellt |
+| CBP-WP-003 | Human Discovery Intake and G0 Evidence Capture | P0 | **`committed`** | [work-packages/CBP-WP-003.md](../work-packages/CBP-WP-003.md) |
+| CBP-WP-004 | Generic Architecture and Deployment Profiles | P0 | **`in-review`** | [work-packages/CBP-WP-004.md](../work-packages/CBP-WP-004.md) |
+| CBP-WP-005 | Benchmark Dataset and Retrieval Evaluation Design | P0 | `proposed` | noch nicht erstellt |
 
 Genau ein Work Package ist als `proposed` geführt.
 
@@ -64,37 +65,51 @@ erfasst als R-33. Die Dokumente selbst waren vollständig.
 | Feld | Wert |
 | --- | --- |
 | Typ | `docs-only` · Prompt Mode **Full** · Budget **B1 – Lean** |
-| Status | **`in-review`** |
-| Phasen | A (Fragebogen, einmal überarbeitet nach Nova-REWORK) und B (Auswertung) |
-| Commit | **nicht** ausgeführt |
+| Status | **`committed`** |
+| Git-Beleg | `b1a6c2f CBP-WP-003: capture human discovery evidence` |
 
 Ergebnis: 6 Antworten erhoben, 12 A0-Entscheidungen (D-015 bis D-026),
 G0-Kriterien dreistufig klassifiziert, Blocker von 45 auf 25 reduziert,
 fehlerhafte Summen korrigiert.
 
-## CBP-WP-004 — Vorschlag, nicht freigegeben
+## CBP-WP-004
 
 | Feld | Wert |
 | --- | --- |
-| Titel | **Generic Architecture and Deployment Profiles** |
+| Typ | `docs-only` · Prompt Mode **Full** · Budget **B2 – Standard** |
+| Status | **`in-review`** |
+| Commit | **nicht** ausgeführt |
+
+Ergebnis: deployment-neutrale Systemarchitektur in 9 Schichten, 14 logische
+Komponenten mit Schreibrechten, 5 Deploymentprofile, Deployment Readiness Check
+(18 Prüfpunkte, NOT EVALUATED), Berechtigungsmodell, Secret-Incident-Response,
+5 ADRs. G0-`accepted` von 8 auf **18** gestiegen; verbleibende Blocker von 17
+auf **7**.
+
+## CBP-WP-005 — Vorschlag, nicht freigegeben
+
+| Feld | Wert |
+| --- | --- |
+| Titel | **Benchmark Dataset and Retrieval Evaluation Design** |
 | Typ | `docs-only` |
-| Prompt Mode | **Full** — Architekturfestlegung ist governance-kritisch |
+| Prompt Mode | **Full** |
 | Context Budget | **B2 – Standard** |
 
-**Ziel.** Die allgemeine, deploymentneutrale Architektur beschreiben und die
-Referenzprofile A bis E sauber von den Core-Anforderungen trennen. Dazu gehören
-das Deployment-Readiness-Gate für die 16 vertagten Kriterien (OD-33) und die
-Nachführung von D-016 in `PROJECT_DEFINITION.md` (OD-31).
+**Ziel.** Den Benchmark entwerfen: mindestens 30 Fragen, Kategorien,
+Erfolgsmetriken, Baseline-Verfahren, Datenschutz- und Konfliktfälle. Damit
+werden die sechs verbleibenden G0-Kriterien G-1 bis G-6 adressiert.
 
-**Warum dieses und kein anderes.** Die sechs Intake-Antworten liegen
-vollständig vor und legen den Pilotumfang auf Profilebene fest. Damit ist die
-Voraussetzung für eine generische Architekturbeschreibung erfüllt. Ein reines
-Lückenschließungs-Work-Package wäre verfrüht: die verbleibenden
-Core-Required-Lücken (Berechtigungsmodell, Secret-Verfahren, Benchmark) hängen
-teilweise am Architekturbild, das erst entstehen muss.
+**Warum dieses und kein anderes.** Nach CBP-WP-004 sind 18 der 25
+Core-Required-Kriterien `accepted`. Von den 7 verbleibenden Blockern gehören
+**sechs zum Benchmarkblock** — er ist der einzige noch geschlossene Bereich und
+der letzte große Schritt vor G0. Die Architektur, gegen die gemessen wird,
+liegt jetzt vor.
 
-**Nicht enthalten:** Erklärung von G0 als bestanden, Benchmarkfragen,
-Implementierung, Einführung eines neuen Gate-Namens ohne Definition.
+**Offen bleibt danach:** D-1 (konkreter Quellenbestand, hängt an OD-05 und
+OD-06).
+
+**Nicht enthalten:** Erklärung von G0 als bestanden, Implementierung eines
+Evaluationslaufs, Bewertung realer Infrastruktur.
 
 **Nicht ausführen** ohne ausdrückliche Freigabe.
 

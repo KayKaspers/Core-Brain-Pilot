@@ -25,9 +25,9 @@ vorgesehene, **noch nicht implementierte** Anwendungslaufzeit.
 | Feld | Wert |
 | --- | --- |
 | Phase | Phase 0 – Discovery und Scope Lock |
-| Aktuelles Work Package | CBP-WP-003 (`in-review`) |
+| Aktuelles Work Package | CBP-WP-004 (`in-review`) |
 | Nächstes Gate | **G0 – Discovery and Scope Lock** |
-| **Gate-Status** | **NOT PASSED** — 47 Kriterien, davon 25 blockierend, 8 `accepted` |
+| **Gate-Status** | **NOT PASSED** — 47 Kriterien, davon 25 blockierend, **18 `accepted`**, 7 offen |
 | Implementierte Capabilities | **keine (0 von 29)** |
 | Framework | Nova Development Framework v1.0.0 |
 
@@ -57,7 +57,7 @@ einer späteren Installation.
 | Klasse | Anzahl | Blockiert G0 |
 | --- | --- | --- |
 | **Core Required** | 25 | **ja** |
-| Deployment Required | 16 | nein — späteres Deployment-Readiness-Gate |
+| Deployment Required | 16 | nein — [Deployment Readiness Check](docs/operations/DEPLOYMENT_READINESS_CHECK.md), **NOT EVALUATED** |
 | Conditional | 6 | nur bei aktivierter Funktion |
 
 ## Prozessmodell
@@ -83,8 +83,10 @@ Nur der Human Maintainer committet, tagged und pusht.
 
 | Pfad | Inhalt |
 | --- | --- |
-| `docs/architecture/` | Projektdefinition, Architekturprinzipien, Vertrauensgrenzen, Context Budgets |
-| `docs/decisions/` | Architecture Decision Records (ADR) |
+| `docs/architecture/` | Projektdefinition, Systemarchitektur, Komponentenmodell, Deploymentprofile, Prinzipien, Vertrauensgrenzen, Context Budgets |
+| `docs/operations/` | Deployment Readiness Check |
+| `docs/security/` | Berechtigungsmodell, Secret-Incident-Response |
+| `docs/decisions/` | Architecture Decision Records — **5 angenommen** |
 | `docs/discovery/` | Fragebogen, G0-Kriterien, Quellenabgleich, A5-Projektübergabe |
 | `docs/ndf/` | NDF-Anwendung und dokumentierte Abweichungen |
 | `docs/privacy/` | Datenklassen und technische Datenschutzregeln |
@@ -104,6 +106,8 @@ Nur der Human Maintainer committet, tagged und pusht.
 | Was muss vor G0 geklärt werden? | [G0_SCOPE_LOCK_CRITERIA.md](docs/discovery/G0_SCOPE_LOCK_CRITERIA.md) |
 | Was hat der Maintainer entschieden? | [HUMAN_DISCOVERY_INPUT.md](docs/discovery/HUMAN_DISCOVERY_INPUT.md) |
 | Welche Fragen sind offen? | [DISCOVERY_QUESTIONS.md](docs/discovery/DISCOVERY_QUESTIONS.md) |
+| Wie ist das System aufgebaut? | [SYSTEM_ARCHITECTURE.md](docs/architecture/SYSTEM_ARCHITECTURE.md) |
+| Wer darf was? | [PERMISSION_MODEL.md](docs/security/PERMISSION_MODEL.md) |
 | Woher stammen die Aussagen? | [SOURCE_RECONCILIATION.md](docs/discovery/SOURCE_RECONCILIATION.md) |
 | Was darf nicht begonnen werden? | [DO_NOT_START.md](docs/product/DO_NOT_START.md) |
 

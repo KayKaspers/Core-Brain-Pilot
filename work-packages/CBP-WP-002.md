@@ -161,7 +161,29 @@ Mode", den NDF v1.0.0 nicht kennt. Aufgelöst durch D-009 — „Lean" ist
 ausschließlich der Name des Context Budgets B1.
 
 **G0 bleibt NOT PASSED.** 41 Kriterien liegen vor, 39 blockierend, keines
-beantwortet. Der konsolidierte Fragebogen enthält 55 Fragen, davon 35 mit P0.
+beantwortet.
+
+> ### ⚠ Nachkorrektur der Kennzahlen
+>
+> Die beiden Zahlen im Absatz darüber sind **fehlerhaft**. Sie bleiben im
+> Wortlaut stehen, damit die historische Ausführung nachvollziehbar bleibt.
+>
+> | Kennzahl | Ursprünglich berichtet | Reproduzierbar ausgezählt |
+> | --- | --- | --- |
+> | G0-Kriterien gesamt | 41 | **47** |
+> | Blockierend (damaliges Modell) | 39 | **45** |
+> | P0-Fragen | 35 | **38** |
+> | Fragen gesamt | 55 | **56** |
+>
+> **Ursache:** Die Summen wurden fortgeschrieben statt ausgezählt. Die
+> Kriterien- und Fragendokumente selbst waren vollständig und korrekt — nur die
+> Summenzeilen und der Implementation Report stimmten nicht.
+>
+> **Korrigiert in:** CBP-WP-003. **Erfasst als:** Risiko R-33. **Konsequenz:**
+> Kennzahlen werden seither ausgezählt, nicht aus dem Vorbericht übernommen.
+>
+> Diese Notiz wurde in CBP-WP-004 ergänzt (OD-31). Der übrige Inhalt dieses
+> Dokuments ist unverändert. Der konsolidierte Fragebogen enthält 55 Fragen, davon 35 mit P0.
 
 Entscheidungsbedarf besteht bei 14 P0-Entscheidungen, insbesondere OD-26
 (Repository-Struktur, drei Vorstellungen nebeneinander) und OD-29 (dauerhafte

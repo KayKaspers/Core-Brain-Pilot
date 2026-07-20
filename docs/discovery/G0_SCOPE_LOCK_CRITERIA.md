@@ -1,4 +1,4 @@
-# G0 – Discovery and Scope Lock — Kriterien
+﻿# G0 – Discovery and Scope Lock — Kriterien
 
 | Feld | Wert |
 | --- | --- |
@@ -32,11 +32,16 @@ Details einer späteren Installation. Dazu werden drei Klassen unterschieden.
 
 Deployment-Required-Kriterien werden **nicht gestrichen**, sondern vertagt. Eine
 spätere Installation muss **fail-closed** arbeiten: fehlt eine dafür notwendige
-Deploymentangabe, wird nicht installiert. Die Prüfung dieser Klasse erfolgt in
-einem **separaten Deployment-Readiness-Gate**, das in einem späteren Work
-Package zu definieren ist.
+Deploymentangabe, wird nicht installiert.
 
-*Ein neuer Gate-Name wird hier bewusst noch nicht eingeführt.*
+**Die Prüfung dieser Klasse erfolgt im
+[Deployment Readiness Check (DRC)](../operations/DEPLOYMENT_READINESS_CHECK.md).**
+Alle 16 Deployment-Required-Kriterien sind dort auf 18 Prüfpunkte abgebildet,
+mit dokumentierter G0-Herkunft. Der DRC steht auf **NOT EVALUATED** und ist je
+Deploymentprofil separat auszuführen (ADR-0005).
+
+Der DRC ist ein Prüfmodell, kein Gate im NDF-Sinne — ein neuer Gate-Name wird
+bewusst nicht eingeführt.
 
 ## Statuswerte
 
@@ -57,14 +62,14 @@ Nachweis.
 
 | ID | Kriterium | Klasse | Status | Nachweis | Autorität |
 | --- | --- | --- | --- | --- | --- |
-| A-1 | Primärer Nutzer benannt | **Core** | `answered` | HDI A2 — Einzelperson | A0 |
-| A-2 | Erwartete Nutzerzahl | **Core** | `answered` | HDI A2 — 1 im ersten Pilot | A0 |
+| A-1 | Primärer Nutzer benannt | **Core** | **`accepted`** | HDI A2 — Human Maintainer; D-018 | A0 |
+| A-2 | Erwartete Nutzerzahl | **Core** | **`accepted`** | HDI A2 — 1 im ersten Pilot; D-018 | A0 |
 | A-3 | Zahl der Geräte | Deployment | `open` | — | A0 |
 | A-4 | Desktop-Anforderungen | **Core** | `accepted` | HDI A6 — Web-UI im Pilot, nach Retrieval | A0 |
 | A-5 | Mobile-Anforderungen | **Core** | `accepted` | HDI A6 — Suche, Lesen, Status, Handoffs, kleine Freigaben | A0 |
 | A-6 | Offlineanforderungen | Conditional | `open` | Funktion nicht aktiviert | A0 |
 | A-7 | Native Obsidian-Nutzung | Conditional | `accepted` | HDI A6 — **später**, nicht Pilotumfang | A0 |
-| A-8 | Explizite Nicht-Ziele | **Core** | `open` | HDI A6 liefert funktionale Abgrenzungen; Repository-Sichtbarkeit und vollständige Nicht-Ziel-Liste fehlen | A0 |
+| A-8 | Explizite Nicht-Ziele | **Core** | **`accepted`** | DO_NOT_START.md, 25 Punkte mit A0-Rang, in CBP-WP-004 auf A-8 gemappt. Repository-Sichtbarkeit separat als OD-11 | A0 |
 
 ## B — Infrastruktur
 
@@ -96,22 +101,22 @@ Nachweis.
 | --- | --- | --- | --- | --- | --- |
 | D-1 | Gewünschte Quellen | **Core** | `answered` | HDI A3 — Markdown, Git, Chat-Handoffs, Obsidian-Vault als Markdown | A0 |
 | D-2 | Größenordnung | Deployment | `open` | bewusst nicht erhoben, keine Dateiinventur | A0 |
-| D-3 | Dateiformate | **Core** | `answered` | HDI A3 — Markdown zuerst; PDF/Office später über Quarantäne | A0 |
+| D-3 | Dateiformate | **Core** | **`accepted`** | HDI A3 — Markdown zuerst; PDF/Office nur über Quarantäne (D-019) | A0 |
 | D-4 | Datenklassen zugeordnet | **Core** | `accepted` | HDI A4 — Profilebene entschieden | A0 |
 | D-5 | Ausgeschlossene Daten | **Core** | `accepted` | HDI A4 — `excluded-from-ai` von Anfang an im Modell, Sperrwirkung mit Testdaten prüfen | A0 |
 | D-6 | Personenbezogene Daten | Conditional | `not-applicable` | HDI A4 — nicht im Pilot; spätere Aufnahme erfordert vorherige Prüfung | A0 |
 | D-7 | Vertrauliche Informationen | Conditional | `not-applicable` | HDI A4 — `confidential` nicht im Pilot, Architektur muss die Klasse unterstützen | A0 |
-| D-8 | **Secret-Verfahren im Schadensfall** | **Core** | **`open`** | Verbot bestätigt, **Ablauf nicht** | A0 |
+| D-8 | **Secret-Verfahren im Schadensfall** | **Core** | **`accepted`** | [SECRET_INCIDENT_RESPONSE.md](../security/SECRET_INCIDENT_RESPONSE.md) — 14 Schritte, Rotation vor Cleanup. Technische Unterstützung offen | A0 |
 
 ## E — Claude und Repositories
 
 | ID | Kriterium | Klasse | Status | Nachweis | Autorität |
 | --- | --- | --- | --- | --- | --- |
 | E-1 | Aktuelle Claude-Desktop-Nutzung | Deployment | `open` | — | A0 |
-| E-2 | Erlaubte Repository-Zugriffe | **Core** | **`open`** | — | A0 |
-| E-3 | GitHub-Zugriffe | **Core** | **`open`** | — | A0 |
-| E-4 | Berechtigungsstufen je Bereich | **Core** | **`open`** | — | A0 |
-| E-5 | Freigabeverfahren | **Core** | **`open`** | — | A0 |
+| E-2 | Erlaubte Repository-Zugriffe | **Core** | **`accepted`** | [PERMISSION_MODEL.md](../security/PERMISSION_MODEL.md), Matrixzeile `git repository` — Claude nur `draft` | A0 |
+| E-3 | GitHub-Zugriffe | **Core** | **`accepted`** | PERMISSION_MODEL, Matrixzeile `github remote` — nur Human Maintainer, `publish with approval` | A0 |
+| E-4 | Berechtigungsstufen je Bereich | **Core** | **`accepted`** | PERMISSION_MODEL, Matrix 9 Rollen × 12 Ressourcen, 5 Aktionsklassen | A0 |
+| E-5 | Freigabeverfahren | **Core** | **`accepted`** | PERMISSION_MODEL, sechsstufiger Ablauf Antrag → Wirkung → Protokoll | A0 |
 
 ## F — Architektur
 
@@ -119,7 +124,7 @@ Nachweis.
 | --- | --- | --- | --- | --- | --- |
 | F-1 | VM als Referenzbetrieb | **Core** | **`accepted`** | HDI A1 — dedizierte Linux-VM auf Proxmox (D-015) | A0 |
 | F-2 | Docker Compose als Pilotlaufzeit | **Core** | **`accepted`** | HDI A1 — bevorzugte Laufzeit innerhalb der VM (D-016) | A0 |
-| F-3 | Trennung canonical / derived als ADR | **Core** | `open` | Prinzip dokumentiert, ADR fehlt | A1 |
+| F-3 | Trennung canonical / derived als ADR | **Core** | **`accepted`** | [ADR-0003](../decisions/ADR-0003-canonical-derived-trennung.md) mit Rebuild-Vertrag in SYSTEM_ARCHITECTURE | A1 |
 | F-4 | Backup- und Restore-Zielwerte | Deployment | `open` | — | A0 |
 | F-5 | Deployment-Neutralität | **Core** | **`accepted`** | HDI A1 — weitere Profile bleiben dokumentierbar (D-017) | A0 |
 | F-6 | UI- und Wiki-Gates | **Core** | **`accepted`** | HDI A6 — Web-UI erst nach Index/Suche/Retrieval/Benchmark; Wiki nach Retrieval-Pilot (D-024, D-025) | A0 |
@@ -191,7 +196,9 @@ Bedingung 5 ist eigenständig. Kein Implementation Agent und kein automatisches
 Verfahren stellt das Bestehen fest.
 
 **Deployment-Required-Kriterien blockieren G0 nicht.** Sie blockieren die
-spätere Installation und werden im Deployment-Readiness-Gate geprüft.
+spätere Installation und werden im
+[Deployment Readiness Check](../operations/DEPLOYMENT_READINESS_CHECK.md)
+geprüft.
 
 **Conditional-Kriterien blockieren nur bei aktivierter Funktion.** Derzeit ist
 keine der sechs bedingten Funktionen für den Pilot aktiviert.
@@ -221,43 +228,58 @@ keine der sechs bedingten Funktionen für den Pilot aktiviert.
 | Conditional | 6 | nur bei aktivierter Funktion |
 | **Summe** | **47** | |
 
-### Blocker im neuen Modell
+### Blocker — Stand nach CBP-WP-004
 
-| Kennzahl | Wert |
-| --- | --- |
-| Blockierend, bisheriges Modell | 45 |
-| **Blockierend, dreistufiges Modell** | **25** |
-| davon `accepted` | **8** |
-| davon `answered` | 4 |
-| davon `open` | **13** |
-| davon `blocked` | 0 |
-| **Noch nicht `accepted` (verbleibende Blocker)** | **17** |
+| Kennzahl | CBP-WP-003 | **CBP-WP-004** |
+| --- | --- | --- |
+| Blockierend, dreistufiges Modell | 25 | **25** |
+| davon `accepted` | 8 | **18** |
+| davon `answered` | 4 | **1** |
+| davon `open` | 13 | **6** |
+| davon `blocked` | 0 | **0** |
+| **Noch nicht `accepted` (verbleibende Blocker)** | 17 | **7** |
 
 Aktive Conditional-Blocker: **0** — keine bedingte Funktion ist im Pilotumfang
 aktiviert.
 
-Die acht `accepted`-Kriterien: A-4, A-5, D-4, D-5, F-1, F-2, F-5, F-6.
-Die vier `answered`-Kriterien: A-1, A-2, D-1, D-3.
+### Die 18 `accepted`-Kriterien
 
-### Die 13 offenen Core-Required-Kriterien
+A-1 · A-2 · A-4 · A-5 · A-8 · D-3 · D-4 · D-5 · D-8 · E-2 · E-3 · E-4 · E-5 ·
+F-1 · F-2 · F-3 · F-5 · F-6
 
-| ID | Kriterium |
+**In CBP-WP-004 neu angenommen (10):**
+
+| ID | Beleg |
 | --- | --- |
-| A-8 | Explizite Nicht-Ziele, einschließlich Repository-Sichtbarkeit |
-| D-8 | Secret-Verfahren im Schadensfall |
-| E-2 | Erlaubte Repository-Zugriffe |
-| E-3 | GitHub-Zugriffe |
-| E-4 | Berechtigungsstufen je Bereich |
-| E-5 | Freigabeverfahren |
-| F-3 | Trennung canonical / derived als ADR |
-| G-1 … G-6 | Benchmarkplan, sechs Kriterien |
+| A-1, A-2 | HDI A2 und D-018 — Human Maintainer, ein Nutzer |
+| D-3 | HDI A3 und D-019 — Markdown zuerst, PDF/Office nur über Quarantäne |
+| A-8 | DO_NOT_START.md mit 25 A0-Punkten, auf A-8 gemappt |
+| D-8 | SECRET_INCIDENT_RESPONSE.md |
+| E-2 bis E-5 | PERMISSION_MODEL.md |
+| F-3 | ADR-0003 mit Rebuild-Vertrag |
 
-Das sind 13 Kriterien: A-8, D-8, E-2, E-3, E-4, E-5, F-3 und G-1 bis G-6.
+### Verbleibende 7 Blocker
 
-Zusätzlich vier `answered`, die noch in `accepted` überführt werden müssen:
-A-1, A-2, D-1, D-3. Zusammen **17 verbleibende Blocker**.
+| ID | Kriterium | Status | Warum offen |
+| --- | --- | --- | --- |
+| D-1 | Gewünschte Quellen | `answered` | Quellen**arten** sind entschieden; der konkrete Bestand (Pfade oder Systeme) fehlt — OD-05, OD-06 |
+| G-1 | Mindestens 30 Benchmarkfragen | `open` | Keine formuliert |
+| G-2 | Kategorien definiert | `open` | — |
+| G-3 | Erfolgsmetriken definiert | `open` | „deutlich weniger" ist unquantifiziert |
+| G-4 | Baseline-Verfahren definiert | `open` | — |
+| G-5 | Datenschutzfälle enthalten | `open` | mindestens 3 Fragen |
+| G-6 | Konfliktfälle enthalten | `open` | mindestens 3 Fragen |
+
+**Der Benchmarkblock G-1 bis G-6 bleibt vollständig offen** und ist damit der
+dominierende Rest: sechs der sieben verbleibenden Blocker.
 
 **Gate-Status: NOT PASSED.**
+
+> **Keine automatische Freigabe.** Kein Kriterium wurde ohne Nachweis
+> angenommen. Die dokumentarische Erfüllung von D-8 und E-2 bis E-5 bedeutet
+> **nicht**, dass die zugehörigen Kontrollen technisch existieren — sie
+> existieren nicht. Bedingung 5 der Abschlussregel, die ausdrückliche Freigabe
+> des Human Maintainers, ist nicht erteilt.
 
 ## Pflege
 

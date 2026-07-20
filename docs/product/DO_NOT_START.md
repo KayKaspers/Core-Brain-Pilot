@@ -44,6 +44,32 @@ Zusammenführung der Sperrliste aus CBP-WP-001 und Projektübergabe §17.
 | 24 | **CDS-Komponenten** | Übergabe §17 |
 | 25 | **Öffentliche Cloudinstanz** | Übergabe §17 |
 
+## Bestätigte Nicht-Ziele — Beleg für G0-Kriterium A-8
+
+Die folgenden Punkte sind **ausdrücklich bestätigte Nicht-Ziele** des ersten
+Piloten. Sie belegen G0-Kriterium **A-8** (Explizite Nicht-Ziele), gemappt in
+CBP-WP-004.
+
+| # | Nicht-Ziel | Beleg |
+| --- | --- | --- |
+| 1 | Kein Kubernetes im Pilot | Übergabe §4, §17 · Sperrpunkt 17 |
+| 2 | Kein Multi-Tenant-SaaS | Übergabe §4, §17 · D-018 · Sperrpunkte 18, 19 |
+| 3 | Keine öffentliche Cloudinstanz | Übergabe §17 · Sperrpunkt 25 |
+| 4 | Keine Proxmox-API-Integration | Übergabe §10, §17 · ADR-0001 · Sperrpunkt 20 |
+| 5 | Kein vollständiger Wiki-Ingest | Übergabe §17 · D-025 · Sperrpunkt 5 |
+| 6 | Kein Knowledge Graph im ersten Pilot | D-025 · Sperrpunkt 6 |
+| 7 | Keine automatische Konfliktentscheidung | Übergabe §10, §17 · Sperrpunkt 15 |
+| 8 | Keine automatischen Commits und Pushes | Übergabe §10, §17 · D-003 · Sperrpunkt 10 |
+| 9 | Keine breite Connector-Integration | D-025 · Sperrpunkt 9 |
+| 10 | Keine produktive Obsidian-Synchronisation ohne Test | Übergabe §9, §17 · D-025 · Sperrpunkt 16 |
+| 11 | Kein öffentliches Branding oder Release | Übergabe §17 · Sperrpunkte 11, 12, 13 |
+
+Alle elf sind durch A0-Quellen gedeckt und in der Sperrliste oben enthalten.
+
+> **Nicht Teil von A-8:** Die Frage, ob das Repository **dauerhaft privat**
+> bleibt, ist eine Sichtbarkeitsentscheidung und keine Nicht-Ziel-Festlegung.
+> Sie wird gesondert als **OD-11** geführt und bleibt offen.
+
 ## Zweites Governance-System
 
 Superpowers **darf als Referenz untersucht werden**, aber **nicht parallel als

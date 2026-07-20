@@ -81,13 +81,22 @@ Produktgrenze**. Der Referenzbetrieb ist eine **dedizierte Linux-VM**.
 | **D** | Containerbetrieb: Docker Compose, Podman Compose, vergleichbare OCI-Umgebungen | optional nach erfolgreicher VM-Referenz |
 | **E** | Lokale Einzelplatzinstallation, mit Einschränkungen bei Mehrgerätezugriff, Verfügbarkeit und zentralen Backups | Einstiegsmöglichkeit |
 
-> **Zu Docker Compose.** Containerisierung ist **kein Pflichtziel der ersten
-> Phase**, muss aber architektonisch möglich bleiben. Docker Compose ist eine
-> vorgesehene, **noch nicht implementierte** Anwendungslaufzeit innerhalb der
-> dedizierten Linux-VM.
+> **Zu Docker Compose.** Docker Compose ist die **bevorzugte Anwendungslaufzeit
+> innerhalb der dedizierten Linux-VM** (D-016, A0). Sie ist **noch nicht
+> implementiert**.
 >
-> *Abgeschwächt in CBP-WP-002 als Ü-02 — die vorherige Fassung bezeichnete
-> Compose als „bevorzugte" Laufzeit.*
+> Das bedeutet **nicht**, dass Docker Compose die einzige unterstützte Laufzeit
+> oder eine Produktgrenze ist. Profil B und C dürfen nativ betrieben werden;
+> Containerisierung bleibt **kein Pflichtziel der ersten Phase**, muss aber
+> architektonisch möglich bleiben.
+>
+> **Ebenentrennung:** Proxmox ist eine Infrastrukturplattform, Docker Compose
+> eine Anwendungslaufzeit.
+>
+> *Historie: In CBP-WP-002 war „bevorzugt" auf Basis von Projektübergabe §4
+> (A5) zu „vorgesehen" abgeschwächt worden (Ü-02). Der Human Maintainer hat
+> „bevorzugt" ausdrücklich bestätigt — **A0 schlägt A5**. Korrigiert in
+> CBP-WP-004 (OD-31), festgehalten in ADR-0002.*
 
 ### Nicht verpflichtend in der ersten Phase
 
@@ -191,7 +200,9 @@ Produkts.**
 
 Der Scope ist **nicht** gelockt.
 
-- [G0_SCOPE_LOCK_CRITERIA.md](../discovery/G0_SCOPE_LOCK_CRITERIA.md) — 41 Kriterien
+- [G0_SCOPE_LOCK_CRITERIA.md](../discovery/G0_SCOPE_LOCK_CRITERIA.md) — **47 Kriterien**: 25 Core Required, 16 Deployment Required, 6 Conditional
+- [DEPLOYMENT_READINESS_CHECK.md](../operations/DEPLOYMENT_READINESS_CHECK.md) — die 16 Deployment-Kriterien, Status NOT EVALUATED
+- [SYSTEM_ARCHITECTURE.md](SYSTEM_ARCHITECTURE.md) und [DEPLOYMENT_PROFILES.md](DEPLOYMENT_PROFILES.md) — Zielarchitektur und Profile A–E
 - [DISCOVERY_QUESTIONS.md](../discovery/DISCOVERY_QUESTIONS.md) — Fragebogen
 - [OPEN_INFORMATION.md](../discovery/OPEN_INFORMATION.md) — fehlende Information
 - [SOURCE_RECONCILIATION.md](../discovery/SOURCE_RECONCILIATION.md) — Quellenabgleich
