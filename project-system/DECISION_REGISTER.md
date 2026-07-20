@@ -3,53 +3,88 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | Phase 0 – Discovery und Scope Lock |
-| Überarbeitet in | CBP-WP-002 |
+| Überarbeitet in | CBP-WP-003 |
 | Autoritätsklasse | A2 |
 | Stand | 2026-07-20 |
 
-Register **getroffener** und **offener** Entscheidungen.
-
 > **Ablageabweichung.** NDF v1.0.0 sieht `project-brain/DECISIONS.md` vor.
-> Es existiert bewusst nur **eine** von beiden — siehe AB-04 in
-> [../docs/ndf/ADOPTION_NOTES.md](../docs/ndf/ADOPTION_NOTES.md).
-
-Ein Eintrag mit bindender Wirkung wird zusätzlich als ADR in
-[../docs/decisions/](../docs/decisions/README.md) ausgefertigt und erhält
-damit **A1**.
+> Es existiert bewusst nur **eine** von beiden — AB-04.
 
 ## Getroffene Entscheidungen
 
+### Aus CBP-WP-001 und CBP-WP-002
+
 | ID | Entscheidung | Klasse | Datum | ADR |
 | --- | --- | --- | --- | --- |
-| D-001 | Das Projekt arbeitet verbindlich nach NDF v1.0.0; keine v1.1-Planung | A0 | 2026-07-20 | offen |
+| D-001 | Verbindlich nach NDF v1.0.0; keine v1.1-Planung | A0 | 2026-07-20 | offen |
 | D-002 | Phase 0 ist Discovery und Scope Lock; keine produktive Implementierung | A0 | 2026-07-20 | offen |
-| D-003 | Commit-, Push- und Release-Autorität liegt ausschließlich beim Human Maintainer | A0 | 2026-07-20 | offen |
+| D-003 | Commit-, Push- und Release-Autorität ausschließlich beim Human Maintainer | A0 | 2026-07-20 | offen |
 | D-004 | Markdown ist das kanonische Wissensformat | A2 | 2026-07-20 | offen |
 | D-005 | Abgeleitete Daten werden nicht versioniert und sind nie autoritativ | A2 | 2026-07-20 | offen |
 | D-006 | Fünf Datenklassen; Secrets nie in Repository, Index, Context Pack oder Modellkontext | A2 | 2026-07-20 | offen |
 | D-007 | Keine `LICENSE`-Datei in Phase 0 | A0 | 2026-07-20 | — |
-| D-008 | Register in `project-system/` statt `project-brain/`; keine Doppelstruktur | A2 | 2026-07-20 | offen |
-| **D-009** | **Offizielle NDF Prompt Modes sind Full, Standard und Short. „Lean" ist kein Prompt Mode, sondern ausschließlich der Name des Context Budgets B1. B0–B4 bleiben ein separates Core-Brain-Modell.** | **A0** | 2026-07-20 | offen |
-| **D-010** | **Die A5-Projektübergabe wird dauerhaft als kanonische Quelle im Repository geführt** | **A0** | 2026-07-20 | — |
-| **D-011** | **Quellenklassifikation: PDF-Bauanleitung A4, Textfassung A6, Projektübergabe A5. Die Textfassung beansprucht keine höhere Autorität als die PDF** | **A0** | 2026-07-20 | — |
-| **D-012** | **Neue und geänderte Dokumente verwenden UTF-8 mit echten deutschen Umlauten; die Transkription aus CBP-WP-001 wird aufgehoben** | **A0** | 2026-07-20 | — |
-| **D-013** | **Dedizierte Linux-VM ist der Referenzbetrieb. Docker Compose ist eine vorgesehene, noch nicht implementierte Anwendungslaufzeit innerhalb dieser VM** | **A0** | 2026-07-20 | offen |
-| **D-014** | **Wiki, Graph und eigene Web-UI beginnen nicht vor einem bestandenen Retrieval-Pilot-Gate** | **A0** | 2026-07-20 | offen |
+| D-008 | Register in `project-system/`; keine Doppelstruktur | A2 | 2026-07-20 | offen |
+| D-009 | NDF Prompt Modes sind Full, Standard, Short. „Lean" ist ausschließlich der Name von B1 | A0 | 2026-07-20 | offen |
+| D-010 | A5-Projektübergabe dauerhaft als kanonische Quelle im Repository | A0 | 2026-07-20 | — |
+| D-011 | Quellenklassifikation: PDF A4, Textfassung A6, Übergabe A5 | A0 | 2026-07-20 | — |
+| D-012 | UTF-8 mit echten deutschen Umlauten | A0 | 2026-07-20 | — |
+| D-013 | Dedizierte Linux-VM ist Referenzbetrieb; Docker Compose vorgesehene Laufzeit darin | A0 | 2026-07-20 | offen |
+| D-014 | Wiki, Graph und Web-UI nicht vor bestandenem Retrieval-Pilot-Gate | A0 | 2026-07-20 | offen |
 
-**Hinweis zu D-004 bis D-006, D-008:** Diese Festlegungen tragen A2. Der
-Quellenabgleich in CBP-WP-002 hat sie inhaltlich gegen die A5-Projektübergabe
-bestätigt, ihre formale Bindung durch ADR steht aus — siehe OD-03.
+### Neu aus CBP-WP-003 — Human Discovery Intake
 
-**Neu in CBP-WP-002:** D-009 bis D-014 stammen aus den ausdrücklichen
-Nova-Entscheidungen zu CBP-WP-002 und tragen deshalb A0.
+Alle folgenden Entscheidungen wurden vom Human Maintainer **ausdrücklich**
+getroffen. Quelle jeweils
+[../docs/discovery/HUMAN_DISCOVERY_INPUT.md](../docs/discovery/HUMAN_DISCOVERY_INPUT.md).
+
+| ID | Entscheidung | Status | Autorität | Quelle | Datum | Betroffene Kriterien | Konsequenz |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| **D-015** | Erstes Pilotprofil ist eine Proxmox-VM mit dedizierter Linux-VM als Referenzbetrieb | `accepted` | **A0** | HDI A1 | 2026-07-20 | F-1 | Referenzprofil A ist gewählt; Profile B–E bleiben dokumentierbar |
+| **D-016** | Docker Compose ist die **bevorzugte** Anwendungslaufzeit innerhalb dieser VM | `accepted` | **A0** | HDI A1 | 2026-07-20 | F-2 | Präzisiert D-013 und **hebt die Abschwächung Ü-02 aus CBP-WP-002 auf** — siehe Hinweis unten |
+| **D-017** | Deployment-Neutralität wird beibehalten: allgemeine Linux-VM, Docker/OCI und Einzelplatz bleiben dokumentierbare Profile | `accepted` | **A0** | HDI A1 | 2026-07-20 | F-5 | Kein Proxmox-Lock-in; Capability 29 bestätigt |
+| **D-018** | Multi-User und Multi-Tenant sind kein Pflichtumfang des ersten Piloten; spätere Teamnutzung darf nicht verhindert werden | `accepted` | **A0** | HDI A2 | 2026-07-20 | A-1, A-2 | Single-User als Einstieg; Architektur bleibt erweiterbar |
+| **D-019** | PDF- und Office-Dokumente gelangen nicht ungeprüft in den kanonischen Bestand; kontrollierte Ingest- und Quarantäne-Pipeline erforderlich | `accepted` | **A0** | HDI A3 | 2026-07-20 | D-1, D-3 | Capability 5 (Ingest-Quarantäne) wird Voraussetzung für Nicht-Markdown-Quellen |
+| **D-020** | `confidential` ist nicht Teil des ersten Piloten, muss aber architektonisch unterstützt werden | `accepted` | **A0** | HDI A4 | 2026-07-20 | D-7 | D-7 wird `not-applicable` für den Pilot; Klasse bleibt im Modell |
+| **D-021** | `excluded-from-ai` ist von Anfang an im Daten- und Berechtigungsmodell zu führen; Sperrwirkung mit synthetischen oder unkritischen Testdaten zu prüfen | `accepted` | **A0** | HDI A4 | 2026-07-20 | D-5 | Macht R-30 zu einer konkret prüfbaren Anforderung; **strenger als das bisherige Fundament** |
+| **D-022** | Personenbezogene Daten sind nicht Teil des ersten Piloten; spätere Aufnahme erfordert vorher eine gesonderte Datenschutz- und Rechtsgrundlagenprüfung | `accepted` | **A0** | HDI A4 | 2026-07-20 | D-6 | D-6 wird `not-applicable`; OD-09 wird vertagt statt geschlossen |
+| **D-023** | Zugriff nur über privates VPN oder privates Netz; keine öffentliche Freigabe interner Dienste | `accepted` | **A0** | HDI A5 | 2026-07-20 | C-5 (Grundsatz) | Zugriffsprofil festgelegt; Technologiewahl bleibt Deployment Required |
+| **D-024** | Web-UI und mobile Nutzung gehören zum Pilotumfang; die Web-UI aber erst nach funktionierendem Index, Suche, Brain-First-Retrieval und Benchmark | `accepted` | **A0** | HDI A6 | 2026-07-20 | A-4, A-5, F-6 | Präzisiert D-014 mit einer konkreten Vorbedingung |
+| **D-025** | Native Obsidian-Nutzung, Wiki-Pilot und externe Connectoren werden vertagt; Knowledge Graph ist nicht Pilotumfang | `accepted` | **A0** | HDI A6 | 2026-07-20 | A-7 | Vier Conditional-Kriterien bleiben inaktiv |
+| **D-026** | Dreistufiges Kriterienmodell: Core Required, Deployment Required, Conditional. G0 sperrt den allgemeinen Produkt-Scope, nicht die Installationsdetails | `accepted` | **A0** | Nova-Review CBP-WP-003 | 2026-07-20 | alle 47 | Blocker von 45 auf 25 reduziert; separates Deployment-Readiness-Gate später zu definieren |
+
+> **Hinweis zu D-016.** In CBP-WP-002 hatte ich „bevorzugte Anwendungslaufzeit"
+> zu „vorgesehene" abgeschwächt (Ü-02), gestützt auf Projektübergabe §4 (A5),
+> wonach Containerisierung kein Pflichtziel der ersten Phase ist. Der Human
+> Maintainer hat nun ausdrücklich „bevorzugte Anwendungslaufzeit" bestätigt.
+> **A0 schlägt A5** — die Abschwächung ist damit aufgehoben.
+>
+> `docs/architecture/PROJECT_DEFINITION.md` trägt die abgeschwächte
+> Formulierung weiterhin, ist aber in CBP-WP-003 **nicht änderbar**. Die
+> Nachführung ist als **OD-31** erfasst.
 
 ## Geschlossene offene Entscheidungen
 
 | ID | War offen | Geschlossen durch | Datum |
 | --- | --- | --- | --- |
-| **OD-12** | Prompt Mode „Lean" | **D-009** — „Lean" ist kein NDF Prompt Mode, sondern der Name von B1 | 2026-07-20 |
-| **OD-02** | Definition der Context Budgets B0–B4 | [../docs/architecture/CONTEXT_BUDGETS.md](../docs/architecture/CONTEXT_BUDGETS.md); **Restpunkt:** Kalibrierung der Token-Richtwerte gegen den Benchmark, siehe OD-02b | 2026-07-20 |
-| **OD-01** | Kriterien für Gate G0 | [../docs/discovery/G0_SCOPE_LOCK_CRITERIA.md](../docs/discovery/G0_SCOPE_LOCK_CRITERIA.md) — 41 Kriterien, 39 blockierend, fünfteilige Abschlussregel | 2026-07-20 |
+| OD-12 | Prompt Mode „Lean" | D-009 | 2026-07-20 |
+| OD-02 | Definition der Context Budgets | CONTEXT_BUDGETS.md; Restpunkt OD-02b | 2026-07-20 |
+| OD-01 | Kriterien für Gate G0 | G0_SCOPE_LOCK_CRITERIA.md, dreistufig klassifiziert | 2026-07-20 |
+| **OD-21** | Zugriffsweg für Mehrgeräte-Nutzung | **D-023** — privates VPN/Netz; Technologie bleibt Deployment Required | 2026-07-20 |
+| **OD-27** | Obsidian-Synchronisationsmodell | **D-025** — serverzentriert zuerst, native Nutzung vertagt | 2026-07-20 |
+
+## Vertagte Entscheidungen
+
+Nicht geschlossen, aber für den Pilotumfang **nicht mehr blockierend**:
+
+| ID | Entscheidung | Grund der Vertagung |
+| --- | --- | --- |
+| OD-09 | Rechtsgrundlage für personenbezogene Daten | D-022 — keine PII im Pilot; Prüfung vor späterer Aufnahme |
+| OD-20 | Programmiersprache, Suchmaschine, Embedding-Modell | Deployment Required |
+| OD-22 | Sicherungsfrequenz und Sicherungsziel | Deployment Required |
+| OD-30 | Backup- und Restore-Zielwerte | Deployment Required |
+
+Vertagt heißt **nicht erledigt**. Diese Punkte gehören in das
+Deployment-Readiness-Gate.
 
 ## Offene Entscheidungen
 
@@ -57,49 +92,48 @@ Legende: **P0** blockiert G0 · **P1** vor Architekturentscheidung · **P2** sp�
 
 | ID | Offene Entscheidung | Prio | Adressat | Bezug |
 | --- | --- | --- | --- | --- |
-| OD-02b | Kalibrierung der Token-Richtwerte für B0–B4 gegen den Benchmark | P1 | Nova | CONTEXT_BUDGETS, OI-03 |
-| OD-03 | Rang der Kernprinzipien und Capabilities: Ausfertigung als ADR (A1) oder Verbleib bei A2 | **P0** | Human Maintainer | OI-02, Ü-04 |
-| OD-04 | Minimal nützlicher Funktionsumfang des Piloten | **P0** | Nova | Fragebogen 7.2 |
-| OD-05 | Ablageort des kanonischen Wissensbestands: dieses oder ein eigenes Repository | **P0** | Human Maintainer | D-1, OD-26 |
+| OD-03 | Rang der Kernprinzipien: ADR (A1) oder Verbleib bei A2 | **P0** | Human Maintainer | F-3 |
+| OD-04 | Minimal nützlicher Funktionsumfang des Piloten | **P0** | Nova | A-8 |
+| OD-05 | Ablageort des kanonischen Wissensbestands | **P0** | Human Maintainer | D-1 |
 | OD-06 | Quellen im ersten Scope und ausdrückliche Nicht-Quellen | **P0** | Nova | D-1, D-5 |
-| OD-07 | Vergabeverfahren für Autoritätsklassen A0–A6 | **P0** | Nova | Übergabe §6 |
+| OD-07 | Vergabeverfahren für Autoritätsklassen A0–A6 | **P0** | Nova | — |
 | OD-08 | Vergabeverfahren für Datenklassen | **P0** | Human Maintainer | D-4 |
-| OD-09 | Rechtsgrundlage für personenbezogene Daten | **P0** | Human Maintainer | D-6 |
-| OD-10 | Verfahren bei Secret in der Git-Historie | **P0** | Human Maintainer | D-8 |
+| OD-10 | **Verfahren bei Secret in der Git-Historie** | **P0** | Human Maintainer | **D-8** |
 | OD-11 | Repository dauerhaft privat? | **P0** | Human Maintainer | A-8 |
+| OD-29 | Dauerhafte Behandlung der NDF-Abweichungen AB-03 bis AB-08 | **P0** | Nova + Human Maintainer | ADOPTION_NOTES |
+| **OD-32** | **Berechtigungsstufen je Bereich und Freigabeverfahren** | **P0** | Human Maintainer | **E-2 bis E-5** |
+| OD-02b | Kalibrierung der Token-Richtwerte für B0–B4 | P1 | Nova | CONTEXT_BUDGETS |
 | OD-13 | Manifest auf `project-manifest.yaml` umstellen | P1 | Nova | AB-03 |
-| OD-14 | NDF-Namensschema für Register übernehmen oder abweichen | P1 | Nova | AB-04 |
-| OD-15 | Schnitt einer Wissenseinheit: Datei, Abschnitt oder Block | P1 | Nova | Fragebogen 4.9 |
-| OD-16 | Bildungsvorschrift der stabilen Source-ID | P1 | Nova | Fragebogen 4.11 |
-| OD-17 | Verpflichtende Frontmatter-Felder | P1 | Nova | Fragebogen 4.10, Übergabe §6 |
-| OD-18 | Filterreihenfolge im Retrieval-Pfad | P1 | Nova | TRUST_BOUNDARIES TB-4 |
-| OD-19 | Umfang und Format des Retrieval-Trace | P1 | Nova | Capability 15 |
-| OD-20 | Programmiersprache, Suchmaschine, Embedding-Modell | P1 | Human Maintainer | Fragebogen 6.5, 6.6 |
-| OD-21 | Zugriffsweg für Mehrgeräte-Nutzung | **P0** | Human Maintainer | C-6 |
-| OD-22 | Sicherungsfrequenz und Sicherungsziel | **P0** | Human Maintainer | B-7, B-8 |
-| OD-23 | Lizenzwahl | P1 | Human Maintainer | D-007, Fragebogen 7.3 |
-| OD-24 | Akzeptable Ausfallzeit | P2 | Human Maintainer | Fragebogen 6.9 |
-| **OD-25** | **qmd als produktiver Suchdienst — nur nach Installations-, Plattform-, Lizenz-, Wartungs- und Sicherheitsprüfung** | P1 | Human Maintainer | Übergabe §9, Bauanleitung Seite 2 |
-| **OD-26** | **Endgültige Repository-Struktur — drei Vorstellungen stehen nebeneinander** | **P0** | Nova + Human Maintainer | W-05, OI-07 |
-| **OD-27** | **Obsidian-Synchronisationsmodell — serverzentriert oder nativ auf mehreren Geräten** | **P0** | Human Maintainer | A-7, Fragebogen 3.7, 3.8 |
-| **OD-28** | **Öffentlicher Produktname und Phase-7-Option** | P2 | Human Maintainer | Übergabe §1, §15 |
-| **OD-29** | **Dauerhafte Behandlung der NDF-Abweichungen AB-03 bis AB-08** | **P0** | Nova + Human Maintainer | ADOPTION_NOTES |
-| **OD-30** | **Backup- und Restore-Zielwerte: maximaler Datenverlust und maximale Wiederherstellungsdauer** | **P0** | Human Maintainer | F-4 |
+| OD-14 | NDF-Namensschema für Register | P1 | Nova | AB-04 |
+| OD-15 | Schnitt einer Wissenseinheit | P1 | Nova | — |
+| OD-16 | Bildungsvorschrift der stabilen Source-ID | P1 | Nova | — |
+| OD-17 | Verpflichtende Frontmatter-Felder | P1 | Nova | — |
+| OD-18 | Filterreihenfolge im Retrieval-Pfad | P1 | Nova | TB-4 |
+| OD-19 | Umfang und Format des Retrieval-Trace | P1 | Nova | — |
+| OD-23 | Lizenzwahl | P1 | Human Maintainer | D-007 |
+| OD-25 | qmd als produktiver Suchdienst — nur nach Prüfung | P1 | Human Maintainer | — |
+| OD-26 | Endgültige Repository-Struktur | **P0** | Nova + Human Maintainer | W-05 |
+| **OD-31** | **Nachführung in Dateien außerhalb des CBP-WP-003-Scopes:** (a) D-016 in `PROJECT_DEFINITION.md` — Ü-02 ist durch A0 aufgehoben; (b) veraltete Kriterienzahl „41" in `PROJECT_DEFINITION.md` Zeile 194; (c) veraltete Zahlen „41 Kriterien, 39 blockierend" in `work-packages/CBP-WP-002.md` Zeile 163 | P1 | Nova | D-016, R-33 |
+| **OD-33** | **Definition des Deployment-Readiness-Gates** für die 16 Deployment-Required-Kriterien | P1 | Nova | D-026 |
+| OD-24 | Akzeptable Ausfallzeit | P2 | Human Maintainer | — |
+| OD-28 | Öffentlicher Produktname und Phase-7-Option | P2 | Human Maintainer | — |
 
 ## Zusammenfassung
 
 | Kategorie | Anzahl |
 | --- | --- |
-| Getroffene Entscheidungen | 14 (davon 8 mit A0) |
-| Geschlossene offene Entscheidungen | 3 |
-| Offene Entscheidungen | 27 |
-| davon **P0** (blockiert G0) | **14** |
+| Getroffene Entscheidungen | **26** (davon 20 mit A0) |
+| Neu in CBP-WP-003 | 12 (D-015 bis D-026) |
+| Geschlossene offene Entscheidungen | 5 |
+| Vertagte Entscheidungen | 4 |
+| Offene Entscheidungen | 25 |
+| davon **P0** | **10** |
 
-**Keine offene Entscheidung wird als A0 geführt.** Die Spalte „Adressat"
-benennt, wer entscheidet — nicht, dass bereits entschieden wäre.
+**Keine offene Entscheidung wird als A0 geführt.** Keine Entscheidung wurde aus
+reinen Sachangaben abgeleitet — die Infrastrukturangaben aus dem Intake sind
+Human-Evidenz, keine Beschlüsse.
 
 ## Pflege
 
 Eine getroffene Entscheidung wird **nicht gelöscht**. Änderungen erfolgen durch
-einen neuen Eintrag, der den alten als ersetzt kennzeichnet — analog zur
-ADR-Supersession.
+einen neuen Eintrag, der den alten als ersetzt kennzeichnet.

@@ -5,154 +5,172 @@
 | Gate | **G0 – Discovery and Scope Lock** |
 | **Gate-Status** | **NOT PASSED** |
 | Phase | Phase 0 – Discovery und Scope Lock |
-| Erfasst in | CBP-WP-002 |
+| Erfasst in | CBP-WP-002, überarbeitet in CBP-WP-003 |
 | Autoritätsklasse | A3 (Gate-Dokumentation) |
 | Stand | 2026-07-20 |
 
 Dieses Dokument definiert objektiv prüfbare Kriterien für G0. Es erklärt G0
 **nicht** als bestanden und darf das auch nicht.
 
+---
+
+## Kriterienklassen
+
+G0 sperrt den **allgemeinen Produkt- und Architektur-Scope**, nicht sämtliche
+Details einer späteren Installation. Dazu werden drei Klassen unterschieden.
+
+| Klasse | Bedeutung | Blockiert G0? |
+| --- | --- | --- |
+| **Core Required** | Allgemeine, produktweite Architektur- und Sicherheitsregeln, unabhängig von der konkreten Installation | **ja** |
+| **Deployment Required** | Angaben, die erst unmittelbar vor dem Aufbau eines gewählten Deploymentprofils benötigt werden | **nein** — später |
+| **Conditional** | Angaben, die nur erforderlich sind, wenn eine bestimmte Funktion oder Datenart tatsächlich verwendet wird | **nur bei aktivierter Funktion** |
+
+> **Ein unbekannter Infrastrukturwert verhindert den allgemeinen Scope Lock
+> nicht.** Er verhindert eine spätere Installation.
+
+### Fail-closed für Deployment Required
+
+Deployment-Required-Kriterien werden **nicht gestrichen**, sondern vertagt. Eine
+spätere Installation muss **fail-closed** arbeiten: fehlt eine dafür notwendige
+Deploymentangabe, wird nicht installiert. Die Prüfung dieser Klasse erfolgt in
+einem **separaten Deployment-Readiness-Gate**, das in einem späteren Work
+Package zu definieren ist.
+
+*Ein neuer Gate-Name wird hier bewusst noch nicht eingeführt.*
+
 ## Statuswerte
 
 | Status | Bedeutung |
 | --- | --- |
 | `open` | Nicht beantwortet |
-| `answered` | Beantwortet, noch nicht geprüft |
-| `accepted` | Beantwortet, geprüft und vom Human Maintainer angenommen |
+| `answered` | Beantwortet, noch nicht als Entscheidung angenommen |
+| `accepted` | Ausdrücklich entschieden und angenommen |
 | `blocked` | Beantwortung hängt an einer anderen offenen Entscheidung |
+| `not-applicable` | Für den aktuellen Pilotumfang nicht einschlägig |
 
-**Nachweis** bedeutet eine überprüfbare Angabe: ein Wert, ein Dokumentverweis,
-ein Kommandoergebnis. Eine Absichtserklärung ist kein Nachweis.
+**Nachweis** bedeutet eine überprüfbare Angabe. Eine Absichtserklärung ist kein
+Nachweis.
 
 ---
 
 ## A — Nutzer und Scope
 
-| ID | Kriterium | Nachweis | Owner | Status | Autorität | Blockiert G0 |
-| --- | --- | --- | --- | --- | --- | --- |
-| A-1 | Primärer Nutzer benannt | Rollenangabe | Human Maintainer | `open` | A0 | **ja** |
-| A-2 | Erwartete Nutzerzahl | Zahl | Human Maintainer | `open` | A0 | **ja** |
-| A-3 | Zahl der Geräte | Zahl, aufgeschlüsselt nach Typ | Human Maintainer | `open` | A0 | **ja** |
-| A-4 | Desktop-Anforderungen | Liste der Arbeitsfälle | Human Maintainer | `open` | A0 | **ja** |
-| A-5 | Mobile-Anforderungen | Liste, Android oder iOS benannt | Human Maintainer | `open` | A0 | **ja** |
-| A-6 | Offlineanforderungen | ja/nein je Anwendungsfall | Human Maintainer | `open` | A0 | **ja** |
-| A-7 | Native Obsidian-Nutzung erforderlich | ja/nein mit Begründung | Human Maintainer | `open` | A0 | **ja** |
-| A-8 | Explizite Nicht-Ziele | Liste | Nova + Human Maintainer | `open` | A0 | **ja** |
+| ID | Kriterium | Klasse | Status | Nachweis | Autorität |
+| --- | --- | --- | --- | --- | --- |
+| A-1 | Primärer Nutzer benannt | **Core** | `answered` | HDI A2 — Einzelperson | A0 |
+| A-2 | Erwartete Nutzerzahl | **Core** | `answered` | HDI A2 — 1 im ersten Pilot | A0 |
+| A-3 | Zahl der Geräte | Deployment | `open` | — | A0 |
+| A-4 | Desktop-Anforderungen | **Core** | `accepted` | HDI A6 — Web-UI im Pilot, nach Retrieval | A0 |
+| A-5 | Mobile-Anforderungen | **Core** | `accepted` | HDI A6 — Suche, Lesen, Status, Handoffs, kleine Freigaben | A0 |
+| A-6 | Offlineanforderungen | Conditional | `open` | Funktion nicht aktiviert | A0 |
+| A-7 | Native Obsidian-Nutzung | Conditional | `accepted` | HDI A6 — **später**, nicht Pilotumfang | A0 |
+| A-8 | Explizite Nicht-Ziele | **Core** | `open` | HDI A6 liefert funktionale Abgrenzungen; Repository-Sichtbarkeit und vollständige Nicht-Ziel-Liste fehlen | A0 |
 
-Grundlage: Projektübergabe §19, §15 Phase 0.
+## B — Infrastruktur
 
-## B — Proxmox und Infrastruktur
-
-| ID | Kriterium | Nachweis | Owner | Status | Autorität | Blockiert G0 |
-| --- | --- | --- | --- | --- | --- | --- |
-| B-1 | Proxmox-Version | Versionsstring | Human Maintainer | `open` | A0 | **ja** |
-| B-2 | Einzelhost oder Cluster | Angabe, bei Cluster Knotenzahl | Human Maintainer | `open` | A0 | **ja** |
-| B-3 | Verfügbare CPU | Kerne, für die VM zusagbar | Human Maintainer | `open` | A0 | **ja** |
-| B-4 | Verfügbarer RAM | GB, für die VM zusagbar | Human Maintainer | `open` | A0 | **ja** |
-| B-5 | Verfügbarer Speicher | GB, getrennt nach System und Daten | Human Maintainer | `open` | A0 | **ja** |
-| B-6 | Storage-Technologie | ZFS, LVM oder andere | Human Maintainer | `open` | A0 | **ja** |
-| B-7 | Backupziele | Ziel, Verfahren, Frequenz | Human Maintainer | `open` | A0 | **ja** |
-| B-8 | Externe Backupkopie außerhalb des Hosts | Ziel benannt oder ausdrücklich verneint | Human Maintainer | `open` | A0 | **ja** |
-
-Grundlage: Projektübergabe §12, §19.
+| ID | Kriterium | Klasse | Status | Nachweis | Autorität |
+| --- | --- | --- | --- | --- | --- |
+| B-1 | Proxmox-Version | Deployment | `open` | bewusst nicht erhoben | A0 |
+| B-2 | Einzelhost oder Cluster | Deployment | `open` | bewusst nicht erhoben | A0 |
+| B-3 | Verfügbare CPU | Deployment | `open` | bewusst nicht erhoben | A0 |
+| B-4 | Verfügbarer RAM | Deployment | `open` | bewusst nicht erhoben | A0 |
+| B-5 | Verfügbarer Speicher | Deployment | `open` | bewusst nicht erhoben | A0 |
+| B-6 | Storage-Technologie | Deployment | `open` | bewusst nicht erhoben | A0 |
+| B-7 | Backupziele | Deployment | `open` | — | A0 |
+| B-8 | Externe Backupkopie | Deployment | `open` | — | A0 |
 
 ## C — Netzwerk und Zugriff
 
-| ID | Kriterium | Nachweis | Owner | Status | Autorität | Blockiert G0 |
-| --- | --- | --- | --- | --- | --- | --- |
-| C-1 | Bestehendes VPN vorhanden | ja/nein, Produkt | Human Maintainer | `open` | A0 | **ja** |
-| C-2 | Tailscale oder WireGuard | Angabe oder „keines" | Human Maintainer | `open` | A0 | **ja** |
-| C-3 | DNS | interne Auflösung beschrieben | Human Maintainer | `open` | A0 | nein |
-| C-4 | Reverse Proxy | vorhanden/geplant/keiner | Human Maintainer | `open` | A0 | nein |
-| C-5 | Erlaubte ausgehende Verbindungen | Liste der Ziele | Human Maintainer | `open` | A0 | **ja** |
-| C-6 | Mobile Zugriffsmethode | Verfahren beschrieben | Human Maintainer | `open` | A0 | **ja** |
-
-Grundlage: Projektübergabe §9 (Remotezugriff), §10, §19.
-Randbedingung aus §10: keine öffentliche Freigabe interner Dienste als Standard.
+| ID | Kriterium | Klasse | Status | Nachweis | Autorität |
+| --- | --- | --- | --- | --- | --- |
+| C-1 | Bestehendes VPN | Deployment | `open` | HDI A5 — Profil festgelegt, Technologie offen | A0 |
+| C-2 | Tailscale oder WireGuard | Deployment | `open` | HDI A5 — Auswahl im Deployment-Readiness-Schritt | A0 |
+| C-3 | DNS | Conditional | `open` | Funktion nicht aktiviert | A0 |
+| C-4 | Reverse Proxy | Conditional | `open` | Funktion nicht aktiviert | A0 |
+| C-5 | Erlaubte ausgehende Verbindungen | Deployment | `open` | Grundsatz „keine öffentliche Freigabe" akzeptiert (D-023); Allowlist offen | A0 |
+| C-6 | Mobile Zugriffsmethode | Deployment | `open` | HDI A5 — über privates Netz, Methode offen | A0 |
 
 ## D — Datenbestand
 
-| ID | Kriterium | Nachweis | Owner | Status | Autorität | Blockiert G0 |
-| --- | --- | --- | --- | --- | --- | --- |
-| D-1 | Gewünschte Quellen | Liste mit Pfaden oder Systemen | Human Maintainer | `open` | A0 | **ja** |
-| D-2 | Größenordnung | Dateizahl und Volumen | Human Maintainer | `open` | A0 | **ja** |
-| D-3 | Dateiformate | Liste | Human Maintainer | `open` | A0 | **ja** |
-| D-4 | Datenklassen zugeordnet | Zuordnung je Quelle | Human Maintainer | `open` | A0 | **ja** |
-| D-5 | Ausgeschlossene Daten | Liste, `excluded-from-ai` benannt | Human Maintainer | `open` | A0 | **ja** |
-| D-6 | Personenbezogene Daten | Umfang und Rechtsgrundlage | Human Maintainer | `open` | A0 | **ja** |
-| D-7 | Vertrauliche Informationen | Umfang, Behandlung | Human Maintainer | `open` | A0 | **ja** |
-| D-8 | Secret-Verfahren | Verfahren bei Fund in der Historie | Human Maintainer | `open` | A0 | **ja** |
-
-Grundlage: Projektübergabe §11, §19.
-D-6 bis D-8 sind die **kritischen Datenschutzfragen** im Sinne der
-Abschlussregel.
+| ID | Kriterium | Klasse | Status | Nachweis | Autorität |
+| --- | --- | --- | --- | --- | --- |
+| D-1 | Gewünschte Quellen | **Core** | `answered` | HDI A3 — Markdown, Git, Chat-Handoffs, Obsidian-Vault als Markdown | A0 |
+| D-2 | Größenordnung | Deployment | `open` | bewusst nicht erhoben, keine Dateiinventur | A0 |
+| D-3 | Dateiformate | **Core** | `answered` | HDI A3 — Markdown zuerst; PDF/Office später über Quarantäne | A0 |
+| D-4 | Datenklassen zugeordnet | **Core** | `accepted` | HDI A4 — Profilebene entschieden | A0 |
+| D-5 | Ausgeschlossene Daten | **Core** | `accepted` | HDI A4 — `excluded-from-ai` von Anfang an im Modell, Sperrwirkung mit Testdaten prüfen | A0 |
+| D-6 | Personenbezogene Daten | Conditional | `not-applicable` | HDI A4 — nicht im Pilot; spätere Aufnahme erfordert vorherige Prüfung | A0 |
+| D-7 | Vertrauliche Informationen | Conditional | `not-applicable` | HDI A4 — `confidential` nicht im Pilot, Architektur muss die Klasse unterstützen | A0 |
+| D-8 | **Secret-Verfahren im Schadensfall** | **Core** | **`open`** | Verbot bestätigt, **Ablauf nicht** | A0 |
 
 ## E — Claude und Repositories
 
-| ID | Kriterium | Nachweis | Owner | Status | Autorität | Blockiert G0 |
-| --- | --- | --- | --- | --- | --- | --- |
-| E-1 | Aktuelle Claude-Desktop-Nutzung | Beschreibung des Ist-Zustands | Human Maintainer | `open` | A0 | **ja** |
-| E-2 | Erlaubte Repository-Zugriffe | Liste, Lese- und Schreibrechte getrennt | Human Maintainer | `open` | A0 | **ja** |
-| E-3 | GitHub-Zugriffe | Umfang, keine pauschalen Schreibrechte | Human Maintainer | `open` | A0 | **ja** |
-| E-4 | Erlaubte Schreibrechte | Zuordnung zu den fünf Berechtigungsstufen | Human Maintainer | `open` | A0 | **ja** |
-| E-5 | Freigabeverfahren | Beschreibung des Ablaufs | Human Maintainer | `open` | A0 | **ja** |
-
-Grundlage: Projektübergabe §9 (Claude-Code-Arbeitsumgebung), §10, §19.
-Berechtigungsstufen: `read`, `draft`, `write with approval`,
-`publish with approval`, `forbidden`.
+| ID | Kriterium | Klasse | Status | Nachweis | Autorität |
+| --- | --- | --- | --- | --- | --- |
+| E-1 | Aktuelle Claude-Desktop-Nutzung | Deployment | `open` | — | A0 |
+| E-2 | Erlaubte Repository-Zugriffe | **Core** | **`open`** | — | A0 |
+| E-3 | GitHub-Zugriffe | **Core** | **`open`** | — | A0 |
+| E-4 | Berechtigungsstufen je Bereich | **Core** | **`open`** | — | A0 |
+| E-5 | Freigabeverfahren | **Core** | **`open`** | — | A0 |
 
 ## F — Architektur
 
-| ID | Kriterium | Nachweis | Owner | Status | Autorität | Blockiert G0 |
-| --- | --- | --- | --- | --- | --- | --- |
-| F-1 | VM als Referenzbetrieb bestätigt oder abgelehnt | Entscheidung | Human Maintainer | `open` | A0 | **ja** |
-| F-2 | Docker Compose als Pilotlaufzeit bestätigt oder abgelehnt | Entscheidung | Human Maintainer | `open` | A0 | **ja** |
-| F-3 | Trennung canonical / derived festgeschrieben | ADR | Nova + Human Maintainer | `open` | A1 | **ja** |
-| F-4 | Backup- und Restore-Zielwerte | RPO und RTO als Zahlen | Human Maintainer | `open` | A0 | **ja** |
-| F-5 | Deployment-Neutralität bestätigt | ADR mit Referenzprofilen A–E | Nova + Human Maintainer | `open` | A1 | **ja** |
-| F-6 | UI- und Wiki-Gates definiert | Bedingungen benannt | Nova | `open` | A3 | **ja** |
-
-Grundlage: Projektübergabe §4, §5, §12, §9 (Oberfläche und Graph).
-Zu F-6: Übergabe §9 nennt als Bedingungen, dass Index und Suche funktionieren,
-Tokenersparnis belegt ist, Mehrgerätezugriff funktioniert und der Alltagsnutzen
-bestätigt ist.
+| ID | Kriterium | Klasse | Status | Nachweis | Autorität |
+| --- | --- | --- | --- | --- | --- |
+| F-1 | VM als Referenzbetrieb | **Core** | **`accepted`** | HDI A1 — dedizierte Linux-VM auf Proxmox (D-015) | A0 |
+| F-2 | Docker Compose als Pilotlaufzeit | **Core** | **`accepted`** | HDI A1 — bevorzugte Laufzeit innerhalb der VM (D-016) | A0 |
+| F-3 | Trennung canonical / derived als ADR | **Core** | `open` | Prinzip dokumentiert, ADR fehlt | A1 |
+| F-4 | Backup- und Restore-Zielwerte | Deployment | `open` | — | A0 |
+| F-5 | Deployment-Neutralität | **Core** | **`accepted`** | HDI A1 — weitere Profile bleiben dokumentierbar (D-017) | A0 |
+| F-6 | UI- und Wiki-Gates | **Core** | **`accepted`** | HDI A6 — Web-UI erst nach Index/Suche/Retrieval/Benchmark; Wiki nach Retrieval-Pilot (D-024, D-025) | A0 |
 
 ## G — Benchmark
 
-| ID | Kriterium | Nachweis | Owner | Status | Autorität | Blockiert G0 |
-| --- | --- | --- | --- | --- | --- | --- |
-| G-1 | Mindestens **30** Benchmarkfragen geplant | Fragenliste | Nova + Human Maintainer | `open` | A2 | **ja** |
-| G-2 | Kategorien definiert | Kategorienliste mit Verteilung | Nova | `open` | A2 | **ja** |
-| G-3 | Erfolgsmetriken definiert | Metriken mit Zielwerten | Nova + Human Maintainer | `open` | A2 | **ja** |
-| G-4 | Baseline-Verfahren definiert | Verfahrensbeschreibung | Nova | `open` | A2 | **ja** |
-| G-5 | Datenschutzfälle enthalten | mindestens 3 Fragen | Nova | `open` | A2 | **ja** |
-| G-6 | Konfliktfälle enthalten | mindestens 3 Fragen | Nova | `open` | A2 | **ja** |
+| ID | Kriterium | Klasse | Status | Nachweis | Autorität |
+| --- | --- | --- | --- | --- | --- |
+| G-1 | Mindestens 30 Benchmarkfragen | **Core** | `open` | — | A2 |
+| G-2 | Kategorien definiert | **Core** | `open` | — | A2 |
+| G-3 | Erfolgsmetriken definiert | **Core** | `open` | — | A2 |
+| G-4 | Baseline-Verfahren definiert | **Core** | `open` | — | A2 |
+| G-5 | Datenschutzfälle enthalten | **Core** | `open` | mindestens 3 Fragen | A2 |
+| G-6 | Konfliktfälle enthalten | **Core** | `open` | mindestens 3 Fragen | A2 |
 
 ### Vorgaben aus den Quellen
 
 **Baseline-Verfahren** (Bauanleitung, Seite 3): Dieselbe Frage in zwei frischen
 Sessions — einmal ohne System, einmal mit Index, Suche und Regeln. Verglichen
-werden Tokenverbrauch, Zeit und Kontextfüllstand. Die Quelle hält fest, dass
-der Nutzen bei einfachen Fragen geringer ausfällt und bei tief vergrabenem oder
-über mehrere Dateien verteiltem Wissen steigt — die Fragenmenge muss beide
-Sorten enthalten.
+werden Tokenverbrauch, Zeit und Kontextfüllstand.
 
-**Erfolgsmetriken** aus Projektübergabe §16, zehn Kriterien:
+**Erfolgsmetriken** (Projektübergabe §16): derselbe Wissensstand von mehreren
+Geräten · Baselinefragen korrekt beantwortet · deutlich weniger Dateien
+geöffnet · deutlich weniger Kontext übertragen · Antwortqualität sinkt nicht ·
+Quellen und Revisionen nachvollziehbar · Konflikte nicht automatisch aufgelöst ·
+Backups und Restore getestet · kein Proxmox-Lock-in · generischer Linux-Betrieb
+plausibel dokumentierbar.
 
-| # | Erfolgskriterium |
+---
+
+## Sichere Standardwerte
+
+Architekturdefaults, die unabhängig von der konkreten Installation gelten. Sie
+sind **keine Behauptungen über die reale Infrastruktur**.
+
+| # | Standardwert |
 | --- | --- |
-| 1 | Derselbe Wissensstand ist von mehreren Geräten erreichbar |
-| 2 | Die Baselinefragen werden korrekt beantwortet |
-| 3 | Deutlich weniger Dateien werden geöffnet |
-| 4 | Deutlich weniger Kontext wird an Claude übertragen |
-| 5 | Die Antwortqualität sinkt nicht |
-| 6 | Quellen und Revisionen sind nachvollziehbar |
-| 7 | Konflikte werden nicht automatisch aufgelöst |
-| 8 | Backups und Restore sind getestet |
-| 9 | Kein Proxmox-Lock-in entsteht |
-| 10 | Ein generischer Linux-Betrieb ist plausibel dokumentierbar |
+| 1 | Single-User-Betrieb als Einstieg |
+| 2 | Privater Zugriff |
+| 3 | Keine öffentliche Dienstfreigabe |
+| 4 | Keine Secrets in Wissensbestand, Index oder Context Packs |
+| 5 | **Übertragung an externe KI standardmäßig verweigert**, bis eine Datenklasse sie erlaubt |
+| 6 | Trennung von canonical und derived |
+| 7 | Keine automatische Konfliktauflösung |
+| 8 | Keine automatischen Commits oder Pushes |
+| 9 | Keine Obsidian-Synchronisation als Standard |
+| 10 | Backup muss vor produktivem Betrieb eingerichtet **und getestet** sein |
+| 11 | Optionale Funktionen bleiben deaktiviert, bis sie bewusst gewählt werden |
 
-„Deutlich weniger" ist zu quantifizieren — das ist Gegenstand von G-3.
+Standardwert 5 ist die schärfste Regel: Der Normalzustand ist **Verweigerung**,
+nicht Freigabe.
 
 ---
 
@@ -160,33 +178,86 @@ Sorten enthalten.
 
 **G0 ist nur bestanden, wenn alle fünf Bedingungen erfüllt sind:**
 
-1. **Alle blockierenden Kriterien sind `accepted`.**
-2. **Keine kritische Datenschutzfrage ist offen** — D-4 bis D-8 sind `accepted`.
-3. **Keine kritische Betriebsfrage ist offen** — B-7, B-8, C-5, F-4 sind `accepted`.
+1. **Alle Core-Required-Kriterien sind `accepted`.**
+2. **Keine kritische Datenschutzfrage ist offen** — D-4, D-5, D-8 sind
+   `accepted`. D-6 und D-7 sind `not-applicable`, solange die Datenarten nicht
+   im Pilot vorkommen.
+3. **Keine kritische Betriebsfrage des allgemeinen Scopes ist offen** — F-1,
+   F-2, F-3, F-5, F-6 sind `accepted`.
 4. **Ein messbarer Benchmarkplan existiert** — G-1 bis G-6 sind `accepted`.
 5. **Der Human Maintainer gibt G0 ausdrücklich frei.**
 
-Bedingung 5 ist eigenständig. Auch wenn die Bedingungen 1 bis 4 erfüllt sind,
-gilt G0 erst mit ausdrücklicher Freigabe (A0) als bestanden. Kein
-Implementation Agent und kein automatisches Verfahren stellt das Bestehen fest.
+Bedingung 5 ist eigenständig. Kein Implementation Agent und kein automatisches
+Verfahren stellt das Bestehen fest.
+
+**Deployment-Required-Kriterien blockieren G0 nicht.** Sie blockieren die
+spätere Installation und werden im Deployment-Readiness-Gate geprüft.
+
+**Conditional-Kriterien blockieren nur bei aktivierter Funktion.** Derzeit ist
+keine der sechs bedingten Funktionen für den Pilot aktiviert.
+
+---
 
 ## Aktueller Stand
 
+### Gesamtzahlen
+
+> **Korrektur.** Die in CBP-WP-002 berichteten Summen waren fehlerhaft addiert.
+> Die Kriterien selbst waren vollständig; nur die Summenzeilen stimmten nicht.
+
+| Kennzahl | Falsch berichtet | **Korrekt** |
+| --- | --- | --- |
+| G0-Kriterien gesamt | 41 | **47** |
+| Blockierend im bisherigen Modell | 39 | **45** |
+| P0-Fragen | 35 | **38** |
+| Fragen gesamt | 55 | **56** |
+
+### Verteilung nach Klassen
+
+| Klasse | Anzahl | Blockiert G0 |
+| --- | --- | --- |
+| **Core Required** | **25** | **ja** |
+| Deployment Required | 16 | nein |
+| Conditional | 6 | nur bei aktivierter Funktion |
+| **Summe** | **47** | |
+
+### Blocker im neuen Modell
+
 | Kennzahl | Wert |
 | --- | --- |
-| Kriterien gesamt | **41** |
-| davon blockierend | **39** |
-| davon nicht blockierend | 2 (C-3, C-4) |
-| Status `accepted` | **0** |
-| Status `answered` | 0 |
-| Status `open` | **41** |
-| Human-Maintainer-Freigabe | **nicht erteilt** |
+| Blockierend, bisheriges Modell | 45 |
+| **Blockierend, dreistufiges Modell** | **25** |
+| davon `accepted` | **8** |
+| davon `answered` | 4 |
+| davon `open` | **13** |
+| davon `blocked` | 0 |
+| **Noch nicht `accepted` (verbleibende Blocker)** | **17** |
+
+Aktive Conditional-Blocker: **0** — keine bedingte Funktion ist im Pilotumfang
+aktiviert.
+
+Die acht `accepted`-Kriterien: A-4, A-5, D-4, D-5, F-1, F-2, F-5, F-6.
+Die vier `answered`-Kriterien: A-1, A-2, D-1, D-3.
+
+### Die 13 offenen Core-Required-Kriterien
+
+| ID | Kriterium |
+| --- | --- |
+| A-8 | Explizite Nicht-Ziele, einschließlich Repository-Sichtbarkeit |
+| D-8 | Secret-Verfahren im Schadensfall |
+| E-2 | Erlaubte Repository-Zugriffe |
+| E-3 | GitHub-Zugriffe |
+| E-4 | Berechtigungsstufen je Bereich |
+| E-5 | Freigabeverfahren |
+| F-3 | Trennung canonical / derived als ADR |
+| G-1 … G-6 | Benchmarkplan, sechs Kriterien |
+
+Das sind 13 Kriterien: A-8, D-8, E-2, E-3, E-4, E-5, F-3 und G-1 bis G-6.
+
+Zusätzlich vier `answered`, die noch in `accepted` überführt werden müssen:
+A-1, A-2, D-1, D-3. Zusammen **17 verbleibende Blocker**.
 
 **Gate-Status: NOT PASSED.**
-
-Es ist kein einziges Kriterium beantwortet. Die Antworten sind über den
-konsolidierten Fragebogen in
-[DISCOVERY_QUESTIONS.md](DISCOVERY_QUESTIONS.md) zu erheben.
 
 ## Pflege
 
@@ -194,3 +265,6 @@ Ein Kriterium wechselt den Status nur im Rahmen eines freigegebenen Work
 Packages und nur mit hinterlegtem Nachweis. Der Wechsel nach `accepted`
 erfordert die Autorität aus der Spalte „Autorität". Ein Implementation Agent
 setzt kein Kriterium eigenmächtig auf `accepted`.
+
+Nachweis „HDI" verweist auf
+[HUMAN_DISCOVERY_INPUT.md](HUMAN_DISCOVERY_INPUT.md).

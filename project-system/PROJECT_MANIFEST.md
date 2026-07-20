@@ -1,15 +1,14 @@
-# Project Manifest – Core Brain Pilot
+﻿# Project Manifest – Core Brain Pilot
 
 | Feld | Wert |
 | --- | --- |
-| Überarbeitet in | CBP-WP-002 |
+| Überarbeitet in | CBP-WP-003 |
 | Autoritätsklasse | A2 |
 | Stand | 2026-07-20 |
 
-> **Formatabweichung.** NDF v1.0.0 sieht kanonisch
-> `project-system/project-manifest.yaml` vor. Diese Markdown-Fassung ist
-> **vorläufig für den Bootstrap** akzeptiert und vor G0 zu entscheiden —
-> **AB-03**, OD-13.
+> **Formatabweichung.** NDF v1.0.0 sieht `project-system/project-manifest.yaml`
+> vor. Diese Markdown-Fassung ist **vorläufig für den Bootstrap** akzeptiert —
+> AB-03, OD-13.
 
 ## Identität
 
@@ -19,7 +18,7 @@
 | Kurzform | CBP |
 | WP-Präfix | `CBP-WP-` |
 | Art | KI-Wissens- und Arbeitssystem, serverzentriert und portabel |
-| Sichtbarkeit | privat |
+| Sichtbarkeit | privat · **dauerhafte Sichtbarkeit offen** (OD-11) |
 | Sprache Dokumentation | Deutsch, UTF-8 mit echten Umlauten |
 | Lizenz | **nicht festgelegt** (OD-23) |
 | Öffentlicher Produktname | **nicht beschlossen** (OD-28) |
@@ -28,12 +27,9 @@
 
 | Feld | Wert |
 | --- | --- |
-| Framework | Nova Development Framework |
-| Version | **v1.0.0** |
-| Quelle | https://github.com/KayKaspers/Nova-Development-Framework/releases/tag/v1.0.0 |
-| Bindung | verbindlich |
+| Framework | Nova Development Framework **v1.0.0**, verbindlich |
 | v1.1-Planung | **nicht** übernommen |
-| Zweites Governance-System | **ausgeschlossen** — Superpowers nur als Referenz |
+| Zweites Governance-System | **ausgeschlossen** |
 | Abweichungen | AB-01 bis AB-10; AB-03 bis AB-08 nur vorläufig |
 
 ## Status
@@ -41,12 +37,13 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | Phase 0 – Discovery und Scope Lock |
-| Aktuelles Work Package | CBP-WP-002 (`in-review`) |
+| Aktuelles Work Package | CBP-WP-003 (`in-review`) |
 | Nächstes Gate | **G0 – Discovery and Scope Lock** |
 | **Gate-Status** | **NOT PASSED** |
-| G0-Kriterien | 41, davon 39 blockierend, 0 beantwortet |
-| Capabilities gesamt | 29 |
-| Capabilities implementiert | **0** |
+| G0-Kriterien | **47** |
+| davon blockierend (Core Required) | **25** |
+| davon `accepted` | 8 |
+| Capabilities implementiert | **0** von 29 |
 | Angenommene ADRs | 0 |
 | Scope gelockt | **nein** |
 
@@ -56,9 +53,50 @@
 | --- | --- |
 | Pfad | `D:\Projects\Core-Brain-Pilot` |
 | Branch | `main` |
-| Commits | 2 |
+| Commits | 3 |
 | Remote | `origin` → `https://github.com/KayKaspers/Core-Brain-Pilot.git` |
 | Commit-Autorität | ausschließlich Human Maintainer |
+
+## Pilotumfang
+
+Festgelegt im Human Discovery Intake, CBP-WP-003. Profilebene, keine
+Installationswerte.
+
+| Dimension | Festlegung |
+| --- | --- |
+| Betriebsprofil | Proxmox-VM mit dedizierter Linux-VM (D-015) |
+| Anwendungslaufzeit | Docker Compose bevorzugt innerhalb der VM (D-016) |
+| Portabilität | Linux-VM, Docker/OCI, Einzelplatz bleiben dokumentierbar (D-017) |
+| Nutzung | Einzelperson; Multi-User kein Pflichtumfang (D-018) |
+| Quellen im Pilot | Markdown, Git, Chat-Handoffs, Obsidian-Vault als Markdown |
+| Datenklassen im Pilot | `public`, `internal` |
+| Zugriff | privates VPN oder privates Netz, keine öffentliche Freigabe (D-023) |
+| Im Pilot | Web-UI (nach Retrieval), mobile Nutzung (D-024) |
+| Vertagt | native Obsidian-Nutzung, Wiki-Pilot, externe Connectoren, Graph (D-025) |
+
+## Kriterienmodell
+
+| Klasse | Anzahl | Blockiert G0 | Zuständiges Gate |
+| --- | --- | --- | --- |
+| **Core Required** | 25 | **ja** | G0 |
+| Deployment Required | 16 | nein | Deployment-Readiness-Gate, noch zu definieren (OD-33) |
+| Conditional | 6 | nur bei aktivierter Funktion | je nach Funktion |
+
+## Sichere Standardwerte
+
+Architekturdefaults, **keine Behauptungen über die reale Infrastruktur**:
+
+1. Single-User-Betrieb als Einstieg
+2. Privater Zugriff
+3. Keine öffentliche Dienstfreigabe
+4. Keine Secrets in Wissensbestand, Index oder Context Packs
+5. **Übertragung an externe KI standardmäßig verweigert**, bis eine Datenklasse sie erlaubt
+6. Trennung von canonical und derived
+7. Keine automatische Konfliktauflösung
+8. Keine automatischen Commits oder Pushes
+9. Keine Obsidian-Synchronisation als Standard
+10. Backup muss vor produktivem Betrieb eingerichtet **und getestet** sein
+11. Optionale Funktionen bleiben deaktiviert, bis sie bewusst gewählt werden
 
 ## Rollen
 
@@ -73,40 +111,16 @@
 | Quelle | Klasse | Ort |
 | --- | --- | --- |
 | `Bauanleitung_Second-Brain.pdf` | **A4** | außerhalb des Repositorys, sechs Inhaltsseiten |
-| `Second-Brain-Bauanleitung-Textfassung.md` | **A6** | außerhalb des Repositorys, abgeleitete Arbeitsrepräsentation |
-| `docs/discovery/Core-Brain-Project-Handoff.md` | **A5** | im Repository, kanonisch, getrackt |
-| Nova Development Framework v1.0.0 | **A1** | extern, öffentlich |
-
-Die A6-Textfassung beansprucht keine höhere Autorität als die A4-PDF.
-
-## Verzeichnisse
-
-| Pfad | Inhalt | Klasse |
-| --- | --- | --- |
-| `docs/architecture/` | Definition, Prinzipien, Vertrauensgrenzen, Context Budgets | kanonisch |
-| `docs/decisions/` | ADRs | kanonisch |
-| `docs/discovery/` | Fragebogen, G0-Kriterien, Quellenabgleich, A5-Übergabe | kanonisch |
-| `docs/ndf/` | NDF-Anwendung und Abweichungen | kanonisch |
-| `docs/privacy/` | Datenklassen | kanonisch |
-| `docs/product/` | Sperrliste | kanonisch |
-| `project-brain/` | Projektgedächtnis | kanonisch |
-| `project-system/` | Profil, Manifest, Matrix, Register, Queue, Prüfungen | kanonisch |
-| `work-packages/` | Wortlaut freigegebener Work Packages | kanonisch |
-
-Abgeleitete Daten haben in diesem Repository **kein** Verzeichnis. Sie werden
-über [`.gitignore`](../.gitignore) ausgeschlossen.
-
-> **Die Struktur ist nicht freigegeben.** Projektübergabe §13 nennt eine mögliche
-> spätere Struktur `core/`, `deployments/`, `docs/`, `examples/` und stellt
-> ausdrücklich fest, dass die konkrete Struktur noch geplant werden muss —
-> OD-26, Widerspruch W-05.
+| `Second-Brain-Bauanleitung-Textfassung.md` | **A6** | außerhalb des Repositorys |
+| `docs/discovery/Core-Brain-Project-Handoff.md` | **A5** | im Repository, getrackt |
+| `docs/discovery/HUMAN_DISCOVERY_INPUT.md` | **A2** mit einzelnen A0-Entscheidungen | im Repository |
+| Nova Development Framework v1.0.0 | **A1** | extern |
 
 ## Autoritätsmodell
 
-`A0` Human-Maintainer-Beschluss · `A1` Release, Tag, angenommener ADR ·
-`A2` Projektstatus, WP-Queue · `A3` Roadmap, Gate-Doku · `A4` README,
-erläuternde Doku · `A5` Projektchat-Übergabe · `A6` abgeleitete
-Zusammenfassung, Wiki
+`A0` Human-Maintainer-Beschluss · `A1` Release, Tag, ADR · `A2` Projektstatus,
+WP-Queue · `A3` Roadmap, Gate-Doku · `A4` README, erläuternde Doku ·
+`A5` Projektchat-Übergabe · `A6` abgeleitete Zusammenfassung
 
 **A6 überschreibt A0–A5 niemals automatisch.**
 
@@ -115,16 +129,16 @@ Zusammenfassung, Wiki
 `public` · `internal` · `confidential` · `secret` · `excluded-from-ai`
 
 Secrets gelangen nicht in Repository, Wissensbestand, Index, Context Pack oder
-Modellkontext.
+Modellkontext. **Verfahren im Schadensfall offen** (OD-10).
 
 ## Context Budgets
 
 `B0` Micro · `B1` Lean · `B2` Standard · `B3` Extended · `B4` Exceptional
 
-**Nicht zu verwechseln mit den NDF Prompt Modes** Full, Standard und Short.
+**Nicht zu verwechseln mit den NDF Prompt Modes** Full, Standard, Short.
 „Lean" ist ausschließlich der Name von B1 (D-009).
 
 ## Sperrliste Phase 0
 
-25 gesperrte Gegenstände, verbindlich in
+25 gesperrte Gegenstände in
 [../docs/product/DO_NOT_START.md](../docs/product/DO_NOT_START.md).

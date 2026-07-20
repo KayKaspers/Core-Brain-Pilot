@@ -1,8 +1,8 @@
-# Project Brain – Core Brain Pilot
+﻿# Project Brain – Core Brain Pilot
 
 | Feld | Wert |
 | --- | --- |
-| Überarbeitet in | CBP-WP-002 |
+| Überarbeitet in | CBP-WP-003 |
 | Autoritätsklasse | A2 |
 | Stand | 2026-07-20 |
 
@@ -13,18 +13,18 @@ Dokument **verweist**, statt Inhalte zu duplizieren.
 
 **Phase 0 – Discovery und Scope Lock.**
 
-Das Repository enthält ausschließlich Dokumentation. Es existiert keine
-Implementierung, keine Laufzeit, keine Installation, kein Index und kein
-Wissensbestand.
+Das Repository enthält ausschließlich Dokumentation. Keine Implementierung,
+keine Laufzeit, keine Installation, kein Index, kein Wissensbestand.
 
 | Feld | Wert |
 | --- | --- |
-| Aktuelles Work Package | CBP-WP-002 (`in-review`) |
+| Aktuelles Work Package | CBP-WP-003 (`in-review`) |
 | Nächstes Gate | **G0 – Discovery and Scope Lock — NOT PASSED** |
-| G0-Kriterien | 41, davon 39 blockierend, **0 beantwortet** |
+| G0-Kriterien | **47**, dreistufig klassifiziert |
+| davon blockierend | **25** Core Required (zuvor 45) |
+| davon `accepted` | 8 |
 | Implementierte Capabilities | **keine (0 von 29)** |
-| Commits | 2 |
-| Remote | `origin`, gepusht |
+| Commits | 3 |
 
 ## Ziel
 
@@ -32,114 +32,143 @@ Ein serverzentriertes und portables KI-Wissens- und Arbeitssystem, das
 Implementation Agents die kleinste ausreichende Menge relevanter, aktueller,
 autoritativer und datenschutzrechtlich erlaubter Informationen bereitstellt.
 
-**Das Problem dahinter:** zu hoher Token- und Kontextverbrauch. Das
-Claude-Nutzungslimit kann bereits nach wenigen umfangreichen Prompts erreicht
-sein. Das System soll Limits nicht umgehen, sondern Kontext effizienter nutzen.
+**Das Problem dahinter:** zu hoher Token- und Kontextverbrauch. Das System soll
+Limits nicht umgehen, sondern Kontext effizienter nutzen.
+
+## Pilotumfang — festgelegt in CBP-WP-003
+
+Der Human Discovery Intake hat den Umfang auf **Profilebene** entschieden.
+Konkrete Infrastrukturwerte sind bewusst nicht erhoben.
+
+| Dimension | Festlegung | Entscheidung |
+| --- | --- | --- |
+| Betriebsprofil | Proxmox-VM, dedizierte Linux-VM als Referenzbetrieb | D-015 |
+| Anwendungslaufzeit | Docker Compose **bevorzugt** innerhalb der VM | D-016 |
+| Portabilität | Weitere Profile bleiben dokumentierbar, kein Lock-in | D-017 |
+| Nutzung | Einzelperson, 1 Nutzer; Multi-User kein Pflichtumfang | D-018 |
+| Quellen im Pilot | Markdown-Verzeichnisse, Git-Repositories, Chat-Handoffs, Obsidian-Vault als Markdown | HDI A3 |
+| Quellen später | PDF und Office **nur über kontrollierte Quarantäne** | D-019 |
+| Datenklassen im Pilot | `public`, `internal` | HDI A4 |
+| `confidential` | nicht im Pilot, Architektur muss die Klasse tragen | D-020 |
+| `excluded-from-ai` | **von Anfang an im Modell**, Sperrwirkung mit Testdaten prüfen | D-021 |
+| Personenbezogene Daten | nicht im Pilot; spätere Aufnahme nur nach gesonderter Prüfung | D-022 |
+| Zugriff | privates VPN oder privates Netz, keine öffentliche Freigabe | D-023 |
+| Web-UI und mobil | im Pilot — Web-UI erst nach funktionierendem Retrieval | D-024 |
+| Obsidian nativ, Wiki, Connectoren, Graph | vertagt beziehungsweise nicht Pilotumfang | D-025 |
 
 Vollständig in
-[docs/architecture/PROJECT_DEFINITION.md](../docs/architecture/PROJECT_DEFINITION.md).
+[docs/discovery/HUMAN_DISCOVERY_INPUT.md](../docs/discovery/HUMAN_DISCOVERY_INPUT.md).
 
 ## Architekturstand
 
-Kein Komponentenschnitt. Festgehalten sind Prinzipien und Grenzen:
+Kein Komponentenschnitt. Festgehalten sind Prinzipien, Grenzen und seit
+CBP-WP-003 ein dreistufiges Kriterienmodell.
 
-- 16 Kernprinzipien (A2, nicht als ADR ausgefertigt) —
+- 16 Kernprinzipien (A2, kein ADR) —
   [ARCHITECTURE_PRINCIPLES.md](../docs/architecture/ARCHITECTURE_PRINCIPLES.md)
-- 6 Vertrauensgrenzen TB-1 bis TB-6 plus Sicherheitsmodell mit fünf
-  Berechtigungsstufen, **keine davon durchgesetzt** —
+- 6 Vertrauensgrenzen plus Sicherheitsmodell mit fünf Berechtigungsstufen,
+  **keine durchgesetzt** —
   [TRUST_BOUNDARIES.md](../docs/architecture/TRUST_BOUNDARIES.md)
-- 5 Datenklassen mit Flussmatrix, technisch nicht durchgesetzt —
+- 5 Datenklassen mit Flussmatrix —
   [DATA_CLASSIFICATION.md](../docs/privacy/DATA_CLASSIFICATION.md)
 - Context Budgets B0–B4 —
   [CONTEXT_BUDGETS.md](../docs/architecture/CONTEXT_BUDGETS.md)
+- **Kriterienmodell Core Required / Deployment Required / Conditional** (D-026)
+  — [G0_SCOPE_LOCK_CRITERIA.md](../docs/discovery/G0_SCOPE_LOCK_CRITERIA.md)
 
-**Tragende Invariante:** Der Verlust eines Indexes oder einer Oberfläche darf
-nicht zum Verlust des Wissens führen.
+**Invariante:** Der Verlust eines Indexes oder einer Oberfläche darf nicht zum
+Verlust des Wissens führen.
 
-**Wichtige Klarstellung aus dem Quellenabgleich:** Index und Suche laufen
-lokal, die Sprachverarbeitung nicht. Claude Code verwendet keinen vollständig
-lokalen Modellbetrieb — ausgewählte Inhalte werden übertragen. Genau daraus
-entsteht die Notwendigkeit der Datenklassifikation.
+**Klarstellung:** Index und Suche laufen lokal, die Sprachverarbeitung nicht.
+Ausgewählte Inhalte werden an Claude übertragen — daraus entsteht die
+Notwendigkeit der Datenklassifikation. **Standardwert: Übertragung wird
+verweigert, bis eine Datenklasse sie erlaubt.**
 
 ## Entscheidungen
 
 Angenommene ADRs: **0**.
 
-14 getroffene Entscheidungen, davon 8 mit A0-Rang; 27 offene, davon 14 mit P0.
+26 getroffene Entscheidungen, davon 20 mit A0. 25 offene, davon 10 mit P0.
 Geführt in
 [project-system/DECISION_REGISTER.md](../project-system/DECISION_REGISTER.md).
 
-Die wichtigsten Festlegungen aus CBP-WP-002: NDF Prompt Modes sind Full,
-Standard und Short — „Lean" ist ausschließlich der Name von B1 (D-009). Die
-dedizierte Linux-VM ist der Referenzbetrieb, Docker Compose eine noch nicht
-implementierte Laufzeit darin (D-013). Wiki, Graph und Web-UI beginnen nicht
-vor einem bestandenen Retrieval-Pilot-Gate (D-014).
-
-> Abweichend von der NDF-Vorlage existiert **kein**
-> `project-brain/DECISIONS.md` — AB-04 in
-> [ADOPTION_NOTES.md](../docs/ndf/ADOPTION_NOTES.md).
+**Ein Konflikt wurde durch A0 aufgelöst:** In CBP-WP-002 hatte ich Docker
+Compose gestützt auf Projektübergabe §4 (A5) von „bevorzugt" zu „vorgesehen"
+abgeschwächt. Der Human Maintainer bestätigt nun ausdrücklich „bevorzugte
+Anwendungslaufzeit". **A0 schlägt A5**; die Abschwächung ist aufgehoben. Die
+Nachführung in `PROJECT_DEFINITION.md` steht als OD-31 aus — die Datei war in
+CBP-WP-003 nicht änderbar.
 
 ## Risiken
 
-29 erfasste Risiken, davon 14 mit Schweregrad hoch. Geführt in
+32 erfasste Risiken, davon 17 hoch. Geführt in
 [project-system/RISK_REGISTER.md](../project-system/RISK_REGISTER.md).
 
-Die gravierendsten offenen Punkte: Berechtigungen bestehen nur als Promptregel
-und nicht technisch (R-25). Die Datenschutzklassifikation existiert ohne
-technische Durchsetzung (R-30). Restore wurde nie geprobt (R-20).
+**Weiterhin kritisch:** Berechtigungen ohne technische Durchsetzung und ohne
+erhobene Zuordnung (R-25, R-27) · ungeprüfte Sperrwirkung von
+`excluded-from-ai` (R-31) · fehlende Quarantäne für Nicht-Markdown-Quellen
+(R-32) · 16 vertagte Deployment-Kriterien ohne zuständiges Gate (R-34) ·
+kein Benchmark (R-21).
 
 ## Offene Fragen
 
-- **Fragebogen:** 55 Fragen, davon 35 mit P0 —
-  [DISCOVERY_QUESTIONS.md](../docs/discovery/DISCOVERY_QUESTIONS.md)
-- **G0-Kriterien:** 41, davon 39 blockierend —
+- **G0:** 25 Core-Required-Kriterien, davon **17 noch nicht `accepted`** —
   [G0_SCOPE_LOCK_CRITERIA.md](../docs/discovery/G0_SCOPE_LOCK_CRITERIA.md)
-- **Fehlende Information:** OI-05, OI-06, OI-07 offen —
+- **Fragebogen:** 56 Fragen, davon 8 offen und Core Required —
+  [DISCOVERY_QUESTIONS.md](../docs/discovery/DISCOVERY_QUESTIONS.md)
+- **Fehlende Information:** OI-02, OI-06 bis OI-09 offen —
   [OPEN_INFORMATION.md](../docs/discovery/OPEN_INFORMATION.md)
 
-Der größte inhaltliche Block: sämtliche Infrastruktur-, Netzwerk- und
-Datenangaben aus Projektübergabe §19 sind unbeantwortet.
+Die drei größten Blöcke: Benchmarkplan (6 Kriterien), Berechtigungsmodell
+(4 Kriterien), Secret-Verfahren (1 Kriterium).
 
 ## Lessons Learned
 
-**Aus CBP-WP-001:** Ein Work Package, das seine fachliche Substanz vollständig
-mitführt, bleibt auch dann ausführbar, wenn hinterlegtes Projektwissen im
-Sitzungskontext fehlt.
+**Aus CBP-WP-001:** Ein Work Package, das seine fachliche Substanz mitführt,
+bleibt ausführbar, auch wenn hinterlegtes Projektwissen im Sitzungskontext
+fehlt.
 
 **Aus CBP-WP-002:** Zwei Ausführungsversuche endeten in der Vorprüfung mit
-BLOCKED — einmal wegen unsauberem Arbeitsbaum und unlesbarem PDF, einmal wegen
-fehlender Quelldatei. Beide Abbrüche erfolgten vor jeder Dateiänderung und
-haben nichts beschädigt. Die Vorprüfung hat funktioniert; ohne sie wäre im
-ersten Versuch ein Quellenabgleich mit erfundenen Seitenreferenzen entstanden.
+BLOCKED, beide vor jeder Dateiänderung. Ohne Vorprüfung wäre ein Quellenabgleich
+mit erfundenen Seitenreferenzen entstanden. Der Abgleich fand außerdem eine
+sachlich falsche Aussage im Fundament (Ü-01), die aus dem Work-Package-Wortlaut
+allein nicht erkennbar war.
 
-**Zweite Lektion:** Der Abgleich hat eine sachlich falsche Aussage im Fundament
-gefunden (Ü-01, „keine Notwendigkeit, Wissensbestand an externe Dienste zu
-senden"). Aus dem Work-Package-Wortlaut allein war das nicht erkennbar — erst
-die Originalquelle hat es offengelegt. Das rechtfertigt den Aufwand des
-Abgleichs.
+**Aus CBP-WP-003, erste Lektion:** Fortgeschriebene Kennzahlen driften. Die in
+CBP-WP-002 berichteten Summen (41/39/35/55) waren falsch addiert; die
+tatsächlichen Werte sind 47/45/38/56. Die Dokumente selbst waren korrekt — nur
+die Summen. Konsequenz: Kennzahlen werden ausgezählt, nicht fortgeschrieben
+(R-33).
+
+**Aus CBP-WP-003, zweite Lektion:** Der erste Fragebogen mit 15 Fragen war
+handwerklich korrekt, aber konzeptionell falsch — er hätte den allgemeinen
+Scope Lock von einer konkreten Proxmox-Installation abhängig gemacht. Das
+Nova-Review hat das erkannt und das dreistufige Kriterienmodell eingeführt.
+Ergebnis: 20 Blocker weniger, ohne ein Kriterium zu streichen. Die Trennung
+zwischen Produktentscheidung und Installationsdetail war die eigentliche
+Erkenntnis.
 
 ## Nächste Arbeitspakete
 
 Siehe
 [project-system/WORK_PACKAGE_QUEUE.md](../project-system/WORK_PACKAGE_QUEUE.md).
 
-Vorgeschlagen, **nicht freigegeben**: CBP-WP-003 — Human Discovery Intake and
-G0 Evidence Capture.
+Vorgeschlagen, **nicht freigegeben**: CBP-WP-004 — Generic Architecture and
+Deployment Profiles.
 
 ## Rückmeldung an Nova
 
-CBP-WP-002 ist ausgeführt. Der Quellenabgleich gegen A5-Übergabe und
-A6-Textfassung bestätigt 20 Aussagen, ergänzt 16 fehlende Inhalte, schwächt 5
-zu starke Formulierungen ab und erfasst 5 Widersprüche. OI-01, OI-03 und OI-04
-sind geschlossen.
+CBP-WP-003 ist ausgeführt. Sechs Antworten erhoben, 12 A0-Entscheidungen
+erfasst, keine Antwort erfunden oder erweitert. Acht Core-Required-Kriterien
+stehen auf `accepted`, vier auf `answered`.
 
-**G0 bleibt NOT PASSED** — 41 Kriterien liegen vor, keines ist beantwortet.
+Das dreistufige Kriterienmodell reduziert die G0-Blocker von 45 auf 25. Die 16
+Deployment-Required-Kriterien sind **vertagt, nicht gestrichen** — sie brauchen
+ein eigenes Gate (OD-33, R-34).
 
-Entscheidungsbedarf: 14 P0-Entscheidungen, insbesondere OD-26
-(Repository-Struktur — drei Vorstellungen nebeneinander) und OD-29 (AB-03 bis
-AB-08 sind nur vorläufig für den Bootstrap akzeptiert und vor G0 zu
-entscheiden).
+**G0 bleibt NOT PASSED.** 17 der 25 Core-Required-Kriterien sind noch nicht
+`accepted`.
 
-Einschränkung: Der PDF-Fließtext war lokal nicht extrahierbar; die Auswertung
-stützt sich auf die A6-Textfassung. Eine visuelle Detailprüfung der PDF wird
-nicht behauptet (R-22, R-23).
+Zwei Lücken sind dem überarbeiteten Fragebogen selbst geschuldet, nicht dem
+Human Maintainer: das Berechtigungsmodell (OI-08) und das Secret-Verfahren im
+Schadensfall (OI-09) wurden nicht erhoben.

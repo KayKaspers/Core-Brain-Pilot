@@ -3,7 +3,7 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | Phase 0 – Discovery und Scope Lock |
-| Letzte Prüfung | 2026-07-20, im Rahmen von CBP-WP-002 |
+| Letzte Prüfung | 2026-07-20, im Rahmen von CBP-WP-003 |
 | Autoritätsklasse | A2 |
 
 > Diese Datei gehört zur kanonischen NDF-Ordnerstruktur, war aber in der
@@ -19,82 +19,88 @@
 | Genau ein Work Package ausgeführt | erfüllt |
 | Work-Package-Typ `docs-only` eingehalten | erfüllt |
 | Keine autonomen Commits oder Pushes | erfüllt |
-| Abweichungen dokumentiert | erfüllt (AB-01 bis AB-10) |
+| Nova-REWORK der Phase A umgesetzt | erfüllt — Fragebogen ersetzt, nicht ergänzt |
 | Ausschließlich Version v1.0.0 verwendet | erfüllt |
-| Keine v1.1-Planung übernommen | erfüllt |
-| Kein zweites Governance-System eingeführt | erfüllt |
-| Vorprüfung vor jeder Änderung durchgeführt | erfüllt — zwei Versuche endeten korrekt mit BLOCKED |
+| Kein zweites Governance-System | erfüllt |
+| Vorprüfung vor jeder Änderung | erfüllt |
 
-## Scope-Compliance (CBP-WP-002)
-
-| Prüfung | Ergebnis |
-| --- | --- |
-| Nur innerhalb `D:\Projects\Core-Brain-Pilot` geschrieben | erfüllt |
-| Quelldateien außerhalb nur lesend geöffnet | erfüllt |
-| Keine benachbarten Projekte durchsucht | erfüllt |
-| Nur Markdown erzeugt und geändert | erfüllt |
-| Kein ausführbarer Anwendungscode | erfüllt |
-| Kein Dockerfile, keine `compose.yaml` | erfüllt |
-| Keine Skripte, keine CI-Workflows | erfüllt |
-| Keine Datenbanken, Suchindizes, Embeddings | erfüllt |
-| Kein Wiki-Ingest, kein Graph | erfüllt |
-| Keine `LICENSE`-Datei | erfüllt |
-| Kein Remote-Wechsel, kein neuer Branch | erfüllt |
-| Kein Commit, kein Push | erfüllt |
-| Keine Softwareinstallation | erfüllt |
-
-## Quellen-Compliance
+## Scope-Compliance (CBP-WP-003)
 
 | Prüfung | Ergebnis |
 | --- | --- |
-| A5-Übergabe als getrackte Quelle vorhanden | erfüllt |
-| Fachlicher Inhalt der A5-Übergabe nicht umgeschrieben | erfüllt — nur Metadatenkopf vorangestellt |
-| PDF als Originalquelle (A4) geführt | erfüllt |
-| Textfassung ausdrücklich als A6 geführt | erfüllt |
-| A6 beansprucht keine höhere Autorität als A4 | erfüllt |
-| Seitenreferenzen ausschließlich Seite 1 bis 6 | erfüllt |
-| Keine visuelle PDF-Prüfung behauptet | erfüllt — ausdrücklich verneint |
-| Keine langen Volltextkopien der Quellen | erfüllt |
-| OI-01 nur nach dokumentierter Provenienz geschlossen | erfüllt |
-| Originalquellen nicht automatisch verändert | erfüllt |
+| Nur Markdown innerhalb `D:\Projects\Core-Brain-Pilot` | erfüllt |
+| Keine weiteren Dateitypen | erfüllt |
+| Nur erlaubte Dokumentdateien geändert | erfüllt |
+| `PROJECT_DEFINITION.md` **nicht** geändert, obwohl D-016 es erfordert | erfüllt — außerhalb der Erlaubnisliste, als OD-31 erfasst |
+| Kein Anwendungscode, kein Dockerfile, keine `compose.yaml` | erfüllt |
+| Keine Skripte, CI/CD, GitHub Actions | erfüllt |
+| Keine Datenbanken, Suchindex, Embeddings, Modelle | erfüllt |
+| Kein Wiki-Ingest, Graph, MCP | erfüllt |
+| Keine Softwareinstallation, keine Infrastrukturänderung | erfüllt |
+| Keine `LICENSE`, kein Branch, keine Remote-Änderung | erfüllt |
+| Kein Commit, kein Push, keine Issues, keine Releases | erfüllt |
+
+## Intake-Compliance
+
+| Prüfung | Ergebnis |
+| --- | --- |
+| Fragebogen deckt alle P0-Fragen ab | erfüllt — Fassung 1 deckte alle 38; Fassung 2 erhebt bewusst auf Profilebene |
+| Keine unbeantwortete Frage ergänzt | erfüllt |
+| Keine Antwort inhaltlich erweitert | erfüllt |
+| Alle Antworten ihren IDs zugeordnet | erfüllt |
+| `accepted` nur bei ausdrücklicher Entscheidung | erfüllt — 12 A0-Entscheidungen einzeln benannt |
+| Infrastrukturangaben nicht pauschal als A0 | erfüllt — HDI trägt A2, nur einzelne Punkte A0 |
+| Keine Entscheidung aus reinen Fakten abgeleitet | erfüllt |
+| Keine Secrets erfragt oder gespeichert | erfüllt |
+| Keine IP-Pläne oder Konfigurationsdetails erfragt | erfüllt |
+| Keine Rechtsgrundlage ohne PII-Bezug erfragt | erfüllt — D-022 stellt PII außerhalb des Pilots |
+
+## Gate-Compliance
+
+| Prüfung | Ergebnis |
+| --- | --- |
+| **G0 bleibt NOT PASSED** | **erfüllt** |
+| Kein neuer Gate-Name eingeführt | erfüllt — Deployment-Readiness-Gate nur als zu definierende Aufgabe benannt |
+| Kriterienklassen gekennzeichnet | erfüllt — Core 25, Deployment 16, Conditional 6 |
+| Deployment-Kriterien vertagt, nicht gestrichen | erfüllt — alle 16 bleiben `open` und erfasst |
+| Fail-closed für fehlende Deploymentangaben dokumentiert | erfüllt |
+| Offene P0-Fragen bleiben sichtbar | erfüllt |
+| Blocker ausdrücklich markiert | erfüllt |
+| Kein Scope Lock automatisch ausgesprochen | erfüllt |
+| Keine Benchmarkfragen erfunden | erfüllt — G-1 bis G-6 bleiben `open` |
 
 ## Sicherheits-Compliance
 
 | Prüfung | Ergebnis |
 | --- | --- |
 | Keine Secrets erzeugt, gelesen, gespeichert oder indexiert | erfüllt |
-| Keine Beispiel-Secrets, keine `.env.example` | erfüllt |
 | Keine Zugangsdaten oder privaten Schlüssel | erfüllt |
-| `.gitignore` deckt Secrets, Schlüssel und `.env` ab | erfüllt |
-| `.gitignore` deckt abgeleitete Daten und Context Packs ab | erfüllt |
-| Datenklassen mit Flussmatrix dokumentiert | erfüllt |
-| Sicherheitsmodell mit Berechtigungsstufen dokumentiert | erfüllt |
+| Standardwert „Übertragung an externe KI verweigert" dokumentiert | erfüllt |
+| `excluded-from-ai` von Anfang an im Modell gefordert | erfüllt (D-021) |
 
 ## Dokumentations-Compliance
 
 | Prüfung | Ergebnis |
 | --- | --- |
 | Alle Statusdokumente nennen Phase 0 | erfüllt |
-| Aktuelles Work Package als CBP-WP-002 ausgewiesen | erfüllt |
-| Nächstes Gate als G0 – Discovery and Scope Lock ausgewiesen | erfüllt |
-| **G0 als NOT PASSED ausgewiesen** | **erfüllt** |
+| Aktuelles Work Package als CBP-WP-003 ausgewiesen | erfüllt |
 | Keine Capability als `implemented` bezeichnet | erfüllt |
 | Alle Capabilities besitzen eine Priorität | erfüllt |
-| Keine parallelen doppelten Strukturen | erfüllt |
-| AB-03 bis AB-08 nicht stillschweigend dauerhaft akzeptiert | erfüllt |
+| **Fehlerhafte Summen korrigiert** | **erfüllt** — 47/45/38/56 statt 41/39/35/55 |
+| Korrektur transparent ausgewiesen | erfüllt — in vier Dokumenten und als R-33 |
 | Keine offene Entscheidung als A0 ausgegeben | erfüllt |
-| Keine Discovery-Frage durch Annahme beantwortet | erfüllt |
 | UTF-8 mit echten deutschen Umlauten | erfüllt |
 
 ## Offene Punkte
 
 | Punkt | Bezug |
 | --- | --- |
-| Technische Datenschutzkontrollen dokumentiert, nicht durchgesetzt | R-02, R-03, R-30 |
-| Berechtigungen nur als Regel, nicht technisch | R-25 |
-| Kein Kriterium von G0 beantwortet | G0_SCOPE_LOCK_CRITERIA |
+| Berechtigungsmodell nicht erhoben | OI-08, R-25, R-27 |
+| Secret-Verfahren im Schadensfall offen | OI-09, R-01 |
+| Benchmarkplan fehlt vollständig | OI-06, R-21 |
+| 16 Deployment-Kriterien ohne zuständiges Gate | R-34, OD-33 |
+| D-016 in `PROJECT_DEFINITION.md` nicht nachgeführt | OD-31 |
 | Repository-Struktur nicht freigegeben | OI-07, OD-26 |
-| PDF nur über A6-Repräsentation ausgewertet | R-22, R-23 |
 
 ## Pflege
 

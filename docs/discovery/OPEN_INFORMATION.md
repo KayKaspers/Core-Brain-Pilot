@@ -3,14 +3,11 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | Phase 0 – Discovery und Scope Lock |
-| Überarbeitet in | CBP-WP-002 |
+| Überarbeitet in | CBP-WP-003 |
 | Autoritätsklasse | A2 |
 | Stand | 2026-07-20 |
 
-Während [DISCOVERY_QUESTIONS.md](DISCOVERY_QUESTIONS.md) offene
-**Entscheidungen** sammelt und
-[G0_SCOPE_LOCK_CRITERIA.md](G0_SCOPE_LOCK_CRITERIA.md) die **Gate-Kriterien**
-führt, verzeichnet dieses Dokument fehlende oder nicht zugängliche
+Dieses Dokument verzeichnet fehlende oder nicht zugängliche
 **Eingangsinformation**.
 
 ---
@@ -19,57 +16,23 @@ führt, verzeichnet dieses Dokument fehlende oder nicht zugängliche
 
 **Schweregrad:** hoch · **Status:** **GESCHLOSSEN** (2026-07-20, CBP-WP-002)
 
-### Ursprünglicher Befund
-
-CBP-WP-001 nannte vier verbindliche Grundlagen. Zwei davon — die
-Core-Brain-Übergabe und die Second-Brain-Bauanleitung — waren dem
-Implementation Agent in der Ausführungssitzung nicht zugänglich. Das Fundament
-wurde deshalb aus dem Wortlaut des Work Packages abgeleitet.
-
-### Auflösung
-
-| Bedingung aus CBP-WP-002 | Erfüllt |
-| --- | --- |
-| A5-Projektübergabe vollständig gelesen | **ja** — `docs/discovery/Core-Brain-Project-Handoff.md`, 20 Abschnitte, getrackt in Commit `03a29f5` |
-| A6-Textrepräsentation vollständig gelesen | **ja** — `Second-Brain-Bauanleitung-Textfassung.md`, Seitenmarker 1 bis 6 |
-| Provenienz zur PDF dokumentiert | **ja** — [SOURCE_RECONCILIATION.md](SOURCE_RECONCILIATION.md) Abschnitt 1 |
-| Keine ungeklärte inhaltliche Abweichung | **ja** — fünf Widersprüche W-01 bis W-05 erfasst; vier aufgelöst, einer (W-05, Repository-Struktur) bewusst als offene Entscheidung OD-26 geführt, nicht ungeklärt |
-
-Der vollständige Abgleich mit 20 bestätigten Übereinstimmungen, 16 Ergänzungen
-und 5 Abschwächungen liegt in
+Beide Originalquellen wurden gelesen und abgeglichen, die Provenienz der
+A6-Textfassung zur A4-PDF ist dokumentiert, keine ungeklärte inhaltliche
+Abweichung. Vollständig in
 [SOURCE_RECONCILIATION.md](SOURCE_RECONCILIATION.md).
 
-### Verbleibende Einschränkung
-
-Der Fließtext der PDF war im lokalen Werkzeug nicht zuverlässig extrahierbar.
-Die Auswertung stützt sich auf die A6-Textfassung. Eine **visuelle
-Detailprüfung der PDF wird nicht behauptet**. Sollte die Textfassung von der
-PDF abweichen, gilt die PDF (A4) — die Textfassung beansprucht keine höhere
-Autorität.
-
-Diese Einschränkung ist als eigenständiges Risiko R-22 erfasst und schließt
-OI-01 nicht wieder auf: die Freigabebedingungen aus CBP-WP-002 sind erfüllt.
+**Verbleibende Einschränkung:** Der PDF-Fließtext war lokal nicht extrahierbar;
+eine visuelle Detailprüfung wird nicht behauptet. Erfasst als R-22, R-23.
 
 ---
 
 ## OI-02 — Herkunft und Rang der Kernprinzipien
 
-**Schweregrad:** mittel · **Status:** **teilweise aufgelöst** · **Adressat:** Human Maintainer
+**Schweregrad:** mittel · **Status:** teilweise aufgelöst · **Adressat:** Human Maintainer
 
-Der Quellenabgleich hat die inhaltliche Herkunft geklärt: Die Kernprinzipien
-und der Capability-Katalog sind durch die A5-Projektübergabe gedeckt — siehe
-die 20 bestätigten Übereinstimmungen in
-[SOURCE_RECONCILIATION.md](SOURCE_RECONCILIATION.md) Abschnitt 2.
-
-**Offen bleibt der formale Rang.** Die Prinzipien tragen A2 und sind nicht als
-ADR ausgefertigt. Die Bezeichnung „verbindlich" wurde entsprechend präzisiert
-(Abschwächung Ü-04).
-
-Eine Ausnahme: Capability 27 „read-only MCP/API" findet sich in **keiner** der
-beiden Originalquellen. Ihre Provenienz ist CBP-WP-001 (A2). Vermerkt in der
-Capability Matrix.
-
-Weiterverfolgt als OD-03.
+Inhaltliche Herkunft geklärt (20 bestätigte Übereinstimmungen). **Offen bleibt
+der formale Rang** — die Prinzipien tragen A2 und sind nicht als ADR
+ausgefertigt. Weiterverfolgt als OD-03 und G0-Kriterium F-3.
 
 ---
 
@@ -77,62 +40,55 @@ Weiterverfolgt als OD-03.
 
 **Schweregrad:** mittel · **Status:** **GESCHLOSSEN** (2026-07-20, CBP-WP-002)
 
-B0 bis B4 sind in [../architecture/CONTEXT_BUDGETS.md](../architecture/CONTEXT_BUDGETS.md)
-mit je sieben Attributen definiert: geeignete Aufgaben, maximaler
-Quellenumfang, erlaubte Kontextarten, Zielgröße des Quellkontexts, erwartete
-Rückmeldelänge, Reviewtiefe und Eskalationsbedingungen. Für B4 sind die sechs
-Pflichtfragen und ein Eskalationsprotokoll festgelegt.
-
-**Einschränkung:** Die Token-Zielgrößen sind gesetzte Richtwerte, keine
-gemessenen Schwellen. Sie stammen nicht aus den Originalquellen und sind gegen
-den Benchmark zu validieren. Die harte Grenze ist die Quellenzahl.
-
-Verbleibende Kalibrierung als OD-02 geführt.
+Definiert in [../architecture/CONTEXT_BUDGETS.md](../architecture/CONTEXT_BUDGETS.md).
+Kalibrierung der Token-Richtwerte als OD-02b offen.
 
 ---
 
 ## OI-04 — Gate-Kriterien für G0
 
-**Schweregrad:** mittel · **Status:** **GESCHLOSSEN** (2026-07-20, CBP-WP-002)
+**Schweregrad:** mittel · **Status:** **GESCHLOSSEN** (2026-07-20, CBP-WP-002),
+**überarbeitet in CBP-WP-003**
 
-41 objektiv prüfbare Kriterien in sieben Bereichen liegen in
-[G0_SCOPE_LOCK_CRITERIA.md](G0_SCOPE_LOCK_CRITERIA.md) vor, davon 39
-blockierend. Jedes Kriterium führt Nachweis, Owner, Status, erforderliche
-Autorität und Blockierungskennzeichen. Die Abschlussregel ist fünfteilig und
-endet mit der ausdrücklichen Freigabe des Human Maintainers.
+47 Kriterien liegen vor, seit CBP-WP-003 dreistufig klassifiziert in Core
+Required (25), Deployment Required (16) und Conditional (6).
 
-**Gate-Status weiterhin NOT PASSED** — kein Kriterium ist beantwortet.
+**Gate-Status weiterhin NOT PASSED.**
 
 ---
 
 ## OI-05 — Zielumgebung nicht verifiziert
 
-**Schweregrad:** niedrig · **Status:** offen · **Adressat:** Human Maintainer
+**Schweregrad:** niedrig · **Status:** **umklassifiziert** · **Adressat:** Human Maintainer
 
-Proxmox als Referenzplattform und die dedizierte Linux-VM sind dokumentiert,
-aber nicht verifiziert. In Phase 0 wurde bewusst keine Umgebungsprüfung
-durchgeführt — das wäre Betriebsarbeit vor dem Scope Lock.
+Das Betriebsprofil ist entschieden: Proxmox-VM mit dedizierter Linux-VM
+(D-015). Die konkreten Werte — Version, CPU, RAM, Speicher, Storage — sind
+**bewusst nicht erhoben** worden und nun **Deployment Required**.
 
-Die Erhebung erfolgt über den Fragebogen, Abschnitt 1, und die G0-Kriterien
-B-1 bis B-8.
+Sie verhindern den allgemeinen Scope Lock nicht mehr, sondern die spätere
+Installation. Zuständig ist ein noch zu definierendes
+Deployment-Readiness-Gate (OD-33).
 
 ---
 
 ## OI-06 — Benchmarkfragen noch nicht formuliert
 
-**Schweregrad:** mittel · **Status:** offen · **Adressat:** Nova + Human Maintainer
+**Schweregrad:** **hoch** · **Status:** offen · **Adressat:** Nova + Human Maintainer
 
-Projektübergabe §16 nennt zehn Erfolgskriterien, Bauanleitung Seite 3
-beschreibt das Baseline-Verfahren. Beides ist in die G0-Kriterien G-1 bis G-6
-überführt.
+Es existiert **keine einzige** der geforderten mindestens 30 Benchmarkfragen.
+Ohne sie ist Erfolgskriterium 2 der Projektübergabe §16 nicht prüfbar, und
+„deutlich weniger Dateien" sowie „deutlich weniger Kontext" bleiben
+unquantifiziert.
 
-Es existiert jedoch noch **keine einzige** der geforderten mindestens 30
-Benchmarkfragen. Ohne sie ist Erfolgskriterium 2 („Baselinefragen werden
-korrekt beantwortet") nicht prüfbar, und die Formulierungen „deutlich weniger
-Dateien" und „deutlich weniger Kontext" bleiben unquantifiziert.
+**Nach dem Intake ist dies der größte zusammenhängende G0-Blocker:** sechs der
+25 Core-Required-Kriterien (G-1 bis G-6) hängen daran.
 
-Die Fragen können erst sinnvoll entstehen, wenn der reale Wissensbestand
-bekannt ist — also nach Beantwortung von D-1 bis D-3.
+Der Intake hat die Voraussetzung teilweise geschaffen — die Quellenarten sind
+bekannt (HDI A3). Die **Größenordnung** des Bestands (D-2) ist es nicht; sie
+wurde bewusst nicht erhoben. Für die Fragenformulierung dürfte das genügen, für
+die Kalibrierung der Metriken nicht.
+
+Schweregrad von mittel auf **hoch** angehoben.
 
 ---
 
@@ -140,19 +96,55 @@ bekannt ist — also nach Beantwortung von D-1 bis D-3.
 
 **Schweregrad:** mittel · **Status:** offen · **Adressat:** Nova + Human Maintainer
 
-Drei Strukturvorstellungen stehen nebeneinander:
+Drei Strukturvorstellungen stehen nebeneinander: Projektübergabe §13 (`core/`,
+`deployments/`, `docs/`, `examples/`), NDF v1.0.0 und die aktuelle Struktur aus
+CBP-WP-001.
 
-| Quelle | Struktur |
-| --- | --- |
-| Projektübergabe §13 (A5) | `core/`, `deployments/`, `docs/`, `examples/` — ausdrücklich noch nicht freigegeben |
-| NDF v1.0.0 (A1) | `project-manifest.yaml`, `project-brain/DECISIONS.md`, `prompts/claude/work-packages/` |
-| Repository (A2) | Struktur aus CBP-WP-001 |
+Die Abweichungen AB-03 bis AB-08 bleiben nur **vorläufig für den Bootstrap**
+akzeptiert. Siehe W-05, OD-26, OD-29.
 
-Die Übergabe stellt selbst klar, dass die konkrete Struktur im Projekt geplant
-werden muss. Deshalb sind die Abweichungen AB-03 bis AB-08 nur **vorläufig für
-den Bootstrap** akzeptiert und vor G0 zu entscheiden.
+---
 
-Siehe Widerspruch W-05 und Entscheidung OD-26.
+## OI-08 — Berechtigungsmodell nicht erhoben
+
+**Schweregrad:** **hoch** · **Status:** offen · **Adressat:** Human Maintainer
+
+*Neu in CBP-WP-003.*
+
+Vier Core-Required-Kriterien sind unbeantwortet: erlaubte Repository-Zugriffe
+(E-2), GitHub-Zugriffe (E-3), Berechtigungsstufe je Bereich (E-4) und
+Freigabeverfahren (E-5).
+
+Der überarbeitete Minimal-Fragebogen hat diesen Block bewusst nicht erhoben —
+er war auf Betriebs-, Nutzungs-, Quellen-, Datenschutz-, Zugriffs- und
+Funktionsprofil beschränkt. Das ist eine **bewusste Lücke des Intakes**, kein
+Versäumnis des Human Maintainers.
+
+Projektübergabe §10 verlangt, Berechtigungen **technisch** umzusetzen, nicht
+nur über Promptregeln. Ohne Zuordnung der fünf Stufen bleibt R-25 kritisch
+offen.
+
+Erfasst als OD-32.
+
+---
+
+## OI-09 — Verfahren bei Secret in der Git-Historie
+
+**Schweregrad:** **hoch** · **Status:** offen · **Adressat:** Human Maintainer
+
+*Neu in CBP-WP-003.*
+
+Der Intake hat das **Verbot** bestätigt: Secrets sind immer verboten in
+Wissensbestand, Repository, Index, Embeddings, Wiki und Context Packs (HDI A4).
+
+Der **Ablauf im Schadensfall** ist nicht festgelegt — was geschieht, wenn ein
+Secret trotzdem in die Historie gelangt: Rotation, History-Rewrite, Meldeweg,
+Zuständigkeit.
+
+Ein Verbot ohne Schadensverfahren ist unvollständig: R-01 bleibt deshalb
+„teilweise gemindert" statt geschlossen.
+
+Kriterium D-8, Frage 4.8, Entscheidung OD-10.
 
 ---
 

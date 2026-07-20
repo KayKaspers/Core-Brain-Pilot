@@ -1,4 +1,4 @@
-# Core Brain Pilot
+﻿# Core Brain Pilot
 
 > **Phase 0 – Discovery und Scope Lock.**
 > Dieses Repository enthält derzeit **ausschließlich Dokumentation**.
@@ -25,11 +25,40 @@ vorgesehene, **noch nicht implementierte** Anwendungslaufzeit.
 | Feld | Wert |
 | --- | --- |
 | Phase | Phase 0 – Discovery und Scope Lock |
-| Aktuelles Work Package | CBP-WP-002 (`in-review`) |
+| Aktuelles Work Package | CBP-WP-003 (`in-review`) |
 | Nächstes Gate | **G0 – Discovery and Scope Lock** |
-| **Gate-Status** | **NOT PASSED** — 41 Kriterien, 0 beantwortet |
+| **Gate-Status** | **NOT PASSED** — 47 Kriterien, davon 25 blockierend, 8 `accepted` |
 | Implementierte Capabilities | **keine (0 von 29)** |
 | Framework | Nova Development Framework v1.0.0 |
+
+## Pilotumfang
+
+Im Human Discovery Intake auf **Profilebene** entschieden; konkrete
+Infrastrukturwerte bewusst nicht erhoben.
+
+| Dimension | Festlegung |
+| --- | --- |
+| Betriebsprofil | Proxmox-VM mit dedizierter Linux-VM |
+| Anwendungslaufzeit | Docker Compose bevorzugt innerhalb der VM |
+| Nutzung | Einzelperson; Multi-User kein Pflichtumfang |
+| Quellen im Pilot | Markdown, Git-Repositories, Chat-Handoffs, Obsidian-Vault als Markdown |
+| Datenklassen im Pilot | `public`, `internal` |
+| Zugriff | privates VPN oder privates Netz, keine öffentliche Freigabe |
+| Im Pilot | Web-UI (erst nach funktionierendem Retrieval), mobile Nutzung |
+| Vertagt | native Obsidian-Nutzung, Wiki, externe Connectoren, Knowledge Graph |
+
+Belege in [HUMAN_DISCOVERY_INPUT.md](docs/discovery/HUMAN_DISCOVERY_INPUT.md).
+
+## Kriterienmodell
+
+G0 sperrt den allgemeinen Produkt- und Architektur-Scope, nicht die Details
+einer späteren Installation.
+
+| Klasse | Anzahl | Blockiert G0 |
+| --- | --- | --- |
+| **Core Required** | 25 | **ja** |
+| Deployment Required | 16 | nein — späteres Deployment-Readiness-Gate |
+| Conditional | 6 | nur bei aktivierter Funktion |
 
 ## Prozessmodell
 
@@ -73,6 +102,7 @@ Nur der Human Maintainer committet, tagged und pusht.
 | Worum geht es? | [PROJECT_DEFINITION.md](docs/architecture/PROJECT_DEFINITION.md) |
 | Wo steht das Projekt? | [PROJECT_BRAIN.md](project-brain/PROJECT_BRAIN.md) |
 | Was muss vor G0 geklärt werden? | [G0_SCOPE_LOCK_CRITERIA.md](docs/discovery/G0_SCOPE_LOCK_CRITERIA.md) |
+| Was hat der Maintainer entschieden? | [HUMAN_DISCOVERY_INPUT.md](docs/discovery/HUMAN_DISCOVERY_INPUT.md) |
 | Welche Fragen sind offen? | [DISCOVERY_QUESTIONS.md](docs/discovery/DISCOVERY_QUESTIONS.md) |
 | Woher stammen die Aussagen? | [SOURCE_RECONCILIATION.md](docs/discovery/SOURCE_RECONCILIATION.md) |
 | Was darf nicht begonnen werden? | [DO_NOT_START.md](docs/product/DO_NOT_START.md) |
