@@ -1,7 +1,7 @@
 # Core Brain Pilot
 
 > **Phase 0 – Discovery und Scope Lock.**
-> Dieses Repository enthaelt derzeit **ausschliesslich Dokumentation**.
+> Dieses Repository enthält derzeit **ausschließlich Dokumentation**.
 > Es existiert **keine** Implementierung, keine Laufzeit und keine Installation.
 
 Core Brain Pilot ist ein serverzentriertes und portables KI-Wissens- und
@@ -11,31 +11,35 @@ Ziel ist, Claude und anderen Implementation Agents nur die **kleinste
 ausreichende Menge** relevanter, aktueller, autoritativer und
 datenschutzrechtlich erlaubter Informationen bereitzustellen.
 
-Proxmox ist die erste Referenzplattform, aber nicht die Produktgrenze.
-Docker Compose ist als bevorzugte spaetere Anwendungslaufzeit innerhalb einer
-dedizierten Linux-VM vorgesehen — noch nicht begonnen.
+**Der Anlass:** zu hoher Token- und Kontextverbrauch. Das Claude-Nutzungslimit
+kann bereits nach wenigen umfangreichen Prompts erreicht sein. Das System soll
+Limits **nicht umgehen**, sondern den vorhandenen Kontext wesentlich
+effizienter nutzen.
+
+Proxmox ist die erste Referenzplattform, aber nicht die Produktgrenze. Der
+Referenzbetrieb ist eine dedizierte Linux-VM; Docker Compose ist eine darin
+vorgesehene, **noch nicht implementierte** Anwendungslaufzeit.
 
 ## Aktueller Stand
 
 | Feld | Wert |
 | --- | --- |
 | Phase | Phase 0 – Discovery und Scope Lock |
-| Aktuelles Work Package | CBP-WP-001 |
-| Naechstes Gate | G0 – Discovery and Scope Lock |
-| Implementierte Capabilities | keine |
+| Aktuelles Work Package | CBP-WP-002 (`in-review`) |
+| Nächstes Gate | **G0 – Discovery and Scope Lock** |
+| **Gate-Status** | **NOT PASSED** — 41 Kriterien, 0 beantwortet |
+| Implementierte Capabilities | **keine (0 von 29)** |
 | Framework | Nova Development Framework v1.0.0 |
 
 ## Prozessmodell
 
-Das Projekt arbeitet verbindlich nach dem
+Verbindlich nach
 [Nova Development Framework v1.0.0](https://github.com/KayKaspers/Nova-Development-Framework/releases/tag/v1.0.0).
-
-Rollen und Ablauf:
 
 ```
 Nova (ChatGPT)  →  Implementation Agent  →  Human Maintainer
-   plant              fuehrt genau ein          prueft, entscheidet,
-   Work Packages      Work Package aus          committet und pusht
+   plant              führt genau ein          prüft, entscheidet,
+   Work Packages      Work Package aus         committet und pusht
 ```
 
 Lifecycle jedes Work Packages:
@@ -50,49 +54,60 @@ Nur der Human Maintainer committet, tagged und pusht.
 
 | Pfad | Inhalt |
 | --- | --- |
-| `docs/architecture/` | Projektdefinition, Architekturprinzipien, Vertrauensgrenzen |
+| `docs/architecture/` | Projektdefinition, Architekturprinzipien, Vertrauensgrenzen, Context Budgets |
 | `docs/decisions/` | Architecture Decision Records (ADR) |
-| `docs/discovery/` | Offene Fragen und fehlende Information fuer Gate G0 |
+| `docs/discovery/` | Fragebogen, G0-Kriterien, Quellenabgleich, A5-Projektübergabe |
 | `docs/ndf/` | NDF-Anwendung und dokumentierte Abweichungen |
 | `docs/privacy/` | Datenklassen und technische Datenschutzregeln |
-| `docs/product/` | Explizite Nicht-Ziele der aktuellen Phase |
-| `project-brain/` | Kuratiertes Projektgedaechtnis |
+| `docs/product/` | Verbindliche Sperrliste der aktuellen Phase |
+| `project-brain/` | Kuratiertes Projektgedächtnis |
 | `project-system/` | Profil, Manifest, Capability Matrix, Register, WP-Queue |
 | `work-packages/` | Wortlaut der freigegebenen Work Packages |
 
+> Die Struktur ist **nicht freigegeben** und vor G0 zu entscheiden — OD-26.
+
+## Einstiegspunkte
+
+| Frage | Dokument |
+| --- | --- |
+| Worum geht es? | [PROJECT_DEFINITION.md](docs/architecture/PROJECT_DEFINITION.md) |
+| Wo steht das Projekt? | [PROJECT_BRAIN.md](project-brain/PROJECT_BRAIN.md) |
+| Was muss vor G0 geklärt werden? | [G0_SCOPE_LOCK_CRITERIA.md](docs/discovery/G0_SCOPE_LOCK_CRITERIA.md) |
+| Welche Fragen sind offen? | [DISCOVERY_QUESTIONS.md](docs/discovery/DISCOVERY_QUESTIONS.md) |
+| Woher stammen die Aussagen? | [SOURCE_RECONCILIATION.md](docs/discovery/SOURCE_RECONCILIATION.md) |
+| Was darf nicht begonnen werden? | [DO_NOT_START.md](docs/product/DO_NOT_START.md) |
+
 ## Kernprinzipien
 
-- Kanonischer Markdown-Wissensbestand
-- Git-Historie fuer kuratierte Inhalte
-- Reproduzierbare abgeleitete Daten
-- Deterministischer Quellenindex
-- Lokale Hybrid-Suche
-- Brain-First-Retrieval
-- A0–A6-Autoritaetsmodell
-- Datenklassen und technische Datenschutzregeln
-- Context Budgets B0–B4
-- Reproduzierbare Context Packs
-- Erklaerbarer Retrieval-Trace
-- Menschlich kontrollierte Konfliktaufloesung
-- Private Mehrgeraete-Nutzung
-- Deployment-neutrale Architektur
-- Austauschbare Suche und Web-UI
-- Backup-, Restore- und Rebuild-Faehigkeit
+Kanonischer Markdown-Wissensbestand · Git-Historie für kuratierte Inhalte ·
+reproduzierbare abgeleitete Daten · deterministischer Quellenindex · lokale
+Hybrid-Suche · Brain-First-Retrieval · A0–A6-Autoritätsmodell · Datenklassen
+und technische Datenschutzregeln · Context Budgets B0–B4 · reproduzierbare
+Context Packs · erklärbarer Retrieval-Trace · menschlich kontrollierte
+Konfliktauflösung · private Mehrgeräte-Nutzung · deployment-neutrale
+Architektur · austauschbare Suche und Web-UI · Backup-, Restore- und
+Rebuild-Fähigkeit.
 
-Ausfuehrlich in [docs/architecture/ARCHITECTURE_PRINCIPLES.md](docs/architecture/ARCHITECTURE_PRINCIPLES.md).
+Ausführlich in
+[ARCHITECTURE_PRINCIPLES.md](docs/architecture/ARCHITECTURE_PRINCIPLES.md).
 
-## Datenschutz in einem Satz
+## Datenschutz in zwei Sätzen
 
-Secrets duerfen **nicht** in Repository, Wissensbestand, Index, Context Pack
-oder Modellkontext gelangen. Siehe
-[docs/privacy/DATA_CLASSIFICATION.md](docs/privacy/DATA_CLASSIFICATION.md).
+Index und Suche laufen lokal — die Sprachverarbeitung nicht. Weil ausgewählte
+Inhalte an das Claude-Modell übertragen werden, regeln fünf Datenklassen, was
+übertragen werden darf; **Secrets** gelangen nie in Repository, Wissensbestand,
+Index, Context Pack oder Modellkontext.
 
-## Was jetzt **nicht** begonnen wird
+Siehe [DATA_CLASSIFICATION.md](docs/privacy/DATA_CLASSIFICATION.md).
 
-Siehe [docs/product/DO_NOT_START.md](docs/product/DO_NOT_START.md) — verbindliche
-Sperrliste fuer Phase 0.
+## Leitprinzip
+
+> Proxmox ist die erste Referenzplattform, nicht die Produktgrenze. Der
+> Wissensbestand bleibt portabel, der Index bleibt reproduzierbar, Claude liest
+> nur das Nötige und der Mensch entscheidet, was gilt.
 
 ## Lizenz
 
 Noch nicht festgelegt. Bewusst offen bis zu einer Entscheidung des Human
-Maintainers; siehe [project-system/DECISION_REGISTER.md](project-system/DECISION_REGISTER.md).
+Maintainers — OD-23 in
+[DECISION_REGISTER.md](project-system/DECISION_REGISTER.md).

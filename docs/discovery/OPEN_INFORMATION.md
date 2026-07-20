@@ -3,82 +3,105 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | Phase 0 – Discovery und Scope Lock |
-| Erfasst in | CBP-WP-001 |
+| Überarbeitet in | CBP-WP-002 |
+| Autoritätsklasse | A2 |
 | Stand | 2026-07-20 |
 
-Waehrend [DISCOVERY_QUESTIONS.md](DISCOVERY_QUESTIONS.md) offene
-**Entscheidungen** sammelt, verzeichnet dieses Dokument fehlende oder nicht
-zugaengliche **Eingangsinformation**.
+Während [DISCOVERY_QUESTIONS.md](DISCOVERY_QUESTIONS.md) offene
+**Entscheidungen** sammelt und
+[G0_SCOPE_LOCK_CRITERIA.md](G0_SCOPE_LOCK_CRITERIA.md) die **Gate-Kriterien**
+führt, verzeichnet dieses Dokument fehlende oder nicht zugängliche
+**Eingangsinformation**.
 
 ---
 
-## OI-01 — Zwei verbindliche Quellen lagen nicht vor
+## OI-01 — Zwei verbindliche Quellen lagen zunächst nicht vor
 
-**Schweregrad:** hoch · **Status:** offen · **Adressat:** Human Maintainer
+**Schweregrad:** hoch · **Status:** **GESCHLOSSEN** (2026-07-20, CBP-WP-002)
 
-CBP-WP-001 nennt vier verbindliche Grundlagen:
+### Ursprünglicher Befund
 
-| # | Quelle | Verfuegbar |
-| --- | --- | --- |
-| 1 | Projektanweisungen dieses Claude-Projekts | **ja** |
-| 2 | Projektwissen: Core-Brain-Uebergabe | **nein** |
-| 3 | Projektwissen: Second-Brain-Bauanleitung | **nein** |
-| 4 | Nova Development Framework v1.0.0 | **ja** (oeffentlich abgerufen) |
+CBP-WP-001 nannte vier verbindliche Grundlagen. Zwei davon — die
+Core-Brain-Übergabe und die Second-Brain-Bauanleitung — waren dem
+Implementation Agent in der Ausführungssitzung nicht zugänglich. Das Fundament
+wurde deshalb aus dem Wortlaut des Work Packages abgeleitet.
 
-Die Quellen 2 und 3 waren dem Implementation Agent in der Ausfuehrungssitzung
-**nicht zugaenglich**. Als Projektwissen hinterlegte Dateien wurden nicht in
-den Sitzungskontext gereicht, und das Arbeitsverzeichnis enthielt sie nicht.
+### Auflösung
 
-**Wie damit umgegangen wurde:** Das dokumentarische Fundament wurde aus dem
-Wortlaut von CBP-WP-001 abgeleitet. Das Work Package traegt Projektdefinition,
-Kernprinzipien, Datenklassen und den vollstaendigen Capability-Katalog
-ausformuliert in sich; diese Substanz war ausreichend, um die geforderten
-Dokumente widerspruchsfrei zu erzeugen.
+| Bedingung aus CBP-WP-002 | Erfüllt |
+| --- | --- |
+| A5-Projektübergabe vollständig gelesen | **ja** — `docs/discovery/Core-Brain-Project-Handoff.md`, 20 Abschnitte, getrackt in Commit `03a29f5` |
+| A6-Textrepräsentation vollständig gelesen | **ja** — `Second-Brain-Bauanleitung-Textfassung.md`, Seitenmarker 1 bis 6 |
+| Provenienz zur PDF dokumentiert | **ja** — [SOURCE_RECONCILIATION.md](SOURCE_RECONCILIATION.md) Abschnitt 1 |
+| Keine ungeklärte inhaltliche Abweichung | **ja** — fünf Widersprüche W-01 bis W-05 erfasst; vier aufgelöst, einer (W-05, Repository-Struktur) bewusst als offene Entscheidung OD-26 geführt, nicht ungeklärt |
 
-**Was daraus folgt:** Detailwissen aus den Quellen 2 und 3, das ueber den
-Wortlaut des Work Packages hinausgeht, ist **nicht** eingeflossen. Es wurde
-nichts erfunden, um die Luecke zu fuellen — fehlende Information steht als
-offene Frage in [DISCOVERY_QUESTIONS.md](DISCOVERY_QUESTIONS.md).
+Der vollständige Abgleich mit 20 bestätigten Übereinstimmungen, 16 Ergänzungen
+und 5 Abschwächungen liegt in
+[SOURCE_RECONCILIATION.md](SOURCE_RECONCILIATION.md).
 
-**Empfohlene Aufloesung:** Vor Gate G0 die beiden Dokumente entweder in das
-Repository aufnehmen oder einem Folge-Work-Package als Kontext beilegen, und
-das hier erzeugte Fundament gegen sie abgleichen.
+### Verbleibende Einschränkung
+
+Der Fließtext der PDF war im lokalen Werkzeug nicht zuverlässig extrahierbar.
+Die Auswertung stützt sich auf die A6-Textfassung. Eine **visuelle
+Detailprüfung der PDF wird nicht behauptet**. Sollte die Textfassung von der
+PDF abweichen, gilt die PDF (A4) — die Textfassung beansprucht keine höhere
+Autorität.
+
+Diese Einschränkung ist als eigenständiges Risiko R-22 erfasst und schließt
+OI-01 nicht wieder auf: die Freigabebedingungen aus CBP-WP-002 sind erfüllt.
 
 ---
 
 ## OI-02 — Herkunft und Rang der Kernprinzipien
 
-**Schweregrad:** mittel · **Status:** offen · **Adressat:** Nova
+**Schweregrad:** mittel · **Status:** **teilweise aufgelöst** · **Adressat:** Human Maintainer
 
-Die 16 Kernprinzipien und die 29 Capabilities stammen aus dem Wortlaut von
-CBP-WP-001. Ob sie dort eine bereits getroffene A0-Entscheidung wiedergeben
-oder einen Vorschlag zur Pruefung an G0 darstellen, ist nicht ausgewiesen.
+Der Quellenabgleich hat die inhaltliche Herkunft geklärt: Die Kernprinzipien
+und der Capability-Katalog sind durch die A5-Projektübergabe gedeckt — siehe
+die 20 bestätigten Übereinstimmungen in
+[SOURCE_RECONCILIATION.md](SOURCE_RECONCILIATION.md) Abschnitt 2.
 
-Sie wurden vorlaeufig als **A2** gefuehrt. Sollen sie bindend sein, ist ein ADR
-erforderlich (A1) oder ein ausdruecklicher Beschluss (A0).
+**Offen bleibt der formale Rang.** Die Prinzipien tragen A2 und sind nicht als
+ADR ausgefertigt. Die Bezeichnung „verbindlich" wurde entsprechend präzisiert
+(Abschwächung Ü-04).
+
+Eine Ausnahme: Capability 27 „read-only MCP/API" findet sich in **keiner** der
+beiden Originalquellen. Ihre Provenienz ist CBP-WP-001 (A2). Vermerkt in der
+Capability Matrix.
+
+Weiterverfolgt als OD-03.
 
 ---
 
 ## OI-03 — Definition der Context Budgets B0–B4
 
-**Schweregrad:** mittel · **Status:** offen · **Adressat:** Nova
+**Schweregrad:** mittel · **Status:** **GESCHLOSSEN** (2026-07-20, CBP-WP-002)
 
-B0–B4 sind als Kernprinzip gesetzt, aber inhaltlich nicht definiert. Unbekannt
-sind Masseinheit, Schwellenwerte und Zuordnung zu Anwendungsfaellen.
+B0 bis B4 sind in [../architecture/CONTEXT_BUDGETS.md](../architecture/CONTEXT_BUDGETS.md)
+mit je sieben Attributen definiert: geeignete Aufgaben, maximaler
+Quellenumfang, erlaubte Kontextarten, Zielgröße des Quellkontexts, erwartete
+Rückmeldelänge, Reviewtiefe und Eskalationsbedingungen. Für B4 sind die sechs
+Pflichtfragen und ein Eskalationsprotokoll festgelegt.
 
-Abgrenzung dokumentiert in [../ndf/ADOPTION_NOTES.md](../ndf/ADOPTION_NOTES.md).
-Siehe auch Q-18.
+**Einschränkung:** Die Token-Zielgrößen sind gesetzte Richtwerte, keine
+gemessenen Schwellen. Sie stammen nicht aus den Originalquellen und sind gegen
+den Benchmark zu validieren. Die harte Grenze ist die Quellenzahl.
+
+Verbleibende Kalibrierung als OD-02 geführt.
 
 ---
 
-## OI-04 — Gate-Kriterien fuer G0 nicht definiert
+## OI-04 — Gate-Kriterien für G0
 
-**Schweregrad:** mittel · **Status:** offen · **Adressat:** Nova
+**Schweregrad:** mittel · **Status:** **GESCHLOSSEN** (2026-07-20, CBP-WP-002)
 
-Das naechste Gate ist als **G0 – Discovery and Scope Lock** benannt. Es
-existiert keine Kriterienliste, anhand derer G0 als bestanden gilt.
+41 objektiv prüfbare Kriterien in sieben Bereichen liegen in
+[G0_SCOPE_LOCK_CRITERIA.md](G0_SCOPE_LOCK_CRITERIA.md) vor, davon 39
+blockierend. Jedes Kriterium führt Nachweis, Owner, Status, erforderliche
+Autorität und Blockierungskennzeichen. Die Abschlussregel ist fünfteilig und
+endet mit der ausdrücklichen Freigabe des Human Maintainers.
 
-Ohne Kriterien ist der Scope Lock nicht pruefbar. Siehe Q-31.
+**Gate-Status weiterhin NOT PASSED** — kein Kriterium ist beantwortet.
 
 ---
 
@@ -86,14 +109,54 @@ Ohne Kriterien ist der Scope Lock nicht pruefbar. Siehe Q-31.
 
 **Schweregrad:** niedrig · **Status:** offen · **Adressat:** Human Maintainer
 
-Proxmox als Referenzplattform und eine dedizierte Linux-VM als spaetere
-Laufzeit sind dokumentiert, aber nicht verifiziert. In Phase 0 wurde
-bewusst **keine** Umgebungspruefung durchgefuehrt: das haette Betriebsarbeit
-vor dem Scope Lock bedeutet.
+Proxmox als Referenzplattform und die dedizierte Linux-VM sind dokumentiert,
+aber nicht verifiziert. In Phase 0 wurde bewusst keine Umgebungsprüfung
+durchgeführt — das wäre Betriebsarbeit vor dem Scope Lock.
+
+Die Erhebung erfolgt über den Fragebogen, Abschnitt 1, und die G0-Kriterien
+B-1 bis B-8.
+
+---
+
+## OI-06 — Benchmarkfragen noch nicht formuliert
+
+**Schweregrad:** mittel · **Status:** offen · **Adressat:** Nova + Human Maintainer
+
+Projektübergabe §16 nennt zehn Erfolgskriterien, Bauanleitung Seite 3
+beschreibt das Baseline-Verfahren. Beides ist in die G0-Kriterien G-1 bis G-6
+überführt.
+
+Es existiert jedoch noch **keine einzige** der geforderten mindestens 30
+Benchmarkfragen. Ohne sie ist Erfolgskriterium 2 („Baselinefragen werden
+korrekt beantwortet") nicht prüfbar, und die Formulierungen „deutlich weniger
+Dateien" und „deutlich weniger Kontext" bleiben unquantifiziert.
+
+Die Fragen können erst sinnvoll entstehen, wenn der reale Wissensbestand
+bekannt ist — also nach Beantwortung von D-1 bis D-3.
+
+---
+
+## OI-07 — Repository-Struktur nicht freigegeben
+
+**Schweregrad:** mittel · **Status:** offen · **Adressat:** Nova + Human Maintainer
+
+Drei Strukturvorstellungen stehen nebeneinander:
+
+| Quelle | Struktur |
+| --- | --- |
+| Projektübergabe §13 (A5) | `core/`, `deployments/`, `docs/`, `examples/` — ausdrücklich noch nicht freigegeben |
+| NDF v1.0.0 (A1) | `project-manifest.yaml`, `project-brain/DECISIONS.md`, `prompts/claude/work-packages/` |
+| Repository (A2) | Struktur aus CBP-WP-001 |
+
+Die Übergabe stellt selbst klar, dass die konkrete Struktur im Projekt geplant
+werden muss. Deshalb sind die Abweichungen AB-03 bis AB-08 nur **vorläufig für
+den Bootstrap** akzeptiert und vor G0 zu entscheiden.
+
+Siehe Widerspruch W-05 und Entscheidung OD-26.
 
 ---
 
 ## Bearbeitung
 
-Ein Eintrag wird nicht geloescht, sondern auf `geschlossen` gesetzt und mit der
-aufloesenden Quelle oder Entscheidung verknuepft.
+Ein Eintrag wird nicht gelöscht, sondern auf `geschlossen` gesetzt und mit der
+auflösenden Quelle oder Entscheidung verknüpft.

@@ -3,209 +3,192 @@
 | Feld | Wert |
 | --- | --- |
 | Framework | Nova Development Framework **v1.0.0** |
-| Erfasst in | CBP-WP-001 |
+| Erfasst in | CBP-WP-001, überarbeitet in CBP-WP-002 |
+| Autoritätsklasse | A2 |
 | Stand | 2026-07-20 |
 
-Dieses Dokument haelt fest, wo Core Brain Pilot von den kanonischen
-NDF-v1.0.0-Vorlagen abweicht, und warum. Grundsatz aus CBP-WP-001: **keine
-parallelen doppelten Strukturen**. Wo NDF und Work Package unterschiedliche
-Pfade vorsehen, existiert genau **eine** Datei — nicht beide.
+Grundsatz: **keine parallelen doppelten Strukturen.** Wo NDF und Work Package
+unterschiedliche Pfade vorsehen, existiert genau **eine** Datei.
 
----
+## Status der Abweichungen
 
-## Geprueft wurden
-
-| NDF-Dokument | Zweck |
+| Status | Bedeutung |
 | --- | --- |
-| `README.md` | Rollenmodell, WP-Typen, Lifecycle |
-| `framework/standards/WORK_PACKAGE_TYPES.md` | WP-Typen |
-| `framework/standards/WORK_PACKAGE_LIFECYCLE.md` | Lifecycle |
-| `docs/agent-workflows/NDF_PROMPT_MODES.md` | Prompt Modes |
-| `docs/agent-workflows/NDF_CONTEXT_ECONOMY.md` | Context Economy |
-| `docs/workflow/NOVA_CHATGPT_ROLE.md` | Nova-Rolle |
-| `framework/project-system/templates/` | Projektsystem-Vorlagen |
-| `framework/project-starter/templates/` | Starter-Vorlagen |
-| `framework/project-starter/templates/project-system-folder-structure.md` | kanonische Ordnerstruktur |
+| `decided` | Entschieden, dauerhaft |
+| `provisionally accepted for bootstrap` | Für den Bootstrap akzeptiert, **nicht** dauerhaft bestätigt |
+| `requires decision before G0` | Muss vor dem Scope Lock entschieden werden |
 
-## Uebernommene Konventionen
+> **Wichtig.** AB-03 bis AB-08 sind **nicht** dauerhaft akzeptiert. Sie tragen
+> alle den Status `provisionally accepted for bootstrap` **und**
+> `requires decision before G0`. Projektübergabe §13 stellt ausdrücklich fest,
+> dass die konkrete Repository-Struktur noch nicht freigegeben ist. Erfasst als
+> OD-29, offener Widerspruch W-05.
 
-- Rollenmodell Nova → Implementation Agent → Human Maintainer
-- Lifecycle `Classify → Plan → Execute → Report to Nova → Review → Commit`
-- WP-Typ `docs-only`
-- Prompt Modes Full / Standard / Short
-- Fuenf Kontextschichten, Compact Context Summary, Context Packs
-- Verzeichnisnamen `project-system/` und `project-brain/`
-- Dateinamen `PROJECT_PROFILE.md`, `CAPABILITY_MATRIX.md`,
-  `WORK_PACKAGE_QUEUE.md`, `COMPLIANCE_CHECK.md`, `HEALTH_SCORE.md`,
-  `PROJECT_BRAIN.md`
-- Abschnittsgliederung von `PROJECT_PROFILE_TEMPLATE.md` und
-  `INITIAL_PROJECT_BRAIN.md`
-- Statuswert `planned` aus `CAPABILITY_MATRIX_TEMPLATE.md`
-- Spalten `ID | Title | Priority | Status | Prompt` aus
-  `WORK_PACKAGE_QUEUE_TEMPLATE.md`
-- Regel "keine autonomen Commits oder Pushes"
-- Fail-closed-, documentation-only-Grundhaltung (ADR-0032)
-- Kein `LICENSE` — NDF fuehrt eine Lizenz im eigenen Repository, CBP-WP-001
-  verbietet sie ausdruecklich fuer dieses Projekt
+## Übersicht
+
+| ID | Abweichung | Status |
+| --- | --- | --- |
+| AB-01 | Prompt Mode „Lean" | **`decided`** |
+| AB-02 | Context Budgets B0–B4 kein NDF-Konzept | **`decided`** |
+| AB-03 | Manifest als Markdown statt YAML | `provisionally accepted for bootstrap` · `requires decision before G0` |
+| AB-04 | Register in `project-system/` | `provisionally accepted for bootstrap` · `requires decision before G0` |
+| AB-05 | `project-brain/` schlank | `provisionally accepted for bootstrap` · `requires decision before G0` |
+| AB-06 | `work-packages/` flach | `provisionally accepted for bootstrap` · `requires decision before G0` |
+| AB-07 | `docs/ndf/` ohne WORKFLOW/QUALITY_GATES/RELEASE_PROCESS | `provisionally accepted for bootstrap` · `requires decision before G0` |
+| AB-08 | COMPLIANCE_CHECK und HEALTH_SCORE ergänzt | `provisionally accepted for bootstrap` · `requires decision before G0` |
+| AB-09 | Dokumentationssprache Deutsch | `decided` |
+| AB-10 | Umlaut-Transkription | **aufgehoben** |
+
+## Geprüfte NDF-Dokumente
+
+`README.md` · `framework/standards/WORK_PACKAGE_TYPES.md` ·
+`framework/standards/WORK_PACKAGE_LIFECYCLE.md` ·
+`docs/agent-workflows/NDF_PROMPT_MODES.md` ·
+`docs/agent-workflows/NDF_CONTEXT_ECONOMY.md` ·
+`docs/workflow/NOVA_CHATGPT_ROLE.md` · `framework/project-system/templates/` ·
+`framework/project-starter/templates/` ·
+`framework/project-starter/templates/project-system-folder-structure.md`
+
+## Übernommene Konventionen
+
+Rollenmodell Nova → Implementation Agent → Human Maintainer · Lifecycle
+`Classify → Plan → Execute → Report to Nova → Review → Commit` · WP-Typ
+`docs-only` · Prompt Modes Full/Standard/Short · fünf Kontextschichten ·
+Compact Context Summary · Context Packs · Verzeichnisnamen `project-system/`
+und `project-brain/` · Dateinamen in Großbuchstaben · Statuswert `planned` ·
+Queue-Spalten `ID | Title | Priority | Status | Prompt` · Regel „keine autonomen
+Commits oder Pushes" · Fail-closed- und documentation-only-Haltung (ADR-0032) ·
+kein `LICENSE`
 
 ---
 
-## AB-01 — Prompt Mode "Lean" existiert in NDF v1.0.0 nicht
+## AB-01 — Prompt Mode „Lean" · `decided`
 
-**Feststellung.** CBP-WP-001 deklariert `Prompt Mode: Lean`. NDF v1.0.0 kennt
-genau drei Modi: **Full**, **Standard**, **Short**. Ein Modus "Lean" ist in
-`NDF_PROMPT_MODES.md` nicht definiert.
+**Feststellung.** CBP-WP-001 deklarierte `Prompt Mode: Lean`. NDF v1.0.0 kennt
+genau drei Modi: **Full**, **Standard**, **Short**.
 
-**Behandlung.** "Lean" wurde als **Standard Prompt Mode** ausgefuehrt. Das
-passt zur Beschreibung des Standard-Modus — vorhersagbare, begrenzte Aufgabe,
-Verweis auf dauerhafte Regeln, Abschluss mit Bericht an Nova — und zur
-zusaetzlichen Angabe `Context Budget: B2 – Standard`.
+Der Quellenabgleich hat den Ursprung geklärt: **Projektübergabe §14 (A5)**
+empfiehlt „Lean Mode bevorzugen" als NDF-Nutzungsregel. Gleichzeitig heißt B1
+in Projektübergabe §8 „Lean". Die Übergabe hat den Budgetnamen auf die
+Prompt-Ebene übertragen.
 
-**Offen fuer Nova.** Entweder kuenftig `Standard` schreiben, oder "Lean" als
-projektinternes Synonym per ADR festschreiben.
+**Entscheidung (D-009, A0).** „Lean" ist **kein** NDF Prompt Mode, sondern
+ausschließlich der Name des Context Budgets **B1**. Die Absicht der Übergabe —
+sparsamer Kontext — wird über die Context Budgets abgebildet.
 
----
+CBP-WP-001 wurde rückwirkend als **Standard Prompt Mode** eingeordnet.
 
-## AB-02 — Context Budgets B0–B4 sind kein NDF-Konzept
+Siehe Widerspruch W-01, geschlossene Entscheidung OD-12.
 
-**Feststellung.** CBP-WP-001 fuehrt `Context Budget: B2 – Standard` und listet
-"Context Budgets B0–B4" unter den Kernprinzipien. NDF v1.0.0 kennt **keine**
-benannten Budgetstufen; die Context Economy arbeitet mit fuenf Kontextschichten,
-Compact Context Summary und Context Packs.
+## AB-02 — Context Budgets B0–B4 · `decided`
 
-**Behandlung.** Beides wird **getrennt** gefuehrt:
+**Feststellung.** NDF v1.0.0 kennt keine benannten Budgetstufen; die Context
+Economy arbeitet mit fünf Kontextschichten, Compact Context Summary und Context
+Packs.
+
+**Entscheidung (D-009, A0).** Beides wird getrennt geführt:
 
 | Konzept | Herkunft | Gegenstand |
 | --- | --- | --- |
-| Context Economy, Schichten 1–5 | NDF v1.0.0 | Kontext eines **Agentenauftrags** |
-| Context Budgets B0–B4 | Core Brain Pilot | Umfang eines **Retrieval-Ergebnisses** |
+| Context Economy, Schichten 1–5 | NDF v1.0.0 (A1) | Kontext eines **Agentenauftrags** |
+| Context Budgets B0–B4 | Core Brain Pilot, Übergabe §8 (A5) | Umfang eines **Retrieval-Ergebnisses** |
 
-Sie beschreiben unterschiedliche Dinge und werden nicht vermischt. B0–B4 ist
-eine Produkteigenschaft des zu bauenden Systems, keine NDF-Erweiterung.
+Definiert in
+[../architecture/CONTEXT_BUDGETS.md](../architecture/CONTEXT_BUDGETS.md).
+Verwechslungsrisiko als R-24 erfasst.
 
-**Offen.** Die Stufen sind inhaltlich undefiniert — siehe OI-03.
+## AB-03 — Projektmanifest als Markdown · vorläufig
 
----
+NDF v1.0.0 sieht `project-system/project-manifest.yaml` vor. CBP-WP-001 erlaubte
+nur Markdown, `.gitignore` und Ordner.
 
-## AB-03 — Projektmanifest als Markdown statt YAML
+**Vorläufig:** `PROJECT_MANIFEST.md`. **Empfehlung:** Umstellung auf
+`project-manifest.yaml`, Markdown-Fassung **ersetzen**, nicht ergänzen. OD-13.
 
-**Feststellung.** NDF v1.0.0 sieht kanonisch `project-system/project-manifest.yaml`
-vor (Vorlagen `project-manifest.template.yaml`, `INITIAL_PROJECT_MANIFEST.yaml`).
-CBP-WP-001 fordert `project-system/PROJECT_MANIFEST.md` und erlaubt als
-Aenderungen ausschliesslich Markdown-Dokumentation, `.gitignore` und Ordner.
+## AB-04 — Register in `project-system/` · vorläufig
 
-**Behandlung.** Angelegt wurde `PROJECT_MANIFEST.md`. Eine YAML-Datei waere
-ausserhalb der in CBP-WP-001 erlaubten Dateitypen gewesen; die engere Grenze
-des freigegebenen Work Packages hat Vorrang.
+NDF sieht `project-brain/DECISIONS.md` und `RISKS.md` vor; CBP-WP-001 forderte
+`project-system/DECISION_REGISTER.md` und `RISK_REGISTER.md`.
 
-**Empfehlung.** In einem Folge-Work-Package auf `project-manifest.yaml`
-umstellen und die Markdown-Fassung durch die YAML-Fassung **ersetzen** — nicht
-ergaenzen.
+Die NDF-Pendants wurden **bewusst nicht** zusätzlich angelegt.
+`PROJECT_BRAIN.md` verweist auf die Register. OD-14.
 
----
+## AB-05 — `project-brain/` schlank · vorläufig
 
-## AB-04 — Entscheidungen und Risiken liegen in `project-system/`
+Nur `PROJECT_BRAIN.md` angelegt. `DECISIONS.md` und `RISKS.md` siehe AB-04,
+offene Fragen in `docs/discovery/`. `LESSONS_LEARNED` wird angelegt, sobald es
+Projekthistorie gibt; die Abschnitte sind als Gliederung erhalten.
 
-**Feststellung.** NDF v1.0.0 sieht `project-brain/DECISIONS.md` und
-`project-brain/RISKS.md` vor. CBP-WP-001 fordert
-`project-system/DECISION_REGISTER.md` und `project-system/RISK_REGISTER.md`.
+## AB-06 — `work-packages/` flach · vorläufig
 
-**Behandlung.** Der Vorgabe von CBP-WP-001 gefolgt. Die NDF-Pendants unter
-`project-brain/` wurden **bewusst nicht** zusaetzlich angelegt, um doppelte
-Strukturen zu vermeiden. `project-brain/PROJECT_BRAIN.md` verweist auf die
-Register, statt deren Inhalt zu wiederholen.
+NDF sieht `prompts/claude/work-packages/` vor. Das flache Verzeichnis ist
+agent-neutral — passend zur Werkzeugneutralität.
 
-**Offen fuer Nova.** Angleichung an das NDF-Namensschema oder dauerhafte
-Abweichung per ADR — siehe Q-30.
+## AB-07 — `docs/ndf/` reduziert · vorläufig
 
----
+NDF sieht `WORKFLOW.md`, `QUALITY_GATES.md` und `RELEASE_PROCESS.md` vor.
+Angelegt sind `README.md` und `ADOPTION_NOTES.md`.
 
-## AB-05 — `project-brain/` bewusst schlank
+`QUALITY_GATES.md` und `RELEASE_PROCESS.md` fehlen weiterhin bewusst: Die
+G0-Kriterien liegen jetzt in
+[../discovery/G0_SCOPE_LOCK_CRITERIA.md](../discovery/G0_SCOPE_LOCK_CRITERIA.md),
+ein allgemeines Gate-Dokument wäre derzeit Duplikat. Ein Releaseprozess ohne
+Implementierung und Lizenzentscheidung bleibt Spekulation.
 
-**Feststellung.** NDF v1.0.0 sieht neben `PROJECT_BRAIN.md` auch
-`DECISIONS.md`, `LESSONS_LEARNED.md`, `RISKS.md` und `OPEN_QUESTIONS.md` vor.
+## AB-08 — COMPLIANCE_CHECK und HEALTH_SCORE ergänzt · vorläufig
 
-**Behandlung.** Nur `PROJECT_BRAIN.md` angelegt. Die uebrigen Themen sind
-bereits abgedeckt: Entscheidungen und Risiken in `project-system/` (AB-04),
-offene Fragen in `docs/discovery/`. `LESSONS_LEARNED` ist ohne Projekthistorie
-inhaltsleer und wird angelegt, sobald es etwas zu lernen gibt. Die Abschnitte
-sind als Gliederung in `PROJECT_BRAIN.md` erhalten.
+Beide gehören zur kanonischen NDF-Ordnerstruktur, waren aber in der
+Zielstruktur von CBP-WP-001 nicht aufgeführt. Offengelegte Ergänzung, keine
+stillschweigende Scope-Erweiterung.
 
----
+## AB-09 — Sprache Deutsch · `decided`
 
-## AB-06 — Work Packages unter `work-packages/` statt `prompts/claude/work-packages/`
+Projektdokumentation auf Deutsch. Englische NDF-Fachbegriffe (Work Package,
+Context Pack, Gate, Prompt Mode, Capability) bleiben unübersetzt, damit sie auf
+die NDF-Quellen zurückführbar sind. Dateinamen folgen dem englischen
+NDF-Schema in Großbuchstaben.
 
-**Feststellung.** NDF v1.0.0 sieht `prompts/claude/work-packages/` vor.
-CBP-WP-001 fordert `work-packages/CBP-WP-001.md`.
+## AB-10 — Umlaut-Transkription · **aufgehoben**
 
-**Behandlung.** Der Vorgabe gefolgt. `prompts/claude/` wurde nicht zusaetzlich
-angelegt. Das flache Verzeichnis ist zudem agent-neutral — passend zum
-Prinzip der Deployment- und Werkzeugneutralitaet.
+**Frühere Fassung:** CBP-WP-001 verwendete `ae`, `oe`, `ue`, `ss` statt
+Umlauten, zur Vermeidung von Encoding-Problemen.
 
----
-
-## AB-07 — `docs/ndf/` ohne WORKFLOW / QUALITY_GATES / RELEASE_PROCESS
-
-**Feststellung.** NDF v1.0.0 sieht unter `docs/ndf/` die Dateien
-`WORKFLOW.md`, `QUALITY_GATES.md` und `RELEASE_PROCESS.md` vor. CBP-WP-001
-fordert dort `README.md` und `ADOPTION_NOTES.md`.
-
-**Behandlung.** Der Vorgabe gefolgt. Der Workflow-Inhalt steht in
-[README.md](README.md). `QUALITY_GATES.md` und `RELEASE_PROCESS.md` wurden
-**nicht** angelegt: Gate-Kriterien fuer G0 sind noch nicht definiert (OI-04),
-und ein Releaseprozess ohne Implementierung und ohne Lizenzentscheidung waere
-Spekulation. Beide sind als Folge-Work-Package vorgemerkt.
+**Aufgehoben durch D-012 (A0).** Neue und geänderte Dokumente verwenden UTF-8
+mit echten deutschen Umlauten. In CBP-WP-002 wurden alle geänderten Dateien
+entsprechend umgestellt.
 
 ---
 
-## AB-08 — `COMPLIANCE_CHECK.md` und `HEALTH_SCORE.md` ergaenzt
+## Handoff-Abschlussformat
 
-**Feststellung.** Beide sind Teil der kanonischen NDF-Ordnerstruktur, aber in
-der Zielstruktur von CBP-WP-001 nicht aufgefuehrt.
+*Ergänzt in CBP-WP-002 als F-12. Quelle: Projektübergabe §20.*
 
-**Behandlung.** Angelegt. CBP-WP-001 bezeichnet seine Zielstruktur als
-"mindestens benoetigt" und weist ausdruecklich an, die Struktur an die
-verbindlichen NDF-v1.0.0-Vorlagen anzupassen. Beide Dateien sind als Geruest
-mit Phase-0-Status angelegt, ohne inhaltliche Bewertung.
+Jede größere Projektphase endet mit einem Block:
 
-Dies ist eine **offengelegte** Ergaenzung, keine stillschweigende
-Scope-Erweiterung.
+```text
+# BEGIN CORE-BRAIN-HANDOFF
+...
+# END CORE-BRAIN-HANDOFF
+```
 
----
+Pflichtbestandteile: aktueller Projektstatus · bestätigte Entscheidungen ·
+offene Annahmen · aktive Risiken · aktuelles Work Package · erzielte Evidenz ·
+nächstes Gate · nächster autorisierter Schritt · Do-not-start-Liste ·
+Auswirkungen auf Core Vision, NDF und andere Core-Projekte.
 
-## AB-09 — Sprache Deutsch
+Dieses Format ergänzt den NDF Implementation Report, es ersetzt ihn nicht: Der
+Report geht an Nova nach jedem Work Package, der Core-Brain-Handoff schließt
+eine **Phase** ab.
 
-**Feststellung.** NDF v1.0.0 mischt: englische Standarddokumente, deutsche
-Vorlagenabschnitte (`Ziel`, `Zielgruppe`, `Rückmeldung an Nova`).
+Bisher wurde kein Core-Brain-Handoff erzeugt — Phase 0 läuft noch.
 
-**Behandlung.** Projektdokumentation auf Deutsch, entsprechend Work Package und
-Projektanweisungen. Englische NDF-Fachbegriffe (Work Package, Context Pack,
-Gate, Prompt Mode, Capability) bleiben unuebersetzt, damit sie auf die
-NDF-Quellen zurueckfuehrbar sind.
-
-Dateinamen folgen dem englischen NDF-Schema in Grossbuchstaben.
-
----
-
-## AB-10 — Umlaute in Fliesstext transkribiert
-
-**Feststellung.** Die Dokumente verwenden ueberwiegend `ae`, `oe`, `ue`, `ss`
-statt Umlauten.
-
-**Behandlung.** Bewusst, zur Vermeidung von Encoding-Problemen zwischen
-Windows-Werkzeugketten, Git und spaeteren Ingest-Pipelines. Rein kosmetisch,
-inhaltlich ohne Bedeutung. Bei Bedarf per Folge-Work-Package auf echte Umlaute
-umstellbar.
-
----
-
-## Nicht uebernommen
+## Nicht übernommen
 
 | Gegenstand | Grund |
 | --- | --- |
-| v1.1-Planung | CBP-WP-001 untersagt sie ausdruecklich |
-| `.claude/`-Skills-Bibliothek (38 Skills) | Nicht Gegenstand von CBP-WP-001 |
-| `scripts/`, `build/`, `.github/` | Skripte und CI-Workflows sind verboten |
-| `LICENSE` | Ausdruecklich verboten; Lizenzwahl offen (Q-28) |
-| `branding/` | Oeffentliches Branding ist in Phase 0 gesperrt |
+| v1.1-Planung | Ausdrücklich untersagt |
+| `.claude/`-Skills-Bibliothek | Nicht Gegenstand der bisherigen Work Packages; neue NDF-Skills stehen auf der Sperrliste |
+| `scripts/`, `build/`, `.github/` | Skripte und CI-Workflows verboten |
+| `LICENSE` | Ausdrücklich verboten; Lizenzwahl offen (OD-23) |
+| `branding/` | Öffentliches Branding gesperrt |
 | `academy/`, `examples/` | Bestandteile des Framework-Repositorys, nicht eines Zielprojekts |

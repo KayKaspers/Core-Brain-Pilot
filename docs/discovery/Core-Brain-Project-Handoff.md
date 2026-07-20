@@ -1,4 +1,21 @@
-﻿# Projektübergabe: Serverbasiertes, portables KI-Wissenssystem
+﻿<!--
+source type: project handoff
+authority class: A5
+approval status: approved
+canonical status: canonical project source
+original content preserved: yes
+-->
+
+> **Metadaten.** Quellentyp: Projektübergabe · Autoritätsklasse: **A5** ·
+> Freigabestatus: freigegeben · Kanonischer Status: kanonische Projektquelle ·
+> Originalinhalt unverändert erhalten: **ja**
+>
+> Ergänzt in CBP-WP-002. Unterhalb dieser Zeile wurde kein Zeichen des
+> fachlichen Inhalts verändert, gekürzt oder umformuliert.
+
+---
+
+# Projektübergabe: Serverbasiertes, portables KI-Wissenssystem
 
 Du bist Nova im neuen Projektchat für ein serverbasiertes KI-Wissens- und Arbeitssystem.
 

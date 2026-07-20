@@ -2,111 +2,144 @@
 
 | Feld | Wert |
 | --- | --- |
-| Autoritaetsklasse | A2 |
+| Überarbeitet in | CBP-WP-002 |
+| Autoritätsklasse | A2 |
 | Stand | 2026-07-20 |
 
-Kuratiertes Projektgedaechtnis. Dieses Dokument ist der Einstiegspunkt fuer
-jede neue Sitzung — es fasst zusammen und **verweist**, statt Inhalte zu
-duplizieren.
+Kuratiertes Projektgedächtnis und Einstiegspunkt für jede neue Sitzung. Dieses
+Dokument **verweist**, statt Inhalte zu duplizieren.
 
 ## Projektstatus
 
 **Phase 0 – Discovery und Scope Lock.**
 
-Das Repository enthaelt ausschliesslich Dokumentation. Es existiert keine
+Das Repository enthält ausschließlich Dokumentation. Es existiert keine
 Implementierung, keine Laufzeit, keine Installation, kein Index und kein
 Wissensbestand.
 
 | Feld | Wert |
 | --- | --- |
-| Aktuelles Work Package | CBP-WP-001 |
-| Naechstes Gate | G0 – Discovery and Scope Lock |
-| Implementierte Capabilities | keine (0 von 29) |
-| Commits | keiner |
-| Remote | keines |
+| Aktuelles Work Package | CBP-WP-002 (`in-review`) |
+| Nächstes Gate | **G0 – Discovery and Scope Lock — NOT PASSED** |
+| G0-Kriterien | 41, davon 39 blockierend, **0 beantwortet** |
+| Implementierte Capabilities | **keine (0 von 29)** |
+| Commits | 2 |
+| Remote | `origin`, gepusht |
 
 ## Ziel
 
-Core Brain Pilot ist ein serverzentriertes und portables KI-Wissens- und
-Arbeitssystem. Es soll Implementation Agents die kleinste ausreichende Menge
-relevanter, aktueller, autoritativer und datenschutzrechtlich erlaubter
-Informationen bereitstellen.
+Ein serverzentriertes und portables KI-Wissens- und Arbeitssystem, das
+Implementation Agents die kleinste ausreichende Menge relevanter, aktueller,
+autoritativer und datenschutzrechtlich erlaubter Informationen bereitstellt.
 
-Vollstaendig in
+**Das Problem dahinter:** zu hoher Token- und Kontextverbrauch. Das
+Claude-Nutzungslimit kann bereits nach wenigen umfangreichen Prompts erreicht
+sein. Das System soll Limits nicht umgehen, sondern Kontext effizienter nutzen.
+
+Vollständig in
 [docs/architecture/PROJECT_DEFINITION.md](../docs/architecture/PROJECT_DEFINITION.md).
 
 ## Architekturstand
 
-Es existiert **kein** Architekturentwurf im Sinne eines Komponentenschnitts.
-Festgehalten sind bisher nur Prinzipien und Vertrauensgrenzen:
+Kein Komponentenschnitt. Festgehalten sind Prinzipien und Grenzen:
 
-- 16 verbindliche Kernprinzipien —
+- 16 Kernprinzipien (A2, nicht als ADR ausgefertigt) —
   [ARCHITECTURE_PRINCIPLES.md](../docs/architecture/ARCHITECTURE_PRINCIPLES.md)
-- 6 Vertrauensgrenzen TB-1 bis TB-6, keine davon durchgesetzt —
+- 6 Vertrauensgrenzen TB-1 bis TB-6 plus Sicherheitsmodell mit fünf
+  Berechtigungsstufen, **keine davon durchgesetzt** —
   [TRUST_BOUNDARIES.md](../docs/architecture/TRUST_BOUNDARIES.md)
-- 5 Datenklassen, technisch nicht durchgesetzt —
+- 5 Datenklassen mit Flussmatrix, technisch nicht durchgesetzt —
   [DATA_CLASSIFICATION.md](../docs/privacy/DATA_CLASSIFICATION.md)
+- Context Budgets B0–B4 —
+  [CONTEXT_BUDGETS.md](../docs/architecture/CONTEXT_BUDGETS.md)
 
-Tragende Invariante: **kanonisch vs. abgeleitet.** Der Verlust von Index,
-Cache, Embeddings, Graph oder Web-UI darf keinen Wissensverlust verursachen.
+**Tragende Invariante:** Der Verlust eines Indexes oder einer Oberfläche darf
+nicht zum Verlust des Wissens führen.
+
+**Wichtige Klarstellung aus dem Quellenabgleich:** Index und Suche laufen
+lokal, die Sprachverarbeitung nicht. Claude Code verwendet keinen vollständig
+lokalen Modellbetrieb — ausgewählte Inhalte werden übertragen. Genau daraus
+entsteht die Notwendigkeit der Datenklassifikation.
 
 ## Entscheidungen
 
 Angenommene ADRs: **0**.
 
-Offene Entscheidungen werden gefuehrt in
-[project-system/DECISION_REGISTER.md](../project-system/DECISION_REGISTER.md),
-ADRs in [docs/decisions/](../docs/decisions/README.md).
+14 getroffene Entscheidungen, davon 8 mit A0-Rang; 27 offene, davon 14 mit P0.
+Geführt in
+[project-system/DECISION_REGISTER.md](../project-system/DECISION_REGISTER.md).
 
-> Abweichend von der NDF-Vorlage existiert **kein** `project-brain/DECISIONS.md`.
-> Begruendung: AB-04 in [ADOPTION_NOTES.md](../docs/ndf/ADOPTION_NOTES.md).
+Die wichtigsten Festlegungen aus CBP-WP-002: NDF Prompt Modes sind Full,
+Standard und Short — „Lean" ist ausschließlich der Name von B1 (D-009). Die
+dedizierte Linux-VM ist der Referenzbetrieb, Docker Compose eine noch nicht
+implementierte Laufzeit darin (D-013). Wiki, Graph und Web-UI beginnen nicht
+vor einem bestandenen Retrieval-Pilot-Gate (D-014).
+
+> Abweichend von der NDF-Vorlage existiert **kein**
+> `project-brain/DECISIONS.md` — AB-04 in
+> [ADOPTION_NOTES.md](../docs/ndf/ADOPTION_NOTES.md).
 
 ## Risiken
 
-Gefuehrt in
+29 erfasste Risiken, davon 14 mit Schweregrad hoch. Geführt in
 [project-system/RISK_REGISTER.md](../project-system/RISK_REGISTER.md).
 
-Groesstes Risiko in Phase 0: vorgezogene Implementierung, die eine noch nicht
-getroffene Architekturentscheidung praejudiziert. Gegenmassnahme ist die
-Sperrliste in [DO_NOT_START.md](../docs/product/DO_NOT_START.md).
+Die gravierendsten offenen Punkte: Berechtigungen bestehen nur als Promptregel
+und nicht technisch (R-25). Die Datenschutzklassifikation existiert ohne
+technische Durchsetzung (R-30). Restore wurde nie geprobt (R-20).
 
 ## Offene Fragen
 
-31 Discovery-Fragen in
-[docs/discovery/DISCOVERY_QUESTIONS.md](../docs/discovery/DISCOVERY_QUESTIONS.md),
-davon 11 mit Prioritaet P1 (blockieren G0).
+- **Fragebogen:** 55 Fragen, davon 35 mit P0 —
+  [DISCOVERY_QUESTIONS.md](../docs/discovery/DISCOVERY_QUESTIONS.md)
+- **G0-Kriterien:** 41, davon 39 blockierend —
+  [G0_SCOPE_LOCK_CRITERIA.md](../docs/discovery/G0_SCOPE_LOCK_CRITERIA.md)
+- **Fehlende Information:** OI-05, OI-06, OI-07 offen —
+  [OPEN_INFORMATION.md](../docs/discovery/OPEN_INFORMATION.md)
 
-Fehlende Eingangsinformation in
-[docs/discovery/OPEN_INFORMATION.md](../docs/discovery/OPEN_INFORMATION.md).
-Besonders **OI-01**: zwei der vier in CBP-WP-001 genannten verbindlichen
-Quellen lagen dem Implementation Agent nicht vor.
+Der größte inhaltliche Block: sämtliche Infrastruktur-, Netzwerk- und
+Datenangaben aus Projektübergabe §19 sind unbeantwortet.
 
 ## Lessons Learned
 
-Noch keine — das Projekt hat keine Historie.
+**Aus CBP-WP-001:** Ein Work Package, das seine fachliche Substanz vollständig
+mitführt, bleibt auch dann ausführbar, wenn hinterlegtes Projektwissen im
+Sitzungskontext fehlt.
 
-Erste Beobachtung aus CBP-WP-001: Ein Work Package, das seine eigene fachliche
-Substanz vollstaendig mitfuehrt, bleibt auch dann ausfuehrbar, wenn hinterlegtes
-Projektwissen im Sitzungskontext fehlt. Das hat OI-01 von einem Blocker zu
-einer dokumentierten Luecke reduziert.
+**Aus CBP-WP-002:** Zwei Ausführungsversuche endeten in der Vorprüfung mit
+BLOCKED — einmal wegen unsauberem Arbeitsbaum und unlesbarem PDF, einmal wegen
+fehlender Quelldatei. Beide Abbrüche erfolgten vor jeder Dateiänderung und
+haben nichts beschädigt. Die Vorprüfung hat funktioniert; ohne sie wäre im
+ersten Versuch ein Quellenabgleich mit erfundenen Seitenreferenzen entstanden.
 
-## Naechste Arbeitspakete
+**Zweite Lektion:** Der Abgleich hat eine sachlich falsche Aussage im Fundament
+gefunden (Ü-01, „keine Notwendigkeit, Wissensbestand an externe Dienste zu
+senden"). Aus dem Work-Package-Wortlaut allein war das nicht erkennbar — erst
+die Originalquelle hat es offengelegt. Das rechtfertigt den Aufwand des
+Abgleichs.
 
-Siehe [project-system/WORK_PACKAGE_QUEUE.md](../project-system/WORK_PACKAGE_QUEUE.md).
+## Nächste Arbeitspakete
 
-Vorgeschlagen, **nicht freigegeben**: CBP-WP-002 — Gate-G0-Kriterien und
-Beantwortung der P1-Discovery-Fragen.
+Siehe
+[project-system/WORK_PACKAGE_QUEUE.md](../project-system/WORK_PACKAGE_QUEUE.md).
 
-## Rueckmeldung an Nova
+Vorgeschlagen, **nicht freigegeben**: CBP-WP-003 — Human Discovery Intake and
+G0 Evidence Capture.
 
-CBP-WP-001 ist ausgefuehrt: dokumentarisches Fundament steht, 23 Dateien,
-kein Code, kein Commit, kein Remote, keine Secrets.
+## Rückmeldung an Nova
 
-Zehn NDF-Abweichungen sind in
-[ADOPTION_NOTES.md](../docs/ndf/ADOPTION_NOTES.md) als AB-01 bis AB-10
-dokumentiert. Entscheidungsbedarf besteht bei drei Punkten: Prompt Mode "Lean"
-gegen NDF Full/Standard/Short (AB-01), Manifest als Markdown statt YAML
-(AB-03), Registerablage in `project-system/` statt `project-brain/` (AB-04).
+CBP-WP-002 ist ausgeführt. Der Quellenabgleich gegen A5-Übergabe und
+A6-Textfassung bestätigt 20 Aussagen, ergänzt 16 fehlende Inhalte, schwächt 5
+zu starke Formulierungen ab und erfasst 5 Widersprüche. OI-01, OI-03 und OI-04
+sind geschlossen.
 
-Blockierend fuer G0: die Definition der Gate-Kriterien (OI-04) und der Context
-Budgets B0–B4 (OI-03).
+**G0 bleibt NOT PASSED** — 41 Kriterien liegen vor, keines ist beantwortet.
+
+Entscheidungsbedarf: 14 P0-Entscheidungen, insbesondere OD-26
+(Repository-Struktur — drei Vorstellungen nebeneinander) und OD-29 (AB-03 bis
+AB-08 sind nur vorläufig für den Bootstrap akzeptiert und vor G0 zu
+entscheiden).
+
+Einschränkung: Der PDF-Fließtext war lokal nicht extrahierbar; die Auswertung
+stützt sich auf die A6-Textfassung. Eine visuelle Detailprüfung der PDF wird
+nicht behauptet (R-22, R-23).
