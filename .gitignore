@@ -1,0 +1,169 @@
+# Core Brain Pilot — .gitignore
+#
+# Grundsatz: Das Repository enthaelt ausschliesslich kanonische, kuratierte
+# Inhalte. Abgeleitete Daten (Index, Cache, Embeddings, Graph) sind
+# reproduzierbar und gehoeren NICHT in die Git-Historie.
+#
+# Es werden bewusst KEINE Beispiel-Secrets und keine .env.example angelegt.
+
+# ---------------------------------------------------------------------------
+# Secrets, Zugangsdaten, Schluessel  (Datenklasse: secret)
+# ---------------------------------------------------------------------------
+.env
+.env.*
+*.env
+secrets/
+.secrets/
+*.secret
+*.secrets
+credentials
+credentials.*
+*.credentials
+auth.json
+service-account*.json
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+*.ppk
+id_rsa
+id_rsa.*
+id_ed25519
+id_ed25519.*
+*.gpg
+*.asc
+.netrc
+.htpasswd
+.age
+*.kdbx
+
+# ---------------------------------------------------------------------------
+# Ausgeschlossene Inhalte  (Datenklasse: excluded-from-ai)
+# ---------------------------------------------------------------------------
+excluded-from-ai/
+private/
+personal/
+
+# ---------------------------------------------------------------------------
+# Abgeleitete Daten: Suchindizes, Embeddings, Graph
+# ---------------------------------------------------------------------------
+index/
+.index/
+search-index/
+*.index
+embeddings/
+.embeddings/
+*.embeddings
+vectors/
+*.faiss
+*.usearch
+*.ann
+*.hnsw
+graph/
+.graph/
+*.graphml
+
+# ---------------------------------------------------------------------------
+# Lokale Datenbanken
+# ---------------------------------------------------------------------------
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+*.sqlite
+*.sqlite3
+*.duckdb
+data/
+pgdata/
+
+# ---------------------------------------------------------------------------
+# Context Packs mit Nutzdaten
+# ---------------------------------------------------------------------------
+context-packs/
+.context-packs/
+*.contextpack
+*.contextpack.json
+
+# ---------------------------------------------------------------------------
+# Backup- und Restore-Artefakte
+# ---------------------------------------------------------------------------
+backup/
+backups/
+*.bak
+*.backup
+*.dump
+*.sql.gz
+restore/
+snapshots/
+
+# ---------------------------------------------------------------------------
+# Caches
+# ---------------------------------------------------------------------------
+.cache/
+cache/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+node_modules/
+.npm/
+.pnpm-store/
+.venv/
+venv/
+
+# ---------------------------------------------------------------------------
+# Logs und temporaere Dateien
+# ---------------------------------------------------------------------------
+*.log
+logs/
+tmp/
+temp/
+.tmp/
+*.tmp
+*.temp
+*.pid
+*.swp
+*.swo
+*~
+
+# ---------------------------------------------------------------------------
+# Modellartefakte
+# ---------------------------------------------------------------------------
+models/
+*.gguf
+*.safetensors
+*.onnx
+*.bin
+*.pt
+*.ckpt
+
+# ---------------------------------------------------------------------------
+# IDE- und Editor-Zustand
+# ---------------------------------------------------------------------------
+.idea/
+.vscode/
+!.vscode/extensions.json
+*.iml
+*.sublime-project
+*.sublime-workspace
+.history/
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+
+# ---------------------------------------------------------------------------
+# Betriebssystemdateien
+# ---------------------------------------------------------------------------
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
