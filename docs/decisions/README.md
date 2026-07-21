@@ -2,23 +2,24 @@
 
 | Feld | Wert |
 | --- | --- |
-| Phase | Phase 0 – Discovery und Scope Lock |
-| Angenommene ADRs | **6** |
+| Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
+| Angenommene ADRs | **7** |
 | Vorgeschlagene ADRs | 0 |
-| Überarbeitet in | CBP-WP-007 |
-| Stand | 2026-07-20 |
+| Überarbeitet in | **CBP-WP-009** |
+| Stand | 2026-07-21 |
 
 Dieses Verzeichnis enthält Architecture Decision Records. Ein angenommener ADR
 hat Autoritätsklasse **A1** und bindet nachfolgende Arbeit.
 
 ## Aktueller Stand
 
-**Sechs angenommene ADRs.** Fünf aus CBP-WP-004, jeder durch eine ausdrückliche
-A0-Entscheidung oder eine A5-Originalquelle belegt; **ADR-0006 am 2026-07-21
-vom Human Maintainer angenommen** (D-028).
+**Sieben angenommene ADRs.** Fünf aus CBP-WP-004, jeder durch eine
+ausdrückliche A0-Entscheidung oder eine A5-Originalquelle belegt; **ADR-0006 am
+2026-07-21 angenommen** (D-028); **ADR-0007 am 2026-07-21 angenommen**
+(D-029, D-030).
 
-Alle sechs tragen **A1** und binden nachfolgende Arbeit. Es steht kein Vorschlag
-mehr offen.
+Alle sieben tragen **A1** und binden nachfolgende Arbeit. Es steht kein
+Vorschlag mehr offen.
 
 | ADR | Titel | Status | Belegt durch |
 | --- | --- | --- | --- |
@@ -28,6 +29,7 @@ mehr offen.
 | [ADR-0004](ADR-0004-technisches-permission-enforcement.md) | Technische Durchsetzung von Berechtigungen | `accepted` | Übergabe §10, D-023 |
 | [ADR-0005](ADR-0005-deployment-readiness-check.md) | Deployment Readiness Check als eigenes Prüfmodell | `accepted` | D-026 |
 | [ADR-0006](ADR-0006-logische-source-slots.md) | Logische Source Slots statt eingebetteter Wissensbestände | **`accepted`** | **D-028 (A0), 2026-07-21** |
+| [ADR-0007](ADR-0007-repository-und-workspace-grenze.md) | Repository-Zielstruktur und Workspace-Grenze | **`accepted`** | **D-029, D-030 (A0), 2026-07-21** |
 
 Weitere Kandidaten sind in
 [project-system/DECISION_REGISTER.md](../../project-system/DECISION_REGISTER.md)

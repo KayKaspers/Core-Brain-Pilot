@@ -3,7 +3,7 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Überarbeitet in | **CBP-WP-008** |
+| Überarbeitet in | **CBP-WP-009** |
 | Autoritätsklasse | A2 |
 | Stand | 2026-07-21 |
 
@@ -54,6 +54,21 @@ getroffen. Quelle jeweils
 | **D-027** | **G0 – Discovery and Scope Lock: APPROVE G0 WITH NOTES.** Die Freigabe autorisiert ausschließlich die Planung von Phase 1; keine Freigabe für produktiven Betrieb, produktiven Ingest, öffentliche Erreichbarkeit oder zusätzliche sensible Datenklassen. Fünf Nachweise vor produktivem Betrieb; Web-UI und mobile Nutzung erst nach gemessenem Retrieval-Piloten | `accepted` | **A0** | Entscheidungsblock in G0_SCOPE_LOCK_REVIEW | 2026-07-21 | alle 25 Core-Kriterien | Phase 0 COMPLETE; Phase 1 AUTHORIZED FOR PLANNING |
 | **D-028** | **ADR-0006 angenommen:** produktive und private Wissensbestände bleiben außerhalb des allgemeinen Core-Repositorys und werden über logische Source Slots und deploymentspezifische, fail-closed Mappings angebunden | `accepted` | **A0** | Entscheidungsblock in G0_SCOPE_LOCK_REVIEW | 2026-07-21 | D-1 | ADR-0006 von `proposed` auf `accepted` (A1); OD-05, OD-06, OD-26 bleiben offen |
 
+### Neu aus CBP-WP-009 — Repository Boundary Decision
+
+Beide Entscheidungen am **2026-07-21**, Autorität **A0**, Quelle: direkte
+Human-Maintainer-Entscheidung im Entscheidungsblock. Wortlaut unverändert in
+[ADR-0007](../docs/decisions/ADR-0007-repository-und-workspace-grenze.md).
+
+| ID | Entscheidung | Status | Autorität | Quelle | Datum | Betroffen | Konsequenz |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| **D-029** | **Teil A — Zielstruktur des Core-Repositorys: Ziel-Monorepo nach Layout-Option B.** Bereiche `core/`, `adapters/`, `deployments/`, `config/`, `docs/`, `examples/`, `tests/`. **Autorisiert keine Verschiebung**; das aktuelle Layout bleibt bis zu einem separaten, ausdrücklich freigegebenen Migrations-Work-Package. Migration nachvollziehbar, schrittweise, rücksetzbar und **ohne Verlust der Git-Historie** | `accepted` | **A0** | Entscheidungsblock CBP-WP-009 | 2026-07-21 | **OD-26 Teil A** | **ADR-0007** (A1); AB-03…AB-08 bleiben offen (OD-29) |
+| **D-030** | **Teil B — Bereichsmodell W-3: privater Operator-Workspace außerhalb des Core-Repositorys.** Private und produktive Wissensbestände, konkrete Source Mappings, private Collection-Konfigurationen und **operatorbezogene kanonische Registry-Metadaten** liegen außerhalb. Runtime-Daten bilden einen dritten, separaten Bereich. **Secrets nirgends im Klartext** — nur Verweise auf einen getrennten Secret Store. Eine Runtime-Kopie der Source Registry ist **nie** die einzige Quelle kanonischer Registry-Metadaten | `accepted` | **A0** | Entscheidungsblock CBP-WP-009 | 2026-07-21 | **OD-26 Teil B** | **ADR-0007** (A1); konkretisiert ADR-0006; Überführung nach W-2 bleibt vorbereitet, **nicht beschlossen** |
+
+> **Beide Entscheidungen legen Zielarchitektur fest, keine Umsetzung.** Es
+> wurde keine Datei verschoben, kein Verzeichnis angelegt und kein Workspace
+> erzeugt.
+
 > **Hinweis zu D-016.** In CBP-WP-002 hatte ich „bevorzugte Anwendungslaufzeit"
 > zu „vorgesehene" abgeschwächt (Ü-02), gestützt auf Projektübergabe §4 (A5),
 > wonach Containerisierung kein Pflichtziel der ersten Phase ist. Der Human
@@ -77,6 +92,7 @@ getroffen. Quelle jeweils
 | **OD-10** | Verfahren bei Secret in der Git-Historie | [SECRET_INCIDENT_RESPONSE.md](../docs/security/SECRET_INCIDENT_RESPONSE.md) — 14 Schritte, Rotation vor Cleanup. **Technische Unterstützung bleibt offen** | 2026-07-20 |
 | **OD-32** | Berechtigungsstufen je Bereich und Freigabeverfahren | [PERMISSION_MODEL.md](../docs/security/PERMISSION_MODEL.md) und ADR-0004 — 9 Rollen × 12 Ressourcen. **Technische Durchsetzung bleibt offen** | 2026-07-20 |
 | **OD-31** | Nachführungen außerhalb des CBP-WP-003-Scopes | CBP-WP-004: D-016 in `PROJECT_DEFINITION.md` korrigiert, Kriterienzahl auf 47 aktualisiert, Korrektur-Notiz in `CBP-WP-002.md` ergänzt | 2026-07-20 |
+| **OD-26** | Endgültige Repository-Struktur | **D-029 und D-030** — Ziel-Monorepo nach Layout-Option B **und** Bereichsmodell W-3; festgehalten in [ADR-0007](../docs/decisions/ADR-0007-repository-und-workspace-grenze.md). **Keine Reorganisation autorisiert**; AB-03…AB-08 bleiben offen (OD-29) | 2026-07-21 |
 | **OD-33** | Definition des Deployment-Readiness-Gates | [DEPLOYMENT_READINESS_CHECK.md](../docs/operations/DEPLOYMENT_READINESS_CHECK.md) und ADR-0005 — DRC vollständig dokumentiert und in G0, Manifest, Profil, README und Brain verlinkt | 2026-07-20 |
 
 ## Vertagte Entscheidungen
@@ -117,7 +133,6 @@ Legende: **P0** blockiert G0 · **P1** vor Architekturentscheidung · **P2** sp�
 | OD-19 | Umfang und Format des Retrieval-Trace | P1 | Nova | — |
 | OD-23 | Lizenzwahl | P1 | Human Maintainer | D-007 |
 | OD-25 | qmd als produktiver Suchdienst — nur nach Prüfung | P1 | Human Maintainer | — |
-| OD-26 | Endgültige Repository-Struktur — **Entscheidungsvorbereitung liegt vor**, Layout **und** Bereichsmodell. **Vorgesehen für CBP-WP-009** | **P0** | Nova + Human Maintainer | W-05; REPOSITORY_AND_WORKSPACE_PLAN |
 | **OD-34** | **Secret-Store-Technologie und Verweisformat** — von KB-08 und Mappingfeld `credential`/`location_reference` vorausgesetzt, bisher nirgends entschieden | P1 | Human Maintainer | TECHNICAL_SECURITY_FOUNDATION_PLAN, KB-08 |
 | OD-24 | Akzeptable Ausfallzeit | P2 | Human Maintainer | — |
 | OD-28 | Öffentlicher Produktname und Phase-7-Option | P2 | Human Maintainer | — |
@@ -126,17 +141,21 @@ Legende: **P0** blockiert G0 · **P1** vor Architekturentscheidung · **P2** sp�
 
 | Kategorie | Anzahl |
 | --- | --- |
-| Getroffene Entscheidungen | **28** (davon **24** mit A0) |
-| Angenommene ADRs | **6** (ADR-0001 bis ADR-0006, alle A1) |
+| Getroffene Entscheidungen | **30** (davon **26** mit A0) |
+| Angenommene ADRs | **7** (ADR-0001 bis ADR-0007, alle A1) |
 | Vorgeschlagene ADRs | 0 |
 | Neu in CBP-WP-003 | 12 (D-015 bis D-026) |
 | Neu in CBP-WP-004 | 0 Entscheidungen, 5 ADRs |
 | Neu in CBP-WP-007 | **2 A0-Entscheidungen** (D-027 G0, D-028 ADR-0006) |
-| Neu in CBP-WP-008 | **0 Entscheidungen**, 1 neue offene Entscheidung (OD-34) |
-| Geschlossene offene Entscheidungen | **9** (davon 4 in CBP-WP-004) |
+| Neu in CBP-WP-008 | 0 Entscheidungen, 1 neue offene Entscheidung (OD-34) |
+| Neu in CBP-WP-009 | **2 A0-Entscheidungen** (D-029 Teil A, D-030 Teil B), **1 ADR** |
+| Geschlossene offene Entscheidungen | **10** (neu: **OD-26**) |
 | Vertagte Entscheidungen | 4 |
-| Offene Entscheidungen | **22** |
-| davon **P0** | **6** |
+| Offene Entscheidungen | **21** |
+| davon **P0** | **5** — OD-04, OD-07, OD-08, OD-11, OD-29 |
+
+*Sämtliche Werte in CBP-WP-009 aus den Quelltabellen **ausgezählt**, nicht
+fortgeschrieben (Zählregel 1 und 2).*
 
 > **Korrektur in CBP-WP-008 — vierter Zählfehler des Projekts.** Die
 > Summenzeile führte zuvor **22 A0-Entscheidungen** und **8 offene

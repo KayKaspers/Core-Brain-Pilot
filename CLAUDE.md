@@ -68,6 +68,7 @@ vorgelegt.
 | `Second-Brain-Bauanleitung-Textfassung.md` | **A6** — abgeleitete Arbeitsrepräsentation |
 | `docs/discovery/Core-Brain-Project-Handoff.md` | **A5** — kanonisch, getrackt |
 | Nova Development Framework v1.0.0 | **A1** |
+| `docs/decisions/ADR-0001` bis `ADR-0007` | **A1** — angenommen und bindend |
 
 Die A6-Textfassung beansprucht keine höhere Autorität als die A4-PDF.
 
@@ -80,6 +81,12 @@ Die A6-Textfassung beansprucht keine höhere Autorität als die A4-PDF.
 
 Der Verlust von Index, Cache, Embeddings, Graph oder Web-UI darf **keinen
 Wissensverlust** verursachen.
+
+**Runtime-Daten sind nicht durchgehend abgeleitet** (ADR-0007): **RT-1**
+Rebuildable Derived Data ist reproduzierbar · **RT-2 Operational Evidence**
+(Audit-, Approval-, Incident- und Restore-Nachweise) ist **nicht**
+reproduzierbar und aufbewahrungs- sowie sicherungspflichtig · **RT-3**
+Transient Runtime State ist flüchtig und nie alleinige Statuswahrheit.
 
 ## Prompt Modes ≠ Context Budgets
 
@@ -125,9 +132,12 @@ nennen.
 | Phase | **Phase 0 – COMPLETE** |
 | **Gate G0** | **PASSED WITH NOTES** — 2026-07-21, A0 |
 | **Phase 1** | **AUTHORIZED FOR PLANNING** — keine Implementierung freigegeben |
-| Aktuelles Work Package | CBP-WP-008 (`in-review`) |
+| Aktuelles Work Package | CBP-WP-009 (`in-review`) |
 | Core-Kriterien | 25 von 25 `accepted`, 0 `answered`, 0 `open`, 0 `blocked` |
-| Angenommene ADRs | **6** (A1) |
+| Angenommene ADRs | **7** (A1) |
+| **Repository-Zielstruktur** | **entschieden** — Ziel-Monorepo (D-029, ADR-0007); **Migration nicht autorisiert** |
+| **Bereichsmodell** | **W-3** — privater Operator-Workspace außerhalb des Core-Repositorys (D-030); **nicht angelegt** |
+| **Veröffentlichung** | Core-Repository `publication-capable by design`, **bleibt privat** — Freigabe benötigt A0 (OD-11) |
 | DRC | **NOT EVALUATED** |
 | Benchmark | **entworfen, nicht ausgeführt** (Dataset 2.0.0) |
 | Technische Implementierung | **nicht begonnen** |

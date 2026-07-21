@@ -57,6 +57,7 @@ breiteste Enabler — F4 und alle späteren Betriebsschritte hängen daran.
 | **Rücksetzstrategie** | Rein dokumentarisch — es wurde nichts verschoben. Eine verworfene Empfehlung wird als `rejected` archiviert, nicht gelöscht |
 | **Freigabepunkt** | **CBP-WP-009**, interaktiv, Human-Entscheidung zu OD-26 |
 | **Implementierung erlaubt** | **nein** |
+| **Stand** | **ERREICHT** — OD-26 am 2026-07-21 geschlossen (D-029 Layout-Option B, D-030 Modell W-3, [ADR-0007](../decisions/ADR-0007-repository-und-workspace-grenze.md)). **Keine Reorganisation autorisiert**; Migration bleibt eigenes Work Package. Core-Repository `publication-capable by design`, **nicht veröffentlicht**; Runtime-Daten gegliedert in **RT-1 / RT-2 / RT-3** |
 
 ## F2 — Pilot Source Mapping
 
@@ -164,6 +165,11 @@ breiteste Enabler — F4 und alle späteren Betriebsschritte hängen daran.
 
 ## Status
 
-**AUTHORIZED FOR PLANNING.** Fünf Streams geplant, **keiner autorisiert**.
-Es wurde nichts gebaut, nichts installiert, nichts angebunden, nichts
-verschoben und nichts gemessen.
+**AUTHORIZED FOR PLANNING.** Fünf Streams geplant, **keiner zur Umsetzung
+autorisiert**. Es wurde nichts gebaut, nichts installiert, nichts angebunden,
+nichts verschoben und nichts gemessen.
+
+**Stand nach CBP-WP-009:** Der Entscheidungsteil von **F1 ist erreicht** —
+OD-26 ist geschlossen. Damit ist **F2 nicht mehr blockiert**; die
+Bereichsgrenze steht. **F1 ist damit nicht abgeschlossen**: die Migration in
+die Zielstruktur ist weder geplant noch autorisiert.

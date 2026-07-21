@@ -3,7 +3,7 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Überarbeitet in | **CBP-WP-008** |
+| Überarbeitet in | **CBP-WP-009** |
 | Autoritätsklasse | A2 |
 | Stand | 2026-07-21 |
 
@@ -23,7 +23,7 @@ Ein irreversibler Schaden ist mindestens **hoch**.
 
 | ID | Risiko | Schwere | Gegenmaßnahme | Status |
 | --- | --- | --- | --- | --- |
-| R-01 | Secret gelangt in die Git-Historie und ist praktisch nicht mehr entfernbar | **hoch** | `.gitignore`; **Schadensverfahren jetzt definiert** (SECRET_INCIDENT_RESPONSE, 14 Schritte, Rotation vor Cleanup). Erkennung und Automatik fehlen | **verändert, teilweise gemindert** |
+| R-01 | Secret gelangt in die Git-Historie und ist praktisch nicht mehr entfernbar | **hoch** | Schadensverfahren definiert (SECRET_INCIDENT_RESPONSE, 14 Schritte, Rotation vor Cleanup). **W-3 mindert genau einen Pfad:** private Information → versehentlich in Core → Core-Push → unbeabsichtigte Veröffentlichung. **W-3 implementiert weder Secret-Erkennung noch Rotation, Secret Store, Scanning oder Zugriffskontrolle.** `.gitignore` ist ausdrücklich keine Sicherheitsgrenze | **offen — nur hinsichtlich des Veröffentlichungspfads teilweise gemindert** |
 | R-02 | `confidential` oder `excluded-from-ai` gelangt in den Modellkontext | **hoch** | Datenschutzfilter TB-4, fail-closed. **Standardwert 5:** Übertragung an externe KI standardmäßig verweigert | **konkretisiert** |
 | R-03 | Datenklassen werden nie konsequent vergeben; Filter laufen ins Leere | **hoch** | Klassenvergabe verpflichtend an TB-1, Vault Doctor. Vergabeverfahren offen (OD-08) | offen |
 | R-04 | Prompt Injection aus ingestiertem Material steuert einen Agenten | **hoch** | Ingest ist Daten, nie Anweisung; Quarantäne TB-1. **Durch D-019 verstärkt:** PDF/Office nur über kontrollierte Pipeline | **konkretisiert** |
@@ -67,7 +67,7 @@ Ein irreversibler Schaden ist mindestens **hoch**.
 | ID | Risiko | Schwere | Gegenmaßnahme | Status |
 | --- | --- | --- | --- | --- |
 | R-19 | Bindung an Proxmox oder Compose sickert in die Architektur ein | mittel | **ADR-0001 angenommen**; fünf Profile beschrieben; Profil B ist der laufende Neutralitätsnachweis | **gemindert** |
-| R-20 | Fehlende Restore-Evidenz — Sicherung existiert, Wiederherstellung nie geprobt | **hoch** | **Standardwert 10:** Backup muss vor produktivem Betrieb eingerichtet **und getestet** sein. Zielwerte weiterhin offen (F-4) | offen |
+| R-20 | Fehlende Restore-Evidenz — Sicherung existiert, Wiederherstellung nie geprobt | **hoch** | **Standardwert 10:** Backup muss vor produktivem Betrieb eingerichtet **und getestet** sein. **Seit ADR-0007 erweitert sich der Umfang:** Der private Operator-Workspace enthält **nicht reproduzierbare kanonische Registry-Metadaten**, und **RT-2 Operational Evidence** (Audit-, Approval-, Incident- und Restore-Nachweise) ist ebenfalls **nicht vollständig rekonstruierbar**. Beide müssen in Backup-, Restore- und Aufbewahrungsregeln einbezogen werden (RG-4). Zielwerte weiterhin offen (F-4) | **verändert, offen** |
 | R-21 | Retrieval-Qualität verschlechtert sich unbemerkt | mittel | **Benchmark entworfen** (Dataset **2.0.0**): 36 Fragen, 4 Metrikgruppen, Regressionsregeln bei 7 Systemänderungen. **Kein Lauf durchgeführt.** Auflage 3 der G0-Entscheidung; Backlogpunkt P7 | **gemindert, nicht geschlossen** |
 | R-29 | Produktive Synchronisation ohne Test-Vault führt zu Datenverlust | **hoch** | **D-025 vertagt native Obsidian-Nutzung**; Freigabe erst nach Test-Vault, Konflikt- und Restore-Prüfung | **gemindert** |
 | R-30 | Datenschutzklassifikation ohne technische Durchsetzung | **hoch** | **D-021 macht daraus eine prüfbare Anforderung** — Sperrwirkung mit Testdaten nachzuweisen | **konkretisiert** |
@@ -89,6 +89,26 @@ Ein irreversibler Schaden ist mindestens **hoch**.
 | dokumentiert | 1 |
 | teilweise gemindert | 1 |
 | offen | **10** |
+
+**Neu in CBP-WP-009:** keine.
+
+**Verändert in CBP-WP-009:**
+
+| ID | Änderung | Auslöser |
+| --- | --- | --- |
+| **R-01** | Wirkung von W-3 **präzisiert**: mindert ausschließlich den Pfad private Information → versehentlich in Core → Core-Push → unbeabsichtigte Veröffentlichung. **Bleibt `offen`** | D-030, ADR-0007 · Nova-REWORK |
+| **R-17** | NDF-Abweichungen: Zielstruktur nun entschieden, **AB-03…AB-08 bleiben offen** (OD-29). Status unverändert `gemindert` | D-029, ADR-0007 |
+| **R-20** | Umfang **erweitert**: nicht nur Systemsicherung, sondern auch **kanonische Registry-Metadaten** im Operator-Workspace und **RT-2 Operational Evidence** — beide nicht rekonstruierbar. Bleibt `offen` | ADR-0007, G5, RG-4 · Nova-REWORK |
+
+**Kein Risiko wurde in CBP-WP-009 geschlossen.** Eine Strukturentscheidung ist
+kein technischer Nachweis.
+
+> **Korrektur im Nova-REWORK-Lauf.** Die Erstausführung hatte R-01 als
+> „strukturell gemindert" beschrieben, ohne den Wirkungsbereich zu begrenzen.
+> Das war zu weit gefasst: W-3 verhindert einen **Veröffentlichungspfad**, kein
+> Secret. Erkennung, Rotation, Ablage, Scanning und Zugriffskontrolle fehlen
+> unverändert. R-20 war zudem zu eng beschrieben — **zwei** nicht
+> rekonstruierbare Bestände sind betroffen, nicht einer.
 
 **Neu in CBP-WP-008:** keine.
 

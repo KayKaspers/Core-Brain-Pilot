@@ -2,7 +2,7 @@
 
 | Feld | Wert |
 | --- | --- |
-| Überarbeitet in | **CBP-WP-008** |
+| Überarbeitet in | **CBP-WP-009** |
 | Autoritätsklasse | A2 |
 | Stand | 2026-07-21 |
 
@@ -18,7 +18,7 @@
 | Kurzform | CBP |
 | WP-Präfix | `CBP-WP-` |
 | Art | KI-Wissens- und Arbeitssystem, serverzentriert und portabel |
-| Sichtbarkeit | privat · **dauerhafte Sichtbarkeit offen** (OD-11) |
+| Sichtbarkeit | **privat** · **dauerhafte Sichtbarkeit offen** (OD-11). Core-Repository ist `publication-capable by design` — **keine Veröffentlichungsfreigabe**; diese benötigt A0 |
 | Sprache Dokumentation | Deutsch, UTF-8 mit echten Umlauten |
 | Lizenz | **nicht festgelegt** (OD-23) |
 | Öffentlicher Produktname | **nicht beschlossen** (OD-28) |
@@ -37,17 +37,20 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 – COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Aktuelles Work Package | **CBP-WP-008** (`in-review`) |
+| Aktuelles Work Package | **CBP-WP-009** (`in-review`) |
 | **Gate-Status G0** | **PASSED WITH NOTES** — 2026-07-21, A0 |
 | Nächstes Prüfmodell | **Deployment Readiness Check** — `NOT EVALUATED` |
-| Phase-1-Planung | Streams F1–F5; CBP-WP-009 bis CBP-WP-014 **`proposed`** |
+| Phase-1-Planung | Streams F1–F5; CBP-WP-010 bis CBP-WP-014 **`proposed`** |
+| **Repository-Zielstruktur** | **entschieden** — Monorepo, ADR-0007 (D-029); **Migration nicht autorisiert** |
+| **Bereichsmodell** | **W-3** — Operator-Workspace außerhalb (D-030); **nicht angelegt** |
+| **Veröffentlichung** | **nicht freigegeben** — Repository bleibt privat; benötigt separate A0-Entscheidung |
 | Technische Nachweise | **0** — alle Artefakte auf Stufe 1 `dokumentiert` |
 | G0-Kriterien | **47** |
 | davon blockierend (Core Required) | **25** |
 | davon `accepted` | **25** — alle |
 | Kriterienstand | 25 von 25 `accepted` |
 | Capabilities implementiert | **0** von 29 |
-| Angenommene ADRs | **6** |
+| Angenommene ADRs | **7** |
 | Scope gelockt | **ja** — mit Auflagen |
 
 ## Repository
@@ -56,7 +59,7 @@
 | --- | --- |
 | Pfad | `D:\Projects\Core-Brain-Pilot` |
 | Branch | `main` |
-| Commits | **8** |
+| Commits | **9** |
 | Remote | `origin` → `https://github.com/KayKaspers/Core-Brain-Pilot.git` |
 | Commit-Autorität | ausschließlich Human Maintainer |
 
@@ -94,7 +97,9 @@ Architekturdefaults, **keine Behauptungen über die reale Infrastruktur**:
 3. Keine öffentliche Dienstfreigabe
 4. Keine Secrets in Wissensbestand, Index oder Context Packs
 5. **Übertragung an externe KI standardmäßig verweigert**, bis eine Datenklasse sie erlaubt
-6. Trennung von canonical und derived
+6. Trennung von canonical und derived; Runtime-Daten getrennt in **RT-1**
+   (reproduzierbar), **RT-2 Operational Evidence** (**nicht** reproduzierbar,
+   aufbewahrungs- und sicherungspflichtig) und **RT-3** (flüchtig)
 7. Keine automatische Konfliktauflösung
 8. Keine automatischen Commits oder Pushes
 9. Keine Obsidian-Synchronisation als Standard

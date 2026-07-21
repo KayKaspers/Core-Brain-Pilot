@@ -2,16 +2,25 @@
 
 | Feld | Wert |
 | --- | --- |
-| **Status der Empfehlung** | **PROPOSED** |
+| **Status der Empfehlung** | **ANGENOMMEN** — Modell **W-3** gewählt |
 | Stream | F1 · Backlogpunkt P1 |
-| Erfasst in | CBP-WP-008 |
+| Erfasst in | CBP-WP-008 · **entschieden in CBP-WP-009** |
 | Autoritätsklasse | A3 |
 | Baut auf | [REPOSITORY_LAYOUT_OPTIONS.md](../architecture/REPOSITORY_LAYOUT_OPTIONS.md) (A3, CBP-WP-004) |
-| Betrifft | **OD-26** (bleibt offen), OD-05, OD-11, OD-29 |
+| Betrifft | **OD-26 — geschlossen**; OD-05, OD-11, OD-29 bleiben offen |
 | Stand | 2026-07-21 |
 
-**Es wurde keine Datei und kein Ordner verschoben.** Dieses Dokument bereitet
-die Entscheidung vor; es trifft sie nicht.
+> **Entscheidung liegt vor.** Der Human Maintainer hat am 2026-07-21 **Modell
+> W-3** gewählt — **D-030**, Autorität **A0**, festgehalten in
+> [ADR-0007](../decisions/ADR-0007-repository-und-workspace-grenze.md).
+> Gemeinsam mit **D-029** (Layout-Option B) schließt das **OD-26**.
+>
+> **Die Entscheidung legt Zielarchitektur fest, keine Umsetzung.** Der
+> Operator-Workspace ist **nicht angelegt**, der Runtime-Bereich **nicht
+> definiert**.
+
+**Es wurde keine Datei und kein Ordner verschoben.** Dieses Dokument bereitete
+die Entscheidung vor.
 
 ---
 
@@ -51,8 +60,14 @@ Canonical-/Derived-Regel aus **ADR-0003**.
 | Synthetische Fixtures und Benchmarkkorpus | |
 | Deploymentvorlagen ohne Werte | |
 
-**Merkmal:** vollständig veröffentlichbar, ohne dass etwas herausgelöst werden
+**Merkmal:** **`publication-capable by design`** — privater Bestand, produktive
+Mappings und Secrets sind ausgeschlossen, sodass nichts herausgelöst werden
 müsste. Versioniert in Git.
+
+> **Das ist keine Veröffentlichungsfreigabe.** Das Repository bleibt zunächst
+> **privat**; eine öffentliche Veröffentlichung benötigt eine separate
+> **A0-Entscheidung** (OD-11 offen). Lizenz (OD-23), Produktname (OD-28) und
+> die Sperrlisteneinträge zu Branding und Release bleiben unberührt.
 
 ### 2. Private Operator Workspace
 
@@ -69,20 +84,27 @@ und ist deshalb **sicherungspflichtig**.
 
 ### 3. Runtime Data Area
 
-| Enthält | Enthält **nicht** |
-| --- | --- |
-| Index, Cache, Embeddings | Kanonische Inhalte |
-| Context Packs | Konfiguration |
-| Jobs, temporäre Dateien | Governance |
-| Auditdaten | |
+**Nicht kanonisch — aber nicht durchgehend reproduzierbar.** Drei Unterklassen
+mit verschiedenen Aufbewahrungs- und Backupanforderungen, verbindlich in
+[ADR-0007](../decisions/ADR-0007-repository-und-workspace-grenze.md):
 
-**Merkmal:** **ausschließlich Derived Data.** Vollständig reproduzierbar, nie
-versioniert, nie autoritativ. Der Verlust verursacht **keinen** Wissensverlust
-(ADR-0003, Rebuild-Vertrag).
+| Klasse | Inhalt | Reproduzierbar | Sicherungspflicht |
+| --- | --- | --- | --- |
+| **RT-1** Rebuildable Derived Data | Index, Embeddings, Cache, generierte Context Packs, Suchprojektionen, abgeleitete Katalogansichten | **ja** — aus kanonischen Quellen, Registry und versionierter Konfiguration | **nein** |
+| **RT-2** Operational Evidence | Auditlogs, Approval- und Review-Nachweise, Incident Records, Sicherheitsereignisse, abgeschlossene Jobhistorie, Lösch-, Rebuild- und Restore-Nachweise | **nein** | **ja** |
+| **RT-3** Transient Runtime State | Temporäre Dateien, Locks, aktive Jobzustände, Verarbeitungspuffer, nicht freigegebene Context Packs | entfällt | **nein** — kontrolliert verwerfen |
 
-> Ausnahme mit Ansage: Auditdaten sind zwar hier abgelegt, aber **nicht
-> reproduzierbar**. Ihr Sicherungsbedarf ist gesondert zu klären — erfasst in
-> [PHASE_1_EVIDENCE_PLAN.md](PHASE_1_EVIDENCE_PLAN.md).
+**Nur RT-1 erfüllt den Rebuild-Vertrag aus ADR-0003.** Sein Verlust verursacht
+keinen Wissensverlust.
+
+**RT-2 darf nicht als Cache behandelt werden.** Auditnachweise sind nicht
+rekonstruierbar; sie brauchen definierte Aufbewahrung, Zugriffsschutz,
+gegebenenfalls Integritätsnachweise und Sicherung. Eine Technologie —
+append-only oder gleichwertig — ist **nicht gewählt**.
+
+**RT-3 darf nach einem Neustart nie die alleinige Statuswahrheit sein.**
+
+Keine der drei Klassen gehört in das Core-Git-Repository.
 
 ---
 
@@ -120,7 +142,7 @@ Wissensbestand. Entspricht **Layout-Option C**.
 | Portabilität | stark — der Kern ist ohne den Bestand vollständig beschreibbar |
 | Lokales Entwicklererlebnis | mittel — zwei Arbeitsbereiche parallel |
 | Backupgrenzen | **klar** — je Repository ein eigener Sicherungsvertrag |
-| Git-Grenzen | sauber; die Kernhistorie bleibt klein und veröffentlichbar |
+| Git-Grenzen | sauber; die Kernhistorie bleibt klein und veröffentlichungsfähig |
 | Migrationspfad | Core bleibt, zweites Repository entsteht neu |
 
 ### W-3 — Privater Arbeitsbereich neben dem Core-Repository
@@ -187,11 +209,23 @@ als ignorierter Unterordner. **`.gitignore` ist eine Vorsichtsmaßnahme, keine
 Grenze:** es schützt vor Unachtsamkeit, nicht vor einem `git add -f`, und es
 wirkt gar nicht auf eine Datei, die bereits verfolgt wird.
 
+**Die Empfehlung wurde angenommen.** Der Human Maintainer hat W-3 gewählt und
+dabei ausdrücklich festgehalten, dass der Workspace außerhalb liegt, Secrets
+nirgends im Klartext stehen und eine Runtime-Projektion der Registry nie die
+einzige Quelle kanonischer Registry-Metadaten ist.
+
+**Registry-Grenze:** Schema, Validierungsregeln und **synthetische** Beispiele
+liegen im Core Repository. Die konkreten **operatorbezogenen kanonischen**
+Registry-Metadaten liegen im privaten Workspace. Eine **Runtime-Projektion**
+für Suche und Betrieb darf existieren — sie ist **nicht** die kanonische
+Registry, und ihr Verlust ist über einen normalen Index-Rebuild behebbar. Der
+Verlust der kanonischen Metadaten ist es **nicht**.
+
 ### Was die Empfehlung nicht entscheidet
 
 | Punkt | Register | Status |
 | --- | --- | --- |
-| Repository-Struktur insgesamt | **OD-26** | **offen** |
+| Repository-Struktur insgesamt | **OD-26** | **geschlossen** (D-029, D-030) |
 | Repository-Sichtbarkeit | **OD-11** | **offen** |
 | Ablageort des kanonischen Bestands | **OD-05** | **offen** |
 | Konkrete Quellen | **OD-06** | **offen** |
@@ -218,8 +252,16 @@ nicht, und das ist der Vorteil, den es zu erhalten gilt.
 
 ## Status
 
-**PROPOSED.** OD-26 bleibt offen und wird ausschließlich durch eine
-ausdrückliche A0-Entscheidung geschlossen — vorgesehen in **CBP-WP-009**.
-Dieses Dokument ist A3 und ersetzt keine Entscheidung.
+**ANGENOMMEN — Modell W-3.** **OD-26 ist am 2026-07-21 geschlossen**, durch
+zwei getrennte A0-Entscheidungen: **D-029** (Layout-Option B) und **D-030**
+(Bereichsmodell W-3). Verbindlich ist ab jetzt
+[ADR-0007](../decisions/ADR-0007-repository-und-workspace-grenze.md) (A1) —
+dieses Dokument bleibt A3 und dient als Begründungsgrundlage.
+
+**W-2 bleibt vorbereitet, nicht beschlossen.** Der Übergang setzt weiterhin
+OD-11 und OD-05 voraus.
+
+**Es existiert kein Operator-Workspace, kein Runtime-Bereich und kein
+Zielverzeichnis.** Es wurde nichts verschoben und nichts angelegt.
 
 **Implementierung erlaubt: nein.**

@@ -3,7 +3,7 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Letzte Prüfung | 2026-07-21, im Rahmen von **CBP-WP-008** |
+| Letzte Prüfung | 2026-07-21, im Rahmen von **CBP-WP-009** |
 | Autoritätsklasse | A2 |
 
 > Diese Datei gehört zur kanonischen NDF-Ordnerstruktur, war aber in der
@@ -83,7 +83,8 @@
 | Prüfung | Ergebnis |
 | --- | --- |
 | Alle Statusdokumente nennen Phase 0 | erfüllt |
-| Aktuelles Work Package als **CBP-WP-008** ausgewiesen | erfüllt |
+| Aktuelles Work Package als **CBP-WP-009** ausgewiesen | erfüllt |
+| **Falsche WP-Titel in der Queue korrigiert** | erfüllt — Entwurfstitel aus CBP-WP-008 ersetzt, Korrektur sichtbar vermerkt |
 | **Veraltete Gate-Angaben korrigiert** | erfüllt — CLAUDE.md, DISCOVERY_QUESTIONS.md, G0_EVIDENCE_MATRIX.md |
 | Historische Berichte nicht stillschweigend umgeschrieben | erfüllt — frühere WP-Ergebnisse unverändert |
 | Keine Capability als `implemented` bezeichnet | erfüllt |
@@ -194,6 +195,34 @@
 | Keine ausführbare Datei erstellt | erfüllt — ausschließlich Markdown |
 | Kein Commit, kein Push, `origin` unverändert | erfüllt |
 
+## Entscheidungs-Compliance (CBP-WP-009)
+
+| Prüfung | Ergebnis |
+| --- | --- |
+| Beide Entscheidungen stammen direkt vom Human Maintainer | erfüllt — Entscheidungsblock im Wortlaut |
+| Keine Entscheidung ergänzt oder erweitert | erfüllt — Notes nur normalisiert |
+| Teil A und Teil B getrennt dokumentiert | erfüllt — D-029 und D-030, eigene ADR-Abschnitte |
+| ADR-Status entspricht den Entscheidungen | erfüllt — zwei SELECT → `accepted` |
+| **OD-26 nur bei zwei SELECT-Entscheidungen geschlossen** | erfüllt |
+| **Keine Repository-Reorganisation** | erfüllt — Top-Level unverändert |
+| **Kein privater Workspace angelegt** | erfüllt |
+| **Keine Zielverzeichnisse angelegt** | erfüllt |
+| Keine privaten Pfade oder URLs gespeichert | erfüllt |
+| Core, Operator-Workspace und Runtime getrennt | erfüllt — drei Bereiche in ADR-0007 |
+| **Registry-Schema und konkrete Registry-Metadaten getrennt** | erfüllt — Grenze G7 |
+| **`.gitignore` nicht als Sicherheitsgrenze behandelt** | erfüllt — Grenze G3 ausdrücklich |
+| ADR-0006 bleibt `accepted` | erfüllt |
+| OD-05, OD-06, OD-34 bleiben offen | erfüllt |
+| G0 bleibt PASSED WITH NOTES | erfüllt |
+| Phase 1 bleibt AUTHORIZED FOR PLANNING | erfüllt |
+| DRC bleibt NOT EVALUATED | erfüllt |
+| Benchmark bleibt nicht ausgeführt | erfüllt |
+| Keine Capability `implemented` | erfüllt — 0 von 29 |
+| **Summen aus den Quelltabellen ausgezählt** | erfüllt — 30/26/21/5 |
+| Genau ein Folge-Work-Package vorgeschlagen | erfüllt — CBP-WP-010 |
+| Keine ausführbare Datei erstellt | erfüllt — ausschließlich Markdown |
+| Kein Commit, kein Push, `origin` unverändert | erfüllt |
+
 ## Zähl- und Statusregel
 
 *Ergänzt in CBP-WP-007, nach dem dritten Zählfehler des Projekts.*
@@ -237,7 +266,8 @@ ist der Grund, warum R-33 nicht geschlossen wird.
 | Benchmark entworfen, **nicht ausgeführt** — keine Messung | R-21 |
 | Konkreter produktiver Quellenbestand — Slot-Ebene entschieden, Mapping offen | OD-05, OD-06 |
 | DRC definiert, aber **NOT EVALUATED** | R-34 |
-| Repository-Layout nur vorgeschlagen, nicht entschieden | OD-26 |
+| Repository-Zielstruktur entschieden, **Migration nicht geplant und nicht autorisiert** | D-029, ADR-0007 |
+| Operator-Workspace beschlossen, **nicht angelegt** | D-030, ADR-0007 |
 | **Alle Nachweise stehen auf Stufe 1 `dokumentiert`** | PHASE_1_EVIDENCE_PLAN |
 | Zwölf Stop-Bedingungen definiert, **keine erprobt** | PHASE_1_STOP_CONDITIONS |
 

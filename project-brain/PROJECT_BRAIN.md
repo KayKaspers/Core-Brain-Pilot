@@ -2,7 +2,7 @@
 
 | Feld | Wert |
 | --- | --- |
-| Überarbeitet in | **CBP-WP-008** |
+| Überarbeitet in | **CBP-WP-009** |
 | Autoritätsklasse | A2 |
 | Stand | 2026-07-21 |
 
@@ -18,17 +18,18 @@ keine Laufzeit, keine Installation, kein Index, kein Wissensbestand.
 
 | Feld | Wert |
 | --- | --- |
-| Aktuelles Work Package | **CBP-WP-008** (`in-review`) |
+| Aktuelles Work Package | **CBP-WP-009** (`in-review`) |
 | Gate G0 | **PASSED WITH NOTES** — 2026-07-21 |
 | G0-Kriterien | **47**, dreistufig klassifiziert |
 | davon blockierend | **25** Core Required (zuvor 45) |
 | davon `accepted` | **25** — alle |
 | verbleibende Blocker | **0** |
 | Phase 1 | AUTHORIZED FOR PLANNING — [Backlog](../docs/roadmap/PHASE_1_BACKLOG.md), [Foundation Plan](../docs/roadmap/PHASE_1_FOUNDATION_PLAN.md) |
-| Geplante Work Packages | **CBP-WP-009 bis CBP-WP-014**, alle `proposed` |
+| Geplante Work Packages | **CBP-WP-010 bis CBP-WP-014**, alle `proposed` |
+| **Repository-Struktur** | **entschieden** — Ziel-Monorepo + Workspace W-3 (ADR-0007); **Migration nicht autorisiert** |
 | Implementierte Capabilities | **keine (0 von 29)** |
 | Nachweise oberhalb Stufe 1 | **keine** |
-| Commits | **8** |
+| Commits | **9** |
 
 ## Ziel
 
@@ -90,16 +91,19 @@ verweigert, bis eine Datenklasse sie erlaubt.**
 
 ## Entscheidungen
 
-Angenommene ADRs: **6** (ADR-0001 bis ADR-0006). ADR-0006 wurde am 2026-07-21 angenommen (D-028) und hält privaten Bestand konstruktiv außerhalb des Kern-Repositorys.
+Angenommene ADRs: **7** (ADR-0001 bis ADR-0007). ADR-0006 wurde am 2026-07-21
+angenommen (D-028) und hält privaten Bestand konstruktiv außerhalb des
+Kern-Repositorys; **ADR-0007** vom selben Tag (D-029, D-030) legt die
+Zielstruktur und die Bereichsgrenze fest und **schließt OD-26**.
 
-**28** getroffene Entscheidungen, davon **24** mit A0. **22** offene, davon
-**6** mit P0. Geführt in
+**30** getroffene Entscheidungen, davon **26** mit A0. **21** offene, davon
+**5** mit P0. Geführt in
 [project-system/DECISION_REGISTER.md](../project-system/DECISION_REGISTER.md).
 
 > **Zählkorrektur in CBP-WP-008.** Dieses Dokument führte zuvor 26/20/25/10 und
-> das Register 28/22/21/8. Die Auszählung ergibt **28/24/22/6**. Beide
-> Summenzeilen waren fortgeschrieben statt gezählt — der **vierte** Zählfehler
-> des Projekts, erfasst unter R-33.
+> das Register 28/22/21/8. Die Auszählung ergab **28/24/22/6** — der **vierte**
+> Zählfehler des Projekts, erfasst unter R-33. Die Werte oben sind in
+> CBP-WP-009 erneut aus den Quelltabellen ausgezählt.
 
 **Ein Konflikt wurde durch A0 aufgelöst:** In CBP-WP-002 hatte ich Docker
 Compose gestützt auf Projektübergabe §4 (A5) von „bevorzugt" zu „vorgesehen"
@@ -138,8 +142,9 @@ definitionsgemäß kein Risiko.
   [OPEN_INFORMATION.md](../docs/discovery/OPEN_INFORMATION.md)
 
 Der dominierende Rest ist **nicht mehr dokumentarisch, sondern technisch**:
-sechs offene P0-Entscheidungen (OD-04, OD-07, OD-08, OD-11, OD-26, OD-29) und
-**null erbrachte technische Nachweise**.
+**fünf** offene P0-Entscheidungen (OD-04, OD-07, OD-08, OD-11, OD-29) und
+**null erbrachte technische Nachweise**. **OD-26 ist am 2026-07-21
+geschlossen.**
 
 ## Lessons Learned
 
@@ -167,6 +172,13 @@ Ergebnis: 20 Blocker weniger, ohne ein Kriterium zu streichen. Die Trennung
 zwischen Produktentscheidung und Installationsdetail war die eigentliche
 Erkenntnis.
 
+## Lessons Learned aus CBP-WP-009
+
+**Eine zusammengesetzte offene Entscheidung schließt nicht durch eine Antwort.**
+OD-26 sah wie eine Frage aus und waren zwei. Wäre nur Teil A entschieden worden,
+hätte das Projekt eine Zielstruktur ohne Aussage darüber gehabt, wo private
+Daten liegen — und umgekehrt. Die Trennung in Phase A hat das sichtbar gemacht.
+
 ## Lessons Learned aus CBP-WP-008
 
 **Die Zählregel wirkt nachlaufend, nicht vorbeugend.** Der vierte Zählfehler
@@ -180,33 +192,59 @@ Bereichsschnitt hätten in derselben Entscheidung kollidiert. Die
 Arbeitsbereichsmodelle heißen deshalb **W-1/W-2/W-3**. OD-26 braucht beide
 Antworten.
 
+## Repository- und Bereichsgrenze — entschieden
+
+**ADR-0007**, 2026-07-21, A0. Drei Bereiche mit verschiedenem Lebenszyklus:
+
+| Bereich | Inhalt | Klasse | Sicherung |
+| --- | --- | --- | --- |
+| **Core Repository** | Code, Architektur, Governance, Tests, synthetische Fixtures, Deploymentvorlagen | **publication-capable by design** — nicht freigegeben | Git + Backup |
+| **Privater Operator-Workspace** *(außerhalb)* | Konkrete Mappings, private Collections, **operatorbezogene kanonische Registry-Metadaten**, Verweise auf den Secret Store | **kanonisch** | **nur Backup** |
+| **RT-1** Rebuildable Derived Data | Index, Embeddings, Cache, generierte Context Packs, Suchprojektionen | derived | **Rebuild** |
+| **RT-2** Operational Evidence | Auditlogs, Approval- und Incident-Nachweise, Jobhistorie, Restore-Nachweise | **nicht reproduzierbar** | **Backup erforderlich** |
+| **RT-3** Transient Runtime State | Temporäre Dateien, Locks, aktive Jobzustände, Puffer | flüchtig | **keine** — verwerfen |
+
+**Das Core-Repository ist `publication-capable by design`, nicht
+veröffentlicht.** Es bleibt privat; eine Veröffentlichung benötigt eine
+separate **A0-Entscheidung** (OD-11).
+
+**RT-2 ist kein Cache.** Auditnachweise sind nicht rekonstruierbar und brauchen
+Aufbewahrung, Zugriffsschutz und Sicherung.
+
+**Zielstruktur des Core-Repositorys:** `core/`, `adapters/`, `deployments/`,
+`config/`, `docs/`, `examples/`, `tests/`.
+
+**Nichts davon existiert.** Kein Verzeichnis angelegt, kein Workspace erzeugt,
+keine Datei verschoben. Die Migration braucht ein eigenes, freigegebenes Work
+Package und muss die Git-Historie erhalten.
+
 ## Nächste Arbeitspakete
 
 Siehe
 [project-system/WORK_PACKAGE_QUEUE.md](../project-system/WORK_PACKAGE_QUEUE.md)
 und [PHASE_1_WORK_PACKAGE_MAP.md](../docs/roadmap/PHASE_1_WORK_PACKAGE_MAP.md).
 
-Vorgeschlagen, **nicht freigegeben**: **CBP-WP-009 — Repository Boundary
-Decision** (`docs-only`, Prompt Mode Full, Budget B1 – Lean, interaktiv). Die
-Work Packages CBP-WP-010 bis CBP-WP-014 stehen ebenfalls auf `proposed`.
+Vorgeschlagen, **nicht freigegeben**: **CBP-WP-010 — Pilot Source Mapping
+Specification** (`docs-only`, interaktiv, Full, B1 – Lean). CBP-WP-011 bis
+CBP-WP-014 stehen ebenfalls auf `proposed`.
 
 ## Rückmeldung an Nova
 
-CBP-WP-008 ist ausgeführt. Die drei veralteten Gate-Angaben sind korrigiert,
-P1 bis P5 sind als Streams F1 bis F5 geplant, und sechs Folge-Work-Packages
-sind geschnitten — **alle `proposed`, keines autorisiert**.
+CBP-WP-009 ist ausgeführt. **OD-26 ist geschlossen** — durch zwei getrennte
+A0-Entscheidungen, wie vorgesehen. Beide Nova-Empfehlungen wurden bestätigt.
 
-**Der Statuswechsel ändert nichts an der technischen Lage.** Es wurde nichts
-gebaut, nichts installiert, nichts angebunden, nichts verschoben und nichts
-gemessen. Der Fortschritt dieses Work Packages ist **Planungsklarheit**, nicht
-Systemreife.
+**Es wurde nichts verschoben, nichts angelegt und nichts umbenannt.** Eine
+Strukturentscheidung ist kein technischer Nachweis.
 
 **Drei Punkte zur Hervorhebung:**
 
-1. **F3 ist der breiteste Enabler.** CBP-WP-013 und CBP-WP-014 sind ohne ihn
-   nicht durchsetzbar — sie wären Konventionen statt Kontrollen.
-2. **Der vierte Zählfehler** wurde gefunden und in vier Dokumenten korrigiert.
-   Er entstand nach Einführung der Gegenmaßnahme.
-3. **OD-34 ist neu**: die Secret-Store-Technologie wird von KB-08 und vom
-   Mappingschema vorausgesetzt, war aber nirgends als offene Entscheidung
-   geführt.
+1. **Zwei nicht rekonstruierbare Bestände, nicht einer.** Der
+   Operator-Workspace enthält kanonische Registry-Metadaten, **RT-2
+   Operational Evidence** Auditnachweise — beides übersteht ein Rebuild nicht.
+   **R-20 bleibt offen**, ein Restore wurde nie durchgeführt.
+2. **Die Auflage zur Git-Historie ist neu und bindend.** Ein
+   Migrations-Work-Package ist noch nicht geschnitten.
+3. **R-01 ist nur hinsichtlich des Veröffentlichungspfads gemindert.** W-3
+   verhindert, dass privater Bestand über einen Core-Push nach außen gerät. Es
+   implementiert **keine** Secret-Erkennung, -Rotation, -Ablage, kein Scanning
+   und keine Zugriffskontrolle.

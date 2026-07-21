@@ -2,16 +2,33 @@
 
 | Feld | Wert |
 | --- | --- |
-| **Status** | **PROPOSED** |
+| **Status** | **ENTSCHIEDEN** — Option **B** gewählt |
 | Phase | Phase 0 – Discovery und Scope Lock |
-| Erfasst in | CBP-WP-004 |
+| Erfasst in | CBP-WP-004 · **entschieden in CBP-WP-009** |
 | Autoritätsklasse | A3 (Entscheidungsvorlage) |
-| Betrifft | **OD-26**, Widerspruch W-05, OI-07 |
-| Stand | 2026-07-20 |
+| Betrifft | **OD-26 — geschlossen**, Widerspruch W-05, OI-07 |
+| Stand | 2026-07-21 |
+
+> **Entscheidung liegt vor.** Der Human Maintainer hat am 2026-07-21
+> **Option B (Ziel-Monorepo)** als Zielstruktur gewählt — **D-029**, Autorität
+> **A0**, festgehalten in
+> [ADR-0007](../decisions/ADR-0007-repository-und-workspace-grenze.md).
+>
+> **Die Entscheidung autorisiert keine Verschiebung.** Das aktuelle Layout
+> bleibt bestehen, bis ein separates, ausdrücklich freigegebenes
+> Migrations-Work-Package vorliegt. Die Migration muss nachvollziehbar,
+> schrittweise, rücksetzbar und **ohne Verlust der Git-Historie** geplant
+> werden.
+>
+> **Sie autorisiert auch keine Veröffentlichung.** Wo dieses Dokument von
+> „Open-Source-Fähigkeit" oder „veröffentlichbar" spricht, ist eine
+> **Bauweise** gemeint — `publication-capable by design` —, kein
+> Freigabezustand. Das Repository bleibt **privat**; eine Veröffentlichung
+> benötigt eine separate **A0-Entscheidung** (OD-11), ebenso Lizenz (OD-23) und
+> Produktname (OD-28).
 
 **Es wurde keine Datei und kein Ordner verschoben.** Dieses Dokument
-vergleicht, es reorganisiert nicht. OD-26 bleibt offen, bis der Human
-Maintainer eine Option ausdrücklich annimmt.
+vergleicht, es reorganisiert nicht.
 
 ---
 
@@ -84,7 +101,7 @@ geschnitten. Entspricht der Skizze aus Projektübergabe §13, erweitert um
 ## Option C — Getrenntes Core- und Wissens-Repository
 
 ```text
-Core-Brain-Pilot/          öffentlich veröffentlichbar
+Core-Brain-Pilot/          veröffentlichungsfähig gebaut, nicht freigegeben
 ├── core/ adapters/ deployments/ config/ docs/ examples/ tests/
 └── project-system/ project-brain/ work-packages/
 
@@ -166,7 +183,18 @@ Herauslösung nach C eine reine Verschiebung bleibt.
 
 ## Status
 
-**PROPOSED.** Keine Reorganisation durchgeführt, keine Datei verschoben.
+**ENTSCHIEDEN — Option B.** Keine Reorganisation durchgeführt, keine Datei
+verschoben.
 
-OD-26 bleibt offen, bis der Human Maintainer eine Option **ausdrücklich**
-annimmt. Diese Vorlage ist A3 und ersetzt keine Entscheidung.
+**OD-26 ist am 2026-07-21 geschlossen** — durch **D-029** (Layout, dieses
+Dokument) und **D-030** (Bereichsmodell W-3,
+[REPOSITORY_AND_WORKSPACE_PLAN.md](../roadmap/REPOSITORY_AND_WORKSPACE_PLAN.md)).
+Beide Teilentscheidungen waren erforderlich; eine allein hätte OD-26 nicht
+geschlossen.
+
+Die damalige Empfehlung „Option B jetzt, Option C vorbereitet" ist bestätigt:
+Option C entspricht Modell **W-2** und bleibt vorbereitet, aber **nicht
+beschlossen**.
+
+**Weiterhin offen:** AB-03 bis AB-08 (OD-29), OD-13 (Manifestformat), OD-11
+(Sichtbarkeit) sowie Zeitpunkt und Zuschnitt der Migration.

@@ -3,7 +3,7 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Überarbeitet in | **CBP-WP-008** |
+| Überarbeitet in | **CBP-WP-009** |
 | Autoritätsklasse | A2 |
 | Stand | 2026-07-21 |
 
@@ -89,7 +89,7 @@ synthetischen Korpus und ist von der Größe des Realbestands unabhängig. Für 
 
 ## OI-07 — Repository-Struktur nicht freigegeben
 
-**Schweregrad:** mittel · **Status:** offen · **Adressat:** Nova + Human Maintainer
+**Schweregrad:** mittel · **Status:** **GESCHLOSSEN** (2026-07-21, CBP-WP-009)
 
 Drei Strukturvorstellungen stehen nebeneinander: Projektübergabe §13 (`core/`,
 `deployments/`, `docs/`, `examples/`), NDF v1.0.0 und die aktuelle Struktur aus
@@ -98,13 +98,17 @@ CBP-WP-001.
 Die Abweichungen AB-03 bis AB-08 bleiben nur **vorläufig für den Bootstrap**
 akzeptiert. Siehe W-05, OD-26, OD-29.
 
-**Stand nach CBP-WP-008:** Die Entscheidung ist vorbereitet, aber **nicht
-getroffen**. Zwei unabhängige Fragen liegen vor — das Verzeichnislayout
-([REPOSITORY_LAYOUT_OPTIONS.md](../architecture/REPOSITORY_LAYOUT_OPTIONS.md),
-Optionen A/B/C) und der Arbeitsbereichsschnitt
-([REPOSITORY_AND_WORKSPACE_PLAN.md](../roadmap/REPOSITORY_AND_WORKSPACE_PLAN.md),
-Modelle W-1/W-2/W-3). **OD-26 braucht beide Antworten**; vorgesehen für
-CBP-WP-009.
+**Aufgelöst am 2026-07-21** durch zwei getrennte A0-Entscheidungen in
+CBP-WP-009: **D-029** wählt das Ziel-Monorepo nach Layout-Option B, **D-030**
+das Bereichsmodell **W-3**. Festgehalten in
+[ADR-0007](../decisions/ADR-0007-repository-und-workspace-grenze.md) (A1).
+**OD-26 ist geschlossen.**
+
+**Verbleibende Einschränkung:** Die Entscheidung autorisiert **keine
+Reorganisation**. Das aktuelle Layout bleibt bestehen; die Migration braucht
+ein separates, ausdrücklich freigegebenes Work Package und muss die
+Git-Historie erhalten. **AB-03 bis AB-08 bleiben offen** (OD-29) — die
+Layoutwahl beantwortet die NDF-Abweichungen nicht.
 
 ---
 

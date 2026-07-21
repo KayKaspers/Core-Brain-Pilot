@@ -20,7 +20,7 @@ Maintainers ausführbar — Regel 6 der Work Package Queue.
 
 | ID | Titel | Typ | Stream | Status | Implementierung autorisiert |
 | --- | --- | --- | --- | --- | --- |
-| **CBP-WP-009** | Repository Boundary Decision | `docs-only`, interaktiv | F1 | **`proposed`** | **nein** |
+| **CBP-WP-009** | Repository Boundary Decision | `docs-only`, interaktiv | F1 | **`in-review`** — ausgeführt 2026-07-21 | **nein** |
 | **CBP-WP-010** | Pilot Source Mapping Specification | `docs-only` | F2 | **`proposed`** | **nein** |
 | **CBP-WP-011** | Technical Security Foundation Specification | `docs-only` | F3 | **`proposed`** | **nein** |
 | **CBP-WP-012** | Foundation Runtime Skeleton | spätere Implementierung | F3 | **`proposed`** | **nein** |
@@ -46,11 +46,14 @@ technischer Wirkung — und es ist **nicht autorisiert**.
 | **Abbruchbedingungen** | Human Maintainer entscheidet nicht oder nur teilweise → anhalten, **nicht annehmen** (SB-12) |
 | **Erwartete Risiken** | R-01, R-17 |
 | **Review Gate** | Nova-Review, dann Human-Maintainer-Entscheidung |
-| **Status** | **`proposed`** |
+| **Status** | **`in-review`** — ausgeführt am 2026-07-21 |
+| **Ergebnis** | **OD-26 geschlossen** — D-029 (Layout-Option B) und D-030 (Modell W-3), [ADR-0007](../decisions/ADR-0007-repository-und-workspace-grenze.md) `accepted` |
 | **Implementierung autorisiert** | **nein** |
 
 **Die Entscheidung geht der Verschiebung voraus.** Eine Reorganisation wäre ein
-eigenes, späteres Paket.
+eigenes, späteres Paket — **und ist es geblieben**: D-029 hält ausdrücklich
+fest, dass das aktuelle Layout bis zu einem separaten, freigegebenen
+Migrations-Work-Package bestehen bleibt.
 
 ## CBP-WP-010 — Pilot Source Mapping Specification
 
@@ -186,7 +189,19 @@ ersten Nachweise vorliegen, wäre Planung ohne Rückkopplung.
 
 ## Status
 
-**Alle sechs Work Packages: `proposed`.** Keines ist freigegeben, keines steht
-auf `active`, keines ist begonnen.
+**Stand nach CBP-WP-009:** CBP-WP-009 ist **ausgeführt** (`in-review`). Die
+fünf übrigen Work Packages CBP-WP-010 bis CBP-WP-014 stehen weiterhin auf
+**`proposed`** — keines ist freigegeben, keines steht auf `active`, keines ist
+begonnen.
+
+**Regel A ist erfüllt:** Die Bereichsgrenze steht, damit ist CBP-WP-010 nicht
+mehr durch eine fehlende Entscheidung blockiert. Es ist deshalb **nicht
+freigegeben**.
 
 **Implementierung autorisiert: nein.**
+
+> **Ergänzung zu einem Migrations-Work-Package.** D-029 verlangt für die
+> Überführung in die Zielstruktur ein **separates, ausdrücklich freigegebenes**
+> Work Package mit nachvollziehbarer, schrittweiser, rücksetzbarer Planung ohne
+> Verlust der Git-Historie. Ein solches Paket ist in dieser Karte **nicht**
+> geschnitten und wäre von Nova zu spezifizieren.

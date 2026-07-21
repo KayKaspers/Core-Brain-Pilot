@@ -25,12 +25,13 @@ vorgesehene, **noch nicht implementierte** Anwendungslaufzeit.
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Aktuelles Work Package | CBP-WP-008 (`in-review`) |
-| Nächster Schritt | **CBP-WP-009 bis CBP-WP-014 vorgeschlagen**, keines freigegeben — **keine Implementierung autorisiert** |
+| Aktuelles Work Package | CBP-WP-009 (`in-review`) |
+| Nächster Schritt | **CBP-WP-010 vorgeschlagen**, nicht freigegeben — **keine Implementierung autorisiert** |
 | **Gate G0** | **PASSED WITH NOTES** — 2026-07-21, A0 |
 | Phase-1-Planung | **Streams F1–F5 geplant**, [Foundation Plan](docs/roadmap/PHASE_1_FOUNDATION_PLAN.md) |
+| **Repository-Struktur** | **entschieden** — [ADR-0007](docs/decisions/ADR-0007-repository-und-workspace-grenze.md); **Migration nicht autorisiert** |
 | Implementierte Capabilities | **keine (0 von 29)** |
-| Angenommene ADRs | **6** |
+| Angenommene ADRs | **7** |
 | Framework | Nova Development Framework v1.0.0 |
 
 ## Pilotumfang
@@ -92,7 +93,7 @@ Nur der Human Maintainer committet, tagged und pusht.
 | `docs/roadmap/` | Phase-1-Backlog, Foundation Plan, Stream-Pläne F1–F5, Work-Package-Karte, Nachweisplan, Abbruchbedingungen |
 | `benchmarks/` | Synthetischer Korpus (24 Quellen), 36 Fragen, erwartete Ergebnisse |
 | `docs/security/` | Berechtigungsmodell, Secret-Incident-Response |
-| `docs/decisions/` | Architecture Decision Records — **6 angenommen** |
+| `docs/decisions/` | Architecture Decision Records — **7 angenommen** |
 | `docs/discovery/` | Fragebogen, G0-Kriterien, Quellenabgleich, A5-Projektübergabe |
 | `docs/ndf/` | NDF-Anwendung und dokumentierte Abweichungen |
 | `docs/privacy/` | Datenklassen und technische Datenschutzregeln |
@@ -101,9 +102,22 @@ Nur der Human Maintainer committet, tagged und pusht.
 | `project-system/` | Profil, Manifest, Capability Matrix, Register, WP-Queue |
 | `work-packages/` | Wortlaut der freigegebenen Work Packages |
 
-> Die Struktur ist **weiterhin nicht freigegeben**. **OD-26 bleibt offen** und
-> ist für CBP-WP-009 vorgesehen; Entscheidungsvorbereitung in
-> [REPOSITORY_AND_WORKSPACE_PLAN.md](docs/roadmap/REPOSITORY_AND_WORKSPACE_PLAN.md).
+> **Dies ist die aktuelle, nicht die Zielstruktur.** Am 2026-07-21 wurde als
+> Ziel ein **Monorepo** mit `core/`, `adapters/`, `deployments/`, `config/`,
+> `docs/`, `examples/`, `tests/` beschlossen, dazu ein **privater
+> Operator-Workspace außerhalb dieses Repositorys** und ein getrennter
+> Runtime-Datenbereich — **OD-26 geschlossen**,
+> [ADR-0007](docs/decisions/ADR-0007-repository-und-workspace-grenze.md).
+>
+> **Die Migration ist nicht autorisiert.** Das aktuelle Layout bleibt bestehen,
+> bis ein separates, ausdrücklich freigegebenes Work Package vorliegt.
+>
+> **Das Repository ist `publication-capable by design`, aber nicht
+> veröffentlicht.** Privater Bestand, produktive Mappings und Secrets sind
+> konstruktiv ausgeschlossen — das ist eine Bauweise, keine Freigabe. Das
+> Repository bleibt **privat**; Veröffentlichung, Lizenz und Produktname
+> benötigen jeweils eine eigene Human-Maintainer-Entscheidung (OD-11, OD-23,
+> OD-28).
 
 ## Einstiegspunkte
 

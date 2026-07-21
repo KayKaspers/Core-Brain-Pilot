@@ -3,9 +3,9 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Aktuelles Work Package | **CBP-WP-008** (`in-review`) |
+| Aktuelles Work Package | **CBP-WP-009** (`in-review`) |
 | Gate G0 | **PASSED WITH NOTES** — 2026-07-21 |
-| Überarbeitet in | CBP-WP-008 |
+| Überarbeitet in | **CBP-WP-009** |
 | Autoritätsklasse | A2 |
 | Stand | 2026-07-21 |
 
@@ -34,18 +34,26 @@ Spalten nach `WORK_PACKAGE_QUEUE_TEMPLATE.md` (NDF v1.0.0).
 | CBP-WP-005 | Benchmark Dataset and Retrieval Evaluation Design | P0 | **`committed`** | [work-packages/CBP-WP-005.md](../work-packages/CBP-WP-005.md) |
 | CBP-WP-006 | G0 Scope-Lock Review and Pilot Source Contract | P0 | **`committed`** | [work-packages/CBP-WP-006.md](../work-packages/CBP-WP-006.md) |
 | CBP-WP-007 | G0 Decision Recording and Phase 1 Backlog | P0 | **`committed`** | [work-packages/CBP-WP-007.md](../work-packages/CBP-WP-007.md) |
-| CBP-WP-008 | Phase 1 Foundation Implementation Plan | P0 | **`in-review`** | [work-packages/CBP-WP-008.md](../work-packages/CBP-WP-008.md) |
-| CBP-WP-009 | Repository and Workspace Decision | P0 | `proposed` | noch nicht erstellt |
+| CBP-WP-008 | Phase 1 Foundation Implementation Plan | P0 | **`committed`** | [work-packages/CBP-WP-008.md](../work-packages/CBP-WP-008.md) |
+| CBP-WP-009 | **Repository Boundary Decision** | P0 | **`in-review`** | [work-packages/CBP-WP-009.md](../work-packages/CBP-WP-009.md) |
 | CBP-WP-010 | Pilot Source Mapping Specification | P0 | `proposed` | noch nicht erstellt |
-| CBP-WP-011 | Technical Security Foundation | P0 | `proposed` | noch nicht erstellt |
-| CBP-WP-012 | Ingest Quarantine and Security Scanning | P1 | `proposed` | noch nicht erstellt |
-| CBP-WP-013 | Deterministic Source Registry | P1 | `proposed` | noch nicht erstellt |
-| CBP-WP-014 | Phase 1 Evidence Consolidation | P1 | `proposed` | noch nicht erstellt |
+| CBP-WP-011 | Technical Security Foundation Specification | P0 | `proposed` | noch nicht erstellt |
+| CBP-WP-012 | Foundation Runtime Skeleton | P1 | `proposed` | noch nicht erstellt |
+| CBP-WP-013 | Ingest Quarantine Minimum Viable Pipeline | P1 | `proposed` | noch nicht erstellt |
+| CBP-WP-014 | Deterministic Source Registry and Catalog | P1 | `proposed` | noch nicht erstellt |
 
-**Sechs Work Packages sind als `proposed` geführt** — CBP-WP-009 bis
-CBP-WP-014, vorgeschlagen in
+**Fünf Work Packages sind als `proposed` geführt** — CBP-WP-010 bis
+CBP-WP-014, geschnitten in
 [PHASE_1_WORK_PACKAGE_MAP.md](../docs/roadmap/PHASE_1_WORK_PACKAGE_MAP.md).
 **Keines ist freigegeben. Implementierung autorisiert: nein.**
+
+> **Titelkorrektur in CBP-WP-009.** Diese Übersichtstabelle trug bis dahin die
+> Titel eines verworfenen Entwurfs der Work-Package-Karte (009 „Repository and
+> Workspace Decision", 011 „Technical Security Foundation", 012 „Ingest
+> Quarantine…", 013 „Deterministic Source Registry", 014 „Phase 1 Evidence
+> Consolidation"). Verbindlich sind die Titel aus
+> `PHASE_1_WORK_PACKAGE_MAP.md`; der Detailblock weiter unten war bereits
+> korrekt. Der Fehler stammt aus CBP-WP-008.
 
 > Die frühere Regel „genau ein Work Package ist `proposed`" gilt nicht mehr:
 > CBP-WP-008 hat den gesamten Phase-1-Einstieg auf einmal geschnitten. Regel 4
@@ -157,8 +165,8 @@ Status **AUTHORIZED FOR PLANNING**. Zähl- und Statusregel ergänzt.
 | --- | --- |
 | Titel | **Phase 1 Foundation Implementation Plan** |
 | Typ | `docs-only` · Prompt Mode **Full** · Budget **B2 – Standard** |
-| Status | **`in-review`** |
-| Commit | **nicht** ausgeführt |
+| Status | **`committed`** |
+| Git-Beleg | `47a336d CBP-WP-008: plan phase 1 foundation work` |
 
 Ergebnis: drei veraltete Gate-Angaben korrigiert · P1–P5 als Streams **F1–F5**
 geplant · Repository- und Workspace-Schnitt entscheidungsreif (W-1/W-2/W-3) ·
@@ -169,34 +177,51 @@ Stop-Bedingungen · **vierter Zählfehler gefunden und korrigiert**.
 
 **Nichts gebaut, nichts installiert, nichts verschoben, nichts gemessen.**
 
-## CBP-WP-009 — einziges vorgeschlagenes nächstes Work Package
+## CBP-WP-009
 
 | Feld | Wert |
 | --- | --- |
 | Titel | **Repository Boundary Decision** |
-| Typ | `docs-only` |
+| Typ | `docs-only`, **interaktiv** |
+| Prompt Mode | **Full** · Context Budget **B1 – Lean** |
+| Claude Code | Opus 4.8 (`claude-opus-4-8`), Effort **xhigh** |
+| Status | **`in-review`** |
+| Commit | **nicht** ausgeführt |
+
+Ergebnis: **OD-26 geschlossen** durch zwei getrennte A0-Entscheidungen —
+**D-029** (Teil A, Ziel-Monorepo nach Layout-Option B) und **D-030** (Teil B,
+Modell W-3, privater Operator-Workspace außerhalb des Core-Repositorys).
+**ADR-0007** `accepted`. Titelkorrektur in der Übersichtstabelle.
+
+**Keine Reorganisation, kein Verzeichnis angelegt, kein Workspace erzeugt.**
+Die Migration in die Zielstruktur bleibt einem separaten, ausdrücklich
+freigegebenen Work Package vorbehalten.
+
+## CBP-WP-010 — einziges vorgeschlagenes nächstes Work Package
+
+| Feld | Wert |
+| --- | --- |
+| Titel | **Pilot Source Mapping Specification** |
+| Typ | `docs-only`, **interaktiv** |
 | Prompt Mode | **Full** |
 | Context Budget | **B1 – Lean** |
-| Ablauf | **interaktiv**, mit ausdrücklicher Human-Entscheidung zu **OD-26** |
 | Status | **`proposed`** |
 
-**Ziel.** OD-26 schließen — sowohl das Verzeichnislayout (Option A/B/C) als
-auch den Arbeitsbereichsschnitt (Modell W-1/W-2/W-3). Beide Antworten werden
-gebraucht.
+**Ziel.** Konkrete Mappings für PS-02, PS-03 und PS-04 spezifizieren — erst
+nach Human-Eingabe. Bereitet **OD-05** und **OD-06** vor.
 
-**Verboten:** jede Reorganisation, jede Verschiebung, jedes Vorwegnehmen von
-OD-05, OD-06 oder OD-11.
+**Verboten:** Aktivierung eines Mappings, Ingest, reale Pfade oder private
+Repository-URLs im Core-Repository, Secrets.
 
 **Nicht ausführen** ohne ausdrückliche Freigabe.
 
-## CBP-WP-010 bis CBP-WP-014 — vorgeschlagen, nicht freigegeben
+## CBP-WP-011 bis CBP-WP-014 — vorgeschlagen, nicht freigegeben
 
 Vollständig geschnitten in
 [PHASE_1_WORK_PACKAGE_MAP.md](../docs/roadmap/PHASE_1_WORK_PACKAGE_MAP.md).
 
 | ID | Titel | Typ |
 | --- | --- | --- |
-| CBP-WP-010 | Pilot Source Mapping Specification | `docs-only` |
 | CBP-WP-011 | Technical Security Foundation Specification | `docs-only` |
 | CBP-WP-012 | Foundation Runtime Skeleton | spätere Implementierung |
 | CBP-WP-013 | Ingest Quarantine Minimum Viable Pipeline | spätere Implementierung |
