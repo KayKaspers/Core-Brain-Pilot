@@ -3,7 +3,7 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | Phase 0 – Discovery und Scope Lock |
-| Überarbeitet in | CBP-WP-004 |
+| Überarbeitet in | CBP-WP-005 |
 | Autoritätsklasse | A2 |
 | Stand | 2026-07-20 |
 
@@ -91,15 +91,15 @@ Es existiert **keine** Installation.
 - Sperrwirkung von `excluded-from-ai` ungeprüft (R-31)
 - Keine Quarantäne für Nicht-Markdown-Quellen (R-32)
 - 16 vertagte Deployment-Kriterien; DRC definiert, aber **NOT EVALUATED** (R-34)
-- Kein Benchmark, damit keine Qualitätsaussage (R-21)
+- Benchmark entworfen, nicht ausgeführt — keine Qualitätsaussage (R-21)
 - Secret-Schadensverfahren definiert, aber ohne technische Erkennung (R-01)
 
 ## Bekannte Einschränkungen
 
 - Kein lauffähiges System, kein Wissensbestand, kein Index
-- Scope **nicht** gelockt; G0 ist NOT PASSED, **7** Core-Required-Kriterien nicht `accepted`
+- Scope **nicht** gelockt; G0 ist NOT PASSED, **1** Core-Required-Kriterium nicht `accepted` (D-1)
 - Sämtliche konkreten Infrastrukturwerte unbekannt und bewusst nicht erhoben
-- Keine der mindestens 30 Benchmarkfragen formuliert
+- Benchmark **entworfen, aber nicht durchgeführt** — keine Messung, keine Qualitätsaussage
 - Repository-Struktur nicht freigegeben
 - Keine Lizenz festgelegt
 - PDF-Fließtext lokal nicht extrahierbar; Auswertung über A6-Textfassung

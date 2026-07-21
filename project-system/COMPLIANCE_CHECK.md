@@ -3,7 +3,7 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | Phase 0 – Discovery und Scope Lock |
-| Letzte Prüfung | 2026-07-20, im Rahmen von CBP-WP-004 |
+| Letzte Prüfung | 2026-07-21, im Rahmen von CBP-WP-005 |
 | Autoritätsklasse | A2 |
 
 > Diese Datei gehört zur kanonischen NDF-Ordnerstruktur, war aber in der
@@ -24,7 +24,7 @@
 | Kein zweites Governance-System | erfüllt |
 | Vorprüfung vor jeder Änderung | erfüllt |
 
-## Scope-Compliance (CBP-WP-004)
+## Scope-Compliance (CBP-WP-005)
 
 | Prüfung | Ergebnis |
 | --- | --- |
@@ -83,7 +83,7 @@
 | Prüfung | Ergebnis |
 | --- | --- |
 | Alle Statusdokumente nennen Phase 0 | erfüllt |
-| Aktuelles Work Package als CBP-WP-004 ausgewiesen | erfüllt |
+| Aktuelles Work Package als CBP-WP-005 ausgewiesen | erfüllt |
 | Keine Capability als `implemented` bezeichnet | erfüllt |
 | Alle Capabilities besitzen eine Priorität | erfüllt |
 | **Fehlerhafte Summen korrigiert** | **erfüllt** — 47/45/38/56 statt 41/39/35/55 |
@@ -116,13 +116,39 @@
 | Keine Infrastruktur bewertet oder bereitgestellt | erfüllt |
 | ADRs nach bestehender Konvention | erfüllt — ADR-NNNN-titel.md, 5 Stück |
 
+## Benchmark-Compliance (CBP-WP-005)
+
+| Prüfung | Ergebnis |
+| --- | --- |
+| Korpus im Rahmen 15–24 Quellen | erfüllt — 24 |
+| Alle Quellen als synthetische Fixtures gekennzeichnet | erfüllt — `test_fixture: true` durchgehend |
+| Pflichtmetadaten vollständig | erfüllt — 15 Felder je Quelle |
+| Keine realen Personen, Kunden oder Organisationen | erfüllt — drei erfundene Projekte, Rollen statt Namen |
+| Keine echten oder realistischen Secrets | erfüllt — `data_class: secret` kommt nicht vor |
+| A1 bis A6 im Korpus repräsentiert | erfüllt |
+| Mindestens vier Konfliktpaare | erfüllt — K1 bis K4 |
+| Mindestens vier veraltete oder superseded Quellen | erfüllt — 5 |
+| Mindestens vier Datenschutzfälle | erfüllt — 4 Fixtures, 6 Fragen |
+| Mindestens zwei `excluded-from-ai`-Fixtures | erfüllt — 2 |
+| Mindestens drei Negativfälle | erfüllt — 6 Abstention-Fragen |
+| Genau 36 Fragen, 6 Kategorien zu je 6 | erfüllt |
+| Genau 24 Development und 12 Holdout | erfüllt |
+| Kein Fall über drei Quellen | erfüllt — F-06 ist ausgewiesener Eskalationsfall |
+| Kritische Fehler definiert | erfüllt — 7 |
+| V0, V1, V2 provider-neutral | erfüllt — keine Suchsoftware benannt |
+| Datenschutzverletzungen mit Zielwert 0 | erfüllt |
+| Keine Suchsoftware ausgewählt oder installiert | erfüllt — qmd bleibt Kandidat (OD-25) |
+| Keine ausführbaren Dateien | erfüllt — ausschließlich Markdown |
+| Benchmark **dokumentiert, nicht ausgeführt** | erfüllt |
+
 ## Offene Punkte
 
 | Punkt | Bezug |
 | --- | --- |
 | Berechtigungsmodell dokumentiert, **technisch nicht durchgesetzt** | R-25, R-27 |
 | Secret-Erkennung und technische Unterstützung fehlen | R-01 |
-| Benchmarkplan fehlt vollständig | OI-06, R-21 |
+| Benchmark entworfen, **nicht ausgeführt** — keine Messung | R-21 |
+| Konkreter produktiver Quellenbestand fehlt (D-1) | OD-05, OD-06 |
 | DRC definiert, aber **NOT EVALUATED** | R-34 |
 | Repository-Layout nur vorgeschlagen, nicht entschieden | OD-26 |
 

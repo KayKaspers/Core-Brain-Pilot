@@ -2,7 +2,7 @@
 
 | Feld | Wert |
 | --- | --- |
-| Überarbeitet in | CBP-WP-004 |
+| Überarbeitet in | CBP-WP-005 |
 | Autoritätsklasse | A2 |
 | Stand | 2026-07-20 |
 
@@ -18,14 +18,14 @@ keine Laufzeit, keine Installation, kein Index, kein Wissensbestand.
 
 | Feld | Wert |
 | --- | --- |
-| Aktuelles Work Package | CBP-WP-004 (`in-review`) |
+| Aktuelles Work Package | CBP-WP-005 (`in-review`) |
 | Nächstes Gate | **G0 – Discovery and Scope Lock — NOT PASSED** |
 | G0-Kriterien | **47**, dreistufig klassifiziert |
 | davon blockierend | **25** Core Required (zuvor 45) |
 | davon `accepted` | **18** |
-| verbleibende Blocker | **7** (davon 6 Benchmark) |
+| verbleibende Blocker | **1** (D-1) |
 | Implementierte Capabilities | **keine (0 von 29)** |
-| Commits | 4 |
+| Commits | 5 |
 
 ## Ziel
 

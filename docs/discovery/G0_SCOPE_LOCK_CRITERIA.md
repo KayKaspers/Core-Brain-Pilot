@@ -5,9 +5,9 @@
 | Gate | **G0 – Discovery and Scope Lock** |
 | **Gate-Status** | **NOT PASSED** |
 | Phase | Phase 0 – Discovery und Scope Lock |
-| Erfasst in | CBP-WP-002, überarbeitet in CBP-WP-003 |
+| Erfasst in | CBP-WP-002, überarbeitet in CBP-WP-003, CBP-WP-004, CBP-WP-005 |
 | Autoritätsklasse | A3 (Gate-Dokumentation) |
-| Stand | 2026-07-20 |
+| Stand | 2026-07-21 |
 
 Dieses Dokument definiert objektiv prüfbare Kriterien für G0. Es erklärt G0
 **nicht** als bestanden und darf das auch nicht.
@@ -99,7 +99,7 @@ Nachweis.
 
 | ID | Kriterium | Klasse | Status | Nachweis | Autorität |
 | --- | --- | --- | --- | --- | --- |
-| D-1 | Gewünschte Quellen | **Core** | `answered` | HDI A3 — Markdown, Git, Chat-Handoffs, Obsidian-Vault als Markdown | A0 |
+| D-1 | Gewünschte Quellen | **Core** | **`answered`** | HDI A3 — Quellen**arten** auf Profilebene entschieden. Kontrollierter Benchmark-Korpus definiert ([BENCHMARK_SOURCE_CONTRACT.md](../benchmark/BENCHMARK_SOURCE_CONTRACT.md)). **Konkrete produktive Quellenpfade erst im späteren Ingest-Readiness- beziehungsweise Deployment-Schritt** (OD-05, OD-06) | A0 |
 | D-2 | Größenordnung | Deployment | `open` | bewusst nicht erhoben, keine Dateiinventur | A0 |
 | D-3 | Dateiformate | **Core** | **`accepted`** | HDI A3 — Markdown zuerst; PDF/Office nur über Quarantäne (D-019) | A0 |
 | D-4 | Datenklassen zugeordnet | **Core** | `accepted` | HDI A4 — Profilebene entschieden | A0 |
@@ -133,12 +133,12 @@ Nachweis.
 
 | ID | Kriterium | Klasse | Status | Nachweis | Autorität |
 | --- | --- | --- | --- | --- | --- |
-| G-1 | Mindestens 30 Benchmarkfragen | **Core** | `open` | — | A2 |
-| G-2 | Kategorien definiert | **Core** | `open` | — | A2 |
-| G-3 | Erfolgsmetriken definiert | **Core** | `open` | — | A2 |
-| G-4 | Baseline-Verfahren definiert | **Core** | `open` | — | A2 |
-| G-5 | Datenschutzfälle enthalten | **Core** | `open` | mindestens 3 Fragen | A2 |
-| G-6 | Konfliktfälle enthalten | **Core** | `open` | mindestens 3 Fragen | A2 |
+| G-1 | Mindestens 30 Benchmarkfragen | **Core** | **`accepted`** | [BENCHMARK_QUESTIONS.md](../../benchmarks/questions/BENCHMARK_QUESTIONS.md) — **36** versionierte Fragen, Dataset 1.0.0 | A2 |
+| G-2 | Kategorien definiert | **Core** | **`accepted`** | Sechs Kategorien A–F zu je 6 Fragen, 24 Development / 12 Holdout | A2 |
+| G-3 | Erfolgsmetriken definiert | **Core** | **`accepted`** | [EVALUATION_RUBRIC.md](../benchmark/EVALUATION_RUBRIC.md) — 4 Metrikgruppen, Rubrik 0/1/2, 7 kritische Fehler, 10 Pilotziele (**vorläufig**) | A2 |
+| G-4 | Baseline-Verfahren definiert | **Core** | **`accepted`** | [BENCHMARK_PLAN.md](../benchmark/BENCHMARK_PLAN.md) V0/V1/V2 provider-neutral + [BASELINE_PROTOCOL.md](../benchmark/BASELINE_PROTOCOL.md) 13 Erfassungsregeln | A2 |
+| G-5 | Datenschutzfälle enthalten | **Core** | **`accepted`** | **6** Fragen (D-01…D-06), **4** Korpusfixtures, davon **2 `excluded-from-ai`** | A2 |
+| G-6 | Konfliktfälle enthalten | **Core** | **`accepted`** | **4** Konfliktpaare K1–K4 im Korpus, **9** Konfliktfragen; A6-gegen-A1 und A6-gegen-A2 enthalten | A2 |
 
 ### Vorgaben aus den Quellen
 
@@ -228,58 +228,62 @@ keine der sechs bedingten Funktionen für den Pilot aktiviert.
 | Conditional | 6 | nur bei aktivierter Funktion |
 | **Summe** | **47** | |
 
-### Blocker — Stand nach CBP-WP-004
+### Blocker — Stand nach CBP-WP-005
 
-| Kennzahl | CBP-WP-003 | **CBP-WP-004** |
-| --- | --- | --- |
-| Blockierend, dreistufiges Modell | 25 | **25** |
-| davon `accepted` | 8 | **18** |
-| davon `answered` | 4 | **1** |
-| davon `open` | 13 | **6** |
-| davon `blocked` | 0 | **0** |
-| **Noch nicht `accepted` (verbleibende Blocker)** | 17 | **7** |
+| Kennzahl | WP-003 | WP-004 | **WP-005** |
+| --- | --- | --- | --- |
+| Blockierend, dreistufiges Modell | 25 | 25 | **25** |
+| davon `accepted` | 8 | 18 | **24** |
+| davon `answered` | 4 | 1 | **1** |
+| davon `open` | 13 | 6 | **0** |
+| davon `blocked` | 0 | 0 | **0** |
+| **Noch nicht `accepted` (verbleibende Blocker)** | 17 | 7 | **1** |
 
 Aktive Conditional-Blocker: **0** — keine bedingte Funktion ist im Pilotumfang
 aktiviert.
 
-### Die 18 `accepted`-Kriterien
+### Die 24 `accepted`-Kriterien
 
 A-1 · A-2 · A-4 · A-5 · A-8 · D-3 · D-4 · D-5 · D-8 · E-2 · E-3 · E-4 · E-5 ·
-F-1 · F-2 · F-3 · F-5 · F-6
+F-1 · F-2 · F-3 · F-5 · F-6 · **G-1 · G-2 · G-3 · G-4 · G-5 · G-6**
 
-**In CBP-WP-004 neu angenommen (10):**
+**In CBP-WP-005 neu angenommen (6) — der gesamte Benchmarkblock:**
 
-| ID | Beleg |
+| ID | Nachweis |
 | --- | --- |
-| A-1, A-2 | HDI A2 und D-018 — Human Maintainer, ein Nutzer |
-| D-3 | HDI A3 und D-019 — Markdown zuerst, PDF/Office nur über Quarantäne |
-| A-8 | DO_NOT_START.md mit 25 A0-Punkten, auf A-8 gemappt |
-| D-8 | SECRET_INCIDENT_RESPONSE.md |
-| E-2 bis E-5 | PERMISSION_MODEL.md |
-| F-3 | ADR-0003 mit Rebuild-Vertrag |
+| G-1 | 36 versionierte Benchmarkfragen, Dataset 1.0.0 |
+| G-2 | Sechs Kategorien A–F zu je 6 Fragen, 24 Development / 12 Holdout |
+| G-3 | Vier Metrikgruppen, Rubrik 0/1/2, 7 kritische Fehler, 10 Pilotziele |
+| G-4 | V0/V1/V2 provider-neutral plus 13 Erfassungsregeln im Baseline-Protokoll |
+| G-5 | 6 Datenschutzfragen, 4 Korpusfixtures, davon 2 `excluded-from-ai` |
+| G-6 | 4 Konfliktpaare K1–K4, 9 Konfliktfragen, A6-gegen-A1 und A6-gegen-A2 enthalten |
 
-### Verbleibende 7 Blocker
+### Der verbleibende Blocker
 
 | ID | Kriterium | Status | Warum offen |
 | --- | --- | --- | --- |
-| D-1 | Gewünschte Quellen | `answered` | Quellen**arten** sind entschieden; der konkrete Bestand (Pfade oder Systeme) fehlt — OD-05, OD-06 |
-| G-1 | Mindestens 30 Benchmarkfragen | `open` | Keine formuliert |
-| G-2 | Kategorien definiert | `open` | — |
-| G-3 | Erfolgsmetriken definiert | `open` | „deutlich weniger" ist unquantifiziert |
-| G-4 | Baseline-Verfahren definiert | `open` | — |
-| G-5 | Datenschutzfälle enthalten | `open` | mindestens 3 Fragen |
-| G-6 | Konfliktfälle enthalten | `open` | mindestens 3 Fragen |
+| **D-1** | Gewünschte Quellen | **`answered`** | Quellen**arten** sind auf Profilebene entschieden, der Benchmark-Korpus ist definiert — der **konkrete produktive Bestand** (Pfade oder Systeme) fehlt. Abhängig von OD-05 und OD-06 |
 
-**Der Benchmarkblock G-1 bis G-6 bleibt vollständig offen** und ist damit der
-dominierende Rest: sechs der sieben verbleibenden Blocker.
+**D-1 wurde in CBP-WP-005 ausdrücklich nicht auf `accepted` gehoben.** Ein
+kontrollierter Testkorpus belegt, dass das Quellenmodell trägt; er ersetzt
+nicht die Benennung des realen Bestands. Eine Aufwertung wäre eine erfundene
+Entscheidung gewesen.
 
 **Gate-Status: NOT PASSED.**
 
-> **Keine automatische Freigabe.** Kein Kriterium wurde ohne Nachweis
-> angenommen. Die dokumentarische Erfüllung von D-8 und E-2 bis E-5 bedeutet
-> **nicht**, dass die zugehörigen Kontrollen technisch existieren — sie
-> existieren nicht. Bedingung 5 der Abschlussregel, die ausdrückliche Freigabe
-> des Human Maintainers, ist nicht erteilt.
+> **Keine automatische Freigabe.** Auch mit 24 von 25 angenommenen
+> Core-Kriterien ist G0 **nicht** bestanden.
+>
+> Drei Gründe, die unabhängig voneinander gelten:
+>
+> 1. **D-1 ist nicht `accepted`.** Bedingung 1 der Abschlussregel ist damit
+>    nicht erfüllt.
+> 2. **Die dokumentarische Erfüllung ist keine technische.** D-8 und E-2 bis
+>    E-5 beschreiben Kontrollen, die nicht existieren; G-1 bis G-6 beschreiben
+>    einen Benchmark, der nicht durchgeführt wurde. Risiken R-21, R-25, R-27
+>    und R-31 bleiben offen.
+> 3. **Bedingung 5 ist eigenständig.** Die ausdrückliche Freigabe des Human
+>    Maintainers ist nicht erteilt und wird durch keine Kennzahl ersetzt.
 
 ## Pflege
 

@@ -3,7 +3,7 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | Phase 0 – Discovery und Scope Lock |
-| Überarbeitet in | CBP-WP-004 |
+| Überarbeitet in | CBP-WP-005 |
 | Autoritätsklasse | A2 |
 | Stand | 2026-07-20 |
 
@@ -44,7 +44,7 @@ und 3: Datenbasis ordnen → Katalog → Suche → Brain-First-Regeln → Baseli
 | 6 | Secret- und PII-Prüfung | **P0** | `planned` | Sicherheitskritisch; **Schadensverfahren definiert** (SECRET_INCIDENT_RESPONSE); Erkennung offen |
 | 7 | Deterministischer Quellenindex | **P0** | `planned` | Determinismus ist Akzeptanzkriterium |
 | 8 | Inkrementelle Indexierung mit Tombstones | **P0** | `planned` | Löschungen müssen im Index nachvollziehbar bleiben |
-| 9 | Volltext-, semantische und hybride Suche | **P0** | `planned` | Lokal; qmd nur Kandidat mit Prüfvorbehalt (OD-25) |
+| 9 | Volltext-, semantische und hybride Suche | **P0** | `planned` | Lokal; **kein Provider gewählt**. qmd bleibt Evaluationskandidat mit Prüfvorbehalt (OD-25) |
 | 10 | Brain-First-Retrieval | **P0** | `planned` | Suchleiter aus Übergabe §7 in ARCHITECTURE_PRINCIPLES |
 | 11 | Autoritätsfilter | **P0** | `planned` | Setzt Vergabeverfahren A0–A6 voraus (OD-07) |
 | 12 | Datenschutzfilter | **P0** | `planned` | Fail-closed; `secret` und `excluded-from-ai` passieren nie |
@@ -57,7 +57,7 @@ und 3: Datenbasis ordnen → Katalog → Suche → Brain-First-Regeln → Baseli
 | 19 | Verifikations-Queues | P1 | `planned` | Hängt an Capability 4 |
 | 20 | Quellen- und Collection-Berechtigungen | **P0** | `planned` | **Modell vollständig** (PERMISSION_MODEL, ADR-0004); technische Durchsetzung offen (R-25) |
 | 21 | Vault Doctor | **P0** | `planned` | Periodische Bestandsprüfung; Prüfkatalog offen |
-| 22 | Retrieval-Benchmarks und Regressionstests | **P0** | `planned` | Mindestens 30 Fragen; noch keine formuliert (OI-06) |
+| 22 | Retrieval-Benchmarks und Regressionstests | **P0** | `planned` | **Design vollständig**: Dataset 1.0.0, 36 Fragen, Metriken, Governance. **Nicht ausgeführt** — kein Lauf, keine Messung |
 | 23 | Atomare Änderungen und Mehrschreiberschutz | P1 | `planned` | Verfahren offen (Fragebogen 6.8) |
 | 24 | Private Mehrgeräte- und Mobile-Nutzung | P1 | `planned` | Zugriffsweg offen (OD-21) |
 | 25 | Docker-Compose-Betrieb | P2 | `not-started` | Referenzprofil D; kein Pflichtziel der ersten Phase |

@@ -3,7 +3,7 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | Phase 0 – Discovery und Scope Lock |
-| Überarbeitet in | CBP-WP-004 |
+| Überarbeitet in | CBP-WP-005 |
 | Autoritätsklasse | A2 |
 | Stand | 2026-07-20 |
 
@@ -31,7 +31,7 @@ Ein irreversibler Schaden ist mindestens **hoch**.
 | R-25 | Berechtigungen bestehen nur als Promptregel und nicht technisch | **hoch** | **Modell vollständig dokumentiert** (PERMISSION_MODEL, ADR-0004): 5 Aktionsklassen, 5 Durchsetzungsebenen, Default deny. **Technische Umsetzung existiert nicht** | **verändert, offen** |
 | R-26 | Betrieb als Root oder direkt auf dem Proxmox-Host | **hoch** | Ausdrückliches Verbot in TRUST_BOUNDARIES | offen |
 | R-27 | Pauschale GitHub-Schreibrechte oder allgemeiner Repository-Schreibzugriff | **hoch** | **Regel gesetzt:** Claude `forbidden` auf `github remote`, nur `draft` auf `git repository`; Push ausschließlich Human Maintainer. Technisch nicht durchgesetzt | **verändert, offen** |
-| **R-31** | **Die Sperrwirkung von `excluded-from-ai` wird nie mit Testdaten geprüft** | **hoch** | D-021 fordert die Prüfung ausdrücklich mit synthetischen oder unkritischen Testdaten | **neu, offen** |
+| R-31 | Die Sperrwirkung von `excluded-from-ai` wird nie mit Testdaten geprüft | **hoch** | **Zwei synthetische Fixtures und 6 Datenschutzfragen angelegt**; Leakage ist als kritischer Fehler mit Zielwert 0 definiert. **Prüfung noch nicht durchgeführt** | **gemindert** |
 
 ## Wissensintegrität
 
@@ -59,7 +59,7 @@ Ein irreversibler Schaden ist mindestens **hoch**.
 | R-17 | Abweichungen vom NDF wachsen unkontrolliert | niedrig | AB-03 bis AB-08 nur vorläufig akzeptiert | gemindert |
 | R-24 | Verwechslung von NDF Prompt Mode und Context Budget | mittel | Ausdrückliche Abgrenzung; D-009 | gemindert |
 | R-28 | Ein zweites Governance-System wird eingeführt | mittel | Superpowers nur als Referenz | gemindert |
-| **R-33** | **Fehlerhafte Kennzahlen in Statusdokumenten führen zu falschen Gate-Einschätzungen** | mittel | Summen in CBP-WP-003 gegen die Einzeleinträge nachgezählt und korrigiert (47/45/38/56); künftig Auszählung statt Fortschreibung | **neu, gemindert** |
+| R-33 | Fehlerhafte Kennzahlen in Statusdokumenten führen zu falschen Gate-Einschätzungen | mittel | Summen werden ausgezählt statt fortgeschrieben; in CBP-WP-005 erneut skriptgestützt geprüft | gemindert |
 | **R-34** | **Deployment-Required-Kriterien werden vertagt und dann vergessen** | **hoch** | Alle 16 bleiben als `open` erfasst; separates Deployment-Readiness-Gate zu definieren (OD-33). **Fail-closed:** ohne die Angaben wird nicht installiert | **neu, offen** |
 
 ## Betrieb
@@ -68,7 +68,7 @@ Ein irreversibler Schaden ist mindestens **hoch**.
 | --- | --- | --- | --- | --- |
 | R-19 | Bindung an Proxmox oder Compose sickert in die Architektur ein | mittel | **ADR-0001 angenommen**; fünf Profile beschrieben; Profil B ist der laufende Neutralitätsnachweis | **gemindert** |
 | R-20 | Fehlende Restore-Evidenz — Sicherung existiert, Wiederherstellung nie geprobt | **hoch** | **Standardwert 10:** Backup muss vor produktivem Betrieb eingerichtet **und getestet** sein. Zielwerte weiterhin offen (F-4) | offen |
-| R-21 | Retrieval-Qualität verschlechtert sich unbemerkt | mittel | Benchmarks und Regressionstests; **keine der mindestens 30 Fragen formuliert** | **offen, kritisch** |
+| R-21 | Retrieval-Qualität verschlechtert sich unbemerkt | mittel | **Benchmark entworfen** (Dataset 1.0.0): 36 Fragen, 4 Metrikgruppen, Regressionsregeln bei 7 Systemänderungen. **Kein Lauf durchgeführt** | **gemindert, nicht geschlossen** |
 | R-29 | Produktive Synchronisation ohne Test-Vault führt zu Datenverlust | **hoch** | **D-025 vertagt native Obsidian-Nutzung**; Freigabe erst nach Test-Vault, Konflikt- und Restore-Prüfung | **gemindert** |
 | R-30 | Datenschutzklassifikation ohne technische Durchsetzung | **hoch** | **D-021 macht daraus eine prüfbare Anforderung** — Sperrwirkung mit Testdaten nachzuweisen | **konkretisiert** |
 
@@ -84,13 +84,27 @@ Ein irreversibler Schaden ist mindestens **hoch**.
 | Status | Anzahl |
 | --- | --- |
 | geschlossen | 2 |
-| gemindert | **12** |
+| gemindert | **14** |
 | konkretisiert | 4 |
 | dokumentiert | 1 |
 | teilweise gemindert | 1 |
-| offen | **12** |
+| offen | **10** |
 
-**Neu in CBP-WP-004:** keine.
+**Neu in CBP-WP-005:** keine.
+
+**Verändert in CBP-WP-005:**
+
+| ID | Änderung | Auslöser |
+| --- | --- | --- |
+| **R-21** | Benchmark entworfen → `gemindert, nicht geschlossen` | Dataset 1.0.0, 36 Fragen, Metrikrubrik, Regressionsregeln |
+| **R-31** | Zwei `excluded-from-ai`-Fixtures und 6 Datenschutzfragen angelegt → `gemindert` | Benchmark-Korpus, Leakage als kritischer Fehler mit Zielwert 0 |
+| R-33 | Kennzahlen erneut skriptgestützt ausgezählt | Prüfungen in CBP-WP-005 |
+
+> **R-21 ist ausdrücklich nicht geschlossen.** Ein entworfener Benchmark misst
+> nichts. Ohne durchgeführten Lauf bleibt jede Qualitätsaussage unbelegt.
+>
+> **R-31 ist gemindert, nicht geschlossen.** Die Fixtures existieren, die
+> Prüfung der Sperrwirkung steht aus.
 
 **Verändert in CBP-WP-004:**
 

@@ -1,9 +1,9 @@
-# Open Information — fehlende Eingangsinformation
+﻿# Open Information — fehlende Eingangsinformation
 
 | Feld | Wert |
 | --- | --- |
 | Phase | Phase 0 – Discovery und Scope Lock |
-| Überarbeitet in | CBP-WP-003 |
+| Überarbeitet in | CBP-WP-005 |
 | Autoritätsklasse | A2 |
 | Stand | 2026-07-20 |
 
@@ -59,37 +59,32 @@ Required (25), Deployment Required (16) und Conditional (6).
 
 ## OI-05 — Zielumgebung nicht verifiziert
 
-**Schweregrad:** niedrig · **Status:** **umklassifiziert** · **Adressat:** Human Maintainer
+**Schweregrad:** niedrig · **Status:** umklassifiziert · **Adressat:** Human Maintainer
 
-Das Betriebsprofil ist entschieden: Proxmox-VM mit dedizierter Linux-VM
-(D-015). Die konkreten Werte — Version, CPU, RAM, Speicher, Storage — sind
-**bewusst nicht erhoben** worden und nun **Deployment Required**.
-
-Sie verhindern den allgemeinen Scope Lock nicht mehr, sondern die spätere
-Installation. Zuständig ist ein noch zu definierendes
-Deployment-Readiness-Gate (OD-33).
-
+Das Betriebsprofil ist entschieden (D-015). Die konkreten Werte sind bewusst
+nicht erhoben und nun **Deployment Required**; geprüft werden sie im
+[DRC](../operations/DEPLOYMENT_READINESS_CHECK.md), der auf **NOT EVALUATED**
+steht.
 ---
 
-## OI-06 — Benchmarkfragen noch nicht formuliert
+## OI-06 — Benchmarkfragen
 
-**Schweregrad:** **hoch** · **Status:** offen · **Adressat:** Nova + Human Maintainer
+**Schweregrad:** hoch · **Status:** **GESCHLOSSEN** (2026-07-21, CBP-WP-005)
 
-Es existiert **keine einzige** der geforderten mindestens 30 Benchmarkfragen.
-Ohne sie ist Erfolgskriterium 2 der Projektübergabe §16 nicht prüfbar, und
-„deutlich weniger Dateien" sowie „deutlich weniger Kontext" bleiben
-unquantifiziert.
+36 versionierte Benchmarkfragen liegen vor, verteilt auf sechs Kategorien
+(24 Development / 12 Holdout), mit erwarteten Quellen, Antwortformen und
+kritischen Fehlern. Erfolgsmetriken, Baseline-Protokoll und Dataset Governance
+sind definiert. G-1 bis G-6 stehen auf `accepted`.
 
-**Nach dem Intake ist dies der größte zusammenhängende G0-Blocker:** sechs der
-25 Core-Required-Kriterien (G-1 bis G-6) hängen daran.
+**Verbleibende Einschränkung:** Der Benchmark ist **entworfen, nicht
+durchgeführt**. Es existiert keine Messung, kein Index, keine Suchsoftware.
+Risiko R-21 bleibt deshalb `gemindert`, nicht geschlossen; die Pilotziele in
+der Rubrik sind ungemessene Setzungen, und OD-02b bleibt offen.
 
-Der Intake hat die Voraussetzung teilweise geschaffen — die Quellenarten sind
-bekannt (HDI A3). Die **Größenordnung** des Bestands (D-2) ist es nicht; sie
-wurde bewusst nicht erhoben. Für die Fragenformulierung dürfte das genügen, für
-die Kalibrierung der Metriken nicht.
-
-Schweregrad von mittel auf **hoch** angehoben.
-
+Die ursprüngliche Abhängigkeit von der Bestandsgrößenordnung (D-2) hat sich
+nicht als blockierend erwiesen: der Benchmark arbeitet auf einem kontrollierten
+synthetischen Korpus und ist von der Größe des Realbestands unabhängig. Für die
+**Kalibrierung** der Schwellenwerte bleibt sie relevant.
 ---
 
 ## OI-07 — Repository-Struktur nicht freigegeben
@@ -105,46 +100,61 @@ akzeptiert. Siehe W-05, OD-26, OD-29.
 
 ---
 
-## OI-08 — Berechtigungsmodell nicht erhoben
+## OI-08 — Berechtigungsmodell
 
-**Schweregrad:** **hoch** · **Status:** offen · **Adressat:** Human Maintainer
+**Schweregrad:** hoch · **Status:** **GESCHLOSSEN** (2026-07-20, CBP-WP-004)
 
-*Neu in CBP-WP-003.*
+Der Intake hatte diesen Block bewusst nicht erhoben. Aufgelöst durch
+[PERMISSION_MODEL.md](../security/PERMISSION_MODEL.md) und **ADR-0004**:
+9 Rollen × 12 Ressourcen, fünf Aktionsklassen, fünf technische
+Durchsetzungsebenen, Default deny. E-2 bis E-5 stehen auf `accepted`,
+OD-32 ist geschlossen.
 
-Vier Core-Required-Kriterien sind unbeantwortet: erlaubte Repository-Zugriffe
-(E-2), GitHub-Zugriffe (E-3), Berechtigungsstufe je Bereich (E-4) und
-Freigabeverfahren (E-5).
-
-Der überarbeitete Minimal-Fragebogen hat diesen Block bewusst nicht erhoben —
-er war auf Betriebs-, Nutzungs-, Quellen-, Datenschutz-, Zugriffs- und
-Funktionsprofil beschränkt. Das ist eine **bewusste Lücke des Intakes**, kein
-Versäumnis des Human Maintainers.
-
-Projektübergabe §10 verlangt, Berechtigungen **technisch** umzusetzen, nicht
-nur über Promptregeln. Ohne Zuordnung der fünf Stufen bleibt R-25 kritisch
-offen.
-
-Erfasst als OD-32.
+**Verbleibende Einschränkung:** Erfüllt ist die **dokumentarische**
+Anforderung. Es existiert keine Anwendung, kein Dienstkonto, keine API.
+**R-25 und R-27 bleiben ausdrücklich `offen`** — ein Berechtigungsmodell auf
+Papier ist keine Zugriffskontrolle.
 
 ---
 
 ## OI-09 — Verfahren bei Secret in der Git-Historie
 
+**Schweregrad:** hoch · **Status:** **GESCHLOSSEN** (2026-07-20, CBP-WP-004)
+
+Aufgelöst durch
+[SECRET_INCIDENT_RESPONSE.md](../security/SECRET_INCIDENT_RESPONSE.md):
+14 Schritte, Rollenverteilung und zwei Reihenfolgeregeln — **Rotation vor
+History Cleanup** und **Bereinigung vor Rebuild**. D-8 steht auf `accepted`,
+OD-10 ist geschlossen.
+
+**Verbleibende Einschränkung:** Es gibt keine automatische Erkennung, keine
+technische Durchsetzung der Reihenfolge und keine Werkzeugunterstützung.
+**R-01 bleibt `teilweise gemindert`**, nicht geschlossen.
+
+---
+
+## OI-10 — Konkreter produktiver Quellenbestand
+
 **Schweregrad:** **hoch** · **Status:** offen · **Adressat:** Human Maintainer
 
-*Neu in CBP-WP-003.*
+*Neu in CBP-WP-005.*
 
-Der Intake hat das **Verbot** bestätigt: Secrets sind immer verboten in
-Wissensbestand, Repository, Index, Embeddings, Wiki und Context Packs (HDI A4).
+**Der einzige verbleibende G0-Blocker.** Kriterium D-1 steht auf `answered`,
+nicht `accepted`.
 
-Der **Ablauf im Schadensfall** ist nicht festgelegt — was geschieht, wenn ein
-Secret trotzdem in die Historie gelangt: Rotation, History-Rewrite, Meldeweg,
-Zuständigkeit.
+| Ebene | Stand |
+| --- | --- |
+| Quellen**arten** | entschieden (HDI A3, D-019) |
+| Benchmark-Korpus | definiert (24 synthetische Quellen, Dataset 1.0.0) |
+| **Konkreter produktiver Bestand** | **offen** — welche Verzeichnisse, Repositories und Handoffs tatsächlich aufgenommen werden |
 
-Ein Verbot ohne Schadensverfahren ist unvollständig: R-01 bleibt deshalb
-„teilweise gemindert" statt geschlossen.
+Der Benchmark belegt, dass das Quellenmodell trägt — Metadaten,
+Autoritätsklassen, Supersession und Tombstones funktionieren als Konstruktion.
+Er benennt aber keinen realen Bestand und ersetzt D-1 nicht.
 
-Kriterium D-8, Frage 4.8, Entscheidung OD-10.
+Abhängig von OD-05 (Ablageort des kanonischen Bestands) und OD-06 (Quellen im
+ersten Scope und ausdrückliche Nicht-Quellen). Gegenstand des vorgeschlagenen
+Work Packages CBP-WP-006.
 
 ---
 

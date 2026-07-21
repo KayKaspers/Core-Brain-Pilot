@@ -25,9 +25,9 @@ vorgesehene, **noch nicht implementierte** Anwendungslaufzeit.
 | Feld | Wert |
 | --- | --- |
 | Phase | Phase 0 – Discovery und Scope Lock |
-| Aktuelles Work Package | CBP-WP-004 (`in-review`) |
+| Aktuelles Work Package | CBP-WP-005 (`in-review`) |
 | Nächstes Gate | **G0 – Discovery and Scope Lock** |
-| **Gate-Status** | **NOT PASSED** — 47 Kriterien, davon 25 blockierend, **18 `accepted`**, 7 offen |
+| **Gate-Status** | **NOT PASSED** — 47 Kriterien, davon 25 blockierend, **24 `accepted`**, 1 offen (D-1) |
 | Implementierte Capabilities | **keine (0 von 29)** |
 | Framework | Nova Development Framework v1.0.0 |
 
@@ -85,6 +85,8 @@ Nur der Human Maintainer committet, tagged und pusht.
 | --- | --- |
 | `docs/architecture/` | Projektdefinition, Systemarchitektur, Komponentenmodell, Deploymentprofile, Prinzipien, Vertrauensgrenzen, Context Budgets |
 | `docs/operations/` | Deployment Readiness Check |
+| `docs/benchmark/` | Quellenvertrag, Evaluationsplan, Metriken, Baseline-Protokoll, Governance |
+| `benchmarks/` | Synthetischer Korpus (24 Quellen), 36 Fragen, erwartete Ergebnisse |
 | `docs/security/` | Berechtigungsmodell, Secret-Incident-Response |
 | `docs/decisions/` | Architecture Decision Records — **5 angenommen** |
 | `docs/discovery/` | Fragebogen, G0-Kriterien, Quellenabgleich, A5-Projektübergabe |
