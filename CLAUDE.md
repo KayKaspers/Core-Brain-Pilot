@@ -68,7 +68,7 @@ vorgelegt.
 | `Second-Brain-Bauanleitung-Textfassung.md` | **A6** — abgeleitete Arbeitsrepräsentation |
 | `docs/discovery/Core-Brain-Project-Handoff.md` | **A5** — kanonisch, getrackt |
 | Nova Development Framework v1.0.0 | **A1** |
-| `docs/decisions/ADR-0001` bis `ADR-0007` | **A1** — angenommen und bindend |
+| `docs/decisions/ADR-0001` bis `ADR-0008` | **A1** — angenommen und bindend |
 
 Die A6-Textfassung beansprucht keine höhere Autorität als die A4-PDF.
 
@@ -132,9 +132,10 @@ nennen.
 | Phase | **Phase 0 – COMPLETE** |
 | **Gate G0** | **PASSED WITH NOTES** — 2026-07-21, A0 |
 | **Phase 1** | **AUTHORIZED FOR PLANNING** — keine Implementierung freigegeben |
-| Aktuelles Work Package | CBP-WP-009 (`in-review`) |
+| Aktuelles Work Package | CBP-WP-010 (`in-review`) |
 | Core-Kriterien | 25 von 25 `accepted`, 0 `answered`, 0 `open`, 0 `blocked` |
-| Angenommene ADRs | **7** (A1) |
+| Angenommene ADRs | **8** (A1) |
+| **Mappingkonvention** | **entschieden** — ADR-0008; **0 Mappings, 0 Quellen, Gate `NOT EVALUATED`** |
 | **Repository-Zielstruktur** | **entschieden** — Ziel-Monorepo (D-029, ADR-0007); **Migration nicht autorisiert** |
 | **Bereichsmodell** | **W-3** — privater Operator-Workspace außerhalb des Core-Repositorys (D-030); **nicht angelegt** |
 | **Veröffentlichung** | Core-Repository `publication-capable by design`, **bleibt privat** — Freigabe benötigt A0 (OD-11) |

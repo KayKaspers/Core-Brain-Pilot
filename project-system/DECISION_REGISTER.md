@@ -3,7 +3,7 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Überarbeitet in | **CBP-WP-009** |
+| Überarbeitet in | **CBP-WP-010** |
 | Autoritätsklasse | A2 |
 | Stand | 2026-07-21 |
 
@@ -69,6 +69,23 @@ Human-Maintainer-Entscheidung im Entscheidungsblock. Wortlaut unverändert in
 > wurde keine Datei verschoben, kein Verzeichnis angelegt und kein Workspace
 > erzeugt.
 
+### Neu aus CBP-WP-010 — Pilot Source Mapping Specification
+
+Alle drei am **2026-07-21**, Autorität **A0**, Quelle: direkte
+Human-Maintainer-Entscheidung im Entscheidungsblock. Wortlaut unverändert in
+[ADR-0008](../docs/decisions/ADR-0008-pilot-source-mapping-konvention.md).
+
+| ID | Entscheidung | Status | Autorität | Quelle | Datum | Betroffen | Konsequenz |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| **D-031** | **Teil A — Kanonisches Mappingformat: YAML 1.2 Strict Subset mit JSON-Schema-Validierung.** Nur ein klar begrenzter YAML-Teilumfang; **JSON Schema ist die verbindliche maschinenprüfbare Vertragsgrenze**. Unzulässig sind insbesondere Anchors, Aliases, Merge Keys, benutzerdefinierte Tags, doppelte Schlüssel und mehrere Dokumente je Datei | `accepted` | **A0** | Entscheidungsblock CBP-WP-010 | 2026-07-21 | PS-02, PS-03, PS-04 | **ADR-0008** (A1); Formatregeln F1–F7 im Mapping-Schema |
+| **D-032** | **Teil B — Collection-Strategie: hybrid.** Collections primär nach fachlichem Projekt oder fachlicher Domäne; der **Source Slot bleibt verpflichtendes Metadatum** für Provenienz, Ingest-Regeln, Berechtigungen, Löschung und Audit. **Die Collection allein verleiht keine Autoritätsklasse, keine Datenklasse und keine AI-Transfer-Freigabe** | `accepted` | **A0** | Entscheidungsblock CBP-WP-010 | 2026-07-21 | Retrieval, Berechtigungen | **ADR-0008** (A1); Grundsatz M-B |
+| **D-033** | **Teil C — Mapping-Granularität: genau eine Source Boundary je Mapping.** Bei PS-02 ein Markdown Root, bei PS-03 ein Git Repository, bei PS-04 ein Handoff Root. **Mehrere Quellen dürfen nicht durch ein gemeinsames Mapping gekoppelt werden** | `accepted` | **A0** | Entscheidungsblock CBP-WP-010 | 2026-07-21 | Rechte, Revisionen, Löschung, Tombstones | **ADR-0008** (A1); Grundsatz M-C |
+
+> **Die drei Entscheidungen legen eine Konvention fest, kein Mapping.** Es
+> wurde keine Quelle angebunden, kein Mapping erstellt, nichts aktiviert. Das
+> [Aktivierungsgate](../docs/operations/PILOT_MAPPING_ACTIVATION_GATE.md) steht
+> auf **`NOT EVALUATED`**.
+
 > **Hinweis zu D-016.** In CBP-WP-002 hatte ich „bevorzugte Anwendungslaufzeit"
 > zu „vorgesehene" abgeschwächt (Ü-02), gestützt auf Projektübergabe §4 (A5),
 > wonach Containerisierung kein Pflichtziel der ersten Phase ist. Der Human
@@ -133,6 +150,8 @@ Legende: **P0** blockiert G0 · **P1** vor Architekturentscheidung · **P2** sp�
 | OD-19 | Umfang und Format des Retrieval-Trace | P1 | Nova | — |
 | OD-23 | Lizenzwahl | P1 | Human Maintainer | D-007 |
 | OD-25 | qmd als produktiver Suchdienst — nur nach Prüfung | P1 | Human Maintainer | — |
+| **OD-35** | **RT-2 Operational Evidence: Aufbewahrungsfrist, Integritätsschutz und Backup-/Restore-Nachweis** — in ADR-0007 als Folgefragen benannt, bisher nicht im Register geführt und damit nicht nachverfolgbar. **Keine Technologiewahl** | P1 | Human Maintainer | ADR-0007 (RG-4, G9); AE-3 in der Mapping-Spezifikation |
+| **OD-36** | Bildungsvorschrift der `mapping_id`, zulässige Collection-Namen und deren Vergabe, unterstützte `schema_version`-Werte über `1.0` hinaus | P1 | Nova | ADR-0008; PILOT_SOURCE_MAPPING_SCHEMA |
 | **OD-34** | **Secret-Store-Technologie und Verweisformat** — von KB-08 und Mappingfeld `credential`/`location_reference` vorausgesetzt, bisher nirgends entschieden | P1 | Human Maintainer | TECHNICAL_SECURITY_FOUNDATION_PLAN, KB-08 |
 | OD-24 | Akzeptable Ausfallzeit | P2 | Human Maintainer | — |
 | OD-28 | Öffentlicher Produktname und Phase-7-Option | P2 | Human Maintainer | — |
@@ -141,21 +160,27 @@ Legende: **P0** blockiert G0 · **P1** vor Architekturentscheidung · **P2** sp�
 
 | Kategorie | Anzahl |
 | --- | --- |
-| Getroffene Entscheidungen | **30** (davon **26** mit A0) |
-| Angenommene ADRs | **7** (ADR-0001 bis ADR-0007, alle A1) |
+| Getroffene Entscheidungen | **33** (davon **29** mit A0) |
+| Angenommene ADRs | **8** (ADR-0001 bis ADR-0008, alle A1) |
 | Vorgeschlagene ADRs | 0 |
 | Neu in CBP-WP-003 | 12 (D-015 bis D-026) |
 | Neu in CBP-WP-004 | 0 Entscheidungen, 5 ADRs |
 | Neu in CBP-WP-007 | **2 A0-Entscheidungen** (D-027 G0, D-028 ADR-0006) |
 | Neu in CBP-WP-008 | 0 Entscheidungen, 1 neue offene Entscheidung (OD-34) |
 | Neu in CBP-WP-009 | **2 A0-Entscheidungen** (D-029 Teil A, D-030 Teil B), **1 ADR** |
-| Geschlossene offene Entscheidungen | **10** (neu: **OD-26**) |
+| Neu in CBP-WP-010 | **3 A0-Entscheidungen** (D-031 Format, D-032 Collection, D-033 Granularität), **1 ADR**, 2 neue offene Entscheidungen (OD-35, OD-36) |
+| Geschlossene offene Entscheidungen | **10** |
 | Vertagte Entscheidungen | 4 |
-| Offene Entscheidungen | **21** |
+| Offene Entscheidungen | **23** |
 | davon **P0** | **5** — OD-04, OD-07, OD-08, OD-11, OD-29 |
 
-*Sämtliche Werte in CBP-WP-009 aus den Quelltabellen **ausgezählt**, nicht
+*Sämtliche Werte in CBP-WP-010 aus den Quelltabellen **ausgezählt**, nicht
 fortgeschrieben (Zählregel 1 und 2).*
+
+> **Zu OD-35:** Die drei RT-2-Punkte waren inhaltlich bereits in ADR-0007 als
+> „offene Folgefragen" benannt, aber in keinem Register geführt. Dieser Eintrag
+> ist **keine Dublette**, sondern macht sie nachverfolgbar. Sie werden als
+> **ein** Punkt geführt, nicht als drei.
 
 > **Korrektur in CBP-WP-008 — vierter Zählfehler des Projekts.** Die
 > Summenzeile führte zuvor **22 A0-Entscheidungen** und **8 offene

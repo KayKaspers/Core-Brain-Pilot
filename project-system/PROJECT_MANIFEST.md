@@ -2,7 +2,7 @@
 
 | Feld | Wert |
 | --- | --- |
-| Überarbeitet in | **CBP-WP-009** |
+| Überarbeitet in | **CBP-WP-010** |
 | Autoritätsklasse | A2 |
 | Stand | 2026-07-21 |
 
@@ -37,10 +37,12 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 – COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Aktuelles Work Package | **CBP-WP-009** (`in-review`) |
+| Aktuelles Work Package | **CBP-WP-010** (`in-review`) |
 | **Gate-Status G0** | **PASSED WITH NOTES** — 2026-07-21, A0 |
 | Nächstes Prüfmodell | **Deployment Readiness Check** — `NOT EVALUATED` |
-| Phase-1-Planung | Streams F1–F5; CBP-WP-010 bis CBP-WP-014 **`proposed`** |
+| Phase-1-Planung | Streams F1–F5; CBP-WP-011 bis CBP-WP-014 **`proposed`** |
+| **Mappingkonvention** | **entschieden** — ADR-0008 (D-031, D-032, D-033) |
+| **Mapping Activation Gate** | **`NOT EVALUATED`** — 0 Mappings, 0 angebundene Quellen |
 | **Repository-Zielstruktur** | **entschieden** — Monorepo, ADR-0007 (D-029); **Migration nicht autorisiert** |
 | **Bereichsmodell** | **W-3** — Operator-Workspace außerhalb (D-030); **nicht angelegt** |
 | **Veröffentlichung** | **nicht freigegeben** — Repository bleibt privat; benötigt separate A0-Entscheidung |
@@ -50,7 +52,7 @@
 | davon `accepted` | **25** — alle |
 | Kriterienstand | 25 von 25 `accepted` |
 | Capabilities implementiert | **0** von 29 |
-| Angenommene ADRs | **7** |
+| Angenommene ADRs | **8** |
 | Scope gelockt | **ja** — mit Auflagen |
 
 ## Repository
@@ -59,7 +61,7 @@
 | --- | --- |
 | Pfad | `D:\Projects\Core-Brain-Pilot` |
 | Branch | `main` |
-| Commits | **9** |
+| Commits | **10** |
 | Remote | `origin` → `https://github.com/KayKaspers/Core-Brain-Pilot.git` |
 | Commit-Autorität | ausschließlich Human Maintainer |
 

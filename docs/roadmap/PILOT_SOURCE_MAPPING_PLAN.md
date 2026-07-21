@@ -2,12 +2,28 @@
 
 | Feld | Wert |
 | --- | --- |
-| **Status** | **PROPOSED** — Schema, keine Konfiguration |
+| **Status** | **ABGELÖST** — die verbindliche Fassung ist [PILOT_SOURCE_MAPPING_SPECIFICATION.md](../sources/PILOT_SOURCE_MAPPING_SPECIFICATION.md) (CBP-WP-010, ADR-0008) |
 | Stream | F2 · Backlogpunkt P2 |
 | Erfasst in | CBP-WP-008 |
 | Autoritätsklasse | A3 |
 | Betrifft | **OD-05**, **OD-06** (beide bleiben offen) |
 | Stand | 2026-07-21 |
+
+> **Planungsdokument aus CBP-WP-008, inhaltlich abgelöst.** Die verbindliche
+> Mappingdefinition steht seit CBP-WP-010 in
+> [PILOT_SOURCE_MAPPING_SPECIFICATION.md](../sources/PILOT_SOURCE_MAPPING_SPECIFICATION.md),
+> [PILOT_SOURCE_MAPPING_SCHEMA.md](../sources/PILOT_SOURCE_MAPPING_SCHEMA.md)
+> und [ADR-0008](../decisions/ADR-0008-pilot-source-mapping-konvention.md).
+> Dieses Dokument bleibt als Planungsstand erhalten und wird **nicht**
+> rückwirkend umgeschrieben; bei Abweichungen gilt die Spezifikation.
+>
+> **Klarstellung zum Veröffentlichungsbegriff (CBP-WP-010):** Wo dieses
+> Dokument das Core-Repository als „veröffentlichbar" bezeichnet, ist
+> **`publication-capable by design`** gemeint — eine Bauweise, **keine
+> öffentliche Freigabe**. Das Repository bleibt privat; Veröffentlichung,
+> Lizenz, Branding und Release benötigen je eine separate **A0-Entscheidung**
+> (OD-11, OD-23, OD-28). Es besteht keine pauschale Zusicherung, dass der
+> aktuelle Gesamtinhalt ohne erneute Prüfung veröffentlicht werden darf.
 
 Dieses Dokument definiert das **Schema** eines Deployment Mappings. Es enthält
 **keinen realen Pfad, keine private Repository-URL, keine Hostangabe und kein
@@ -35,7 +51,7 @@ PS-06 und PS-07 (`deferred`, bis die Quarantäne existiert).
 
 | Ebene | Dokument | Beantwortet | Ablage |
 | --- | --- | --- | --- |
-| **Logischer Slot** | [SOURCE_SLOT_MODEL.md](../sources/SOURCE_SLOT_MODEL.md) — 24 Felder | *Was für eine Quelle ist das, und was darf mit ihr geschehen?* | Core Repository, veröffentlichbar |
+| **Logischer Slot** | [SOURCE_SLOT_MODEL.md](../sources/SOURCE_SLOT_MODEL.md) — 24 Felder | *Was für eine Quelle ist das, und was darf mit ihr geschehen?* | Core Repository (`publication-capable by design`, **nicht freigegeben**) |
 | **Deployment Mapping** | dieses Schema — 19 Felder | *Wo liegt sie in genau dieser Installation?* | **Private Operator Workspace** |
 
 Ein Slot ohne Mapping ist gültig, aber inaktiv (Slot-Regel 7). Ein Mapping ohne
@@ -168,7 +184,7 @@ verbotene Fall **tatsächlich scheitert** — nicht, wenn eine Warnung erscheint
 
 | Gegenstand | Ablage |
 | --- | --- |
-| Dieses Schema | Core Repository — veröffentlichbar |
+| Dieses Schema | Core Repository — `publication-capable by design` |
 | Ausgefüllte Mappings | **Private Operator Workspace** |
 | Zugangsdaten | **Secret Store** — nie in einem Mapping |
 | Ingest-Ergebnisse | Runtime Data Area |

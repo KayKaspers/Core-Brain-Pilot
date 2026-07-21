@@ -21,7 +21,7 @@ Maintainers ausführbar — Regel 6 der Work Package Queue.
 | ID | Titel | Typ | Stream | Status | Implementierung autorisiert |
 | --- | --- | --- | --- | --- | --- |
 | **CBP-WP-009** | Repository Boundary Decision | `docs-only`, interaktiv | F1 | **`in-review`** — ausgeführt 2026-07-21 | **nein** |
-| **CBP-WP-010** | Pilot Source Mapping Specification | `docs-only` | F2 | **`proposed`** | **nein** |
+| **CBP-WP-010** | Pilot Source Mapping Specification | `docs-only`, interaktiv | F2 | **`in-review`** — ausgeführt 2026-07-21 | **nein** |
 | **CBP-WP-011** | Technical Security Foundation Specification | `docs-only` | F3 | **`proposed`** | **nein** |
 | **CBP-WP-012** | Foundation Runtime Skeleton | spätere Implementierung | F3 | **`proposed`** | **nein** |
 | **CBP-WP-013** | Ingest Quarantine Minimum Viable Pipeline | spätere Implementierung | F4 | **`proposed`** | **nein** |
@@ -69,11 +69,16 @@ Migrations-Work-Package bestehen bleibt.
 | **Abbruchbedingungen** | Ein realer Pfad oder Secret soll ins Core Repository → **sofort anhalten** (SB-02, SB-01) |
 | **Erwartete Risiken** | **R-01**, R-27, R-03 |
 | **Review Gate** | Nova-Review; Freigabe der Quellenauswahl durch den Human Maintainer |
-| **Status** | **`proposed`** |
+| **Status** | **`in-review`** — ausgeführt am 2026-07-21 |
+| **Ergebnis** | **D-031, D-032, D-033** (A0) · [ADR-0008](../decisions/ADR-0008-pilot-source-mapping-konvention.md) `accepted` · Spezifikation, Schema (31 Felder), Validierung (24 Regeln), Zustandsmodell (10 Zustände), 10 synthetische Beispiele, Aktivierungsgate (`NOT EVALUATED`) |
 | **Implementierung autorisiert** | **nein** |
 
 **Ausgefüllte Mappings gehören in den Operator Workspace**, nicht in dieses
 Repository (ADR-0006). Jedes bleibt `enabled: false`.
+
+**OD-05 und OD-06 blieben offen** — die Konvention steht, die konkreten Quellen
+nicht. Das war beabsichtigt: Die Spezifikation ist unabhängig davon, welche
+Quellen später angebunden werden.
 
 ## CBP-WP-011 — Technical Security Foundation Specification
 
@@ -189,14 +194,19 @@ ersten Nachweise vorliegen, wäre Planung ohne Rückkopplung.
 
 ## Status
 
-**Stand nach CBP-WP-009:** CBP-WP-009 ist **ausgeführt** (`in-review`). Die
-fünf übrigen Work Packages CBP-WP-010 bis CBP-WP-014 stehen weiterhin auf
-**`proposed`** — keines ist freigegeben, keines steht auf `active`, keines ist
-begonnen.
+**Stand nach CBP-WP-010:** CBP-WP-009 ist committed, CBP-WP-010 **ausgeführt**
+(`in-review`). Die vier übrigen Work Packages **CBP-WP-011 bis CBP-WP-014**
+stehen weiterhin auf **`proposed`** — keines ist freigegeben, keines steht auf
+`active`, keines ist begonnen.
 
-**Regel A ist erfüllt:** Die Bereichsgrenze steht, damit ist CBP-WP-010 nicht
-mehr durch eine fehlende Entscheidung blockiert. Es ist deshalb **nicht
-freigegeben**.
+**Regeln A und B sind erfüllt:** Die Bereichsgrenze steht (009), die
+Mappingkonvention steht (010). **CBP-WP-011 ist damit nicht mehr durch eine
+fehlende Vorentscheidung blockiert** — es ist deshalb **nicht freigegeben**.
+
+**Regel C bleibt bindend:** CBP-WP-013 braucht **beide** Vorgänger. Der
+F3-Strang (011 → 012) hat noch nicht begonnen; ohne ihn ist das
+Aktivierungsgate nicht durchlaufbar, weil acht seiner zwanzig Punkte
+Nachweisstufe 4 verlangen.
 
 **Implementierung autorisiert: nein.**
 

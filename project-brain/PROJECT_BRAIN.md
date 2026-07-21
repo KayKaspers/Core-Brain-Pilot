@@ -2,7 +2,7 @@
 
 | Feld | Wert |
 | --- | --- |
-| Überarbeitet in | **CBP-WP-009** |
+| Überarbeitet in | **CBP-WP-010** |
 | Autoritätsklasse | A2 |
 | Stand | 2026-07-21 |
 
@@ -18,18 +18,19 @@ keine Laufzeit, keine Installation, kein Index, kein Wissensbestand.
 
 | Feld | Wert |
 | --- | --- |
-| Aktuelles Work Package | **CBP-WP-009** (`in-review`) |
+| Aktuelles Work Package | **CBP-WP-010** (`in-review`) |
 | Gate G0 | **PASSED WITH NOTES** — 2026-07-21 |
 | G0-Kriterien | **47**, dreistufig klassifiziert |
 | davon blockierend | **25** Core Required (zuvor 45) |
 | davon `accepted` | **25** — alle |
 | verbleibende Blocker | **0** |
 | Phase 1 | AUTHORIZED FOR PLANNING — [Backlog](../docs/roadmap/PHASE_1_BACKLOG.md), [Foundation Plan](../docs/roadmap/PHASE_1_FOUNDATION_PLAN.md) |
-| Geplante Work Packages | **CBP-WP-010 bis CBP-WP-014**, alle `proposed` |
+| Geplante Work Packages | **CBP-WP-011 bis CBP-WP-014**, alle `proposed` |
 | **Repository-Struktur** | **entschieden** — Ziel-Monorepo + Workspace W-3 (ADR-0007); **Migration nicht autorisiert** |
+| **Mappingkonvention** | **entschieden** — ADR-0008; **0 Mappings, 0 Quellen**, Gate `NOT EVALUATED` |
 | Implementierte Capabilities | **keine (0 von 29)** |
 | Nachweise oberhalb Stufe 1 | **keine** |
-| Commits | **9** |
+| Commits | **10** |
 
 ## Ziel
 
@@ -91,12 +92,13 @@ verweigert, bis eine Datenklasse sie erlaubt.**
 
 ## Entscheidungen
 
-Angenommene ADRs: **7** (ADR-0001 bis ADR-0007). ADR-0006 wurde am 2026-07-21
-angenommen (D-028) und hält privaten Bestand konstruktiv außerhalb des
-Kern-Repositorys; **ADR-0007** vom selben Tag (D-029, D-030) legt die
-Zielstruktur und die Bereichsgrenze fest und **schließt OD-26**.
+Angenommene ADRs: **8** (ADR-0001 bis ADR-0008). ADR-0006 hält privaten
+Bestand konstruktiv außerhalb des Kern-Repositorys (D-028); **ADR-0007**
+(D-029, D-030) legt Zielstruktur und Bereichsgrenze fest und **schließt
+OD-26**; **ADR-0008** (D-031, D-032, D-033) legt die Mappingkonvention fest.
+Alle drei am 2026-07-21.
 
-**30** getroffene Entscheidungen, davon **26** mit A0. **21** offene, davon
+**33** getroffene Entscheidungen, davon **29** mit A0. **23** offene, davon
 **5** mit P0. Geführt in
 [project-system/DECISION_REGISTER.md](../project-system/DECISION_REGISTER.md).
 
@@ -172,6 +174,19 @@ Ergebnis: 20 Blocker weniger, ohne ein Kriterium zu streichen. Die Trennung
 zwischen Produktentscheidung und Installationsdetail war die eigentliche
 Erkenntnis.
 
+## Lessons Learned aus CBP-WP-010
+
+**Eine Gruppierung ist keine Berechtigung.** Die hybride Collection-Strategie
+wäre ohne den Zusatz des Human Maintainers — dass die Collection nichts
+verleiht — die riskanteste der drei Optionen gewesen. Bequeme Sortierordnungen
+werden mit der Zeit zu impliziten Rechtequellen, wenn niemand das ausdrücklich
+ausschließt.
+
+**Ein Default, der „alles" bedeutet, ist ein Ausfall.** `allowed_subpaths: []`
+nimmt **nichts** auf. Die naheliegende Lesart — leerer Filter gleich kein
+Filter — ist der häufigste Weg zu unbeabsichtigtem Ingest und deshalb als
+Beispiel 6 dokumentiert.
+
 ## Lessons Learned aus CBP-WP-009
 
 **Eine zusammengesetzte offene Entscheidung schließt nicht durch eine Antwort.**
@@ -218,33 +233,54 @@ Aufbewahrung, Zugriffsschutz und Sicherung.
 keine Datei verschoben. Die Migration braucht ein eigenes, freigegebenes Work
 Package und muss die Git-Historie erhalten.
 
+## Mappingkonvention — entschieden
+
+**ADR-0008**, 2026-07-21, A0. Drei Teilentscheidungen:
+
+| Teil | Entscheidung | Grundsatz |
+| --- | --- | --- |
+| **A** (D-031) | YAML 1.2 Strict Subset, **JSON Schema als Vertragsgrenze** | **M-A** — was mehrdeutig geparst werden kann, ist unzulässig |
+| **B** (D-032) | Fachliche Collection **plus** verpflichtender Slot | **M-B** — eine Collection verleiht nichts |
+| **C** (D-033) | **Eine** Source Boundary je Mapping | **M-C** — was gemeinsam gemappt ist, wird gemeinsam widerrufen |
+
+Verbindlich in
+[PILOT_SOURCE_MAPPING_SPECIFICATION.md](../docs/sources/PILOT_SOURCE_MAPPING_SPECIFICATION.md):
+31 Felder, 10 Zustände, 24 Validierungsregeln, 18 Negativtests, 20 Gate-Punkte.
+
+**Nichts davon existiert.** Kein Mapping, keine angebundene Quelle, kein
+Validator. Das
+[Aktivierungsgate](../docs/operations/PILOT_MAPPING_ACTIVATION_GATE.md) steht
+auf `NOT EVALUATED` und ist **ohne den F3-Strang nicht durchlaufbar** — acht
+seiner zwanzig Punkte verlangen Nachweisstufe 4.
+
 ## Nächste Arbeitspakete
 
 Siehe
 [project-system/WORK_PACKAGE_QUEUE.md](../project-system/WORK_PACKAGE_QUEUE.md)
 und [PHASE_1_WORK_PACKAGE_MAP.md](../docs/roadmap/PHASE_1_WORK_PACKAGE_MAP.md).
 
-Vorgeschlagen, **nicht freigegeben**: **CBP-WP-010 — Pilot Source Mapping
-Specification** (`docs-only`, interaktiv, Full, B1 – Lean). CBP-WP-011 bis
+Vorgeschlagen, **nicht freigegeben**: **CBP-WP-011 — Technical Security
+Foundation Specification** (`docs-only`, Full, B2 – Standard). CBP-WP-012 bis
 CBP-WP-014 stehen ebenfalls auf `proposed`.
 
 ## Rückmeldung an Nova
 
-CBP-WP-009 ist ausgeführt. **OD-26 ist geschlossen** — durch zwei getrennte
-A0-Entscheidungen, wie vorgesehen. Beide Nova-Empfehlungen wurden bestätigt.
-
-**Es wurde nichts verschoben, nichts angelegt und nichts umbenannt.** Eine
-Strukturentscheidung ist kein technischer Nachweis.
+CBP-WP-010 ist ausgeführt. **Die Mappingkonvention steht** — drei
+A0-Entscheidungen, ADR-0008 `accepted`. **Es wurde kein Mapping erstellt, keine
+Quelle angebunden und nichts aktiviert.**
 
 **Drei Punkte zur Hervorhebung:**
 
-1. **Zwei nicht rekonstruierbare Bestände, nicht einer.** Der
-   Operator-Workspace enthält kanonische Registry-Metadaten, **RT-2
-   Operational Evidence** Auditnachweise — beides übersteht ein Rebuild nicht.
-   **R-20 bleibt offen**, ein Restore wurde nie durchgeführt.
-2. **Die Auflage zur Git-Historie ist neu und bindend.** Ein
-   Migrations-Work-Package ist noch nicht geschnitten.
-3. **R-01 ist nur hinsichtlich des Veröffentlichungspfads gemindert.** W-3
-   verhindert, dass privater Bestand über einen Core-Push nach außen gerät. Es
-   implementiert **keine** Secret-Erkennung, -Rotation, -Ablage, kein Scanning
-   und keine Zugriffskontrolle.
+1. **Grundsatz M-B ist die schärfste Folge.** Dass eine Collection weder
+   Autorität noch Datenklasse noch AI-Transfer-Freigabe verleiht, verhindert
+   dieselbe Fehlerklasse wie Slot-Regel 8: **die Sortierordnung darf nicht zur
+   Rechtequelle werden.**
+2. **Der Veröffentlichungsbegriff ist jetzt sichtbar geklärt.** ADR-0006 trägt
+   einen datierten Klarstellungsnachtrag — *non-substantive clarification*, A1.
+   Entscheidung und Status unverändert.
+3. **Das Aktivierungsgate ist heute nicht durchlaufbar**, und das ist kein
+   Mangel: Ohne durchgesetzte Dateirechte und Mount-Grenzen gibt es keinen
+   Read-only-Nachweis. **Der F3-Strang ist der Engpass.**
+
+**Kein Risiko wurde geschlossen.** Sämtliche Regeln sind dokumentarisch; alle
+Nachweise stehen auf **Stufe 1 `dokumentiert`**.

@@ -3,7 +3,7 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Überarbeitet in | **CBP-WP-009** |
+| Überarbeitet in | **CBP-WP-010** |
 | Autoritätsklasse | A2 |
 | Stand | 2026-07-21 |
 
@@ -89,6 +89,23 @@ Ein irreversibler Schaden ist mindestens **hoch**.
 | dokumentiert | 1 |
 | teilweise gemindert | 1 |
 | offen | **10** |
+
+**Neu in CBP-WP-010:** keine.
+
+**Verändert in CBP-WP-010:**
+
+| ID | Änderung | Auslöser |
+| --- | --- | --- |
+| **R-03** | Datenklassenvergabe **präzisiert**: `data_class: unknown` ist Vorgabe und wird fail-closed wie `excluded-from-ai` behandelt; Aktivierung blockiert (V9). **Vergabeverfahren bleibt offen** (OD-08) — Status unverändert `offen` | D-031…D-033, ADR-0008 |
+| **R-27** | Zugriffsregeln für PS-03 **konkretisiert**: kein automatischer Commit, kein Push, kein pauschaler GitHub-Schreibzugriff, Standardzugriff `read_only`. **Technisch weiterhin nicht durchgesetzt** — Status unverändter `offen` | Slot-Regeln PS-03 |
+| **R-32** | Mappingebene der Quarantäne **spezifiziert** (Zustandsmodell, Freigabekette). Die Quarantäne selbst existiert **nicht** — Status unverändert `offen` | Mapping-Spezifikation |
+
+**Kein Risiko wurde in CBP-WP-010 geschlossen oder gemindert.** Sämtliche
+Regeln der Mappingkonvention sind **dokumentarisch**: Es existiert kein
+Validator, kein Parser, kein Mapping und keine angebundene Quelle. Nach
+[PHASE_1_EVIDENCE_PLAN.md](../docs/roadmap/PHASE_1_EVIDENCE_PLAN.md) stehen
+alle Nachweise auf **Stufe 1 `dokumentiert`** — und Stufe 1 schließt
+definitionsgemäß kein Risiko.
 
 **Neu in CBP-WP-009:** keine.
 

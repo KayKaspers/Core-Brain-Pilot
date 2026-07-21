@@ -25,13 +25,14 @@ vorgesehene, **noch nicht implementierte** Anwendungslaufzeit.
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Aktuelles Work Package | CBP-WP-009 (`in-review`) |
-| Nächster Schritt | **CBP-WP-010 vorgeschlagen**, nicht freigegeben — **keine Implementierung autorisiert** |
+| Aktuelles Work Package | CBP-WP-010 (`in-review`) |
+| Nächster Schritt | **CBP-WP-011 vorgeschlagen**, nicht freigegeben — **keine Implementierung autorisiert** |
 | **Gate G0** | **PASSED WITH NOTES** — 2026-07-21, A0 |
 | Phase-1-Planung | **Streams F1–F5 geplant**, [Foundation Plan](docs/roadmap/PHASE_1_FOUNDATION_PLAN.md) |
 | **Repository-Struktur** | **entschieden** — [ADR-0007](docs/decisions/ADR-0007-repository-und-workspace-grenze.md); **Migration nicht autorisiert** |
+| **Mappingkonvention** | **entschieden** — [ADR-0008](docs/decisions/ADR-0008-pilot-source-mapping-konvention.md); **0 Mappings, 0 angebundene Quellen** |
 | Implementierte Capabilities | **keine (0 von 29)** |
-| Angenommene ADRs | **7** |
+| Angenommene ADRs | **8** |
 | Framework | Nova Development Framework v1.0.0 |
 
 ## Pilotumfang
@@ -87,13 +88,13 @@ Nur der Human Maintainer committet, tagged und pusht.
 | Pfad | Inhalt |
 | --- | --- |
 | `docs/architecture/` | Projektdefinition, Systemarchitektur, Komponentenmodell, Deploymentprofile, Prinzipien, Vertrauensgrenzen, Context Budgets |
-| `docs/operations/` | Deployment Readiness Check |
+| `docs/operations/` | Deployment Readiness Check, Pilot Mapping Activation Gate |
 | `docs/benchmark/` | Quellenvertrag, Evaluationsplan, Metriken, Baseline-Protokoll, Governance |
-| `docs/sources/` | Pilot Source Contract, Source-Slot-Modell |
+| `docs/sources/` | Pilot Source Contract, Source-Slot-Modell, Mapping-Spezifikation, -Schema, -Validierung, synthetische Beispiele |
 | `docs/roadmap/` | Phase-1-Backlog, Foundation Plan, Stream-Pläne F1–F5, Work-Package-Karte, Nachweisplan, Abbruchbedingungen |
 | `benchmarks/` | Synthetischer Korpus (24 Quellen), 36 Fragen, erwartete Ergebnisse |
 | `docs/security/` | Berechtigungsmodell, Secret-Incident-Response |
-| `docs/decisions/` | Architecture Decision Records — **7 angenommen** |
+| `docs/decisions/` | Architecture Decision Records — **8 angenommen** |
 | `docs/discovery/` | Fragebogen, G0-Kriterien, Quellenabgleich, A5-Projektübergabe |
 | `docs/ndf/` | NDF-Anwendung und dokumentierte Abweichungen |
 | `docs/privacy/` | Datenklassen und technische Datenschutzregeln |
@@ -129,6 +130,8 @@ Nur der Human Maintainer committet, tagged und pusht.
 | **Worüber wird bei G0 entschieden?** | **[G0_SCOPE_LOCK_REVIEW.md](docs/discovery/G0_SCOPE_LOCK_REVIEW.md)** |
 | Welche Nachweise liegen vor? | [G0_EVIDENCE_MATRIX.md](docs/discovery/G0_EVIDENCE_MATRIX.md) |
 | Welche Quellen sind zulässig? | [PILOT_SOURCE_CONTRACT.md](docs/sources/PILOT_SOURCE_CONTRACT.md) |
+| **Wie wird eine Quelle angebunden?** | **[PILOT_SOURCE_MAPPING_SPECIFICATION.md](docs/sources/PILOT_SOURCE_MAPPING_SPECIFICATION.md)** |
+| Wann darf ein Mapping wirksam werden? | [PILOT_MAPPING_ACTIVATION_GATE.md](docs/operations/PILOT_MAPPING_ACTIVATION_GATE.md) — **NOT EVALUATED** |
 | Was hat der Maintainer entschieden? | [HUMAN_DISCOVERY_INPUT.md](docs/discovery/HUMAN_DISCOVERY_INPUT.md) |
 | Welche Fragen sind offen? | [DISCOVERY_QUESTIONS.md](docs/discovery/DISCOVERY_QUESTIONS.md) |
 | **Wie geht Phase 1 weiter?** | **[PHASE_1_FOUNDATION_PLAN.md](docs/roadmap/PHASE_1_FOUNDATION_PLAN.md)** |

@@ -3,7 +3,7 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Überarbeitet in | **CBP-WP-009** |
+| Überarbeitet in | **CBP-WP-010** |
 | Autoritätsklasse | A2 |
 | Stand | 2026-07-21 |
 
@@ -178,9 +178,21 @@ Human Maintainer geklärt.
 
 **Stand nach CBP-WP-008:** Das **Schema** eines Deployment Mappings liegt vor
 ([PILOT_SOURCE_MAPPING_PLAN.md](../roadmap/PILOT_SOURCE_MAPPING_PLAN.md), 19
-Felder, fail-closed Defaults). **Es existiert kein einziges Mapping.** OD-05 und
-OD-06 bleiben offen; vorgesehen für CBP-WP-010, ausdrücklich erst nach
-Human-Eingabe.
+Felder, fail-closed Defaults). **Es existiert kein einziges Mapping.**
+
+**Stand nach CBP-WP-010:** Die **Mappingkonvention ist entschieden** — Format,
+Collection-Strategie und Granularität durch A0 (D-031, D-032, D-033,
+[ADR-0008](../decisions/ADR-0008-pilot-source-mapping-konvention.md)).
+Verbindlich sind
+[Spezifikation](../sources/PILOT_SOURCE_MAPPING_SPECIFICATION.md),
+[Schema](../sources/PILOT_SOURCE_MAPPING_SCHEMA.md) mit 31 Feldern und
+[Validierung](../sources/PILOT_SOURCE_MAPPING_VALIDATION.md) mit 24 Regeln.
+
+**Weiterhin gilt: es existiert kein Mapping und keine angebundene Quelle.**
+**OD-05 und OD-06 bleiben offen** — sie erfordern eine Human-Eingabe, die
+dieses Work Package ausdrücklich nicht angefordert hat. Das
+[Aktivierungsgate](../operations/PILOT_MAPPING_ACTIVATION_GATE.md) steht auf
+`NOT EVALUATED`.
 
 ---
 
@@ -195,6 +207,32 @@ Technologie noch das Verweisformat sind bestimmt, und die Frage war bisher in
 keinem Register geführt.
 
 Aufgenommen als **OD-34**. Blockiert CBP-WP-012, nicht die aktuelle Planung.
+
+**Stand nach CBP-WP-010:** Das Mappingfeld `credential_reference` ist als
+**vollständig opake, optionale Kennung** spezifiziert und enthält **niemals**
+einen Wert (V23). **Es wurde bewusst kein Provider-, URI- oder Namensschema
+festgelegt** — OD-34 bleibt unberührt offen.
+
+---
+
+## OI-12 — Aufbewahrung und Integrität von Operational Evidence
+
+**Schweregrad:** mittel · **Status:** **NEU** (2026-07-21, CBP-WP-010) ·
+**Adressat:** Human Maintainer
+
+**ADR-0007** führt **RT-2 Operational Evidence** als nicht reproduzierbare,
+aufbewahrungs- und sicherungspflichtige Klasse ein und benennt drei offene
+Folgefragen: **Aufbewahrungsfrist**, **Integritätsschutz** und **Backup-
+und Restore-Nachweis**.
+
+Diese Fragen waren **inhaltlich dokumentiert, aber in keinem Register geführt**
+und damit nicht nachverfolgbar. Die Mapping-Spezifikation verschärft ihre
+Bedeutung: Freigabe-, Aktivierungs- und Widerrufsnachweise zu Mappings sind
+RT-2 (AE-1 bis AE-4).
+
+Aufgenommen als **OD-35** — als **ein** Punkt, nicht als drei. **Keine
+Technologiewahl.** Blockiert nicht die aktuelle Planung, wohl aber einen
+späteren produktiven Betrieb.
 ---
 
 ## Bearbeitung

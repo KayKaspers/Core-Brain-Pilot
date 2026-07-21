@@ -3,7 +3,7 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Letzte Prüfung | 2026-07-21, im Rahmen von **CBP-WP-009** |
+| Letzte Prüfung | 2026-07-21, im Rahmen von **CBP-WP-010** |
 | Autoritätsklasse | A2 |
 
 > Diese Datei gehört zur kanonischen NDF-Ordnerstruktur, war aber in der
@@ -83,7 +83,7 @@
 | Prüfung | Ergebnis |
 | --- | --- |
 | Alle Statusdokumente nennen Phase 0 | erfüllt |
-| Aktuelles Work Package als **CBP-WP-009** ausgewiesen | erfüllt |
+| Aktuelles Work Package als **CBP-WP-010** ausgewiesen | erfüllt |
 | **Falsche WP-Titel in der Queue korrigiert** | erfüllt — Entwurfstitel aus CBP-WP-008 ersetzt, Korrektur sichtbar vermerkt |
 | **Veraltete Gate-Angaben korrigiert** | erfüllt — CLAUDE.md, DISCOVERY_QUESTIONS.md, G0_EVIDENCE_MATRIX.md |
 | Historische Berichte nicht stillschweigend umgeschrieben | erfüllt — frühere WP-Ergebnisse unverändert |
@@ -223,6 +223,42 @@
 | Keine ausführbare Datei erstellt | erfüllt — ausschließlich Markdown |
 | Kein Commit, kein Push, `origin` unverändert | erfüllt |
 
+## Mapping-Compliance (CBP-WP-010)
+
+| Prüfung | Ergebnis |
+| --- | --- |
+| Drei Entscheidungen direkt vom Human Maintainer | erfüllt — Entscheidungsblock im Wortlaut |
+| Keine Human-Entscheidung ergänzt oder erweitert | erfüllt — Notes nur normalisiert |
+| ADR-0008-Status entspricht den Entscheidungen | erfüllt — drei SELECT → `accepted` |
+| **ADR-0006 nur durch sichtbaren Klarstellungsnachtrag ergänzt** | erfüllt — *non-substantive clarification*, datiert, A1 |
+| **ADR-0006-Entscheidung unverändert** | erfüllt — Status `accepted`, Wortlaut nicht umgeschrieben |
+| **Keine öffentliche Veröffentlichung freigegeben** | erfüllt — A0-Vorbehalt in ADR-0006 und ADR-0007 |
+| Core-Repository bleibt privat | erfüllt |
+| Alle neuen Dateien Markdown | erfüllt — 7 Dateien |
+| **Keine reale Location Reference gespeichert** | erfüllt — nur `synthetic-placeholder-*` |
+| **Keine private Repository-URL gespeichert** | erfüllt — nur `example.invalid` (RFC 2606) |
+| **Kein Secret, kein realistisches Secret-Muster** | erfüllt — nur `<SYNTHETIC-SECRET-PLACEHOLDER-DO-NOT-USE>` |
+| Mapping-Schema vollständig | erfüllt — 31 Felder mit Typ, Pflicht, Default, Werten, Datenschutzwirkung, Validierung |
+| Defaults disabled, read-only, fail-closed | erfüllt — 12 Vorgabewerte |
+| **`unknown` data_class blockiert** | erfüllt — V9, fail-closed wie `excluded-from-ai` |
+| **`excluded-from-ai` blockiert externe Übertragung** | erfüllt — V10, **abgelehnt statt korrigiert** |
+| Genau eine Source Boundary je Mapping | erfüllt — D-033, Beispiel 9 zeigt den Verstoß |
+| PS-02-, PS-03-, PS-04-Regeln vollständig | erfüllt — 9 · 9 · 8 Regeln |
+| Zustandsmodell verhindert `draft` → `enabled` | erfüllt — Z11 |
+| **`approved` bedeutet nicht `enabled`** | erfüllt — Z5, Gate-Punkte 16 und 20 getrennt |
+| `revoked` und `deleted` erzeugen Derived Cleanup | erfüllt — Z8, Z9, D3 |
+| Mapping-ID nach Löschung nicht wiederverwendet | erfüllt — Z10, D5, V21 |
+| Beispiele eindeutig `synthetic · non-operational · test-only` | erfüllt — 10 von 10 |
+| Private Handoff-Vorlage ohne Werte | erfüllt — nur Defaults, fünf Hinweisregeln |
+| **Activation Gate bleibt `NOT EVALUATED`** | erfüllt — nicht ausgeführt |
+| **Kein Mapping `enabled`** | erfüllt — es existiert kein Mapping |
+| OD-05, OD-06, OD-34 bleiben offen | erfüllt |
+| Keine Dublette bei OD-35 angelegt | erfüllt — ein Eintrag statt drei, Verweis auf ADR-0007 |
+| **Summen aus den Quelltabellen ausgezählt** | erfüllt — 33/29/23/5 |
+| Genau ein Folge-Work-Package | erfüllt — CBP-WP-011 |
+| Keine ausführbare Datei, kein JSON Schema, kein Validator | erfüllt |
+| Kein Commit, kein Push, `origin` unverändert | erfüllt |
+
 ## Zähl- und Statusregel
 
 *Ergänzt in CBP-WP-007, nach dem dritten Zählfehler des Projekts.*
@@ -268,6 +304,8 @@ ist der Grund, warum R-33 nicht geschlossen wird.
 | DRC definiert, aber **NOT EVALUATED** | R-34 |
 | Repository-Zielstruktur entschieden, **Migration nicht geplant und nicht autorisiert** | D-029, ADR-0007 |
 | Operator-Workspace beschlossen, **nicht angelegt** | D-030, ADR-0007 |
+| Mappingkonvention entschieden, **kein Mapping, kein Validator** | D-031…D-033, ADR-0008 |
+| **Mapping Activation Gate `NOT EVALUATED`** — ohne F3-Strang nicht durchlaufbar | PILOT_MAPPING_ACTIVATION_GATE |
 | **Alle Nachweise stehen auf Stufe 1 `dokumentiert`** | PHASE_1_EVIDENCE_PLAN |
 | Zwölf Stop-Bedingungen definiert, **keine erprobt** | PHASE_1_STOP_CONDITIONS |
 

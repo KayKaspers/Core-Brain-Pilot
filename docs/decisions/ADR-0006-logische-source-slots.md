@@ -176,6 +176,58 @@ sind alle mit Source Slots vereinbar. **OD-26 bleibt offen.**
 | Konkrete Deployment Mappings | DRC | `not-evaluated` |
 | Technische Durchsetzung der Slot-Regeln | R-25, R-27 | offen |
 
+---
+
+## Klarstellungsnachtrag — 2026-07-21
+
+| Feld | Wert |
+| --- | --- |
+| Art | **Non-substantive clarification** |
+| Datum | 2026-07-21 |
+| Ergänzt in | **CBP-WP-010** |
+| Autorität | **A1** — abgeleitet aus [ADR-0007](ADR-0007-repository-und-workspace-grenze.md) und den unveränderten A0-Entscheidungen **D-029** und **D-030** |
+| Wirkung auf Entscheidung und Status | **keine** |
+
+**Entscheidung und Status dieses ADR bleiben unverändert.** Er bleibt
+`accepted` und trägt weiterhin A1. Der Wortlaut oben wurde **nicht**
+umgeschrieben.
+
+### Gegenstand der Klarstellung
+
+Dieser ADR verwendet an mehreren Stellen die Begriffe „veröffentlichbar" und
+„Open-Source-Wirkung" — unter anderem in **Konsequenzen**, **Open-Source-Wirkung**
+und in der Begründung der Alternativen. Diese Formulierungen beschreiben eine
+**Architekturabsicht**, gleichbedeutend mit dem in ADR-0007 eingeführten Begriff
+**`publication-capable by design`**.
+
+| Die Begriffe bedeuten | Die Begriffe bedeuten **nicht** |
+| --- | --- |
+| Privater und produktiver Bestand ist konstruktiv ausgeschlossen | öffentliche Freigabe |
+| Eine nachträgliche Trennung wäre nicht erforderlich | Open-Source-Freigabe |
+| Synthetische Fixtures dürfen mitgeliefert werden | Lizenzentscheidung |
+| Die Option bleibt offen | Branding-Freigabe |
+| | Release-Autorisierung |
+
+### Verbindliche Folgerungen
+
+| # | Feststellung |
+| --- | --- |
+| 1 | **Aus diesem ADR folgt keine öffentliche Freigabe.** |
+| 2 | **Die Repository-Sichtbarkeit bleibt privat.** |
+| 3 | **Veröffentlichung, Lizenz, Branding und Release benötigen jeweils eine separate A0-Entscheidung** — OD-11, OD-23, OD-28. |
+| 4 | **Es besteht keine pauschale Zusicherung**, dass der jeweils aktuelle Gesamtinhalt des Repositorys ohne erneute Prüfung veröffentlicht werden darf. |
+| 5 | Die Sperrlisteneinträge zu öffentlichem Branding, Release und Veröffentlichung in [DO_NOT_START.md](../product/DO_NOT_START.md) bleiben bestehen. |
+
+**Zu Punkt 4:** Die Bauweise sichert zu, dass **strukturell** kein privater
+Bestand enthalten ist. Sie sagt nichts darüber aus, ob einzelne Dokumente —
+etwa interne Statusberichte, Risikoeinschätzungen oder Betriebsdetails — im
+Einzelfall für eine Veröffentlichung geeignet sind. Diese Prüfung wäre
+Gegenstand einer eigenen Entscheidung.
+
+Vollständige Ausformulierung des Begriffs in
+[ADR-0007](ADR-0007-repository-und-workspace-grenze.md), Abschnitt „Core
+Repository — Zielstruktur".
+
 **Dieser ADR schließt OD-05, OD-06 und OD-26 nicht** und darf das nicht.
 
 ## Bezug

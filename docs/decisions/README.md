@@ -3,9 +3,9 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Angenommene ADRs | **7** |
+| Angenommene ADRs | **8** |
 | Vorgeschlagene ADRs | 0 |
-| Überarbeitet in | **CBP-WP-009** |
+| Überarbeitet in | **CBP-WP-010** |
 | Stand | 2026-07-21 |
 
 Dieses Verzeichnis enthält Architecture Decision Records. Ein angenommener ADR
@@ -13,13 +13,18 @@ hat Autoritätsklasse **A1** und bindet nachfolgende Arbeit.
 
 ## Aktueller Stand
 
-**Sieben angenommene ADRs.** Fünf aus CBP-WP-004, jeder durch eine
-ausdrückliche A0-Entscheidung oder eine A5-Originalquelle belegt; **ADR-0006 am
-2026-07-21 angenommen** (D-028); **ADR-0007 am 2026-07-21 angenommen**
-(D-029, D-030).
+**Acht angenommene ADRs.** Fünf aus CBP-WP-004, jeder durch eine ausdrückliche
+A0-Entscheidung oder eine A5-Originalquelle belegt; **ADR-0006** am 2026-07-21
+angenommen (D-028); **ADR-0007** am selben Tag (D-029, D-030); **ADR-0008**
+ebenfalls am 2026-07-21 (D-031, D-032, D-033).
 
-Alle sieben tragen **A1** und binden nachfolgende Arbeit. Es steht kein
-Vorschlag mehr offen.
+Alle acht tragen **A1** und binden nachfolgende Arbeit. Es steht kein Vorschlag
+mehr offen.
+
+> **ADR-0006 trägt seit CBP-WP-010 einen Klarstellungsnachtrag** — *non-substantive
+> clarification*, A1. Entscheidung und Status sind unverändert; der Nachtrag
+> stellt klar, dass „veröffentlichbar" eine Architekturabsicht beschreibt und
+> **keine öffentliche Freigabe**.
 
 | ADR | Titel | Status | Belegt durch |
 | --- | --- | --- | --- |
@@ -30,6 +35,7 @@ Vorschlag mehr offen.
 | [ADR-0005](ADR-0005-deployment-readiness-check.md) | Deployment Readiness Check als eigenes Prüfmodell | `accepted` | D-026 |
 | [ADR-0006](ADR-0006-logische-source-slots.md) | Logische Source Slots statt eingebetteter Wissensbestände | **`accepted`** | **D-028 (A0), 2026-07-21** |
 | [ADR-0007](ADR-0007-repository-und-workspace-grenze.md) | Repository-Zielstruktur und Workspace-Grenze | **`accepted`** | **D-029, D-030 (A0), 2026-07-21** |
+| [ADR-0008](ADR-0008-pilot-source-mapping-konvention.md) | Pilot Source Mapping Konvention | **`accepted`** | **D-031, D-032, D-033 (A0), 2026-07-21** |
 
 Weitere Kandidaten sind in
 [project-system/DECISION_REGISTER.md](../../project-system/DECISION_REGISTER.md)

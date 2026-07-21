@@ -2,12 +2,20 @@
 
 | Feld | Wert |
 | --- | --- |
-| **Status** | **PROPOSED FOR G0 ACCEPTANCE** |
-| Phase | Phase 0 – Discovery und Scope Lock |
-| Erfasst in | CBP-WP-006 |
+| **Status** | **ANGENOMMEN** — D-1 `accepted`, G0 PASSED WITH NOTES (2026-07-21) |
+| Phase | Phase 0 abgeschlossen · Phase 1 AUTHORIZED FOR PLANNING |
+| Erfasst in | CBP-WP-006 · Mappingkonvention ergänzt in **CBP-WP-010** |
 | Autoritätsklasse | A3 (Entscheidungsvorlage) |
 | Belegt | G0-Kriterium **D-1** |
+| Mappingkonvention | **ADR-0008** (A1) — [Spezifikation](PILOT_SOURCE_MAPPING_SPECIFICATION.md) · [Schema](PILOT_SOURCE_MAPPING_SCHEMA.md) · [Validierung](PILOT_SOURCE_MAPPING_VALIDATION.md) · [Beispiele](PILOT_SOURCE_MAPPING_EXAMPLES.md) |
 | Stand | 2026-07-21 |
+
+> **Stand nach CBP-WP-010:** Für **PS-02, PS-03 und PS-04** liegt die
+> Mappingkonvention vor — Format, Collection-Strategie und Granularität sind
+> durch A0 entschieden (D-031, D-032, D-033). **Es existiert weiterhin kein
+> Mapping und keine angebundene Quelle**; das
+> [Aktivierungsgate](../operations/PILOT_MAPPING_ACTIVATION_GATE.md) steht auf
+> `NOT EVALUATED`. **OD-05 und OD-06 bleiben offen.**
 
 Dieser Vertrag definiert den produktiven Quellenumfang des ersten Piloten über
 **logische Source Slots** — produktunabhängig und deployment-neutral.

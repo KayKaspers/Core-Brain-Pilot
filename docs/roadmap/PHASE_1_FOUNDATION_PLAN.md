@@ -77,6 +77,7 @@ breiteste Enabler — F4 und alle späteren Betriebsschritte hängen daran.
 | **Rücksetzstrategie** | `enabled: false` setzen; Mapping-Revision erhöhen; bei Löschung Tombstone plus Derived Cleanup |
 | **Freigabepunkt** | **CBP-WP-010**, konkrete Mappings erst nach Human-Eingabe |
 | **Implementierung erlaubt** | **nein** |
+| **Stand** | **SPEZIFIKATION ERREICHT** — Format, Collection-Strategie und Granularität am 2026-07-21 entschieden (D-031, D-032, D-033, [ADR-0008](../decisions/ADR-0008-pilot-source-mapping-konvention.md)); Schema, Validierung, Zustandsmodell und Aktivierungsgate liegen vor. **Kein Mapping erstellt; OD-05 und OD-06 bleiben offen** |
 
 ## F3 — Technical Security Foundation
 
@@ -173,3 +174,13 @@ nichts verschoben und nichts gemessen.
 OD-26 ist geschlossen. Damit ist **F2 nicht mehr blockiert**; die
 Bereichsgrenze steht. **F1 ist damit nicht abgeschlossen**: die Migration in
 die Zielstruktur ist weder geplant noch autorisiert.
+
+**Stand nach CBP-WP-010:** Der Spezifikationsteil von **F2 ist erreicht** —
+Mappingformat, Collection-Strategie und Granularität sind durch A0 entschieden,
+Schema, Validierung, Zustandsmodell und Aktivierungsgate liegen vor. **F2 ist
+damit nicht abgeschlossen**: Es existiert kein Mapping, keine angebundene
+Quelle und kein Validator. **OD-05 und OD-06 bleiben offen**, das
+Aktivierungsgate steht auf `NOT EVALUATED`.
+
+**F4 bleibt blockiert** — es braucht zusätzlich **F3**, das noch nicht begonnen
+hat.

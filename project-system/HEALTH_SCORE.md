@@ -3,7 +3,7 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Letzte Bewertung | 2026-07-21, im Rahmen von **CBP-WP-009** |
+| Letzte Bewertung | 2026-07-21, im Rahmen von **CBP-WP-010** |
 | Autoritätsklasse | A2 |
 
 > Diese Datei gehört zur kanonischen NDF-Ordnerstruktur, war aber in der
@@ -28,7 +28,8 @@ Keine Gesamtpunktzahl.
 | Gate-Klarheit | **gut** | → | Dreistufiges Modell plus DRC als eigener Prüfort für die 16 vertagten Kriterien |
 | Architekturklarheit | **gut** | ↑↑ | 9 Schichten, 14 Komponenten, 5 Profile, Rebuild-Vertrag; zuvor kein Komponentenschnitt |
 | Scope-Klarheit | **gut** | ↑ | **Alle 25 Core-Kriterien `accepted`**; Quellenraum über logische Slots definiert |
-| Entscheidungslage | **gut** | ↑ | **30 Entscheidungen, 7 angenommene ADRs**; G0, ADR-0006 und **OD-26** entschieden |
+| Entscheidungslage | **gut** | ↑ | **33 Entscheidungen, 8 angenommene ADRs**; G0, OD-26 und die Mappingkonvention entschieden |
+| Quellenanbindung | **nicht bewertbar** | | Konvention entschieden, **0 Mappings, 0 angebundene Quellen** |
 | Strukturklarheit | **gut** | ↑↑ | Zielstruktur und Bereichsgrenze festgelegt (ADR-0007); zuvor drei konkurrierende Vorstellungen |
 | Antwortlage Discovery | **gut** | ↑ | Alle Core-Required-Fragen belegt; Entscheidung steht aus |
 | Sicherheitslage | **ausreichend** | ↑ | Berechtigungsmodell und Incident-Response dokumentiert (ADR-0004); **technisch weiterhin nicht durchgesetzt** |
@@ -55,7 +56,7 @@ Durchsetzung, nicht ein weiteres Dokument.
 > „CBP-WP-002" zeigt die damals berichteten Werte; kursive Angaben waren
 > falsch addiert.
 
-| Kennzahl | CBP-WP-002 | **CBP-WP-009** |
+| Kennzahl | CBP-WP-002 | **CBP-WP-010** |
 | --- | --- | --- |
 | G0-Kriterien gesamt | *41* → korrekt 47 | **47** |
 | davon blockierend | *39* → korrekt 45 | **25** (dreistufiges Modell) |
@@ -69,18 +70,20 @@ Durchsetzung, nicht ein weiteres Dokument.
 | Discovery-Fragen | *55* → korrekt 56 | **56** |
 | davon P0 | *35* → korrekt 38 | **38** |
 | davon P0 offen und Core Required | 38 | **0** |
-| Getroffene Entscheidungen | 14 | **30** |
-| davon A0 | 8 | **26** |
-| Offene Entscheidungen | 27 | **21** |
+| Getroffene Entscheidungen | 14 | **33** |
+| davon A0 | 8 | **29** |
+| Offene Entscheidungen | 27 | **23** |
 | davon P0 | 14 | **5** |
 | Erfasste Risiken | 29 | **32** |
 | davon gemindert | 5 | **14** |
 | davon hoch | 14 | 17 |
 | Capabilities `implemented` | **0** | **0** |
-| Angenommene ADRs | 0 | **7** |
-| Vorgeschlagene Work Packages | 0 | **5** (CBP-WP-010…014) |
+| Angenommene ADRs | 0 | **8** |
+| Vorgeschlagene Work Packages | 0 | **4** (CBP-WP-011…014) |
+| **Erstellte Source Mappings** | 0 | **0** |
+| **Angebundene Quellen** | 0 | **0** |
 | **Nachweise oberhalb Stufe 1** | 0 | **0** |
-| Commits | 2 | **9** |
+| Commits | 2 | **10** |
 
 ## Fortschritt in einem Bild
 
@@ -118,16 +121,16 @@ Umsetzung. Reihenfolge nach dem [Phase-1-Backlog](../docs/roadmap/PHASE_1_BACKLO
 | # | Hebel | Backlog | Wirkung |
 | --- | --- | --- | --- |
 | 1 | **Technische Sicherheitsgrundlage** | **P3** | Der breiteste Enabler — P4, P8 und P10 hängen daran. Schließt R-25 und R-27. Geschnitten als CBP-WP-011 (Spezifikation) und CBP-WP-012 (Umsetzung) |
-| 2 | Source Mapping | P2 | **OD-26 ist geschlossen** (CBP-WP-009). Verbleibend: OD-05 und OD-06 in CBP-WP-010 |
+| 2 | Konkrete Quellenauswahl | P2 | OD-26 geschlossen, **Mappingkonvention entschieden** (CBP-WP-010). Verbleibend: **OD-05 und OD-06** — brauchen eine Human-Eingabe |
 | 3 | `excluded-from-ai`-Negativtests | P8 | Auflage 2; macht aus einer behaupteten Sperre eine geprüfte |
 | 4 | Benchmarklauf V0/V1 | P7 | Auflage 3; kalibriert OD-02b, schließt R-21 |
 | 5 | Restore-Test und DRC Profil A | P9, P10 | Auflagen 4 und 5; R-20 und R-34 |
 ## Bewertung in einem Satz
 
-Phase 0 ist abgeschlossen und freigegeben, Phase 1 vollständig geplant und die
-Repository-Grenze entschieden — aber dieser Score misst von hier an nicht mehr
+Phase 0 ist abgeschlossen, Phase 1 geplant, Repository-Grenze und
+Mappingkonvention entschieden — aber dieser Score misst von hier an nicht mehr
 die Vollständigkeit von Dokumenten, sondern den Fortschritt von **Nachweisen**,
-und der steht weiterhin bei **null**.
+und der steht nach zehn Work Packages weiterhin bei **null**.
 ## Pflege
 
 Diese Bewertung wird bei jedem Work Package erneuert. Kennzahlen werden

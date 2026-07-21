@@ -6,7 +6,16 @@
 | Erfasst in | CBP-WP-006 |
 | Autoritätsklasse | A2 |
 | Status | **Logisches Schema, keine ausführbare Konfiguration** |
+| Ergänzt durch | **ADR-0008** (A1) — Mappingebene, [Schema](PILOT_SOURCE_MAPPING_SCHEMA.md) mit 31 Feldern |
 | Stand | 2026-07-21 |
+
+> **Zwei Ebenen, zwei Dokumente.** Dieses Modell beschreibt den **logischen
+> Slot** (24 Felder): *Was für eine Quelle ist das, und was darf mit ihr
+> geschehen?* Die **Mappingebene** — *Wo liegt sie in dieser Installation?* —
+> steht seit CBP-WP-010 in
+> [PILOT_SOURCE_MAPPING_SCHEMA.md](PILOT_SOURCE_MAPPING_SCHEMA.md).
+> **Regel 8 gilt auf beiden Ebenen:** weder Slot noch Mapping noch Collection
+> verleihen Autorität.
 
 Dieses Dokument definiert das **Schema** eines Source Slots. Es ist keine
 Konfigurationsdatei, kein Code und nicht ausführbar.
