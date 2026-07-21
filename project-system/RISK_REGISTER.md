@@ -3,7 +3,7 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Überarbeitet in | **CBP-WP-010** |
+| Überarbeitet in | **CBP-WP-011** |
 | Autoritätsklasse | A2 |
 | Stand | 2026-07-21 |
 
@@ -59,7 +59,7 @@ Ein irreversibler Schaden ist mindestens **hoch**.
 | R-17 | Abweichungen vom NDF wachsen unkontrolliert | niedrig | AB-03 bis AB-08 nur vorläufig akzeptiert | gemindert |
 | R-24 | Verwechslung von NDF Prompt Mode und Context Budget | mittel | Ausdrückliche Abgrenzung; D-009 | gemindert |
 | R-28 | Ein zweites Governance-System wird eingeführt | mittel | Superpowers nur als Referenz | gemindert |
-| R-33 | Fehlerhafte Kennzahlen in Statusdokumenten führen zu falschen Gate-Einschätzungen | mittel | Fünfteilige **Zähl- und Statusregel** in COMPLIANCE_CHECK (CBP-WP-007); Summen gelten als `derived status data`. **Dokumentregel, keine technische Kontrolle.** Der **vierte** Zählfehler entstand in CBP-WP-007 — **nach** Einführung der Regel — und wurde erst in CBP-WP-008 gefunden | **gemindert, nicht geschlossen** |
+| R-33 | Fehlerhafte Kennzahlen in Statusdokumenten führen zu falschen Gate-Einschätzungen | mittel | Fünfteilige **Zähl- und Statusregel** in COMPLIANCE_CHECK (CBP-WP-007); Summen gelten als `derived status data`. **Dokumentregel, keine technische Kontrolle.** Der **vierte** Zählfehler entstand in CBP-WP-007 und wurde in CBP-WP-008 gefunden; der **fünfte** in CBP-WP-010 — „neun Blocker" bei acht IDs; der **sechste** in CBP-WP-011 — Gate-Stufenverteilung 25 statt 24, ein Positivtest mit NT-ID, und **doppelt vergebene Test-IDs über Dokumentgrenzen hinweg**. Alle im jeweiligen REWORK-Lauf korrigiert. **Sechs Zählvorgänge in elf Work Packages; jeder durch Auszählung gefunden, keiner durch die Regel verhindert** | **gemindert, nicht geschlossen** |
 | **R-34** | **Deployment-Required-Kriterien werden vertagt und dann vergessen** | **hoch** | Alle 16 bleiben als `open` erfasst; separates Deployment-Readiness-Gate zu definieren (OD-33). **Fail-closed:** ohne die Angaben wird nicht installiert | **neu, offen** |
 
 ## Betrieb

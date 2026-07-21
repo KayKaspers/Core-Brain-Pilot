@@ -3,7 +3,7 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Überarbeitet in | **CBP-WP-010** |
+| Überarbeitet in | **CBP-WP-011** |
 | Autoritätsklasse | A2 |
 | Stand | 2026-07-21 |
 
@@ -86,6 +86,26 @@ Human-Maintainer-Entscheidung im Entscheidungsblock. Wortlaut unverändert in
 > [Aktivierungsgate](../docs/operations/PILOT_MAPPING_ACTIVATION_GATE.md) steht
 > auf **`NOT EVALUATED`**.
 
+### Neu aus CBP-WP-011 — Technical Security Foundation Specification
+
+Alle vier am **2026-07-21**, Autorität **A0**, Quelle: direkte
+Human-Maintainer-Entscheidung im Entscheidungsblock. Wortlaut unverändert in
+[ADR-0009](../docs/decisions/ADR-0009-technische-sicherheitsgrundlage.md).
+
+| ID | Entscheidung | Status | Autorität | Quelle | Datum | Betroffen | Konsequenz |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| **D-034** | **Teil A — Service-Identity-Modell: getrennte logische Identitäten für Control Plane und Data Worker** mit minimalen, voneinander unabhängigen Rechten. Die Control Plane darf Canonical Sources nicht verändern und nicht automatisch publizieren; der **Data Worker erhält keine Approval-, Administrations- oder Publish-Rechte**. Konkrete Unix-Benutzer, Container-Identitäten, UID- und GID-Werte erst deploymentspezifisch | `accepted` | **A0** | Entscheidungsblock CBP-WP-011 | 2026-07-21 | KB-01, KB-02, KB-03, KB-05 | **ADR-0009** (A1); Grundsatz S-A |
+| **D-035** | **Teil B — Secret-Modell: versionierter, providerneutraler Secret-Reference- und Resolver-Vertrag** plus **OS-geschützter Datei-Provider** für den Pilot, außerhalb von Core-Repository, Operator-Workspace und Runtime. Werte nur read-only an die berechtigte Identität; **niemals in Git, Konfiguration, Umgebungsvariablen, Kommandozeilen, Logs, RT-2, Context Packs, Fehlermeldungen oder Reports**. Referenzen enthalten keine Werte und keine Hostpfade; später ohne Änderung der Mappingkonvention migrierbar | `accepted` | **A0** | Entscheidungsblock CBP-WP-011 | 2026-07-21 | KB-08; **schließt OD-34** | **ADR-0009** (A1); Grundsatz S-B |
+| **D-036** | **Teil C — Netzwerk-Egress: deny-by-default mit expliziter Allowlist**, gebunden an **Ziel, Provider, Zweck und Service-Identität**. Vor jeder externen Übertragung zusätzlich Datenklasse, AI-Transfer-Policy, Approval-Zustand, Zweck und freigegebenes Ziel prüfen. **Lokale Suche und Retrieval funktionieren ohne externen Netzwerkzugriff**; `excluded-from-ai` bleibt unabhängig von jeder Netzfreigabe blockiert | `accepted` | **A0** | Entscheidungsblock CBP-WP-011 | 2026-07-21 | KB-10, KB-11 | **ADR-0009** (A1); Grundsatz S-C |
+| **D-037** | **Teil D — Operational Evidence: logisch append-only, integritätsverkettet, aufbewahrungs- und sicherungspflichtig.** Korrekturen durch nachvollziehbare Folgeereignisse statt stillschweigendem Überschreiben; stabile Ereignisidentitäten, getrennte Zugriffsrechte, Backup, Restore-Nachweis, **sichtbare Erkennung von Ketten- oder Integritätsbrüchen**. RT-2 ist weder Cache noch kanonische Wissensbasis und nicht zuverlässig rekonstruierbar. **Konkrete Aufbewahrungsdauer, Speichertechnologie und Implementierung bleiben deploymentspezifisch** | `accepted` | **A0** | Entscheidungsblock CBP-WP-011 | 2026-07-21 | KB-09, KB-12; **schließt OD-35** | **ADR-0009** (A1); Grundsatz S-D |
+
+> **Die vier Entscheidungen legen Sicherheitsarchitektur fest, keine
+> Implementierung.** Es wurde keine Identität angelegt, kein Recht gesetzt,
+> kein Secret bereitgestellt, keine Netzwerkregel verändert und kein Test
+> ausgeführt. Alle zwölf Kontrollen stehen auf **DOCUMENTED ONLY**, das
+> [Security Foundation Readiness Gate](../docs/operations/SECURITY_FOUNDATION_READINESS_GATE.md)
+> auf **`NOT EVALUATED`**.
+
 > **Hinweis zu D-016.** In CBP-WP-002 hatte ich „bevorzugte Anwendungslaufzeit"
 > zu „vorgesehene" abgeschwächt (Ü-02), gestützt auf Projektübergabe §4 (A5),
 > wonach Containerisierung kein Pflichtziel der ersten Phase ist. Der Human
@@ -109,6 +129,8 @@ Human-Maintainer-Entscheidung im Entscheidungsblock. Wortlaut unverändert in
 | **OD-10** | Verfahren bei Secret in der Git-Historie | [SECRET_INCIDENT_RESPONSE.md](../docs/security/SECRET_INCIDENT_RESPONSE.md) — 14 Schritte, Rotation vor Cleanup. **Technische Unterstützung bleibt offen** | 2026-07-20 |
 | **OD-32** | Berechtigungsstufen je Bereich und Freigabeverfahren | [PERMISSION_MODEL.md](../docs/security/PERMISSION_MODEL.md) und ADR-0004 — 9 Rollen × 12 Ressourcen. **Technische Durchsetzung bleibt offen** | 2026-07-20 |
 | **OD-31** | Nachführungen außerhalb des CBP-WP-003-Scopes | CBP-WP-004: D-016 in `PROJECT_DEFINITION.md` korrigiert, Kriterienzahl auf 47 aktualisiert, Korrektur-Notiz in `CBP-WP-002.md` ergänzt | 2026-07-20 |
+| **OD-34** | Secret-Store-Technologie und Credential-Reference-Format | **D-035** — versionierter, providerneutraler Referenzvertrag `cbp-secret:v1:<provider>:<opaque-id>` plus OS-geschützter Datei-Provider für den Pilot; festgehalten in [SECRET_REFERENCE_AND_PROVIDER_CONTRACT.md](../docs/security/SECRET_REFERENCE_AND_PROVIDER_CONTRACT.md). **Konkreter Ablageort, Dateimodi und registrierte Providernamen bleiben Deployment Required** | 2026-07-21 |
+| **OD-35** | RT-2: Aufbewahrung, Integritätsschutz, Backup-/Restore-Nachweis | **D-037** — logisch append-only, verkettet, aufbewahrungs- und sicherungspflichtig; festgehalten in [OPERATIONAL_EVIDENCE_POLICY.md](../docs/operations/OPERATIONAL_EVIDENCE_POLICY.md). **Die konkrete Aufbewahrungsdauer bleibt Deployment Required** und wird im DRC geprüft | 2026-07-21 |
 | **OD-26** | Endgültige Repository-Struktur | **D-029 und D-030** — Ziel-Monorepo nach Layout-Option B **und** Bereichsmodell W-3; festgehalten in [ADR-0007](../docs/decisions/ADR-0007-repository-und-workspace-grenze.md). **Keine Reorganisation autorisiert**; AB-03…AB-08 bleiben offen (OD-29) | 2026-07-21 |
 | **OD-33** | Definition des Deployment-Readiness-Gates | [DEPLOYMENT_READINESS_CHECK.md](../docs/operations/DEPLOYMENT_READINESS_CHECK.md) und ADR-0005 — DRC vollständig dokumentiert und in G0, Manifest, Profil, README und Brain verlinkt | 2026-07-20 |
 
@@ -150,9 +172,7 @@ Legende: **P0** blockiert G0 · **P1** vor Architekturentscheidung · **P2** sp�
 | OD-19 | Umfang und Format des Retrieval-Trace | P1 | Nova | — |
 | OD-23 | Lizenzwahl | P1 | Human Maintainer | D-007 |
 | OD-25 | qmd als produktiver Suchdienst — nur nach Prüfung | P1 | Human Maintainer | — |
-| **OD-35** | **RT-2 Operational Evidence: Aufbewahrungsfrist, Integritätsschutz und Backup-/Restore-Nachweis** — in ADR-0007 als Folgefragen benannt, bisher nicht im Register geführt und damit nicht nachverfolgbar. **Keine Technologiewahl** | P1 | Human Maintainer | ADR-0007 (RG-4, G9); AE-3 in der Mapping-Spezifikation |
 | **OD-36** | Bildungsvorschrift der `mapping_id`, zulässige Collection-Namen und deren Vergabe, unterstützte `schema_version`-Werte über `1.0` hinaus | P1 | Nova | ADR-0008; PILOT_SOURCE_MAPPING_SCHEMA |
-| **OD-34** | **Secret-Store-Technologie und Verweisformat** — von KB-08 und Mappingfeld `credential`/`location_reference` vorausgesetzt, bisher nirgends entschieden | P1 | Human Maintainer | TECHNICAL_SECURITY_FOUNDATION_PLAN, KB-08 |
 | OD-24 | Akzeptable Ausfallzeit | P2 | Human Maintainer | — |
 | OD-28 | Öffentlicher Produktname und Phase-7-Option | P2 | Human Maintainer | — |
 
@@ -160,8 +180,8 @@ Legende: **P0** blockiert G0 · **P1** vor Architekturentscheidung · **P2** sp�
 
 | Kategorie | Anzahl |
 | --- | --- |
-| Getroffene Entscheidungen | **33** (davon **29** mit A0) |
-| Angenommene ADRs | **8** (ADR-0001 bis ADR-0008, alle A1) |
+| Getroffene Entscheidungen | **37** (davon **33** mit A0) |
+| Angenommene ADRs | **9** (ADR-0001 bis ADR-0009, alle A1) |
 | Vorgeschlagene ADRs | 0 |
 | Neu in CBP-WP-003 | 12 (D-015 bis D-026) |
 | Neu in CBP-WP-004 | 0 Entscheidungen, 5 ADRs |
@@ -169,13 +189,15 @@ Legende: **P0** blockiert G0 · **P1** vor Architekturentscheidung · **P2** sp�
 | Neu in CBP-WP-008 | 0 Entscheidungen, 1 neue offene Entscheidung (OD-34) |
 | Neu in CBP-WP-009 | **2 A0-Entscheidungen** (D-029 Teil A, D-030 Teil B), **1 ADR** |
 | Neu in CBP-WP-010 | **3 A0-Entscheidungen** (D-031 Format, D-032 Collection, D-033 Granularität), **1 ADR**, 2 neue offene Entscheidungen (OD-35, OD-36) |
-| Geschlossene offene Entscheidungen | **10** |
+| Neu in CBP-WP-011 | **4 A0-Entscheidungen** (D-034 Identity, D-035 Secret, D-036 Egress, D-037 Evidence), **1 ADR**, **2 geschlossene** (OD-34, OD-35) |
+| Geschlossene offene Entscheidungen | **12** |
 | Vertagte Entscheidungen | 4 |
-| Offene Entscheidungen | **23** |
+| Offene Entscheidungen | **21** |
 | davon **P0** | **5** — OD-04, OD-07, OD-08, OD-11, OD-29 |
 
-*Sämtliche Werte in CBP-WP-010 aus den Quelltabellen **ausgezählt**, nicht
-fortgeschrieben (Zählregel 1 und 2).*
+*Sämtliche Werte in CBP-WP-011 aus den Quelltabellen **ausgezählt**, nicht
+fortgeschrieben (Zählregel 1 und 2). Jede gezählte Einheit ist einzeln
+benennbar — kein offener Zusatz.*
 
 > **Zu OD-35:** Die drei RT-2-Punkte waren inhaltlich bereits in ADR-0007 als
 > „offene Folgefragen" benannt, aber in keinem Register geführt. Dieser Eintrag

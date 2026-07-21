@@ -25,14 +25,15 @@ vorgesehene, **noch nicht implementierte** Anwendungslaufzeit.
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Aktuelles Work Package | CBP-WP-010 (`in-review`) |
-| Nächster Schritt | **CBP-WP-011 vorgeschlagen**, nicht freigegeben — **keine Implementierung autorisiert** |
+| Aktuelles Work Package | CBP-WP-011 (`in-review`) |
+| Nächster Schritt | **CBP-WP-012 vorgeschlagen**, nicht freigegeben — **keine Implementierung autorisiert** |
 | **Gate G0** | **PASSED WITH NOTES** — 2026-07-21, A0 |
 | Phase-1-Planung | **Streams F1–F5 geplant**, [Foundation Plan](docs/roadmap/PHASE_1_FOUNDATION_PLAN.md) |
 | **Repository-Struktur** | **entschieden** — [ADR-0007](docs/decisions/ADR-0007-repository-und-workspace-grenze.md); **Migration nicht autorisiert** |
 | **Mappingkonvention** | **entschieden** — [ADR-0008](docs/decisions/ADR-0008-pilot-source-mapping-konvention.md); **0 Mappings, 0 angebundene Quellen** |
+| **Sicherheitsgrundlage** | **spezifiziert** — [ADR-0009](docs/decisions/ADR-0009-technische-sicherheitsgrundlage.md); **12 Kontrollen `DOCUMENTED ONLY`, 0 Tests ausgeführt** |
 | Implementierte Capabilities | **keine (0 von 29)** |
-| Angenommene ADRs | **8** |
+| Angenommene ADRs | **9** |
 | Framework | Nova Development Framework v1.0.0 |
 
 ## Pilotumfang
@@ -88,13 +89,13 @@ Nur der Human Maintainer committet, tagged und pusht.
 | Pfad | Inhalt |
 | --- | --- |
 | `docs/architecture/` | Projektdefinition, Systemarchitektur, Komponentenmodell, Deploymentprofile, Prinzipien, Vertrauensgrenzen, Context Budgets |
-| `docs/operations/` | Deployment Readiness Check, Pilot Mapping Activation Gate |
+| `docs/operations/` | Deployment Readiness Check, Pilot Mapping Activation Gate, Operational-Evidence-Policy, Security Foundation Readiness Gate |
 | `docs/benchmark/` | Quellenvertrag, Evaluationsplan, Metriken, Baseline-Protokoll, Governance |
 | `docs/sources/` | Pilot Source Contract, Source-Slot-Modell, Mapping-Spezifikation, -Schema, -Validierung, synthetische Beispiele |
 | `docs/roadmap/` | Phase-1-Backlog, Foundation Plan, Stream-Pläne F1–F5, Work-Package-Karte, Nachweisplan, Abbruchbedingungen |
 | `benchmarks/` | Synthetischer Korpus (24 Quellen), 36 Fragen, erwartete Ergebnisse |
-| `docs/security/` | Berechtigungsmodell, Secret-Incident-Response |
-| `docs/decisions/` | Architecture Decision Records — **8 angenommen** |
+| `docs/security/` | Berechtigungsmodell, Secret-Incident-Response, Sicherheitsspezifikation, Identitätsmodell, Secret-Vertrag, Egress-Policy, Abnahmematrix |
+| `docs/decisions/` | Architecture Decision Records — **9 angenommen** |
 | `docs/discovery/` | Fragebogen, G0-Kriterien, Quellenabgleich, A5-Projektübergabe |
 | `docs/ndf/` | NDF-Anwendung und dokumentierte Abweichungen |
 | `docs/privacy/` | Datenklassen und technische Datenschutzregeln |
@@ -140,6 +141,8 @@ Nur der Human Maintainer committet, tagged und pusht.
 | Wann ist anzuhalten? | [PHASE_1_STOP_CONDITIONS.md](docs/roadmap/PHASE_1_STOP_CONDITIONS.md) |
 | Wie ist das System aufgebaut? | [SYSTEM_ARCHITECTURE.md](docs/architecture/SYSTEM_ARCHITECTURE.md) |
 | Wer darf was? | [PERMISSION_MODEL.md](docs/security/PERMISSION_MODEL.md) |
+| **Was muss technisch durchgesetzt werden?** | **[TECHNICAL_SECURITY_FOUNDATION_SPECIFICATION.md](docs/security/TECHNICAL_SECURITY_FOUNDATION_SPECIFICATION.md)** |
+| Woran erkennt man, dass es wirkt? | [SECURITY_CONTROL_ACCEPTANCE_MATRIX.md](docs/security/SECURITY_CONTROL_ACCEPTANCE_MATRIX.md) — **DOCUMENTED ONLY** |
 | Woher stammen die Aussagen? | [SOURCE_RECONCILIATION.md](docs/discovery/SOURCE_RECONCILIATION.md) |
 | Was darf nicht begonnen werden? | [DO_NOT_START.md](docs/product/DO_NOT_START.md) |
 

@@ -22,7 +22,7 @@ Maintainers ausführbar — Regel 6 der Work Package Queue.
 | --- | --- | --- | --- | --- | --- |
 | **CBP-WP-009** | Repository Boundary Decision | `docs-only`, interaktiv | F1 | **`in-review`** — ausgeführt 2026-07-21 | **nein** |
 | **CBP-WP-010** | Pilot Source Mapping Specification | `docs-only`, interaktiv | F2 | **`in-review`** — ausgeführt 2026-07-21 | **nein** |
-| **CBP-WP-011** | Technical Security Foundation Specification | `docs-only` | F3 | **`proposed`** | **nein** |
+| **CBP-WP-011** | Technical Security Foundation Specification | `docs-only`, interaktiv | F3 | **`in-review`** — ausgeführt 2026-07-21 | **nein** |
 | **CBP-WP-012** | Foundation Runtime Skeleton | spätere Implementierung | F3 | **`proposed`** | **nein** |
 | **CBP-WP-013** | Ingest Quarantine Minimum Viable Pipeline | spätere Implementierung | F4 | **`proposed`** | **nein** |
 | **CBP-WP-014** | Deterministic Source Registry and Catalog | spätere Implementierung | F5 | **`proposed`** | **nein** |
@@ -94,11 +94,12 @@ Quellen später angebunden werden.
 | **Abbruchbedingungen** | Eine Kontrolle ruht allein auf Promptregeln → als **nicht durchgesetzt** kennzeichnen (SB-03) |
 | **Erwartete Risiken** | **R-25**, **R-27**, R-26 |
 | **Review Gate** | Nova-Review; Abnahme der Testdefinition durch den Human Maintainer |
-| **Status** | **`proposed`** |
+| **Status** | **`in-review`** — ausgeführt am 2026-07-21 |
+| **Ergebnis** | **D-034 bis D-037** (A0) · [ADR-0009](../decisions/ADR-0009-technische-sicherheitsgrundlage.md) `accepted` · Spezifikation (18 Abschnitte), Identitätsmodell, Secret-Vertrag, Egress-Policy, Evidence-Policy, Abnahmematrix (31 Negativtests), Readiness Gate (24 Punkte, `NOT EVALUATED`). **OD-34 und OD-35 geschlossen** |
 | **Implementierung autorisiert** | **nein** |
 
 **Auflage 1 der G0-Entscheidung** beginnt hier — als Spezifikation, nicht als
-Umsetzung.
+Umsetzung. **Alle zwölf Kontrollen stehen auf `DOCUMENTED ONLY`.**
 
 ## CBP-WP-012 — Foundation Runtime Skeleton
 

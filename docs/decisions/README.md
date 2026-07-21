@@ -3,9 +3,9 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Angenommene ADRs | **8** |
+| Angenommene ADRs | **9** |
 | Vorgeschlagene ADRs | 0 |
-| Überarbeitet in | **CBP-WP-010** |
+| Überarbeitet in | **CBP-WP-011** |
 | Stand | 2026-07-21 |
 
 Dieses Verzeichnis enthält Architecture Decision Records. Ein angenommener ADR
@@ -13,12 +13,12 @@ hat Autoritätsklasse **A1** und bindet nachfolgende Arbeit.
 
 ## Aktueller Stand
 
-**Acht angenommene ADRs.** Fünf aus CBP-WP-004, jeder durch eine ausdrückliche
+**Neun angenommene ADRs.** Fünf aus CBP-WP-004, jeder durch eine ausdrückliche
 A0-Entscheidung oder eine A5-Originalquelle belegt; **ADR-0006** am 2026-07-21
 angenommen (D-028); **ADR-0007** am selben Tag (D-029, D-030); **ADR-0008**
-ebenfalls am 2026-07-21 (D-031, D-032, D-033).
+(D-031, D-032, D-033) und **ADR-0009** (D-034 bis D-037) ebenfalls.
 
-Alle acht tragen **A1** und binden nachfolgende Arbeit. Es steht kein Vorschlag
+Alle neun tragen **A1** und binden nachfolgende Arbeit. Es steht kein Vorschlag
 mehr offen.
 
 > **ADR-0006 trägt seit CBP-WP-010 einen Klarstellungsnachtrag** — *non-substantive
@@ -36,6 +36,7 @@ mehr offen.
 | [ADR-0006](ADR-0006-logische-source-slots.md) | Logische Source Slots statt eingebetteter Wissensbestände | **`accepted`** | **D-028 (A0), 2026-07-21** |
 | [ADR-0007](ADR-0007-repository-und-workspace-grenze.md) | Repository-Zielstruktur und Workspace-Grenze | **`accepted`** | **D-029, D-030 (A0), 2026-07-21** |
 | [ADR-0008](ADR-0008-pilot-source-mapping-konvention.md) | Pilot Source Mapping Konvention | **`accepted`** | **D-031, D-032, D-033 (A0), 2026-07-21** |
+| [ADR-0009](ADR-0009-technische-sicherheitsgrundlage.md) | Technische Sicherheitsgrundlage | **`accepted`** | **D-034 bis D-037 (A0), 2026-07-21** |
 
 Weitere Kandidaten sind in
 [project-system/DECISION_REGISTER.md](../../project-system/DECISION_REGISTER.md)

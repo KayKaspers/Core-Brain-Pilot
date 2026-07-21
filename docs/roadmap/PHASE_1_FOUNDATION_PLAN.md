@@ -97,6 +97,7 @@ breiteste Enabler — F4 und alle späteren Betriebsschritte hängen daran.
 | **Rücksetzstrategie** | Je Kontrolle eine sichere Abschaltung: **restriktiver werden ist immer erlaubt**, permissiver nur mit Freigabe |
 | **Freigabepunkt** | **CBP-WP-011** (Spezifikation), später **CBP-WP-012** (Umsetzung) |
 | **Implementierung erlaubt** | **nein** |
+| **Stand** | **SPEZIFIKATION ERREICHT** — vier A0-Entscheidungen am 2026-07-21 (D-034…D-037, [ADR-0009](../decisions/ADR-0009-technische-sicherheitsgrundlage.md)); KB-01 bis KB-12 abnehmbar spezifiziert, neunstufige Durchsetzungsreihenfolge, 31 Negativtests geplant. **Keine Kontrolle umgesetzt, kein Test ausgeführt**; alle auf `DOCUMENTED ONLY`, Readiness Gate `NOT EVALUATED` |
 
 ## F4 — Ingest Quarantine and Security Scanning
 
@@ -182,5 +183,13 @@ damit nicht abgeschlossen**: Es existiert kein Mapping, keine angebundene
 Quelle und kein Validator. **OD-05 und OD-06 bleiben offen**, das
 Aktivierungsgate steht auf `NOT EVALUATED`.
 
-**F4 bleibt blockiert** — es braucht zusätzlich **F3**, das noch nicht begonnen
-hat.
+**Stand nach CBP-WP-011:** Der Spezifikationsteil von **F3 ist erreicht** —
+zwölf Kontrollbereiche, neun Durchsetzungsstufen, 31 Negativtests und ein
+Readiness Gate liegen vor. **F3 ist damit nicht abgeschlossen**: Es existiert
+keine Runtime, keine Identität, kein Secret Resolver, keine Egress-Regel und
+kein RT-2-Speicher.
+
+**F4 bleibt blockiert** — es braucht die **Umsetzung** von F3 (CBP-WP-012),
+nicht nur deren Spezifikation. Acht der zwanzig Punkte des Mapping Activation
+Gates verlangen Nachweisstufe 4, die ohne durchgesetzte Dateirechte und
+Mount-Grenzen nicht erreichbar ist.

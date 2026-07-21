@@ -3,7 +3,7 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Letzte Bewertung | 2026-07-21, im Rahmen von **CBP-WP-010** |
+| Letzte Bewertung | 2026-07-21, im Rahmen von **CBP-WP-011** |
 | Autoritätsklasse | A2 |
 
 > Diese Datei gehört zur kanonischen NDF-Ordnerstruktur, war aber in der
@@ -28,11 +28,11 @@ Keine Gesamtpunktzahl.
 | Gate-Klarheit | **gut** | → | Dreistufiges Modell plus DRC als eigener Prüfort für die 16 vertagten Kriterien |
 | Architekturklarheit | **gut** | ↑↑ | 9 Schichten, 14 Komponenten, 5 Profile, Rebuild-Vertrag; zuvor kein Komponentenschnitt |
 | Scope-Klarheit | **gut** | ↑ | **Alle 25 Core-Kriterien `accepted`**; Quellenraum über logische Slots definiert |
-| Entscheidungslage | **gut** | ↑ | **33 Entscheidungen, 8 angenommene ADRs**; G0, OD-26 und die Mappingkonvention entschieden |
+| Entscheidungslage | **gut** | ↑ | **37 Entscheidungen, 9 angenommene ADRs**; G0, OD-26, Mappingkonvention und Sicherheitsgrundlage entschieden |
 | Quellenanbindung | **nicht bewertbar** | | Konvention entschieden, **0 Mappings, 0 angebundene Quellen** |
 | Strukturklarheit | **gut** | ↑↑ | Zielstruktur und Bereichsgrenze festgelegt (ADR-0007); zuvor drei konkurrierende Vorstellungen |
 | Antwortlage Discovery | **gut** | ↑ | Alle Core-Required-Fragen belegt; Entscheidung steht aus |
-| Sicherheitslage | **ausreichend** | ↑ | Berechtigungsmodell und Incident-Response dokumentiert (ADR-0004); **technisch weiterhin nicht durchgesetzt** |
+| Sicherheitslage | **ausreichend** | → | Berechtigungsmodell, Incident-Response und **zwölf abnehmbare Kontrollbereiche** dokumentiert (ADR-0004, ADR-0009); **technisch weiterhin nicht durchgesetzt** — alle auf `DOCUMENTED ONLY` |
 | Messbarkeit | **ausreichend** | ↑↑ | 36 Fragen, 4 Metrikgruppen, 7 kritische Fehler, Governance. **Nichts gemessen** |
 | Kennzahlendisziplin | **ausreichend** | ↑ | Fehlerhafte Summen gefunden und korrigiert; Auszählung statt Fortschreibung |
 | Planungsklarheit Phase 1 | **gut** | ↑↑ | Fünf Streams, sechs geschnittene Work Packages, Nachweisstufen und zwölf Stop-Bedingungen; zuvor nur ein Backlog |
@@ -56,7 +56,7 @@ Durchsetzung, nicht ein weiteres Dokument.
 > „CBP-WP-002" zeigt die damals berichteten Werte; kursive Angaben waren
 > falsch addiert.
 
-| Kennzahl | CBP-WP-002 | **CBP-WP-010** |
+| Kennzahl | CBP-WP-002 | **CBP-WP-011** |
 | --- | --- | --- |
 | G0-Kriterien gesamt | *41* → korrekt 47 | **47** |
 | davon blockierend | *39* → korrekt 45 | **25** (dreistufiges Modell) |
@@ -70,20 +70,22 @@ Durchsetzung, nicht ein weiteres Dokument.
 | Discovery-Fragen | *55* → korrekt 56 | **56** |
 | davon P0 | *35* → korrekt 38 | **38** |
 | davon P0 offen und Core Required | 38 | **0** |
-| Getroffene Entscheidungen | 14 | **33** |
-| davon A0 | 8 | **29** |
-| Offene Entscheidungen | 27 | **23** |
+| Getroffene Entscheidungen | 14 | **37** |
+| davon A0 | 8 | **33** |
+| Offene Entscheidungen | 27 | **21** |
 | davon P0 | 14 | **5** |
 | Erfasste Risiken | 29 | **32** |
 | davon gemindert | 5 | **14** |
 | davon hoch | 14 | 17 |
 | Capabilities `implemented` | **0** | **0** |
-| Angenommene ADRs | 0 | **8** |
-| Vorgeschlagene Work Packages | 0 | **4** (CBP-WP-011…014) |
+| Angenommene ADRs | 0 | **9** |
+| Vorgeschlagene Work Packages | 0 | **3** (CBP-WP-012…014) |
 | **Erstellte Source Mappings** | 0 | **0** |
 | **Angebundene Quellen** | 0 | **0** |
+| **Umgesetzte Sicherheitskontrollen** | 0 | **0 von 12** |
+| **Ausgeführte Negativtests** | 0 | **0 von 31** |
 | **Nachweise oberhalb Stufe 1** | 0 | **0** |
-| Commits | 2 | **10** |
+| Commits | 2 | **11** |
 
 ## Fortschritt in einem Bild
 
@@ -120,17 +122,21 @@ Umsetzung. Reihenfolge nach dem [Phase-1-Backlog](../docs/roadmap/PHASE_1_BACKLO
 
 | # | Hebel | Backlog | Wirkung |
 | --- | --- | --- | --- |
-| 1 | **Technische Sicherheitsgrundlage** | **P3** | Der breiteste Enabler — P4, P8 und P10 hängen daran. Schließt R-25 und R-27. Geschnitten als CBP-WP-011 (Spezifikation) und CBP-WP-012 (Umsetzung) |
+| 1 | **Technische Sicherheitsgrundlage — Umsetzung** | **P3** | Der breiteste Enabler. **Spezifikation liegt vor** (CBP-WP-011, ADR-0009); es fehlt die **Umsetzung** in CBP-WP-012. Schließt R-25, R-26, R-27 erst bei Nachweisstufe 4 |
 | 2 | Konkrete Quellenauswahl | P2 | OD-26 geschlossen, **Mappingkonvention entschieden** (CBP-WP-010). Verbleibend: **OD-05 und OD-06** — brauchen eine Human-Eingabe |
 | 3 | `excluded-from-ai`-Negativtests | P8 | Auflage 2; macht aus einer behaupteten Sperre eine geprüfte |
 | 4 | Benchmarklauf V0/V1 | P7 | Auflage 3; kalibriert OD-02b, schließt R-21 |
 | 5 | Restore-Test und DRC Profil A | P9, P10 | Auflagen 4 und 5; R-20 und R-34 |
 ## Bewertung in einem Satz
 
-Phase 0 ist abgeschlossen, Phase 1 geplant, Repository-Grenze und
-Mappingkonvention entschieden — aber dieser Score misst von hier an nicht mehr
-die Vollständigkeit von Dokumenten, sondern den Fortschritt von **Nachweisen**,
-und der steht nach zehn Work Packages weiterhin bei **null**.
+Phase 0 ist abgeschlossen, Phase 1 geplant, Repository-Grenze,
+Mappingkonvention und Sicherheitsgrundlage entschieden — aber dieser Score
+misst von hier an nicht mehr die Vollständigkeit von Dokumenten, sondern den
+Fortschritt von **Nachweisen**, und der steht nach **elf** Work Packages
+weiterhin bei **null**.
+
+**Alles Entscheidbare ist entschieden.** Was bleibt, ist zu bauen und zu
+beweisen — und das beginnt frühestens mit CBP-WP-012.
 ## Pflege
 
 Diese Bewertung wird bei jedem Work Package erneuert. Kennzahlen werden

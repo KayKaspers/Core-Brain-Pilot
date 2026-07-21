@@ -2,7 +2,7 @@
 
 | Feld | Wert |
 | --- | --- |
-| Überarbeitet in | **CBP-WP-010** |
+| Überarbeitet in | **CBP-WP-011** |
 | Autoritätsklasse | A2 |
 | Stand | 2026-07-21 |
 
@@ -18,19 +18,20 @@ keine Laufzeit, keine Installation, kein Index, kein Wissensbestand.
 
 | Feld | Wert |
 | --- | --- |
-| Aktuelles Work Package | **CBP-WP-010** (`in-review`) |
+| Aktuelles Work Package | **CBP-WP-011** (`in-review`) |
 | Gate G0 | **PASSED WITH NOTES** — 2026-07-21 |
 | G0-Kriterien | **47**, dreistufig klassifiziert |
 | davon blockierend | **25** Core Required (zuvor 45) |
 | davon `accepted` | **25** — alle |
 | verbleibende Blocker | **0** |
 | Phase 1 | AUTHORIZED FOR PLANNING — [Backlog](../docs/roadmap/PHASE_1_BACKLOG.md), [Foundation Plan](../docs/roadmap/PHASE_1_FOUNDATION_PLAN.md) |
-| Geplante Work Packages | **CBP-WP-011 bis CBP-WP-014**, alle `proposed` |
+| Geplante Work Packages | **CBP-WP-012 bis CBP-WP-014**, alle `proposed` |
 | **Repository-Struktur** | **entschieden** — Ziel-Monorepo + Workspace W-3 (ADR-0007); **Migration nicht autorisiert** |
 | **Mappingkonvention** | **entschieden** — ADR-0008; **0 Mappings, 0 Quellen**, Gate `NOT EVALUATED` |
+| **Sicherheitsgrundlage** | **spezifiziert** — ADR-0009; **12 Kontrollen `DOCUMENTED ONLY`**, 33 Testfälle geplant (32 NT + 1 PT), **0 ausgeführt** |
 | Implementierte Capabilities | **keine (0 von 29)** |
 | Nachweise oberhalb Stufe 1 | **keine** |
-| Commits | **10** |
+| Commits | **11** |
 
 ## Ziel
 
@@ -92,13 +93,14 @@ verweigert, bis eine Datenklasse sie erlaubt.**
 
 ## Entscheidungen
 
-Angenommene ADRs: **8** (ADR-0001 bis ADR-0008). ADR-0006 hält privaten
+Angenommene ADRs: **9** (ADR-0001 bis ADR-0009). ADR-0006 hält privaten
 Bestand konstruktiv außerhalb des Kern-Repositorys (D-028); **ADR-0007**
 (D-029, D-030) legt Zielstruktur und Bereichsgrenze fest und **schließt
-OD-26**; **ADR-0008** (D-031, D-032, D-033) legt die Mappingkonvention fest.
-Alle drei am 2026-07-21.
+OD-26**; **ADR-0008** (D-031…D-033) legt die Mappingkonvention fest;
+**ADR-0009** (D-034…D-037) die technische Sicherheitsgrundlage und **schließt
+OD-34 und OD-35**. Alle vier am 2026-07-21.
 
-**33** getroffene Entscheidungen, davon **29** mit A0. **23** offene, davon
+**37** getroffene Entscheidungen, davon **33** mit A0. **21** offene, davon
 **5** mit P0. Geführt in
 [project-system/DECISION_REGISTER.md](../project-system/DECISION_REGISTER.md).
 
@@ -253,34 +255,55 @@ Validator. Das
 auf `NOT EVALUATED` und ist **ohne den F3-Strang nicht durchlaufbar** — acht
 seiner zwanzig Punkte verlangen Nachweisstufe 4.
 
+## Technische Sicherheitsgrundlage — spezifiziert
+
+**ADR-0009**, 2026-07-21, A0. Vier Teilentscheidungen:
+
+| Teil | Entscheidung | Grundsatz |
+| --- | --- | --- |
+| **A** (D-034) | Getrennte Identitäten: **Control Plane** und **Data Worker** | **S-A** — Verarbeitung erteilt keine Freigabe |
+| **B** (D-035) | Versionierter Referenzvertrag `cbp-secret:v1:…`, OS-geschützter Datei-Provider | **S-B** — Eine Referenz ist kein Secret |
+| **C** (D-036) | Egress **deny-by-default**, vierfach gebunden | **S-C** — Eine Netzwerkerlaubnis ist keine Datenfreigabe |
+| **D** (D-037) | RT-2 **append-only und verkettet** | **S-D** — Ein überschreibbarer Nachweis ist kein Nachweis |
+
+**Zwölf Kontrollbereiche** KB-01…KB-12, **neunstufige Durchsetzungsreihenfolge**
+(Promptregeln nur auf Stufe 9), **32 Negativtests plus 1 Positivtest**, **16 Stop-Bedingungen**,
+Readiness Gate mit **24 Punkten**.
+
+**Nichts davon existiert.** Alle zwölf stehen auf **DOCUMENTED ONLY**, kein
+Test wurde ausgeführt. **OD-34 und OD-35 sind geschlossen** — die konkrete
+RT-2-Aufbewahrungsdauer bleibt **Deployment Required**.
+
 ## Nächste Arbeitspakete
 
 Siehe
 [project-system/WORK_PACKAGE_QUEUE.md](../project-system/WORK_PACKAGE_QUEUE.md)
 und [PHASE_1_WORK_PACKAGE_MAP.md](../docs/roadmap/PHASE_1_WORK_PACKAGE_MAP.md).
 
-Vorgeschlagen, **nicht freigegeben**: **CBP-WP-011 — Technical Security
-Foundation Specification** (`docs-only`, Full, B2 – Standard). CBP-WP-012 bis
-CBP-WP-014 stehen ebenfalls auf `proposed`.
+Vorgeschlagen, **nicht freigegeben**: **CBP-WP-012 — Foundation Runtime
+Skeleton** (implementation, interactive authorization, Full, B2 – Standard),
+Status `proposed`, **implementation not yet authorized**. Es wäre das **erste
+Work Package mit technischer Wirkung**. CBP-WP-013 und CBP-WP-014 stehen
+ebenfalls auf `proposed`.
 
 ## Rückmeldung an Nova
 
-CBP-WP-010 ist ausgeführt. **Die Mappingkonvention steht** — drei
-A0-Entscheidungen, ADR-0008 `accepted`. **Es wurde kein Mapping erstellt, keine
-Quelle angebunden und nichts aktiviert.**
+CBP-WP-011 ist ausgeführt. **Die Sicherheitsgrundlage ist entscheidungsreif und
+abnehmbar spezifiziert** — vier A0-Entscheidungen, ADR-0009 `accepted`. **Es
+wurde nichts umgesetzt, kein Test ausgeführt, keine Technologie gewählt.**
 
 **Drei Punkte zur Hervorhebung:**
 
-1. **Grundsatz M-B ist die schärfste Folge.** Dass eine Collection weder
-   Autorität noch Datenklasse noch AI-Transfer-Freigabe verleiht, verhindert
-   dieselbe Fehlerklasse wie Slot-Regel 8: **die Sortierordnung darf nicht zur
-   Rechtequelle werden.**
-2. **Der Veröffentlichungsbegriff ist jetzt sichtbar geklärt.** ADR-0006 trägt
-   einen datierten Klarstellungsnachtrag — *non-substantive clarification*, A1.
-   Entscheidung und Status unverändert.
-3. **Das Aktivierungsgate ist heute nicht durchlaufbar**, und das ist kein
-   Mangel: Ohne durchgesetzte Dateirechte und Mount-Grenzen gibt es keinen
-   Read-only-Nachweis. **Der F3-Strang ist der Engpass.**
+1. **Grundsatz S-C ist die folgenreichste Entscheidung.** Dass eine
+   Netzwerkerlaubnis keine Datenfreigabe ist, trennt Erreichbarkeit von
+   Übertragbarkeit — **fünf Gates statt eines**.
+2. **SR-8 und SR-9 wiegen schwerer als der Rest des Secret-Vertrags:** kein
+   Secret über **Umgebungsvariablen** oder **Kommandozeilen**. Beides ist auf
+   einem Linux-System für andere Prozesse einsehbar.
+3. **INT-2 ist unbequem und richtig:** Ein Auditkettenbruch wird **sichtbar
+   gelassen**, nicht repariert. Ein System, das seine Kette selbsttätig neu
+   aufbaut, hat eine Reparaturfunktion, keinen Integritätsschutz.
 
-**Kein Risiko wurde geschlossen.** Sämtliche Regeln sind dokumentarisch; alle
-Nachweise stehen auf **Stufe 1 `dokumentiert`**.
+**Kein Risiko wurde geschlossen.** Alle Nachweise stehen auf **Stufe 1
+`dokumentiert`**; R-25, R-26, R-27, R-30, R-31, R-32 und R-20 schließen
+frühestens nach CBP-WP-012.

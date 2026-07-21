@@ -3,7 +3,7 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Letzte Prüfung | 2026-07-21, im Rahmen von **CBP-WP-010** |
+| Letzte Prüfung | 2026-07-21, im Rahmen von **CBP-WP-011** |
 | Autoritätsklasse | A2 |
 
 > Diese Datei gehört zur kanonischen NDF-Ordnerstruktur, war aber in der
@@ -83,7 +83,7 @@
 | Prüfung | Ergebnis |
 | --- | --- |
 | Alle Statusdokumente nennen Phase 0 | erfüllt |
-| Aktuelles Work Package als **CBP-WP-010** ausgewiesen | erfüllt |
+| Aktuelles Work Package als **CBP-WP-011** ausgewiesen | erfüllt |
 | **Falsche WP-Titel in der Queue korrigiert** | erfüllt — Entwurfstitel aus CBP-WP-008 ersetzt, Korrektur sichtbar vermerkt |
 | **Veraltete Gate-Angaben korrigiert** | erfüllt — CLAUDE.md, DISCOVERY_QUESTIONS.md, G0_EVIDENCE_MATRIX.md |
 | Historische Berichte nicht stillschweigend umgeschrieben | erfüllt — frühere WP-Ergebnisse unverändert |
@@ -288,10 +288,32 @@ existiert.
 | CBP-WP-003 | 6 `accepted` / 15 `open` statt 8 / 13 | im selben Lauf |
 | CBP-WP-006 | 15/6/4 statt 16/7/2 in der Evidenzmatrix | im selben Lauf |
 | **CBP-WP-007** | **22 A0-Entscheidungen statt 24; 8 offene P0 statt 6** | **CBP-WP-008** |
+| **CBP-WP-010** | **„neun Blocker" bei acht aufgezählten IDs** (V7, V8, V9, V10, V11, V14, V20, V23). Die Zahl war durch einen offenen Zusatz — „sowie jede Regel, deren Verletzung ein Secret sichtbar macht" — **unprüfbar** gemacht worden | **CBP-WP-010, Nova-REWORK-Korrekturlauf** |
+| **CBP-WP-011** | **Drei Befunde in einem Korrekturvorgang.** (1) Readiness Gate: Stufenverteilung summierte sich auf **25** bei **24** Gate-Punkten — Stufe 4 war mit 10 angegeben, die ID-Liste enthielt 9. (2) **Testtaxonomie**: ein Positivtest trug die NT-ID `NT-25` und wurde zur Negativtestzahl gerechnet. (3) **Doppelt vergebene Test-IDs**: `NT-23` und `NT-24` bezeichneten in der Acceptance Matrix RT-1-/RT-3-Tests, in der Egress-Policy DNS-/Privatnetz-Tests | **CBP-WP-011, Nova-REWORK-Korrekturlauf** |
 
 **Der vierte Fehler entstand, nachdem die Regel eingeführt war**, und wurde
 erst ein Work Package später gefunden. Die Regel wirkt — aber nachlaufend. Das
 ist der Grund, warum R-33 nicht geschlossen wird.
+
+**Der fünfte Fehler zeigt eine neue Variante:** Die Zahl war nicht falsch
+abgeschrieben, sondern durch einen unbestimmten Zusatz *plausibilisiert*
+worden. Eine Aufzählung, die mit „sowie jede Regel, die …" endet, entzieht sich
+Zählregel 3 — sie ist gegen die Quelltabelle nicht prüfbar. **Ergänzung zur
+Zählregel:** Eine Summe darf **nicht** durch einen offenen Zusatz ergänzt
+werden; jede gezählte Einheit muss einzeln benennbar sein.
+
+**Der sechste Vorgang zeigt eine dritte Variante:** eine **Doppelvergabe von
+IDs über Dokumentgrenzen hinweg**. Innerhalb jedes einzelnen Dokuments waren
+`NT-23` und `NT-24` eindeutig; erst die dokumentübergreifende Auszählung machte
+die Kollision sichtbar. **Ergänzung zur Zählregel:** Eine Kennung ist erst dann
+eindeutig, wenn sie **über alle Dokumente hinweg** nur einmal vorkommt — die
+kanonische Inventartabelle entscheidet.
+
+**R-33 bleibt `gemindert, nicht geschlossen`** — die Einträge ändern den Status
+nicht. Die Zähl- und Statusregel ist weiterhin eine **Dokumentregel, keine
+technische Kontrolle**. Sechs Zählvorgänge in elf Work Packages sind
+dokumentiert; jeder wurde durch Auszählung gefunden, keiner durch die Regel
+verhindert.
 
 ## Offene Punkte
 
