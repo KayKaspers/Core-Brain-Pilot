@@ -25,9 +25,9 @@ vorgesehene, **noch nicht implementierte** Anwendungslaufzeit.
 | Feld | Wert |
 | --- | --- |
 | Phase | Phase 0 – Discovery und Scope Lock |
-| Aktuelles Work Package | CBP-WP-005 (`in-review`) |
+| Aktuelles Work Package | CBP-WP-006 (`in-review`) |
 | Nächstes Gate | **G0 – Discovery and Scope Lock** |
-| **Gate-Status** | **NOT PASSED** — 47 Kriterien, davon 25 blockierend, **24 `accepted`**, 1 offen (D-1) |
+| **Gate-Status** | **NOT PASSED** — alle 25 Core-Kriterien `accepted`; **READY FOR HUMAN DECISION** |
 | Implementierte Capabilities | **keine (0 von 29)** |
 | Framework | Nova Development Framework v1.0.0 |
 
@@ -86,6 +86,7 @@ Nur der Human Maintainer committet, tagged und pusht.
 | `docs/architecture/` | Projektdefinition, Systemarchitektur, Komponentenmodell, Deploymentprofile, Prinzipien, Vertrauensgrenzen, Context Budgets |
 | `docs/operations/` | Deployment Readiness Check |
 | `docs/benchmark/` | Quellenvertrag, Evaluationsplan, Metriken, Baseline-Protokoll, Governance |
+| `docs/sources/` | Pilot Source Contract, Source-Slot-Modell |
 | `benchmarks/` | Synthetischer Korpus (24 Quellen), 36 Fragen, erwartete Ergebnisse |
 | `docs/security/` | Berechtigungsmodell, Secret-Incident-Response |
 | `docs/decisions/` | Architecture Decision Records — **5 angenommen** |
@@ -106,6 +107,9 @@ Nur der Human Maintainer committet, tagged und pusht.
 | Worum geht es? | [PROJECT_DEFINITION.md](docs/architecture/PROJECT_DEFINITION.md) |
 | Wo steht das Projekt? | [PROJECT_BRAIN.md](project-brain/PROJECT_BRAIN.md) |
 | Was muss vor G0 geklärt werden? | [G0_SCOPE_LOCK_CRITERIA.md](docs/discovery/G0_SCOPE_LOCK_CRITERIA.md) |
+| **Worüber wird bei G0 entschieden?** | **[G0_SCOPE_LOCK_REVIEW.md](docs/discovery/G0_SCOPE_LOCK_REVIEW.md)** |
+| Welche Nachweise liegen vor? | [G0_EVIDENCE_MATRIX.md](docs/discovery/G0_EVIDENCE_MATRIX.md) |
+| Welche Quellen sind zulässig? | [PILOT_SOURCE_CONTRACT.md](docs/sources/PILOT_SOURCE_CONTRACT.md) |
 | Was hat der Maintainer entschieden? | [HUMAN_DISCOVERY_INPUT.md](docs/discovery/HUMAN_DISCOVERY_INPUT.md) |
 | Welche Fragen sind offen? | [DISCOVERY_QUESTIONS.md](docs/discovery/DISCOVERY_QUESTIONS.md) |
 | Wie ist das System aufgebaut? | [SYSTEM_ARCHITECTURE.md](docs/architecture/SYSTEM_ARCHITECTURE.md) |

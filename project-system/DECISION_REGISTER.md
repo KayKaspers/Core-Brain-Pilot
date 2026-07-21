@@ -3,7 +3,7 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | Phase 0 – Discovery und Scope Lock |
-| Überarbeitet in | CBP-WP-004 |
+| Überarbeitet in | CBP-WP-006 |
 | Autoritätsklasse | A2 |
 | Stand | 2026-07-20 |
 
@@ -99,8 +99,8 @@ Legende: **P0** blockiert G0 · **P1** vor Architekturentscheidung · **P2** sp�
 | --- | --- | --- | --- | --- |
 | OD-03 | Rang der Kernprinzipien: weitere ADRs über ADR-0001 bis ADR-0005 hinaus | P1 | Human Maintainer | teilweise durch ADR-0001…0005 |
 | OD-04 | Minimal nützlicher Funktionsumfang des Piloten | **P0** | Nova | A-8 |
-| OD-05 | Ablageort des kanonischen Wissensbestands | **P0** | Human Maintainer | D-1 |
-| OD-06 | Quellen im ersten Scope und ausdrückliche Nicht-Quellen | **P0** | Nova | D-1, D-5 |
+| OD-05 | Ablageort des kanonischen Wissensbestands — **präzisiert:** Slot-Art entschieden (PS-02, `operator-managed`), konkreter Ort offen | P1 | Human Maintainer | D-1 `accepted`; Deployment Mapping |
+| OD-06 | Quellen im ersten Scope — **präzisiert:** Quellen*arten* und Slot-Regeln entschieden, konkreter Bestand offen | P1 | Human Maintainer | D-1 `accepted`; PILOT_SOURCE_CONTRACT |
 | OD-07 | Vergabeverfahren für Autoritätsklassen A0–A6 | **P0** | Nova | — |
 | OD-08 | Vergabeverfahren für Datenklassen | **P0** | Human Maintainer | D-4 |
 | OD-11 | Repository dauerhaft privat? | **P0** | Human Maintainer | A-8 |
@@ -125,6 +125,7 @@ Legende: **P0** blockiert G0 · **P1** vor Architekturentscheidung · **P2** sp�
 | --- | --- |
 | Getroffene Entscheidungen | **26** (davon 20 mit A0) |
 | Angenommene ADRs | **5** (ADR-0001 bis ADR-0005, alle A1) |
+| Vorgeschlagene ADRs | **1** (ADR-0006, `proposed`, A3) |
 | Neu in CBP-WP-003 | 12 (D-015 bis D-026) |
 | Neu in CBP-WP-004 | 0 Entscheidungen, 5 ADRs |
 | Geschlossene offene Entscheidungen | **9** (davon 4 in CBP-WP-004) |

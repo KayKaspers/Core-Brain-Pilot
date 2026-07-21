@@ -3,7 +3,7 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | Phase 0 – Discovery und Scope Lock |
-| Letzte Prüfung | 2026-07-21, im Rahmen von CBP-WP-005 |
+| Letzte Prüfung | 2026-07-21, im Rahmen von CBP-WP-006 |
 | Autoritätsklasse | A2 |
 
 > Diese Datei gehört zur kanonischen NDF-Ordnerstruktur, war aber in der
@@ -24,7 +24,7 @@
 | Kein zweites Governance-System | erfüllt |
 | Vorprüfung vor jeder Änderung | erfüllt |
 
-## Scope-Compliance (CBP-WP-005)
+## Scope-Compliance (CBP-WP-006)
 
 | Prüfung | Ergebnis |
 | --- | --- |
@@ -83,7 +83,7 @@
 | Prüfung | Ergebnis |
 | --- | --- |
 | Alle Statusdokumente nennen Phase 0 | erfüllt |
-| Aktuelles Work Package als CBP-WP-005 ausgewiesen | erfüllt |
+| Aktuelles Work Package als CBP-WP-006 ausgewiesen | erfüllt |
 | Keine Capability als `implemented` bezeichnet | erfüllt |
 | Alle Capabilities besitzen eine Priorität | erfüllt |
 | **Fehlerhafte Summen korrigiert** | **erfüllt** — 47/45/38/56 statt 41/39/35/55 |
@@ -141,6 +141,31 @@
 | Keine ausführbaren Dateien | erfüllt — ausschließlich Markdown |
 | Benchmark **dokumentiert, nicht ausgeführt** | erfüllt |
 
+## G0-Compliance (CBP-WP-006)
+
+| Prüfung | Ergebnis |
+| --- | --- |
+| Mindestens fünf aktive oder Test-Source-Slots | erfüllt — 4 `active` + 1 `test-only` |
+| PDF/Office und externe Connectoren `deferred` | erfüllt — PS-06, PS-07 |
+| Kein realer privater Pfad in einem Slot | erfüllt — nur `canonical_location_type`, kein Ort |
+| Jeder Slot mit Owner, Datenklasse, AI-Transfer-Regel, Löschmodell | erfüllt — 7 von 7 |
+| `excluded-from-ai` fail-closed | erfüllt — Slot-Regel 5 erzwingt `forbidden` |
+| Benchmark-A0 ohne reale Projektgeltung | erfüllt — PS-05 `test-only`, kritischer Fehler 9 |
+| Deployment Mapping bleibt separat | erfüllt — eigene Ebene, DRC zuständig |
+| D-1 vollständig belegt | erfüllt — 5 Nachweisdokumente |
+| D-1 bedeutet keine angebundene Quelle | erfüllt — dreifach vermerkt |
+| Alle 25 Core-Kriterien in der Evidenzmatrix | erfüllt |
+| Keine unbelegte `accepted`-Markierung | erfüllt — je Kriterium ein Dokumentverweis |
+| Dokumentarische Erfüllung nicht als technische dargestellt | erfüllt — 16 Kriterien mit „technisch erforderlich: ja" |
+| Benchmarkdesign nicht als Ausführung dargestellt | erfüllt — alle G-Kriterien mit „nicht ausgeführt" |
+| **DRC bleibt NOT EVALUATED** | erfüllt |
+| **G0 bleibt NOT PASSED** | erfüllt |
+| Status READY FOR HUMAN DECISION eindeutig | erfüllt — in Kriterien, Matrix und Review |
+| **Entscheidungsblock leer** | erfüllt |
+| ADR-0006 bleibt `proposed` | erfüllt |
+| OD-05, OD-06, OD-26 bleiben offen | erfüllt |
+| Keine produktive Quelle eingebunden | erfüllt |
+
 ## Offene Punkte
 
 | Punkt | Bezug |
@@ -148,7 +173,8 @@
 | Berechtigungsmodell dokumentiert, **technisch nicht durchgesetzt** | R-25, R-27 |
 | Secret-Erkennung und technische Unterstützung fehlen | R-01 |
 | Benchmark entworfen, **nicht ausgeführt** — keine Messung | R-21 |
-| Konkreter produktiver Quellenbestand fehlt (D-1) | OD-05, OD-06 |
+| Konkreter produktiver Quellenbestand — Slot-Ebene entschieden, Mapping offen | OD-05, OD-06 |
+| **G0-Entscheidung des Human Maintainers steht aus** | G0_SCOPE_LOCK_REVIEW |
 | DRC definiert, aber **NOT EVALUATED** | R-34 |
 | Repository-Layout nur vorgeschlagen, nicht entschieden | OD-26 |
 

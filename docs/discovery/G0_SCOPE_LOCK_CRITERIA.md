@@ -5,7 +5,7 @@
 | Gate | **G0 – Discovery and Scope Lock** |
 | **Gate-Status** | **NOT PASSED** |
 | Phase | Phase 0 – Discovery und Scope Lock |
-| Erfasst in | CBP-WP-002, überarbeitet in CBP-WP-003, CBP-WP-004, CBP-WP-005 |
+| Erfasst in | CBP-WP-002, überarbeitet in CBP-WP-003 bis CBP-WP-006 |
 | Autoritätsklasse | A3 (Gate-Dokumentation) |
 | Stand | 2026-07-21 |
 
@@ -99,7 +99,7 @@ Nachweis.
 
 | ID | Kriterium | Klasse | Status | Nachweis | Autorität |
 | --- | --- | --- | --- | --- | --- |
-| D-1 | Gewünschte Quellen | **Core** | **`answered`** | HDI A3 — Quellen**arten** auf Profilebene entschieden. Kontrollierter Benchmark-Korpus definiert ([BENCHMARK_SOURCE_CONTRACT.md](../benchmark/BENCHMARK_SOURCE_CONTRACT.md)). **Konkrete produktive Quellenpfade erst im späteren Ingest-Readiness- beziehungsweise Deployment-Schritt** (OD-05, OD-06) | A0 |
+| D-1 | Gewünschte Quellen | **Core** | **`accepted`** | [PILOT_SOURCE_CONTRACT.md](../sources/PILOT_SOURCE_CONTRACT.md) — 5 Slots aktiv/test-only, 2 deferred; [SOURCE_SLOT_MODEL.md](../sources/SOURCE_SLOT_MODEL.md) mit 10 Validierungsregeln; [ADR-0006](../decisions/ADR-0006-logische-source-slots.md) (proposed). **Konkrete Installationspfade sind nicht Bestandteil des Scope Locks** — Deployment Mapping im DRC (OD-05, OD-06 bleiben offen) | A0 |
 | D-2 | Größenordnung | Deployment | `open` | bewusst nicht erhoben, keine Dateiinventur | A0 |
 | D-3 | Dateiformate | **Core** | **`accepted`** | HDI A3 — Markdown zuerst; PDF/Office nur über Quarantäne (D-019) | A0 |
 | D-4 | Datenklassen zugeordnet | **Core** | `accepted` | HDI A4 — Profilebene entschieden | A0 |
@@ -228,62 +228,79 @@ keine der sechs bedingten Funktionen für den Pilot aktiviert.
 | Conditional | 6 | nur bei aktivierter Funktion |
 | **Summe** | **47** | |
 
-### Blocker — Stand nach CBP-WP-005
+### Blocker — Stand nach CBP-WP-006
 
-| Kennzahl | WP-003 | WP-004 | **WP-005** |
-| --- | --- | --- | --- |
-| Blockierend, dreistufiges Modell | 25 | 25 | **25** |
-| davon `accepted` | 8 | 18 | **24** |
-| davon `answered` | 4 | 1 | **1** |
-| davon `open` | 13 | 6 | **0** |
-| davon `blocked` | 0 | 0 | **0** |
-| **Noch nicht `accepted` (verbleibende Blocker)** | 17 | 7 | **1** |
+| Kennzahl | WP-003 | WP-004 | WP-005 | **WP-006** |
+| --- | --- | --- | --- | --- |
+| Blockierend, dreistufiges Modell | 25 | 25 | 25 | **25** |
+| davon `accepted` | 8 | 18 | 24 | **25** |
+| davon `answered` | 4 | 1 | 1 | **0** |
+| davon `open` | 13 | 6 | 0 | **0** |
+| davon `blocked` | 0 | 0 | 0 | **0** |
+| **Noch nicht `accepted`** | 17 | 7 | 1 | **0** |
+
+## ► READY FOR HUMAN DECISION ◄
+
+**Alle 25 Core-Required-Kriterien sind `accepted`.** Der Kriterienstand ist
+vollständig.
+
+> ### Criteria complete ≠ Gate approved
+>
+> **Der formale Gate-Status bleibt NOT PASSED.**
+>
+> Vollständige Kriterien bedeuten: die Unterlage ist entscheidungsreif. Sie
+> bedeuten **nicht**, dass G0 bestanden ist. Bedingung 5 der Abschlussregel —
+> die ausdrückliche Freigabe des Human Maintainers — ist eigenständig und wird
+> durch keine Kennzahl ersetzt.
+>
+> Die Entscheidung erfolgt im Entscheidungsblock in
+> [G0_SCOPE_LOCK_REVIEW.md](G0_SCOPE_LOCK_REVIEW.md). Bis dahin gilt:
+> **G0 NOT PASSED.**
+
+Vollständige Nachweislage je Kriterium in
+[G0_EVIDENCE_MATRIX.md](G0_EVIDENCE_MATRIX.md).
 
 Aktive Conditional-Blocker: **0** — keine bedingte Funktion ist im Pilotumfang
 aktiviert.
 
-### Die 24 `accepted`-Kriterien
+### Alle 25 Core-Kriterien `accepted`
 
-A-1 · A-2 · A-4 · A-5 · A-8 · D-3 · D-4 · D-5 · D-8 · E-2 · E-3 · E-4 · E-5 ·
-F-1 · F-2 · F-3 · F-5 · F-6 · **G-1 · G-2 · G-3 · G-4 · G-5 · G-6**
+A-1 · A-2 · A-4 · A-5 · A-8 · **D-1** · D-3 · D-4 · D-5 · D-8 · E-2 · E-3 ·
+E-4 · E-5 · F-1 · F-2 · F-3 · F-5 · F-6 · G-1 · G-2 · G-3 · G-4 · G-5 · G-6
 
-**In CBP-WP-005 neu angenommen (6) — der gesamte Benchmarkblock:**
+**In CBP-WP-006 neu angenommen (1):**
 
 | ID | Nachweis |
 | --- | --- |
-| G-1 | 36 versionierte Benchmarkfragen, Dataset 1.0.0 |
-| G-2 | Sechs Kategorien A–F zu je 6 Fragen, 24 Development / 12 Holdout |
-| G-3 | Vier Metrikgruppen, Rubrik 0/1/2, 7 kritische Fehler, 10 Pilotziele |
-| G-4 | V0/V1/V2 provider-neutral plus 13 Erfassungsregeln im Baseline-Protokoll |
-| G-5 | 6 Datenschutzfragen, 4 Korpusfixtures, davon 2 `excluded-from-ai` |
-| G-6 | 4 Konfliktpaare K1–K4, 9 Konfliktfragen, A6-gegen-A1 und A6-gegen-A2 enthalten |
+| **D-1** | [PILOT_SOURCE_CONTRACT.md](../sources/PILOT_SOURCE_CONTRACT.md) mit 7 logischen Source Slots · [SOURCE_SLOT_MODEL.md](../sources/SOURCE_SLOT_MODEL.md) mit 24 Feldern und 10 Validierungsregeln · [ADR-0006](../decisions/ADR-0006-logische-source-slots.md) (`proposed`) · Benchmark Source Contract · Datenklassifikations- und Berechtigungsmodell |
 
-### Der verbleibende Blocker
+**Was D-1 `accepted` bedeutet — und was nicht:**
 
-| ID | Kriterium | Status | Warum offen |
-| --- | --- | --- | --- |
-| **D-1** | Gewünschte Quellen | **`answered`** | Quellen**arten** sind auf Profilebene entschieden, der Benchmark-Korpus ist definiert — der **konkrete produktive Bestand** (Pfade oder Systeme) fehlt. Abhängig von OD-05 und OD-06 |
+| Bedeutet | Bedeutet **nicht** |
+| --- | --- |
+| Unterstützte produktive Quellenarten sind definiert | Eine produktive Quelle wurde angebunden |
+| Der Pilotquellenraum ist begrenzt (5 aktiv/test, 2 deferred) | Ein Bestand wurde geprüft oder indexiert |
+| Source Slots besitzen klare Regeln | Die Regeln sind technisch durchgesetzt |
+| Konkrete Installationspfade sind **nicht** Teil des allgemeinen Scope Locks | Die Pfade wären unwichtig — sie werden fail-closed im DRC geprüft |
 
-**D-1 wurde in CBP-WP-005 ausdrücklich nicht auf `accepted` gehoben.** Ein
-kontrollierter Testkorpus belegt, dass das Quellenmodell trägt; er ersetzt
-nicht die Benennung des realen Bestands. Eine Aufwertung wäre eine erfundene
-Entscheidung gewesen.
+**OD-05, OD-06 und OD-26 bleiben offen.**
 
 **Gate-Status: NOT PASSED.**
 
-> **Keine automatische Freigabe.** Auch mit 24 von 25 angenommenen
+> **Keine automatische Freigabe.** Auch mit 25 von 25 angenommenen
 > Core-Kriterien ist G0 **nicht** bestanden.
 >
-> Drei Gründe, die unabhängig voneinander gelten:
+> Zwei Gründe, die unabhängig voneinander gelten:
 >
-> 1. **D-1 ist nicht `accepted`.** Bedingung 1 der Abschlussregel ist damit
->    nicht erfüllt.
-> 2. **Die dokumentarische Erfüllung ist keine technische.** D-8 und E-2 bis
+> 1. **Die dokumentarische Erfüllung ist keine technische.** D-8 und E-2 bis
 >    E-5 beschreiben Kontrollen, die nicht existieren; G-1 bis G-6 beschreiben
->    einen Benchmark, der nicht durchgeführt wurde. Risiken R-21, R-25, R-27
->    und R-31 bleiben offen.
-> 3. **Bedingung 5 ist eigenständig.** Die ausdrückliche Freigabe des Human
+>    einen Benchmark, der nicht durchgeführt wurde; D-1 beschreibt einen
+>    Quellenraum, in dem keine Quelle liegt. Risiken R-20, R-21, R-25, R-27,
+>    R-31 und R-32 bleiben offen.
+> 2. **Bedingung 5 ist eigenständig.** Die ausdrückliche Freigabe des Human
 >    Maintainers ist nicht erteilt und wird durch keine Kennzahl ersetzt.
+>
+> **Criteria complete ≠ Gate approved.**
 
 ## Pflege
 

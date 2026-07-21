@@ -3,9 +3,9 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | Phase 0 – Discovery und Scope Lock |
-| Aktuelles Work Package | **CBP-WP-005** |
-| Nächstes Gate | G0 – Discovery and Scope Lock (**NOT PASSED**) |
-| Überarbeitet in | CBP-WP-005 |
+| Aktuelles Work Package | **CBP-WP-006** |
+| Nächstes Gate | G0 – Discovery and Scope Lock (**NOT PASSED** — READY FOR HUMAN DECISION) |
+| Überarbeitet in | CBP-WP-006 |
 | Autoritätsklasse | A2 |
 | Stand | 2026-07-20 |
 
@@ -31,8 +31,9 @@ Spalten nach `WORK_PACKAGE_QUEUE_TEMPLATE.md` (NDF v1.0.0).
 | CBP-WP-002 | Source Reconciliation und G0 Scope-Lock-Definition | P0 | **`committed`** | [work-packages/CBP-WP-002.md](../work-packages/CBP-WP-002.md) |
 | CBP-WP-003 | Human Discovery Intake and G0 Evidence Capture | P0 | **`committed`** | [work-packages/CBP-WP-003.md](../work-packages/CBP-WP-003.md) |
 | CBP-WP-004 | Generic Architecture and Deployment Profiles | P0 | **`committed`** | [work-packages/CBP-WP-004.md](../work-packages/CBP-WP-004.md) |
-| CBP-WP-005 | Benchmark Dataset and Retrieval Evaluation Design | P0 | **`in-review`** | [work-packages/CBP-WP-005.md](../work-packages/CBP-WP-005.md) |
-| CBP-WP-006 | G0 Scope-Lock Review and Pilot Source Contract | P0 | `proposed` | noch nicht erstellt |
+| CBP-WP-005 | Benchmark Dataset and Retrieval Evaluation Design | P0 | **`committed`** | [work-packages/CBP-WP-005.md](../work-packages/CBP-WP-005.md) |
+| CBP-WP-006 | G0 Scope-Lock Review and Pilot Source Contract | P0 | **`in-review`** | [work-packages/CBP-WP-006.md](../work-packages/CBP-WP-006.md) |
+| CBP-WP-007 | G0 Decision Recording and Phase 1 Backlog | P0 | `proposed` | noch nicht erstellt |
 
 Genau ein Work Package ist als `proposed` geführt.
 
@@ -92,44 +93,60 @@ auf **7**.
 | Feld | Wert |
 | --- | --- |
 | Typ | `docs-only` · Prompt Mode **Full** · Budget **B2 – Standard** |
-| Status | **`in-review`** |
-| Commit | **nicht** ausgeführt |
+| Status | **`committed`** |
+| Git-Beleg | `70132b3 CBP-WP-005: design benchmark dataset and retrieval evaluation` |
 
 Ergebnis: synthetischer Benchmark-Korpus mit 24 Quellen und 3 fiktiven
-Projekten, 36 Fragen in 6 Kategorien (24 Development / 12 Holdout), erwartete
-Ergebnisse, Evaluationsplan V0/V1/V2, Metrikrubrik mit 7 kritischen Fehlern,
-Baseline-Protokoll, Dataset Governance. **G-1 bis G-6 auf `accepted`**;
-verbleibende Blocker von 7 auf **1**.
+Projekten, **A0 bis A6** belegt, 36 Fragen in 6 Kategorien, Evaluationsplan
+V0/V1/V2, Metrikrubrik mit 9 kritischen Fehlern, Dataset 2.0.0.
+**G-1 bis G-6 auf `accepted`**; verbleibende Blocker von 7 auf **1**.
+
+Enthält einen **Korrekturlauf nach Nova-REWORK**: das A0-Fixture fehlte in der
+Erstausführung.
 
 **Nicht durchgeführt:** kein Lauf, keine Messung, kein Index, keine
 Suchsoftware.
 
-## CBP-WP-006 — Vorschlag, nicht freigegeben
+## CBP-WP-006
 
 | Feld | Wert |
 | --- | --- |
-| Titel | **G0 Scope-Lock Review and Pilot Source Contract** |
+| Typ | `docs-only` · Prompt Mode **Full** · Budget **B1 – Lean** |
+| Status | **`in-review`** |
+| Commit | **nicht** ausgeführt |
+
+Ergebnis: Pilot Source Contract mit 7 logischen Source Slots,
+Source-Slot-Modell mit 10 Validierungsregeln, ADR-0006 (`proposed`),
+G0-Evidenzmatrix über alle 25 Core-Kriterien, entscheidungsreife
+G0-Review-Unterlage.
+
+**D-1 von `answered` auf `accepted`** — alle 25 Core-Kriterien sind belegt.
+
+**Gate-Status weiterhin NOT PASSED.** Der Entscheidungsblock in
+`G0_SCOPE_LOCK_REVIEW.md` ist leer und wartet auf den Human Maintainer.
+
+## CBP-WP-007 — Vorschlag, nicht freigegeben
+
+| Feld | Wert |
+| --- | --- |
+| Titel | **G0 Decision Recording and Phase 1 Backlog** |
 | Typ | `docs-only` |
-| Prompt Mode | **Full** — der Scope Lock ist governance-kritisch |
-| Context Budget | **B1 – Lean** |
+| Prompt Mode | **Standard** |
+| Context Budget | **B0 – Micro** |
 
-**Ziel.** Den einzigen verbleibenden Core-Blocker auflösen und G0 zur
-Entscheidung vorlegen. Zwei Teile:
+**Voraussetzung:** **ausdrückliche G0-Entscheidung des Human Maintainers** im
+Entscheidungsblock.
 
-1. **Pilot Source Contract** — den konkreten produktiven Quellenbestand
-   benennen: welche Verzeichnisse, Repositories und Handoffs im ersten Pilot
-   tatsächlich aufgenommen werden. Schließt D-1, OD-05 und OD-06.
-2. **G0 Scope-Lock Review** — die 25 Core-Required-Kriterien und ihre Nachweise
-   dem Human Maintainer geschlossen zur Prüfung vorlegen.
+**Ziel.** Die getroffene Entscheidung als A0 aufzeichnen, den Projektstatus
+entsprechend setzen und den Phase-1-Backlog aus den offenen Punkten ableiten —
+Deployment Mappings, DRC für Profil A, technische Durchsetzung der
+Berechtigungen, erster Benchmarklauf, Restore-Test.
 
-**Warum B1.** Die Architektur- und Benchmarkarbeit ist getan. Was fehlt, ist
-eine Benennung durch den Human Maintainer und ein Review — beides braucht
-wenig Quellkontext, aber vollständige Governance.
+**Warum B0.** Die Entscheidung liegt dann vor; das Work Package trägt sie ein
+und leitet ab. Es braucht kaum Quellkontext.
 
-**Nicht enthalten:** die Freigabe selbst. **G0 wird nicht durch ein Work
-Package bestanden**, sondern durch einen ausdrücklichen A0-Beschluss.
-
-**Nicht ausführen** ohne ausdrückliche Freigabe.
+**Nicht ausführen** ohne die G0-Entscheidung. Ohne Beschluss gibt es nichts
+aufzuzeichnen.
 
 ---
 

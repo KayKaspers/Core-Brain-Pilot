@@ -2,7 +2,7 @@
 
 | Feld | Wert |
 | --- | --- |
-| Überarbeitet in | CBP-WP-005 |
+| Überarbeitet in | CBP-WP-006 |
 | Autoritätsklasse | A2 |
 | Stand | 2026-07-20 |
 
@@ -18,14 +18,15 @@ keine Laufzeit, keine Installation, kein Index, kein Wissensbestand.
 
 | Feld | Wert |
 | --- | --- |
-| Aktuelles Work Package | CBP-WP-005 (`in-review`) |
+| Aktuelles Work Package | CBP-WP-006 (`in-review`) |
 | Nächstes Gate | **G0 – Discovery and Scope Lock — NOT PASSED** |
 | G0-Kriterien | **47**, dreistufig klassifiziert |
 | davon blockierend | **25** Core Required (zuvor 45) |
 | davon `accepted` | **18** |
-| verbleibende Blocker | **1** (D-1) |
+| verbleibende Blocker | **0** |
+| Kriterienstand | **READY FOR HUMAN DECISION** |
 | Implementierte Capabilities | **keine (0 von 29)** |
-| Commits | 5 |
+| Commits | 6 |
 
 ## Ziel
 
@@ -87,7 +88,7 @@ verweigert, bis eine Datenklasse sie erlaubt.**
 
 ## Entscheidungen
 
-Angenommene ADRs: **5** — ADR-0001 bis ADR-0005, alle `accepted` und A0/A5-belegt.
+Angenommene ADRs: **5** (ADR-0001 bis ADR-0005). **Ein Vorschlag:** ADR-0006 zu logischen Source Slots, `proposed`.
 
 26 getroffene Entscheidungen, davon 20 mit A0. 25 offene, davon 10 mit P0.
 Geführt in

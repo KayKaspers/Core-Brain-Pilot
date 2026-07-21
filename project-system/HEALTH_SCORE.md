@@ -3,7 +3,7 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | Phase 0 – Discovery und Scope Lock |
-| Letzte Bewertung | 2026-07-21, im Rahmen von CBP-WP-005 |
+| Letzte Bewertung | 2026-07-21, im Rahmen von CBP-WP-006 |
 | Autoritätsklasse | A2 |
 
 > Diese Datei gehört zur kanonischen NDF-Ordnerstruktur, war aber in der
@@ -27,9 +27,9 @@ Keine Gesamtpunktzahl.
 | Quellenlage | **gut** | → | Beide Originalquellen abgeglichen; Human-Evidenz ergänzt |
 | Gate-Klarheit | **gut** | → | Dreistufiges Modell plus DRC als eigener Prüfort für die 16 vertagten Kriterien |
 | Architekturklarheit | **gut** | ↑↑ | 9 Schichten, 14 Komponenten, 5 Profile, Rebuild-Vertrag; zuvor kein Komponentenschnitt |
-| Scope-Klarheit | **gut** | ↑ | 24 von 25 Core-Kriterien `accepted`; nur der konkrete Quellenbestand fehlt |
+| Scope-Klarheit | **gut** | ↑ | **Alle 25 Core-Kriterien `accepted`**; Quellenraum über logische Slots definiert |
 | Entscheidungslage | **gut** | ↑↑ | 26 Entscheidungen und **5 angenommene ADRs** (A1); 8 P0 offen (zuvor 10) |
-| Antwortlage Discovery | **gut** | ↑ | Alle Core-Required-Fragen belegt außer D-1 |
+| Antwortlage Discovery | **gut** | ↑ | Alle Core-Required-Fragen belegt; Entscheidung steht aus |
 | Sicherheitslage | **ausreichend** | ↑ | Berechtigungsmodell und Incident-Response dokumentiert (ADR-0004); **technisch weiterhin nicht durchgesetzt** |
 | Messbarkeit | **ausreichend** | ↑↑ | 36 Fragen, 4 Metrikgruppen, 7 kritische Fehler, Governance. **Nichts gemessen** |
 | Kennzahlendisziplin | **ausreichend** | ↑ | Fehlerhafte Summen gefunden und korrigiert; Auszählung statt Fortschreibung |
@@ -52,12 +52,12 @@ Durchsetzung, nicht ein weiteres Dokument.
 > „CBP-WP-002" zeigt die damals berichteten Werte; kursive Angaben waren
 > falsch addiert.
 
-| Kennzahl | CBP-WP-002 | **CBP-WP-005** |
+| Kennzahl | CBP-WP-002 | **CBP-WP-006** |
 | --- | --- | --- |
 | G0-Kriterien gesamt | *41* → korrekt 47 | **47** |
 | davon blockierend | *39* → korrekt 45 | **25** (dreistufiges Modell) |
-| davon `accepted` | 0 | **24** |
-| davon `answered` | 0 | **1** |
+| davon `accepted` | 0 | **25** |
+| davon `answered` | 0 | **0** |
 | davon `open` | 47 | **0** |
 | davon `not-applicable` | 0 | 2 |
 | Core Required | — | 25 |
@@ -74,8 +74,8 @@ Durchsetzung, nicht ein weiteres Dokument.
 | davon gemindert | 5 | **14** |
 | davon hoch | 14 | 17 |
 | Capabilities `implemented` | **0** | **0** |
-| Angenommene ADRs | 0 | **5** |
-| Commits | 2 | 5 |
+| Angenommene ADRs | 0 | **5** (+1 `proposed`) |
+| Commits | 2 | 6 |
 
 ## Fortschritt in einem Bild
 
@@ -85,33 +85,39 @@ CBP-WP-002:  ██████████████████████�
 CBP-WP-003:  █████████████████                             17
 CBP-WP-004:  ███████                                        7
 CBP-WP-005:  █                                              1   ← D-1
+CBP-WP-006:                                                 0   ► READY FOR HUMAN DECISION
 ```
 
 Die Reduktion von 45 auf 25 stammte aus dem **Kriterienmodell**. Von 25 auf 17
 aus den **Intake-Antworten**. Von 17 auf 7 aus den **Architektur- und
-Sicherheitsdokumenten**. Von 7 auf 1 aus dem **Benchmarkdesign**.
+Sicherheitsdokumenten**. Von 7 auf 1 aus dem **Benchmarkdesign**. Von 1 auf 0
+aus dem **Quellenvertrag**.
 
 > **Diese Kurve misst dokumentarische Vollständigkeit, nicht Systemreife.**
-> Kein einziges der 24 angenommenen Kriterien beschreibt eine funktionierende
-> Kontrolle — sie beschreiben nachprüfbare Absichten. Der Sprung von 45 auf 1
-> bedeutet: das Projekt weiß jetzt, was es bauen will, und kann es prüfen.
-> Gebaut ist nichts.
+>
+> **Sechzehn der 25 angenommenen Kriterien beschreiben Kontrollen, die nicht
+> existieren.** Sie sind nachprüfbare Absichten, keine funktionierenden
+> Mechanismen. Der Sprung von 45 auf 0 bedeutet: das Projekt weiß, was es bauen
+> will, und kann es prüfen. **Gebaut ist nichts.**
+>
+> **Null Blocker heißt nicht: Gate bestanden.** Der Gate-Status bleibt
+> **NOT PASSED**, bis der Human Maintainer entscheidet.
 
 ## Wichtigste Hebel
 
 | # | Hebel | Wirkung |
 | --- | --- | --- |
-| 1 | **Quellenbestand festlegen** (OD-05, OD-06) | Der **letzte** G0-Blocker D-1 |
-| 2 | G0 zur Freigabe vorlegen | Bedingung 5 der Abschlussregel ist eigenständig und wird durch keine Kennzahl ersetzt |
-| 3 | Berechtigungen **technisch** umsetzen | Kein G0-Blocker mehr, aber R-25 und R-27 bleiben die schwersten offenen Risiken |
-| 4 | Ersten Benchmarklauf durchführen | Macht aus einem Plan eine Messung; kalibriert OD-02b und schließt R-21 |
-| 5 | Repository-Layout entscheiden (OD-26) | Löst AB-03 bis AB-08 gemeinsam auf; Vorlage liegt vor |
+| 1 | **G0-Entscheidung treffen** | Der einzige verbleibende Schritt in Phase 0. Kriterien sind vollständig, die Entscheidung ist eigenständig |
+| 2 | ADR-0006 annehmen oder ablehnen | Legt fest, ob privater Bestand dauerhaft außerhalb des Kerns bleibt |
+| 3 | Berechtigungen **technisch** umsetzen | R-25 und R-27 bleiben die schwersten offenen Risiken |
+| 4 | Ersten Benchmarklauf durchführen | Macht aus einem Plan eine Messung; kalibriert OD-02b, schließt R-21 |
+| 5 | DRC für Profil A durchführen | Von `NOT EVALUATED` zu einer belastbaren Aussage über die Installierbarkeit |
 
 ## Bewertung in einem Satz
 
-Der G0-Rest ist auf **ein einziges Kriterium** geschrumpft — den konkreten
-Quellenbestand; alles Übrige wartet nicht mehr auf Dokumentation, sondern auf
-Entscheidungen und auf den ersten Lauf.
+Die dokumentarische Vorbereitung von Phase 0 ist **abgeschlossen**; was jetzt
+fehlt, ist keine Unterlage mehr, sondern **eine Entscheidung** — und danach der
+erste gebaute und gemessene Bestandteil.
 
 ## Pflege
 

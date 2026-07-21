@@ -1,10 +1,11 @@
-# Architecture Decision Records — Core Brain Pilot
+﻿# Architecture Decision Records — Core Brain Pilot
 
 | Feld | Wert |
 | --- | --- |
 | Phase | Phase 0 – Discovery und Scope Lock |
 | Angenommene ADRs | **5** |
-| Überarbeitet in | CBP-WP-004 |
+| Vorgeschlagene ADRs | **1** (ADR-0006) |
+| Überarbeitet in | CBP-WP-006 |
 | Stand | 2026-07-20 |
 
 Dieses Verzeichnis enthält Architecture Decision Records. Ein angenommener ADR
@@ -12,8 +13,13 @@ hat Autoritätsklasse **A1** und bindet nachfolgende Arbeit.
 
 ## Aktueller Stand
 
-Fünf ADRs, alle `accepted`, erstellt in CBP-WP-004. Jeder ist durch eine
-ausdrückliche A0-Entscheidung oder eine A5-Originalquelle belegt.
+Fünf **angenommene** ADRs aus CBP-WP-004, jeder durch eine ausdrückliche
+A0-Entscheidung oder eine A5-Originalquelle belegt — plus **ein Vorschlag** aus
+CBP-WP-006.
+
+**ADR-0006 ist `proposed`, nicht `accepted`.** Er trägt A3 und wird erst durch
+die Annahme des Human Maintainers bindend. Ein Implementation Agent nimmt
+keinen ADR an.
 
 | ADR | Titel | Status | Belegt durch |
 | --- | --- | --- | --- |
@@ -22,6 +28,7 @@ ausdrückliche A0-Entscheidung oder eine A5-Originalquelle belegt.
 | [ADR-0003](ADR-0003-canonical-derived-trennung.md) | Strikte Trennung von kanonischen und abgeleiteten Daten | `accepted` | Übergabe §5, D-005 |
 | [ADR-0004](ADR-0004-technisches-permission-enforcement.md) | Technische Durchsetzung von Berechtigungen | `accepted` | Übergabe §10, D-023 |
 | [ADR-0005](ADR-0005-deployment-readiness-check.md) | Deployment Readiness Check als eigenes Prüfmodell | `accepted` | D-026 |
+| [ADR-0006](ADR-0006-logische-source-slots.md) | Logische Source Slots statt eingebetteter Wissensbestände | **`proposed`** | Übergabe §13, ADR-0001 |
 
 Weitere Kandidaten sind in
 [project-system/DECISION_REGISTER.md](../../project-system/DECISION_REGISTER.md)

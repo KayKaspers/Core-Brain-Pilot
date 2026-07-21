@@ -3,7 +3,7 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | Phase 0 – Discovery und Scope Lock |
-| Überarbeitet in | CBP-WP-005 |
+| Überarbeitet in | CBP-WP-006 |
 | Autoritätsklasse | A2 |
 | Stand | 2026-07-20 |
 
@@ -135,27 +135,30 @@ technische Durchsetzung der Reihenfolge und keine Werkzeugunterstützung.
 
 ## OI-10 — Konkreter produktiver Quellenbestand
 
-**Schweregrad:** **hoch** · **Status:** offen · **Adressat:** Human Maintainer
+**Schweregrad:** hoch · **Status:** **teilweise aufgelöst** (2026-07-21, CBP-WP-006)
 
-*Neu in CBP-WP-005.*
+**Aufgelöst:** Die **Quellenarten und ihre Regeln** sind definiert —
+[PILOT_SOURCE_CONTRACT.md](../sources/PILOT_SOURCE_CONTRACT.md) mit sieben
+logischen Source Slots, [SOURCE_SLOT_MODEL.md](../sources/SOURCE_SLOT_MODEL.md)
+mit 24 Feldern und 10 Validierungsregeln. **D-1 steht auf `accepted`.**
 
-**Der einzige verbleibende G0-Blocker.** Kriterium D-1 steht auf `answered`,
-nicht `accepted`.
+**Weiterhin offen:** der **konkrete produktive Bestand**. Welche Verzeichnisse,
+Repositories und Handoffs tatsächlich angebunden werden, ist nicht benannt.
+
+Die Auflösung erfolgte über eine Ebenentrennung (ADR-0006, `proposed`):
 
 | Ebene | Stand |
 | --- | --- |
-| Quellen**arten** | entschieden (HDI A3, D-019) |
-| Benchmark-Korpus | definiert (24 synthetische Quellen, Dataset 1.0.0) |
-| **Konkreter produktiver Bestand** | **offen** — welche Verzeichnisse, Repositories und Handoffs tatsächlich aufgenommen werden |
+| Logical Source Slot — welche Art von Quelle, welche Regeln | **entschieden** |
+| Deployment Mapping — welcher Ort in einer Installation | **offen**, fail-closed im DRC |
 
-Der Benchmark belegt, dass das Quellenmodell trägt — Metadaten,
-Autoritätsklassen, Supersession und Tombstones funktionieren als Konstruktion.
-Er benennt aber keinen realen Bestand und ersetzt D-1 nicht.
+**D-1 `accepted` bedeutet nicht, dass eine Quelle angebunden wurde.** Es
+bedeutet, dass der zulässige Quellenraum definiert und begrenzt ist.
 
-Abhängig von OD-05 (Ablageort des kanonischen Bestands) und OD-06 (Quellen im
-ersten Scope und ausdrückliche Nicht-Quellen). Gegenstand des vorgeschlagenen
-Work Packages CBP-WP-006.
-
+Verbleibend: **OD-05** (Ablageort des kanonischen Bestands, von P0 auf P1
+präzisiert) und **OD-06** (konkrete Quellen und Nicht-Quellen, ebenfalls P1).
+Beide bleiben offen und werden im Deployment Mapping beziehungsweise mit dem
+Human Maintainer geklärt.
 ---
 
 ## Bearbeitung
