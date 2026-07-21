@@ -2,10 +2,10 @@
 
 | Feld | Wert |
 | --- | --- |
-| Phase | Phase 0 – Discovery und Scope Lock |
-| Überarbeitet in | CBP-WP-007 |
+| Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
+| Überarbeitet in | **CBP-WP-008** |
 | Autoritätsklasse | A2 |
-| Stand | 2026-07-20 |
+| Stand | 2026-07-21 |
 
 > **Ablageabweichung.** NDF v1.0.0 sieht `project-brain/DECISIONS.md` vor.
 > Es existiert bewusst nur **eine** von beiden — AB-04.
@@ -101,8 +101,8 @@ Legende: **P0** blockiert G0 · **P1** vor Architekturentscheidung · **P2** sp�
 | --- | --- | --- | --- | --- |
 | OD-03 | Rang der Kernprinzipien: weitere ADRs über ADR-0001 bis ADR-0005 hinaus | P1 | Human Maintainer | teilweise durch ADR-0001…0005 |
 | OD-04 | Minimal nützlicher Funktionsumfang des Piloten | **P0** | Nova | A-8 |
-| OD-05 | Ablageort des kanonischen Wissensbestands — **präzisiert:** Slot-Art entschieden (PS-02, `operator-managed`), konkreter Ort offen | P1 | Human Maintainer | D-1 `accepted`; Deployment Mapping |
-| OD-06 | Quellen im ersten Scope — **präzisiert:** Quellen*arten* und Slot-Regeln entschieden, konkreter Bestand offen | P1 | Human Maintainer | D-1 `accepted`; PILOT_SOURCE_CONTRACT |
+| OD-05 | Ablageort des kanonischen Wissensbestands — **präzisiert:** Slot-Art entschieden (PS-02, `operator-managed`), konkreter Ort offen. **Vorgesehen für CBP-WP-010** | P1 | Human Maintainer | D-1 `accepted`; PILOT_SOURCE_MAPPING_PLAN |
+| OD-06 | Quellen im ersten Scope — **präzisiert:** Quellen*arten* und Slot-Regeln entschieden, konkreter Bestand offen. **Vorgesehen für CBP-WP-010** | P1 | Human Maintainer | D-1 `accepted`; PILOT_SOURCE_MAPPING_PLAN |
 | OD-07 | Vergabeverfahren für Autoritätsklassen A0–A6 | **P0** | Nova | — |
 | OD-08 | Vergabeverfahren für Datenklassen | **P0** | Human Maintainer | D-4 |
 | OD-11 | Repository dauerhaft privat? | **P0** | Human Maintainer | A-8 |
@@ -117,7 +117,8 @@ Legende: **P0** blockiert G0 · **P1** vor Architekturentscheidung · **P2** sp�
 | OD-19 | Umfang und Format des Retrieval-Trace | P1 | Nova | — |
 | OD-23 | Lizenzwahl | P1 | Human Maintainer | D-007 |
 | OD-25 | qmd als produktiver Suchdienst — nur nach Prüfung | P1 | Human Maintainer | — |
-| OD-26 | Endgültige Repository-Struktur | **P0** | Nova + Human Maintainer | W-05 |
+| OD-26 | Endgültige Repository-Struktur — **Entscheidungsvorbereitung liegt vor**, Layout **und** Bereichsmodell. **Vorgesehen für CBP-WP-009** | **P0** | Nova + Human Maintainer | W-05; REPOSITORY_AND_WORKSPACE_PLAN |
+| **OD-34** | **Secret-Store-Technologie und Verweisformat** — von KB-08 und Mappingfeld `credential`/`location_reference` vorausgesetzt, bisher nirgends entschieden | P1 | Human Maintainer | TECHNICAL_SECURITY_FOUNDATION_PLAN, KB-08 |
 | OD-24 | Akzeptable Ausfallzeit | P2 | Human Maintainer | — |
 | OD-28 | Öffentlicher Produktname und Phase-7-Option | P2 | Human Maintainer | — |
 
@@ -125,16 +126,29 @@ Legende: **P0** blockiert G0 · **P1** vor Architekturentscheidung · **P2** sp�
 
 | Kategorie | Anzahl |
 | --- | --- |
-| Getroffene Entscheidungen | **28** (davon 22 mit A0) |
+| Getroffene Entscheidungen | **28** (davon **24** mit A0) |
 | Angenommene ADRs | **6** (ADR-0001 bis ADR-0006, alle A1) |
 | Vorgeschlagene ADRs | 0 |
 | Neu in CBP-WP-003 | 12 (D-015 bis D-026) |
 | Neu in CBP-WP-004 | 0 Entscheidungen, 5 ADRs |
 | Neu in CBP-WP-007 | **2 A0-Entscheidungen** (D-027 G0, D-028 ADR-0006) |
+| Neu in CBP-WP-008 | **0 Entscheidungen**, 1 neue offene Entscheidung (OD-34) |
 | Geschlossene offene Entscheidungen | **9** (davon 4 in CBP-WP-004) |
 | Vertagte Entscheidungen | 4 |
-| Offene Entscheidungen | **21** |
-| davon **P0** | **8** |
+| Offene Entscheidungen | **22** |
+| davon **P0** | **6** |
+
+> **Korrektur in CBP-WP-008 — vierter Zählfehler des Projekts.** Die
+> Summenzeile führte zuvor **22 A0-Entscheidungen** und **8 offene
+> P0-Entscheidungen**. Die Auszählung der Tabellen ergibt **24** und **6**. Die
+> Tabellen selbst waren korrekt; nur die Summen stimmten nicht.
+>
+> Die sechs offenen P0-Punkte sind OD-04, OD-07, OD-08, OD-11, OD-26 und OD-29.
+>
+> **Der Fehler bestand seit CBP-WP-007 und wurde durch die Zähl- und
+> Statusregel gefunden — aber erst ein Work Package später.** Genau deshalb
+> bleibt **R-33 offen**: die Regel macht Fehler später sichtbar, sie verhindert
+> sie nicht.
 
 **Keine offene Entscheidung wird als A0 geführt.** Keine Entscheidung wurde aus
 reinen Sachangaben abgeleitet — die Infrastrukturangaben aus dem Intake sind

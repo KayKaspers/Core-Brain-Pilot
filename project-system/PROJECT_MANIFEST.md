@@ -2,9 +2,9 @@
 
 | Feld | Wert |
 | --- | --- |
-| Überarbeitet in | CBP-WP-007 |
+| Überarbeitet in | **CBP-WP-008** |
 | Autoritätsklasse | A2 |
-| Stand | 2026-07-20 |
+| Stand | 2026-07-21 |
 
 > **Formatabweichung.** NDF v1.0.0 sieht `project-system/project-manifest.yaml`
 > vor. Diese Markdown-Fassung ist **vorläufig für den Bootstrap** akzeptiert —
@@ -37,9 +37,11 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 – COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Aktuelles Work Package | CBP-WP-007 (`in-review`) |
-| Nächstes Gate | **G0 – Discovery and Scope Lock** |
+| Aktuelles Work Package | **CBP-WP-008** (`in-review`) |
 | **Gate-Status G0** | **PASSED WITH NOTES** — 2026-07-21, A0 |
+| Nächstes Prüfmodell | **Deployment Readiness Check** — `NOT EVALUATED` |
+| Phase-1-Planung | Streams F1–F5; CBP-WP-009 bis CBP-WP-014 **`proposed`** |
+| Technische Nachweise | **0** — alle Artefakte auf Stufe 1 `dokumentiert` |
 | G0-Kriterien | **47** |
 | davon blockierend (Core Required) | **25** |
 | davon `accepted` | **25** — alle |
@@ -54,7 +56,7 @@
 | --- | --- |
 | Pfad | `D:\Projects\Core-Brain-Pilot` |
 | Branch | `main` |
-| Commits | 7 |
+| Commits | **8** |
 | Remote | `origin` → `https://github.com/KayKaspers/Core-Brain-Pilot.git` |
 | Commit-Autorität | ausschließlich Human Maintainer |
 
@@ -130,7 +132,9 @@ WP-Queue · `A3` Roadmap, Gate-Doku · `A4` README, erläuternde Doku ·
 `public` · `internal` · `confidential` · `secret` · `excluded-from-ai`
 
 Secrets gelangen nicht in Repository, Wissensbestand, Index, Context Pack oder
-Modellkontext. **Verfahren im Schadensfall offen** (OD-10).
+Modellkontext. Das **Verfahren im Schadensfall ist definiert**
+([SECRET_INCIDENT_RESPONSE.md](../docs/security/SECRET_INCIDENT_RESPONSE.md),
+OD-10 geschlossen) — **automatische Erkennung fehlt weiterhin** (R-01).
 
 ## Context Budgets
 

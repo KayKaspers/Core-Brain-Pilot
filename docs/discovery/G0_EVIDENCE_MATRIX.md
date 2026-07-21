@@ -3,17 +3,20 @@
 | Feld | Wert |
 | --- | --- |
 | Gate | G0 – Discovery and Scope Lock |
-| **Gate-Status** | **NOT PASSED** |
-| **Kriterienstand** | **READY FOR HUMAN DECISION** |
-| Erfasst in | CBP-WP-006 |
+| **Gate-Status** | **PASSED WITH NOTES** — 2026-07-21, A0 |
+| **Kriterienstand** | 25 von 25 `accepted` |
+| Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
+| Erfasst in | CBP-WP-006, Status nachgeführt in CBP-WP-008 |
 | Autoritätsklasse | A3 |
 | Stand | 2026-07-21 |
 
 Diese Matrix führt **alle 25 Core-Required-Kriterien** mit ihrer vollständigen
 Nachweislage. Sie ist die Prüfgrundlage für die G0-Entscheidung.
 
-> **Criteria complete ≠ Gate approved.** Diese Matrix zeigt, dass die
-> Kriterien belegt sind — nicht, dass das Gate bestanden ist.
+> **Criteria complete ≠ Technical implementation ≠ Deployment ready.**
+> Diese Matrix zeigt, dass die Kriterien belegt sind. Das Gate wurde am
+> 2026-07-21 gesondert freigegeben — **16 der 25 Kriterien beschreiben
+> weiterhin Kontrollen, die nicht existieren.**
 
 ## Legende
 
@@ -140,10 +143,21 @@ Core-Required-Zeilen.*
 
 Keiner dieser Punkte blockiert G0 — alle blockieren die **Umsetzung**.
 
+**Stand nach CBP-WP-008:** Für jeden dieser Punkte ist nun ein Weg und eine
+erforderliche Nachweisstufe benannt —
+[PHASE_1_EVIDENCE_PLAN.md](../roadmap/PHASE_1_EVIDENCE_PLAN.md). **Kein Punkt
+wurde dadurch geschlossen.** Alle Nachweise stehen auf Stufe 1 `dokumentiert`;
+die 16 technisch erforderlichen Kriterien beschreiben weiterhin Kontrollen, die
+nicht existieren.
+
 ## Status
 
-**READY FOR HUMAN DECISION.**
+**G0 PASSED WITH NOTES** — entschieden am 2026-07-21 durch den Human
+Maintainer (A0). Wortlaut und Auflagen im Entscheidungsblock in
+[G0_SCOPE_LOCK_REVIEW.md](G0_SCOPE_LOCK_REVIEW.md).
 
-Die Entscheidung erfolgt ausschließlich im Entscheidungsblock in
-[G0_SCOPE_LOCK_REVIEW.md](G0_SCOPE_LOCK_REVIEW.md). Bis dahin:
-**G0 NOT PASSED.**
+**Phase 0 COMPLETE · Phase 1 AUTHORIZED FOR PLANNING.**
+
+Die Freigabe bestätigt den Scope, **nicht** die technische Umsetzung: DRC
+`NOT EVALUATED`, Benchmark nicht ausgeführt, Berechtigungen nicht durchgesetzt,
+keine Capability `implemented`.

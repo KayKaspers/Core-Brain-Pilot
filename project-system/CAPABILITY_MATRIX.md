@@ -2,14 +2,33 @@
 
 | Feld | Wert |
 | --- | --- |
-| Phase | Phase 0 – Discovery und Scope Lock |
-| Überarbeitet in | CBP-WP-005 |
+| Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
+| Überarbeitet in | **CBP-WP-008** |
 | Autoritätsklasse | A2 |
-| Stand | 2026-07-20 |
+| Stand | 2026-07-21 |
 
 > **Keine Capability ist implementiert.** Der Status `implemented` kommt in
 > diesem Dokument nicht vor und darf erst nach Abnahme durch den Human
 > Maintainer vergeben werden.
+>
+> **Stand nach CBP-WP-008 unverändert: 0 von 29 implementiert.** Die
+> Phase-1-Planung ordnet mehreren Capabilities ein geplantes Work Package zu —
+> das ändert ihren Status **nicht**. Ein zugeordnetes Work Package ist kein
+> Fortschritt, sondern eine Absicht.
+
+## Zuordnung zu geplanten Work Packages
+
+| Capability | Geplant in | Status bleibt |
+| --- | --- | --- |
+| 1 Kanonischer Markdown-Wissensbestand | CBP-WP-009, CBP-WP-010 | `discovery` |
+| 2 Source Manifest | CBP-WP-014 | `planned` |
+| 3 Stabile Source-ID und Content Hash | CBP-WP-014 | `discovery` |
+| 5 Ingest-Quarantäne | CBP-WP-013 | `planned` |
+| 6 Secret- und PII-Prüfung | CBP-WP-012, CBP-WP-013 | `planned` |
+| 7 Deterministischer Quellenindex | CBP-WP-014 | `planned` |
+
+**Alle sechs geplanten Work Packages stehen auf `proposed`.** Keines ist
+freigegeben.
 
 ## Statuswerte
 

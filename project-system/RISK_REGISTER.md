@@ -2,10 +2,10 @@
 
 | Feld | Wert |
 | --- | --- |
-| Phase | Phase 0 – Discovery und Scope Lock |
-| Überarbeitet in | CBP-WP-007 |
+| Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
+| Überarbeitet in | **CBP-WP-008** |
 | Autoritätsklasse | A2 |
-| Stand | 2026-07-20 |
+| Stand | 2026-07-21 |
 
 > **Ablageabweichung.** NDF v1.0.0 sieht `project-brain/RISKS.md` vor.
 > Es existiert bewusst nur **eine** von beiden — AB-04.
@@ -59,7 +59,7 @@ Ein irreversibler Schaden ist mindestens **hoch**.
 | R-17 | Abweichungen vom NDF wachsen unkontrolliert | niedrig | AB-03 bis AB-08 nur vorläufig akzeptiert | gemindert |
 | R-24 | Verwechslung von NDF Prompt Mode und Context Budget | mittel | Ausdrückliche Abgrenzung; D-009 | gemindert |
 | R-28 | Ein zweites Governance-System wird eingeführt | mittel | Superpowers nur als Referenz | gemindert |
-| R-33 | Fehlerhafte Kennzahlen in Statusdokumenten führen zu falschen Gate-Einschätzungen | mittel | Fünfteilige **Zähl- und Statusregel** in COMPLIANCE_CHECK (CBP-WP-007); Summen gelten als `derived status data`. **Dokumentregel, keine technische Kontrolle** — der dritte Zählfehler trat in CBP-WP-006 auf und wurde erst in der Prüfphase gefunden | **gemindert, nicht geschlossen** |
+| R-33 | Fehlerhafte Kennzahlen in Statusdokumenten führen zu falschen Gate-Einschätzungen | mittel | Fünfteilige **Zähl- und Statusregel** in COMPLIANCE_CHECK (CBP-WP-007); Summen gelten als `derived status data`. **Dokumentregel, keine technische Kontrolle.** Der **vierte** Zählfehler entstand in CBP-WP-007 — **nach** Einführung der Regel — und wurde erst in CBP-WP-008 gefunden | **gemindert, nicht geschlossen** |
 | **R-34** | **Deployment-Required-Kriterien werden vertagt und dann vergessen** | **hoch** | Alle 16 bleiben als `open` erfasst; separates Deployment-Readiness-Gate zu definieren (OD-33). **Fail-closed:** ohne die Angaben wird nicht installiert | **neu, offen** |
 
 ## Betrieb
@@ -89,6 +89,31 @@ Ein irreversibler Schaden ist mindestens **hoch**.
 | dokumentiert | 1 |
 | teilweise gemindert | 1 |
 | offen | **10** |
+
+**Neu in CBP-WP-008:** keine.
+
+**Verändert in CBP-WP-008:**
+
+| ID | Änderung | Auslöser |
+| --- | --- | --- |
+| R-33 | Vierter Zählfehler dokumentiert — **nach** Einführung der Regel entstanden | Auszählung des DECISION_REGISTER |
+
+**Kein Risiko wurde in CBP-WP-008 geschlossen oder gemindert.** Das Work
+Package erzeugt ausschließlich Planungsdokumente. Nach
+[PHASE_1_EVIDENCE_PLAN.md](../docs/roadmap/PHASE_1_EVIDENCE_PLAN.md) stehen
+damit **alle Nachweise auf Stufe 1 `dokumentiert`** — und Stufe 1 schließt
+definitionsgemäß kein Risiko.
+
+**Geplante Schließungswege** (keiner beschritten):
+
+| Risiko | Schließt durch | Erforderliche Stufe |
+| --- | --- | --- |
+| R-25, R-27, R-26 | CBP-WP-012 | **4** — negativ getestet |
+| R-32, R-31, R-30 | CBP-WP-013 | **4** — negativ getestet |
+| R-10 | CBP-WP-014 | **4** |
+| R-07 | CBP-WP-014 | **5** — Rebuild durchgeführt |
+| R-20 | P9 | **5** — Restore durchgeführt |
+| R-21 | P7 | **3** — gemessen |
 
 **Neu in CBP-WP-005:** keine.
 

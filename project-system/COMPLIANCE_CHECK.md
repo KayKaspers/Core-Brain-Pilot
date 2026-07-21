@@ -2,8 +2,8 @@
 
 | Feld | Wert |
 | --- | --- |
-| Phase | Phase 0 – Discovery und Scope Lock |
-| Letzte Prüfung | 2026-07-21, im Rahmen von CBP-WP-007 |
+| Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
+| Letzte Prüfung | 2026-07-21, im Rahmen von **CBP-WP-008** |
 | Autoritätsklasse | A2 |
 
 > Diese Datei gehört zur kanonischen NDF-Ordnerstruktur, war aber in der
@@ -83,7 +83,9 @@
 | Prüfung | Ergebnis |
 | --- | --- |
 | Alle Statusdokumente nennen Phase 0 | erfüllt |
-| Aktuelles Work Package als CBP-WP-007 ausgewiesen | erfüllt |
+| Aktuelles Work Package als **CBP-WP-008** ausgewiesen | erfüllt |
+| **Veraltete Gate-Angaben korrigiert** | erfüllt — CLAUDE.md, DISCOVERY_QUESTIONS.md, G0_EVIDENCE_MATRIX.md |
+| Historische Berichte nicht stillschweigend umgeschrieben | erfüllt — frühere WP-Ergebnisse unverändert |
 | Keine Capability als `implemented` bezeichnet | erfüllt |
 | Alle Capabilities besitzen eine Priorität | erfüllt |
 | **Fehlerhafte Summen korrigiert** | **erfüllt** — 47/45/38/56 statt 41/39/35/55 |
@@ -166,6 +168,32 @@
 | OD-05, OD-06, OD-26 bleiben offen | erfüllt |
 | Keine produktive Quelle eingebunden | erfüllt |
 
+## Phase-1-Planungs-Compliance (CBP-WP-008)
+
+| Prüfung | Ergebnis |
+| --- | --- |
+| Alle fünf Foundation-Streams geplant | erfüllt — F1 bis F5 |
+| Jeder Stream mit Abhängigkeiten und Nachweisen | erfüllt — 14 Felder je Stream |
+| Jeder Stream mit Abbruch- und Rücksetzbedingungen | erfüllt |
+| Core Repository, privater Workspace und Runtime Data getrennt | erfüllt — drei Bereiche benannt |
+| **Keine reale Repository-Reorganisation** | erfüllt — keine Datei verschoben |
+| **Keine realen Source Mappings eingetragen** | erfüllt — nur Schema und Platzhalter |
+| Mappingdefaults `enabled: false` und `read_only: true` | erfüllt |
+| Security Plan enthält alle zwölf Kontrollbereiche | erfüllt — KB-01 bis KB-12 |
+| **Promptregeln nicht als technische Kontrolle behandelt** | erfüllt — Rang 7, kein Bereich ruht allein darauf |
+| Quarantäne fail-closed geplant | erfüllt — 12 Schritte, 10 Status |
+| **Keine Quelle von `received` direkt nach indexiert** | erfüllt — Regel S1 |
+| Secret-Fund blockiert den Ingest | erfüllt — Regel S5 |
+| Source Registry und Suchindex getrennt | erfüllt — eigene Abgrenzungstabelle |
+| Tombstone und Derived Cleanup geplant | erfüllt — T-1 bis T-6 |
+| CBP-WP-009 bis CBP-WP-014 ausschließlich `proposed` | erfüllt |
+| Kein Folge-Work-Package auf `active` | erfüllt |
+| Keine Capability `implemented` | erfüllt — weiterhin 0 von 29 |
+| **R-33 nicht geschlossen** | erfüllt — bleibt `gemindert` |
+| Genau ein nächstes Work Package vorgeschlagen | erfüllt — CBP-WP-009 |
+| Keine ausführbare Datei erstellt | erfüllt — ausschließlich Markdown |
+| Kein Commit, kein Push, `origin` unverändert | erfüllt |
+
 ## Zähl- und Statusregel
 
 *Ergänzt in CBP-WP-007, nach dem dritten Zählfehler des Projekts.*
@@ -194,6 +222,11 @@ existiert.
 | CBP-WP-002 | 41/39/35/55 statt 47/45/38/56 | CBP-WP-003 |
 | CBP-WP-003 | 6 `accepted` / 15 `open` statt 8 / 13 | im selben Lauf |
 | CBP-WP-006 | 15/6/4 statt 16/7/2 in der Evidenzmatrix | im selben Lauf |
+| **CBP-WP-007** | **22 A0-Entscheidungen statt 24; 8 offene P0 statt 6** | **CBP-WP-008** |
+
+**Der vierte Fehler entstand, nachdem die Regel eingeführt war**, und wurde
+erst ein Work Package später gefunden. Die Regel wirkt — aber nachlaufend. Das
+ist der Grund, warum R-33 nicht geschlossen wird.
 
 ## Offene Punkte
 
@@ -203,9 +236,13 @@ existiert.
 | Secret-Erkennung und technische Unterstützung fehlen | R-01 |
 | Benchmark entworfen, **nicht ausgeführt** — keine Messung | R-21 |
 | Konkreter produktiver Quellenbestand — Slot-Ebene entschieden, Mapping offen | OD-05, OD-06 |
-| **G0-Entscheidung des Human Maintainers steht aus** | G0_SCOPE_LOCK_REVIEW |
 | DRC definiert, aber **NOT EVALUATED** | R-34 |
 | Repository-Layout nur vorgeschlagen, nicht entschieden | OD-26 |
+| **Alle Nachweise stehen auf Stufe 1 `dokumentiert`** | PHASE_1_EVIDENCE_PLAN |
+| Zwölf Stop-Bedingungen definiert, **keine erprobt** | PHASE_1_STOP_CONDITIONS |
+
+> **Erledigt seit CBP-WP-007:** Die G0-Entscheidung des Human Maintainers liegt
+> vor — **PASSED WITH NOTES**, 2026-07-21, A0.
 
 ## Pflege
 

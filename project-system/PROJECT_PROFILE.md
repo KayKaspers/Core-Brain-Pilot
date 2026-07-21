@@ -2,10 +2,10 @@
 
 | Feld | Wert |
 | --- | --- |
-| Phase | **Phase 0 – COMPLETE** |
-| Überarbeitet in | CBP-WP-007 |
+| Phase | **Phase 0 – COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
+| Überarbeitet in | **CBP-WP-008** |
 | Autoritätsklasse | A2 |
-| Stand | 2026-07-20 |
+| Stand | 2026-07-21 |
 
 Struktur nach `framework/project-system/templates/PROJECT_PROFILE_TEMPLATE.md`
 (NDF v1.0.0).
@@ -111,7 +111,7 @@ Es existiert **keine** Installation.
 | **Phase 0** | Discovery und Scope Lock | **COMPLETE** |
 | **Gate G0** | Discovery and Scope Lock | **PASSED WITH NOTES** — 2026-07-21 |
 | Deployment-Readiness | 16 vertagte Kriterien | [DRC](../docs/operations/DEPLOYMENT_READINESS_CHECK.md) definiert, **NOT EVALUATED** |
-| **Phase 1** | Proxmox-Referenzumgebung | **AUTHORIZED FOR PLANNING** — [Backlog](../docs/roadmap/PHASE_1_BACKLOG.md) |
+| **Phase 1** | Proxmox-Referenzumgebung | **AUTHORIZED FOR PLANNING** — [Backlog](../docs/roadmap/PHASE_1_BACKLOG.md), [Foundation Plan](../docs/roadmap/PHASE_1_FOUNDATION_PLAN.md) F1–F5; CBP-WP-009…014 `proposed`, **keines autorisiert** |
 | Phase 2 | Wissensfundament | nicht begonnen |
 | Phase 3 | Retrieval-Pilot | nicht begonnen |
 | Phase 4 | Mehrgeräte- und Mobile-Pilot | nicht begonnen |

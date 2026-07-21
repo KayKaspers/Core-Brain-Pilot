@@ -3,7 +3,7 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Letzte Bewertung | 2026-07-21, im Rahmen von CBP-WP-007 |
+| Letzte Bewertung | 2026-07-21, im Rahmen von **CBP-WP-008** |
 | Autoritätsklasse | A2 |
 
 > Diese Datei gehört zur kanonischen NDF-Ordnerstruktur, war aber in der
@@ -33,6 +33,8 @@ Keine Gesamtpunktzahl.
 | Sicherheitslage | **ausreichend** | ↑ | Berechtigungsmodell und Incident-Response dokumentiert (ADR-0004); **technisch weiterhin nicht durchgesetzt** |
 | Messbarkeit | **ausreichend** | ↑↑ | 36 Fragen, 4 Metrikgruppen, 7 kritische Fehler, Governance. **Nichts gemessen** |
 | Kennzahlendisziplin | **ausreichend** | ↑ | Fehlerhafte Summen gefunden und korrigiert; Auszählung statt Fortschreibung |
+| Planungsklarheit Phase 1 | **gut** | ↑↑ | Fünf Streams, sechs geschnittene Work Packages, Nachweisstufen und zwölf Stop-Bedingungen; zuvor nur ein Backlog |
+| **Nachweislage** | **schwach** | → | **Alle Artefakte stehen auf Stufe 1 `dokumentiert`.** Kein Negativtest, kein Restore, kein Messwert |
 | Implementierung | nicht bewertbar | | Kein Code |
 | Testabdeckung | nicht bewertbar | | Kein Code |
 | CI/CD | nicht bewertbar | | In Phase 0 verboten |
@@ -52,7 +54,7 @@ Durchsetzung, nicht ein weiteres Dokument.
 > „CBP-WP-002" zeigt die damals berichteten Werte; kursive Angaben waren
 > falsch addiert.
 
-| Kennzahl | CBP-WP-002 | **CBP-WP-007** |
+| Kennzahl | CBP-WP-002 | **CBP-WP-008** |
 | --- | --- | --- |
 | G0-Kriterien gesamt | *41* → korrekt 47 | **47** |
 | davon blockierend | *39* → korrekt 45 | **25** (dreistufiges Modell) |
@@ -65,7 +67,7 @@ Durchsetzung, nicht ein weiteres Dokument.
 | Conditional | — | 6 |
 | Discovery-Fragen | *55* → korrekt 56 | **56** |
 | davon P0 | *35* → korrekt 38 | **38** |
-| davon P0 offen und Core Required | 38 | **8** |
+| davon P0 offen und Core Required | 38 | **0** |
 | Getroffene Entscheidungen | 14 | **28** |
 | davon A0 | 8 | **22** |
 | Offene Entscheidungen | 27 | **21** |
@@ -75,7 +77,9 @@ Durchsetzung, nicht ein weiteres Dokument.
 | davon hoch | 14 | 17 |
 | Capabilities `implemented` | **0** | **0** |
 | Angenommene ADRs | 0 | **6** |
-| Commits | 2 | 7 |
+| Vorgeschlagene Work Packages | 0 | **6** (CBP-WP-009…014) |
+| Nachweise oberhalb Stufe 1 | 0 | **0** |
+| Commits | 2 | **8** |
 
 ## Fortschritt in einem Bild
 
@@ -112,16 +116,17 @@ Umsetzung. Reihenfolge nach dem [Phase-1-Backlog](../docs/roadmap/PHASE_1_BACKLO
 
 | # | Hebel | Backlog | Wirkung |
 | --- | --- | --- | --- |
-| 1 | **Technische Sicherheitsgrundlage** | **P3** | Der breiteste Enabler — P4, P8 und P10 hängen daran. Schließt R-25 und R-27 |
-| 2 | Repository-Entscheidung und Source Mapping | P1, P2 | Schließt OD-26, OD-05 und OD-06 |
+| 1 | **Technische Sicherheitsgrundlage** | **P3** | Der breiteste Enabler — P4, P8 und P10 hängen daran. Schließt R-25 und R-27. Geschnitten als CBP-WP-011 (Spezifikation) und CBP-WP-012 (Umsetzung) |
+| 2 | Repository-Entscheidung und Source Mapping | P1, P2 | Schließt OD-26, OD-05 und OD-06. Geschnitten als CBP-WP-009 und CBP-WP-010 |
 | 3 | `excluded-from-ai`-Negativtests | P8 | Auflage 2; macht aus einer behaupteten Sperre eine geprüfte |
 | 4 | Benchmarklauf V0/V1 | P7 | Auflage 3; kalibriert OD-02b, schließt R-21 |
 | 5 | Restore-Test und DRC Profil A | P9, P10 | Auflagen 4 und 5; R-20 und R-34 |
 ## Bewertung in einem Satz
 
-Phase 0 ist **abgeschlossen und freigegeben** — von hier an misst dieser Score
-nicht mehr die Vollständigkeit von Dokumenten, sondern den Fortschritt von
-**Nachweisen**, und der steht bei null.
+Phase 0 ist **abgeschlossen und freigegeben**, Phase 1 ist vollständig geplant
+— aber von hier an misst dieser Score nicht mehr die Vollständigkeit von
+Dokumenten, sondern den Fortschritt von **Nachweisen**, und der steht
+weiterhin bei null.
 ## Pflege
 
 Diese Bewertung wird bei jedem Work Package erneuert. Kennzahlen werden

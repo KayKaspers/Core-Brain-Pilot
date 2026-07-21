@@ -1,12 +1,12 @@
-# Human-Maintainer-Fragebogen — Discovery Phase 0
+﻿# Human-Maintainer-Fragebogen — Discovery Phase 0
 
 | Feld | Wert |
 | --- | --- |
-| Phase | Phase 0 – Discovery und Scope Lock |
-| Nächstes Gate | G0 – Discovery and Scope Lock (**NOT PASSED**) |
-| Überarbeitet in | CBP-WP-003 |
+| Gate G0 | **PASSED WITH NOTES** — 2026-07-21, A0 |
+| Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
+| Überarbeitet in | CBP-WP-008 |
 | Autoritätsklasse | A2 |
-| Stand | 2026-07-20 |
+| Stand | 2026-07-21 |
 
 Dies ist der **einzige** Fragebogen des Projekts. **Keine Frage wird durch
 Annahme beantwortet.**
@@ -65,8 +65,8 @@ Sämtliche konkreten Werte bleiben bewusst unerhoben.
 
 | # | Frage | Prio | G0 | Klasse | Status |
 | --- | --- | --- | --- | --- | --- |
-| 3.1 | Primärer Nutzer | P0 | A-1 | **Core** | **HDI A2** — `answered` |
-| 3.2 | Erwartete Nutzerzahl | P0 | A-2 | **Core** | **HDI A2** — `answered`, 1 im Pilot |
+| 3.1 | Primärer Nutzer | P0 | A-1 | **Core** | **`accepted`** |
+| 3.2 | Erwartete Nutzerzahl | P0 | A-2 | **Core** | **`accepted`** — 1 im Pilot |
 | 3.3 | Zahl der Geräte nach Typ | P0 | A-3 | Depl | offen |
 | 3.4 | Desktop-Arbeitsfälle | P0 | A-4 | **Core** | **HDI A6** — `accepted` |
 | 3.5 | Mobile Arbeitsfälle, Android oder iOS | P0 | A-5 | **Core** | **HDI A6** — `accepted`; Plattform offen |
@@ -78,14 +78,14 @@ Sämtliche konkreten Werte bleiben bewusst unerhoben.
 
 | # | Frage | Prio | G0 | Klasse | Status |
 | --- | --- | --- | --- | --- | --- |
-| 4.1 | Gewünschte Wissensquellen | P0 | D-1 | **Core** | **HDI A3** — `answered` |
+| 4.1 | Gewünschte Wissensquellen | P0 | D-1 | **Core** | **`accepted`** — PILOT_SOURCE_CONTRACT (CBP-WP-006) |
 | 4.2 | Größenordnung | P0 | D-2 | Depl | offen, bewusst nicht erhoben |
-| 4.3 | Dateiformate | P0 | D-3 | **Core** | **HDI A3** — `answered` |
+| 4.3 | Dateiformate | P0 | D-3 | **Core** | **`accepted`** |
 | 4.4 | Datenklasse je Quelle | P0 | D-4 | **Core** | **HDI A4** — `accepted` auf Profilebene |
 | 4.5 | Ausgeschlossene Daten | P0 | D-5 | **Core** | **HDI A4** — `accepted` (D-021) |
 | 4.6 | Personenbezogene Daten und Rechtsgrundlage | P0 | D-6 | Cond | **HDI A4** — `not-applicable` für den Pilot (D-022) |
 | 4.7 | Vertrauliche Informationen | P0 | D-7 | Cond | **HDI A4** — `not-applicable` für den Pilot (D-020) |
-| 4.8 | **Verfahren bei Secret in der Git-Historie** | **P0** | **D-8** | **Core** | **offen** — Verbot bestätigt, Ablauf nicht |
+| 4.8 | Verfahren bei Secret in der Git-Historie | P0 | D-8 | **Core** | **`accepted`** — SECRET_INCIDENT_RESPONSE (CBP-WP-004) |
 | 4.9 | Schnitt einer Wissenseinheit | P1 | — | — | offen |
 | 4.10 | Verpflichtende Frontmatter-Felder | P1 | — | — | offen |
 | 4.11 | Bildung der stabilen Source-ID | P1 | — | — | offen |
@@ -96,10 +96,10 @@ Sämtliche konkreten Werte bleiben bewusst unerhoben.
 | # | Frage | Prio | G0 | Klasse | Status |
 | --- | --- | --- | --- | --- | --- |
 | 5.1 | Aktuelle Claude-Desktop-Nutzung | P0 | E-1 | Depl | offen |
-| 5.2 | **Erlaubte Repository-Zugriffe** | **P0** | **E-2** | **Core** | **offen** |
-| 5.3 | **GitHub-Zugriffe** | **P0** | **E-3** | **Core** | **offen** |
-| 5.4 | **Berechtigungsstufen je Bereich** | **P0** | **E-4** | **Core** | **offen** |
-| 5.5 | **Freigabeverfahren** | **P0** | **E-5** | **Core** | **offen** |
+| 5.2 | Erlaubte Repository-Zugriffe | P0 | E-2 | **Core** | **`accepted`** — PERMISSION_MODEL |
+| 5.3 | GitHub-Zugriffe | P0 | E-3 | **Core** | **`accepted`** — PERMISSION_MODEL |
+| 5.4 | Berechtigungsstufen je Bereich | P0 | E-4 | **Core** | **`accepted`** — Matrix 9×12 |
+| 5.5 | Freigabeverfahren | P0 | E-5 | **Core** | **`accepted`** — sechsstufiger Ablauf |
 
 Dieser Block ist der größte zusammenhängende Core-Required-Rest neben dem
 Benchmark. Erfasst als OD-32.
@@ -122,8 +122,8 @@ Benchmark. Erfasst als OD-32.
 
 | # | Frage | Prio | G0 | Klasse | Status |
 | --- | --- | --- | --- | --- | --- |
-| 7.1 | **Repository dauerhaft privat** | **P0** | **A-8** | **Core** | **offen** |
-| 7.2 | **Explizite Nicht-Ziele** | **P0** | **A-8** | **Core** | teilweise — HDI A6 liefert funktionale Abgrenzungen, Liste unvollständig |
+| 7.1 | Repository dauerhaft privat | P0 | — | — | **offen** — OD-11; **nicht Teil von A-8** |
+| 7.2 | Explizite Nicht-Ziele | P0 | A-8 | **Core** | **`accepted`** — 11 Nicht-Ziele in DO_NOT_START |
 | 7.3 | Lizenz | P1 | — | — | offen (OD-23) |
 | 7.4 | Spätere öffentliche Zielgruppe | P2 | — | — | offen |
 | 7.5 | Öffentlicher Produktname | P2 | — | — | offen (OD-28) |
@@ -143,33 +143,22 @@ Benchmark. Erfasst als OD-32.
 | P2 | 4 | **4** |
 | **Summe** | 55 | **56** |
 
-### Stand nach dem Intake
+### Stand nach G0
 
 | Kategorie | Anzahl |
 | --- | --- |
 | P0-Fragen gesamt | 38 |
-| davon `accepted` | 8 |
-| davon `answered` | 4 |
+| davon einem `accepted` Core-Kriterium zugeordnet | **19** |
 | davon `not-applicable` (Conditional) | 2 |
-| davon **vertagt** (Deployment Required) | 16 |
-| davon **weiterhin offen und Core Required** | **8** |
+| davon **vertagt** (Deployment Required, DRC) | 16 |
+| davon weiterhin offen ohne Core-Bezug | **1** (7.1 Repository-Sichtbarkeit, OD-11) |
 
-### Die acht offenen Core-Required-P0-Fragen
+**Alle 25 Core-Required-Kriterien sind `accepted`.** Die 16 vertagten Fragen
+bleiben **sichtbar offen** und werden im
+[DRC](../operations/DEPLOYMENT_READINESS_CHECK.md) geprüft — Status
+`NOT EVALUATED`.
 
-| # | Frage |
-| --- | --- |
-| 4.8 | Verfahren bei Secret in der Git-Historie |
-| 5.2 | Erlaubte Repository-Zugriffe |
-| 5.3 | GitHub-Zugriffe |
-| 5.4 | Berechtigungsstufen je Bereich |
-| 5.5 | Freigabeverfahren |
-| 7.1 | Repository dauerhaft privat |
-| 7.2 | Explizite Nicht-Ziele (teilweise beantwortet) |
-| — | Benchmarkfragen G-1 bis G-6, in diesem Fragebogen nicht als Einzelfrage geführt |
-
-Die 16 vertagten P0-Fragen bleiben **sichtbar offen**. Sie blockieren G0 nicht
-mehr, wohl aber die spätere Installation — siehe Risiko R-34.
-
+Die P1- und P2-Fragen bleiben offen und sind nicht G0-relevant.
 ## Bearbeitung
 
 Beantwortete Fragen werden **nicht gelöscht**. Die Antwort wird ergänzt, der

@@ -122,12 +122,22 @@ nennen.
 
 | Feld | Wert |
 | --- | --- |
-| Phase | Phase 0 – Discovery und Scope Lock |
-| Aktuelles Work Package | CBP-WP-004 (`in-review`) |
-| Nächstes Gate | G0 – Discovery and Scope Lock |
-| **Gate-Status** | **NOT PASSED** — 18 von 25 Core-Kriterien `accepted`, 7 offen |
-| Angenommene ADRs | 5 (A1) |
-| Implementierte Capabilities | keine |
+| Phase | **Phase 0 – COMPLETE** |
+| **Gate G0** | **PASSED WITH NOTES** — 2026-07-21, A0 |
+| **Phase 1** | **AUTHORIZED FOR PLANNING** — keine Implementierung freigegeben |
+| Aktuelles Work Package | CBP-WP-008 (`in-review`) |
+| Core-Kriterien | 25 von 25 `accepted`, 0 `answered`, 0 `open`, 0 `blocked` |
+| Angenommene ADRs | **6** (A1) |
+| DRC | **NOT EVALUATED** |
+| Benchmark | **entworfen, nicht ausgeführt** (Dataset 2.0.0) |
+| Technische Implementierung | **nicht begonnen** |
+| Implementierte Capabilities | **keine** |
+
+> **Criteria complete ≠ Technical implementation ≠ Deployment ready.**
+> G0 sperrt den Produkt- und Pilot-Scope. **16 der 25 Kriterien beschreiben
+> Kontrollen, die nicht existieren.** Die Freigabe autorisiert ausschließlich
+> die **Planung** von Phase 1 — siehe
+> [docs/roadmap/PHASE_1_BACKLOG.md](docs/roadmap/PHASE_1_BACKLOG.md).
 
 ## Sperrliste Phase 0
 

@@ -2,10 +2,10 @@
 
 | Feld | Wert |
 | --- | --- |
-| Phase | Phase 0 – Discovery und Scope Lock |
-| Überarbeitet in | CBP-WP-007 |
+| Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
+| Überarbeitet in | **CBP-WP-008** |
 | Autoritätsklasse | A2 |
-| Stand | 2026-07-20 |
+| Stand | 2026-07-21 |
 
 Dieses Dokument verzeichnet fehlende oder nicht zugängliche
 **Eingangsinformation**.
@@ -98,6 +98,14 @@ CBP-WP-001.
 Die Abweichungen AB-03 bis AB-08 bleiben nur **vorläufig für den Bootstrap**
 akzeptiert. Siehe W-05, OD-26, OD-29.
 
+**Stand nach CBP-WP-008:** Die Entscheidung ist vorbereitet, aber **nicht
+getroffen**. Zwei unabhängige Fragen liegen vor — das Verzeichnislayout
+([REPOSITORY_LAYOUT_OPTIONS.md](../architecture/REPOSITORY_LAYOUT_OPTIONS.md),
+Optionen A/B/C) und der Arbeitsbereichsschnitt
+([REPOSITORY_AND_WORKSPACE_PLAN.md](../roadmap/REPOSITORY_AND_WORKSPACE_PLAN.md),
+Modelle W-1/W-2/W-3). **OD-26 braucht beide Antworten**; vorgesehen für
+CBP-WP-009.
+
 ---
 
 ## OI-08 — Berechtigungsmodell
@@ -163,6 +171,26 @@ Verbleibend: **OD-05** (Ablageort des kanonischen Bestands, von P0 auf P1
 präzisiert) und **OD-06** (konkrete Quellen und Nicht-Quellen, ebenfalls P1).
 Beide bleiben offen und werden im Deployment Mapping beziehungsweise mit dem
 Human Maintainer geklärt.
+
+**Stand nach CBP-WP-008:** Das **Schema** eines Deployment Mappings liegt vor
+([PILOT_SOURCE_MAPPING_PLAN.md](../roadmap/PILOT_SOURCE_MAPPING_PLAN.md), 19
+Felder, fail-closed Defaults). **Es existiert kein einziges Mapping.** OD-05 und
+OD-06 bleiben offen; vorgesehen für CBP-WP-010, ausdrücklich erst nach
+Human-Eingabe.
+
+---
+
+## OI-11 — Secret-Store-Technologie nicht bestimmt
+
+**Schweregrad:** mittel · **Status:** **NEU** (2026-07-21, CBP-WP-008) ·
+**Adressat:** Human Maintainer
+
+Kontrollbereich **KB-08** und das Mappingfeld `location_reference` setzen einen
+Secret Store voraus, auf den ausschließlich **verwiesen** wird. Weder die
+Technologie noch das Verweisformat sind bestimmt, und die Frage war bisher in
+keinem Register geführt.
+
+Aufgenommen als **OD-34**. Blockiert CBP-WP-012, nicht die aktuelle Planung.
 ---
 
 ## Bearbeitung

@@ -2,13 +2,12 @@
 
 | Feld | Wert |
 | --- | --- |
-| Phase | Phase 0 – Discovery und Scope Lock |
-| Aktuelles Work Package | **CBP-WP-007** |
-| Gate G0 | **PASSED WITH NOTES** — 2026-07-21 |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Überarbeitet in | CBP-WP-007 |
+| Aktuelles Work Package | **CBP-WP-008** (`in-review`) |
+| Gate G0 | **PASSED WITH NOTES** — 2026-07-21 |
+| Überarbeitet in | CBP-WP-008 |
 | Autoritätsklasse | A2 |
-| Stand | 2026-07-20 |
+| Stand | 2026-07-21 |
 
 Spalten nach `WORK_PACKAGE_QUEUE_TEMPLATE.md` (NDF v1.0.0).
 
@@ -34,10 +33,23 @@ Spalten nach `WORK_PACKAGE_QUEUE_TEMPLATE.md` (NDF v1.0.0).
 | CBP-WP-004 | Generic Architecture and Deployment Profiles | P0 | **`committed`** | [work-packages/CBP-WP-004.md](../work-packages/CBP-WP-004.md) |
 | CBP-WP-005 | Benchmark Dataset and Retrieval Evaluation Design | P0 | **`committed`** | [work-packages/CBP-WP-005.md](../work-packages/CBP-WP-005.md) |
 | CBP-WP-006 | G0 Scope-Lock Review and Pilot Source Contract | P0 | **`committed`** | [work-packages/CBP-WP-006.md](../work-packages/CBP-WP-006.md) |
-| CBP-WP-007 | G0 Decision Recording and Phase 1 Backlog | P0 | **`in-review`** | [work-packages/CBP-WP-007.md](../work-packages/CBP-WP-007.md) |
-| CBP-WP-008 | Phase 1 Foundation Implementation Plan | P0 | `proposed` | noch nicht erstellt |
+| CBP-WP-007 | G0 Decision Recording and Phase 1 Backlog | P0 | **`committed`** | [work-packages/CBP-WP-007.md](../work-packages/CBP-WP-007.md) |
+| CBP-WP-008 | Phase 1 Foundation Implementation Plan | P0 | **`in-review`** | [work-packages/CBP-WP-008.md](../work-packages/CBP-WP-008.md) |
+| CBP-WP-009 | Repository and Workspace Decision | P0 | `proposed` | noch nicht erstellt |
+| CBP-WP-010 | Pilot Source Mapping Specification | P0 | `proposed` | noch nicht erstellt |
+| CBP-WP-011 | Technical Security Foundation | P0 | `proposed` | noch nicht erstellt |
+| CBP-WP-012 | Ingest Quarantine and Security Scanning | P1 | `proposed` | noch nicht erstellt |
+| CBP-WP-013 | Deterministic Source Registry | P1 | `proposed` | noch nicht erstellt |
+| CBP-WP-014 | Phase 1 Evidence Consolidation | P1 | `proposed` | noch nicht erstellt |
 
-Genau ein Work Package ist als `proposed` geführt.
+**Sechs Work Packages sind als `proposed` geführt** — CBP-WP-009 bis
+CBP-WP-014, vorgeschlagen in
+[PHASE_1_WORK_PACKAGE_MAP.md](../docs/roadmap/PHASE_1_WORK_PACKAGE_MAP.md).
+**Keines ist freigegeben. Implementierung autorisiert: nein.**
+
+> Die frühere Regel „genau ein Work Package ist `proposed`" gilt nicht mehr:
+> CBP-WP-008 hat den gesamten Phase-1-Einstieg auf einmal geschnitten. Regel 4
+> (**genau ein `active`**) bleibt unberührt.
 
 ---
 
@@ -131,32 +143,67 @@ G0-Review-Unterlage.
 | Feld | Wert |
 | --- | --- |
 | Typ | `docs-only` · Prompt Mode **Standard** · Budget **B0 – Micro** |
-| Status | **`in-review`** |
+| Status | **`committed`** |
 | Ablauf | interaktiv — Phase A Entscheidungsfragebogen, Phase B Aufzeichnung |
-| Commit | **nicht** ausgeführt |
+| Git-Beleg | `5e9c687 CBP-WP-007: record G0 approval and phase 1 planning backlog` |
 
 Ergebnis: **G0 PASSED WITH NOTES** und **ADR-0006 accepted**, beide am
 2026-07-21 durch den Human Maintainer (A0). Phase-1-Backlog mit 11 Punkten,
 Status **AUTHORIZED FOR PLANNING**. Zähl- und Statusregel ergänzt.
 
-## CBP-WP-008 — Vorschlag, nicht freigegeben
+## CBP-WP-008
 
 | Feld | Wert |
 | --- | --- |
 | Titel | **Phase 1 Foundation Implementation Plan** |
+| Typ | `docs-only` · Prompt Mode **Full** · Budget **B2 – Standard** |
+| Status | **`in-review`** |
+| Commit | **nicht** ausgeführt |
+
+Ergebnis: drei veraltete Gate-Angaben korrigiert · P1–P5 als Streams **F1–F5**
+geplant · Repository- und Workspace-Schnitt entscheidungsreif (W-1/W-2/W-3) ·
+Mappingschema mit 19 Feldern · **zwölf Kontrollbereiche** KB-01…KB-12 ·
+fail-closed Quarantäne mit 12 Schritten und 10 Status · Registry mit 24 Feldern
+· **sechs Folge-Work-Packages geschnitten** · sechs Nachweisstufen · zwölf
+Stop-Bedingungen · **vierter Zählfehler gefunden und korrigiert**.
+
+**Nichts gebaut, nichts installiert, nichts verschoben, nichts gemessen.**
+
+## CBP-WP-009 — einziges vorgeschlagenes nächstes Work Package
+
+| Feld | Wert |
+| --- | --- |
+| Titel | **Repository Boundary Decision** |
 | Typ | `docs-only` |
 | Prompt Mode | **Full** |
-| Context Budget | **B2 – Standard** |
+| Context Budget | **B1 – Lean** |
+| Ablauf | **interaktiv**, mit ausdrücklicher Human-Entscheidung zu **OD-26** |
+| Status | **`proposed`** |
 
-**Ziel.** Aus dem Phase-1-Backlog einen ausführbaren Plan machen: die Punkte
-P1 bis P5 in konkrete Work Packages schneiden, mit Reihenfolge, Nachweisen und
-Abbruchbedingungen. Schwerpunkt auf **P3 (technische Sicherheitsgrundlage)** —
-dem breitesten Enabler.
+**Ziel.** OD-26 schließen — sowohl das Verzeichnislayout (Option A/B/C) als
+auch den Arbeitsbereichsschnitt (Modell W-1/W-2/W-3). Beide Antworten werden
+gebraucht.
 
-**Weiterhin `docs-only`.** Der Plan beschreibt die Umsetzung, er beginnt sie
-nicht. Die G0-Freigabe autorisiert Planung, nicht Implementierung.
+**Verboten:** jede Reorganisation, jede Verschiebung, jedes Vorwegnehmen von
+OD-05, OD-06 oder OD-11.
 
 **Nicht ausführen** ohne ausdrückliche Freigabe.
+
+## CBP-WP-010 bis CBP-WP-014 — vorgeschlagen, nicht freigegeben
+
+Vollständig geschnitten in
+[PHASE_1_WORK_PACKAGE_MAP.md](../docs/roadmap/PHASE_1_WORK_PACKAGE_MAP.md).
+
+| ID | Titel | Typ |
+| --- | --- | --- |
+| CBP-WP-010 | Pilot Source Mapping Specification | `docs-only` |
+| CBP-WP-011 | Technical Security Foundation Specification | `docs-only` |
+| CBP-WP-012 | Foundation Runtime Skeleton | spätere Implementierung |
+| CBP-WP-013 | Ingest Quarantine Minimum Viable Pipeline | spätere Implementierung |
+| CBP-WP-014 | Deterministic Source Registry and Catalog | spätere Implementierung |
+
+**Alle `proposed`. Implementierung autorisiert: nein.**
+
 ---
 
 ## Regeln

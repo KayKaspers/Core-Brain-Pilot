@@ -25,10 +25,12 @@ vorgesehene, **noch nicht implementierte** Anwendungslaufzeit.
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Aktuelles Work Package | CBP-WP-007 (`in-review`) |
-| Nächster Schritt | Planung von Phase 1 — **keine Implementierung freigegeben** |
+| Aktuelles Work Package | CBP-WP-008 (`in-review`) |
+| Nächster Schritt | **CBP-WP-009 bis CBP-WP-014 vorgeschlagen**, keines freigegeben — **keine Implementierung autorisiert** |
 | **Gate G0** | **PASSED WITH NOTES** — 2026-07-21, A0 |
+| Phase-1-Planung | **Streams F1–F5 geplant**, [Foundation Plan](docs/roadmap/PHASE_1_FOUNDATION_PLAN.md) |
 | Implementierte Capabilities | **keine (0 von 29)** |
+| Angenommene ADRs | **6** |
 | Framework | Nova Development Framework v1.0.0 |
 
 ## Pilotumfang
@@ -87,10 +89,10 @@ Nur der Human Maintainer committet, tagged und pusht.
 | `docs/operations/` | Deployment Readiness Check |
 | `docs/benchmark/` | Quellenvertrag, Evaluationsplan, Metriken, Baseline-Protokoll, Governance |
 | `docs/sources/` | Pilot Source Contract, Source-Slot-Modell |
-| `docs/roadmap/` | Phase-1-Backlog |
+| `docs/roadmap/` | Phase-1-Backlog, Foundation Plan, Stream-Pläne F1–F5, Work-Package-Karte, Nachweisplan, Abbruchbedingungen |
 | `benchmarks/` | Synthetischer Korpus (24 Quellen), 36 Fragen, erwartete Ergebnisse |
 | `docs/security/` | Berechtigungsmodell, Secret-Incident-Response |
-| `docs/decisions/` | Architecture Decision Records — **5 angenommen** |
+| `docs/decisions/` | Architecture Decision Records — **6 angenommen** |
 | `docs/discovery/` | Fragebogen, G0-Kriterien, Quellenabgleich, A5-Projektübergabe |
 | `docs/ndf/` | NDF-Anwendung und dokumentierte Abweichungen |
 | `docs/privacy/` | Datenklassen und technische Datenschutzregeln |
@@ -99,7 +101,9 @@ Nur der Human Maintainer committet, tagged und pusht.
 | `project-system/` | Profil, Manifest, Capability Matrix, Register, WP-Queue |
 | `work-packages/` | Wortlaut der freigegebenen Work Packages |
 
-> Die Struktur ist **nicht freigegeben** und vor G0 zu entscheiden — OD-26.
+> Die Struktur ist **weiterhin nicht freigegeben**. **OD-26 bleibt offen** und
+> ist für CBP-WP-009 vorgesehen; Entscheidungsvorbereitung in
+> [REPOSITORY_AND_WORKSPACE_PLAN.md](docs/roadmap/REPOSITORY_AND_WORKSPACE_PLAN.md).
 
 ## Einstiegspunkte
 
@@ -113,6 +117,10 @@ Nur der Human Maintainer committet, tagged und pusht.
 | Welche Quellen sind zulässig? | [PILOT_SOURCE_CONTRACT.md](docs/sources/PILOT_SOURCE_CONTRACT.md) |
 | Was hat der Maintainer entschieden? | [HUMAN_DISCOVERY_INPUT.md](docs/discovery/HUMAN_DISCOVERY_INPUT.md) |
 | Welche Fragen sind offen? | [DISCOVERY_QUESTIONS.md](docs/discovery/DISCOVERY_QUESTIONS.md) |
+| **Wie geht Phase 1 weiter?** | **[PHASE_1_FOUNDATION_PLAN.md](docs/roadmap/PHASE_1_FOUNDATION_PLAN.md)** |
+| Welche Work Packages sind vorgeschlagen? | [PHASE_1_WORK_PACKAGE_MAP.md](docs/roadmap/PHASE_1_WORK_PACKAGE_MAP.md) |
+| Was zählt als Nachweis? | [PHASE_1_EVIDENCE_PLAN.md](docs/roadmap/PHASE_1_EVIDENCE_PLAN.md) |
+| Wann ist anzuhalten? | [PHASE_1_STOP_CONDITIONS.md](docs/roadmap/PHASE_1_STOP_CONDITIONS.md) |
 | Wie ist das System aufgebaut? | [SYSTEM_ARCHITECTURE.md](docs/architecture/SYSTEM_ARCHITECTURE.md) |
 | Wer darf was? | [PERMISSION_MODEL.md](docs/security/PERMISSION_MODEL.md) |
 | Woher stammen die Aussagen? | [SOURCE_RECONCILIATION.md](docs/discovery/SOURCE_RECONCILIATION.md) |
