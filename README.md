@@ -1,6 +1,6 @@
 ﻿# Core Brain Pilot
 
-> **Phase 0 – Discovery und Scope Lock.**
+> **Phase 0 abgeschlossen — G0 am 2026-07-21 mit Auflagen freigegeben.**
 > Dieses Repository enthält derzeit **ausschließlich Dokumentation**.
 > Es existiert **keine** Implementierung, keine Laufzeit und keine Installation.
 
@@ -24,10 +24,10 @@ vorgesehene, **noch nicht implementierte** Anwendungslaufzeit.
 
 | Feld | Wert |
 | --- | --- |
-| Phase | Phase 0 – Discovery und Scope Lock |
-| Aktuelles Work Package | CBP-WP-006 (`in-review`) |
-| Nächstes Gate | **G0 – Discovery and Scope Lock** |
-| **Gate-Status** | **NOT PASSED** — alle 25 Core-Kriterien `accepted`; **READY FOR HUMAN DECISION** |
+| Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
+| Aktuelles Work Package | CBP-WP-007 (`in-review`) |
+| Nächster Schritt | Planung von Phase 1 — **keine Implementierung freigegeben** |
+| **Gate G0** | **PASSED WITH NOTES** — 2026-07-21, A0 |
 | Implementierte Capabilities | **keine (0 von 29)** |
 | Framework | Nova Development Framework v1.0.0 |
 
@@ -87,6 +87,7 @@ Nur der Human Maintainer committet, tagged und pusht.
 | `docs/operations/` | Deployment Readiness Check |
 | `docs/benchmark/` | Quellenvertrag, Evaluationsplan, Metriken, Baseline-Protokoll, Governance |
 | `docs/sources/` | Pilot Source Contract, Source-Slot-Modell |
+| `docs/roadmap/` | Phase-1-Backlog |
 | `benchmarks/` | Synthetischer Korpus (24 Quellen), 36 Fragen, erwartete Ergebnisse |
 | `docs/security/` | Berechtigungsmodell, Secret-Incident-Response |
 | `docs/decisions/` | Architecture Decision Records — **5 angenommen** |

@@ -2,16 +2,16 @@
 
 | Feld | Wert |
 | --- | --- |
-| **Status** | **READY FOR HUMAN DECISION** |
-| **Gate-Status** | **NOT PASSED** |
+| **Status** | **DECIDED** — 2026-07-21 |
+| **Gate-Status** | **PASSED WITH NOTES** |
 | Gate | G0 – Discovery and Scope Lock |
 | Erfasst in | CBP-WP-006 |
 | Autoritätsklasse | A3 |
 | Adressat | **Human Maintainer** |
 | Stand | 2026-07-21 |
 
-Diese Unterlage fasst zusammen, worüber entschieden wird. Sie entscheidet
-nichts.
+Diese Unterlage fasste zusammen, worüber entschieden wurde. **Die Entscheidung
+ist getroffen** — siehe die beiden Entscheidungsblöcke am Ende.
 
 ---
 
@@ -86,7 +86,7 @@ logische Source Slots:
 
 **Kern der Entscheidung:** Der allgemeine Kern enthält **keinen privaten
 Wissensbestand**. Quellen werden über logische Slots definiert und erst im
-Deployment Mapping konkret zugeordnet (ADR-0006, `proposed`).
+Deployment Mapping konkret zugeordnet (**ADR-0006, `accepted` am 2026-07-21**).
 
 ## 6. Autoritätsmodell
 
@@ -256,20 +256,75 @@ der Entscheidung sichtbar werden. Ich schlage drei Auflagen vor:
 # BEGIN G0 HUMAN DECISION
 
 Decision:
-<vom Human Maintainer auszufüllen>
+APPROVE G0 WITH NOTES
 
 Notes:
-<optional>
+G0 bestätigt den dokumentierten Produkt- und Pilot-Scope.
+
+Die Freigabe autorisiert ausschließlich die Planung von Phase 1.
+Sie ist keine Freigabe für produktiven Betrieb, produktiven Ingest,
+öffentliche Erreichbarkeit oder die Verarbeitung zusätzlicher
+sensibler Datenklassen.
+
+Vor einem produktiven Betrieb müssen mindestens folgende Nachweise
+erbracht werden:
+
+- technische Durchsetzung des Berechtigungsmodells,
+- erfolgreiche Negativtests für excluded-from-ai,
+- Durchführung und Auswertung des V0-/V1-Benchmarks,
+- Deployment Readiness Check für das gewählte Profil mit Status ready,
+- erfolgreicher Backup-, Restore- und Rebuild-Test.
+
+Web-UI und mobile Nutzung dürfen erst nach einem funktionierenden
+und gemessenen Retrieval-Piloten umgesetzt werden.
 
 Authority:
 A0
+
+Decision date:
+2026-07-21
+
+Source:
+direct Human Maintainer decision
 
 # END G0 HUMAN DECISION
 
 ---
 
-> **Dieser Block ist bewusst leer.** Der Implementation Agent darf ihn nicht
-> ausfüllen. Bis er ausgefüllt ist, gilt: **G0 NOT PASSED**.
+# BEGIN ADR-0006 HUMAN DECISION
+
+Decision:
+ACCEPT ADR-0006
+
+Notes:
+Produktive und private Wissensbestände bleiben außerhalb des
+allgemeinen Core-Repositorys.
+
+Sie werden über logische Source Slots und deploymentspezifische,
+fail-closed Mappings angebunden.
+
+Die Entscheidung legt keine konkreten Pfade, Repository-URLs oder
+Produktionsbestände fest.
+
+OD-05 und OD-06 bleiben für konkrete Quellen und Mappings offen.
+OD-26 bleibt für die spätere Repository-Layout-Entscheidung offen.
+
+Authority:
+A0
+
+Decision date:
+2026-07-21
+
+Source:
+direct Human Maintainer decision
+
+# END ADR-0006 HUMAN DECISION
+
+---
+
+> **Beide Entscheidungen wurden am 2026-07-21 vom Human Maintainer getroffen**
+> und in CBP-WP-007 aufgezeichnet. Der Wortlaut ist unverändert übernommen;
+> es wurden keine Auflagen ergänzt oder erweitert.
 >
-> Die Aufzeichnung der Entscheidung erfolgt im vorgeschlagenen Work Package
-> CBP-WP-007 — nach und nicht vor dem Beschluss.
+> **Gate-Status: PASSED WITH NOTES.** Die Auflagen der Notes sind Voraussetzung
+> für den **produktiven Betrieb**, nicht für die Planung von Phase 1.

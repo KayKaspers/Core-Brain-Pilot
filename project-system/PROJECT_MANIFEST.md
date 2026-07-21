@@ -2,7 +2,7 @@
 
 | Feld | Wert |
 | --- | --- |
-| Überarbeitet in | CBP-WP-006 |
+| Überarbeitet in | CBP-WP-007 |
 | Autoritätsklasse | A2 |
 | Stand | 2026-07-20 |
 
@@ -36,17 +36,17 @@
 
 | Feld | Wert |
 | --- | --- |
-| Phase | Phase 0 – Discovery und Scope Lock |
-| Aktuelles Work Package | CBP-WP-006 (`in-review`) |
+| Phase | **Phase 0 – COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
+| Aktuelles Work Package | CBP-WP-007 (`in-review`) |
 | Nächstes Gate | **G0 – Discovery and Scope Lock** |
-| **Gate-Status** | **NOT PASSED** — Entscheidung des Human Maintainers steht aus |
+| **Gate-Status G0** | **PASSED WITH NOTES** — 2026-07-21, A0 |
 | G0-Kriterien | **47** |
 | davon blockierend (Core Required) | **25** |
 | davon `accepted` | **25** — alle |
-| **Kriterienstand** | **READY FOR HUMAN DECISION** |
+| Kriterienstand | 25 von 25 `accepted` |
 | Capabilities implementiert | **0** von 29 |
-| Angenommene ADRs | **5**; ein Vorschlag (ADR-0006) |
-| Scope gelockt | **nein** |
+| Angenommene ADRs | **6** |
+| Scope gelockt | **ja** — mit Auflagen |
 
 ## Repository
 
@@ -54,7 +54,7 @@
 | --- | --- |
 | Pfad | `D:\Projects\Core-Brain-Pilot` |
 | Branch | `main` |
-| Commits | 6 |
+| Commits | 7 |
 | Remote | `origin` → `https://github.com/KayKaspers/Core-Brain-Pilot.git` |
 | Commit-Autorität | ausschließlich Human Maintainer |
 

@@ -3,7 +3,7 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | Phase 0 – Discovery und Scope Lock |
-| Überarbeitet in | CBP-WP-006 |
+| Überarbeitet in | CBP-WP-007 |
 | Autoritätsklasse | A2 |
 | Stand | 2026-07-20 |
 
@@ -53,7 +53,7 @@ Kalibrierung der Token-Richtwerte als OD-02b offen.
 47 Kriterien liegen vor, seit CBP-WP-003 dreistufig klassifiziert in Core
 Required (25), Deployment Required (16) und Conditional (6).
 
-**Gate-Status weiterhin NOT PASSED.**
+**Gate-Status seit 2026-07-21: PASSED WITH NOTES** (A0, CBP-WP-007).
 
 ---
 
@@ -144,6 +144,10 @@ mit 24 Feldern und 10 Validierungsregeln. **D-1 steht auf `accepted`.**
 
 **Weiterhin offen:** der **konkrete produktive Bestand**. Welche Verzeichnisse,
 Repositories und Handoffs tatsächlich angebunden werden, ist nicht benannt.
+
+**ADR-0006 wurde am 2026-07-21 angenommen** (D-028, A0). Die Ebenentrennung ist
+damit bindend: private Bestände bleiben außerhalb des Kern-Repositorys. Die
+konkrete Zuordnung erfolgt in Phase 1, Backlogpunkt **P2**.
 
 Die Auflösung erfolgte über eine Ebenentrennung (ADR-0006, `proposed`):
 

@@ -3,7 +3,7 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | Phase 0 – Discovery und Scope Lock |
-| Letzte Prüfung | 2026-07-21, im Rahmen von CBP-WP-006 |
+| Letzte Prüfung | 2026-07-21, im Rahmen von CBP-WP-007 |
 | Autoritätsklasse | A2 |
 
 > Diese Datei gehört zur kanonischen NDF-Ordnerstruktur, war aber in der
@@ -59,7 +59,7 @@
 
 | Prüfung | Ergebnis |
 | --- | --- |
-| **G0 bleibt NOT PASSED** | **erfüllt** |
+| G0 zum Zeitpunkt der Prüfung NOT PASSED | erfüllt (historisch, CBP-WP-003) |
 | Kein neuer Gate-Name eingeführt | erfüllt — DRC ist ein Prüfmodell, kein Gate (ADR-0005) |
 | Kriterienklassen gekennzeichnet | erfüllt — Core 25, Deployment 16, Conditional 6 |
 | Deployment-Kriterien vertagt, nicht gestrichen | erfüllt — alle 16 im DRC erfasst, Status `not-evaluated` |
@@ -83,7 +83,7 @@
 | Prüfung | Ergebnis |
 | --- | --- |
 | Alle Statusdokumente nennen Phase 0 | erfüllt |
-| Aktuelles Work Package als CBP-WP-006 ausgewiesen | erfüllt |
+| Aktuelles Work Package als CBP-WP-007 ausgewiesen | erfüllt |
 | Keine Capability als `implemented` bezeichnet | erfüllt |
 | Alle Capabilities besitzen eine Priorität | erfüllt |
 | **Fehlerhafte Summen korrigiert** | **erfüllt** — 47/45/38/56 statt 41/39/35/55 |
@@ -159,12 +159,41 @@
 | Dokumentarische Erfüllung nicht als technische dargestellt | erfüllt — 16 Kriterien mit „technisch erforderlich: ja" |
 | Benchmarkdesign nicht als Ausführung dargestellt | erfüllt — alle G-Kriterien mit „nicht ausgeführt" |
 | **DRC bleibt NOT EVALUATED** | erfüllt |
-| **G0 bleibt NOT PASSED** | erfüllt |
+| **G0 nicht eigenmächtig freigegeben** | **erfüllt** — Freigabe erfolgte durch den Human Maintainer am 2026-07-21 |
 | Status READY FOR HUMAN DECISION eindeutig | erfüllt — in Kriterien, Matrix und Review |
 | **Entscheidungsblock leer** | erfüllt |
 | ADR-0006 bleibt `proposed` | erfüllt |
 | OD-05, OD-06, OD-26 bleiben offen | erfüllt |
 | Keine produktive Quelle eingebunden | erfüllt |
+
+## Zähl- und Statusregel
+
+*Ergänzt in CBP-WP-007, nach dem dritten Zählfehler des Projekts.*
+
+| # | Regel |
+| --- | --- |
+| **1** | **Summen werden erst nach Auszählung der aktuellen Quelltabelle geschrieben.** |
+| **2** | **Eine zuvor geschriebene Summenzeile ist keine gültige Quelle für eine spätere Summenzeile.** |
+| **3** | **Berichtssummen müssen gegen die zugrunde liegenden Zeilen geprüft werden.** |
+| **4** | **Bei Abweichung gilt die Tabelle**, bis die Ursache dokumentiert und korrigiert ist. |
+| **5** | **Manuelle Summen sind als `derived status data` zu behandeln** — reproduzierbar, nie autoritativ. |
+
+Regel 5 wendet das Kernprinzip des Projekts auf seine eigene Berichterstattung
+an: eine Summe ist eine Ableitung. Sie steht in derselben Beziehung zur Tabelle
+wie ein Index zum kanonischen Bestand — reproduzierbar, ersetzbar und der
+Quelle nachgeordnet.
+
+**Diese Regel schließt R-33 nicht.** Sie ist eine Dokumentregel, keine
+technische Kontrolle; das Risiko bleibt bestehen, bis eine automatische Prüfung
+existiert.
+
+### Historie der Zählfehler
+
+| Work Package | Fehler | Korrigiert in |
+| --- | --- | --- |
+| CBP-WP-002 | 41/39/35/55 statt 47/45/38/56 | CBP-WP-003 |
+| CBP-WP-003 | 6 `accepted` / 15 `open` statt 8 / 13 | im selben Lauf |
+| CBP-WP-006 | 15/6/4 statt 16/7/2 in der Evidenzmatrix | im selben Lauf |
 
 ## Offene Punkte
 

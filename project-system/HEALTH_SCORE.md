@@ -2,8 +2,8 @@
 
 | Feld | Wert |
 | --- | --- |
-| Phase | Phase 0 – Discovery und Scope Lock |
-| Letzte Bewertung | 2026-07-21, im Rahmen von CBP-WP-006 |
+| Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
+| Letzte Bewertung | 2026-07-21, im Rahmen von CBP-WP-007 |
 | Autoritätsklasse | A2 |
 
 > Diese Datei gehört zur kanonischen NDF-Ordnerstruktur, war aber in der
@@ -28,7 +28,7 @@ Keine Gesamtpunktzahl.
 | Gate-Klarheit | **gut** | → | Dreistufiges Modell plus DRC als eigener Prüfort für die 16 vertagten Kriterien |
 | Architekturklarheit | **gut** | ↑↑ | 9 Schichten, 14 Komponenten, 5 Profile, Rebuild-Vertrag; zuvor kein Komponentenschnitt |
 | Scope-Klarheit | **gut** | ↑ | **Alle 25 Core-Kriterien `accepted`**; Quellenraum über logische Slots definiert |
-| Entscheidungslage | **gut** | ↑↑ | 26 Entscheidungen und **5 angenommene ADRs** (A1); 8 P0 offen (zuvor 10) |
+| Entscheidungslage | **gut** | ↑ | 28 Entscheidungen, **6 angenommene ADRs**; G0 und ADR-0006 entschieden |
 | Antwortlage Discovery | **gut** | ↑ | Alle Core-Required-Fragen belegt; Entscheidung steht aus |
 | Sicherheitslage | **ausreichend** | ↑ | Berechtigungsmodell und Incident-Response dokumentiert (ADR-0004); **technisch weiterhin nicht durchgesetzt** |
 | Messbarkeit | **ausreichend** | ↑↑ | 36 Fragen, 4 Metrikgruppen, 7 kritische Fehler, Governance. **Nichts gemessen** |
@@ -52,7 +52,7 @@ Durchsetzung, nicht ein weiteres Dokument.
 > „CBP-WP-002" zeigt die damals berichteten Werte; kursive Angaben waren
 > falsch addiert.
 
-| Kennzahl | CBP-WP-002 | **CBP-WP-006** |
+| Kennzahl | CBP-WP-002 | **CBP-WP-007** |
 | --- | --- | --- |
 | G0-Kriterien gesamt | *41* → korrekt 47 | **47** |
 | davon blockierend | *39* → korrekt 45 | **25** (dreistufiges Modell) |
@@ -66,16 +66,16 @@ Durchsetzung, nicht ein weiteres Dokument.
 | Discovery-Fragen | *55* → korrekt 56 | **56** |
 | davon P0 | *35* → korrekt 38 | **38** |
 | davon P0 offen und Core Required | 38 | **8** |
-| Getroffene Entscheidungen | 14 | **26** |
-| davon A0 | 8 | **20** |
+| Getroffene Entscheidungen | 14 | **28** |
+| davon A0 | 8 | **22** |
 | Offene Entscheidungen | 27 | **21** |
 | davon P0 | 14 | **8** |
 | Erfasste Risiken | 29 | **32** |
 | davon gemindert | 5 | **14** |
 | davon hoch | 14 | 17 |
 | Capabilities `implemented` | **0** | **0** |
-| Angenommene ADRs | 0 | **5** (+1 `proposed`) |
-| Commits | 2 | 6 |
+| Angenommene ADRs | 0 | **6** |
+| Commits | 2 | 7 |
 
 ## Fortschritt in einem Bild
 
@@ -85,7 +85,8 @@ CBP-WP-002:  ██████████████████████�
 CBP-WP-003:  █████████████████                             17
 CBP-WP-004:  ███████                                        7
 CBP-WP-005:  █                                              1   ← D-1
-CBP-WP-006:                                                 0   ► READY FOR HUMAN DECISION
+CBP-WP-006:                                                 0   Kriterien vollständig
+CBP-WP-007:                                                 —   ► GATE PASSED WITH NOTES
 ```
 
 Die Reduktion von 45 auf 25 stammte aus dem **Kriterienmodell**. Von 25 auf 17
@@ -100,25 +101,27 @@ aus dem **Quellenvertrag**.
 > Mechanismen. Der Sprung von 45 auf 0 bedeutet: das Projekt weiß, was es bauen
 > will, und kann es prüfen. **Gebaut ist nichts.**
 >
-> **Null Blocker heißt nicht: Gate bestanden.** Der Gate-Status bleibt
-> **NOT PASSED**, bis der Human Maintainer entscheidet.
+> **Null Blocker war nicht gleich Gate bestanden.** Die Freigabe erfolgte
+> gesondert am 2026-07-21 durch den Human Maintainer — **PASSED WITH NOTES**,
+> mit fünf Nachweisauflagen vor produktivem Betrieb.
 
 ## Wichtigste Hebel
 
-| # | Hebel | Wirkung |
-| --- | --- | --- |
-| 1 | **G0-Entscheidung treffen** | Der einzige verbleibende Schritt in Phase 0. Kriterien sind vollständig, die Entscheidung ist eigenständig |
-| 2 | ADR-0006 annehmen oder ablehnen | Legt fest, ob privater Bestand dauerhaft außerhalb des Kerns bleibt |
-| 3 | Berechtigungen **technisch** umsetzen | R-25 und R-27 bleiben die schwersten offenen Risiken |
-| 4 | Ersten Benchmarklauf durchführen | Macht aus einem Plan eine Messung; kalibriert OD-02b, schließt R-21 |
-| 5 | DRC für Profil A durchführen | Von `NOT EVALUATED` zu einer belastbaren Aussage über die Installierbarkeit |
+Nach der G0-Entscheidung verschiebt sich der Engpass von Dokumentation auf
+Umsetzung. Reihenfolge nach dem [Phase-1-Backlog](../docs/roadmap/PHASE_1_BACKLOG.md):
 
+| # | Hebel | Backlog | Wirkung |
+| --- | --- | --- | --- |
+| 1 | **Technische Sicherheitsgrundlage** | **P3** | Der breiteste Enabler — P4, P8 und P10 hängen daran. Schließt R-25 und R-27 |
+| 2 | Repository-Entscheidung und Source Mapping | P1, P2 | Schließt OD-26, OD-05 und OD-06 |
+| 3 | `excluded-from-ai`-Negativtests | P8 | Auflage 2; macht aus einer behaupteten Sperre eine geprüfte |
+| 4 | Benchmarklauf V0/V1 | P7 | Auflage 3; kalibriert OD-02b, schließt R-21 |
+| 5 | Restore-Test und DRC Profil A | P9, P10 | Auflagen 4 und 5; R-20 und R-34 |
 ## Bewertung in einem Satz
 
-Die dokumentarische Vorbereitung von Phase 0 ist **abgeschlossen**; was jetzt
-fehlt, ist keine Unterlage mehr, sondern **eine Entscheidung** — und danach der
-erste gebaute und gemessene Bestandteil.
-
+Phase 0 ist **abgeschlossen und freigegeben** — von hier an misst dieser Score
+nicht mehr die Vollständigkeit von Dokumenten, sondern den Fortschritt von
+**Nachweisen**, und der steht bei null.
 ## Pflege
 
 Diese Bewertung wird bei jedem Work Package erneuert. Kennzahlen werden

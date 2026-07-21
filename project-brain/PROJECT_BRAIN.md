@@ -2,7 +2,7 @@
 
 | Feld | Wert |
 | --- | --- |
-| Überarbeitet in | CBP-WP-006 |
+| Überarbeitet in | CBP-WP-007 |
 | Autoritätsklasse | A2 |
 | Stand | 2026-07-20 |
 
@@ -11,22 +11,22 @@ Dokument **verweist**, statt Inhalte zu duplizieren.
 
 ## Projektstatus
 
-**Phase 0 – Discovery und Scope Lock.**
+**Phase 0 – COMPLETE.** G0 am 2026-07-21 als **PASSED WITH NOTES** freigegeben (A0). Phase 1 ist **AUTHORIZED FOR PLANNING** — keine Implementierung freigegeben.
 
 Das Repository enthält ausschließlich Dokumentation. Keine Implementierung,
 keine Laufzeit, keine Installation, kein Index, kein Wissensbestand.
 
 | Feld | Wert |
 | --- | --- |
-| Aktuelles Work Package | CBP-WP-006 (`in-review`) |
-| Nächstes Gate | **G0 – Discovery and Scope Lock — NOT PASSED** |
+| Aktuelles Work Package | CBP-WP-007 (`in-review`) |
+| Gate G0 | **PASSED WITH NOTES** — 2026-07-21 |
 | G0-Kriterien | **47**, dreistufig klassifiziert |
 | davon blockierend | **25** Core Required (zuvor 45) |
 | davon `accepted` | **18** |
 | verbleibende Blocker | **0** |
-| Kriterienstand | **READY FOR HUMAN DECISION** |
+| Phase 1 | AUTHORIZED FOR PLANNING — [Backlog](../docs/roadmap/PHASE_1_BACKLOG.md) |
 | Implementierte Capabilities | **keine (0 von 29)** |
-| Commits | 6 |
+| Commits | 7 |
 
 ## Ziel
 
@@ -88,7 +88,7 @@ verweigert, bis eine Datenklasse sie erlaubt.**
 
 ## Entscheidungen
 
-Angenommene ADRs: **5** (ADR-0001 bis ADR-0005). **Ein Vorschlag:** ADR-0006 zu logischen Source Slots, `proposed`.
+Angenommene ADRs: **6** (ADR-0001 bis ADR-0006). ADR-0006 wurde am 2026-07-21 angenommen (D-028) und hält privaten Bestand konstruktiv außerhalb des Kern-Repositorys.
 
 26 getroffene Entscheidungen, davon 20 mit A0. 25 offene, davon 10 mit P0.
 Geführt in
@@ -169,8 +169,7 @@ Das dreistufige Kriterienmodell reduziert die G0-Blocker von 45 auf 25. Die 16
 Deployment-Required-Kriterien sind **vertagt, nicht gestrichen** — sie brauchen
 ein eigenes Gate (OD-33, R-34).
 
-**G0 bleibt NOT PASSED.** 17 der 25 Core-Required-Kriterien sind noch nicht
-`accepted`.
+**G0 ist entschieden:** am 2026-07-21 als **PASSED WITH NOTES** freigegeben (A0). Alle 25 Core-Required-Kriterien sind `accepted`.
 
 Zwei Lücken sind dem überarbeiteten Fragebogen selbst geschuldet, nicht dem
 Human Maintainer: das Berechtigungsmodell (OI-08) und das Secret-Verfahren im

@@ -2,8 +2,8 @@
 
 | Feld | Wert |
 | --- | --- |
-| Phase | Phase 0 – Discovery und Scope Lock |
-| Überarbeitet in | CBP-WP-006 |
+| Phase | **Phase 0 – COMPLETE** |
+| Überarbeitet in | CBP-WP-007 |
 | Autoritätsklasse | A2 |
 | Stand | 2026-07-20 |
 
@@ -97,7 +97,7 @@ Es existiert **keine** Installation.
 ## Bekannte Einschränkungen
 
 - Kein lauffähiges System, kein Wissensbestand, kein Index
-- Scope **nicht** gelockt; G0 ist NOT PASSED. Alle 25 Core-Kriterien `accepted`, die **Entscheidung des Human Maintainers steht aus**
+- **Scope gelockt** (G0 PASSED WITH NOTES). Fünf Auflagen sind vor produktivem Betrieb zu erbringen
 - Sämtliche konkreten Infrastrukturwerte unbekannt und bewusst nicht erhoben
 - Benchmark **entworfen, aber nicht durchgeführt** — keine Messung, keine Qualitätsaussage
 - Repository-Struktur nicht freigegeben
@@ -108,10 +108,10 @@ Es existiert **keine** Installation.
 
 | Phase | Inhalt | Status |
 | --- | --- | --- |
-| **Phase 0** | Discovery und Scope Lock | **laufend** |
-| **Gate G0** | Discovery and Scope Lock | **NOT PASSED** — READY FOR HUMAN DECISION |
+| **Phase 0** | Discovery und Scope Lock | **COMPLETE** |
+| **Gate G0** | Discovery and Scope Lock | **PASSED WITH NOTES** — 2026-07-21 |
 | Deployment-Readiness | 16 vertagte Kriterien | [DRC](../docs/operations/DEPLOYMENT_READINESS_CHECK.md) definiert, **NOT EVALUATED** |
-| Phase 1 | Proxmox-Referenzumgebung | nicht begonnen |
+| **Phase 1** | Proxmox-Referenzumgebung | **AUTHORIZED FOR PLANNING** — [Backlog](../docs/roadmap/PHASE_1_BACKLOG.md) |
 | Phase 2 | Wissensfundament | nicht begonnen |
 | Phase 3 | Retrieval-Pilot | nicht begonnen |
 | Phase 4 | Mehrgeräte- und Mobile-Pilot | nicht begonnen |

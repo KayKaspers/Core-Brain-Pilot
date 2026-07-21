@@ -2,16 +2,46 @@
 
 | Feld | Wert |
 | --- | --- |
-| Status | **proposed** |
+| Status | **accepted** |
 | Datum | 2026-07-21 |
-| Entscheider | Human Maintainer |
+| Entscheider | **Human Maintainer** |
+| Angenommen am | **2026-07-21** |
+| Autorität | **A0** — direkte Human-Maintainer-Entscheidung |
 | Supersedes | — |
 | Superseded by | — |
-| Vorgeschlagen in | CBP-WP-006 |
+| Vorgeschlagen in | CBP-WP-006 · angenommen in CBP-WP-007 |
 | Belegt durch | Übergabe §13 (A5), D-019, D-025 (A0), ADR-0001, ADR-0003 |
 
-> **Dieser ADR ist ein Vorschlag.** Er trägt Autoritätsklasse **A3**, nicht A1.
-> Bindend wird er erst durch die Annahme des Human Maintainers.
+> **Dieser ADR ist angenommen und bindend.** Er trägt Autoritätsklasse **A1**.
+
+## Entscheidung des Human Maintainers
+
+*Wortlaut aus dem Entscheidungsblock in
+[G0_SCOPE_LOCK_REVIEW.md](../discovery/G0_SCOPE_LOCK_REVIEW.md), unverändert
+übernommen:*
+
+> Produktive und private Wissensbestände bleiben außerhalb des allgemeinen
+> Core-Repositorys.
+>
+> Sie werden über logische Source Slots und deploymentspezifische, fail-closed
+> Mappings angebunden.
+>
+> Die Entscheidung legt keine konkreten Pfade, Repository-URLs oder
+> Produktionsbestände fest.
+>
+> OD-05 und OD-06 bleiben für konkrete Quellen und Mappings offen.
+> OD-26 bleibt für die spätere Repository-Layout-Entscheidung offen.
+
+### Konsequenz für Source Slots und Repository-Grenze
+
+| Gegenstand | Wirkung |
+| --- | --- |
+| Repository-Grenze | **Bindend:** kein privater oder produktiver Wissensbestand im allgemeinen Core-Repository |
+| Source Slots | PS-01 bis PS-07 aus [PILOT_SOURCE_CONTRACT.md](../sources/PILOT_SOURCE_CONTRACT.md) sind die verbindliche Anbindungsform |
+| Mappings | **fail-closed** — ohne Mapping bleibt ein Slot `enabled: false` (Slot-Regel 7) |
+| Konkrete Pfade und URLs | **nicht festgelegt** und ausdrücklich nicht Gegenstand dieser Entscheidung |
+| **OD-05, OD-06** | bleiben **offen** — konkrete Quellen und Mappings |
+| **OD-26** | bleibt **offen** — Repository-Layout |
 
 ## Kontext
 

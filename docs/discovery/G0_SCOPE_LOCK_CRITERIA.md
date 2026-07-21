@@ -3,14 +3,18 @@
 | Feld | Wert |
 | --- | --- |
 | Gate | **G0 – Discovery and Scope Lock** |
-| **Gate-Status** | **NOT PASSED** |
+| **Gate-Status** | **PASSED WITH NOTES** — 2026-07-21, A0 |
 | Phase | Phase 0 – Discovery und Scope Lock |
-| Erfasst in | CBP-WP-002, überarbeitet in CBP-WP-003 bis CBP-WP-006 |
+| Erfasst in | CBP-WP-002, überarbeitet in CBP-WP-003 bis CBP-WP-007 |
 | Autoritätsklasse | A3 (Gate-Dokumentation) |
 | Stand | 2026-07-21 |
 
-Dieses Dokument definiert objektiv prüfbare Kriterien für G0. Es erklärt G0
-**nicht** als bestanden und darf das auch nicht.
+Dieses Dokument definiert objektiv prüfbare Kriterien für G0.
+
+> **G0 wurde am 2026-07-21 vom Human Maintainer als APPROVE G0 WITH NOTES
+> entschieden.** Der Wortlaut steht im Entscheidungsblock in
+> [G0_SCOPE_LOCK_REVIEW.md](G0_SCOPE_LOCK_REVIEW.md). Aufgezeichnet in
+> CBP-WP-007.
 
 ---
 
@@ -99,7 +103,7 @@ Nachweis.
 
 | ID | Kriterium | Klasse | Status | Nachweis | Autorität |
 | --- | --- | --- | --- | --- | --- |
-| D-1 | Gewünschte Quellen | **Core** | **`accepted`** | [PILOT_SOURCE_CONTRACT.md](../sources/PILOT_SOURCE_CONTRACT.md) — 5 Slots aktiv/test-only, 2 deferred; [SOURCE_SLOT_MODEL.md](../sources/SOURCE_SLOT_MODEL.md) mit 10 Validierungsregeln; [ADR-0006](../decisions/ADR-0006-logische-source-slots.md) (proposed). **Konkrete Installationspfade sind nicht Bestandteil des Scope Locks** — Deployment Mapping im DRC (OD-05, OD-06 bleiben offen) | A0 |
+| D-1 | Gewünschte Quellen | **Core** | **`accepted`** | [PILOT_SOURCE_CONTRACT.md](../sources/PILOT_SOURCE_CONTRACT.md) — 5 Slots aktiv/test-only, 2 deferred; [SOURCE_SLOT_MODEL.md](../sources/SOURCE_SLOT_MODEL.md) mit 10 Validierungsregeln; [ADR-0006](../decisions/ADR-0006-logische-source-slots.md) (**accepted** 2026-07-21). **Konkrete Installationspfade sind nicht Bestandteil des Scope Locks** — Deployment Mapping im DRC (OD-05, OD-06 bleiben offen) | A0 |
 | D-2 | Größenordnung | Deployment | `open` | bewusst nicht erhoben, keine Dateiinventur | A0 |
 | D-3 | Dateiformate | **Core** | **`accepted`** | HDI A3 — Markdown zuerst; PDF/Office nur über Quarantäne (D-019) | A0 |
 | D-4 | Datenklassen zugeordnet | **Core** | `accepted` | HDI A4 — Profilebene entschieden | A0 |
@@ -239,23 +243,27 @@ keine der sechs bedingten Funktionen für den Pilot aktiviert.
 | davon `blocked` | 0 | 0 | 0 | **0** |
 | **Noch nicht `accepted`** | 17 | 7 | 1 | **0** |
 
-## ► READY FOR HUMAN DECISION ◄
+## ► GATE PASSED WITH NOTES ◄
 
-**Alle 25 Core-Required-Kriterien sind `accepted`.** Der Kriterienstand ist
-vollständig.
+**Alle 25 Core-Required-Kriterien sind `accepted`**, und der Human Maintainer
+hat am **2026-07-21** entschieden: **APPROVE G0 WITH NOTES** (A0).
 
-> ### Criteria complete ≠ Gate approved
+> ### Criteria complete ≠ Technical implementation ≠ Deployment ready
 >
-> **Der formale Gate-Status bleibt NOT PASSED.**
+> Der Gate-Status **PASSED WITH NOTES** bestätigt den **Produkt- und
+> Pilot-Scope**. Er bestätigt **nicht**:
 >
-> Vollständige Kriterien bedeuten: die Unterlage ist entscheidungsreif. Sie
-> bedeuten **nicht**, dass G0 bestanden ist. Bedingung 5 der Abschlussregel —
-> die ausdrückliche Freigabe des Human Maintainers — ist eigenständig und wird
-> durch keine Kennzahl ersetzt.
+> - technische Implementierung — **16 der 25 Kriterien** beschreiben Kontrollen, die nicht existieren
+> - ausgeführten Benchmark — Dataset 2.0.0 ist entworfen, nicht gemessen
+> - Deployment Readiness — der DRC steht auf **NOT EVALUATED**
+> - Restore-Fähigkeit — kein Test durchgeführt
+> - produktive Datenschutzfreigabe — `excluded-from-ai` technisch ungeprüft
+> - produktive Quellenanbindung — kein Mapping, kein Ingest
 >
-> Die Entscheidung erfolgt im Entscheidungsblock in
-> [G0_SCOPE_LOCK_REVIEW.md](G0_SCOPE_LOCK_REVIEW.md). Bis dahin gilt:
-> **G0 NOT PASSED.**
+> **Die Freigabe autorisiert ausschließlich die Planung von Phase 1.**
+
+Wortlaut der Entscheidung und ihrer Auflagen im Entscheidungsblock in
+[G0_SCOPE_LOCK_REVIEW.md](G0_SCOPE_LOCK_REVIEW.md).
 
 Vollständige Nachweislage je Kriterium in
 [G0_EVIDENCE_MATRIX.md](G0_EVIDENCE_MATRIX.md).
@@ -285,22 +293,15 @@ E-4 · E-5 · F-1 · F-2 · F-3 · F-5 · F-6 · G-1 · G-2 · G-3 · G-4 · G-5
 
 **OD-05, OD-06 und OD-26 bleiben offen.**
 
-**Gate-Status: NOT PASSED.**
+**Gate-Status: PASSED WITH NOTES** — entschieden am 2026-07-21 durch den Human
+Maintainer (A0).
 
-> **Keine automatische Freigabe.** Auch mit 25 von 25 angenommenen
-> Core-Kriterien ist G0 **nicht** bestanden.
+> **Die Entscheidung erfolgte nicht automatisch.** Alle 25 Kriterien waren
+> belegt, aber Bedingung 5 der Abschlussregel — die ausdrückliche Freigabe —
+> war eigenständig und wurde durch keine Kennzahl ersetzt.
 >
-> Zwei Gründe, die unabhängig voneinander gelten:
->
-> 1. **Die dokumentarische Erfüllung ist keine technische.** D-8 und E-2 bis
->    E-5 beschreiben Kontrollen, die nicht existieren; G-1 bis G-6 beschreiben
->    einen Benchmark, der nicht durchgeführt wurde; D-1 beschreibt einen
->    Quellenraum, in dem keine Quelle liegt. Risiken R-20, R-21, R-25, R-27,
->    R-31 und R-32 bleiben offen.
-> 2. **Bedingung 5 ist eigenständig.** Die ausdrückliche Freigabe des Human
->    Maintainers ist nicht erteilt und wird durch keine Kennzahl ersetzt.
->
-> **Criteria complete ≠ Gate approved.**
+> Die Auflagen der Notes sind Voraussetzung für den **produktiven Betrieb**,
+> nicht für die Planung von Phase 1.
 
 ## Pflege
 

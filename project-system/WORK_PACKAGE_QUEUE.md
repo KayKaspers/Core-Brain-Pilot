@@ -3,9 +3,10 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | Phase 0 – Discovery und Scope Lock |
-| Aktuelles Work Package | **CBP-WP-006** |
-| Nächstes Gate | G0 – Discovery and Scope Lock (**NOT PASSED** — READY FOR HUMAN DECISION) |
-| Überarbeitet in | CBP-WP-006 |
+| Aktuelles Work Package | **CBP-WP-007** |
+| Gate G0 | **PASSED WITH NOTES** — 2026-07-21 |
+| Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
+| Überarbeitet in | CBP-WP-007 |
 | Autoritätsklasse | A2 |
 | Stand | 2026-07-20 |
 
@@ -32,8 +33,9 @@ Spalten nach `WORK_PACKAGE_QUEUE_TEMPLATE.md` (NDF v1.0.0).
 | CBP-WP-003 | Human Discovery Intake and G0 Evidence Capture | P0 | **`committed`** | [work-packages/CBP-WP-003.md](../work-packages/CBP-WP-003.md) |
 | CBP-WP-004 | Generic Architecture and Deployment Profiles | P0 | **`committed`** | [work-packages/CBP-WP-004.md](../work-packages/CBP-WP-004.md) |
 | CBP-WP-005 | Benchmark Dataset and Retrieval Evaluation Design | P0 | **`committed`** | [work-packages/CBP-WP-005.md](../work-packages/CBP-WP-005.md) |
-| CBP-WP-006 | G0 Scope-Lock Review and Pilot Source Contract | P0 | **`in-review`** | [work-packages/CBP-WP-006.md](../work-packages/CBP-WP-006.md) |
-| CBP-WP-007 | G0 Decision Recording and Phase 1 Backlog | P0 | `proposed` | noch nicht erstellt |
+| CBP-WP-006 | G0 Scope-Lock Review and Pilot Source Contract | P0 | **`committed`** | [work-packages/CBP-WP-006.md](../work-packages/CBP-WP-006.md) |
+| CBP-WP-007 | G0 Decision Recording and Phase 1 Backlog | P0 | **`in-review`** | [work-packages/CBP-WP-007.md](../work-packages/CBP-WP-007.md) |
+| CBP-WP-008 | Phase 1 Foundation Implementation Plan | P0 | `proposed` | noch nicht erstellt |
 
 Genau ein Work Package ist als `proposed` geführt.
 
@@ -112,8 +114,8 @@ Suchsoftware.
 | Feld | Wert |
 | --- | --- |
 | Typ | `docs-only` · Prompt Mode **Full** · Budget **B1 – Lean** |
-| Status | **`in-review`** |
-| Commit | **nicht** ausgeführt |
+| Status | **`committed`** |
+| Git-Beleg | `f93f257 CBP-WP-006: prepare G0 scope-lock review and source contract` |
 
 Ergebnis: Pilot Source Contract mit 7 logischen Source Slots,
 Source-Slot-Modell mit 10 Validierungsregeln, ADR-0006 (`proposed`),
@@ -122,32 +124,39 @@ G0-Review-Unterlage.
 
 **D-1 von `answered` auf `accepted`** — alle 25 Core-Kriterien sind belegt.
 
-**Gate-Status weiterhin NOT PASSED.** Der Entscheidungsblock in
-`G0_SCOPE_LOCK_REVIEW.md` ist leer und wartet auf den Human Maintainer.
+**Gate-Status zum Abschluss von CBP-WP-006: NOT PASSED**, Entscheidungsblock leer. Die Entscheidung erfolgte anschließend in CBP-WP-007.
 
-## CBP-WP-007 — Vorschlag, nicht freigegeben
+## CBP-WP-007
 
 | Feld | Wert |
 | --- | --- |
-| Titel | **G0 Decision Recording and Phase 1 Backlog** |
+| Typ | `docs-only` · Prompt Mode **Standard** · Budget **B0 – Micro** |
+| Status | **`in-review`** |
+| Ablauf | interaktiv — Phase A Entscheidungsfragebogen, Phase B Aufzeichnung |
+| Commit | **nicht** ausgeführt |
+
+Ergebnis: **G0 PASSED WITH NOTES** und **ADR-0006 accepted**, beide am
+2026-07-21 durch den Human Maintainer (A0). Phase-1-Backlog mit 11 Punkten,
+Status **AUTHORIZED FOR PLANNING**. Zähl- und Statusregel ergänzt.
+
+## CBP-WP-008 — Vorschlag, nicht freigegeben
+
+| Feld | Wert |
+| --- | --- |
+| Titel | **Phase 1 Foundation Implementation Plan** |
 | Typ | `docs-only` |
-| Prompt Mode | **Standard** |
-| Context Budget | **B0 – Micro** |
+| Prompt Mode | **Full** |
+| Context Budget | **B2 – Standard** |
 
-**Voraussetzung:** **ausdrückliche G0-Entscheidung des Human Maintainers** im
-Entscheidungsblock.
+**Ziel.** Aus dem Phase-1-Backlog einen ausführbaren Plan machen: die Punkte
+P1 bis P5 in konkrete Work Packages schneiden, mit Reihenfolge, Nachweisen und
+Abbruchbedingungen. Schwerpunkt auf **P3 (technische Sicherheitsgrundlage)** —
+dem breitesten Enabler.
 
-**Ziel.** Die getroffene Entscheidung als A0 aufzeichnen, den Projektstatus
-entsprechend setzen und den Phase-1-Backlog aus den offenen Punkten ableiten —
-Deployment Mappings, DRC für Profil A, technische Durchsetzung der
-Berechtigungen, erster Benchmarklauf, Restore-Test.
+**Weiterhin `docs-only`.** Der Plan beschreibt die Umsetzung, er beginnt sie
+nicht. Die G0-Freigabe autorisiert Planung, nicht Implementierung.
 
-**Warum B0.** Die Entscheidung liegt dann vor; das Work Package trägt sie ein
-und leitet ab. Es braucht kaum Quellkontext.
-
-**Nicht ausführen** ohne die G0-Entscheidung. Ohne Beschluss gibt es nichts
-aufzuzeichnen.
-
+**Nicht ausführen** ohne ausdrückliche Freigabe.
 ---
 
 ## Regeln

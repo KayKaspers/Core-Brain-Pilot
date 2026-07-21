@@ -3,7 +3,7 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | Phase 0 – Discovery und Scope Lock |
-| Überarbeitet in | CBP-WP-006 |
+| Überarbeitet in | CBP-WP-007 |
 | Autoritätsklasse | A2 |
 | Stand | 2026-07-20 |
 
@@ -51,6 +51,8 @@ getroffen. Quelle jeweils
 | **D-024** | Web-UI und mobile Nutzung gehören zum Pilotumfang; die Web-UI aber erst nach funktionierendem Index, Suche, Brain-First-Retrieval und Benchmark | `accepted` | **A0** | HDI A6 | 2026-07-20 | A-4, A-5, F-6 | Präzisiert D-014 mit einer konkreten Vorbedingung |
 | **D-025** | Native Obsidian-Nutzung, Wiki-Pilot und externe Connectoren werden vertagt; Knowledge Graph ist nicht Pilotumfang | `accepted` | **A0** | HDI A6 | 2026-07-20 | A-7 | Vier Conditional-Kriterien bleiben inaktiv |
 | **D-026** | Dreistufiges Kriterienmodell: Core Required, Deployment Required, Conditional. G0 sperrt den allgemeinen Produkt-Scope, nicht die Installationsdetails | `accepted` | **A0** | Nova-Review CBP-WP-003 | 2026-07-20 | alle 47 | Blocker von 45 auf 25 reduziert; separates Deployment-Readiness-Gate später zu definieren |
+| **D-027** | **G0 – Discovery and Scope Lock: APPROVE G0 WITH NOTES.** Die Freigabe autorisiert ausschließlich die Planung von Phase 1; keine Freigabe für produktiven Betrieb, produktiven Ingest, öffentliche Erreichbarkeit oder zusätzliche sensible Datenklassen. Fünf Nachweise vor produktivem Betrieb; Web-UI und mobile Nutzung erst nach gemessenem Retrieval-Piloten | `accepted` | **A0** | Entscheidungsblock in G0_SCOPE_LOCK_REVIEW | 2026-07-21 | alle 25 Core-Kriterien | Phase 0 COMPLETE; Phase 1 AUTHORIZED FOR PLANNING |
+| **D-028** | **ADR-0006 angenommen:** produktive und private Wissensbestände bleiben außerhalb des allgemeinen Core-Repositorys und werden über logische Source Slots und deploymentspezifische, fail-closed Mappings angebunden | `accepted` | **A0** | Entscheidungsblock in G0_SCOPE_LOCK_REVIEW | 2026-07-21 | D-1 | ADR-0006 von `proposed` auf `accepted` (A1); OD-05, OD-06, OD-26 bleiben offen |
 
 > **Hinweis zu D-016.** In CBP-WP-002 hatte ich „bevorzugte Anwendungslaufzeit"
 > zu „vorgesehene" abgeschwächt (Ü-02), gestützt auf Projektübergabe §4 (A5),
@@ -123,11 +125,12 @@ Legende: **P0** blockiert G0 · **P1** vor Architekturentscheidung · **P2** sp�
 
 | Kategorie | Anzahl |
 | --- | --- |
-| Getroffene Entscheidungen | **26** (davon 20 mit A0) |
-| Angenommene ADRs | **5** (ADR-0001 bis ADR-0005, alle A1) |
-| Vorgeschlagene ADRs | **1** (ADR-0006, `proposed`, A3) |
+| Getroffene Entscheidungen | **28** (davon 22 mit A0) |
+| Angenommene ADRs | **6** (ADR-0001 bis ADR-0006, alle A1) |
+| Vorgeschlagene ADRs | 0 |
 | Neu in CBP-WP-003 | 12 (D-015 bis D-026) |
 | Neu in CBP-WP-004 | 0 Entscheidungen, 5 ADRs |
+| Neu in CBP-WP-007 | **2 A0-Entscheidungen** (D-027 G0, D-028 ADR-0006) |
 | Geschlossene offene Entscheidungen | **9** (davon 4 in CBP-WP-004) |
 | Vertagte Entscheidungen | 4 |
 | Offene Entscheidungen | **21** |
