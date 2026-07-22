@@ -3,13 +3,18 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Überarbeitet in | **CBP-WP-012** |
+| Überarbeitet in | **CBP-WP-013** |
 | Autoritätsklasse | A2 |
-| Stand | 2026-07-21 |
+| Stand | 2026-07-22 |
 
 > **Keine der 29 Produkt-Capabilities ist implementiert.** Der Status
 > `implemented` kommt in der Matrix nicht vor und darf erst nach Abnahme durch
 > den Human Maintainer vergeben werden. **0 von 29 unverändert.**
+>
+> **CBP-WP-013 hat einen lokalen Quarantäneprototyp erstellt. Capability 5
+> (Ingest-Quarantäne) und Capability 6 (Secret-/PII-Prüfung) bleiben `planned`**
+> — ein synthetisch testbarer Baseline-Prototyp ist keine produktive Quarantäne
+> und keine vollständige Secret-/PII-Erkennung.
 
 ## Lokale Skeleton-Bausteine (CBP-WP-012)
 
@@ -32,6 +37,23 @@ der Capability-Ebene:
 Security Foundation, Authorization, Secret Management, Egress Control oder
 Operational Evidence — jede dieser Aussagen wäre breiter als die Evidenz und
 ist ausdrücklich **nicht** zutreffend.
+
+## Lokale Quarantäne-Bausteine (CBP-WP-013)
+
+CBP-WP-013 hat einen lokalen, synthetisch testbaren, fail-closed
+Quarantäneprototyp erstellt und getestet (137 Tests bestanden, Basislinie
+WP-012: 69). Er setzt **keine** Produkt-Capability vollständig um. **Capability 5
+und Capability 6 bleiben `planned`.**
+
+| Baustein | Status | Evidenz |
+| --- | --- | --- |
+| Pre-Ingest-Trust-Boundary (synthetic-only) | **implemented locally** | `quarantine/pipeline.py`, `test_quarantine_pipeline.py` |
+| Deterministischer Baseline-Scanner (Indikatoren) | **implemented locally** | `quarantine/scanner.py`, `test_quarantine_scanner.py` |
+| Content-addressed Quarantänestore (außerhalb Repo) | **implemented locally** | `quarantine/store.py`, `test_quarantine_store.py` |
+
+**Diese Bausteine sind kein Deploymentnachweis und keine Kontrolle.** Sie
+belegen **nicht** vollständige Secret- oder PII-Erkennung, keine produktive
+Isolation und keine Freigabe. **R-01, R-32 und R-33 bleiben offen.**
 
 ## Zuordnung zu geplanten Work Packages
 

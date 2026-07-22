@@ -97,7 +97,7 @@ breiteste Enabler — F4 und alle späteren Betriebsschritte hängen daran.
 | **Rücksetzstrategie** | Je Kontrolle eine sichere Abschaltung: **restriktiver werden ist immer erlaubt**, permissiver nur mit Freigabe |
 | **Freigabepunkt** | **CBP-WP-011** (Spezifikation), später **CBP-WP-012** (Umsetzung) |
 | **Implementierung erlaubt** | **nein** |
-| **Stand** | **SPEZIFIKATION ERREICHT · SKELETON LOKAL** — vier A0-Entscheidungen (D-034…D-037, [ADR-0009](../decisions/ADR-0009-technische-sicherheitsgrundlage.md)); KB-01…KB-12 abnehmbar spezifiziert, 32 Negativtests plus 1 Positivtest geplant. CBP-WP-012 hat einen **lokalen, fail-closed Runtime Skeleton** erstellt (69 Tests, `run` verweigert). **Keine KB-Kontrolle auf der Ziel-VM durchgesetzt**; alle `DOCUMENTED ONLY`, Readiness Gate `NOT EVALUATED` |
+| **Stand** | **SPEZIFIKATION ERREICHT · SKELETON UND QUARANTÄNE-MVP LOKAL** — vier A0-Entscheidungen (D-034…D-037, [ADR-0009](../decisions/ADR-0009-technische-sicherheitsgrundlage.md)); KB-01…KB-12 abnehmbar spezifiziert. CBP-WP-012 hat einen **lokalen, fail-closed Runtime Skeleton** erstellt (`run` verweigert); CBP-WP-013 einen **lokalen, synthetisch testbaren Quarantäne-MVP** (D-038…D-041, [ADR-0010](../decisions/ADR-0010-ingest-quarantaene-mvp.md), 137 Tests, keine Promotion). **Keine KB-Kontrolle auf der Ziel-VM durchgesetzt**; alle `DOCUMENTED ONLY`, Readiness Gate `NOT EVALUATED`, R-32 offen |
 
 ## F4 — Ingest Quarantine and Security Scanning
 

@@ -1,0 +1,43 @@
+# Core Brain Pilot — Beispiel-Policy der Ingest-Quarantäne (CBP-WP-013)
+#
+# synthetic · non-operational · test-only
+#
+# Diese Datei beschreibt die restriktive Baseline-Policy des lokalen
+# Quarantäneprototyps. Sie enthält:
+#   - keine realen Pfade,
+#   - keine Secrets und keine Secret-Referenzen,
+#   - keine aktiven Source Mappings,
+#   - keine Hostnamen, Ports oder Zugangsdaten,
+#   - keine frei konfigurierbaren regulären Ausdrücke.
+#
+# Sicherheitswerte stehen auf ihrer restriktiven Vorgabe. Eine Lockerung von
+# release_enabled oder network_enabled blockiert die Validierung. Environment-
+# Variablen und CLI-Argumente überschreiben diese Werte nicht.
+
+schema_version = "1.0"
+
+# Genau ein Artefakt je Intake. Konservative Obergrenze (1 MiB).
+max_bytes = 1048576
+
+# Nur Markdown. Eine leere Liste blockiert.
+allowed_suffixes = [".md"]
+
+# Strukturelle Grenzen der Vertrauensgrenze.
+reject_symlinks = true
+require_regular_file = true
+
+# Kodierungs- und Inhaltsgrenzen.
+require_utf8 = true
+reject_nul = true
+
+# Blockierende Credential-Indikatoren.
+block_private_key_markers = true
+block_credential_assignments = true
+
+# Nicht blockierende PII-Indikatoren — sie erzwingen REVIEW_REQUIRED.
+review_email_indicators = true
+review_phone_indicators = true
+
+# Fail-closed: im MVP unveränderlich. true blockiert die Validierung.
+release_enabled = false
+network_enabled = false

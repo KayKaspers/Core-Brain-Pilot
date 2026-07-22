@@ -3,9 +3,9 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Überarbeitet in | **CBP-WP-012** |
+| Überarbeitet in | **CBP-WP-013** |
 | Autoritätsklasse | A2 |
-| Stand | 2026-07-21 |
+| Stand | 2026-07-22 |
 
 > **Ablageabweichung.** NDF v1.0.0 sieht `project-brain/RISKS.md` vor.
 > Es existiert bewusst nur **eine** von beiden — AB-04.
@@ -91,6 +91,38 @@ Ein irreversibler Schaden ist mindestens **hoch**.
 | offen | **10** |
 
 **Neu in CBP-WP-012:** keine.
+
+**Neu in CBP-WP-013:** keine.
+
+**Verändert in CBP-WP-013:**
+
+| ID | Änderung | Auslöser |
+| --- | --- | --- |
+| **R-32** | Ein lokaler, synthetisch testbarer Quarantäne**prototyp** existiert (getestete Pre-Ingest-Grenze, fail-closed, keine Promotion). **Lokal teilweise gemindert, nicht geschlossen** — die produktive Quarantäne, die OS-Isolation (OD-37) und die Nicht-Markdown-Quarantäne existieren nicht. Status unverändert `offen` | CBP-WP-013, D-038…D-041 |
+| **R-01** | Deterministische Baseline-Indikatoren blockieren offensichtliche Credential-/Private-Key-Marker in **synthetischen** Testdaten. **Lokal teilweise berührt, nicht geschlossen** — keine vollständige Secret-Erkennung, keine reale Quelle, keine technische Erkennung im Bestand (OD-38). Status unverändert `offen` | CBP-WP-013, D-040 |
+| **R-33** | Testzahl **137** und Git-Inventar aus dem tatsächlichen Lauf bzw. `git status --porcelain=v1 -uall` ausgezählt; zwei Testdefekte vor dem grünen Lauf gefunden (beide in Tests). **Dokumentregel, keine Kontrolle** | CBP-WP-013 |
+
+**Kein Risiko wurde in CBP-WP-013 geschlossen.** Ein synthetisch testbarer
+Prototyp ist keine durchgesetzte Kontrolle: er berührt keine reale Quelle,
+erzwingt keine OS-Isolation und behauptet keine vollständige Secret- oder
+PII-Erkennung. **R-01, R-32 und R-33 bleiben offen.**
+
+**R-33-Chronologie — achter Konsistenzvorgang (CBP-WP-013, 2026-07-22):**
+
+| Feld | Inhalt |
+| --- | --- |
+| Work Package | **CBP-WP-013** |
+| Fehlerklasse | **dokumentübergreifender Mengen- und Terminologiekonsistenzfehler** (kein arithmetischer Zählfehler) |
+| Betroffene Repository-Artefakte | `work-packages/CBP-WP-013.md`, `docs/runtime/INGEST_QUARANTINE_EVIDENCE.md` |
+| Tatsächlicher Fehler | Die Mengen A (6), B (5) und C (11) waren **numerisch korrekt**. Die Vereinigungsmenge **C** wurde jedoch fälschlich als „vollständige kritische Liste" bezeichnet; die Gruppe **B** wurde als „offen/hoch" bezeichnet, obwohl **R-33** die Kritikalität **mittel** besitzt |
+| Korrektur | A bleibt die kuratierte Registerliste „Weiterhin kritisch" (6 IDs); B bleibt „Zusätzliche offene Beobachtungsrisiken" (5 IDs); C bleibt „Gesamte beobachtete Risikomenge" (11 IDs) und wird **nicht** als kritische Liste bezeichnet; kein mittel-Risiko wird als hoch bezeichnet |
+| Aussagegrenze | **Keine** Risikokritikalität verändert; **kein** Risiko geschlossen; die technische Quarantäneimplementierung **unverändert** |
+
+Damit sind **acht Konsistenzvorgänge in dreizehn Work Packages** dokumentiert;
+jeder durch Auszählung bzw. Terminologieprüfung gefunden, keiner durch die Regel
+verhindert. **R-33 bleibt `gemindert, nicht geschlossen`** — dieser Eintrag
+ändert den Status nicht. Die kanonische Chronologietabelle steht in
+[COMPLIANCE_CHECK.md](COMPLIANCE_CHECK.md); frühere Einträge sind unverändert.
 
 **Verändert in CBP-WP-012:**
 

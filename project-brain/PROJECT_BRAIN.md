@@ -2,9 +2,9 @@
 
 | Feld | Wert |
 | --- | --- |
-| Überarbeitet in | **CBP-WP-012** |
+| Überarbeitet in | **CBP-WP-013** |
 | Autoritätsklasse | A2 |
-| Stand | 2026-07-21 |
+| Stand | 2026-07-22 |
 
 Kuratiertes Projektgedächtnis und Einstiegspunkt für jede neue Sitzung. Dieses
 Dokument **verweist**, statt Inhalte zu duplizieren.
@@ -13,28 +13,32 @@ Dokument **verweist**, statt Inhalte zu duplizieren.
 
 **Phase 0 – COMPLETE.** G0 am 2026-07-21 als **PASSED WITH NOTES** freigegeben (A0). Phase 1 ist **AUTHORIZED FOR PLANNING**.
 
-Das Repository enthält Dokumentation und seit CBP-WP-012 einen **lokalen,
-fail-closed Foundation Runtime Skeleton** (Python-Standardbibliothek). **Keine
-operative Wirkung:** keine angebundene Quelle, kein Index, kein Wissensbestand,
-keine durchgesetzte Sicherheitskontrolle. `run` verweigert deterministisch.
+Das Repository enthält Dokumentation, seit CBP-WP-012 einen **lokalen,
+fail-closed Foundation Runtime Skeleton** und seit CBP-WP-013 einen **lokalen,
+synthetisch testbaren Ingest-Quarantäneprototyp** (beide
+Python-Standardbibliothek). **Keine operative Wirkung:** keine angebundene
+Quelle, kein Index, kein Wissensbestand, keine durchgesetzte
+Sicherheitskontrolle, keine Promotion. `run` und `quarantine release`
+verweigern deterministisch.
 
 | Feld | Wert |
 | --- | --- |
-| Aktuelles Work Package | **CBP-WP-012** (`in-review`) |
+| Aktuelles Work Package | **CBP-WP-013** (`in-review`) |
 | Gate G0 | **PASSED WITH NOTES** — 2026-07-21 |
 | G0-Kriterien | **47**, dreistufig klassifiziert |
 | davon blockierend | **25** Core Required (zuvor 45) |
 | davon `accepted` | **25** — alle |
 | verbleibende Blocker | **0** |
 | Phase 1 | AUTHORIZED FOR PLANNING — [Backlog](../docs/roadmap/PHASE_1_BACKLOG.md), [Foundation Plan](../docs/roadmap/PHASE_1_FOUNDATION_PLAN.md) |
-| Geplante Work Packages | **CBP-WP-013 und CBP-WP-014**, beide `proposed` |
+| Geplante Work Packages | **CBP-WP-014**, `proposed` |
 | **Repository-Struktur** | **entschieden** — Ziel-Monorepo + Workspace W-3 (ADR-0007); **Migration nicht autorisiert** |
 | **Mappingkonvention** | **entschieden** — ADR-0008; **0 Mappings, 0 Quellen**, Gate `NOT EVALUATED` |
 | **Sicherheitsgrundlage** | **spezifiziert** — ADR-0009; **12 Kontrollen `DOCUMENTED ONLY`** |
-| **Runtime Skeleton** | **lokal implementiert** (CBP-WP-012) — 9 Module, **69 Tests bestanden**, `run` fail-closed, nicht produktionsbereit |
-| Implementierte Capabilities | **keine (0 von 29)** — drei Skeleton-Bausteine lokal belegt |
-| Nachweise oberhalb Stufe 1 | **keine** (Skeleton belegt Bausteine, keine KB-Kontrolle) |
-| Commits | **12** |
+| **Runtime Skeleton** | **lokal implementiert** (CBP-WP-012) — `run` fail-closed, nicht produktionsbereit |
+| **Ingest-Quarantäne MVP** | **lokaler Prototyp** (CBP-WP-013, ADR-0010) — synthetic-only, fail-closed, **137 Tests**, keine Promotion, nicht produktiv |
+| Implementierte Capabilities | **keine (0 von 29)** — Bausteine belegt; Capability 5/6 bleiben `planned` |
+| Nachweise oberhalb Stufe 1 | **keine** (lokale Bausteine, keine KB-Kontrolle) |
+| Commits | **13** |
 
 ## Ziel
 
@@ -96,14 +100,15 @@ verweigert, bis eine Datenklasse sie erlaubt.**
 
 ## Entscheidungen
 
-Angenommene ADRs: **9** (ADR-0001 bis ADR-0009). ADR-0006 hält privaten
+Angenommene ADRs: **10** (ADR-0001 bis ADR-0010). ADR-0006 hält privaten
 Bestand konstruktiv außerhalb des Kern-Repositorys (D-028); **ADR-0007**
 (D-029, D-030) legt Zielstruktur und Bereichsgrenze fest und **schließt
 OD-26**; **ADR-0008** (D-031…D-033) legt die Mappingkonvention fest;
 **ADR-0009** (D-034…D-037) die technische Sicherheitsgrundlage und **schließt
-OD-34 und OD-35**. Alle vier am 2026-07-21.
+OD-34 und OD-35** (alle vier am 2026-07-21); **ADR-0010** (D-038…D-041) den
+Ingest-Quarantäne-MVP (2026-07-22).
 
-**37** getroffene Entscheidungen, davon **33** mit A0. **21** offene, davon
+**41** getroffene Entscheidungen, davon **37** mit A0. **23** offene, davon
 **5** mit P0. Geführt in
 [project-system/DECISION_REGISTER.md](../project-system/DECISION_REGISTER.md).
 
@@ -310,16 +315,36 @@ Prüfungen; ohne den ausdrücklichen Zusatz „kein Deploymentnachweis" wäre da
 schnell „Sicherheitsgrundlage implementiert" geworden — dieselbe Übererweiterung
 wie „veröffentlichbar" in CBP-WP-009 und „gültig" in CBP-WP-010.
 
+## Ingest-Quarantäne MVP — lokal implementiert
+
+**CBP-WP-013**, 2026-07-22, zweite technische Umsetzung. Human-Autorisierung
+APPROVE WITH NOTES (A0), A1/B1/C1/D1; **A0-Modellsubstitution** auf Opus 4.8
+(Fable 5 nicht verfügbar). Festgehalten in **ADR-0010** (D-038…D-041).
+
+| Gegenstand | Wert |
+| --- | --- |
+| Quarantäne-Module | 6 unter `core/core_brain/quarantine/` |
+| CLI | `quarantine scan`, `stage`, `inspect`, `release` |
+| Zustände | `READY_FOR_HUMAN_REVIEW`, `REVIEW_REQUIRED`, `BLOCKED` |
+| Exitcodes | 0 / 5 / 6 / 7 |
+| Store | content-addressed, außerhalb Repo, atomar, idempotent |
+| Tests | **137 bestanden** (Basislinie 69), 0 fehlgeschlagen |
+| `release` | verweigert immer (Exit 7) |
+
+**Synthetic-only-Grenze technisch durchgesetzt** (Flag + `synthetic:`-Präfix +
+Marker). **Keine reale Quelle, kein Mapping, keine Promotion, keine
+Indexierung.** Scanner ist ein **Indikator**, keine vollständige Secret-/PII-
+Erkennung. **R-01, R-32, R-33 bleiben offen**; Capability 5/6 bleiben `planned`.
+
 ## Nächste Arbeitspakete
 
 Siehe
 [project-system/WORK_PACKAGE_QUEUE.md](../project-system/WORK_PACKAGE_QUEUE.md)
 und [PHASE_1_WORK_PACKAGE_MAP.md](../docs/roadmap/PHASE_1_WORK_PACKAGE_MAP.md).
 
-Vorgeschlagen, **nicht freigegeben**: **CBP-WP-013 — Ingest Quarantine Minimum
-Viable Pipeline** (implementation, interactive authorization, Full, B2 –
+Vorgeschlagen, **nicht freigegeben**: **CBP-WP-014 — Deterministic Source
+Registry and Catalog** (implementation, interactive authorization, Full, B2 –
 Standard), Status `proposed`, **implementation not yet authorized**.
-CBP-WP-014 steht ebenfalls auf `proposed`.
 
 ## Rückmeldung an Nova
 

@@ -17,6 +17,8 @@ from core.core_brain.errors import EXIT_CODES, ExitCode
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 EXAMPLE_CONFIG = REPO_ROOT / "config" / "runtime.example.toml"
+EXAMPLE_POLICY = REPO_ROOT / "config" / "quarantine_policy.example.toml"
+SYNTHETIC_MARKER = "<!-- synthetic-test-only -->"
 
 
 def run_cli(*argv: str) -> tuple[int, str, str]:
@@ -211,6 +213,45 @@ class TestNetworkGuard(unittest.TestCase):
             with self.assertRaises(_NetworkAttempt):
                 socket.create_connection(("192.0.2.1", 9))
 
+    def test_no_network_attempt_on_quarantine_cli_paths(self) -> None:
+        # CBP-WP-013: der Guard umfasst scan, stage, inspect und release.
+        with tempfile.TemporaryDirectory() as tmp:
+            artifact = Path(tmp) / "artifact.md"
+            artifact.write_text(
+                f"{SYNTHETIC_MARKER}\n# synthetic\ntext\n", encoding="utf-8"
+            )
+            store = Path(tmp) / "store"
+            # Staging außerhalb des Guards, um eine Record-ID zu erhalten.
+            out, err = io.StringIO(), io.StringIO()
+            main(
+                [
+                    "quarantine", "stage", "--input", str(artifact),
+                    "--policy", str(EXAMPLE_POLICY), "--source-ref", "synthetic:guard",
+                    "--store", str(store), "--synthetic-test-only", "--json",
+                ],
+                out=out,
+                err=err,
+            )
+            record_id = json.loads(out.getvalue())["quarantine_id"]
+
+            quarantine_paths: tuple[tuple[str, ...], ...] = (
+                (
+                    "quarantine", "scan", "--input", str(artifact),
+                    "--policy", str(EXAMPLE_POLICY), "--source-ref", "synthetic:guard",
+                    "--synthetic-test-only",
+                ),
+                (
+                    "quarantine", "stage", "--input", str(artifact),
+                    "--policy", str(EXAMPLE_POLICY), "--source-ref", "synthetic:guard",
+                    "--store", str(store), "--synthetic-test-only",
+                ),
+                ("quarantine", "inspect", "--store", str(store), "--id", record_id),
+                ("quarantine", "release", "--store", str(store), "--id", record_id),
+            )
+            for argv in quarantine_paths:
+                with self.subTest(path=" ".join(argv[:2])):
+                    self._run_under_guard(argv)
+
 
 class TestUsage(unittest.TestCase):
     """Unbekannte Kommandos liefern einen Usage-Fehler."""
@@ -236,7 +277,12 @@ class TestNoImportSideEffects(unittest.TestCase):
                 "import core.core_brain, core.core_brain.cli,"
                 " core.core_brain.config, core.core_brain.policies,"
                 " core.core_brain.ports, core.core_brain.models,"
-                " core.core_brain.errors;"
+                " core.core_brain.errors, core.core_brain.quarantine,"
+                " core.core_brain.quarantine.models,"
+                " core.core_brain.quarantine.policy,"
+                " core.core_brain.quarantine.scanner,"
+                " core.core_brain.quarantine.store,"
+                " core.core_brain.quarantine.pipeline;"
                 "after = set(pathlib.Path(r'" + tmp + "').iterdir());"
                 "assert before == after;"
                 "print('IMPORT_CLEAN')"
@@ -253,13 +299,43 @@ class TestNoImportSideEffects(unittest.TestCase):
 
     def test_no_module_uses_dynamic_execution_or_shell(self) -> None:
         package = REPO_ROOT / "core" / "core_brain"
-        for module in sorted(package.glob("*.py")):
+        for module in sorted(package.rglob("*.py")):
             source = module.read_text(encoding="utf-8")
             with self.subTest(module=module.name):
                 self.assertNotIn("eval(", source)
                 self.assertNotIn("exec(", source)
                 self.assertNotIn("shell=True", source)
                 self.assertNotIn("__import__(", source)
+
+
+class TestQuarantineLeavesRepositoryUnchanged(unittest.TestCase):
+    """Test 55 — Quarantäneoperationen schreiben nur in temporäre Verzeichnisse."""
+
+    def test_quarantine_scan_and_stage_create_no_files_in_repository(self) -> None:
+        def _snapshot() -> set[Path]:
+            return set((REPO_ROOT / "core").rglob("*")) | set(
+                (REPO_ROOT / "config").rglob("*")
+            )
+
+        before = _snapshot()
+        with tempfile.TemporaryDirectory() as tmp:
+            artifact = Path(tmp) / "artifact.md"
+            artifact.write_text(
+                f"{SYNTHETIC_MARKER}\n# synthetic\ntext\n", encoding="utf-8"
+            )
+            store = Path(tmp) / "store"
+            run_cli(
+                "quarantine", "scan", "--input", str(artifact),
+                "--policy", str(EXAMPLE_POLICY), "--source-ref", "synthetic:repo",
+                "--synthetic-test-only",
+            )
+            run_cli(
+                "quarantine", "stage", "--input", str(artifact),
+                "--policy", str(EXAMPLE_POLICY), "--source-ref", "synthetic:repo",
+                "--store", str(store), "--synthetic-test-only",
+            )
+        after = _snapshot()
+        self.assertEqual(before, after)
 
 
 if __name__ == "__main__":  # pragma: no cover

@@ -3,11 +3,11 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Aktuelles Work Package | **CBP-WP-012** (`in-review`) |
+| Aktuelles Work Package | **CBP-WP-013** (`in-review`) |
 | Gate G0 | **PASSED WITH NOTES** — 2026-07-21 |
-| Überarbeitet in | **CBP-WP-012** |
+| Überarbeitet in | **CBP-WP-013** |
 | Autoritätsklasse | A2 |
-| Stand | 2026-07-21 |
+| Stand | 2026-07-22 |
 
 Spalten nach `WORK_PACKAGE_QUEUE_TEMPLATE.md` (NDF v1.0.0).
 
@@ -38,14 +38,14 @@ Spalten nach `WORK_PACKAGE_QUEUE_TEMPLATE.md` (NDF v1.0.0).
 | CBP-WP-009 | **Repository Boundary Decision** | P0 | **`committed`** | [work-packages/CBP-WP-009.md](../work-packages/CBP-WP-009.md) |
 | CBP-WP-010 | **Pilot Source Mapping Specification** | P0 | **`committed`** | [work-packages/CBP-WP-010.md](../work-packages/CBP-WP-010.md) |
 | CBP-WP-011 | **Technical Security Foundation Specification** | P0 | **`committed`** | [work-packages/CBP-WP-011.md](../work-packages/CBP-WP-011.md) |
-| CBP-WP-012 | **Foundation Runtime Skeleton** | P1 | **`in-review`** | [work-packages/CBP-WP-012.md](../work-packages/CBP-WP-012.md) |
-| CBP-WP-013 | Ingest Quarantine Minimum Viable Pipeline | P1 | `proposed` | noch nicht erstellt |
+| CBP-WP-012 | **Foundation Runtime Skeleton** | P1 | **`committed`** | [work-packages/CBP-WP-012.md](../work-packages/CBP-WP-012.md) |
+| CBP-WP-013 | **Ingest Quarantine Minimum Viable Pipeline** | P1 | **`in-review`** | [work-packages/CBP-WP-013.md](../work-packages/CBP-WP-013.md) |
 | CBP-WP-014 | Deterministic Source Registry and Catalog | P1 | `proposed` | noch nicht erstellt |
 
-**Zwei Work Packages sind als `proposed` geführt** — CBP-WP-013 und
-CBP-WP-014, geschnitten in
+**Ein Work Package ist als `proposed` geführt** — CBP-WP-014, geschnitten in
 [PHASE_1_WORK_PACKAGE_MAP.md](../docs/roadmap/PHASE_1_WORK_PACKAGE_MAP.md).
-**Keines ist freigegeben. Implementierung autorisiert: nein.**
+**Nicht freigegeben. Implementierung autorisiert: nein.** CBP-WP-013 steht auf
+`in-review`.
 
 > **Titelkorrektur in CBP-WP-009.** Diese Übersichtstabelle trug bis dahin die
 > Titel eines verworfenen Entwurfs der Work-Package-Karte (009 „Repository and
@@ -250,8 +250,8 @@ Gate mit 24 Punkten (`NOT EVALUATED`). **OD-34 und OD-35 geschlossen.**
 | Typ | **implementation**, interactive authorization |
 | Prompt Mode | **Full** · Context Budget **B2 – Standard** |
 | Claude Code | Opus 4.8 (`claude-opus-4-8`), Effort **ultracode** (deklariert) |
-| Status | **`in-review`** |
-| Commit | **nicht** ausgeführt |
+| Status | **`committed`** |
+| Git-Beleg | `1f55234 CBP-WP-012: implement fail-closed runtime skeleton` |
 
 Ergebnis: **erstes Artefakt mit technischer Wirkung.** Human-Autorisierung
 APPROVE WITH NOTES (A0); A1, B1, C1. Additive Struktur `core/`, `config/`,
@@ -264,20 +264,29 @@ Exitcodes; `run` verweigert (Exit 4).
 **Keine KB-Kontrolle durchgesetzt** — alle bleiben `DOCUMENTED ONLY`. **Kein
 Gate bestanden, kein Risiko geschlossen.**
 
-## CBP-WP-013 — einziges vorgeschlagenes nächstes Work Package
+## CBP-WP-013
 
 | Feld | Wert |
 | --- | --- |
 | Titel | **Ingest Quarantine Minimum Viable Pipeline** |
 | Typ | **implementation**, interactive authorization |
-| Prompt Mode | **Full** |
-| Context Budget | **B2 – Standard** |
-| Status | **`proposed`, implementation not yet authorized** |
+| Prompt Mode | **Full** · Context Budget **B2 – Standard** |
+| Claude Code | Opus 4.8 (`claude-opus-4-8`), Effort **ultracode**; **A0-Modellsubstitution** (Fable 5 nicht verfügbar) |
+| Status | **`in-review`** |
+| Commit | **nicht** ausgeführt |
 
-**Ziel.** Fail-closed-Pipeline mit zwölf Schritten und zehn Statuswerten,
-Markdown zuerst. Setzt CBP-WP-010 und CBP-WP-012 voraus.
+Ergebnis: **zweites Artefakt mit technischer Wirkung.** Human-Autorisierung
+APPROVE WITH NOTES (A0); A1, B1, C1, D1. Lokaler, synthetisch testbarer,
+fail-closed Quarantäneprototyp: **6 Quarantäne-Module**, Beispiel-Policy,
+CLI-Kommandogruppe `quarantine` (`scan`, `stage`, `inspect`, `release`),
+content-addressed Store außerhalb des Repos, minimierte Records. **Python
+3.13.14**, keine Abhängigkeiten. **137 Tests bestanden** (Basislinie WP-012: 69,
+weiterhin grün), CLI-Smoke mit Exitcodes 0/5/6/7. **ADR-0010** `accepted`
+(D-038 bis D-041); **OD-37, OD-38** neu offen.
 
-**Nicht ausführen** ohne ausdrückliche Freigabe.
+**Keine KB-Kontrolle durchgesetzt** — alle bleiben `DOCUMENTED ONLY`. **Kein
+Gate bewertet, kein Risiko geschlossen, nichts freigegeben oder promotet.**
+Capability 5 bleibt **nicht** vollständig `implemented`.
 
 ## CBP-WP-014 — vorgeschlagen, nicht freigegeben
 

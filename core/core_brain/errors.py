@@ -18,6 +18,10 @@ __all__ = [
     "PolicyBlocked",
     "PortRefused",
     "RuntimeStartBlocked",
+    "QuarantinePolicyError",
+    "QuarantineInputRejected",
+    "QuarantineStoreError",
+    "QuarantineReleaseBlocked",
 ]
 
 
@@ -32,6 +36,10 @@ class ExitCode(StrEnum):
     CONFIG_INVALID = "CONFIG_INVALID"
     POLICY_BLOCKED = "POLICY_BLOCKED"
     RUNTIME_START_BLOCKED = "RUNTIME_START_BLOCKED"
+    # CBP-WP-013 — Ingest-Quarantäne. Neue, stabile Prozessausgänge.
+    QUARANTINE_REVIEW_REQUIRED = "QUARANTINE_REVIEW_REQUIRED"
+    QUARANTINE_BLOCKED = "QUARANTINE_BLOCKED"
+    QUARANTINE_RELEASE_BLOCKED = "QUARANTINE_RELEASE_BLOCKED"
     USAGE_ERROR = "USAGE_ERROR"
     INTERNAL_ERROR = "INTERNAL_ERROR"
 
@@ -41,6 +49,9 @@ EXIT_CODES: dict[ExitCode, int] = {
     ExitCode.CONFIG_INVALID: 2,
     ExitCode.POLICY_BLOCKED: 3,
     ExitCode.RUNTIME_START_BLOCKED: 4,
+    ExitCode.QUARANTINE_REVIEW_REQUIRED: 5,
+    ExitCode.QUARANTINE_BLOCKED: 6,
+    ExitCode.QUARANTINE_RELEASE_BLOCKED: 7,
     ExitCode.USAGE_ERROR: 64,
     ExitCode.INTERNAL_ERROR: 70,
 }
@@ -84,6 +95,43 @@ class ReasonCode(StrEnum):
     SECRET_PROVIDER_UNCONFIGURED = "SECRET_PROVIDER_UNCONFIGURED"
     EVIDENCE_WRITER_UNCONFIGURED = "EVIDENCE_WRITER_UNCONFIGURED"
 
+    # CBP-WP-013 — Ingest-Quarantäne. Policy.
+    QUARANTINE_POLICY_FILE_MISSING = "QUARANTINE_POLICY_FILE_MISSING"
+    QUARANTINE_POLICY_NOT_READABLE = "QUARANTINE_POLICY_NOT_READABLE"
+    QUARANTINE_POLICY_PARSE_ERROR = "QUARANTINE_POLICY_PARSE_ERROR"
+    QUARANTINE_POLICY_SCHEMA_UNSUPPORTED = "QUARANTINE_POLICY_SCHEMA_UNSUPPORTED"
+    QUARANTINE_POLICY_UNKNOWN_FIELD = "QUARANTINE_POLICY_UNKNOWN_FIELD"
+    QUARANTINE_POLICY_MISSING_FIELD = "QUARANTINE_POLICY_MISSING_FIELD"
+    QUARANTINE_POLICY_INVALID_VALUE = "QUARANTINE_POLICY_INVALID_VALUE"
+    QUARANTINE_POLICY_RELEASE_ENABLED = "QUARANTINE_POLICY_RELEASE_ENABLED"
+    QUARANTINE_POLICY_NETWORK_ENABLED = "QUARANTINE_POLICY_NETWORK_ENABLED"
+
+    # CBP-WP-013 — Ingest-Quarantäne. Synthetic-only-Grenze und Intake.
+    QUARANTINE_SYNTHETIC_CONFIRMATION_MISSING = (
+        "QUARANTINE_SYNTHETIC_CONFIRMATION_MISSING"
+    )
+    QUARANTINE_SOURCE_REF_NOT_SYNTHETIC = "QUARANTINE_SOURCE_REF_NOT_SYNTHETIC"
+    QUARANTINE_SOURCE_REF_INVALID = "QUARANTINE_SOURCE_REF_INVALID"
+    QUARANTINE_INPUT_NOT_FOUND = "QUARANTINE_INPUT_NOT_FOUND"
+    QUARANTINE_INPUT_CHANGED = "QUARANTINE_INPUT_CHANGED"
+
+    # CBP-WP-013 — Ingest-Quarantäne. Scanergebnis.
+    QUARANTINE_SCAN_BLOCKED = "QUARANTINE_SCAN_BLOCKED"
+    QUARANTINE_SCAN_REVIEW_REQUIRED = "QUARANTINE_SCAN_REVIEW_REQUIRED"
+
+    # CBP-WP-013 — Ingest-Quarantäne. Store und Record.
+    QUARANTINE_STORE_INSIDE_REPOSITORY = "QUARANTINE_STORE_INSIDE_REPOSITORY"
+    QUARANTINE_STORE_IS_SYMLINK = "QUARANTINE_STORE_IS_SYMLINK"
+    QUARANTINE_STORE_ROOT_INVALID = "QUARANTINE_STORE_ROOT_INVALID"
+    QUARANTINE_STORE_WRITE_OUTSIDE_ROOT = "QUARANTINE_STORE_WRITE_OUTSIDE_ROOT"
+    QUARANTINE_OBJECT_HASH_COLLISION = "QUARANTINE_OBJECT_HASH_COLLISION"
+    QUARANTINE_RECORD_COLLISION = "QUARANTINE_RECORD_COLLISION"
+    QUARANTINE_RECORD_NOT_FOUND = "QUARANTINE_RECORD_NOT_FOUND"
+    QUARANTINE_RECORD_INVALID = "QUARANTINE_RECORD_INVALID"
+
+    # CBP-WP-013 — Ingest-Quarantäne. Freigabe verweigert.
+    QUARANTINE_RELEASE_ALWAYS_BLOCKED = "QUARANTINE_RELEASE_ALWAYS_BLOCKED"
+
 
 class CoreBrainError(Exception):
     """Basisklasse aller Skeleton-Fehler."""
@@ -114,3 +162,26 @@ class PortRefused(CoreBrainError):
 
 class RuntimeStartBlocked(CoreBrainError):
     """Der Start der operativen Runtime ist verweigert."""
+
+
+class QuarantinePolicyError(CoreBrainError):
+    """Die Quarantäne-Policy ist syntaktisch oder strukturell ungültig."""
+
+
+class QuarantineInputRejected(CoreBrainError):
+    """Ein Intake wurde vor oder während der Prüfung fail-closed abgewiesen.
+
+    Die Ausnahme trägt **keinen** Eingabepfad, keinen Dateinamen und keinen
+    Inhaltsauszug — ausschließlich einen stabilen Reason Code.
+    """
+
+
+class QuarantineStoreError(CoreBrainError):
+    """Eine Store-Operation wurde fail-closed verweigert.
+
+    Trägt keinen absoluten Pfad und keinen Payload — nur einen Reason Code.
+    """
+
+
+class QuarantineReleaseBlocked(CoreBrainError):
+    """``quarantine release`` verweigert unabhängig vom Recordstatus."""

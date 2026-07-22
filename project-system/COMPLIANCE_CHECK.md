@@ -3,7 +3,7 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Letzte Prüfung | 2026-07-21, im Rahmen von **CBP-WP-012** |
+| Letzte Prüfung | 2026-07-22, im Rahmen von **CBP-WP-013** |
 | Autoritätsklasse | A2 |
 
 > Diese Datei gehört zur kanonischen NDF-Ordnerstruktur, war aber in der
@@ -323,6 +323,7 @@ existiert.
 | **CBP-WP-010** | **„neun Blocker" bei acht aufgezählten IDs** (V7, V8, V9, V10, V11, V14, V20, V23). Die Zahl war durch einen offenen Zusatz — „sowie jede Regel, deren Verletzung ein Secret sichtbar macht" — **unprüfbar** gemacht worden | **CBP-WP-010, Nova-REWORK-Korrekturlauf** |
 | **CBP-WP-011** | **Drei Befunde in einem Korrekturvorgang.** (1) Readiness Gate: Stufenverteilung summierte sich auf **25** bei **24** Gate-Punkten — Stufe 4 war mit 10 angegeben, die ID-Liste enthielt 9. (2) **Testtaxonomie**: ein Positivtest trug die NT-ID `NT-25` und wurde zur Negativtestzahl gerechnet. (3) **Doppelt vergebene Test-IDs**: `NT-23` und `NT-24` bezeichneten in der Acceptance Matrix RT-1-/RT-3-Tests, in der Egress-Policy DNS-/Privatnetz-Tests | **CBP-WP-011, Nova-REWORK-Korrekturlauf** |
 | **CBP-WP-012** | **Ein Korrekturvorgang mit zwei Ausprägungen im ersten Report.** (1) **Git-Inventar** als „6 neue Pfade" angegeben statt tatsächlich **21 neue / 13 geänderte / 34 eindeutige** Pfade. (2) **Exitcode-Sequenz** als „alle sieben ausgeführt" beschrieben, aber nur **sechs** Exitcodes belegt — der siebte fehlte. Beide Male war die Aussage höher als der Beleg | **CBP-WP-012, Nova-REWORK-Korrekturlauf** |
+| **CBP-WP-013** | **Dokumentübergreifender Mengen- und Terminologiekonsistenzfehler** (kein arithmetischer Zählfehler). Die Risikomengen A (6), B (5), C (11) waren **numerisch korrekt**; die Vereinigungsmenge **C** wurde jedoch fälschlich als „vollständige kritische Liste" bezeichnet, und Gruppe **B** als „offen/hoch", obwohl **R-33** die Kritikalität **mittel** hat. Betroffen: `work-packages/CBP-WP-013.md`, `docs/runtime/INGEST_QUARANTINE_EVIDENCE.md` | **CBP-WP-013, Nova-REWORK-Korrekturlauf** |
 
 **Der vierte Fehler entstand, nachdem die Regel eingeführt war**, und wurde
 erst ein Work Package später gefunden. Die Regel wirkt — aber nachlaufend. Das
@@ -355,11 +356,32 @@ diesem Korrekturlauf ergänzt wurde, ist eine lokale Testverbesserung und
 schließt R-33 nicht** — R-33 ist eine Dokumentregel, keine technische
 Kontrolle.
 
+**Der achte Vorgang ist kein arithmetischer Zählfehler, sondern eine
+Konsistenz- und Terminologieinkonsistenz.** In zwei Repository-Artefakten des
+CBP-WP-013-Änderungssatzes (`work-packages/CBP-WP-013.md`,
+`docs/runtime/INGEST_QUARANTINE_EVIDENCE.md`) waren die Risikomengen **A (6),
+B (5) und C (11) numerisch korrekt**, aber die Vereinigungsmenge **C** wurde
+fälschlich als „vollständige kritische Liste" bezeichnet und Gruppe **B** als
+„offen/hoch", obwohl **R-33** die Kritikalität **mittel** hat. **Ergänzung zur
+Zählregel:** Eine Vereinigungsmenge darf nicht unter dem Namen einer ihrer
+Teilmengen geführt werden, und eine Kritikalität darf nicht heraufgestuft
+benannt werden — die Benennung folgt der Quelltabelle. Korrigiert im
+Nova-REWORK-Terminologiekorrekturlauf.
+
 **R-33 bleibt `gemindert, nicht geschlossen`** — die Einträge ändern den Status
 nicht. Die Zähl- und Statusregel ist weiterhin eine **Dokumentregel, keine
-technische Kontrolle**. Sieben Zählvorgänge in zwölf Work Packages sind
-dokumentiert; jeder wurde durch Auszählung gefunden, keiner durch die Regel
-verhindert.
+technische Kontrolle**. **Acht Konsistenzvorgänge in dreizehn Work Packages**
+sind dokumentiert; jeder wurde durch Auszählung bzw. Terminologieprüfung
+gefunden, keiner durch die Regel verhindert.
+
+**Die Implementierung von CBP-WP-013 selbst führte keinen arithmetischen
+Zählfehler ein.** Testzahl (**137**) aus `Ran N tests`, Git-Inventar aus
+`git status --porcelain=v1 -uall`, Entscheidungs- und ADR-Zahlen aus den
+Quelltabellen ausgezählt. Die **zwei** in CBP-WP-013 gefundenen Testdefekte
+betrafen Testcode (Docstring-Prosa-Grep; Zeilenenden-Normalisierung), keine
+Kennzahl. **Der achte Konsistenzvorgang entstand erst im ersten
+Nova-Korrekturlauf** — in den beiden oben genannten Dokumenten — und ist als
+solcher in der Tabelle geführt. **R-33 bleibt offen.**
 
 ## Offene Punkte
 

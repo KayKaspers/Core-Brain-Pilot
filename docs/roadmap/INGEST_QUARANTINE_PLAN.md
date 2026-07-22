@@ -2,14 +2,23 @@
 
 | Feld | Wert |
 | --- | --- |
-| **Status** | **PROPOSED** — Plan, keine Implementierung |
+| **Status** | **PROPOSED** (Zielpipeline) · **MVP-Teilmenge lokal** (CBP-WP-013) |
 | Stream | F4 · Backlogpunkt P4 |
 | Erfasst in | CBP-WP-008 |
 | Autoritätsklasse | A3 |
-| Grundlage | **D-019**, **D-021**, ADR-0003 |
+| Grundlage | **D-019**, **D-021**, ADR-0003; MVP: D-038…D-041, ADR-0010 |
 | Betrifft | **R-32** (bleibt offen) |
 | Abhängig von | **F3** — KB-01 bis KB-04, KB-08 |
-| Stand | 2026-07-21 |
+| Stand | 2026-07-22 |
+
+> **CBP-WP-013 hat eine synthetisch testbare Teilmenge dieses Plans lokal
+> implementiert** — die strukturelle Aufnahme (Schritt 2), die Formatprüfung
+> (Schritt 3) und einen **Baseline**-Scan (Schritt 4, ohne Vollständigkeit) mit
+> drei Zuständen und **ohne Promotion**. Details in
+> [INGEST_QUARANTINE_MVP.md](../runtime/INGEST_QUARANTINE_MVP.md) und
+> [ADR-0010](../decisions/ADR-0010-ingest-quarantaene-mvp.md). Die **Schritte 1
+> und 5–12** sowie die **zehn Planzustände** bleiben unimplementiert. **R-32
+> bleibt offen.**
 
 Dieses Dokument beschreibt die Pipeline. Es **installiert keinen Scanner**,
 wählt keine Software und verwendet **keine realistischen Secrets** — auch nicht

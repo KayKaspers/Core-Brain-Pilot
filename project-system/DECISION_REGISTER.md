@@ -98,6 +98,10 @@ Human-Maintainer-Entscheidung im Entscheidungsblock. Wortlaut unverändert in
 | **D-035** | **Teil B — Secret-Modell: versionierter, providerneutraler Secret-Reference- und Resolver-Vertrag** plus **OS-geschützter Datei-Provider** für den Pilot, außerhalb von Core-Repository, Operator-Workspace und Runtime. Werte nur read-only an die berechtigte Identität; **niemals in Git, Konfiguration, Umgebungsvariablen, Kommandozeilen, Logs, RT-2, Context Packs, Fehlermeldungen oder Reports**. Referenzen enthalten keine Werte und keine Hostpfade; später ohne Änderung der Mappingkonvention migrierbar | `accepted` | **A0** | Entscheidungsblock CBP-WP-011 | 2026-07-21 | KB-08; **schließt OD-34** | **ADR-0009** (A1); Grundsatz S-B |
 | **D-036** | **Teil C — Netzwerk-Egress: deny-by-default mit expliziter Allowlist**, gebunden an **Ziel, Provider, Zweck und Service-Identität**. Vor jeder externen Übertragung zusätzlich Datenklasse, AI-Transfer-Policy, Approval-Zustand, Zweck und freigegebenes Ziel prüfen. **Lokale Suche und Retrieval funktionieren ohne externen Netzwerkzugriff**; `excluded-from-ai` bleibt unabhängig von jeder Netzfreigabe blockiert | `accepted` | **A0** | Entscheidungsblock CBP-WP-011 | 2026-07-21 | KB-10, KB-11 | **ADR-0009** (A1); Grundsatz S-C |
 | **D-037** | **Teil D — Operational Evidence: logisch append-only, integritätsverkettet, aufbewahrungs- und sicherungspflichtig.** Korrekturen durch nachvollziehbare Folgeereignisse statt stillschweigendem Überschreiben; stabile Ereignisidentitäten, getrennte Zugriffsrechte, Backup, Restore-Nachweis, **sichtbare Erkennung von Ketten- oder Integritätsbrüchen**. RT-2 ist weder Cache noch kanonische Wissensbasis und nicht zuverlässig rekonstruierbar. **Konkrete Aufbewahrungsdauer, Speichertechnologie und Implementierung bleiben deploymentspezifisch** | `accepted` | **A0** | Entscheidungsblock CBP-WP-011 | 2026-07-21 | KB-09, KB-12; **schließt OD-35** | **ADR-0009** (A1); Grundsatz S-D |
+| **D-038** | **Teil A — Intake-Granularität: genau eine ausdrücklich angegebene Markdown-Datei je Intake.** Keine Verzeichnisrekursion, keine Mehrfachdateien, keine Archive, keine Symlink-Folgen, keine implizite Suche, kein Zugriff auf Canonical-Source-Roots | `accepted` | **A0** | Entscheidungsblock CBP-WP-013 | 2026-07-22 | Quarantäne-MVP, R-32 | **ADR-0010** (A1) |
+| **D-039** | **Teil B — Quarantänespeicher: lokaler content-addressed Dateispeicher** mit unveränderlichem Payload und atomarem JSON-Manifest. Root explizit und außerhalb des Core-Repositorys; im Work Package nur temporär mit synthetischen Daten. Objektpfade nur aus validiertem SHA-256; Idempotenz; Kollision blockiert. **Weder Canonical Source noch RT-2, keine produktive Sicherheitsgrenze** | `accepted` | **A0** | Entscheidungsblock CBP-WP-013 | 2026-07-22 | Quarantäne-MVP | **ADR-0010** (A1) |
+| **D-040** | **Teil C — Baseline-Scanner: strukturelle Prüfungen plus deterministische Credential- und PII-Indikatoren.** Fest verdrahtete Regeln, keine frei konfigurierbaren regulären Ausdrücke. **Indikatoren, keine vollständige Secret-, PII- oder Klassifikationskontrolle.** Befunde ohne Snippet, Pfad oder Wert | `accepted` | **A0** | Entscheidungsblock CBP-WP-013 | 2026-07-22 | R-01, R-32 | **ADR-0010** (A1) |
+| **D-041** | **Teil D — Freigabemodell: drei Zustände `READY_FOR_HUMAN_REVIEW`, `REVIEW_REQUIRED`, `BLOCKED`; keine automatische Promotion.** Kein Zustand bedeutet `approved`, `released`, `enabled` oder `indexed`. `quarantine release` verweigert deterministisch fail-closed | `accepted` | **A0** | Entscheidungsblock CBP-WP-013 | 2026-07-22 | Quarantäne-MVP | **ADR-0010** (A1) |
 
 > **Die vier Entscheidungen legen Sicherheitsarchitektur fest, keine
 > Implementierung.** Es wurde keine Identität angelegt, kein Recht gesetzt,
@@ -105,6 +109,12 @@ Human-Maintainer-Entscheidung im Entscheidungsblock. Wortlaut unverändert in
 > ausgeführt. Alle zwölf Kontrollen stehen auf **DOCUMENTED ONLY**, das
 > [Security Foundation Readiness Gate](../docs/operations/SECURITY_FOUNDATION_READINESS_GATE.md)
 > auf **`NOT EVALUATED`**.
+
+> **D-038 bis D-041 (CBP-WP-013) definieren einen lokalen, synthetisch
+> testbaren Quarantäneprototyp — keine produktive Quarantäne.** Es wurde keine
+> reale Quelle berührt, kein Mapping aktiviert, nichts freigegeben und nichts
+> promotet. **R-01 und R-32 bleiben offen**; **OD-05 und OD-06 bleiben offen**.
+> Festgehalten in [ADR-0010](../docs/decisions/ADR-0010-ingest-quarantaene-mvp.md).
 
 > **Hinweis zu D-016.** In CBP-WP-002 hatte ich „bevorzugte Anwendungslaufzeit"
 > zu „vorgesehene" abgeschwächt (Ü-02), gestützt auf Projektübergabe §4 (A5),
@@ -173,6 +183,8 @@ Legende: **P0** blockiert G0 · **P1** vor Architekturentscheidung · **P2** sp�
 | OD-23 | Lizenzwahl | P1 | Human Maintainer | D-007 |
 | OD-25 | qmd als produktiver Suchdienst — nur nach Prüfung | P1 | Human Maintainer | — |
 | **OD-36** | Bildungsvorschrift der `mapping_id`, zulässige Collection-Namen und deren Vergabe, unterstützte `schema_version`-Werte über `1.0` hinaus | P1 | Nova | ADR-0008; PILOT_SOURCE_MAPPING_SCHEMA |
+| **OD-37** | Produktive Quarantäne-Isolation auf der Ziel-VM (KB-03, KB-04): OS-Rechte, getrennte Identität, Unzugänglichkeit für den Indexer | P1 | Human Maintainer | ADR-0010; **Deployment Required** |
+| **OD-38** | Produktive Secret- und PII-Erkennung: Werkzeugauswahl, Erkennungsgüte, Verfahren nach D-019 | P1 | Nova + Human Maintainer | ADR-0010; R-01, R-32 |
 | OD-24 | Akzeptable Ausfallzeit | P2 | Human Maintainer | — |
 | OD-28 | Öffentlicher Produktname und Phase-7-Option | P2 | Human Maintainer | — |
 
@@ -180,8 +192,8 @@ Legende: **P0** blockiert G0 · **P1** vor Architekturentscheidung · **P2** sp�
 
 | Kategorie | Anzahl |
 | --- | --- |
-| Getroffene Entscheidungen | **37** (davon **33** mit A0) |
-| Angenommene ADRs | **9** (ADR-0001 bis ADR-0009, alle A1) |
+| Getroffene Entscheidungen | **41** (davon **37** mit A0) |
+| Angenommene ADRs | **10** (ADR-0001 bis ADR-0010, alle A1) |
 | Vorgeschlagene ADRs | 0 |
 | Neu in CBP-WP-003 | 12 (D-015 bis D-026) |
 | Neu in CBP-WP-004 | 0 Entscheidungen, 5 ADRs |
@@ -190,9 +202,10 @@ Legende: **P0** blockiert G0 · **P1** vor Architekturentscheidung · **P2** sp�
 | Neu in CBP-WP-009 | **2 A0-Entscheidungen** (D-029 Teil A, D-030 Teil B), **1 ADR** |
 | Neu in CBP-WP-010 | **3 A0-Entscheidungen** (D-031 Format, D-032 Collection, D-033 Granularität), **1 ADR**, 2 neue offene Entscheidungen (OD-35, OD-36) |
 | Neu in CBP-WP-011 | **4 A0-Entscheidungen** (D-034 Identity, D-035 Secret, D-036 Egress, D-037 Evidence), **1 ADR**, **2 geschlossene** (OD-34, OD-35) |
+| Neu in CBP-WP-013 | **4 A0-Entscheidungen** (D-038 Intake, D-039 Store, D-040 Scanner, D-041 Freigabe), **1 ADR**, 2 neue offene Entscheidungen (OD-37, OD-38) |
 | Geschlossene offene Entscheidungen | **12** |
 | Vertagte Entscheidungen | 4 |
-| Offene Entscheidungen | **21** |
+| Offene Entscheidungen | **23** |
 | davon **P0** | **5** — OD-04, OD-07, OD-08, OD-11, OD-29 |
 
 *Sämtliche Werte in CBP-WP-011 aus den Quelltabellen **ausgezählt**, nicht

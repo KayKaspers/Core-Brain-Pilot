@@ -3,22 +3,23 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Angenommene ADRs | **9** |
+| Angenommene ADRs | **10** |
 | Vorgeschlagene ADRs | 0 |
-| Überarbeitet in | **CBP-WP-011** |
-| Stand | 2026-07-21 |
+| Überarbeitet in | **CBP-WP-013** |
+| Stand | 2026-07-22 |
 
 Dieses Verzeichnis enthält Architecture Decision Records. Ein angenommener ADR
 hat Autoritätsklasse **A1** und bindet nachfolgende Arbeit.
 
 ## Aktueller Stand
 
-**Neun angenommene ADRs.** Fünf aus CBP-WP-004, jeder durch eine ausdrückliche
+**Zehn angenommene ADRs.** Fünf aus CBP-WP-004, jeder durch eine ausdrückliche
 A0-Entscheidung oder eine A5-Originalquelle belegt; **ADR-0006** am 2026-07-21
 angenommen (D-028); **ADR-0007** am selben Tag (D-029, D-030); **ADR-0008**
-(D-031, D-032, D-033) und **ADR-0009** (D-034 bis D-037) ebenfalls.
+(D-031, D-032, D-033) und **ADR-0009** (D-034 bis D-037) ebenfalls; **ADR-0010**
+am 2026-07-22 (D-038 bis D-041, Ingest-Quarantäne-MVP).
 
-Alle neun tragen **A1** und binden nachfolgende Arbeit. Es steht kein Vorschlag
+Alle zehn tragen **A1** und binden nachfolgende Arbeit. Es steht kein Vorschlag
 mehr offen.
 
 > **ADR-0006 trägt seit CBP-WP-010 einen Klarstellungsnachtrag** — *non-substantive
@@ -37,6 +38,7 @@ mehr offen.
 | [ADR-0007](ADR-0007-repository-und-workspace-grenze.md) | Repository-Zielstruktur und Workspace-Grenze | **`accepted`** | **D-029, D-030 (A0), 2026-07-21** |
 | [ADR-0008](ADR-0008-pilot-source-mapping-konvention.md) | Pilot Source Mapping Konvention | **`accepted`** | **D-031, D-032, D-033 (A0), 2026-07-21** |
 | [ADR-0009](ADR-0009-technische-sicherheitsgrundlage.md) | Technische Sicherheitsgrundlage | **`accepted`** | **D-034 bis D-037 (A0), 2026-07-21** |
+| [ADR-0010](ADR-0010-ingest-quarantaene-mvp.md) | Ingest-Quarantäne MVP | **`accepted`** | **D-038 bis D-041 (A0), 2026-07-22** |
 
 Weitere Kandidaten sind in
 [project-system/DECISION_REGISTER.md](../../project-system/DECISION_REGISTER.md)

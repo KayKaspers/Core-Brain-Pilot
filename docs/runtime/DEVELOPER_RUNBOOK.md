@@ -10,6 +10,10 @@
 > **Dies ist keine produktive Betriebsanleitung.** Der Skeleton ist lokal und
 > fail-closed. Er startet keine Runtime, bindet keine Quelle an und öffnet
 > keine Verbindung.
+>
+> **Für die Ingest-Quarantäne (CBP-WP-013)** siehe das eigene
+> [INGEST_QUARANTINE_RUNBOOK.md](INGEST_QUARANTINE_RUNBOOK.md) — ausschließlich
+> synthetische, temporäre Daten.
 
 ---
 

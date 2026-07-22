@@ -28,16 +28,17 @@ vorgesehene, **noch nicht implementierte** Anwendungslaufzeit.
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Aktuelles Work Package | CBP-WP-012 (`in-review`) |
-| Nächster Schritt | **CBP-WP-013 vorgeschlagen**, nicht freigegeben — **keine Implementierung autorisiert** |
+| Aktuelles Work Package | CBP-WP-013 (`in-review`) |
+| Nächster Schritt | **CBP-WP-014 vorgeschlagen**, nicht freigegeben — **keine Implementierung autorisiert** |
 | **Gate G0** | **PASSED WITH NOTES** — 2026-07-21, A0 |
 | Phase-1-Planung | **Streams F1–F5 geplant**, [Foundation Plan](docs/roadmap/PHASE_1_FOUNDATION_PLAN.md) |
 | **Repository-Struktur** | **entschieden** — [ADR-0007](docs/decisions/ADR-0007-repository-und-workspace-grenze.md); **Migration nicht autorisiert** |
 | **Mappingkonvention** | **entschieden** — [ADR-0008](docs/decisions/ADR-0008-pilot-source-mapping-konvention.md); **0 Mappings, 0 angebundene Quellen** |
 | **Sicherheitsgrundlage** | **spezifiziert** — [ADR-0009](docs/decisions/ADR-0009-technische-sicherheitsgrundlage.md); **12 Kontrollen `DOCUMENTED ONLY`, 0 Tests ausgeführt** |
-| **Runtime Skeleton** | **lokal implementiert** — [FOUNDATION_RUNTIME_SKELETON.md](docs/runtime/FOUNDATION_RUNTIME_SKELETON.md); 69 Tests bestanden, `run` fail-closed, **nicht produktionsbereit** |
-| Implementierte Capabilities | **keine (0 von 29)** |
-| Angenommene ADRs | **9** |
+| **Runtime Skeleton** | **lokal implementiert** — [FOUNDATION_RUNTIME_SKELETON.md](docs/runtime/FOUNDATION_RUNTIME_SKELETON.md); `run` fail-closed, **nicht produktionsbereit** |
+| **Ingest-Quarantäne MVP** | **lokaler Prototyp** — [INGEST_QUARANTINE_MVP.md](docs/runtime/INGEST_QUARANTINE_MVP.md), [ADR-0010](docs/decisions/ADR-0010-ingest-quarantaene-mvp.md); synthetic-only, fail-closed, **keine Promotion**; **137 Tests**, **nicht produktiv** |
+| Implementierte Capabilities | **keine (0 von 29)** — Capability 5/6 bleiben `planned` |
+| Angenommene ADRs | **10** |
 | Framework | Nova Development Framework v1.0.0 |
 
 ## Pilotumfang
@@ -107,10 +108,11 @@ Nur der Human Maintainer committet, tagged und pusht.
 | `project-brain/` | Kuratiertes Projektgedächtnis |
 | `project-system/` | Profil, Manifest, Capability Matrix, Register, WP-Queue |
 | `work-packages/` | Wortlaut der freigegebenen Work Packages |
-| `core/` | **Foundation Runtime Skeleton** (CBP-WP-012) — lokal, fail-closed |
-| `config/` | Synthetische Beispielkonfiguration |
+| `core/` | **Foundation Runtime Skeleton** (CBP-WP-012) + **Ingest-Quarantäne-MVP** (CBP-WP-013) — lokal, fail-closed |
+| `config/` | Synthetische Beispielkonfiguration und -policy |
+| `examples/` | Synthetische Quarantäne-Beispiele (test-only) |
 | `tests/` | Lokale Unit- und Negativtests (Standardbibliothek) |
-| `docs/runtime/` | Skeleton-Doku, technische Evidenz, Developer Runbook |
+| `docs/runtime/` | Skeleton- und Quarantäne-Doku, technische Evidenz, Runbooks |
 
 > **Dies ist die aktuelle, nicht die Zielstruktur.** Am 2026-07-21 wurde als
 > Ziel ein **Monorepo** mit `core/`, `adapters/`, `deployments/`, `config/`,

@@ -12,6 +12,10 @@
 > **Dieser Skeleton führt keine operative Verarbeitung aus.** Er bindet keine
 > Quelle an, löst kein Secret auf, öffnet keine Verbindung und schreibt keinen
 > RT-2-Nachweis. Das Kommando `run` verweigert deterministisch.
+>
+> **CBP-WP-013** ergänzt auf diesem Skeleton die Kommandogruppe `quarantine`
+> (`scan`, `stage`, `inspect`, `release`) — ein lokaler, synthetisch testbarer
+> Quarantäneprototyp. Siehe [INGEST_QUARANTINE_MVP.md](INGEST_QUARANTINE_MVP.md).
 
 ---
 
