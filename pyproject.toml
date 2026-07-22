@@ -1,0 +1,29 @@
+# Core Brain Pilot — Foundation Runtime Skeleton
+#
+# Interner Prototyp. Keine Veröffentlichungskonfiguration.
+# Keine Runtime- und keine Development-Abhängigkeiten.
+# Lokale Tests und die CLI benötigen keine Paketinstallation.
+#
+# Ausführung erfolgt ausschließlich aus dem Repositoryverzeichnis:
+#   py -3.13 -m core.core_brain version
+#   py -3.13 -m unittest discover -s tests -v
+#
+# Es ist bewusst KEIN [build-system] definiert: Der Skeleton wird nicht
+# gebaut, nicht installiert und nicht veröffentlicht.
+
+[project]
+name = "core-brain-pilot"
+version = "0.1.0.dev0"
+description = "Foundation Runtime Skeleton — lokal, fail-closed, nicht produktionsbereit"
+requires-python = ">=3.13"
+dependencies = []
+
+[project.optional-dependencies]
+# Bewusst leer — keine Development-Abhängigkeiten.
+dev = []
+
+[tool.core-brain-pilot]
+status = "internal prototype"
+runtime_mode = "skeleton"
+production_ready = false
+work_package = "CBP-WP-012"

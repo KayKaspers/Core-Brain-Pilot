@@ -23,7 +23,7 @@ Maintainers ausführbar — Regel 6 der Work Package Queue.
 | **CBP-WP-009** | Repository Boundary Decision | `docs-only`, interaktiv | F1 | **`in-review`** — ausgeführt 2026-07-21 | **nein** |
 | **CBP-WP-010** | Pilot Source Mapping Specification | `docs-only`, interaktiv | F2 | **`in-review`** — ausgeführt 2026-07-21 | **nein** |
 | **CBP-WP-011** | Technical Security Foundation Specification | `docs-only`, interaktiv | F3 | **`in-review`** — ausgeführt 2026-07-21 | **nein** |
-| **CBP-WP-012** | Foundation Runtime Skeleton | spätere Implementierung | F3 | **`proposed`** | **nein** |
+| **CBP-WP-012** | Foundation Runtime Skeleton | implementation | F3 | **`in-review`** — ausgeführt 2026-07-21 | **nein** |
 | **CBP-WP-013** | Ingest Quarantine Minimum Viable Pipeline | spätere Implementierung | F4 | **`proposed`** | **nein** |
 | **CBP-WP-014** | Deterministic Source Registry and Catalog | spätere Implementierung | F5 | **`proposed`** | **nein** |
 
@@ -115,11 +115,14 @@ Umsetzung. **Alle zwölf Kontrollen stehen auf `DOCUMENTED ONLY`.**
 | **Abbruchbedingungen** | Root- oder Hostausführung; unerwarteter Schreibzugriff auf Canonical; Secretfund (SB-01, SB-04 der Stop-Bedingungen) |
 | **Erwartete Risiken** | R-26, **R-25**, R-01 |
 | **Review Gate** | Human-Maintainer-Freigabe **vor** Beginn, Nova-Review danach |
-| **Status** | **`proposed`** |
-| **Implementierung autorisiert** | **nein** |
+| **Status** | **`in-review`** — ausgeführt am 2026-07-21 |
+| **Ergebnis** | Human-Autorisierung APPROVE WITH NOTES (A0); Stack A1, CLI B1, Struktur C1. Additiver Python-Skeleton, **9 Module**, lokale CLI, vier verweigernde Ports, **69 Tests bestanden**, `run` fail-closed (Exit 4). **Keine KB-Kontrolle durchgesetzt** — alle `DOCUMENTED ONLY` |
+| **Implementierung autorisiert** | **ja, ausgeführt** — nur der lokale Skeleton, kein produktiver Betrieb |
 
-**Dies wäre das erste Work Package mit technischer Wirkung.** Es ist bewusst
-als Gerüst geschnitten: keine Suche, kein Retrieval, keine Oberfläche.
+**Erstes Work Package mit technischer Wirkung.** Bewusst als Gerüst
+geschnitten: keine Suche, kein Retrieval, keine Oberfläche, keine angebundene
+Quelle. **Die Umsetzung von KB-01…KB-12 auf der Ziel-VM steht aus** — der
+Skeleton prüft lokal, er setzt nicht durch.
 
 ## CBP-WP-013 — Ingest Quarantine Minimum Viable Pipeline
 

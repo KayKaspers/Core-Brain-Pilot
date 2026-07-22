@@ -1,0 +1,266 @@
+"""Tests der lokalen CLI."""
+
+from __future__ import annotations
+
+import io
+import json
+import socket
+import subprocess
+import sys
+import tempfile
+import unittest
+from pathlib import Path
+from unittest import mock
+
+from core.core_brain.cli import VERSION, main
+from core.core_brain.errors import EXIT_CODES, ExitCode
+
+REPO_ROOT = Path(__file__).resolve().parent.parent
+EXAMPLE_CONFIG = REPO_ROOT / "config" / "runtime.example.toml"
+
+
+def run_cli(*argv: str) -> tuple[int, str, str]:
+    """Führt die CLI in-process aus und gibt Code, stdout und stderr zurück."""
+    out, err = io.StringIO(), io.StringIO()
+    code = main(list(argv), out=out, err=err)
+    return code, out.getvalue(), err.getvalue()
+
+
+class TestVersion(unittest.TestCase):
+    """Test 17 — ``version`` liefert Exitcode 0."""
+
+    def test_version_exit_zero(self) -> None:
+        code, out, _ = run_cli("version")
+        self.assertEqual(code, EXIT_CODES[ExitCode.OK])
+        self.assertEqual(out.strip(), VERSION)
+
+    def test_version_matches_pyproject(self) -> None:
+        import tomllib
+
+        data = tomllib.loads(
+            (REPO_ROOT / "pyproject.toml").read_text(encoding="utf-8")
+        )
+        self.assertEqual(data["project"]["version"], VERSION)
+
+
+class TestValidateConfig(unittest.TestCase):
+    """Test 18 — ``validate-config`` validiert die Beispielkonfiguration."""
+
+    def test_valid_example_config(self) -> None:
+        code, out, _ = run_cli("validate-config", "--config", str(EXAMPLE_CONFIG))
+        self.assertEqual(code, EXIT_CODES[ExitCode.OK])
+        self.assertIn("CONFIG_VALID", out)
+
+    def test_invalid_config_returns_config_invalid(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            bad = Path(tmp) / "bad.toml"
+            bad.write_text(
+                EXAMPLE_CONFIG.read_text(encoding="utf-8").replace(
+                    'egress_default = "deny"', 'egress_default = "allow"'
+                ),
+                encoding="utf-8",
+            )
+            code, _, err = run_cli("validate-config", "--config", str(bad))
+        self.assertEqual(code, EXIT_CODES[ExitCode.CONFIG_INVALID])
+        self.assertIn("EGRESS_NOT_DENY", err)
+
+    def test_missing_config_returns_config_invalid(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            missing = Path(tmp) / "nope.toml"
+            code, _, err = run_cli("validate-config", "--config", str(missing))
+        self.assertEqual(code, EXIT_CODES[ExitCode.CONFIG_INVALID])
+        self.assertIn("CONFIG_FILE_MISSING", err)
+
+
+class TestDoctor(unittest.TestCase):
+    """Tests 19 bis 21 — Doctor ist deterministisch, JSON-fähig, secretfrei."""
+
+    def test_doctor_is_deterministic(self) -> None:
+        results = [
+            run_cli("doctor", "--config", str(EXAMPLE_CONFIG)) for _ in range(5)
+        ]
+        first = results[0]
+        for other in results[1:]:
+            self.assertEqual(other, first)
+
+    def test_doctor_reports_blocked(self) -> None:
+        code, out, _ = run_cli("doctor", "--config", str(EXAMPLE_CONFIG))
+        self.assertEqual(code, EXIT_CODES[ExitCode.POLICY_BLOCKED])
+        self.assertIn("production_ready: false", out)
+        self.assertIn("BLOCKED", out)
+
+    def test_doctor_json_is_valid_json(self) -> None:
+        code, out, _ = run_cli("doctor", "--config", str(EXAMPLE_CONFIG), "--json")
+        self.assertEqual(code, EXIT_CODES[ExitCode.POLICY_BLOCKED])
+        payload = json.loads(out)
+        self.assertFalse(payload["production_ready"])
+        self.assertEqual(payload["runtime_mode"], "skeleton")
+        self.assertGreaterEqual(payload["summary"]["blocked"], 1)
+
+    def test_doctor_json_is_deterministic(self) -> None:
+        outputs = {
+            run_cli("doctor", "--config", str(EXAMPLE_CONFIG), "--json")[1]
+            for _ in range(5)
+        }
+        self.assertEqual(len(outputs), 1)
+
+    def test_doctor_output_contains_no_secret_values(self) -> None:
+        _, out, err = run_cli("doctor", "--config", str(EXAMPLE_CONFIG))
+        _, jout, _ = run_cli("doctor", "--config", str(EXAMPLE_CONFIG), "--json")
+        combined = (out + err + jout).lower()
+        for marker in ("password", "token", "api_key", "cbp-secret:", "bearer "):
+            with self.subTest(marker=marker):
+                self.assertNotIn(marker, combined)
+
+    def test_doctor_on_invalid_config_still_emits_json(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            bad = Path(tmp) / "bad.toml"
+            bad.write_text('schema_version = "9.9"', encoding="utf-8")
+            code, out, _ = run_cli("doctor", "--config", str(bad), "--json")
+        self.assertEqual(code, EXIT_CODES[ExitCode.CONFIG_INVALID])
+        payload = json.loads(out)
+        self.assertFalse(payload["production_ready"])
+
+
+class TestRunFailsClosed(unittest.TestCase):
+    """Tests 22 und 23 — ``run`` verweigert und erzeugt keine Dateien."""
+
+    def test_run_refuses_with_documented_exit_code(self) -> None:
+        code, out, err = run_cli("run", "--config", str(EXAMPLE_CONFIG))
+        self.assertEqual(code, EXIT_CODES[ExitCode.RUNTIME_START_BLOCKED])
+        self.assertNotEqual(code, 0)
+        self.assertIn("RUNTIME_START_BLOCKED", err)
+        self.assertEqual(out, "")
+
+    def test_run_is_deterministic(self) -> None:
+        results = [run_cli("run", "--config", str(EXAMPLE_CONFIG)) for _ in range(3)]
+        self.assertEqual(len(set(results)), 1)
+
+    def test_run_creates_no_runtime_files(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            workdir = Path(tmp)
+            config = workdir / "runtime.toml"
+            config.write_text(
+                EXAMPLE_CONFIG.read_text(encoding="utf-8"), encoding="utf-8"
+            )
+            before = {p.name for p in workdir.iterdir()}
+            run_cli("run", "--config", str(config))
+            after = {p.name for p in workdir.iterdir()}
+        self.assertEqual(before, after)
+
+    def test_run_creates_no_files_in_repository(self) -> None:
+        before = {p.name for p in REPO_ROOT.iterdir()}
+        run_cli("run", "--config", str(EXAMPLE_CONFIG))
+        after = {p.name for p in REPO_ROOT.iterdir()}
+        self.assertEqual(before, after)
+
+
+class _NetworkAttempt(AssertionError):
+    """Wird ausgelöst, sobald ein lokaler Pfad Netzwerk versucht."""
+
+
+class TestNetworkGuard(unittest.TestCase):
+    """Deterministischer Netzwerk-Guard über die lokalen CLI-Pfade.
+
+    Der Guard ersetzt die zentralen Socket-Einstiegspunkte durch Funktionen,
+    die den Test **sofort scheitern lassen**. Verläuft ein CLI-Pfad ohne
+    Verbindungs- oder DNS-Versuch, ist der Guard nicht ausgelöst worden.
+
+    **Aussagegrenze:** Der Test beweist ausschließlich, dass *diese lokalen
+    CLI-Pfade in-process keinen Socket- oder DNS-Versuch unternehmen*. Er
+    beweist **nicht** Deployment-Isolation, Firewallwirkung,
+    Container-Netzgrenzen, VM-Egress-Kontrolle oder allgemeine
+    Systemnetzwerkfreiheit.
+    """
+
+    _CLI_PATHS: tuple[tuple[str, ...], ...] = (
+        ("version",),
+        ("validate-config", "--config", str(EXAMPLE_CONFIG)),
+        ("doctor", "--config", str(EXAMPLE_CONFIG)),
+        ("doctor", "--config", str(EXAMPLE_CONFIG), "--json"),
+        ("run", "--config", str(EXAMPLE_CONFIG)),
+    )
+
+    def _run_under_guard(self, argv: tuple[str, ...]) -> None:
+        def _deny(*_args: object, **_kwargs: object) -> object:
+            raise _NetworkAttempt(f"network attempt during: {' '.join(argv)}")
+
+        out, err = io.StringIO(), io.StringIO()
+        with (
+            mock.patch.object(socket, "create_connection", _deny),
+            mock.patch.object(socket, "getaddrinfo", _deny),
+            mock.patch.object(socket.socket, "connect", _deny),
+            mock.patch.object(socket.socket, "connect_ex", _deny),
+        ):
+            # Kein Netzwerkversuch darf auftreten; ein Aufruf würde
+            # _NetworkAttempt auslösen und den Test scheitern lassen.
+            main(list(argv), out=out, err=err)
+
+    def test_no_network_attempt_on_any_cli_path(self) -> None:
+        for argv in self._CLI_PATHS:
+            with self.subTest(path=" ".join(argv)):
+                # Wirft der Codepfad _NetworkAttempt, schlägt der Subtest fehl.
+                self._run_under_guard(argv)
+
+    def test_guard_itself_triggers_on_a_real_attempt(self) -> None:
+        # Gegenprobe: der Guard erkennt einen tatsächlichen Versuch.
+        def _deny(*_a: object, **_k: object) -> object:
+            raise _NetworkAttempt("blocked")
+
+        with mock.patch.object(socket, "create_connection", _deny):
+            with self.assertRaises(_NetworkAttempt):
+                socket.create_connection(("192.0.2.1", 9))
+
+
+class TestUsage(unittest.TestCase):
+    """Unbekannte Kommandos liefern einen Usage-Fehler."""
+
+    def test_unknown_command_is_usage_error(self) -> None:
+        code, _, _ = run_cli("does-not-exist")
+        self.assertEqual(code, EXIT_CODES[ExitCode.USAGE_ERROR])
+
+    def test_missing_config_argument_is_usage_error(self) -> None:
+        code, _, _ = run_cli("doctor")
+        self.assertEqual(code, EXIT_CODES[ExitCode.USAGE_ERROR])
+
+
+class TestNoImportSideEffects(unittest.TestCase):
+    """Test 24 — der Modulimport erzeugt keine Nebenwirkungen."""
+
+    def test_importing_package_produces_no_output_and_no_files(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            probe = (
+                "import sys, pathlib;"
+                "sys.path.insert(0, r'" + str(REPO_ROOT) + "');"
+                "before = set(pathlib.Path(r'" + tmp + "').iterdir());"
+                "import core.core_brain, core.core_brain.cli,"
+                " core.core_brain.config, core.core_brain.policies,"
+                " core.core_brain.ports, core.core_brain.models,"
+                " core.core_brain.errors;"
+                "after = set(pathlib.Path(r'" + tmp + "').iterdir());"
+                "assert before == after;"
+                "print('IMPORT_CLEAN')"
+            )
+            result = subprocess.run(
+                [sys.executable, "-c", probe],
+                capture_output=True,
+                text=True,
+                timeout=60,
+            )
+        self.assertEqual(result.returncode, 0, msg=result.stderr)
+        self.assertEqual(result.stdout.strip(), "IMPORT_CLEAN")
+        self.assertEqual(result.stderr.strip(), "")
+
+    def test_no_module_uses_dynamic_execution_or_shell(self) -> None:
+        package = REPO_ROOT / "core" / "core_brain"
+        for module in sorted(package.glob("*.py")):
+            source = module.read_text(encoding="utf-8")
+            with self.subTest(module=module.name):
+                self.assertNotIn("eval(", source)
+                self.assertNotIn("exec(", source)
+                self.assertNotIn("shell=True", source)
+                self.assertNotIn("__import__(", source)
+
+
+if __name__ == "__main__":  # pragma: no cover
+    unittest.main()

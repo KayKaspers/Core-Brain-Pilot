@@ -3,9 +3,9 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Aktuelles Work Package | **CBP-WP-011** (`in-review`) |
+| Aktuelles Work Package | **CBP-WP-012** (`in-review`) |
 | Gate G0 | **PASSED WITH NOTES** — 2026-07-21 |
-| Überarbeitet in | **CBP-WP-011** |
+| Überarbeitet in | **CBP-WP-012** |
 | Autoritätsklasse | A2 |
 | Stand | 2026-07-21 |
 
@@ -37,12 +37,12 @@ Spalten nach `WORK_PACKAGE_QUEUE_TEMPLATE.md` (NDF v1.0.0).
 | CBP-WP-008 | Phase 1 Foundation Implementation Plan | P0 | **`committed`** | [work-packages/CBP-WP-008.md](../work-packages/CBP-WP-008.md) |
 | CBP-WP-009 | **Repository Boundary Decision** | P0 | **`committed`** | [work-packages/CBP-WP-009.md](../work-packages/CBP-WP-009.md) |
 | CBP-WP-010 | **Pilot Source Mapping Specification** | P0 | **`committed`** | [work-packages/CBP-WP-010.md](../work-packages/CBP-WP-010.md) |
-| CBP-WP-011 | **Technical Security Foundation Specification** | P0 | **`in-review`** | [work-packages/CBP-WP-011.md](../work-packages/CBP-WP-011.md) |
-| CBP-WP-012 | Foundation Runtime Skeleton | P1 | `proposed` | noch nicht erstellt |
+| CBP-WP-011 | **Technical Security Foundation Specification** | P0 | **`committed`** | [work-packages/CBP-WP-011.md](../work-packages/CBP-WP-011.md) |
+| CBP-WP-012 | **Foundation Runtime Skeleton** | P1 | **`in-review`** | [work-packages/CBP-WP-012.md](../work-packages/CBP-WP-012.md) |
 | CBP-WP-013 | Ingest Quarantine Minimum Viable Pipeline | P1 | `proposed` | noch nicht erstellt |
 | CBP-WP-014 | Deterministic Source Registry and Catalog | P1 | `proposed` | noch nicht erstellt |
 
-**Drei Work Packages sind als `proposed` geführt** — CBP-WP-012 bis
+**Zwei Work Packages sind als `proposed` geführt** — CBP-WP-013 und
 CBP-WP-014, geschnitten in
 [PHASE_1_WORK_PACKAGE_MAP.md](../docs/roadmap/PHASE_1_WORK_PACKAGE_MAP.md).
 **Keines ist freigegeben. Implementierung autorisiert: nein.**
@@ -227,8 +227,8 @@ zum Veröffentlichungsbegriff in ADR-0006.
 | Typ | `docs-only`, **interaktiv** |
 | Prompt Mode | **Full** · Context Budget **B2 – Standard** |
 | Claude Code | Opus 4.8 (`claude-opus-4-8`), Effort **ultracode** (deklariert) |
-| Status | **`in-review`** |
-| Commit | **nicht** ausgeführt |
+| Status | **`committed`** |
+| Git-Beleg | `8a7c455 CBP-WP-011: specify technical security foundation` |
 
 Ergebnis: **vier A0-Entscheidungen** — D-034 (getrennte Service-Identitäten),
 D-035 (versionierter Secret-Reference-Vertrag plus OS-geschützter Datei-Provider),
@@ -242,35 +242,51 @@ Gate mit 24 Punkten (`NOT EVALUATED`). **OD-34 und OD-35 geschlossen.**
 **Keine Kontrolle umgesetzt, kein Test ausgeführt.** Alle zwölf stehen auf
 **DOCUMENTED ONLY**.
 
-## CBP-WP-012 — einziges vorgeschlagenes nächstes Work Package
+## CBP-WP-012
 
 | Feld | Wert |
 | --- | --- |
 | Titel | **Foundation Runtime Skeleton** |
 | Typ | **implementation**, interactive authorization |
+| Prompt Mode | **Full** · Context Budget **B2 – Standard** |
+| Claude Code | Opus 4.8 (`claude-opus-4-8`), Effort **ultracode** (deklariert) |
+| Status | **`in-review`** |
+| Commit | **nicht** ausgeführt |
+
+Ergebnis: **erstes Artefakt mit technischer Wirkung.** Human-Autorisierung
+APPROVE WITH NOTES (A0); A1, B1, C1. Additive Struktur `core/`, `config/`,
+`examples/`, `tests/`, `docs/runtime/`; **9 Runtime-Module**, lokale CLI
+(`version`, `validate-config`, `doctor`, `run`), strikte fail-closed
+Konfigurationsvalidierung, vier verweigernde Ports. **Python 3.13.14**, keine
+Abhängigkeiten. **69 Tests bestanden**, alle Smoke-Tests mit erwarteten
+Exitcodes; `run` verweigert (Exit 4).
+
+**Keine KB-Kontrolle durchgesetzt** — alle bleiben `DOCUMENTED ONLY`. **Kein
+Gate bestanden, kein Risiko geschlossen.**
+
+## CBP-WP-013 — einziges vorgeschlagenes nächstes Work Package
+
+| Feld | Wert |
+| --- | --- |
+| Titel | **Ingest Quarantine Minimum Viable Pipeline** |
+| Typ | **implementation**, interactive authorization |
 | Prompt Mode | **Full** |
 | Context Budget | **B2 – Standard** |
 | Status | **`proposed`, implementation not yet authorized** |
 
-**Ziel.** Die Kontrollbereiche KB-01 bis KB-04 und KB-08 technisch umsetzen und
-negativ testen.
-
-**Verboten bis zur Freigabe:** alles. Dieses Work Package wäre das **erste mit
-technischer Wirkung**.
+**Ziel.** Fail-closed-Pipeline mit zwölf Schritten und zehn Statuswerten,
+Markdown zuerst. Setzt CBP-WP-010 und CBP-WP-012 voraus.
 
 **Nicht ausführen** ohne ausdrückliche Freigabe.
 
-## CBP-WP-013 und CBP-WP-014 — vorgeschlagen, nicht freigegeben
+## CBP-WP-014 — vorgeschlagen, nicht freigegeben
 
-Vollständig geschnitten in
-[PHASE_1_WORK_PACKAGE_MAP.md](../docs/roadmap/PHASE_1_WORK_PACKAGE_MAP.md).
+Geschnitten in
+[PHASE_1_WORK_PACKAGE_MAP.md](../docs/roadmap/PHASE_1_WORK_PACKAGE_MAP.md):
+**CBP-WP-014 — Deterministic Source Registry and Catalog** (spätere
+Implementierung).
 
-| ID | Titel | Typ |
-| --- | --- | --- |
-| CBP-WP-013 | Ingest Quarantine Minimum Viable Pipeline | spätere Implementierung |
-| CBP-WP-014 | Deterministic Source Registry and Catalog | spätere Implementierung |
-
-**Alle `proposed`. Implementierung autorisiert: nein.**
+**`proposed`. Implementierung autorisiert: nein.**
 
 ---
 

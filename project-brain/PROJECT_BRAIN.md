@@ -2,7 +2,7 @@
 
 | Feld | Wert |
 | --- | --- |
-| Überarbeitet in | **CBP-WP-011** |
+| Überarbeitet in | **CBP-WP-012** |
 | Autoritätsklasse | A2 |
 | Stand | 2026-07-21 |
 
@@ -11,27 +11,30 @@ Dokument **verweist**, statt Inhalte zu duplizieren.
 
 ## Projektstatus
 
-**Phase 0 – COMPLETE.** G0 am 2026-07-21 als **PASSED WITH NOTES** freigegeben (A0). Phase 1 ist **AUTHORIZED FOR PLANNING** — keine Implementierung freigegeben.
+**Phase 0 – COMPLETE.** G0 am 2026-07-21 als **PASSED WITH NOTES** freigegeben (A0). Phase 1 ist **AUTHORIZED FOR PLANNING**.
 
-Das Repository enthält ausschließlich Dokumentation. Keine Implementierung,
-keine Laufzeit, keine Installation, kein Index, kein Wissensbestand.
+Das Repository enthält Dokumentation und seit CBP-WP-012 einen **lokalen,
+fail-closed Foundation Runtime Skeleton** (Python-Standardbibliothek). **Keine
+operative Wirkung:** keine angebundene Quelle, kein Index, kein Wissensbestand,
+keine durchgesetzte Sicherheitskontrolle. `run` verweigert deterministisch.
 
 | Feld | Wert |
 | --- | --- |
-| Aktuelles Work Package | **CBP-WP-011** (`in-review`) |
+| Aktuelles Work Package | **CBP-WP-012** (`in-review`) |
 | Gate G0 | **PASSED WITH NOTES** — 2026-07-21 |
 | G0-Kriterien | **47**, dreistufig klassifiziert |
 | davon blockierend | **25** Core Required (zuvor 45) |
 | davon `accepted` | **25** — alle |
 | verbleibende Blocker | **0** |
 | Phase 1 | AUTHORIZED FOR PLANNING — [Backlog](../docs/roadmap/PHASE_1_BACKLOG.md), [Foundation Plan](../docs/roadmap/PHASE_1_FOUNDATION_PLAN.md) |
-| Geplante Work Packages | **CBP-WP-012 bis CBP-WP-014**, alle `proposed` |
+| Geplante Work Packages | **CBP-WP-013 und CBP-WP-014**, beide `proposed` |
 | **Repository-Struktur** | **entschieden** — Ziel-Monorepo + Workspace W-3 (ADR-0007); **Migration nicht autorisiert** |
 | **Mappingkonvention** | **entschieden** — ADR-0008; **0 Mappings, 0 Quellen**, Gate `NOT EVALUATED` |
-| **Sicherheitsgrundlage** | **spezifiziert** — ADR-0009; **12 Kontrollen `DOCUMENTED ONLY`**, 33 Testfälle geplant (32 NT + 1 PT), **0 ausgeführt** |
-| Implementierte Capabilities | **keine (0 von 29)** |
-| Nachweise oberhalb Stufe 1 | **keine** |
-| Commits | **11** |
+| **Sicherheitsgrundlage** | **spezifiziert** — ADR-0009; **12 Kontrollen `DOCUMENTED ONLY`** |
+| **Runtime Skeleton** | **lokal implementiert** (CBP-WP-012) — 9 Module, **69 Tests bestanden**, `run` fail-closed, nicht produktionsbereit |
+| Implementierte Capabilities | **keine (0 von 29)** — drei Skeleton-Bausteine lokal belegt |
+| Nachweise oberhalb Stufe 1 | **keine** (Skeleton belegt Bausteine, keine KB-Kontrolle) |
+| Commits | **12** |
 
 ## Ziel
 
@@ -274,36 +277,67 @@ Readiness Gate mit **24 Punkten**.
 Test wurde ausgeführt. **OD-34 und OD-35 sind geschlossen** — die konkrete
 RT-2-Aufbewahrungsdauer bleibt **Deployment Required**.
 
+## Runtime Skeleton — lokal implementiert
+
+**CBP-WP-012**, 2026-07-21, erste technische Umsetzung. Human-Autorisierung
+APPROVE WITH NOTES (A0), Stack A1 (Python 3.13, Standardbibliothek), CLI B1,
+additive Struktur C1.
+
+| Gegenstand | Wert |
+| --- | --- |
+| Runtime-Module | 9 unter `core/core_brain/` |
+| CLI | `version`, `validate-config`, `doctor`, `run` |
+| Ports | 4, alle **verweigernd** |
+| Tests | **69 bestanden**, 0 fehlgeschlagen (67 + 2 Netzwerk-Guard) |
+| Python | 3.13.14, keine Abhängigkeiten |
+| `run` | verweigert (Exit 4) |
+
+**Keine KB-Kontrolle durchgesetzt.** Der Doctor meldet `PASS`/`NOT APPLICABLE`
+als **Skeleton-Ergebnisse**, kein Deploymentnachweis. Alle drei Gates bleiben
+`NOT EVALUATED`.
+
+## Lessons Learned aus CBP-WP-012
+
+**Ein grüner Testlauf ist erst nach der Auszählung glaubwürdig.** Der erste
+Lauf fand zwei Fehler — beide in den Tests, nicht im Code: `mock.patch` ohne
+`create=True` scheitert auf Windows, und ein Grep traf Prosa im Docstring statt
+echter Nutzung. Die berichtete Zahl (67 im Erstlauf, 69 nach dem im
+Nova-REWORK ergänzten Netzwerk-Guard) stammt jeweils aus dem grünen Lauf, nicht
+aus einer Annahme (R-33).
+
+**Ein `PASS` braucht eine Grenze.** Der Doctor meldet Erfolg für Skeleton-
+Prüfungen; ohne den ausdrücklichen Zusatz „kein Deploymentnachweis" wäre daraus
+schnell „Sicherheitsgrundlage implementiert" geworden — dieselbe Übererweiterung
+wie „veröffentlichbar" in CBP-WP-009 und „gültig" in CBP-WP-010.
+
 ## Nächste Arbeitspakete
 
 Siehe
 [project-system/WORK_PACKAGE_QUEUE.md](../project-system/WORK_PACKAGE_QUEUE.md)
 und [PHASE_1_WORK_PACKAGE_MAP.md](../docs/roadmap/PHASE_1_WORK_PACKAGE_MAP.md).
 
-Vorgeschlagen, **nicht freigegeben**: **CBP-WP-012 — Foundation Runtime
-Skeleton** (implementation, interactive authorization, Full, B2 – Standard),
-Status `proposed`, **implementation not yet authorized**. Es wäre das **erste
-Work Package mit technischer Wirkung**. CBP-WP-013 und CBP-WP-014 stehen
-ebenfalls auf `proposed`.
+Vorgeschlagen, **nicht freigegeben**: **CBP-WP-013 — Ingest Quarantine Minimum
+Viable Pipeline** (implementation, interactive authorization, Full, B2 –
+Standard), Status `proposed`, **implementation not yet authorized**.
+CBP-WP-014 steht ebenfalls auf `proposed`.
 
 ## Rückmeldung an Nova
 
-CBP-WP-011 ist ausgeführt. **Die Sicherheitsgrundlage ist entscheidungsreif und
-abnehmbar spezifiziert** — vier A0-Entscheidungen, ADR-0009 `accepted`. **Es
-wurde nichts umgesetzt, kein Test ausgeführt, keine Technologie gewählt.**
+CBP-WP-012 ist ausgeführt — **das erste Artefakt mit technischer Wirkung**. Ein
+lokaler, fail-closed Runtime Skeleton, 69 Tests bestanden, `run` verweigert.
+**Es wurde nichts angebunden, nichts aufgelöst, nichts verbunden und nichts
+gestartet.**
 
 **Drei Punkte zur Hervorhebung:**
 
-1. **Grundsatz S-C ist die folgenreichste Entscheidung.** Dass eine
-   Netzwerkerlaubnis keine Datenfreigabe ist, trennt Erreichbarkeit von
-   Übertragbarkeit — **fünf Gates statt eines**.
-2. **SR-8 und SR-9 wiegen schwerer als der Rest des Secret-Vertrags:** kein
-   Secret über **Umgebungsvariablen** oder **Kommandozeilen**. Beides ist auf
-   einem Linux-System für andere Prozesse einsehbar.
-3. **INT-2 ist unbequem und richtig:** Ein Auditkettenbruch wird **sichtbar
-   gelassen**, nicht repariert. Ein System, das seine Kette selbsttätig neu
-   aufbaut, hat eine Reparaturfunktion, keinen Integritätsschutz.
+1. **Ein `PASS` im Doctor ist kein Deploymentnachweis.** Keine der sechs
+   `PASS`-Zeilen belegt eine durchgesetzte KB-Kontrolle. Sie bleiben
+   `DOCUMENTED ONLY`; der reale Nachweis entsteht auf der Ziel-VM.
+2. **`run` verweigert strukturell.** Selbst mit beiden Gate-Status auf
+   `ACCEPTED` startet keine Runtime — ein Test belegt das. Der Skeleton *kann*
+   nicht produktiv laufen.
+3. **Zwei Testdefekte, keine Codedefekte.** Die Testzahl (67 → 69) stammt aus dem
+   grünen Lauf nach der Korrektur.
 
-**Kein Risiko wurde geschlossen.** Alle Nachweise stehen auf **Stufe 1
-`dokumentiert`**; R-25, R-26, R-27, R-30, R-31, R-32 und R-20 schließen
-frühestens nach CBP-WP-012.
+**Kein Risiko wurde geschlossen.** R-25, R-26, R-27, R-30, R-31, R-32 und R-20
+bleiben offen — ein Skeleton ist keine durchgesetzte Kontrolle.

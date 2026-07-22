@@ -3,7 +3,7 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Überarbeitet in | **CBP-WP-011** |
+| Überarbeitet in | **CBP-WP-012** |
 | Autoritätsklasse | A2 |
 | Stand | 2026-07-21 |
 
@@ -89,6 +89,22 @@ Ein irreversibler Schaden ist mindestens **hoch**.
 | dokumentiert | 1 |
 | teilweise gemindert | 1 |
 | offen | **10** |
+
+**Neu in CBP-WP-012:** keine.
+
+**Verändert in CBP-WP-012:**
+
+| ID | Änderung | Auslöser |
+| --- | --- | --- |
+| **R-26** | Root-/Hostbetrieb: Der Skeleton **prüft** auf POSIX-root (`check_not_privileged`) und blockiert; auf Windows `NOT APPLICABLE`. **Kein Deploymentnachweis** — die Prüfung existiert lokal, die Durchsetzung auf der Ziel-VM fehlt. Status unverändert `offen` | CBP-WP-012 |
+| **R-33** | Testzahl (67 im Erstlauf, **69** nach Netzwerk-Guard) und Commitzahl aus dem tatsächlichen Lauf bzw. Git ausgezählt; zwei Testdefekte vor dem grünen Lauf gefunden. **Dokumentregel, keine Kontrolle** | CBP-WP-012 |
+
+**Kein Risiko wurde in CBP-WP-012 geschlossen oder gemindert.** Ein Skeleton
+mit fail-closed Policies ist **keine durchgesetzte Kontrolle**: `check_*`-
+Funktionen prüfen eine lokale Konfiguration, sie erzwingen keine OS-Rechte,
+keine Mount-Grenzen und keinen Netzwerkfilter. R-25, R-26, R-27, R-30, R-31,
+R-32 und R-20 bleiben **offen** und schließen erst durch bestandene
+Negativtests auf der Ziel-VM (Nachweisstufe 4 bzw. 5).
 
 **Neu in CBP-WP-010:** keine.
 

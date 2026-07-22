@@ -3,7 +3,7 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Letzte Prüfung | 2026-07-21, im Rahmen von **CBP-WP-011** |
+| Letzte Prüfung | 2026-07-21, im Rahmen von **CBP-WP-012** |
 | Autoritätsklasse | A2 |
 
 > Diese Datei gehört zur kanonischen NDF-Ordnerstruktur, war aber in der
@@ -83,7 +83,7 @@
 | Prüfung | Ergebnis |
 | --- | --- |
 | Alle Statusdokumente nennen Phase 0 | erfüllt |
-| Aktuelles Work Package als **CBP-WP-011** ausgewiesen | erfüllt |
+| Aktuelles Work Package als **CBP-WP-012** ausgewiesen | erfüllt |
 | **Falsche WP-Titel in der Queue korrigiert** | erfüllt — Entwurfstitel aus CBP-WP-008 ersetzt, Korrektur sichtbar vermerkt |
 | **Veraltete Gate-Angaben korrigiert** | erfüllt — CLAUDE.md, DISCOVERY_QUESTIONS.md, G0_EVIDENCE_MATRIX.md |
 | Historische Berichte nicht stillschweigend umgeschrieben | erfüllt — frühere WP-Ergebnisse unverändert |
@@ -259,6 +259,38 @@
 | Keine ausführbare Datei, kein JSON Schema, kein Validator | erfüllt |
 | Kein Commit, kein Push, `origin` unverändert | erfüllt |
 
+## Runtime-Compliance (CBP-WP-012)
+
+| Prüfung | Ergebnis |
+| --- | --- |
+| Implementierung direkt vom Human Maintainer autorisiert | erfüllt — APPROVE WITH NOTES, A0 |
+| Stack A1, CLI B1, additive Struktur C1 ausdrücklich gewählt | erfüllt |
+| **Python ≥ 3.13 vor Phase B nachgewiesen** | erfüllt — 3.13.14; Blocker in Phase A gemeldet |
+| Keine externe Runtime-Abhängigkeit, kein Paketdownload, keine globale Installation | erfüllt |
+| Alle neuen Pfade in der Erlaubnisliste | erfüllt — `core/`, `config/`, `examples/`, `tests/`, `docs/runtime/`, `pyproject.toml` |
+| **Keine bestehende Datei oder Ordner verschoben** | erfüllt — additiv |
+| `compileall` erfolgreich | erfüllt — Exit 0 |
+| **Unit-Testlauf erfolgreich** | erfüllt — **69/69**, Exit 0 |
+| **Testzahl aus dem Lauf ausgezählt** | erfüllt — `Ran 69 tests ... OK` (67 + 2 Netzwerk-Guard) |
+| Kein Test manuell zur Summe ergänzt | erfüllt |
+| `version` Exit 0 · Beispielkonfiguration validiert | erfüllt |
+| **`doctor` meldet nicht produktionsbereit** | erfüllt — `production_ready: false`, Exit 3 |
+| **`doctor --json` gültiges JSON, BOM-frei** | erfüllt — erstes Byte `{`, über Datei belegt |
+| Doctor-Ausgabe deterministisch, ohne Secret-Werte | erfüllt |
+| **`run` verweigert fail-closed** | erfüllt — `RUNTIME_START_BLOCKED`, Exit 4 |
+| `run` erzeugt keine Runtime-Daten | erfüllt — Tests belegen leeres Verzeichnis |
+| Kein Netzwerkzugriff | erfüllt — keine Netzwerk-Imports |
+| **Kein Secret gespeichert, keine Secret-Auflösung implementiert** | erfüllt — Resolver verweigert |
+| Kein RT-2-Speicher, keine Egress-Allowlist | erfüllt — Writer und Egress-Port verweigern |
+| Canonical Write bleibt verboten · Identitäten getrennt · Default-Ports verweigern | erfüllt |
+| **Keine vollständige Security Control als `implemented`** | erfüllt — 12 Kontrollen bleiben `DOCUMENTED ONLY` |
+| Alle drei Gates bleiben `NOT EVALUATED` | erfüllt |
+| **Kein Risiko allein durch Skeleton geschlossen** | erfüllt |
+| R-33 nicht geschlossen | erfüllt |
+| CBP-WP-013 bleibt `proposed`, nicht autorisiert | erfüllt |
+| Git-Diff enthält keine Secret-Werte | erfüllt |
+| Kein Commit, kein Push | erfüllt |
+
 ## Zähl- und Statusregel
 
 *Ergänzt in CBP-WP-007, nach dem dritten Zählfehler des Projekts.*
@@ -290,6 +322,7 @@ existiert.
 | **CBP-WP-007** | **22 A0-Entscheidungen statt 24; 8 offene P0 statt 6** | **CBP-WP-008** |
 | **CBP-WP-010** | **„neun Blocker" bei acht aufgezählten IDs** (V7, V8, V9, V10, V11, V14, V20, V23). Die Zahl war durch einen offenen Zusatz — „sowie jede Regel, deren Verletzung ein Secret sichtbar macht" — **unprüfbar** gemacht worden | **CBP-WP-010, Nova-REWORK-Korrekturlauf** |
 | **CBP-WP-011** | **Drei Befunde in einem Korrekturvorgang.** (1) Readiness Gate: Stufenverteilung summierte sich auf **25** bei **24** Gate-Punkten — Stufe 4 war mit 10 angegeben, die ID-Liste enthielt 9. (2) **Testtaxonomie**: ein Positivtest trug die NT-ID `NT-25` und wurde zur Negativtestzahl gerechnet. (3) **Doppelt vergebene Test-IDs**: `NT-23` und `NT-24` bezeichneten in der Acceptance Matrix RT-1-/RT-3-Tests, in der Egress-Policy DNS-/Privatnetz-Tests | **CBP-WP-011, Nova-REWORK-Korrekturlauf** |
+| **CBP-WP-012** | **Ein Korrekturvorgang mit zwei Ausprägungen im ersten Report.** (1) **Git-Inventar** als „6 neue Pfade" angegeben statt tatsächlich **21 neue / 13 geänderte / 34 eindeutige** Pfade. (2) **Exitcode-Sequenz** als „alle sieben ausgeführt" beschrieben, aber nur **sechs** Exitcodes belegt — der siebte fehlte. Beide Male war die Aussage höher als der Beleg | **CBP-WP-012, Nova-REWORK-Korrekturlauf** |
 
 **Der vierte Fehler entstand, nachdem die Regel eingeführt war**, und wurde
 erst ein Work Package später gefunden. Die Regel wirkt — aber nachlaufend. Das
@@ -309,9 +342,22 @@ die Kollision sichtbar. **Ergänzung zur Zählregel:** Eine Kennung ist erst dan
 eindeutig, wenn sie **über alle Dokumente hinweg** nur einmal vorkommt — die
 kanonische Inventartabelle entscheidet.
 
+**Der siebte Vorgang trat im ersten technischen Work Package auf** und zeigt
+eine vierte Variante: **die Aussage lag höher als der Beleg**. Das Git-Inventar
+wurde mit „6 neue Pfade" beziffert, obwohl `git status --porcelain=v1 -uall`
+**21 neue, 13 geänderte, 34 eindeutige** Pfade auflistet; die Prüfmatrix wurde
+als „alle sieben ausgeführt" beschrieben, während nur **sechs** Exitcodes
+belegt waren. **Ergänzung zur Zählregel:** Jede genannte Anzahl von Artefakten
+oder Kommandos muss gegen die **maschinell erzeugte** Quellliste
+(`git status`, Befehlsmatrix) geprüft werden, bevor sie berichtet wird — die
+Behauptung folgt dem Beleg, nicht umgekehrt. **Der Netzwerk-Guard, der in
+diesem Korrekturlauf ergänzt wurde, ist eine lokale Testverbesserung und
+schließt R-33 nicht** — R-33 ist eine Dokumentregel, keine technische
+Kontrolle.
+
 **R-33 bleibt `gemindert, nicht geschlossen`** — die Einträge ändern den Status
 nicht. Die Zähl- und Statusregel ist weiterhin eine **Dokumentregel, keine
-technische Kontrolle**. Sechs Zählvorgänge in elf Work Packages sind
+technische Kontrolle**. Sieben Zählvorgänge in zwölf Work Packages sind
 dokumentiert; jeder wurde durch Auszählung gefunden, keiner durch die Regel
 verhindert.
 

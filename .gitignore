@@ -154,6 +154,26 @@ models/
 .obsidian/workspace-mobile.json
 
 # ---------------------------------------------------------------------------
+# Foundation Runtime Skeleton  (CBP-WP-012)
+# ---------------------------------------------------------------------------
+# Abgeleitete/lokale Laufzeitartefakte. Der Runtime-Datenbereich (RT-1/RT-2/
+# RT-3) und der private Operator-Workspace liegen konstruktiv AUSSERHALB des
+# Repositorys (ADR-0007); diese Muster fangen versehentliche Unterordner ab.
+# `.gitignore` ist eine Vorsichtsmassnahme, keine Sicherheitsgrenze (G3).
+#
+# WICHTIG: nur wurzel-verankert (fuehrender /), damit die getrackte
+# Dokumentation unter docs/runtime/ NICHT ausgeblendet wird.
+/runtime/
+/rt2/
+*.evidence.jsonl
+/operator-workspace/
+config/runtime.local.toml
+config/*.local.toml
+*.mapping.local.toml
+.eggs/
+*.egg-info/
+
+# ---------------------------------------------------------------------------
 # Betriebssystemdateien
 # ---------------------------------------------------------------------------
 .DS_Store

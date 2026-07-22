@@ -3,7 +3,7 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Letzte Bewertung | 2026-07-21, im Rahmen von **CBP-WP-011** |
+| Letzte Bewertung | 2026-07-21, im Rahmen von **CBP-WP-012** |
 | Autoritätsklasse | A2 |
 
 > Diese Datei gehört zur kanonischen NDF-Ordnerstruktur, war aber in der
@@ -13,8 +13,9 @@
 ## Vorbemerkung
 
 Ein Health Score misst die Gesundheit eines **laufenden** Projekts. Core Brain
-Pilot hat keine Implementierung und keine Tests. Die meisten Dimensionen
-bleiben **nicht bewertbar** — der erwartete Zustand in Phase 0.
+Pilot hat seit CBP-WP-012 einen lokalen Runtime Skeleton mit Tests, aber keine
+operative Implementierung. Die meisten Dimensionen bleiben **nicht bewertbar** —
+der erwartete Zustand am Beginn von Phase 1.
 
 Keine Gesamtpunktzahl.
 
@@ -37,9 +38,9 @@ Keine Gesamtpunktzahl.
 | Kennzahlendisziplin | **ausreichend** | ↑ | Fehlerhafte Summen gefunden und korrigiert; Auszählung statt Fortschreibung |
 | Planungsklarheit Phase 1 | **gut** | ↑↑ | Fünf Streams, sechs geschnittene Work Packages, Nachweisstufen und zwölf Stop-Bedingungen; zuvor nur ein Backlog |
 | **Nachweislage** | **schwach** | → | **Alle Artefakte stehen auf Stufe 1 `dokumentiert`.** Kein Negativtest, kein Restore, kein Messwert |
-| Implementierung | nicht bewertbar | | Kein Code |
-| Testabdeckung | nicht bewertbar | | Kein Code |
-| CI/CD | nicht bewertbar | | In Phase 0 verboten |
+| Implementierung | **schwach** | ↑ | **Lokaler Runtime Skeleton** (CBP-WP-012, 9 Module); keine operative Wirkung, keine KB-Kontrolle durchgesetzt |
+| Testabdeckung | **ausreichend** | ↑↑ | **69 lokale Tests bestanden** für den Skeleton (inkl. Netzwerk-Guard); kein Retrieval-, Ingest- oder Integrationstest |
+| CI/CD | nicht bewertbar | | In Phase 0 verboten; lokale Tests manuell |
 | Betriebsreife | nicht bewertbar | | Keine Installation |
 | Retrieval-Qualität | nicht bewertbar | | Kein Index, kein Benchmark |
 | Releasefähigkeit | nicht bewertbar | | Keine Lizenz, keine Implementierung |
@@ -56,7 +57,7 @@ Durchsetzung, nicht ein weiteres Dokument.
 > „CBP-WP-002" zeigt die damals berichteten Werte; kursive Angaben waren
 > falsch addiert.
 
-| Kennzahl | CBP-WP-002 | **CBP-WP-011** |
+| Kennzahl | CBP-WP-002 | **CBP-WP-012** |
 | --- | --- | --- |
 | G0-Kriterien gesamt | *41* → korrekt 47 | **47** |
 | davon blockierend | *39* → korrekt 45 | **25** (dreistufiges Modell) |
@@ -83,9 +84,11 @@ Durchsetzung, nicht ein weiteres Dokument.
 | **Erstellte Source Mappings** | 0 | **0** |
 | **Angebundene Quellen** | 0 | **0** |
 | **Umgesetzte Sicherheitskontrollen** | 0 | **0 von 12** |
-| **Ausgeführte Negativtests** | 0 | **0 von 31** |
+| **Ausgeführte Sicherheits-Negativtests** | 0 | **0 von 32** |
 | **Nachweise oberhalb Stufe 1** | 0 | **0** |
-| Commits | 2 | **11** |
+| **Runtime-Module (Skeleton)** | 0 | **9** |
+| **Bestandene lokale Tests** | 0 | **69** |
+| Commits | 2 | **12** |
 
 ## Fortschritt in einem Bild
 
@@ -122,18 +125,19 @@ Umsetzung. Reihenfolge nach dem [Phase-1-Backlog](../docs/roadmap/PHASE_1_BACKLO
 
 | # | Hebel | Backlog | Wirkung |
 | --- | --- | --- | --- |
-| 1 | **Technische Sicherheitsgrundlage — Umsetzung** | **P3** | Der breiteste Enabler. **Spezifikation liegt vor** (CBP-WP-011, ADR-0009); es fehlt die **Umsetzung** in CBP-WP-012. Schließt R-25, R-26, R-27 erst bei Nachweisstufe 4 |
+| 1 | **Technische Sicherheitsgrundlage — Durchsetzung** | **P3** | Der breiteste Enabler. Spezifikation liegt vor (ADR-0009), **Runtime Skeleton lokal** (CBP-WP-012). Es fehlt die **Durchsetzung von KB-01…KB-12 auf der Ziel-VM**. Schließt R-25, R-26, R-27 erst bei Nachweisstufe 4 |
 | 2 | Konkrete Quellenauswahl | P2 | OD-26 geschlossen, **Mappingkonvention entschieden** (CBP-WP-010). Verbleibend: **OD-05 und OD-06** — brauchen eine Human-Eingabe |
 | 3 | `excluded-from-ai`-Negativtests | P8 | Auflage 2; macht aus einer behaupteten Sperre eine geprüfte |
 | 4 | Benchmarklauf V0/V1 | P7 | Auflage 3; kalibriert OD-02b, schließt R-21 |
 | 5 | Restore-Test und DRC Profil A | P9, P10 | Auflagen 4 und 5; R-20 und R-34 |
 ## Bewertung in einem Satz
 
-Phase 0 ist abgeschlossen, Phase 1 geplant, Repository-Grenze,
-Mappingkonvention und Sicherheitsgrundlage entschieden — aber dieser Score
-misst von hier an nicht mehr die Vollständigkeit von Dokumenten, sondern den
-Fortschritt von **Nachweisen**, und der steht nach **elf** Work Packages
-weiterhin bei **null**.
+Phase 0 ist abgeschlossen, Phase 1 geplant, alle Architekturentscheidungen
+getroffen, und mit CBP-WP-012 existiert **erstmals lauffähiger, getesteter
+Code** — ein fail-closed Skeleton. Der Score misst von hier an den Fortschritt
+von **Nachweisen**: Der Skeleton belegt drei lokale Bausteine, aber **keine der
+zwölf Sicherheitskontrollen ist auf der Ziel-VM durchgesetzt**, und kein Gate
+ist bestanden.
 
 **Alles Entscheidbare ist entschieden.** Was bleibt, ist zu bauen und zu
 beweisen — und das beginnt frühestens mit CBP-WP-012.

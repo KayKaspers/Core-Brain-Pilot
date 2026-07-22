@@ -132,18 +132,19 @@ nennen.
 | Phase | **Phase 0 – COMPLETE** |
 | **Gate G0** | **PASSED WITH NOTES** — 2026-07-21, A0 |
 | **Phase 1** | **AUTHORIZED FOR PLANNING** — keine Implementierung freigegeben |
-| Aktuelles Work Package | CBP-WP-011 (`in-review`) |
+| Aktuelles Work Package | CBP-WP-012 (`in-review`) |
 | Core-Kriterien | 25 von 25 `accepted`, 0 `answered`, 0 `open`, 0 `blocked` |
 | Angenommene ADRs | **9** (A1) |
 | **Mappingkonvention** | **entschieden** — ADR-0008; **0 Mappings, 0 Quellen, Gate `NOT EVALUATED`** |
 | **Sicherheitsgrundlage** | **spezifiziert** — ADR-0009; **12 Kontrollen `DOCUMENTED ONLY`**, Readiness Gate `NOT EVALUATED` |
+| **Runtime Skeleton** | **lokal implementiert** (CBP-WP-012) — Python-Standardbibliothek, 69 Tests, `run` fail-closed, **nicht produktionsbereit** |
 | **Repository-Zielstruktur** | **entschieden** — Ziel-Monorepo (D-029, ADR-0007); **Migration nicht autorisiert** |
 | **Bereichsmodell** | **W-3** — privater Operator-Workspace außerhalb des Core-Repositorys (D-030); **nicht angelegt** |
 | **Veröffentlichung** | Core-Repository `publication-capable by design`, **bleibt privat** — Freigabe benötigt A0 (OD-11) |
 | DRC | **NOT EVALUATED** |
 | Benchmark | **entworfen, nicht ausgeführt** (Dataset 2.0.0) |
-| Technische Implementierung | **nicht begonnen** |
-| Implementierte Capabilities | **keine** |
+| Technische Implementierung | **Skeleton lokal begonnen** (CBP-WP-012) — keine KB-Kontrolle durchgesetzt, keine Quelle angebunden |
+| Implementierte Capabilities | **keine (0 von 29)** — drei eng umrissene Skeleton-Bausteine lokal belegt |
 
 > **Criteria complete ≠ Technical implementation ≠ Deployment ready.**
 > G0 sperrt den Produkt- und Pilot-Scope. **16 der 25 Kriterien beschreiben

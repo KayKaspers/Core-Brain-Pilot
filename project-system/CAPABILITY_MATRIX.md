@@ -3,18 +3,49 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Überarbeitet in | **CBP-WP-008** |
+| Überarbeitet in | **CBP-WP-012** |
 | Autoritätsklasse | A2 |
 | Stand | 2026-07-21 |
 
-> **Keine Capability ist implementiert.** Der Status `implemented` kommt in
-> diesem Dokument nicht vor und darf erst nach Abnahme durch den Human
-> Maintainer vergeben werden.
->
-> **Stand nach CBP-WP-008 unverändert: 0 von 29 implementiert.** Die
-> Phase-1-Planung ordnet mehreren Capabilities ein geplantes Work Package zu —
-> das ändert ihren Status **nicht**. Ein zugeordnetes Work Package ist kein
-> Fortschritt, sondern eine Absicht.
+> **Keine der 29 Produkt-Capabilities ist implementiert.** Der Status
+> `implemented` kommt in der Matrix nicht vor und darf erst nach Abnahme durch
+> den Human Maintainer vergeben werden. **0 von 29 unverändert.**
+
+## Lokale Skeleton-Bausteine (CBP-WP-012)
+
+CBP-WP-012 hat einen lokalen, fail-closed Runtime Skeleton erstellt und
+getestet (69 Tests bestanden). Er setzt **keine** der 29 Produkt-Capabilities
+um — insbesondere **nicht** Capability 5 (Ingest-Quarantäne), 6 (Secret-/PII-
+Prüfung) oder 20 (Berechtigungen). Diese bleiben `planned` beziehungsweise
+`discovery`.
+
+Belegt sind ausschließlich drei **eng umrissene lokale** Bausteine, unterhalb
+der Capability-Ebene:
+
+| Baustein | Status | Evidenz |
+| --- | --- | --- |
+| Runtime Skeleton | **implemented locally** | `core/core_brain/`, 69 Tests |
+| Strikte lokale Konfigurationsvalidierung | **implemented locally** | `config.py`, `test_config.py` |
+| Fail-closed CLI-Startguard (`run` verweigert) | **implemented locally** | `cli.py`, `test_cli.py` |
+
+**Diese Bausteine sind kein Deploymentnachweis.** Sie belegen nicht:
+Security Foundation, Authorization, Secret Management, Egress Control oder
+Operational Evidence — jede dieser Aussagen wäre breiter als die Evidenz und
+ist ausdrücklich **nicht** zutreffend.
+
+## Zuordnung zu geplanten Work Packages
+
+| Capability | Geplant in | Status bleibt |
+| --- | --- | --- |
+| 1 Kanonischer Markdown-Wissensbestand | CBP-WP-010 | `discovery` |
+| 2 Source Manifest | CBP-WP-014 | `planned` |
+| 3 Stabile Source-ID und Content Hash | CBP-WP-014 | `discovery` |
+| 5 Ingest-Quarantäne | CBP-WP-013 | `planned` |
+| 6 Secret- und PII-Prüfung | CBP-WP-013 | `planned` |
+| 7 Deterministischer Quellenindex | CBP-WP-014 | `planned` |
+| 20 Quellen- und Collection-Berechtigungen | CBP-WP-012 (Modell), spätere Umsetzung | `planned` |
+
+**Ein zugeordnetes Work Package ist kein Fortschritt, sondern eine Absicht.**
 
 ## Zuordnung zu geplanten Work Packages
 

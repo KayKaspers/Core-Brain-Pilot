@@ -1,0 +1,36 @@
+# Core Brain Pilot — Beispielkonfiguration des Runtime Skeletons
+#
+# synthetic · non-operational · test-only
+#
+# Diese Datei enthält:
+#   - keine realen Pfade,
+#   - keine Secrets und keine Secret-Referenzen,
+#   - keine aktiven Source Mappings,
+#   - keine Hostnamen, Ports oder Zugangsdaten.
+#
+# Sie beschreibt einen wirkungslosen Ausgangszustand. Alle Sicherheitswerte
+# stehen auf ihrer restriktiven Vorgabe und dürfen im Skeleton nicht
+# gelockert werden — jede Lockerung blockiert die Validierung.
+#
+# Environment-Variablen und CLI-Argumente überschreiben diese Werte nicht.
+
+schema_version = "1.0"
+runtime_mode = "skeleton"
+
+# Logische Identitäten. Keine Unix-Benutzer, keine UID- oder GID-Werte.
+control_plane_identity = "control-plane"
+data_worker_identity = "data-worker"
+
+# Sicherheitsvorgaben — im Skeleton unveränderlich.
+egress_default = "deny"
+canonical_write_allowed = false
+source_activation_enabled = false
+
+# Gate-Zustände. Sie spiegeln den dokumentierten Stand wider und
+# begründen keine technische Annahme.
+mapping_gate_status = "NOT EVALUATED"
+security_gate_status = "NOT EVALUATED"
+
+# Noch nicht angebundene Komponenten.
+secret_provider_status = "unconfigured"
+evidence_writer_status = "unconfigured"

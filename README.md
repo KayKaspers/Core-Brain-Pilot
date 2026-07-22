@@ -1,8 +1,11 @@
 ﻿# Core Brain Pilot
 
 > **Phase 0 abgeschlossen — G0 am 2026-07-21 mit Auflagen freigegeben.**
-> Dieses Repository enthält derzeit **ausschließlich Dokumentation**.
-> Es existiert **keine** Implementierung, keine Laufzeit und keine Installation.
+> Das Repository enthält Dokumentation und seit CBP-WP-012 einen **lokalen,
+> fail-closed Foundation Runtime Skeleton** (Python, Standardbibliothek).
+> Der Skeleton ist **nicht produktionsbereit**: Er bindet keine Quelle an,
+> löst kein Secret auf, öffnet keine Verbindung und startet keine operative
+> Runtime — `run` verweigert deterministisch.
 
 Core Brain Pilot ist ein serverzentriertes und portables KI-Wissens- und
 Arbeitssystem.
@@ -25,13 +28,14 @@ vorgesehene, **noch nicht implementierte** Anwendungslaufzeit.
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Aktuelles Work Package | CBP-WP-011 (`in-review`) |
-| Nächster Schritt | **CBP-WP-012 vorgeschlagen**, nicht freigegeben — **keine Implementierung autorisiert** |
+| Aktuelles Work Package | CBP-WP-012 (`in-review`) |
+| Nächster Schritt | **CBP-WP-013 vorgeschlagen**, nicht freigegeben — **keine Implementierung autorisiert** |
 | **Gate G0** | **PASSED WITH NOTES** — 2026-07-21, A0 |
 | Phase-1-Planung | **Streams F1–F5 geplant**, [Foundation Plan](docs/roadmap/PHASE_1_FOUNDATION_PLAN.md) |
 | **Repository-Struktur** | **entschieden** — [ADR-0007](docs/decisions/ADR-0007-repository-und-workspace-grenze.md); **Migration nicht autorisiert** |
 | **Mappingkonvention** | **entschieden** — [ADR-0008](docs/decisions/ADR-0008-pilot-source-mapping-konvention.md); **0 Mappings, 0 angebundene Quellen** |
 | **Sicherheitsgrundlage** | **spezifiziert** — [ADR-0009](docs/decisions/ADR-0009-technische-sicherheitsgrundlage.md); **12 Kontrollen `DOCUMENTED ONLY`, 0 Tests ausgeführt** |
+| **Runtime Skeleton** | **lokal implementiert** — [FOUNDATION_RUNTIME_SKELETON.md](docs/runtime/FOUNDATION_RUNTIME_SKELETON.md); 69 Tests bestanden, `run` fail-closed, **nicht produktionsbereit** |
 | Implementierte Capabilities | **keine (0 von 29)** |
 | Angenommene ADRs | **9** |
 | Framework | Nova Development Framework v1.0.0 |
@@ -103,6 +107,10 @@ Nur der Human Maintainer committet, tagged und pusht.
 | `project-brain/` | Kuratiertes Projektgedächtnis |
 | `project-system/` | Profil, Manifest, Capability Matrix, Register, WP-Queue |
 | `work-packages/` | Wortlaut der freigegebenen Work Packages |
+| `core/` | **Foundation Runtime Skeleton** (CBP-WP-012) — lokal, fail-closed |
+| `config/` | Synthetische Beispielkonfiguration |
+| `tests/` | Lokale Unit- und Negativtests (Standardbibliothek) |
+| `docs/runtime/` | Skeleton-Doku, technische Evidenz, Developer Runbook |
 
 > **Dies ist die aktuelle, nicht die Zielstruktur.** Am 2026-07-21 wurde als
 > Ziel ein **Monorepo** mit `core/`, `adapters/`, `deployments/`, `config/`,
