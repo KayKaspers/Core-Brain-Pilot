@@ -2,7 +2,9 @@
 
 Grundkommandos: ``version``, ``validate-config``, ``doctor``, ``run``.
 Kommandogruppe ``quarantine`` (CBP-WP-013): ``scan``, ``stage``, ``inspect``,
-``release`` — ein lokaler, synthetisch testbarer, fail-closed Prototyp.
+``release``. Kommandogruppe ``source-registry`` (CBP-WP-014):
+``validate-definition``, ``register``, ``list``, ``inspect``, ``retire``,
+``activate`` — lokale, synthetisch testbare, fail-closed Prototypen.
 
 Es gibt **keine** HTTP-API, keinen Webserver und keinen Netzwerklistener.
 ``run`` verweigert deterministisch fail-closed. ``quarantine release``
@@ -30,6 +32,12 @@ from .errors import (
     QuarantinePolicyError,
     QuarantineStoreError,
     ReasonCode,
+    RegistryCatalogError,
+    RegistryConflict,
+    RegistryDefinitionRejected,
+    RegistryNotFound,
+    RegistryPolicyError,
+    RegistryStorageError,
 )
 from .models import CheckResult, DoctorReport
 from .policies import build_doctor_report, check_runtime_start_blocked
@@ -79,8 +87,69 @@ def build_parser() -> argparse.ArgumentParser:
     run.add_argument("--config", required=True, type=Path)
 
     _add_quarantine_parser(sub)
+    _add_source_registry_parser(sub)
 
     return parser
+
+
+def _add_source_registry_parser(
+    sub: argparse._SubParsersAction[argparse.ArgumentParser],
+) -> None:
+    """Ergänzt die Kommandogruppe ``source-registry`` (CBP-WP-014)."""
+    registry = sub.add_parser(
+        "source-registry",
+        help="Lokale, synthetische, deaktivierte Source Registry (fail-closed).",
+    )
+    rsub = registry.add_subparsers(dest="registry_command", required=True)
+
+    validate = rsub.add_parser(
+        "validate-definition",
+        help="Validiert Definition und Policy; schreibt nichts.",
+    )
+    validate.add_argument("--definition", required=True, type=Path)
+    validate.add_argument("--policy", required=True, type=Path)
+    validate.add_argument("--json", action="store_true")
+
+    register = rsub.add_parser(
+        "register",
+        help="Registriert eine synthetische Definition als REGISTERED_DISABLED.",
+    )
+    register.add_argument("--definition", required=True, type=Path)
+    register.add_argument("--policy", required=True, type=Path)
+    register.add_argument("--registry", required=True, type=Path)
+    register.add_argument(
+        "--synthetic-test-only", action="store_true", dest="synthetic_test_only"
+    )
+    register.add_argument("--json", action="store_true")
+
+    listing = rsub.add_parser(
+        "list", help="Zeigt minimierte Katalogeinträge; keine Pfade, keine Refs."
+    )
+    listing.add_argument("--registry", required=True, type=Path)
+    listing.add_argument("--json", action="store_true")
+
+    inspect = rsub.add_parser(
+        "inspect", help="Zeigt minimierte Record-Metadaten; kein Registry-Pfad."
+    )
+    inspect.add_argument("--registry", required=True, type=Path)
+    inspect.add_argument("--id", required=True, dest="source_id")
+    inspect.add_argument("--json", action="store_true")
+
+    retire = rsub.add_parser(
+        "retire", help="Append-only Retirement-Event; löscht keinen Record."
+    )
+    retire.add_argument("--registry", required=True, type=Path)
+    retire.add_argument("--id", required=True, dest="source_id")
+    retire.add_argument(
+        "--synthetic-test-only", action="store_true", dest="synthetic_test_only"
+    )
+    retire.add_argument("--json", action="store_true")
+
+    activate = rsub.add_parser(
+        "activate", help="Verweigert immer fail-closed; verändert keine Datei."
+    )
+    activate.add_argument("--registry", required=True, type=Path)
+    activate.add_argument("--id", required=True, dest="source_id")
 
 
 def _add_quarantine_parser(
@@ -462,6 +531,262 @@ def _cmd_quarantine_release(out: TextIO, err: TextIO) -> int:
     return EXIT_CODES[ExitCode.QUARANTINE_RELEASE_BLOCKED]
 
 
+# -- Kommandogruppe source-registry (CBP-WP-014) --------------------------
+
+_REGISTRY_DISCLAIMER = (
+    "Kein Zustand bedeutet approved, mapped, activated, ingestible, indexed "
+    "oder retrievable. Eine Registrierung ist keine Aktivierung."
+)
+_CONFLICT_REASONS = frozenset(
+    {
+        ReasonCode.REGISTRY_RECORD_CONFLICT,
+        ReasonCode.REGISTRY_RETIREMENT_CONFLICT,
+    }
+)
+
+
+def _cmd_source_registry(
+    args: argparse.Namespace, out: TextIO, err: TextIO
+) -> int:
+    """Verteilt die Unterkommandos der Source Registry."""
+    match args.registry_command:
+        case "validate-definition":
+            return _cmd_registry_validate(args, out, err)
+        case "register":
+            return _cmd_registry_register(args, out, err)
+        case "list":
+            return _cmd_registry_list(args, out, err)
+        case "inspect":
+            return _cmd_registry_inspect(args, out, err)
+        case "retire":
+            return _cmd_registry_retire(args, out, err)
+        case "activate":
+            return _cmd_registry_activate(out, err)
+        case _:  # pragma: no cover — argparse erzwingt ein bekanntes Kommando
+            print("USAGE_ERROR unknown source-registry command", file=err)
+            return EXIT_CODES[ExitCode.USAGE_ERROR]
+
+
+def _registry_error_exit(exc: object, err: TextIO) -> int:
+    """Bildet eine Registry-Ausnahme auf einen stabilen Exitcode ab."""
+    reason = exc.reason.value  # type: ignore[attr-defined]
+    if isinstance(exc, RegistryPolicyError):
+        print(f"REGISTRY_POLICY_INVALID {reason}", file=err)
+        return EXIT_CODES[ExitCode.CONFIG_INVALID]
+    if isinstance(exc, RegistryNotFound):
+        print(f"SOURCE_REGISTRY_NOT_FOUND {reason}", file=err)
+        return EXIT_CODES[ExitCode.SOURCE_REGISTRY_NOT_FOUND]
+    if isinstance(exc, RegistryConflict) or (
+        isinstance(exc, RegistryStorageError) and exc.reason in _CONFLICT_REASONS
+    ):
+        print(f"SOURCE_REGISTRY_CONFLICT {reason}", file=err)
+        return EXIT_CODES[ExitCode.SOURCE_REGISTRY_CONFLICT]
+    print(f"SOURCE_REGISTRY_BLOCKED {reason}", file=err)
+    return EXIT_CODES[ExitCode.SOURCE_REGISTRY_BLOCKED]
+
+
+def _render_registry_record(data: dict[str, object]) -> str:
+    """Rendert Record-Metadaten minimiert — ohne Registry-Pfad."""
+    order = (
+        "source_id",
+        "namespace",
+        "source_key",
+        "display_name",
+        "collection_key",
+        "domain_key",
+        "source_kind",
+        "data_class",
+        "ai_eligibility",
+        "owner_role",
+        "source_reference",
+        "lifecycle_state",
+    )
+    lines = [f"{key}: {data[key]}" for key in order if key in data]
+    lines.extend(["", _REGISTRY_DISCLAIMER])
+    return "\n".join(lines)
+
+
+def _cmd_registry_validate(
+    args: argparse.Namespace, out: TextIO, err: TextIO
+) -> int:
+    """``source-registry validate-definition`` — validiert, schreibt nichts."""
+    from .registry import derive_source_id, load_definition, load_policy
+
+    try:
+        policy = load_policy(args.policy)
+        definition = load_definition(args.definition, policy)
+    except (RegistryPolicyError, RegistryDefinitionRejected) as exc:
+        return _registry_error_exit(exc, err)
+
+    source_id = derive_source_id(definition.namespace, definition.source_key)
+    payload = {
+        "definition_valid": True,
+        "source_id": source_id,
+        "namespace": definition.namespace,
+        "source_key": definition.source_key,
+        "display_name": definition.display_name,
+        "collection_key": definition.collection_key,
+        "domain_key": definition.domain_key,
+        "source_kind": definition.source_kind,
+        "data_class": definition.data_class,
+        "ai_eligibility": definition.ai_eligibility,
+        "owner_role": definition.owner_role,
+        "source_reference": definition.source_reference,
+    }
+    if args.json:
+        print(json.dumps(payload, indent=2, sort_keys=True), file=out)
+    else:
+        print("DEFINITION_VALID", file=out)
+        print(_render_registry_record(payload), file=out)
+    return EXIT_CODES[ExitCode.OK]
+
+
+def _cmd_registry_register(
+    args: argparse.Namespace, out: TextIO, err: TextIO
+) -> int:
+    """``source-registry register`` — registriert deaktiviert; aktiviert nichts."""
+    from .registry import RegistryStorage, load_policy, register
+
+    try:
+        policy = load_policy(args.policy)
+        storage = RegistryStorage(args.registry)
+        record = register(
+            definition_path=args.definition,
+            policy=policy,
+            storage=storage,
+            synthetic_confirmed=args.synthetic_test_only,
+        )
+    except (
+        RegistryPolicyError,
+        RegistryDefinitionRejected,
+        RegistryStorageError,
+        RegistryConflict,
+        RegistryCatalogError,
+    ) as exc:
+        return _registry_error_exit(exc, err)
+
+    if args.json:
+        print(json.dumps(record.to_dict(), indent=2, sort_keys=True), file=out)
+    else:
+        print(_render_registry_record(record.to_dict()), file=out)
+    return EXIT_CODES[ExitCode.OK]
+
+
+def _cmd_registry_list(
+    args: argparse.Namespace, out: TextIO, err: TextIO
+) -> int:
+    """``source-registry list`` — zeigt minimierte Katalogeinträge."""
+    from .registry import RegistryStorage, build_catalog
+
+    try:
+        storage = RegistryStorage(args.registry)
+        catalog = build_catalog(storage)
+    except (RegistryStorageError, RegistryCatalogError) as exc:
+        return _registry_error_exit(exc, err)
+
+    if args.json:
+        print(json.dumps(catalog.to_dict(), indent=2, sort_keys=True), file=out)
+    else:
+        lines = [
+            f"record_count:             {catalog.record_count}",
+            f"registered_disabled_count: {catalog.registered_disabled_count}",
+            f"retired_count:            {catalog.retired_count}",
+            "entries:",
+        ]
+        for entry in catalog.entries:
+            lines.append(
+                f"  {entry.source_id}  {entry.lifecycle_state.value}  "
+                f"{entry.namespace}/{entry.source_key}"
+            )
+        lines.extend(["", _REGISTRY_DISCLAIMER])
+        print("\n".join(lines), file=out)
+    return EXIT_CODES[ExitCode.OK]
+
+
+def _cmd_registry_inspect(
+    args: argparse.Namespace, out: TextIO, err: TextIO
+) -> int:
+    """``source-registry inspect`` — minimierte Record-Metadaten."""
+    from .registry import RegistryStorage, inspect
+
+    try:
+        storage = RegistryStorage(args.registry)
+        record, state = inspect(storage, args.source_id)
+    except (RegistryStorageError, RegistryNotFound) as exc:
+        return _registry_error_exit(exc, err)
+
+    data = record.to_dict()
+    data["lifecycle_state"] = state.value  # effektiver Zustand
+    if args.json:
+        print(json.dumps(data, indent=2, sort_keys=True), file=out)
+    else:
+        print(_render_registry_record(data), file=out)
+    return EXIT_CODES[ExitCode.OK]
+
+
+def _cmd_registry_retire(
+    args: argparse.Namespace, out: TextIO, err: TextIO
+) -> int:
+    """``source-registry retire`` — append-only Retirement; keine Löschung."""
+    from .registry import RegistryStorage, retire
+
+    try:
+        storage = RegistryStorage(args.registry)
+        outcome = retire(
+            storage=storage,
+            source_id=args.source_id,
+            synthetic_confirmed=args.synthetic_test_only,
+        )
+    except (
+        RegistryDefinitionRejected,
+        RegistryStorageError,
+        RegistryNotFound,
+        RegistryCatalogError,
+    ) as exc:
+        return _registry_error_exit(exc, err)
+
+    payload = {
+        "source_id": outcome.record.source_id,
+        "lifecycle_state": outcome.lifecycle_state.value,
+        "retirement_event_created": outcome.event is not None,
+    }
+    if args.json:
+        print(json.dumps(payload, indent=2, sort_keys=True), file=out)
+    else:
+        print(f"source_id:      {payload['source_id']}", file=out)
+        print(f"lifecycle_state: {payload['lifecycle_state']}", file=out)
+        print(
+            f"event_created:  {str(payload['retirement_event_created']).lower()}",
+            file=out,
+        )
+        print("", file=out)
+        print(_REGISTRY_DISCLAIMER, file=out)
+    return EXIT_CODES[ExitCode.OK]
+
+
+def _cmd_registry_activate(out: TextIO, err: TextIO) -> int:
+    """``source-registry activate`` — verweigert immer, ändert nichts.
+
+    Öffnet den Registry-Speicher **nicht** und liest keinen Record.
+    """
+    print(
+        f"SOURCE_REGISTRY_ACTIVATION_BLOCKED "
+        f"{ReasonCode.REGISTRY_ACTIVATION_ALWAYS_BLOCKED.value}",
+        file=err,
+    )
+    print(
+        "Der Source-Registry-Prototyp aktiviert nichts und erzeugt kein "
+        "Source Mapping.",
+        file=err,
+    )
+    print(
+        "Eine Aktivierung erfordert eine menschliche Entscheidung und ein "
+        "Mapping Activation Gate außerhalb dieses MVP.",
+        file=err,
+    )
+    return EXIT_CODES[ExitCode.SOURCE_REGISTRY_ACTIVATION_BLOCKED]
+
+
 def main(
     argv: Sequence[str] | None = None,
     out: TextIO | None = None,
@@ -500,6 +825,8 @@ def main(
             return _cmd_run(args.config, out, err)
         case "quarantine":
             return _cmd_quarantine(args, out, err)
+        case "source-registry":
+            return _cmd_source_registry(args, out, err)
         case _:  # pragma: no cover — argparse erzwingt ein bekanntes Kommando
             print("USAGE_ERROR unknown command", file=err)
             return EXIT_CODES[ExitCode.USAGE_ERROR]

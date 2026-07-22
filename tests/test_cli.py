@@ -18,7 +18,25 @@ from core.core_brain.errors import EXIT_CODES, ExitCode
 REPO_ROOT = Path(__file__).resolve().parent.parent
 EXAMPLE_CONFIG = REPO_ROOT / "config" / "runtime.example.toml"
 EXAMPLE_POLICY = REPO_ROOT / "config" / "quarantine_policy.example.toml"
+REGISTRY_POLICY = REPO_ROOT / "config" / "source_registry_policy.example.toml"
 SYNTHETIC_MARKER = "<!-- synthetic-test-only -->"
+
+_REGISTRY_DEF = """schema_version = "1.0"
+namespace = "synthetic-guard"
+source_key = "notes-alpha"
+display_name = "Synthetic Guard Notes"
+collection_key = "demo-collection"
+domain_key = "demo-domain"
+source_kind = "markdown"
+data_class = "internal"
+ai_eligibility = "restricted"
+owner_role = "operator"
+source_reference = "synthetic:guard"
+synthetic_test_only = true
+activation_enabled = false
+content_access_enabled = false
+network_enabled = false
+"""
 
 
 def run_cli(*argv: str) -> tuple[int, str, str]:
@@ -252,6 +270,42 @@ class TestNetworkGuard(unittest.TestCase):
                 with self.subTest(path=" ".join(argv[:2])):
                     self._run_under_guard(argv)
 
+    def test_no_network_attempt_on_source_registry_cli_paths(self) -> None:
+        # CBP-WP-014: der Guard umfasst alle sechs Registry-Pfade.
+        with tempfile.TemporaryDirectory() as tmp:
+            definition = Path(tmp) / "def.toml"
+            definition.write_text(_REGISTRY_DEF, encoding="utf-8")
+            registry = Path(tmp) / "registry"
+            out, err = io.StringIO(), io.StringIO()
+            main(
+                [
+                    "source-registry", "register", "--definition", str(definition),
+                    "--policy", str(REGISTRY_POLICY), "--registry", str(registry),
+                    "--synthetic-test-only", "--json",
+                ],
+                out=out,
+                err=err,
+            )
+            source_id = json.loads(out.getvalue())["source_id"]
+
+            registry_paths: tuple[tuple[str, ...], ...] = (
+                ("source-registry", "validate-definition", "--definition",
+                 str(definition), "--policy", str(REGISTRY_POLICY)),
+                ("source-registry", "register", "--definition", str(definition),
+                 "--policy", str(REGISTRY_POLICY), "--registry", str(registry),
+                 "--synthetic-test-only"),
+                ("source-registry", "list", "--registry", str(registry)),
+                ("source-registry", "inspect", "--registry", str(registry),
+                 "--id", source_id),
+                ("source-registry", "retire", "--registry", str(registry),
+                 "--id", source_id, "--synthetic-test-only"),
+                ("source-registry", "activate", "--registry", str(registry),
+                 "--id", source_id),
+            )
+            for argv in registry_paths:
+                with self.subTest(path=" ".join(argv[:2])):
+                    self._run_under_guard(argv)
+
 
 class TestUsage(unittest.TestCase):
     """Unbekannte Kommandos liefern einen Usage-Fehler."""
@@ -282,7 +336,13 @@ class TestNoImportSideEffects(unittest.TestCase):
                 " core.core_brain.quarantine.policy,"
                 " core.core_brain.quarantine.scanner,"
                 " core.core_brain.quarantine.store,"
-                " core.core_brain.quarantine.pipeline;"
+                " core.core_brain.quarantine.pipeline,"
+                " core.core_brain.registry,"
+                " core.core_brain.registry.models,"
+                " core.core_brain.registry.policy,"
+                " core.core_brain.registry.storage,"
+                " core.core_brain.registry.catalog,"
+                " core.core_brain.registry.service;"
                 "after = set(pathlib.Path(r'" + tmp + "').iterdir());"
                 "assert before == after;"
                 "print('IMPORT_CLEAN')"
@@ -333,6 +393,35 @@ class TestQuarantineLeavesRepositoryUnchanged(unittest.TestCase):
                 "quarantine", "stage", "--input", str(artifact),
                 "--policy", str(EXAMPLE_POLICY), "--source-ref", "synthetic:repo",
                 "--store", str(store), "--synthetic-test-only",
+            )
+        after = _snapshot()
+        self.assertEqual(before, after)
+
+
+class TestRegistryLeavesRepositoryUnchanged(unittest.TestCase):
+    """Test 81 — Registry-Operationen schreiben nur in temporäre Verzeichnisse."""
+
+    def test_registry_register_and_retire_create_no_files_in_repository(self) -> None:
+        def _snapshot() -> set[Path]:
+            return set((REPO_ROOT / "core").rglob("*")) | set(
+                (REPO_ROOT / "config").rglob("*")
+            )
+
+        before = _snapshot()
+        with tempfile.TemporaryDirectory() as tmp:
+            definition = Path(tmp) / "def.toml"
+            definition.write_text(_REGISTRY_DEF, encoding="utf-8")
+            registry = Path(tmp) / "registry"
+            _, out, _ = run_cli(
+                "source-registry", "register", "--definition", str(definition),
+                "--policy", str(REGISTRY_POLICY), "--registry", str(registry),
+                "--synthetic-test-only", "--json",
+            )
+            source_id = json.loads(out)["source_id"]
+            run_cli("source-registry", "list", "--registry", str(registry))
+            run_cli(
+                "source-registry", "retire", "--registry", str(registry),
+                "--id", source_id, "--synthetic-test-only",
             )
         after = _snapshot()
         self.assertEqual(before, after)

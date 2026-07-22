@@ -3,7 +3,7 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Überarbeitet in | **CBP-WP-013** |
+| Überarbeitet in | **CBP-WP-014** |
 | Autoritätsklasse | A2 |
 | Stand | 2026-07-22 |
 
@@ -54,6 +54,24 @@ und Capability 6 bleiben `planned`.**
 **Diese Bausteine sind kein Deploymentnachweis und keine Kontrolle.** Sie
 belegen **nicht** vollständige Secret- oder PII-Erkennung, keine produktive
 Isolation und keine Freigabe. **R-01, R-32 und R-33 bleiben offen.**
+
+## Lokale Registry-Bausteine (CBP-WP-014)
+
+CBP-WP-014 hat einen lokalen, synthetisch testbaren, **deaktivierten**
+Registry- und Catalog-Prototyp erstellt und getestet (212 Tests bestanden,
+Basislinie WP-013: 137). Er setzt **keine** Produkt-Capability vollständig um.
+**Capability 2 (Source Manifest), 3 (Stabile Source-ID und Content Hash) und 7
+(Deterministischer Quellenindex) bleiben `planned` bzw. `discovery`.**
+
+| Baustein | Status | Evidenz |
+| --- | --- | --- |
+| Deterministische Source-ID aus Namespace/Key | **implemented locally** | `registry/service.py`, `test_registry_definition.py` |
+| Unveränderliche Records + append-only Retirement | **implemented locally** | `registry/storage.py`, `test_registry_storage.py` |
+| Deterministisch abgeleiteter, minimierter Katalog | **implemented locally** | `registry/catalog.py`, `test_registry_catalog.py` |
+
+**Diese Bausteine sind kein Deploymentnachweis und keine Kontrolle.** Sie
+belegen **keine** reale Source Governance, **kein** Mapping und **keine**
+Aktivierung; `activate` verweigert immer. **R-33 bleibt offen.**
 
 ## Zuordnung zu geplanten Work Packages
 

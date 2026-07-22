@@ -3,7 +3,7 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 – COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Überarbeitet in | **CBP-WP-013** |
+| Überarbeitet in | **CBP-WP-014** |
 | Autoritätsklasse | A2 |
 | Stand | 2026-07-21 |
 
@@ -111,7 +111,7 @@ Es existiert **keine** Installation.
 | **Phase 0** | Discovery und Scope Lock | **COMPLETE** |
 | **Gate G0** | Discovery and Scope Lock | **PASSED WITH NOTES** — 2026-07-21 |
 | Deployment-Readiness | 16 vertagte Kriterien | [DRC](../docs/operations/DEPLOYMENT_READINESS_CHECK.md) definiert, **NOT EVALUATED** |
-| **Phase 1** | Proxmox-Referenzumgebung | **AUTHORIZED FOR PLANNING** — [Backlog](../docs/roadmap/PHASE_1_BACKLOG.md), [Foundation Plan](../docs/roadmap/PHASE_1_FOUNDATION_PLAN.md) F1–F5; **OD-26 geschlossen** (ADR-0007), Core-Repository `publication-capable by design` und **weiterhin privat**; **Mappingkonvention entschieden** (ADR-0008), Activation Gate `NOT EVALUATED`; **Sicherheitsgrundlage spezifiziert** (ADR-0009, 12 Kontrollen `DOCUMENTED ONLY`); **Runtime Skeleton lokal implementiert** (CBP-WP-012, `run` fail-closed, nicht produktionsbereit); **Ingest-Quarantäne-MVP lokal implementiert** (CBP-WP-013, ADR-0010, synthetic-only, 137 Tests, keine Promotion, nicht produktiv); CBP-WP-014 `proposed`, **nicht autorisiert** |
+| **Phase 1** | Proxmox-Referenzumgebung | **AUTHORIZED FOR PLANNING** — [Backlog](../docs/roadmap/PHASE_1_BACKLOG.md), [Foundation Plan](../docs/roadmap/PHASE_1_FOUNDATION_PLAN.md) F1–F5; **OD-26 geschlossen** (ADR-0007), Core-Repository `publication-capable by design` und **weiterhin privat**; **Mappingkonvention entschieden** (ADR-0008), Activation Gate `NOT EVALUATED`; **Sicherheitsgrundlage spezifiziert** (ADR-0009, 12 Kontrollen `DOCUMENTED ONLY`); **Runtime Skeleton lokal implementiert** (CBP-WP-012, `run` fail-closed, nicht produktionsbereit); **Ingest-Quarantäne-MVP lokal implementiert** (CBP-WP-013, ADR-0010, synthetic-only, keine Promotion, nicht produktiv); **Source-Registry-MVP lokal implementiert** (CBP-WP-014, ADR-0011, synthetic-only, deaktiviert, 212 Tests, `activate` verweigert, nicht produktiv); CBP-WP-015 `proposed`, **nicht autorisiert** |
 | Phase 2 | Wissensfundament | nicht begonnen |
 | Phase 3 | Retrieval-Pilot | nicht begonnen |
 | Phase 4 | Mehrgeräte- und Mobile-Pilot | nicht begonnen |

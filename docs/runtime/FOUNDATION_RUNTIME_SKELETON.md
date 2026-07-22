@@ -16,6 +16,11 @@
 > **CBP-WP-013** ergänzt auf diesem Skeleton die Kommandogruppe `quarantine`
 > (`scan`, `stage`, `inspect`, `release`) — ein lokaler, synthetisch testbarer
 > Quarantäneprototyp. Siehe [INGEST_QUARANTINE_MVP.md](INGEST_QUARANTINE_MVP.md).
+>
+> **CBP-WP-014** ergänzt die Kommandogruppe `source-registry`
+> (`validate-definition`, `register`, `list`, `inspect`, `retire`, `activate`)
+> — ein lokaler, deaktivierter Registry-Prototyp. Siehe
+> [SOURCE_REGISTRY_MVP.md](SOURCE_REGISTRY_MVP.md).
 
 ---
 

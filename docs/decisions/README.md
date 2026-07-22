@@ -3,9 +3,9 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Angenommene ADRs | **10** |
+| Angenommene ADRs | **11** |
 | Vorgeschlagene ADRs | 0 |
-| Überarbeitet in | **CBP-WP-013** |
+| Überarbeitet in | **CBP-WP-014** |
 | Stand | 2026-07-22 |
 
 Dieses Verzeichnis enthält Architecture Decision Records. Ein angenommener ADR
@@ -13,13 +13,14 @@ hat Autoritätsklasse **A1** und bindet nachfolgende Arbeit.
 
 ## Aktueller Stand
 
-**Zehn angenommene ADRs.** Fünf aus CBP-WP-004, jeder durch eine ausdrückliche
+**Elf angenommene ADRs.** Fünf aus CBP-WP-004, jeder durch eine ausdrückliche
 A0-Entscheidung oder eine A5-Originalquelle belegt; **ADR-0006** am 2026-07-21
 angenommen (D-028); **ADR-0007** am selben Tag (D-029, D-030); **ADR-0008**
 (D-031, D-032, D-033) und **ADR-0009** (D-034 bis D-037) ebenfalls; **ADR-0010**
-am 2026-07-22 (D-038 bis D-041, Ingest-Quarantäne-MVP).
+am 2026-07-22 (D-038 bis D-041, Ingest-Quarantäne-MVP); **ADR-0011** am selben
+Tag (D-042 bis D-045, Source-Registry-MVP).
 
-Alle zehn tragen **A1** und binden nachfolgende Arbeit. Es steht kein Vorschlag
+Alle elf tragen **A1** und binden nachfolgende Arbeit. Es steht kein Vorschlag
 mehr offen.
 
 > **ADR-0006 trägt seit CBP-WP-010 einen Klarstellungsnachtrag** — *non-substantive
@@ -39,6 +40,7 @@ mehr offen.
 | [ADR-0008](ADR-0008-pilot-source-mapping-konvention.md) | Pilot Source Mapping Konvention | **`accepted`** | **D-031, D-032, D-033 (A0), 2026-07-21** |
 | [ADR-0009](ADR-0009-technische-sicherheitsgrundlage.md) | Technische Sicherheitsgrundlage | **`accepted`** | **D-034 bis D-037 (A0), 2026-07-21** |
 | [ADR-0010](ADR-0010-ingest-quarantaene-mvp.md) | Ingest-Quarantäne MVP | **`accepted`** | **D-038 bis D-041 (A0), 2026-07-22** |
+| [ADR-0011](ADR-0011-deterministische-source-registry.md) | Deterministische Source Registry und Catalog | **`accepted`** | **D-042 bis D-045 (A0), 2026-07-22** |
 
 Weitere Kandidaten sind in
 [project-system/DECISION_REGISTER.md](../../project-system/DECISION_REGISTER.md)

@@ -1,0 +1,42 @@
+# Core Brain Pilot — Beispiel-Policy der Source Registry (CBP-WP-014)
+#
+# synthetic · non-operational · test-only
+#
+# Diese Datei beschreibt die restriktive Policy des lokalen, deaktivierten
+# Registry-Prototyps. Sie enthält:
+#   - keine realen Quellen,
+#   - keine Pfade oder URLs,
+#   - keine Source-Inhalte,
+#   - keine Mapping- oder Secret-Locators,
+#   - keine frei konfigurierbaren regulären Ausdrücke.
+#
+# Sicherheitswerte stehen auf ihrer restriktiven Vorgabe. Aktivierung,
+# Content Access, Netzwerk, Updates und Deletion sind unzulässig; eine
+# Lockerung blockiert die Validierung. Retirement ist zulässig (append-only).
+# Environment-Variablen und CLI-Argumente überschreiben diese Werte nicht.
+
+schema_version = "1.0"
+
+# Konservative Größen- und Längengrenzen.
+max_definition_bytes = 65536
+max_key_chars = 64
+max_display_name_chars = 128
+
+# Zulässige Metadatenwerte (leere Liste blockiert).
+allowed_source_kinds = ["markdown"]
+allowed_data_classes = ["public", "internal"]
+allowed_ai_eligibility = ["allowed", "restricted"]
+
+# Synthetic-only-Grenze.
+require_synthetic_reference = true
+
+# Fail-closed: im MVP unveränderlich. true blockiert die Validierung.
+allow_activation = false
+allow_content_access = false
+allow_network = false
+allow_updates = false
+allow_deletion = false
+
+# Retirement ist zulässig (append-only). false blockiert für das Lifecycle-
+# Modell C1.
+allow_retirement = true

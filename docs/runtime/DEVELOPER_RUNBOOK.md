@@ -14,6 +14,10 @@
 > **Für die Ingest-Quarantäne (CBP-WP-013)** siehe das eigene
 > [INGEST_QUARANTINE_RUNBOOK.md](INGEST_QUARANTINE_RUNBOOK.md) — ausschließlich
 > synthetische, temporäre Daten.
+>
+> **Für die Source Registry (CBP-WP-014)** siehe
+> [SOURCE_REGISTRY_RUNBOOK.md](SOURCE_REGISTRY_RUNBOOK.md) — ausschließlich
+> synthetische, temporäre Metadaten.
 
 ---
 

@@ -2,7 +2,7 @@
 
 | Feld | Wert |
 | --- | --- |
-| Überarbeitet in | **CBP-WP-013** |
+| Überarbeitet in | **CBP-WP-014** |
 | Autoritätsklasse | A2 |
 | Stand | 2026-07-22 |
 
@@ -23,22 +23,23 @@ verweigern deterministisch.
 
 | Feld | Wert |
 | --- | --- |
-| Aktuelles Work Package | **CBP-WP-013** (`in-review`) |
+| Aktuelles Work Package | **CBP-WP-014** (`in-review`) |
 | Gate G0 | **PASSED WITH NOTES** — 2026-07-21 |
 | G0-Kriterien | **47**, dreistufig klassifiziert |
 | davon blockierend | **25** Core Required (zuvor 45) |
 | davon `accepted` | **25** — alle |
 | verbleibende Blocker | **0** |
 | Phase 1 | AUTHORIZED FOR PLANNING — [Backlog](../docs/roadmap/PHASE_1_BACKLOG.md), [Foundation Plan](../docs/roadmap/PHASE_1_FOUNDATION_PLAN.md) |
-| Geplante Work Packages | **CBP-WP-014**, `proposed` |
+| Geplante Work Packages | **CBP-WP-015**, `proposed` |
 | **Repository-Struktur** | **entschieden** — Ziel-Monorepo + Workspace W-3 (ADR-0007); **Migration nicht autorisiert** |
 | **Mappingkonvention** | **entschieden** — ADR-0008; **0 Mappings, 0 Quellen**, Gate `NOT EVALUATED` |
 | **Sicherheitsgrundlage** | **spezifiziert** — ADR-0009; **12 Kontrollen `DOCUMENTED ONLY`** |
 | **Runtime Skeleton** | **lokal implementiert** (CBP-WP-012) — `run` fail-closed, nicht produktionsbereit |
-| **Ingest-Quarantäne MVP** | **lokaler Prototyp** (CBP-WP-013, ADR-0010) — synthetic-only, fail-closed, **137 Tests**, keine Promotion, nicht produktiv |
+| **Ingest-Quarantäne MVP** | **lokaler Prototyp** (CBP-WP-013, ADR-0010) — synthetic-only, fail-closed, keine Promotion, nicht produktiv |
+| **Source-Registry MVP** | **lokaler Prototyp** (CBP-WP-014, ADR-0011) — synthetic-only, fail-closed, **deaktiviert**, **212 Tests**, `activate` verweigert, nicht produktiv |
 | Implementierte Capabilities | **keine (0 von 29)** — Bausteine belegt; Capability 5/6 bleiben `planned` |
 | Nachweise oberhalb Stufe 1 | **keine** (lokale Bausteine, keine KB-Kontrolle) |
-| Commits | **13** |
+| Commits | **14** |
 
 ## Ziel
 
@@ -100,15 +101,16 @@ verweigert, bis eine Datenklasse sie erlaubt.**
 
 ## Entscheidungen
 
-Angenommene ADRs: **10** (ADR-0001 bis ADR-0010). ADR-0006 hält privaten
+Angenommene ADRs: **11** (ADR-0001 bis ADR-0011). ADR-0006 hält privaten
 Bestand konstruktiv außerhalb des Kern-Repositorys (D-028); **ADR-0007**
 (D-029, D-030) legt Zielstruktur und Bereichsgrenze fest und **schließt
 OD-26**; **ADR-0008** (D-031…D-033) legt die Mappingkonvention fest;
 **ADR-0009** (D-034…D-037) die technische Sicherheitsgrundlage und **schließt
 OD-34 und OD-35** (alle vier am 2026-07-21); **ADR-0010** (D-038…D-041) den
-Ingest-Quarantäne-MVP (2026-07-22).
+Ingest-Quarantäne-MVP und **ADR-0011** (D-042…D-045) den
+Source-Registry-MVP (beide 2026-07-22).
 
-**41** getroffene Entscheidungen, davon **37** mit A0. **23** offene, davon
+**45** getroffene Entscheidungen, davon **41** mit A0. **23** offene, davon
 **5** mit P0. Geführt in
 [project-system/DECISION_REGISTER.md](../project-system/DECISION_REGISTER.md).
 
@@ -336,14 +338,35 @@ Marker). **Keine reale Quelle, kein Mapping, keine Promotion, keine
 Indexierung.** Scanner ist ein **Indikator**, keine vollständige Secret-/PII-
 Erkennung. **R-01, R-32, R-33 bleiben offen**; Capability 5/6 bleiben `planned`.
 
+## Source-Registry MVP — lokal implementiert
+
+**CBP-WP-014**, 2026-07-22, dritte technische Umsetzung. Human-Autorisierung
+APPROVE WITH NOTES (A0), A1/B1/C1/D1. Festgehalten in **ADR-0011** (D-042…D-045).
+
+| Gegenstand | Wert |
+| --- | --- |
+| Registry-Module | 6 unter `core/core_brain/registry/` |
+| CLI | `source-registry validate-definition`, `register`, `list`, `inspect`, `retire`, `activate` |
+| Zustände | `REGISTERED_DISABLED`, `RETIRED` |
+| Exitcodes | 8 / 9 / 10 / 11 (neu) |
+| Speicher | unveränderliche Records, append-only Events, atomarer Katalog, außerhalb Repo |
+| Tests | **212 bestanden** (Basislinie 137), 0 fehlgeschlagen |
+| `activate` | verweigert immer (Exit 11) |
+
+**Synthetic-only-Grenze technisch durchgesetzt.** Source ID deterministisch aus
+Namespace und Source Key; Records und Katalog **ohne** Pfad, URL, Inhalt oder
+Mapping-Locator. **Keine reale Quelle, kein Mapping, keine Aktivierung, keine
+Indexierung.** **R-33 bleibt offen**; Capability 2/3/7 bleiben nicht vollständig
+`implemented`.
+
 ## Nächste Arbeitspakete
 
 Siehe
 [project-system/WORK_PACKAGE_QUEUE.md](../project-system/WORK_PACKAGE_QUEUE.md)
 und [PHASE_1_WORK_PACKAGE_MAP.md](../docs/roadmap/PHASE_1_WORK_PACKAGE_MAP.md).
 
-Vorgeschlagen, **nicht freigegeben**: **CBP-WP-014 — Deterministic Source
-Registry and Catalog** (implementation, interactive authorization, Full, B2 –
+Vorgeschlagen, **nicht freigegeben**: **CBP-WP-015 — Deterministic Source
+Mapping Draft Validator** (implementation, interactive authorization, Full, B2 –
 Standard), Status `proposed`, **implementation not yet authorized**.
 
 ## Rückmeldung an Nova

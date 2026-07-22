@@ -102,6 +102,10 @@ Human-Maintainer-Entscheidung im Entscheidungsblock. Wortlaut unverändert in
 | **D-039** | **Teil B — Quarantänespeicher: lokaler content-addressed Dateispeicher** mit unveränderlichem Payload und atomarem JSON-Manifest. Root explizit und außerhalb des Core-Repositorys; im Work Package nur temporär mit synthetischen Daten. Objektpfade nur aus validiertem SHA-256; Idempotenz; Kollision blockiert. **Weder Canonical Source noch RT-2, keine produktive Sicherheitsgrenze** | `accepted` | **A0** | Entscheidungsblock CBP-WP-013 | 2026-07-22 | Quarantäne-MVP | **ADR-0010** (A1) |
 | **D-040** | **Teil C — Baseline-Scanner: strukturelle Prüfungen plus deterministische Credential- und PII-Indikatoren.** Fest verdrahtete Regeln, keine frei konfigurierbaren regulären Ausdrücke. **Indikatoren, keine vollständige Secret-, PII- oder Klassifikationskontrolle.** Befunde ohne Snippet, Pfad oder Wert | `accepted` | **A0** | Entscheidungsblock CBP-WP-013 | 2026-07-22 | R-01, R-32 | **ADR-0010** (A1) |
 | **D-041** | **Teil D — Freigabemodell: drei Zustände `READY_FOR_HUMAN_REVIEW`, `REVIEW_REQUIRED`, `BLOCKED`; keine automatische Promotion.** Kein Zustand bedeutet `approved`, `released`, `enabled` oder `indexed`. `quarantine release` verweigert deterministisch fail-closed | `accepted` | **A0** | Entscheidungsblock CBP-WP-013 | 2026-07-22 | Quarantäne-MVP | **ADR-0010** (A1) |
+| **D-042** | **Teil A — Registry-Identität: stabiler Namespace plus Source Key, daraus deterministisch abgeleitete Source ID** (`src-` + 24 Hex des SHA-256 aus Identitätsschema, Namespace, Source Key). Kein Display Name, Pfad, URL oder Inhalt in der ID; abweichende Identität/Definition unter bestehender ID blockiert | `accepted` | **A0** | Entscheidungsblock CBP-WP-014 | 2026-07-22 | Registry-MVP | **ADR-0011** (A1) |
+| **D-043** | **Teil B — Registry-Speicher: unveränderliche JSON-Records plus atomar abgeleiteter Katalog außerhalb des Repositorys.** Kanonisches UTF-8-JSON, atomar, keine stille Überschreibung, Idempotenz, Konflikt bei abweichender Definition, kein Teilkatalog bei Integritätsfehler, vollständig rekonstruierbar. **Weder Canonical Source noch RT-2, keine produktive Isolationsgrenze** | `accepted` | **A0** | Entscheidungsblock CBP-WP-014 | 2026-07-22 | Registry-MVP | **ADR-0011** (A1) |
+| **D-044** | **Teil C — Lifecycle: `REGISTERED_DISABLED` und `RETIRED`; Retirement als append-only Event; keine Aktivierung.** Keine Löschung, keine Aktualisierung, keine Reaktivierung; idempotent; keine Freitexte, Pfade oder Inhalte im Event | `accepted` | **A0** | Entscheidungsblock CBP-WP-014 | 2026-07-22 | Registry-MVP | **ADR-0011** (A1) |
+| **D-045** | **Teil D — Katalogumfang: ausschließlich minimierte Metadaten** (10 Felder je Eintrag); keine Pfade, URLs, Source-Inhalte, Definition Hashes, Owner-Freitexte oder Mapping-Locators. Deterministisch nach `source_id` sortiert, aus Records und Events abgeleitet | `accepted` | **A0** | Entscheidungsblock CBP-WP-014 | 2026-07-22 | Registry-MVP | **ADR-0011** (A1) |
 
 > **Die vier Entscheidungen legen Sicherheitsarchitektur fest, keine
 > Implementierung.** Es wurde keine Identität angelegt, kein Recht gesetzt,
@@ -115,6 +119,14 @@ Human-Maintainer-Entscheidung im Entscheidungsblock. Wortlaut unverändert in
 > reale Quelle berührt, kein Mapping aktiviert, nichts freigegeben und nichts
 > promotet. **R-01 und R-32 bleiben offen**; **OD-05 und OD-06 bleiben offen**.
 > Festgehalten in [ADR-0010](../docs/decisions/ADR-0010-ingest-quarantaene-mvp.md).
+
+> **D-042 bis D-045 (CBP-WP-014) definieren einen lokalen, synthetisch
+> testbaren, deaktivierten Source-Registry-Prototyp — keine produktive
+> Registry, kein Mapping, keine Aktivierung.** Keine reale Quelle, kein Pfad,
+> keine URL, kein Source-Inhalt berührt; jede Registrierung ist
+> `REGISTERED_DISABLED`; `activate` verweigert immer. **Kein Risiko
+> geschlossen**; **OD-05, OD-06, OD-37, OD-38 bleiben offen**. Festgehalten in
+> [ADR-0011](../docs/decisions/ADR-0011-deterministische-source-registry.md).
 
 > **Hinweis zu D-016.** In CBP-WP-002 hatte ich „bevorzugte Anwendungslaufzeit"
 > zu „vorgesehene" abgeschwächt (Ü-02), gestützt auf Projektübergabe §4 (A5),
@@ -192,8 +204,8 @@ Legende: **P0** blockiert G0 · **P1** vor Architekturentscheidung · **P2** sp�
 
 | Kategorie | Anzahl |
 | --- | --- |
-| Getroffene Entscheidungen | **41** (davon **37** mit A0) |
-| Angenommene ADRs | **10** (ADR-0001 bis ADR-0010, alle A1) |
+| Getroffene Entscheidungen | **45** (davon **41** mit A0) |
+| Angenommene ADRs | **11** (ADR-0001 bis ADR-0011, alle A1) |
 | Vorgeschlagene ADRs | 0 |
 | Neu in CBP-WP-003 | 12 (D-015 bis D-026) |
 | Neu in CBP-WP-004 | 0 Entscheidungen, 5 ADRs |
@@ -203,6 +215,7 @@ Legende: **P0** blockiert G0 · **P1** vor Architekturentscheidung · **P2** sp�
 | Neu in CBP-WP-010 | **3 A0-Entscheidungen** (D-031 Format, D-032 Collection, D-033 Granularität), **1 ADR**, 2 neue offene Entscheidungen (OD-35, OD-36) |
 | Neu in CBP-WP-011 | **4 A0-Entscheidungen** (D-034 Identity, D-035 Secret, D-036 Egress, D-037 Evidence), **1 ADR**, **2 geschlossene** (OD-34, OD-35) |
 | Neu in CBP-WP-013 | **4 A0-Entscheidungen** (D-038 Intake, D-039 Store, D-040 Scanner, D-041 Freigabe), **1 ADR**, 2 neue offene Entscheidungen (OD-37, OD-38) |
+| Neu in CBP-WP-014 | **4 A0-Entscheidungen** (D-042 Identität, D-043 Store, D-044 Lifecycle, D-045 Katalog), **1 ADR**, 0 neue offene Entscheidungen |
 | Geschlossene offene Entscheidungen | **12** |
 | Vertagte Entscheidungen | 4 |
 | Offene Entscheidungen | **23** |

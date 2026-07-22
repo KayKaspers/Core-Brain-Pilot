@@ -3,7 +3,7 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Letzte Prüfung | 2026-07-22, im Rahmen von **CBP-WP-013** |
+| Letzte Prüfung | 2026-07-22, im Rahmen von **CBP-WP-014** |
 | Autoritätsklasse | A2 |
 
 > Diese Datei gehört zur kanonischen NDF-Ordnerstruktur, war aber in der
@@ -370,9 +370,14 @@ Nova-REWORK-Terminologiekorrekturlauf.
 
 **R-33 bleibt `gemindert, nicht geschlossen`** — die Einträge ändern den Status
 nicht. Die Zähl- und Statusregel ist weiterhin eine **Dokumentregel, keine
-technische Kontrolle**. **Acht Konsistenzvorgänge in dreizehn Work Packages**
+technische Kontrolle**. **Acht Konsistenzvorgänge in vierzehn Work Packages**
 sind dokumentiert; jeder wurde durch Auszählung bzw. Terminologieprüfung
 gefunden, keiner durch die Regel verhindert.
+
+**CBP-WP-014 führte keinen neuen Konsistenzvorgang ein.** Testzahl (**212**) aus
+`Ran N tests`, Git-Inventar aus `git status --porcelain=v1 -uall`, Entscheidungs-
+(D-042…D-045) und ADR-Zahlen aus den Quelltabellen ausgezählt; die Risikomengen
+A (6), B (5) und C (11) blieben kanonisch getrennt. **R-33 bleibt offen.**
 
 **Die Implementierung von CBP-WP-013 selbst führte keinen arithmetischen
 Zählfehler ein.** Testzahl (**137**) aus `Ran N tests`, Git-Inventar aus

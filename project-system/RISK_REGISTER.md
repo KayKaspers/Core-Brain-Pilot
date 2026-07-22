@@ -3,7 +3,7 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Überarbeitet in | **CBP-WP-013** |
+| Überarbeitet in | **CBP-WP-014** |
 | Autoritätsklasse | A2 |
 | Stand | 2026-07-22 |
 
@@ -91,6 +91,19 @@ Ein irreversibler Schaden ist mindestens **hoch**.
 | offen | **10** |
 
 **Neu in CBP-WP-012:** keine.
+
+**Neu in CBP-WP-014:** keine.
+
+**Verändert in CBP-WP-014:**
+
+| ID | Änderung | Auslöser |
+| --- | --- | --- |
+| **R-33** | Test- (**212**), Git-, Entscheidungs- (D-042…D-045) und ADR-Zahlen aus den tatsächlichen Ausgaben bzw. Quelltabellen ausgezählt; Risikomengen A (6) / B (5) / C (11) kanonisch getrennt geführt. **Dokumentregel, keine Kontrolle** | CBP-WP-014 |
+
+**Kein Risiko wurde in CBP-WP-014 geschlossen.** Ein synthetisch testbarer,
+**deaktivierter** Registry-Prototyp ist keine reale Source Governance: er
+berührt keine reale Quelle, erzeugt kein Mapping und aktiviert nichts
+(`activate` verweigert immer). **R-33 bleibt offen.**
 
 **Neu in CBP-WP-013:** keine.
 

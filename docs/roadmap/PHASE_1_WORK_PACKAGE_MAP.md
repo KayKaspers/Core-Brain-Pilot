@@ -24,12 +24,14 @@ Maintainers ausführbar — Regel 6 der Work Package Queue.
 | **CBP-WP-010** | Pilot Source Mapping Specification | `docs-only`, interaktiv | F2 | **`in-review`** — ausgeführt 2026-07-21 | **nein** |
 | **CBP-WP-011** | Technical Security Foundation Specification | `docs-only`, interaktiv | F3 | **`in-review`** — ausgeführt 2026-07-21 | **nein** |
 | **CBP-WP-012** | Foundation Runtime Skeleton | implementation | F3 | **`committed`** — `1f55234` | **ausgeführt** |
-| **CBP-WP-013** | Ingest Quarantine Minimum Viable Pipeline | implementation | F4 | **`in-review`** — ausgeführt 2026-07-22 | **ausgeführt** (A0 WITH NOTES) |
-| **CBP-WP-014** | Deterministic Source Registry and Catalog | spätere Implementierung | F5 | **`proposed`** | **nein** |
+| **CBP-WP-013** | Ingest Quarantine Minimum Viable Pipeline | implementation | F4 | **`committed`** — `4a35245` | **ausgeführt** |
+| **CBP-WP-014** | Deterministic Source Registry and Catalog | implementation | F5 | **`in-review`** — ausgeführt 2026-07-22 | **ausgeführt** (A0 WITH NOTES) |
+| **CBP-WP-015** | Deterministic Source Mapping Draft Validator | spätere Implementierung | F5 | **`proposed`** | **nein** |
 
-**Die ersten drei sind `docs-only`.** CBP-WP-012 war das erste Paket mit
-technischer Wirkung (committed); **CBP-WP-013** ist das zweite — ein lokaler,
-synthetisch testbarer Quarantäneprototyp, `in-review`, **nicht produktiv**.
+**Die ersten drei sind `docs-only`.** CBP-WP-012/013 sind committed;
+**CBP-WP-014** ist das dritte Paket mit technischer Wirkung — ein lokaler,
+synthetisch testbarer, **deaktivierter** Source-Registry-Prototyp, `in-review`,
+**nicht produktiv**.
 
 ---
 
