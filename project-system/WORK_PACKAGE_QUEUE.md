@@ -308,8 +308,8 @@ Capability 5 bleibt **nicht** vollständig `implemented`.
 | Typ | **implementation**, interactive authorization |
 | Prompt Mode | **Full** · Context Budget **B2 – Standard** |
 | Claude Code | Opus 4.8 (`claude-opus-4-8`), Effort **ultracode** |
-| Status | **`in-review`** |
-| Commit | **nicht** ausgeführt |
+| Status | **`committed`** |
+| Git-Beleg | `d0c0531 CBP-WP-014: implement deterministic source registry MVP` |
 
 Ergebnis: **drittes Artefakt mit technischer Wirkung.** Human-Autorisierung
 APPROVE WITH NOTES (A0); A1, B1, C1, D1. Lokaler, synthetisch testbarer,
@@ -327,12 +327,38 @@ Gate bewertet, kein Risiko geschlossen, nichts aktiviert oder gemappt.**
 Capability 2/3/7 (Source Registry / Katalog) bleiben **nicht** vollständig
 `implemented`.
 
-## CBP-WP-015 — vorgeschlagen, nicht freigegeben
+## CBP-WP-015
 
-**CBP-WP-015 — Deterministic Source Mapping Draft Validator** (spätere
-Implementierung). **`proposed`. Implementierung autorisiert: nein.**
+| Feld | Wert |
+| --- | --- |
+| Titel | **Deterministic Source Mapping Draft Validator** |
+| Typ | **implementation**, interactive authorization |
+| Prompt Mode | **Full** · Context Budget **B2 – Standard** |
+| Claude Code | Opus 4.8 (`claude-opus-4-8`), Effort **ultracode** |
+| Status | **`committed`** |
+| Git-Beleg | `645ccb1 CBP-WP-015: implement source mapping draft validator` |
+| Status-Reconciliation | `8d715e7 CBP-WP-015: reconcile post-commit status` |
 
-**`proposed`. Implementierung autorisiert: nein.**
+Ergebnis: **viertes Artefakt mit technischer Wirkung.** Human-Autorisierung
+APPROVE WITH NOTES (A0); A1/B1/C1/D1. Lokaler, synthetischer, **read-only**,
+nicht persistenter und fail-closed Mapping-Draft-Validator gegen den
+angenommenen **31-Feld-Vertrag** (29 Pflicht + 2 optional); externe read-only
+Registry-Bindung (`collection`/`data_class` exakt); `mapping_id` nur validiert,
+nie berechnet; nicht persistierter Report; `activation-check` verweigert immer.
+**6 Mapping-Module**, CLI-Gruppe `source-mapping` (`validate-draft`,
+`activation-check`), neue Exitcodes 12/13. **Python 3.13.14**, keine
+Abhängigkeiten, **315 Tests bestanden** (Basislinie WP-014: 212, weiterhin grün).
+**ADR-0012** `accepted` (D-046 bis D-049); keine neue offene Entscheidung.
+
+**Keine KB-Kontrolle durchgesetzt, kein Gate bewertet, kein Mapping gespeichert,
+keine Aktivierung, keine reale Source, keine Produktionsreife.** Capability 2/7
+bleiben **nicht** vollständig `implemented`.
+
+> **Historischer Vorbereitungsstand (vor der A0-Implementierungsfreigabe):**
+> Dieser Detailblock führte CBP-WP-015 zuvor als „**`proposed`. Implementierung
+> autorisiert: nein.**". Das war der **Planungsstand vor** der späteren
+> A0-Implementierungsfreigabe und ist durch den belegten `committed`-Zustand
+> (`645ccb1`, Status-Reconciliation `8d715e7`) **abgelöst**.
 
 ---
 

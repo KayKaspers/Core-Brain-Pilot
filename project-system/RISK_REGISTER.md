@@ -179,12 +179,32 @@ zählt **nur einmal**.
 | Korrektur | Die kanonischen Statusdokumente wurden auf den durch Git belegten `committed`-Zustand von CBP-WP-015 synchronisiert; CBP-WP-016 bleibt `proposed`, kein Work Package ist `active` |
 | Aussagegrenze | **Kein Funktionsfehler, keine Runtimeänderung, keine Gatefreigabe, keine Aktivierung, keine Capability-Änderung**; keine neue Decision-ID, kein neues ADR, kein neues/geschlossenes Risiko; **keine** Risikokritikalität verändert |
 
-Damit sind **zehn Konsistenzvorgänge in fünfzehn Work Packages** dokumentiert
-(**neue aktuelle Basislinie**; löst die vorige Angabe „neun" ab). Die Zahl der
-Work Packages bleibt **fünfzehn**, weil dieser Vorgang erneut **CBP-WP-015**
-betrifft und **kein** neues Work Package hinzukommt. **R-33 bleibt `gemindert,
-nicht geschlossen`**, Kritikalität unverändert **mittel**. Derselbe Vorgang ist
-in [COMPLIANCE_CHECK.md](COMPLIANCE_CHECK.md) gespiegelt und zählt **nur einmal**.
+Damit waren **zehn Konsistenzvorgänge in fünfzehn Work Packages** dokumentiert
+(*Stand nach dem zehnten Vorgang; durch den elften Vorgang unten auf **elf**
+aktualisiert*; löst die vorige Angabe „neun" ab). Die Zahl der Work Packages
+bleibt **fünfzehn**, weil dieser Vorgang erneut **CBP-WP-015** betrifft und
+**kein** neues Work Package hinzukommt. **R-33 bleibt `gemindert, nicht
+geschlossen`**, Kritikalität unverändert **mittel**. Derselbe Vorgang ist in
+[COMPLIANCE_CHECK.md](COMPLIANCE_CHECK.md) gespiegelt und zählt **nur einmal**.
+
+**R-33-Chronologie — elfter Konsistenzvorgang (CBP-WP-014/015 Queue Detail Block Reconciliation, 2026-07-27):**
+
+| Feld | Inhalt |
+| --- | --- |
+| Work Package | **CBP-WP-014 und CBP-WP-015** (Queue-Detailblock-Nachführung; kein neues Work Package) |
+| Fehlerklasse | **Git-/Register-Statusabweichung in Detailblöcken** — in `project-system/WORK_PACKAGE_QUEUE.md` blieben die Detailblöcke von CBP-WP-014 (`Status in-review`, „Commit nicht ausgeführt") und CBP-WP-015 (`vorgeschlagen, nicht freigegeben`, `proposed`) auf Vor-Commit- bzw. Vor-Autorisierungsständen, obwohl Git, Queue-Übersicht und zentrale Statusfelder beide bereits als `committed` belegten |
+| Betroffene aktuelle Repository-Artefakte | `project-system/WORK_PACKAGE_QUEUE.md` (Detailblöcke CBP-WP-014 und CBP-WP-015) |
+| Ursache | Frühere Status-Reconciliations prüften Header, Übersicht und zentrale Statusfelder, erfassten jedoch nicht sämtliche **Detailblöcke** der Queue |
+| Korrektur | Detailblock CBP-WP-014 auf `committed` + `Git-Beleg d0c0531` synchronisiert; Detailblock CBP-WP-015 auf `committed`, `645ccb1` und Reconciliation `8d715e7` synchronisiert; frühere Planungs-/Freigabestände nur noch ausdrücklich historisch gekennzeichnet |
+| Aussagegrenze | **Keine Codeänderung, keine Runtimeänderung, keine Gatefreigabe, keine Aktivierung, keine Capability-Änderung**; keine neue Decision-ID, kein neues ADR, kein neues/geschlossenes Risiko; **keine** Risikokritikalität verändert; CBP-WP-016 bleibt `proposed` |
+
+Damit sind **elf Konsistenzvorgänge in fünfzehn Work Packages** dokumentiert
+(**neue aktuelle Basislinie**; löst die vorige Angabe „zehn" ab). Die Zahl der
+Work Packages bleibt **fünfzehn**, weil dieser Vorgang **CBP-WP-014** und
+**CBP-WP-015** betrifft, die bereits Teil der bisherigen Menge sind, und **kein**
+neues Work Package hinzukommt. **R-33 bleibt `gemindert, nicht geschlossen`**,
+Kritikalität unverändert **mittel**. Derselbe Vorgang ist in
+[COMPLIANCE_CHECK.md](COMPLIANCE_CHECK.md) gespiegelt und zählt **nur einmal**.
 
 **Verändert in CBP-WP-012:**
 
