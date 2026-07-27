@@ -3,7 +3,7 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Aktuelles Work Package | **CBP-WP-015** (`in-review`) |
+| Aktuelles Work Package | **keines aktiv** — zuletzt abgeschlossen **CBP-WP-015** (`committed`, `645ccb1`), nächstes vorgeschlagen **CBP-WP-016** (`proposed`) |
 | Gate G0 | **PASSED WITH NOTES** — 2026-07-21 |
 | Überarbeitet in | **CBP-WP-015** |
 | Autoritätsklasse | A2 |
@@ -41,13 +41,15 @@ Spalten nach `WORK_PACKAGE_QUEUE_TEMPLATE.md` (NDF v1.0.0).
 | CBP-WP-012 | **Foundation Runtime Skeleton** | P1 | **`committed`** | [work-packages/CBP-WP-012.md](../work-packages/CBP-WP-012.md) |
 | CBP-WP-013 | **Ingest Quarantine Minimum Viable Pipeline** | P1 | **`committed`** | [work-packages/CBP-WP-013.md](../work-packages/CBP-WP-013.md) |
 | CBP-WP-014 | **Deterministic Source Registry and Catalog** | P1 | **`committed`** | [work-packages/CBP-WP-014.md](../work-packages/CBP-WP-014.md) |
-| CBP-WP-015 | **Deterministic Source Mapping Draft Validator** | P1 | **`in-review`** | [work-packages/CBP-WP-015.md](../work-packages/CBP-WP-015.md) |
+| CBP-WP-015 | **Deterministic Source Mapping Draft Validator** | P1 | **`committed`** | [work-packages/CBP-WP-015.md](../work-packages/CBP-WP-015.md) |
 | CBP-WP-016 | Deterministic Mapping Activation Gate Evaluator | P1 | `proposed` | noch nicht erstellt |
 
 **Ein Work Package ist als `proposed` geführt** — CBP-WP-016 (Deterministic
 Mapping Activation Gate Evaluator). **Nicht freigegeben. Implementierung
-autorisiert: nein.** CBP-WP-015 steht auf `in-review`; CBP-WP-014 ist
-`committed` (`d0c0531`).
+autorisiert: nein.** CBP-WP-015 ist `committed` (`645ccb1`, mit origin/main
+synchron); CBP-WP-014 ist `committed` (`d0c0531`). **Kein Work Package steht auf
+`active`.** CBP-WP-016 Phase A wurde noch **nicht** ausgeführt (die read-only
+Vorprüfung hielt vor der Reconciliation an).
 
 > **Titelkorrektur in CBP-WP-009.** Diese Übersichtstabelle trug bis dahin die
 > Titel eines verworfenen Entwurfs der Work-Package-Karte (009 „Repository and

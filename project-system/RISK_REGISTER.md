@@ -160,10 +160,30 @@ verhindert. **R-33 bleibt `gemindert, nicht geschlossen`** — dieser Eintrag
 | Korrektur | Transparente 19/31-Korrekturhinweise in beiden Dokumenten; die historischen 19-Feld-/M1–M14-Angaben bleiben als **abgelöste Planungsannahme** erhalten und werden **nicht** rückwirkend umgeschrieben. Die historische Queue-Aussage zu CBP-WP-008 wird separat als historisch gekennzeichnet |
 | Aussagegrenze | **Der akzeptierte 31-Feld-Vertrag wurde nicht verändert**; **kein** Feld hinzugefügt/entfernt/umbenannt; **keine** Risikokritikalität verändert; **kein** Risiko geschlossen |
 
-Damit sind **neun Konsistenzvorgänge in fünfzehn Work Packages** dokumentiert;
-jeder durch Auszählung bzw. Quellenabgleich gefunden, keiner durch die Regel
-verhindert. **R-33 bleibt `gemindert, nicht geschlossen`** — dieser Eintrag
-ändert den Status und die Kritikalität (**mittel**) nicht. Derselbe Vorgang ist
+Damit waren **neun Konsistenzvorgänge in fünfzehn Work Packages** dokumentiert
+(*Stand nach dem neunten Vorgang; durch den zehnten Vorgang unten auf **zehn**
+aktualisiert*); jeder durch Auszählung bzw. Quellenabgleich gefunden, keiner
+durch die Regel verhindert. **R-33 bleibt `gemindert, nicht geschlossen`** —
+dieser Eintrag ändert den Status und die Kritikalität (**mittel**) nicht.
+Derselbe Vorgang ist in [COMPLIANCE_CHECK.md](COMPLIANCE_CHECK.md) gespiegelt und
+zählt **nur einmal**.
+
+**R-33-Chronologie — zehnter Konsistenzvorgang (CBP-WP-015 Post-Commit Status Reconciliation, 2026-07-27):**
+
+| Feld | Inhalt |
+| --- | --- |
+| Work Package | **CBP-WP-015** (Post-Commit-Status-Reconciliation; kein neues Work Package) |
+| Fehlerklasse | **Git-/Register-Statusabweichung** — nach Commit und Push von CBP-WP-015 (`645ccb1`) blieb der formale A2-Status in mehreren Statusdokumenten auf `in-review`, obwohl Git CBP-WP-015 bereits als `committed` und mit origin/main synchron auswies |
+| Betroffene aktuelle Repository-Artefakte | `README.md`, `CLAUDE.md`, `project-system/WORK_PACKAGE_QUEUE.md`, `project-system/PROJECT_MANIFEST.md`, `project-brain/PROJECT_BRAIN.md` |
+| Ursache | Der Implementation Commit trug den korrekten **Vor-Commit-Reviewstatus** `in-review`; es fehlte anschließend eine **Post-Commit-Status-Reconciliation** |
+| Korrektur | Die kanonischen Statusdokumente wurden auf den durch Git belegten `committed`-Zustand von CBP-WP-015 synchronisiert; CBP-WP-016 bleibt `proposed`, kein Work Package ist `active` |
+| Aussagegrenze | **Kein Funktionsfehler, keine Runtimeänderung, keine Gatefreigabe, keine Aktivierung, keine Capability-Änderung**; keine neue Decision-ID, kein neues ADR, kein neues/geschlossenes Risiko; **keine** Risikokritikalität verändert |
+
+Damit sind **zehn Konsistenzvorgänge in fünfzehn Work Packages** dokumentiert
+(**neue aktuelle Basislinie**; löst die vorige Angabe „neun" ab). Die Zahl der
+Work Packages bleibt **fünfzehn**, weil dieser Vorgang erneut **CBP-WP-015**
+betrifft und **kein** neues Work Package hinzukommt. **R-33 bleibt `gemindert,
+nicht geschlossen`**, Kritikalität unverändert **mittel**. Derselbe Vorgang ist
 in [COMPLIANCE_CHECK.md](COMPLIANCE_CHECK.md) gespiegelt und zählt **nur einmal**.
 
 **Verändert in CBP-WP-012:**

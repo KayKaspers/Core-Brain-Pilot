@@ -37,7 +37,7 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 – COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Aktuelles Work Package | **CBP-WP-015** (`in-review`) |
+| Aktuelles Work Package | **keines aktiv** — zuletzt abgeschlossen **CBP-WP-015** (`committed`, `645ccb1`), nächstes vorgeschlagen **CBP-WP-016** (`proposed`) |
 | **Gate-Status G0** | **PASSED WITH NOTES** — 2026-07-21, A0 |
 | Nächstes Prüfmodell | **Deployment Readiness Check** — `NOT EVALUATED` |
 | Phase-1-Planung | Streams F1–F5; CBP-WP-016 **`proposed`** |

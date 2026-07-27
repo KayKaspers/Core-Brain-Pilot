@@ -23,7 +23,7 @@ verweigern deterministisch.
 
 | Feld | Wert |
 | --- | --- |
-| Aktuelles Work Package | **CBP-WP-015** (`in-review`) |
+| Aktuelles Work Package | **keines aktiv** — zuletzt abgeschlossen **CBP-WP-015** (`committed`, `645ccb1`), nächstes vorgeschlagen **CBP-WP-016** (`proposed`) |
 | Gate G0 | **PASSED WITH NOTES** — 2026-07-21 |
 | G0-Kriterien | **47**, dreistufig klassifiziert |
 | davon blockierend | **25** Core Required (zuvor 45) |
