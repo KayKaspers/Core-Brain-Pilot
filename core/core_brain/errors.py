@@ -29,6 +29,8 @@ __all__ = [
     "RegistryNotFound",
     "RegistryActivationBlocked",
     "RegistryCatalogError",
+    "MappingPolicyError",
+    "MappingActivationBlocked",
 ]
 
 
@@ -52,6 +54,9 @@ class ExitCode(StrEnum):
     SOURCE_REGISTRY_CONFLICT = "SOURCE_REGISTRY_CONFLICT"
     SOURCE_REGISTRY_NOT_FOUND = "SOURCE_REGISTRY_NOT_FOUND"
     SOURCE_REGISTRY_ACTIVATION_BLOCKED = "SOURCE_REGISTRY_ACTIVATION_BLOCKED"
+    # CBP-WP-015 — Source Mapping Draft Validator.
+    SOURCE_MAPPING_DRAFT_BLOCKED = "SOURCE_MAPPING_DRAFT_BLOCKED"
+    SOURCE_MAPPING_ACTIVATION_BLOCKED = "SOURCE_MAPPING_ACTIVATION_BLOCKED"
     USAGE_ERROR = "USAGE_ERROR"
     INTERNAL_ERROR = "INTERNAL_ERROR"
 
@@ -68,6 +73,8 @@ EXIT_CODES: dict[ExitCode, int] = {
     ExitCode.SOURCE_REGISTRY_CONFLICT: 9,
     ExitCode.SOURCE_REGISTRY_NOT_FOUND: 10,
     ExitCode.SOURCE_REGISTRY_ACTIVATION_BLOCKED: 11,
+    ExitCode.SOURCE_MAPPING_DRAFT_BLOCKED: 12,
+    ExitCode.SOURCE_MAPPING_ACTIVATION_BLOCKED: 13,
     ExitCode.USAGE_ERROR: 64,
     ExitCode.INTERNAL_ERROR: 70,
 }
@@ -205,6 +212,25 @@ class ReasonCode(StrEnum):
     REGISTRY_ACTIVATION_ALWAYS_BLOCKED = "REGISTRY_ACTIVATION_ALWAYS_BLOCKED"
     REGISTRY_CATALOG_INTEGRITY_ERROR = "REGISTRY_CATALOG_INTEGRITY_ERROR"
 
+    # CBP-WP-015 — Source Mapping. Policy (validierungsseitige Reason Codes
+    # für einzelne Vertragsverstöße stehen als MappingReasonCode im
+    # Mapping-Paket).
+    MAPPING_POLICY_FILE_MISSING = "MAPPING_POLICY_FILE_MISSING"
+    MAPPING_POLICY_NOT_READABLE = "MAPPING_POLICY_NOT_READABLE"
+    MAPPING_POLICY_PARSE_ERROR = "MAPPING_POLICY_PARSE_ERROR"
+    MAPPING_POLICY_SCHEMA_UNSUPPORTED = "MAPPING_POLICY_SCHEMA_UNSUPPORTED"
+    MAPPING_POLICY_UNKNOWN_FIELD = "MAPPING_POLICY_UNKNOWN_FIELD"
+    MAPPING_POLICY_MISSING_FIELD = "MAPPING_POLICY_MISSING_FIELD"
+    MAPPING_POLICY_INVALID_VALUE = "MAPPING_POLICY_INVALID_VALUE"
+    MAPPING_POLICY_FIELD_COUNT_INVALID = "MAPPING_POLICY_FIELD_COUNT_INVALID"
+    MAPPING_POLICY_ACTIVATION_ENABLED = "MAPPING_POLICY_ACTIVATION_ENABLED"
+    MAPPING_POLICY_PERSISTENCE_ENABLED = "MAPPING_POLICY_PERSISTENCE_ENABLED"
+    MAPPING_POLICY_REGISTRY_WRITE_ENABLED = "MAPPING_POLICY_REGISTRY_WRITE_ENABLED"
+    MAPPING_POLICY_NETWORK_ENABLED = "MAPPING_POLICY_NETWORK_ENABLED"
+
+    # CBP-WP-015 — Source Mapping. Aktivierung verweigert.
+    MAPPING_ACTIVATION_ALWAYS_BLOCKED = "MAPPING_ACTIVATION_ALWAYS_BLOCKED"
+
 
 class CoreBrainError(Exception):
     """Basisklasse aller Skeleton-Fehler."""
@@ -290,3 +316,11 @@ class RegistryActivationBlocked(CoreBrainError):
 
 class RegistryCatalogError(CoreBrainError):
     """Die Katalogerzeugung wurde wegen eines Integritätsfehlers verweigert."""
+
+
+class MappingPolicyError(CoreBrainError):
+    """Die Source-Mapping-Validierungspolicy ist strukturell ungültig."""
+
+
+class MappingActivationBlocked(CoreBrainError):
+    """``source-mapping activation-check`` verweigert unabhängig vom Ergebnis."""

@@ -24,6 +24,20 @@
 > Lizenz, Branding und Release benötigen je eine separate **A0-Entscheidung**
 > (OD-11, OD-23, OD-28). Es besteht keine pauschale Zusicherung, dass der
 > aktuelle Gesamtinhalt ohne erneute Prüfung veröffentlicht werden darf.
+>
+> **19/31-Korrektur (CBP-WP-015, 2026-07-27, R-33-Konsistenzvorgang):** Die in
+> diesem Planungsdokument genannte Feldzahl **19** und die Regelmenge
+> **M1–M14** waren eine **frühe Planungsannahme aus CBP-WP-008**. Der seither
+> angenommene A1/A2-Vertrag (ADR-0008, CBP-WP-010) umfasst **31
+> Felddefinitionen** — **29 Pflichtfelder** und **zwei optionale Felder**
+> (`credential_reference`, `notes`) — sowie **24 Validierungsregeln** (V1–V24,
+> davon acht Blocker). Verbindlich sind
+> [PILOT_SOURCE_MAPPING_SCHEMA.md](../sources/PILOT_SOURCE_MAPPING_SCHEMA.md),
+> [PILOT_SOURCE_MAPPING_VALIDATION.md](../sources/PILOT_SOURCE_MAPPING_VALIDATION.md)
+> und [ADR-0012](../decisions/ADR-0012-source-mapping-draft-validator.md). Die
+> historische 19-Feld-Tabelle und M1–M14 unten bleiben als **abgelöste
+> Planungsannahme** erhalten und werden **nicht** rückwirkend umgeschrieben; bei
+> Abweichung gilt der angenommene 31-Feld-Vertrag.
 
 Dieses Dokument definiert das **Schema** eines Deployment Mappings. Es enthält
 **keinen realen Pfad, keine private Repository-URL, keine Hostangabe und kein
@@ -52,7 +66,7 @@ PS-06 und PS-07 (`deferred`, bis die Quarantäne existiert).
 | Ebene | Dokument | Beantwortet | Ablage |
 | --- | --- | --- | --- |
 | **Logischer Slot** | [SOURCE_SLOT_MODEL.md](../sources/SOURCE_SLOT_MODEL.md) — 24 Felder | *Was für eine Quelle ist das, und was darf mit ihr geschehen?* | Core Repository (`publication-capable by design`, **nicht freigegeben**) |
-| **Deployment Mapping** | dieses Schema — 19 Felder | *Wo liegt sie in genau dieser Installation?* | **Private Operator Workspace** |
+| **Deployment Mapping** | dieses Schema — 19 Felder *(historische Planungsannahme; angenommener Vertrag: **31 Felddefinitionen** — s. 19/31-Korrekturhinweis)* | *Wo liegt sie in genau dieser Installation?* | **Private Operator Workspace** |
 
 Ein Slot ohne Mapping ist gültig, aber inaktiv (Slot-Regel 7). Ein Mapping ohne
 Slot ist **ungültig** — es gibt nichts, dessen Regeln es erben könnte.
@@ -61,7 +75,7 @@ Slot ist **ungültig** — es gibt nichts, dessen Regeln es erben könnte.
 
 ---
 
-## Feldschema — 19 Felder
+## Feldschema — 19 Felder *(historische Planungsannahme; angenommener Vertrag: 31 Felddefinitionen, 29 Pflicht + 2 optional — s. 19/31-Korrekturhinweis oben)*
 
 | # | Feld | Typ | Vorgabe | Bedeutung |
 | --- | --- | --- | --- | --- |
@@ -167,7 +181,7 @@ heute.
 
 | # | Nachweis | Inhalt |
 | --- | --- | --- |
-| **1** | **Mapping validiert** | Alle 19 Felder gesetzt; M1 bis M14 geprüft |
+| **1** | **Mapping validiert** | Alle 19 Felder gesetzt; M1 bis M14 geprüft *(historische Planungsannahme; angenommener Vertrag: 31 Felder, V1–V24 — s. 19/31-Korrekturhinweis oben)* |
 | **2** | **Quelle erreichbar** | Der referenzierte Ort existiert und ist lesbar |
 | **3** | **Rechte minimal** | `read_only: true`; kein Schreibrecht über das Nötige hinaus |
 | **4** | **Ausschlüsse wirksam** | Ein Pfad in `excluded_subpaths` wird nachweislich **nicht** aufgenommen |

@@ -92,6 +92,18 @@ Ein irreversibler Schaden ist mindestens **hoch**.
 
 **Neu in CBP-WP-012:** keine.
 
+**Neu in CBP-WP-015:** keine.
+
+**Verändert in CBP-WP-015:**
+
+| ID | Änderung | Auslöser |
+| --- | --- | --- |
+| **R-33** | **Ein neuer, datierter Konsistenzvorgang (der neunte):** die aktuellen A3-Planungsangaben nannten **19** Mapping-Felder, während der angenommene A1/A2-Vertrag **31 Felddefinitionen** (29 Pflicht + 2 optional, 24 Regeln) umfasst. Betroffen: `docs/roadmap/PILOT_SOURCE_MAPPING_PLAN.md`, `docs/roadmap/PHASE_1_EVIDENCE_PLAN.md`. Korrigiert durch transparente Korrekturhinweise (keine Umschreibung der Entscheidungshistorie). Test- (**315**), Git-, Entscheidungs- (D-046…D-049) und ADR-Zahlen aus den tatsächlichen Ausgaben ausgezählt. **Dokumentregel, keine Kontrolle** | CBP-WP-015 |
+
+**Kein Risiko wurde in CBP-WP-015 geschlossen.** Ein synthetisch testbarer,
+read-only Mapping-Draft-Validator ist keine reale Source Governance und keine
+Gate-Ausführung. **R-33 bleibt offen.**
+
 **Neu in CBP-WP-014:** keine.
 
 **Verändert in CBP-WP-014:**
@@ -136,6 +148,23 @@ jeder durch Auszählung bzw. Terminologieprüfung gefunden, keiner durch die Reg
 verhindert. **R-33 bleibt `gemindert, nicht geschlossen`** — dieser Eintrag
 ändert den Status nicht. Die kanonische Chronologietabelle steht in
 [COMPLIANCE_CHECK.md](COMPLIANCE_CHECK.md); frühere Einträge sind unverändert.
+
+**R-33-Chronologie — neunter Konsistenzvorgang (CBP-WP-015, 2026-07-27):**
+
+| Feld | Inhalt |
+| --- | --- |
+| Work Package | **CBP-WP-015** |
+| Fehlerklasse | **veraltete Feldzahlangabe in A3-Planungsartefakten** — die aktuellen Angaben nannten **19** Felder, während der angenommene A1/A2-Vertrag **31 Felddefinitionen** umfasst |
+| Betroffene aktuelle Repository-Artefakte | `docs/roadmap/PILOT_SOURCE_MAPPING_PLAN.md`, `docs/roadmap/PHASE_1_EVIDENCE_PLAN.md` |
+| Tatsächlicher Fehler | Beide A3-Dokumente führten „19 Felder" (bzw. „M1–M14") als Planungsannahme aus CBP-WP-008 fort. Der angenommene Vertrag (ADR-0008, CBP-WP-010) hat **31 Felddefinitionen** — **29 Pflichtfelder** und **zwei optionale Felder** — sowie **24 Validierungsregeln** (V1–V24) |
+| Korrektur | Transparente 19/31-Korrekturhinweise in beiden Dokumenten; die historischen 19-Feld-/M1–M14-Angaben bleiben als **abgelöste Planungsannahme** erhalten und werden **nicht** rückwirkend umgeschrieben. Die historische Queue-Aussage zu CBP-WP-008 wird separat als historisch gekennzeichnet |
+| Aussagegrenze | **Der akzeptierte 31-Feld-Vertrag wurde nicht verändert**; **kein** Feld hinzugefügt/entfernt/umbenannt; **keine** Risikokritikalität verändert; **kein** Risiko geschlossen |
+
+Damit sind **neun Konsistenzvorgänge in fünfzehn Work Packages** dokumentiert;
+jeder durch Auszählung bzw. Quellenabgleich gefunden, keiner durch die Regel
+verhindert. **R-33 bleibt `gemindert, nicht geschlossen`** — dieser Eintrag
+ändert den Status und die Kritikalität (**mittel**) nicht. Derselbe Vorgang ist
+in [COMPLIANCE_CHECK.md](COMPLIANCE_CHECK.md) gespiegelt und zählt **nur einmal**.
 
 **Verändert in CBP-WP-012:**
 

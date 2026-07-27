@@ -4,12 +4,16 @@ Grundkommandos: ``version``, ``validate-config``, ``doctor``, ``run``.
 Kommandogruppe ``quarantine`` (CBP-WP-013): ``scan``, ``stage``, ``inspect``,
 ``release``. Kommandogruppe ``source-registry`` (CBP-WP-014):
 ``validate-definition``, ``register``, ``list``, ``inspect``, ``retire``,
-``activate`` — lokale, synthetisch testbare, fail-closed Prototypen.
+``activate``. Kommandogruppe ``source-mapping`` (CBP-WP-015):
+``validate-draft`` und ``activation-check`` — lokale, synthetisch testbare,
+read-only und fail-closed Prototypen.
 
 Es gibt **keine** HTTP-API, keinen Webserver und keinen Netzwerklistener.
-``run`` verweigert deterministisch fail-closed. ``quarantine release``
-verweigert unabhängig vom Recordstatus. Kein CLI-Pfad gibt einen Eingabepfad
-oder einen Inhaltsauszug aus.
+``run`` verweigert deterministisch fail-closed. ``quarantine release`` und
+``source-registry activate`` verweigern unabhängig vom Zustand.
+``source-mapping activation-check`` verweigert jede Aktivierung unabhängig vom
+Validierungsergebnis. Kein CLI-Pfad gibt einen Eingabepfad oder einen
+Inhaltsauszug aus.
 
 Der Import dieses Moduls hat keine Nebenwirkungen — insbesondere wird beim
 Import kein Parser gebaut und kein Argument gelesen.
@@ -28,6 +32,7 @@ from .errors import (
     EXIT_CODES,
     ConfigError,
     ExitCode,
+    MappingPolicyError,
     QuarantineInputRejected,
     QuarantinePolicyError,
     QuarantineStoreError,
@@ -88,8 +93,41 @@ def build_parser() -> argparse.ArgumentParser:
 
     _add_quarantine_parser(sub)
     _add_source_registry_parser(sub)
+    _add_source_mapping_parser(sub)
 
     return parser
+
+
+def _add_source_mapping_parser(
+    sub: argparse._SubParsersAction[argparse.ArgumentParser],
+) -> None:
+    """Ergänzt die Kommandogruppe ``source-mapping`` (CBP-WP-015)."""
+    mapping = sub.add_parser(
+        "source-mapping",
+        help=(
+            "Lokaler, synthetischer, read-only Mapping-Draft-Validator "
+            "(fail-closed)."
+        ),
+    )
+    msub = mapping.add_subparsers(dest="mapping_command", required=True)
+
+    validate = msub.add_parser(
+        "validate-draft",
+        help="Validiert einen synthetischen Mapping-Entwurf; schreibt nichts.",
+    )
+    activation = msub.add_parser(
+        "activation-check",
+        help="Validiert read-only und verweigert danach jede Aktivierung.",
+    )
+    for parser_ in (validate, activation):
+        parser_.add_argument("--draft", required=True, type=Path)
+        parser_.add_argument("--policy", required=True, type=Path)
+        parser_.add_argument("--registry", required=True, type=Path)
+        parser_.add_argument("--source-id", required=True, dest="source_id")
+        parser_.add_argument(
+            "--synthetic-test-only", action="store_true", dest="synthetic_test_only"
+        )
+        parser_.add_argument("--json", action="store_true")
 
 
 def _add_source_registry_parser(
@@ -787,6 +825,136 @@ def _cmd_registry_activate(out: TextIO, err: TextIO) -> int:
     return EXIT_CODES[ExitCode.SOURCE_REGISTRY_ACTIVATION_BLOCKED]
 
 
+# -- Kommandogruppe source-mapping (CBP-WP-015) ---------------------------
+
+_MAPPING_DISCLAIMER = (
+    "VALID_DRAFT bedeutet keine Freigabe, kein gespeichertes Mapping, keine "
+    "Aktivierung, keinen Ingest, keine Indexierung und kein Retrieval. Der "
+    "Report wird nicht gespeichert."
+)
+
+
+def _cmd_source_mapping(args: argparse.Namespace, out: TextIO, err: TextIO) -> int:
+    """Verteilt die Unterkommandos des Source-Mapping-Draft-Validators."""
+    match args.mapping_command:
+        case "validate-draft":
+            return _cmd_mapping_validate_draft(args, out, err)
+        case "activation-check":
+            return _cmd_mapping_activation_check(args, out, err)
+        case _:  # pragma: no cover — argparse erzwingt ein bekanntes Kommando
+            print("USAGE_ERROR unknown source-mapping command", file=err)
+            return EXIT_CODES[ExitCode.USAGE_ERROR]
+
+
+def _render_mapping_report(report: object) -> str:
+    """Rendert den Report minimiert — ohne Pfad, URL, Inhalt oder Source Ref."""
+    from .mapping import ValidationReport
+
+    assert isinstance(report, ValidationReport)
+    lines = [
+        f"validation_status:              {report.validation_status.value}",
+        f"mapping_id:                     {report.mapping_id}",
+        f"source_id:                      {report.source_id}",
+        f"draft_sha256:                   {report.draft_sha256}",
+        f"policy_sha256:                  {report.policy_sha256}",
+        f"mapping_schema_version:         {report.mapping_schema_version}",
+        f"report_schema_version:          {report.report_schema_version}",
+        f"canonical_contract_field_count: {report.canonical_contract_field_count}",
+        f"required_field_count:           {report.required_field_count}",
+        f"present_field_count:            {report.present_field_count}",
+        f"boundary_count:                 {report.boundary_count}",
+        f"reason_count:                   {report.reason_count}",
+        f"implementation_version:         {report.implementation_version}",
+        "reason_codes:",
+    ]
+    lines.extend(f"  {code}" for code in report.reason_codes)
+    lines.extend(["", _MAPPING_DISCLAIMER])
+    return "\n".join(lines)
+
+
+def _emit_mapping_report(report: object, as_json: bool, out: TextIO) -> None:
+    """Gibt den Report aus (kanonisches JSON bei ``--json``); speichert nichts."""
+    from .mapping import ValidationReport
+
+    assert isinstance(report, ValidationReport)
+    if as_json:
+        print(json.dumps(report.to_dict(), indent=2, sort_keys=True), file=out)
+    else:
+        print(_render_mapping_report(report), file=out)
+
+
+def _cmd_mapping_validate_draft(
+    args: argparse.Namespace, out: TextIO, err: TextIO
+) -> int:
+    """``source-mapping validate-draft`` — validiert read-only; schreibt nichts.
+
+    Exitcode 0 ausschließlich bei ``VALID_DRAFT``. Andernfalls Exitcode 12. Eine
+    ungültige Policy liefert Exitcode 2.
+    """
+    from .mapping import ValidationStatus, load_policy, run_validate
+
+    try:
+        policy = load_policy(args.policy)
+    except MappingPolicyError as exc:
+        print(f"MAPPING_POLICY_INVALID {exc.reason.value}".rstrip(), file=err)
+        return EXIT_CODES[ExitCode.CONFIG_INVALID]
+
+    report = run_validate(
+        draft_path=args.draft,
+        policy=policy,
+        registry_root=args.registry,
+        source_id=args.source_id,
+        synthetic_confirmed=args.synthetic_test_only,
+    )
+    _emit_mapping_report(report, args.json, out)
+
+    if report.validation_status is ValidationStatus.VALID_DRAFT:
+        return EXIT_CODES[ExitCode.OK]
+    return EXIT_CODES[ExitCode.SOURCE_MAPPING_DRAFT_BLOCKED]
+
+
+def _cmd_mapping_activation_check(
+    args: argparse.Namespace, out: TextIO, err: TextIO
+) -> int:
+    """``source-mapping activation-check`` — validiert, verweigert dann immer.
+
+    Verändert **keine** Datei. Verweigert die Aktivierung **unabhängig** vom
+    Validierungsergebnis mit Exitcode 13. Eine ungültige Policy liefert
+    Exitcode 2.
+    """
+    from .mapping import load_policy, run_activation_check
+
+    try:
+        policy = load_policy(args.policy)
+    except MappingPolicyError as exc:
+        print(f"MAPPING_POLICY_INVALID {exc.reason.value}".rstrip(), file=err)
+        return EXIT_CODES[ExitCode.CONFIG_INVALID]
+
+    report = run_activation_check(
+        draft_path=args.draft,
+        policy=policy,
+        registry_root=args.registry,
+        source_id=args.source_id,
+        synthetic_confirmed=args.synthetic_test_only,
+    )
+    _emit_mapping_report(report, args.json, out)
+
+    print(
+        f"SOURCE_MAPPING_ACTIVATION_BLOCKED "
+        f"{ReasonCode.MAPPING_ACTIVATION_ALWAYS_BLOCKED.value}",
+        file=err,
+    )
+    print(
+        "Der Draft-Validator aktiviert kein Mapping und keine Source.", file=err
+    )
+    print(
+        "Eine Aktivierung erfordert eine menschliche Entscheidung und ein "
+        "Mapping Activation Gate außerhalb dieses MVP.",
+        file=err,
+    )
+    return EXIT_CODES[ExitCode.SOURCE_MAPPING_ACTIVATION_BLOCKED]
+
+
 def main(
     argv: Sequence[str] | None = None,
     out: TextIO | None = None,
@@ -827,6 +995,8 @@ def main(
             return _cmd_quarantine(args, out, err)
         case "source-registry":
             return _cmd_source_registry(args, out, err)
+        case "source-mapping":
+            return _cmd_source_mapping(args, out, err)
         case _:  # pragma: no cover — argparse erzwingt ein bekanntes Kommando
             print("USAGE_ERROR unknown command", file=err)
             return EXIT_CODES[ExitCode.USAGE_ERROR]

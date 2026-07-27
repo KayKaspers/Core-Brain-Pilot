@@ -324,6 +324,7 @@ existiert.
 | **CBP-WP-011** | **Drei Befunde in einem Korrekturvorgang.** (1) Readiness Gate: Stufenverteilung summierte sich auf **25** bei **24** Gate-Punkten — Stufe 4 war mit 10 angegeben, die ID-Liste enthielt 9. (2) **Testtaxonomie**: ein Positivtest trug die NT-ID `NT-25` und wurde zur Negativtestzahl gerechnet. (3) **Doppelt vergebene Test-IDs**: `NT-23` und `NT-24` bezeichneten in der Acceptance Matrix RT-1-/RT-3-Tests, in der Egress-Policy DNS-/Privatnetz-Tests | **CBP-WP-011, Nova-REWORK-Korrekturlauf** |
 | **CBP-WP-012** | **Ein Korrekturvorgang mit zwei Ausprägungen im ersten Report.** (1) **Git-Inventar** als „6 neue Pfade" angegeben statt tatsächlich **21 neue / 13 geänderte / 34 eindeutige** Pfade. (2) **Exitcode-Sequenz** als „alle sieben ausgeführt" beschrieben, aber nur **sechs** Exitcodes belegt — der siebte fehlte. Beide Male war die Aussage höher als der Beleg | **CBP-WP-012, Nova-REWORK-Korrekturlauf** |
 | **CBP-WP-013** | **Dokumentübergreifender Mengen- und Terminologiekonsistenzfehler** (kein arithmetischer Zählfehler). Die Risikomengen A (6), B (5), C (11) waren **numerisch korrekt**; die Vereinigungsmenge **C** wurde jedoch fälschlich als „vollständige kritische Liste" bezeichnet, und Gruppe **B** als „offen/hoch", obwohl **R-33** die Kritikalität **mittel** hat. Betroffen: `work-packages/CBP-WP-013.md`, `docs/runtime/INGEST_QUARANTINE_EVIDENCE.md` | **CBP-WP-013, Nova-REWORK-Korrekturlauf** |
+| **CBP-WP-015** | **Veraltete Feldzahlangabe in A3-Planungsartefakten** (kein arithmetischer Zählfehler). Die aktuellen Angaben nannten **19** Mapping-Felder, während der angenommene A1/A2-Vertrag **31 Felddefinitionen** (29 Pflicht + 2 optional) und **24 Validierungsregeln** hat. Betroffen: `docs/roadmap/PILOT_SOURCE_MAPPING_PLAN.md`, `docs/roadmap/PHASE_1_EVIDENCE_PLAN.md`. Die historische Queue-Aussage zu CBP-WP-008 wird **separat als historisch** behandelt | **CBP-WP-015** |
 
 **Der vierte Fehler entstand, nachdem die Regel eingeführt war**, und wurde
 erst ein Work Package später gefunden. Die Regel wirkt — aber nachlaufend. Das
@@ -378,6 +379,28 @@ gefunden, keiner durch die Regel verhindert.
 `Ran N tests`, Git-Inventar aus `git status --porcelain=v1 -uall`, Entscheidungs-
 (D-042…D-045) und ADR-Zahlen aus den Quelltabellen ausgezählt; die Risikomengen
 A (6), B (5) und C (11) blieben kanonisch getrennt. **R-33 bleibt offen.**
+
+**Der neunte Vorgang (CBP-WP-015) ist kein arithmetischer Zählfehler, sondern
+eine veraltete Feldzahlangabe in Planungsartefakten.** Zwei aktuelle
+A3-Dokumente (`docs/roadmap/PILOT_SOURCE_MAPPING_PLAN.md`,
+`docs/roadmap/PHASE_1_EVIDENCE_PLAN.md`) führten „19 Felder" (bzw. „M1–M14")
+als Planungsannahme aus CBP-WP-008 fort, obwohl der angenommene A1/A2-Vertrag
+(ADR-0008, CBP-WP-010) **31 Felddefinitionen** — **29 Pflichtfelder** und **zwei
+optionale Felder** — sowie **24 Validierungsregeln** umfasst. **Ergänzung zur
+Zählregel:** Eine aktuelle Planungsangabe muss gegen den angenommenen
+A1/A2-Vertrag geprüft werden; eine abgelöste Annahme wird als solche
+gekennzeichnet, nicht stillschweigend fortgeführt. Korrigiert durch transparente
+19/31-Korrekturhinweise; die historischen Angaben und die Queue-Aussage zu
+CBP-WP-008 bleiben als **abgelöste Planungsannahme** erhalten und werden **nicht**
+rückwirkend umgeschrieben. **Der akzeptierte 31-Feld-Vertrag wurde nicht
+verändert.** Testzahl (**315**) aus `Ran N tests`, Git-Inventar, Entscheidungs-
+(D-046…D-049) und ADR-Zahlen (ADR-0012) aus den Quelltabellen ausgezählt.
+
+**R-33 bleibt `gemindert, nicht geschlossen`** — Kritikalität unverändert
+**mittel**, kein Risiko geschlossen. **Neun Konsistenzvorgänge in fünfzehn Work
+Packages** sind dokumentiert; jeder wurde durch Auszählung bzw. Quellenabgleich
+gefunden, keiner durch die Regel verhindert. Dieser Vorgang ist mit dem Eintrag
+in [RISK_REGISTER.md](RISK_REGISTER.md) **identisch** und zählt **nur einmal**.
 
 **Die Implementierung von CBP-WP-013 selbst führte keinen arithmetischen
 Zählfehler ein.** Testzahl (**137**) aus `Ran N tests`, Git-Inventar aus

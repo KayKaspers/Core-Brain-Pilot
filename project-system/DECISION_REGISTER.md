@@ -106,6 +106,10 @@ Human-Maintainer-Entscheidung im Entscheidungsblock. Wortlaut unverändert in
 | **D-043** | **Teil B — Registry-Speicher: unveränderliche JSON-Records plus atomar abgeleiteter Katalog außerhalb des Repositorys.** Kanonisches UTF-8-JSON, atomar, keine stille Überschreibung, Idempotenz, Konflikt bei abweichender Definition, kein Teilkatalog bei Integritätsfehler, vollständig rekonstruierbar. **Weder Canonical Source noch RT-2, keine produktive Isolationsgrenze** | `accepted` | **A0** | Entscheidungsblock CBP-WP-014 | 2026-07-22 | Registry-MVP | **ADR-0011** (A1) |
 | **D-044** | **Teil C — Lifecycle: `REGISTERED_DISABLED` und `RETIRED`; Retirement als append-only Event; keine Aktivierung.** Keine Löschung, keine Aktualisierung, keine Reaktivierung; idempotent; keine Freitexte, Pfade oder Inhalte im Event | `accepted` | **A0** | Entscheidungsblock CBP-WP-014 | 2026-07-22 | Registry-MVP | **ADR-0011** (A1) |
 | **D-045** | **Teil D — Katalogumfang: ausschließlich minimierte Metadaten** (10 Felder je Eintrag); keine Pfade, URLs, Source-Inhalte, Definition Hashes, Owner-Freitexte oder Mapping-Locators. Deterministisch nach `source_id` sortiert, aus Records und Events abgeleitet | `accepted` | **A0** | Entscheidungsblock CBP-WP-014 | 2026-07-22 | Registry-MVP | **ADR-0011** (A1) |
+| **D-046** | **Teil A — Dokumentprofil: kanonisches JSON als JSON-kompatibles MVP-Profil des strikten YAML-Teilumfangs**; alle 31 Felddefinitionen unverändert (29 Pflicht + 2 optional). Keine allgemeine YAML-Unterstützung, keine externe Abhängigkeit; doppelte Schlüssel, `NaN`, `Infinity`, BOM, ungültiges UTF-8 und unbekannte Felder blockieren; optionale Felder bleiben optional. Präzisiert **D-031**, ändert ihn nicht | `accepted` | **A0** | Entscheidungsblock CBP-WP-015 | 2026-07-27 | Mapping-Draft-Validator | **ADR-0012** (A1) |
+| **D-047** | **Teil B — externe read-only Registry-Bindung über `--source-id` und `--registry`; `source_id` ist kein Mapping-Feld.** Registry bytegenau unverändert; nur `collection`↔`collection_key` und `data_class`↔`data_class` exakt; **verbotene Crosswalks** `project`↔`domain_key`/`namespace`, `ai_transfer_policy`↔`ai_eligibility`, `location_reference`/`operator_reference`↔`source_id` | `accepted` | **A0** | Entscheidungsblock CBP-WP-015 | 2026-07-27 | Mapping-Draft-Validator | **ADR-0012** (A1) |
+| **D-048** | **Teil C — genau eine deaktivierte synthetische Boundary mit bestehenden kanonischen Feldern/Werten.** Kein neues `slot:synthetic:`-Präfix, keine neuen Enum-Werte; `slot_id` ∈ {PS-02, PS-03, PS-04}; `location_reference` = belegter synthetischer V7-Platzhalter `synthetic-placeholder-*`; Subpath-Listen leer, `follow_symlinks=false`, `enabled=false`, `read_only=true`. Präzisiert **D-033**, ändert ihn nicht | `accepted` | **A0** | Entscheidungsblock CBP-WP-015 | 2026-07-27 | Mapping-Draft-Validator | **ADR-0012** (A1) |
+| **D-049** | **Teil D — ausschließlich nicht persistierter, deterministischer Validierungsreport; Aktivierung immer verweigert.** `mapping_id` wird nach Vertrag (V4/V21) **validiert, nicht berechnet**; keine `map-`+SHA-256-Regel; `draft_sha256`/`policy_sha256` deterministisch; kein gespeicherter Report, keine Registry-Änderung; `VALID_DRAFT` bedeutet keine Freigabe und keine Aktivierung | `accepted` | **A0** | Entscheidungsblock CBP-WP-015 | 2026-07-27 | Mapping-Draft-Validator | **ADR-0012** (A1) |
 
 > **Die vier Entscheidungen legen Sicherheitsarchitektur fest, keine
 > Implementierung.** Es wurde keine Identität angelegt, kein Recht gesetzt,
@@ -127,6 +131,16 @@ Human-Maintainer-Entscheidung im Entscheidungsblock. Wortlaut unverändert in
 > `REGISTERED_DISABLED`; `activate` verweigert immer. **Kein Risiko
 > geschlossen**; **OD-05, OD-06, OD-37, OD-38 bleiben offen**. Festgehalten in
 > [ADR-0011](../docs/decisions/ADR-0011-deterministische-source-registry.md).
+
+> **D-046 bis D-049 (CBP-WP-015) definieren einen lokalen, synthetisch
+> testbaren, read-only Validator für Mapping-Entwürfe — kein gespeichertes
+> Mapping, keine Aktivierung, keine Vertragsänderung.** Der angenommene Vertrag
+> bleibt bei **31 Felddefinitionen** (29 Pflicht + 2 optional). Keine reale
+> Quelle, kein Pfad, keine URL, kein Source-Inhalt berührt; die Registry bleibt
+> bytegenau unverändert; `activation-check` verweigert immer. **Kein Risiko
+> geschlossen**; **OD-05, OD-06, OD-37, OD-38 bleiben offen**; die
+> Bildungsvorschrift von `mapping_id` bleibt offen. Festgehalten in
+> [ADR-0012](../docs/decisions/ADR-0012-source-mapping-draft-validator.md).
 
 > **Hinweis zu D-016.** In CBP-WP-002 hatte ich „bevorzugte Anwendungslaufzeit"
 > zu „vorgesehene" abgeschwächt (Ü-02), gestützt auf Projektübergabe §4 (A5),
@@ -204,8 +218,8 @@ Legende: **P0** blockiert G0 · **P1** vor Architekturentscheidung · **P2** sp�
 
 | Kategorie | Anzahl |
 | --- | --- |
-| Getroffene Entscheidungen | **45** (davon **41** mit A0) |
-| Angenommene ADRs | **11** (ADR-0001 bis ADR-0011, alle A1) |
+| Getroffene Entscheidungen | **49** (davon **45** mit A0) |
+| Angenommene ADRs | **12** (ADR-0001 bis ADR-0012, alle A1) |
 | Vorgeschlagene ADRs | 0 |
 | Neu in CBP-WP-003 | 12 (D-015 bis D-026) |
 | Neu in CBP-WP-004 | 0 Entscheidungen, 5 ADRs |
@@ -216,6 +230,7 @@ Legende: **P0** blockiert G0 · **P1** vor Architekturentscheidung · **P2** sp�
 | Neu in CBP-WP-011 | **4 A0-Entscheidungen** (D-034 Identity, D-035 Secret, D-036 Egress, D-037 Evidence), **1 ADR**, **2 geschlossene** (OD-34, OD-35) |
 | Neu in CBP-WP-013 | **4 A0-Entscheidungen** (D-038 Intake, D-039 Store, D-040 Scanner, D-041 Freigabe), **1 ADR**, 2 neue offene Entscheidungen (OD-37, OD-38) |
 | Neu in CBP-WP-014 | **4 A0-Entscheidungen** (D-042 Identität, D-043 Store, D-044 Lifecycle, D-045 Katalog), **1 ADR**, 0 neue offene Entscheidungen |
+| Neu in CBP-WP-015 | **4 A0-Entscheidungen** (D-046 Dokumentprofil, D-047 Registry-Bindung, D-048 Boundary, D-049 Report/Aktivierung), **1 ADR** (ADR-0012), 0 neue offene Entscheidungen |
 | Geschlossene offene Entscheidungen | **12** |
 | Vertagte Entscheidungen | 4 |
 | Offene Entscheidungen | **23** |

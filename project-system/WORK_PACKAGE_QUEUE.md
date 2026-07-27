@@ -3,11 +3,11 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Aktuelles Work Package | **CBP-WP-014** (`in-review`) |
+| Aktuelles Work Package | **CBP-WP-015** (`in-review`) |
 | Gate G0 | **PASSED WITH NOTES** — 2026-07-21 |
-| Überarbeitet in | **CBP-WP-014** |
+| Überarbeitet in | **CBP-WP-015** |
 | Autoritätsklasse | A2 |
-| Stand | 2026-07-22 |
+| Stand | 2026-07-27 |
 
 Spalten nach `WORK_PACKAGE_QUEUE_TEMPLATE.md` (NDF v1.0.0).
 
@@ -40,13 +40,14 @@ Spalten nach `WORK_PACKAGE_QUEUE_TEMPLATE.md` (NDF v1.0.0).
 | CBP-WP-011 | **Technical Security Foundation Specification** | P0 | **`committed`** | [work-packages/CBP-WP-011.md](../work-packages/CBP-WP-011.md) |
 | CBP-WP-012 | **Foundation Runtime Skeleton** | P1 | **`committed`** | [work-packages/CBP-WP-012.md](../work-packages/CBP-WP-012.md) |
 | CBP-WP-013 | **Ingest Quarantine Minimum Viable Pipeline** | P1 | **`committed`** | [work-packages/CBP-WP-013.md](../work-packages/CBP-WP-013.md) |
-| CBP-WP-014 | **Deterministic Source Registry and Catalog** | P1 | **`in-review`** | [work-packages/CBP-WP-014.md](../work-packages/CBP-WP-014.md) |
-| CBP-WP-015 | Deterministic Source Mapping Draft Validator | P1 | `proposed` | noch nicht erstellt |
+| CBP-WP-014 | **Deterministic Source Registry and Catalog** | P1 | **`committed`** | [work-packages/CBP-WP-014.md](../work-packages/CBP-WP-014.md) |
+| CBP-WP-015 | **Deterministic Source Mapping Draft Validator** | P1 | **`in-review`** | [work-packages/CBP-WP-015.md](../work-packages/CBP-WP-015.md) |
+| CBP-WP-016 | Deterministic Mapping Activation Gate Evaluator | P1 | `proposed` | noch nicht erstellt |
 
-**Ein Work Package ist als `proposed` geführt** — CBP-WP-015 (Deterministic
-Source Mapping Draft Validator). **Nicht freigegeben. Implementierung
-autorisiert: nein.** CBP-WP-014 steht auf `in-review`; CBP-WP-013 ist
-`committed` (`4a35245`).
+**Ein Work Package ist als `proposed` geführt** — CBP-WP-016 (Deterministic
+Mapping Activation Gate Evaluator). **Nicht freigegeben. Implementierung
+autorisiert: nein.** CBP-WP-015 steht auf `in-review`; CBP-WP-014 ist
+`committed` (`d0c0531`).
 
 > **Titelkorrektur in CBP-WP-009.** Diese Übersichtstabelle trug bis dahin die
 > Titel eines verworfenen Entwurfs der Work-Package-Karte (009 „Repository and
@@ -175,6 +176,14 @@ Mappingschema mit 19 Feldern · **zwölf Kontrollbereiche** KB-01…KB-12 ·
 fail-closed Quarantäne mit 12 Schritten und 10 Status · Registry mit 24 Feldern
 · **sechs Folge-Work-Packages geschnitten** · sechs Nachweisstufen · zwölf
 Stop-Bedingungen · **vierter Zählfehler gefunden und korrigiert**.
+
+> **Historische Planungsannahme (nicht umgeschrieben).** Das oben genannte
+> „Mappingschema mit 19 Feldern" war die **Planungsannahme aus CBP-WP-008**. Sie
+> wurde durch den angenommenen A1/A2-Vertrag (ADR-0008, CBP-WP-010) mit **31
+> Felddefinitionen** (29 Pflicht + 2 optional) und **24 Validierungsregeln**
+> **abgelöst**. Diese historische Aussage bleibt als Beleg des damaligen Stands
+> erhalten; die 19/31-Korrektur der **aktuellen** Planungsdokumente ist in
+> CBP-WP-015 (R-33, neunter Konsistenzvorgang) dokumentiert.
 
 **Nichts gebaut, nichts installiert, nichts verschoben, nichts gemessen.**
 

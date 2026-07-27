@@ -2,7 +2,7 @@
 
 | Feld | Wert |
 | --- | --- |
-| Überarbeitet in | **CBP-WP-014** |
+| Überarbeitet in | **CBP-WP-015** |
 | Autoritätsklasse | A2 |
 | Stand | 2026-07-22 |
 
@@ -23,20 +23,21 @@ verweigern deterministisch.
 
 | Feld | Wert |
 | --- | --- |
-| Aktuelles Work Package | **CBP-WP-014** (`in-review`) |
+| Aktuelles Work Package | **CBP-WP-015** (`in-review`) |
 | Gate G0 | **PASSED WITH NOTES** — 2026-07-21 |
 | G0-Kriterien | **47**, dreistufig klassifiziert |
 | davon blockierend | **25** Core Required (zuvor 45) |
 | davon `accepted` | **25** — alle |
 | verbleibende Blocker | **0** |
 | Phase 1 | AUTHORIZED FOR PLANNING — [Backlog](../docs/roadmap/PHASE_1_BACKLOG.md), [Foundation Plan](../docs/roadmap/PHASE_1_FOUNDATION_PLAN.md) |
-| Geplante Work Packages | **CBP-WP-015**, `proposed` |
+| Geplante Work Packages | **CBP-WP-016**, `proposed` |
 | **Repository-Struktur** | **entschieden** — Ziel-Monorepo + Workspace W-3 (ADR-0007); **Migration nicht autorisiert** |
 | **Mappingkonvention** | **entschieden** — ADR-0008; **0 Mappings, 0 Quellen**, Gate `NOT EVALUATED` |
 | **Sicherheitsgrundlage** | **spezifiziert** — ADR-0009; **12 Kontrollen `DOCUMENTED ONLY`** |
 | **Runtime Skeleton** | **lokal implementiert** (CBP-WP-012) — `run` fail-closed, nicht produktionsbereit |
 | **Ingest-Quarantäne MVP** | **lokaler Prototyp** (CBP-WP-013, ADR-0010) — synthetic-only, fail-closed, keine Promotion, nicht produktiv |
-| **Source-Registry MVP** | **lokaler Prototyp** (CBP-WP-014, ADR-0011) — synthetic-only, fail-closed, **deaktiviert**, **212 Tests**, `activate` verweigert, nicht produktiv |
+| **Source-Registry MVP** | **lokaler Prototyp** (CBP-WP-014, ADR-0011) — synthetic-only, fail-closed, **deaktiviert**, `activate` verweigert, nicht produktiv |
+| **Source-Mapping-Draft-Validator MVP** | **lokaler Prototyp** (CBP-WP-015, ADR-0012) — synthetic-only, read-only, fail-closed, **31-Feld-Vertrag** (29+2), externe read-only Registry-Bindung, `mapping_id` nur validiert, **315 Tests**, `activation-check` verweigert, nicht produktiv |
 | Implementierte Capabilities | **keine (0 von 29)** — Bausteine belegt; Capability 5/6 bleiben `planned` |
 | Nachweise oberhalb Stufe 1 | **keine** (lokale Bausteine, keine KB-Kontrolle) |
 | Commits | **14** |
@@ -101,14 +102,16 @@ verweigert, bis eine Datenklasse sie erlaubt.**
 
 ## Entscheidungen
 
-Angenommene ADRs: **11** (ADR-0001 bis ADR-0011). ADR-0006 hält privaten
+Angenommene ADRs: **12** (ADR-0001 bis ADR-0012). ADR-0006 hält privaten
 Bestand konstruktiv außerhalb des Kern-Repositorys (D-028); **ADR-0007**
 (D-029, D-030) legt Zielstruktur und Bereichsgrenze fest und **schließt
 OD-26**; **ADR-0008** (D-031…D-033) legt die Mappingkonvention fest;
 **ADR-0009** (D-034…D-037) die technische Sicherheitsgrundlage und **schließt
 OD-34 und OD-35** (alle vier am 2026-07-21); **ADR-0010** (D-038…D-041) den
 Ingest-Quarantäne-MVP und **ADR-0011** (D-042…D-045) den
-Source-Registry-MVP (beide 2026-07-22).
+Source-Registry-MVP (beide 2026-07-22); **ADR-0012** (D-046…D-049) den
+Source-Mapping-Draft-Validator (2026-07-27), der **ADR-0008** präzisiert und
+den 31-Feld-Vertrag unverändert lässt.
 
 **45** getroffene Entscheidungen, davon **41** mit A0. **23** offene, davon
 **5** mit P0. Geführt in
@@ -359,15 +362,43 @@ Mapping-Locator. **Keine reale Quelle, kein Mapping, keine Aktivierung, keine
 Indexierung.** **R-33 bleibt offen**; Capability 2/3/7 bleiben nicht vollständig
 `implemented`.
 
+## Source-Mapping-Draft-Validator MVP — lokal implementiert
+
+**CBP-WP-015**, 2026-07-27, vierte technische Umsetzung. Human-Autorisierung
+APPROVE WITH NOTES (A0), A1/B1/C1/D1. Festgehalten in **ADR-0012** (D-046…D-049).
+Ein Reconciliation-Lauf klärte zuvor den **19/31-Blocker**: der angenommene
+Vertrag hat **31 Felddefinitionen**, nicht 19.
+
+| Gegenstand | Wert |
+| --- | --- |
+| Mapping-Module | 6 unter `core/core_brain/mapping/` |
+| CLI | `source-mapping validate-draft`, `activation-check` |
+| Vertrag | **31 Felddefinitionen** (29 Pflicht + 2 optional), unverändert |
+| Dokumentprofil | kanonisches JSON (MVP), BOM/Duplikate/`NaN`/`Infinity` fail-closed |
+| Registry-Bindung | extern, **read-only**; nur `collection`/`data_class` exakt |
+| `mapping_id` | nur validiert (V4/V21), **nie berechnet** |
+| Report | nicht persistiert, deterministisch, minimiert |
+| Exitcodes | 12 / 13 (neu) |
+| Tests | **315 bestanden** (Basislinie 212), 0 fehlgeschlagen |
+| `activation-check` | verweigert immer (Exit 13) |
+
+**Synthetic-only- und read-only-Grenze technisch durchgesetzt.** Kein realer
+Pfad, keine URL, kein Source-Inhalt, keine `source_reference` im Report; die
+Registry bleibt bytegenau unverändert. **Kein Mapping gespeichert, keine
+Aktivierung, keine verbotenen Crosswalks** (`project`↔`domain`,
+`ai_transfer`↔`ai_eligibility`). **R-33 bleibt offen** (neunter
+Konsistenzvorgang, 19/31-Korrektur); die Bildungsvorschrift von `mapping_id`
+bleibt offen; Capability 2/7 bleiben nicht vollständig `implemented`.
+
 ## Nächste Arbeitspakete
 
 Siehe
 [project-system/WORK_PACKAGE_QUEUE.md](../project-system/WORK_PACKAGE_QUEUE.md)
 und [PHASE_1_WORK_PACKAGE_MAP.md](../docs/roadmap/PHASE_1_WORK_PACKAGE_MAP.md).
 
-Vorgeschlagen, **nicht freigegeben**: **CBP-WP-015 — Deterministic Source
-Mapping Draft Validator** (implementation, interactive authorization, Full, B2 –
-Standard), Status `proposed`, **implementation not yet authorized**.
+Vorgeschlagen, **nicht freigegeben**: **CBP-WP-016 — Deterministic Mapping
+Activation Gate Evaluator** (implementation, interactive authorization, Full,
+B2 – Standard), Status `proposed`, **implementation not yet authorized**.
 
 ## Rückmeldung an Nova
 

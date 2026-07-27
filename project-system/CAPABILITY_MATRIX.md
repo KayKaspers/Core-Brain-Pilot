@@ -3,7 +3,7 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Überarbeitet in | **CBP-WP-014** |
+| Überarbeitet in | **CBP-WP-015** |
 | Autoritätsklasse | A2 |
 | Stand | 2026-07-22 |
 
@@ -72,6 +72,27 @@ Basislinie WP-013: 137). Er setzt **keine** Produkt-Capability vollständig um.
 **Diese Bausteine sind kein Deploymentnachweis und keine Kontrolle.** Sie
 belegen **keine** reale Source Governance, **kein** Mapping und **keine**
 Aktivierung; `activate` verweigert immer. **R-33 bleibt offen.**
+
+## Lokale Mapping-Draft-Validator-Bausteine (CBP-WP-015)
+
+CBP-WP-015 hat einen lokalen, synthetisch testbaren, **read-only** und
+fail-closed Validator für **Mapping-Entwürfe** nach dem angenommenen
+**31-Feld-Vertrag** erstellt und getestet (315 Tests bestanden, Basislinie
+WP-014: 212). Er setzt **keine** Produkt-Capability vollständig um und erzeugt
+**kein** gespeichertes Mapping. **Capability 2 (Source Manifest) und 7
+(Deterministischer Quellenindex) bleiben `planned` bzw. `discovery`.**
+
+| Baustein | Status | Evidenz |
+| --- | --- | --- |
+| JSON-MVP-Parser (BOM/Duplikate/NaN/Infinity fail-closed) | **implemented locally** | `mapping/parser.py`, `test_mapping_parser.py` |
+| 31-Feld-Vertrags- und Draft-Zustandsvalidierung | **implemented locally** | `mapping/validator.py`, `test_mapping_validator.py`, `test_mapping_boundary.py` |
+| Externe read-only Registry-Bindung (`collection`/`data_class` exakt) | **implemented locally** | `mapping/service.py`, `test_mapping_registry_binding.py` |
+| Nicht persistierter, deterministischer Report | **implemented locally** | `mapping/models.py`, `test_mapping_cli.py` |
+
+**Diese Bausteine sind kein Deploymentnachweis und keine Kontrolle.** `mapping_id`
+wird nur validiert, nie berechnet; die Registry bleibt bytegenau unverändert;
+`activation-check` verweigert immer. **Kein** Mapping gespeichert, **keine**
+Aktivierung. **R-33 bleibt offen.**
 
 ## Zuordnung zu geplanten Work Packages
 

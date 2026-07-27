@@ -1,0 +1,52 @@
+# Core Brain Pilot — Beispiel-Policy des Source-Mapping-Draft-Validators
+# (CBP-WP-015)
+#
+# synthetic · non-operational · test-only
+#
+# Diese Datei beschreibt die restriktive Policy des lokalen, read-only und
+# fail-closed Validators für Mapping-Entwürfe nach dem angenommenen
+# 31-Feld-Vertrag (ADR-0008, D-031 bis D-033). Sie enthält:
+#   - keine realen Quellen,
+#   - keine Pfade oder URLs,
+#   - keine Source-Inhalte,
+#   - keine Mapping- oder Secret-Locators.
+#
+# Der Vertrag umfasst 31 Felddefinitionen: 29 Pflichtfelder und zwei optionale
+# Felder (credential_reference, notes). Die optionalen Felder werden NICHT zu
+# Pflichtfeldern gemacht.
+#
+# Fail-closed: unbekannte Felder, unbekannte Version, fehlende Felder, falsche
+# Feldzahlen und jede gelockerte Sicherheitsgrenze blockieren. Environment und
+# CLI ueberschreiben KEINE Sicherheitswerte.
+
+schema_version = "1.0"
+
+# Konservative Obergrenze fuer die Groesse eines Entwurfs.
+max_draft_bytes = 65536
+
+# Der Validator akzeptiert ausschliesslich die Vertragsversion 1.0.
+required_mapping_schema_version = "1.0"
+
+# Dokumentprofil: kanonisches JSON als JSON-kompatibles MVP-Profil des
+# beschlossenen strikten YAML-Teilumfangs (D-046). KEINE allgemeine
+# YAML-Unterstuetzung.
+accepted_document_profile = "canonical-json-yaml-subset"
+
+# Feldzahlen des angenommenen Vertrags. Jede Abweichung blockiert.
+canonical_contract_field_count = 31
+required_field_count = 29
+optional_field_count = 2
+
+# Synthetic-only-Grenze und Registry-Bindung.
+require_synthetic_test_only = true
+require_registry_binding = true
+require_registered_disabled = true
+require_single_boundary = true
+require_collection_exact_match = true
+require_data_class_exact_match = true
+
+# Fail-closed: im MVP unveraenderlich. true blockiert die Validierung.
+allow_activation = false
+allow_persistence = false
+allow_registry_write = false
+allow_network = false

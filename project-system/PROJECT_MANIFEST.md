@@ -2,7 +2,7 @@
 
 | Feld | Wert |
 | --- | --- |
-| Überarbeitet in | **CBP-WP-014** |
+| Überarbeitet in | **CBP-WP-015** |
 | Autoritätsklasse | A2 |
 | Stand | 2026-07-21 |
 
@@ -37,14 +37,15 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 – COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Aktuelles Work Package | **CBP-WP-014** (`in-review`) |
+| Aktuelles Work Package | **CBP-WP-015** (`in-review`) |
 | **Gate-Status G0** | **PASSED WITH NOTES** — 2026-07-21, A0 |
 | Nächstes Prüfmodell | **Deployment Readiness Check** — `NOT EVALUATED` |
-| Phase-1-Planung | Streams F1–F5; CBP-WP-015 **`proposed`** |
+| Phase-1-Planung | Streams F1–F5; CBP-WP-016 **`proposed`** |
 | **Runtime Skeleton** | **lokal implementiert** (CBP-WP-012) — `run` fail-closed; keine KB-Kontrolle durchgesetzt |
 | **Ingest-Quarantäne MVP** | **lokaler Prototyp** (CBP-WP-013, ADR-0010) — synthetic-only, fail-closed, keine Promotion, **nicht produktiv** |
-| **Source-Registry MVP** | **lokaler Prototyp** (CBP-WP-014, ADR-0011) — synthetic-only, fail-closed, **deaktiviert**, `activate` verweigert, **212 Tests**, **nicht produktiv** |
-| **Mappingkonvention** | **entschieden** — ADR-0008 (D-031, D-032, D-033) |
+| **Source-Registry MVP** | **lokaler Prototyp** (CBP-WP-014, ADR-0011) — synthetic-only, fail-closed, **deaktiviert**, `activate` verweigert, **nicht produktiv** |
+| **Source-Mapping-Draft-Validator MVP** | **lokaler Prototyp** (CBP-WP-015, ADR-0012) — synthetic-only, read-only, fail-closed, **31-Feld-Vertrag** (29+2), externe read-only Registry-Bindung, `mapping_id` nur validiert, `activation-check` verweigert, **315 Tests**, **nicht produktiv** |
+| **Mappingkonvention** | **entschieden** — ADR-0008 (D-031, D-032, D-033); Draft-Validator ADR-0012 (D-046…D-049) |
 | **Mapping Activation Gate** | **`NOT EVALUATED`** — 0 Mappings, 0 angebundene Quellen |
 | **Repository-Zielstruktur** | **entschieden** — Monorepo, ADR-0007 (D-029); **Migration nicht autorisiert** |
 | **Bereichsmodell** | **W-3** — Operator-Workspace außerhalb (D-030); **nicht angelegt** |
@@ -55,7 +56,7 @@
 | davon `accepted` | **25** — alle |
 | Kriterienstand | 25 von 25 `accepted` |
 | Capabilities implementiert | **0** von 29 — Capability 2/3/5/6/7 bleiben nicht vollständig `implemented` |
-| Angenommene ADRs | **11** |
+| Angenommene ADRs | **12** |
 | Scope gelockt | **ja** — mit Auflagen |
 
 ## Repository

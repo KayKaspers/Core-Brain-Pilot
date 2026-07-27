@@ -3,7 +3,7 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Letzte Bewertung | 2026-07-22, im Rahmen von **CBP-WP-014** |
+| Letzte Bewertung | 2026-07-27, im Rahmen von **CBP-WP-015** |
 | Autoritätsklasse | A2 |
 
 > Diese Datei gehört zur kanonischen NDF-Ordnerstruktur, war aber in der
@@ -29,7 +29,7 @@ Keine Gesamtpunktzahl.
 | Gate-Klarheit | **gut** | → | Dreistufiges Modell plus DRC als eigener Prüfort für die 16 vertagten Kriterien |
 | Architekturklarheit | **gut** | ↑↑ | 9 Schichten, 14 Komponenten, 5 Profile, Rebuild-Vertrag; zuvor kein Komponentenschnitt |
 | Scope-Klarheit | **gut** | ↑ | **Alle 25 Core-Kriterien `accepted`**; Quellenraum über logische Slots definiert |
-| Entscheidungslage | **gut** | ↑ | **45 Entscheidungen, 11 angenommene ADRs**; G0, OD-26, Mappingkonvention, Sicherheitsgrundlage, Quarantäne- und Registry-MVP entschieden |
+| Entscheidungslage | **gut** | ↑ | **49 Entscheidungen, 12 angenommene ADRs**; G0, OD-26, Mappingkonvention, Sicherheitsgrundlage, Quarantäne-, Registry- und Mapping-Draft-Validator-MVP entschieden |
 | Quellenanbindung | **nicht bewertbar** | | Konvention entschieden, **0 Mappings, 0 angebundene Quellen** |
 | Strukturklarheit | **gut** | ↑↑ | Zielstruktur und Bereichsgrenze festgelegt (ADR-0007); zuvor drei konkurrierende Vorstellungen |
 | Antwortlage Discovery | **gut** | ↑ | Alle Core-Required-Fragen belegt; Entscheidung steht aus |
@@ -38,8 +38,8 @@ Keine Gesamtpunktzahl.
 | Kennzahlendisziplin | **ausreichend** | ↑ | Fehlerhafte Summen gefunden und korrigiert; Auszählung statt Fortschreibung |
 | Planungsklarheit Phase 1 | **gut** | ↑↑ | Fünf Streams, sechs geschnittene Work Packages, Nachweisstufen und zwölf Stop-Bedingungen; zuvor nur ein Backlog |
 | **Nachweislage** | **schwach** | → | **Alle Artefakte stehen auf Stufe 1 `dokumentiert`.** Kein Negativtest, kein Restore, kein Messwert |
-| Implementierung | **schwach** | ↑ | **Lokaler Runtime Skeleton** (CBP-WP-012), **Quarantäneprototyp** (CBP-WP-013) **und Registry-Prototyp** (CBP-WP-014); keine operative Wirkung, keine KB-Kontrolle durchgesetzt, keine Promotion, keine Aktivierung |
-| Testabdeckung | **ausreichend** | ↑↑ | **212 lokale Tests bestanden** (Skeleton 69 + Quarantäne + Registry, inkl. Netzwerk-Guard); kein Retrieval-, Ingest- oder Integrationstest |
+| Implementierung | **schwach** | ↑ | **Lokaler Runtime Skeleton** (CBP-WP-012), **Quarantäneprototyp** (CBP-WP-013), **Registry-Prototyp** (CBP-WP-014) **und Mapping-Draft-Validator** (CBP-WP-015); keine operative Wirkung, keine KB-Kontrolle durchgesetzt, keine Promotion, kein gespeichertes Mapping, keine Aktivierung |
+| Testabdeckung | **ausreichend** | ↑↑ | **315 lokale Tests bestanden** (Skeleton 69 + Quarantäne + Registry + Mapping-Draft-Validator, inkl. Netzwerk-Guard); kein Retrieval-, Ingest- oder Integrationstest |
 | CI/CD | nicht bewertbar | | In Phase 0 verboten; lokale Tests manuell |
 | Betriebsreife | nicht bewertbar | | Keine Installation |
 | Retrieval-Qualität | nicht bewertbar | | Kein Index, kein Benchmark |
@@ -57,7 +57,7 @@ Durchsetzung, nicht ein weiteres Dokument.
 > „CBP-WP-002" zeigt die damals berichteten Werte; kursive Angaben waren
 > falsch addiert.
 
-| Kennzahl | CBP-WP-002 | **CBP-WP-014** |
+| Kennzahl | CBP-WP-002 | **CBP-WP-015** |
 | --- | --- | --- |
 | G0-Kriterien gesamt | *41* → korrekt 47 | **47** |
 | davon blockierend | *39* → korrekt 45 | **25** (dreistufiges Modell) |
@@ -71,16 +71,16 @@ Durchsetzung, nicht ein weiteres Dokument.
 | Discovery-Fragen | *55* → korrekt 56 | **56** |
 | davon P0 | *35* → korrekt 38 | **38** |
 | davon P0 offen und Core Required | 38 | **0** |
-| Getroffene Entscheidungen | 14 | **45** |
-| davon A0 | 8 | **41** |
+| Getroffene Entscheidungen | 14 | **49** |
+| davon A0 | 8 | **45** |
 | Offene Entscheidungen | 27 | **23** |
 | davon P0 | 14 | **5** |
 | Erfasste Risiken | 29 | **32** |
 | davon gemindert | 5 | **14** |
 | davon hoch | 14 | 17 |
 | Capabilities `implemented` | **0** | **0** |
-| Angenommene ADRs | 0 | **11** |
-| Vorgeschlagene Work Packages | 0 | **1** (CBP-WP-015) |
+| Angenommene ADRs | 0 | **12** |
+| Vorgeschlagene Work Packages | 0 | **1** (CBP-WP-016) |
 | **Erstellte Source Mappings** | 0 | **0** |
 | **Angebundene Quellen** | 0 | **0** |
 | **Umgesetzte Sicherheitskontrollen** | 0 | **0 von 12** |

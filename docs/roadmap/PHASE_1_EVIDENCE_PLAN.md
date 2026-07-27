@@ -92,7 +92,7 @@ hat.
 
 | Nachweisart | Inhalt | Zielstufe | Statusquelle |
 | --- | --- | --- | --- |
-| Designnachweis | Mappingschema, 19 Felder, M1–M14 | 1 | PILOT_SOURCE_MAPPING_PLAN |
+| Designnachweis | Mappingschema, **31 Felddefinitionen** (29 Pflicht + 2 optional), **24 Validierungsregeln** V1–V24 *(19/31-Korrektur CBP-WP-015, R-33; frühere Angabe „19 Felder, M1–M14" war eine abgelöste Planungsannahme aus CBP-WP-008)* | 1 | PILOT_SOURCE_MAPPING_SCHEMA · PILOT_SOURCE_MAPPING_VALIDATION · ADR-0012 |
 | Implementierungsnachweis | Mapping validiert; Quelle erreichbar; Rechte minimal | 2 | Operator Workspace |
 | **Negativtest** | **Ausschlüsse wirksam**; Mapping ohne Freigabe aktiviert nicht (M6); Rechteerweiterung scheitert (M11) | **4** | Testprotokoll |
 | Sicherheitsnachweis | **Keine Secrets** im gemappten Bereich | 4 | Scanprotokoll |

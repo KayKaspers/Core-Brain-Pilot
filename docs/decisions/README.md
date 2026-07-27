@@ -13,14 +13,15 @@ hat Autoritätsklasse **A1** und bindet nachfolgende Arbeit.
 
 ## Aktueller Stand
 
-**Elf angenommene ADRs.** Fünf aus CBP-WP-004, jeder durch eine ausdrückliche
+**Zwölf angenommene ADRs.** Fünf aus CBP-WP-004, jeder durch eine ausdrückliche
 A0-Entscheidung oder eine A5-Originalquelle belegt; **ADR-0006** am 2026-07-21
 angenommen (D-028); **ADR-0007** am selben Tag (D-029, D-030); **ADR-0008**
 (D-031, D-032, D-033) und **ADR-0009** (D-034 bis D-037) ebenfalls; **ADR-0010**
 am 2026-07-22 (D-038 bis D-041, Ingest-Quarantäne-MVP); **ADR-0011** am selben
-Tag (D-042 bis D-045, Source-Registry-MVP).
+Tag (D-042 bis D-045, Source-Registry-MVP); **ADR-0012** am 2026-07-27
+(D-046 bis D-049, Source-Mapping-Draft-Validator).
 
-Alle elf tragen **A1** und binden nachfolgende Arbeit. Es steht kein Vorschlag
+Alle zwölf tragen **A1** und binden nachfolgende Arbeit. Es steht kein Vorschlag
 mehr offen.
 
 > **ADR-0006 trägt seit CBP-WP-010 einen Klarstellungsnachtrag** — *non-substantive
@@ -41,6 +42,7 @@ mehr offen.
 | [ADR-0009](ADR-0009-technische-sicherheitsgrundlage.md) | Technische Sicherheitsgrundlage | **`accepted`** | **D-034 bis D-037 (A0), 2026-07-21** |
 | [ADR-0010](ADR-0010-ingest-quarantaene-mvp.md) | Ingest-Quarantäne MVP | **`accepted`** | **D-038 bis D-041 (A0), 2026-07-22** |
 | [ADR-0011](ADR-0011-deterministische-source-registry.md) | Deterministische Source Registry und Catalog | **`accepted`** | **D-042 bis D-045 (A0), 2026-07-22** |
+| [ADR-0012](ADR-0012-source-mapping-draft-validator.md) | Deterministic Source Mapping Draft Validator | **`accepted`** | **D-046 bis D-049 (A0), 2026-07-27** |
 
 Weitere Kandidaten sind in
 [project-system/DECISION_REGISTER.md](../../project-system/DECISION_REGISTER.md)

@@ -19,7 +19,46 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 EXAMPLE_CONFIG = REPO_ROOT / "config" / "runtime.example.toml"
 EXAMPLE_POLICY = REPO_ROOT / "config" / "quarantine_policy.example.toml"
 REGISTRY_POLICY = REPO_ROOT / "config" / "source_registry_policy.example.toml"
+MAPPING_POLICY = REPO_ROOT / "config" / "source_mapping_validation_policy.example.toml"
 SYNTHETIC_MARKER = "<!-- synthetic-test-only -->"
+
+# Synthetischer 31-Feld-Mapping-Entwurf, dessen collection/data_class zum
+# _REGISTRY_DEF-Record (demo-collection / internal) passen.
+_MAPPING_DRAFT = json.dumps(
+    {
+        "schema_version": "1.0",
+        "mapping_id": "MAP-EXAMPLE-0001",
+        "slot_id": "PS-02",
+        "mapping_name": "Beispiel Markdown Root",
+        "source_boundary_type": "markdown-root",
+        "deployment_profile": "B",
+        "operator_reference": "role-operator-placeholder",
+        "location_reference": "synthetic-placeholder-markdown-root",
+        "location_reference_type": "local-directory",
+        "collection": "demo-collection",
+        "project": "example-project-alpha",
+        "enabled": False,
+        "read_only": True,
+        "allowed_subpaths": [],
+        "excluded_subpaths": [],
+        "follow_symlinks": False,
+        "data_class": "internal",
+        "ai_transfer_policy": "forbidden",
+        "local_search_policy": "forbidden",
+        "indexing_policy": "none",
+        "mobile_visibility": "forbidden",
+        "revision_strategy": "content-hash",
+        "deletion_behavior": "tombstone-and-cleanup",
+        "verification_status": "unverified",
+        "approval_status": "not-approved",
+        "approved_by": None,
+        "approved_at": None,
+        "mapping_revision": 1,
+        "previous_revision": None,
+        "credential_reference": None,
+        "notes": "Synthetisches Beispiel. Nicht aktivieren.",
+    }
+)
 
 _REGISTRY_DEF = """schema_version = "1.0"
 namespace = "synthetic-guard"
@@ -306,6 +345,42 @@ class TestNetworkGuard(unittest.TestCase):
                 with self.subTest(path=" ".join(argv[:2])):
                     self._run_under_guard(argv)
 
+    def test_no_network_attempt_on_source_mapping_cli_paths(self) -> None:
+        # CBP-WP-015: der Guard umfasst validate-draft und activation-check.
+        with tempfile.TemporaryDirectory() as tmp:
+            definition = Path(tmp) / "def.toml"
+            definition.write_text(_REGISTRY_DEF, encoding="utf-8")
+            registry = Path(tmp) / "registry"
+            out, err = io.StringIO(), io.StringIO()
+            main(
+                [
+                    "source-registry", "register", "--definition", str(definition),
+                    "--policy", str(REGISTRY_POLICY), "--registry", str(registry),
+                    "--synthetic-test-only", "--json",
+                ],
+                out=out,
+                err=err,
+            )
+            source_id = json.loads(out.getvalue())["source_id"]
+
+            draft = Path(tmp) / "draft.json"
+            draft.write_text(_MAPPING_DRAFT, encoding="utf-8")
+
+            mapping_paths: tuple[tuple[str, ...], ...] = (
+                ("source-mapping", "validate-draft", "--draft", str(draft),
+                 "--policy", str(MAPPING_POLICY), "--registry", str(registry),
+                 "--source-id", source_id, "--synthetic-test-only"),
+                ("source-mapping", "validate-draft", "--draft", str(draft),
+                 "--policy", str(MAPPING_POLICY), "--registry", str(registry),
+                 "--source-id", source_id, "--synthetic-test-only", "--json"),
+                ("source-mapping", "activation-check", "--draft", str(draft),
+                 "--policy", str(MAPPING_POLICY), "--registry", str(registry),
+                 "--source-id", source_id, "--synthetic-test-only"),
+            )
+            for argv in mapping_paths:
+                with self.subTest(path=" ".join(argv[:2])):
+                    self._run_under_guard(argv)
+
 
 class TestUsage(unittest.TestCase):
     """Unbekannte Kommandos liefern einen Usage-Fehler."""
@@ -342,7 +417,13 @@ class TestNoImportSideEffects(unittest.TestCase):
                 " core.core_brain.registry.policy,"
                 " core.core_brain.registry.storage,"
                 " core.core_brain.registry.catalog,"
-                " core.core_brain.registry.service;"
+                " core.core_brain.registry.service,"
+                " core.core_brain.mapping,"
+                " core.core_brain.mapping.models,"
+                " core.core_brain.mapping.policy,"
+                " core.core_brain.mapping.parser,"
+                " core.core_brain.mapping.validator,"
+                " core.core_brain.mapping.service;"
                 "after = set(pathlib.Path(r'" + tmp + "').iterdir());"
                 "assert before == after;"
                 "print('IMPORT_CLEAN')"

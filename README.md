@@ -28,8 +28,8 @@ vorgesehene, **noch nicht implementierte** Anwendungslaufzeit.
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Aktuelles Work Package | CBP-WP-014 (`in-review`) |
-| Nächster Schritt | **CBP-WP-015 vorgeschlagen**, nicht freigegeben — **keine Implementierung autorisiert** |
+| Aktuelles Work Package | CBP-WP-015 (`in-review`) |
+| Nächster Schritt | **CBP-WP-016 vorgeschlagen**, nicht freigegeben — **keine Implementierung autorisiert** |
 | **Gate G0** | **PASSED WITH NOTES** — 2026-07-21, A0 |
 | Phase-1-Planung | **Streams F1–F5 geplant**, [Foundation Plan](docs/roadmap/PHASE_1_FOUNDATION_PLAN.md) |
 | **Repository-Struktur** | **entschieden** — [ADR-0007](docs/decisions/ADR-0007-repository-und-workspace-grenze.md); **Migration nicht autorisiert** |
@@ -37,9 +37,10 @@ vorgesehene, **noch nicht implementierte** Anwendungslaufzeit.
 | **Sicherheitsgrundlage** | **spezifiziert** — [ADR-0009](docs/decisions/ADR-0009-technische-sicherheitsgrundlage.md); **12 Kontrollen `DOCUMENTED ONLY`, 0 Tests ausgeführt** |
 | **Runtime Skeleton** | **lokal implementiert** — [FOUNDATION_RUNTIME_SKELETON.md](docs/runtime/FOUNDATION_RUNTIME_SKELETON.md); `run` fail-closed, **nicht produktionsbereit** |
 | **Ingest-Quarantäne MVP** | **lokaler Prototyp** — [INGEST_QUARANTINE_MVP.md](docs/runtime/INGEST_QUARANTINE_MVP.md), [ADR-0010](docs/decisions/ADR-0010-ingest-quarantaene-mvp.md); synthetic-only, fail-closed, **keine Promotion**; **nicht produktiv** |
-| **Source-Registry MVP** | **lokaler Prototyp** — [SOURCE_REGISTRY_MVP.md](docs/runtime/SOURCE_REGISTRY_MVP.md), [ADR-0011](docs/decisions/ADR-0011-deterministische-source-registry.md); synthetic-only, fail-closed, **deaktiviert**, `activate` verweigert; **212 Tests**, **nicht produktiv** |
+| **Source-Registry MVP** | **lokaler Prototyp** — [SOURCE_REGISTRY_MVP.md](docs/runtime/SOURCE_REGISTRY_MVP.md), [ADR-0011](docs/decisions/ADR-0011-deterministische-source-registry.md); synthetic-only, fail-closed, **deaktiviert**, `activate` verweigert; **nicht produktiv** |
+| **Source-Mapping-Draft-Validator MVP** | **lokaler Prototyp** — [SOURCE_MAPPING_DRAFT_VALIDATOR.md](docs/runtime/SOURCE_MAPPING_DRAFT_VALIDATOR.md), [ADR-0012](docs/decisions/ADR-0012-source-mapping-draft-validator.md); synthetic-only, read-only, fail-closed, 31-Feld-Vertrag, externe read-only Registry-Bindung, `activation-check` verweigert; **315 Tests**, **nicht produktiv** |
 | Implementierte Capabilities | **keine (0 von 29)** — Capability 2/3/5/6/7 bleiben nicht vollständig `implemented` |
-| Angenommene ADRs | **11** |
+| Angenommene ADRs | **12** |
 | Framework | Nova Development Framework v1.0.0 |
 
 ## Pilotumfang
@@ -109,7 +110,7 @@ Nur der Human Maintainer committet, tagged und pusht.
 | `project-brain/` | Kuratiertes Projektgedächtnis |
 | `project-system/` | Profil, Manifest, Capability Matrix, Register, WP-Queue |
 | `work-packages/` | Wortlaut der freigegebenen Work Packages |
-| `core/` | **Skeleton** (CBP-WP-012) + **Ingest-Quarantäne-MVP** (CBP-WP-013) + **Source-Registry-MVP** (CBP-WP-014) — lokal, fail-closed |
+| `core/` | **Skeleton** (CBP-WP-012) + **Ingest-Quarantäne-MVP** (CBP-WP-013) + **Source-Registry-MVP** (CBP-WP-014) + **Source-Mapping-Draft-Validator** (CBP-WP-015) — lokal, fail-closed |
 | `config/` | Synthetische Beispielkonfiguration und -policies |
 | `examples/` | Synthetische Quarantäne- und Registry-Beispiele (test-only) |
 | `tests/` | Lokale Unit- und Negativtests (Standardbibliothek) |
