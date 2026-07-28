@@ -80,7 +80,7 @@ Durchsetzung, nicht ein weiteres Dokument.
 | davon hoch | 14 | 17 |
 | Capabilities `implemented` | **0** | **0** |
 | Angenommene ADRs | 0 | **12** |
-| Vorgeschlagene Work Packages | 0 | **0** — CBP-WP-017 ist `in-review` (implementiert, D-051); CBP-WP-016 `committed` (`04c427c`) |
+| Vorgeschlagene Work Packages | 0 | **0** — CBP-WP-017 ist `committed` (`d3168c4`, D-051); kein weiteres |
 | **Erstellte Source Mappings** | 0 | **0** |
 | **Angebundene Quellen** | 0 | **0** |
 | **Umgesetzte Sicherheitskontrollen** | 0 | **0 von 12** |

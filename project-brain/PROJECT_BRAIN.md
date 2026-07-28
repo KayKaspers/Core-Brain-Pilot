@@ -23,14 +23,14 @@ verweigern deterministisch.
 
 | Feld | Wert |
 | --- | --- |
-| Aktuelles Work Package | **CBP-WP-017** (`in-review`) — zuletzt abgeschlossen **CBP-WP-016** (`committed`, `04c427c`); Evidence-Contract 2.0 implementiert (D-051), **nicht committet** |
+| Aktuelles Work Package | **keines aktiv** — zuletzt abgeschlossen **CBP-WP-017** (`committed`, `d3168c4`, D-051); kein weiteres vorgeschlagen |
 | Gate G0 | **PASSED WITH NOTES** — 2026-07-21 |
 | G0-Kriterien | **47**, dreistufig klassifiziert |
 | davon blockierend | **25** Core Required (zuvor 45) |
 | davon `accepted` | **25** — alle |
 | verbleibende Blocker | **0** |
 | Phase 1 | AUTHORIZED FOR PLANNING — [Backlog](../docs/roadmap/PHASE_1_BACKLOG.md), [Foundation Plan](../docs/roadmap/PHASE_1_FOUNDATION_PLAN.md) |
-| Geplante Work Packages | **CBP-WP-017** `in-review` (implementiert, D-051); kein weiteres vorgeschlagen |
+| Geplante Work Packages | **keines** — CBP-WP-017 `committed` (`d3168c4`, D-051); kein weiteres vorgeschlagen |
 | **Repository-Struktur** | **entschieden** — Ziel-Monorepo + Workspace W-3 (ADR-0007); **Migration nicht autorisiert** |
 | **Mappingkonvention** | **entschieden** — ADR-0008; **0 Mappings, 0 Quellen**, Gate `NOT EVALUATED` |
 | **Sicherheitsgrundlage** | **spezifiziert** — ADR-0009; **12 Kontrollen `DOCUMENTED ONLY`** |
@@ -39,7 +39,7 @@ verweigern deterministisch.
 | **Source-Registry MVP** | **lokaler Prototyp** (CBP-WP-014, ADR-0011) — synthetic-only, fail-closed, **deaktiviert**, `activate` verweigert, nicht produktiv |
 | **Source-Mapping-Draft-Validator MVP** | **lokaler Prototyp** (CBP-WP-015, ADR-0012) — synthetic-only, read-only, fail-closed, **31-Feld-Vertrag** (29+2), externe read-only Registry-Bindung, `mapping_id` nur validiert, `activation-check` verweigert, nicht produktiv |
 | **Mapping-Activation-Gate-Evaluator MVP** | **lokaler Prototyp** (CBP-WP-016, D-050) — synthetic-only, read-only, nicht persistent, fail-closed; **20 Gate-Kriterien**, Ausgabestatus nur `NOT_EVALUATED`/`BLOCKED`; `activation-evaluate` endet immer `BLOCKED` (Exit 14); nicht produktiv |
-| **Synthetic Evidence Contract 2.0 MVP** | **lokaler Prototyp** (CBP-WP-017, D-051, `in-review`) — Evidence-Schema 2.0 mit eingebetteten Artefakten, Provenance-/Binding-Hashes, deterministische Invalid-/Stale-/Conflict-Erkennung, **negative-evidence-only**; Schema 1.0 fail-closed; kein RT-2/Persistenz/Aktivierung; **451 Tests**, nicht produktiv |
+| **Synthetic Evidence Contract 2.0 MVP** | **lokaler Prototyp** (CBP-WP-017, D-051, `committed` `d3168c4`) — Evidence-Schema 2.0 mit eingebetteten Artefakten, Provenance-/Binding-Hashes, deterministische Invalid-/Stale-/Conflict-Erkennung, **negative-evidence-only**; Schema 1.0 fail-closed; kein RT-2/Persistenz/Aktivierung; **451 Tests**, nicht produktiv |
 | Implementierte Capabilities | **keine (0 von 29)** — Bausteine belegt; Capability 5/6 bleiben `planned` |
 | Nachweise oberhalb Stufe 1 | **keine** (lokale Bausteine, keine KB-Kontrolle) |
 | Commits | **14** |
@@ -402,7 +402,7 @@ und [PHASE_1_WORK_PACKAGE_MAP.md](../docs/roadmap/PHASE_1_WORK_PACKAGE_MAP.md).
 A0-Freigabe **D-050** (APPROVE WITH NOTES, A1/B1-eng/C1/D1) implementiert und
 **committed** (`04c427c`). **CBP-WP-017 — Synthetic Evidence Contract &
 Provenance Foundation** ist unter **D-051** (APPROVE WITH NOTES, A2/B1/C2/D1/E2)
-implementiert und steht auf `in-review` (**nicht committet**). Ein weiteres Work
+implementiert und **committed** (`d3168c4`). Ein weiteres Work
 Package ist **nicht** vorgeschlagen; CBP-WP-018 ist nicht Bestandteil.
 
 ## Rückmeldung an Nova

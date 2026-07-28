@@ -37,16 +37,16 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 – COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Aktuelles Work Package | **CBP-WP-017** (`in-review`) — zuletzt abgeschlossen **CBP-WP-016** (`committed`, `04c427c`); Evidence-Contract 2.0 implementiert (D-051), **nicht committet** |
+| Aktuelles Work Package | **keines aktiv** — zuletzt abgeschlossen **CBP-WP-017** (`committed`, `d3168c4`, D-051); kein weiteres vorgeschlagen |
 | **Gate-Status G0** | **PASSED WITH NOTES** — 2026-07-21, A0 |
 | Nächstes Prüfmodell | **Deployment Readiness Check** — `NOT EVALUATED` |
-| Phase-1-Planung | Streams F1–F5; CBP-WP-016 **`committed`** (`04c427c`, D-050); CBP-WP-017 **`in-review`** (D-051) |
+| Phase-1-Planung | Streams F1–F5; CBP-WP-016 **`committed`** (`04c427c`, D-050); CBP-WP-017 **`committed`** (`d3168c4`, D-051) |
 | **Runtime Skeleton** | **lokal implementiert** (CBP-WP-012) — `run` fail-closed; keine KB-Kontrolle durchgesetzt |
 | **Ingest-Quarantäne MVP** | **lokaler Prototyp** (CBP-WP-013, ADR-0010) — synthetic-only, fail-closed, keine Promotion, **nicht produktiv** |
 | **Source-Registry MVP** | **lokaler Prototyp** (CBP-WP-014, ADR-0011) — synthetic-only, fail-closed, **deaktiviert**, `activate` verweigert, **nicht produktiv** |
 | **Source-Mapping-Draft-Validator MVP** | **lokaler Prototyp** (CBP-WP-015, ADR-0012) — synthetic-only, read-only, fail-closed, **31-Feld-Vertrag** (29+2), externe read-only Registry-Bindung, `mapping_id` nur validiert, `activation-check` verweigert, **nicht produktiv** |
 | **Mapping-Activation-Gate-Evaluator MVP** | **lokaler Prototyp** (CBP-WP-016, D-050) — synthetic-only, read-only, nicht persistent, fail-closed; **20 Gate-Kriterien**, Ausgabestatus nur `NOT_EVALUATED`/`BLOCKED`, `activation-evaluate` endet immer `BLOCKED` (Exit 14); Security Foundation/DRC keine Kriterien 21/22; **nicht produktiv** |
-| **Synthetic Evidence Contract 2.0 MVP** | **lokaler Prototyp** (CBP-WP-017, D-051, `in-review`) — Evidence-Schema 2.0 mit eingebetteten Artefakten, Provenance-/Binding-Hashes, deterministische Invalid-/Stale-/Conflict-Erkennung, **negative-evidence-only**; Schema 1.0 fail-closed; kein RT-2/Persistenz/Aktivierung; **451 Tests**, **nicht produktiv** |
+| **Synthetic Evidence Contract 2.0 MVP** | **lokaler Prototyp** (CBP-WP-017, D-051, `committed` `d3168c4`) — Evidence-Schema 2.0 mit eingebetteten Artefakten, Provenance-/Binding-Hashes, deterministische Invalid-/Stale-/Conflict-Erkennung, **negative-evidence-only**; Schema 1.0 fail-closed; kein RT-2/Persistenz/Aktivierung; **451 Tests**, **nicht produktiv** |
 | **Mappingkonvention** | **entschieden** — ADR-0008 (D-031, D-032, D-033); Draft-Validator ADR-0012 (D-046…D-049) |
 | **Mapping Activation Gate** | **`NOT EVALUATED`** — 0 Mappings, 0 angebundene Quellen |
 | **Repository-Zielstruktur** | **entschieden** — Monorepo, ADR-0007 (D-029); **Migration nicht autorisiert** |

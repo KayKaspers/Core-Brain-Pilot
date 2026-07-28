@@ -218,10 +218,30 @@ geschlossen`**, Kritikalität unverändert **mittel**. Derselbe Vorgang ist in
 | Korrektur | Die kanonischen Statusdokumente wurden auf den durch Git belegten `committed`-Zustand von CBP-WP-016 (`04c427c`) synchronisiert; „aktuelles Work Package" auf **keines aktiv, zuletzt abgeschlossen CBP-WP-016** gesetzt; kein Work Package ist `active`/`in-review`; **CBP-WP-017 nicht autorisiert** |
 | Aussagegrenze | **Kein Funktionsfehler, keine Runtimeänderung, keine Gatefreigabe, keine Aktivierung, keine Capability-Änderung**; keine neue Decision-ID, kein neues ADR, kein neues/geschlossenes Risiko; **keine** Risikokritikalität verändert; Mapping Activation Gate/Security Foundation Readiness Gate/DRC bleiben `NOT EVALUATED`; Capabilities **0 von 29** |
 
-Damit sind **zwölf Konsistenzvorgänge in sechzehn Work Packages** dokumentiert
-(**neue aktuelle Basislinie**; löst die vorige Angabe „elf" ab). Die Zahl der
-Work Packages steigt auf **sechzehn**, weil dieser Vorgang **erstmals
-CBP-WP-016** betrifft, das durch den Commit `04c427c` Teil der committeten Menge
+Damit waren **zwölf Konsistenzvorgänge in sechzehn Work Packages** dokumentiert
+(*Stand nach dem zwölften Vorgang; durch den dreizehnten Vorgang unten auf
+**dreizehn** aktualisiert*; löst die vorige Angabe „elf" ab). Die Zahl der
+Work Packages stieg auf **sechzehn**, weil dieser Vorgang **erstmals
+CBP-WP-016** betraf, das durch den Commit `04c427c` Teil der committeten Menge
+wurde. **R-33 bleibt `gemindert, nicht geschlossen`**, Kritikalität unverändert
+**mittel**. Derselbe Vorgang ist in
+[COMPLIANCE_CHECK.md](COMPLIANCE_CHECK.md) gespiegelt und zählt **nur einmal**.
+
+**R-33-Chronologie — dreizehnter Konsistenzvorgang (CBP-WP-017 Post-Commit Status Reconciliation, 2026-07-28):**
+
+| Feld | Inhalt |
+| --- | --- |
+| Work Package | **CBP-WP-017** (Post-Commit-Status-Reconciliation; **erstes** R-33-Erfassen von CBP-WP-017) |
+| Fehlerklasse | **Git-/Register-Statusabweichung** — nach Commit und Push von CBP-WP-017 (`d3168c4`) führten mehrere Statusdokumente CBP-WP-017 weiterhin als `in-review` bzw. „nicht committet", obwohl Git CBP-WP-017 als `committed` und mit origin/main synchron auswies |
+| Betroffene aktuelle Repository-Artefakte | `README.md`, `CLAUDE.md`, `project-system/WORK_PACKAGE_QUEUE.md` (Header, Übersicht, Detailblock), `project-system/PROJECT_MANIFEST.md`, `project-system/PROJECT_PROFILE.md`, `project-system/HEALTH_SCORE.md`, `project-brain/PROJECT_BRAIN.md` |
+| Ursache | Der Implementation Commit trug den korrekten **Vor-Commit-Reviewstatus** `in-review`; es fehlte anschließend eine **Post-Commit-Status-Reconciliation** (dieselbe Klasse wie der zehnte/zwölfte Vorgang) |
+| Korrektur | Die kanonischen Statusdokumente wurden auf den durch Git belegten `committed`-Zustand von CBP-WP-017 (`d3168c4`) synchronisiert; „aktuelles Work Package" auf **keines aktiv, zuletzt abgeschlossen CBP-WP-017** gesetzt; kein Work Package ist `active`/`in-review`; **CBP-WP-018 nicht autorisiert** |
+| Aussagegrenze | **Kein Funktionsfehler, keine Runtimeänderung, keine Gatefreigabe, keine Aktivierung, keine Capability-Änderung**; keine neue Decision-ID, kein neues ADR, kein neues/geschlossenes Risiko; **keine** Risikokritikalität verändert; Mapping Activation Gate/Security Foundation Readiness Gate/DRC bleiben `NOT EVALUATED`; Capabilities **0 von 29** |
+
+Damit sind **dreizehn Konsistenzvorgänge in siebzehn Work Packages** dokumentiert
+(**neue aktuelle Basislinie**; löst die vorige Angabe „zwölf" ab). Die Zahl der
+Work Packages steigt auf **siebzehn**, weil dieser Vorgang **erstmals
+CBP-WP-017** betrifft, das durch den Commit `d3168c4` Teil der committeten Menge
 wurde. **R-33 bleibt `gemindert, nicht geschlossen`**, Kritikalität unverändert
 **mittel**. Derselbe Vorgang ist in
 [COMPLIANCE_CHECK.md](COMPLIANCE_CHECK.md) gespiegelt und zählt **nur einmal**.
