@@ -23,14 +23,14 @@ verweigern deterministisch.
 
 | Feld | Wert |
 | --- | --- |
-| Aktuelles Work Package | **CBP-WP-016** (`in-review`) — zuletzt abgeschlossen **CBP-WP-015** (`committed`, `645ccb1`); Phase B implementiert (D-050), **nicht committet** |
+| Aktuelles Work Package | **keines aktiv** — zuletzt abgeschlossen **CBP-WP-016** (`committed`, `04c427c`, D-050); kein weiteres vorgeschlagen |
 | Gate G0 | **PASSED WITH NOTES** — 2026-07-21 |
 | G0-Kriterien | **47**, dreistufig klassifiziert |
 | davon blockierend | **25** Core Required (zuvor 45) |
 | davon `accepted` | **25** — alle |
 | verbleibende Blocker | **0** |
 | Phase 1 | AUTHORIZED FOR PLANNING — [Backlog](../docs/roadmap/PHASE_1_BACKLOG.md), [Foundation Plan](../docs/roadmap/PHASE_1_FOUNDATION_PLAN.md) |
-| Geplante Work Packages | **CBP-WP-016** `in-review` (implementiert, D-050); kein weiteres vorgeschlagen |
+| Geplante Work Packages | **keines** — CBP-WP-016 `committed` (`04c427c`, D-050); kein weiteres vorgeschlagen |
 | **Repository-Struktur** | **entschieden** — Ziel-Monorepo + Workspace W-3 (ADR-0007); **Migration nicht autorisiert** |
 | **Mappingkonvention** | **entschieden** — ADR-0008; **0 Mappings, 0 Quellen**, Gate `NOT EVALUATED` |
 | **Sicherheitsgrundlage** | **spezifiziert** — ADR-0009; **12 Kontrollen `DOCUMENTED ONLY`** |
@@ -399,7 +399,7 @@ und [PHASE_1_WORK_PACKAGE_MAP.md](../docs/roadmap/PHASE_1_WORK_PACKAGE_MAP.md).
 
 **CBP-WP-016 — Deterministic Mapping Activation Gate Evaluator** ist unter der
 A0-Freigabe **D-050** (APPROVE WITH NOTES, A1/B1-eng/C1/D1) implementiert und
-steht auf `in-review` (implementiert, **nicht committet**). Ein weiteres Work
+**committed** (`04c427c`). Ein weiteres Work
 Package ist **nicht** vorgeschlagen; CBP-WP-017 ist nicht Bestandteil.
 
 ## Rückmeldung an Nova

@@ -132,7 +132,7 @@ nennen.
 | Phase | **Phase 0 – COMPLETE** |
 | **Gate G0** | **PASSED WITH NOTES** — 2026-07-21, A0 |
 | **Phase 1** | **AUTHORIZED FOR PLANNING** — keine Implementierung freigegeben |
-| Aktuelles Work Package | **CBP-WP-016** (`in-review`) — zuletzt abgeschlossen CBP-WP-015 (`committed`, `645ccb1`); Phase B implementiert (D-050), **nicht committet** |
+| Aktuelles Work Package | **keines aktiv** — zuletzt abgeschlossen **CBP-WP-016** (`committed`, `04c427c`, D-050); kein weiteres Work Package vorgeschlagen |
 | Core-Kriterien | 25 von 25 `accepted`, 0 `answered`, 0 `open`, 0 `blocked` |
 | Angenommene ADRs | **12** (A1) |
 | **Mappingkonvention** | **entschieden** — ADR-0008; **0 Mappings, 0 Quellen, Gate `NOT EVALUATED`** |

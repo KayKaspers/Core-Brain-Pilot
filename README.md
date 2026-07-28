@@ -28,8 +28,8 @@ vorgesehene, **noch nicht implementierte** Anwendungslaufzeit.
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Aktuelles Work Package | **CBP-WP-016** (`in-review`) — zuletzt abgeschlossen CBP-WP-015 (`committed`, `645ccb1`) |
-| Nächster Schritt | **CBP-WP-016 in-review** — implementiert (D-050), wartet auf Human-Review/Commit; **kein Commit ausgeführt** |
+| Aktuelles Work Package | **keines aktiv** — zuletzt abgeschlossen **CBP-WP-016** (`committed`, `04c427c`, D-050) |
+| Nächster Schritt | **keiner autorisiert** — CBP-WP-016 committed (`04c427c`); CBP-WP-017 nicht vorgeschlagen |
 | **Gate G0** | **PASSED WITH NOTES** — 2026-07-21, A0 |
 | Phase-1-Planung | **Streams F1–F5 geplant**, [Foundation Plan](docs/roadmap/PHASE_1_FOUNDATION_PLAN.md) |
 | **Repository-Struktur** | **entschieden** — [ADR-0007](docs/decisions/ADR-0007-repository-und-workspace-grenze.md); **Migration nicht autorisiert** |

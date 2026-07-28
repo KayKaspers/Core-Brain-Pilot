@@ -327,6 +327,7 @@ existiert.
 | **CBP-WP-015** | **Veraltete Feldzahlangabe in A3-Planungsartefakten** (kein arithmetischer Zählfehler). Die aktuellen Angaben nannten **19** Mapping-Felder, während der angenommene A1/A2-Vertrag **31 Felddefinitionen** (29 Pflicht + 2 optional) und **24 Validierungsregeln** hat. Betroffen: `docs/roadmap/PILOT_SOURCE_MAPPING_PLAN.md`, `docs/roadmap/PHASE_1_EVIDENCE_PLAN.md`. Die historische Queue-Aussage zu CBP-WP-008 wird **separat als historisch** behandelt | **CBP-WP-015** |
 | **CBP-WP-015 (Post-Commit Reconciliation)** | **Git-/Register-Statusabweichung** (kein arithmetischer Zählfehler). Nach Commit und Push von CBP-WP-015 (`645ccb1`) blieb der A2-Status in mehreren Statusdokumenten auf `in-review`, obwohl Git CBP-WP-015 als `committed` und mit origin/main synchron auswies. Betroffen: `README.md`, `CLAUDE.md`, `project-system/WORK_PACKAGE_QUEUE.md`, `project-system/PROJECT_MANIFEST.md`, `project-brain/PROJECT_BRAIN.md` | **CBP-WP-015 Post-Commit Status Reconciliation** |
 | **CBP-WP-014/015 (Queue Detail Block Reconciliation)** | **Git-/Register-Statusabweichung in Detailblöcken** (kein arithmetischer Zählfehler). In `WORK_PACKAGE_QUEUE.md` blieben die Detailblöcke CBP-WP-014 (`in-review`, „Commit nicht ausgeführt") und CBP-WP-015 (`vorgeschlagen, nicht freigegeben`, `proposed`) auf Vor-Commit-/Vor-Autorisierungsständen, obwohl beide `committed` (d0c0531 bzw. 645ccb1) sind. Betroffen: `project-system/WORK_PACKAGE_QUEUE.md` (Detailblöcke CBP-WP-014, CBP-WP-015) | **CBP-WP-014/015 Queue Detail Block Reconciliation** |
+| **CBP-WP-016 (Post-Commit Reconciliation)** | **Git-/Register-Statusabweichung** (kein arithmetischer Zählfehler). Nach Commit und Push von CBP-WP-016 (`04c427c`) führten mehrere Statusdokumente CBP-WP-016 weiterhin als `in-review`/„nicht committet", obwohl Git CBP-WP-016 als `committed` und mit origin/main synchron auswies. Betroffen: `README.md`, `CLAUDE.md`, `project-system/WORK_PACKAGE_QUEUE.md`, `project-system/PROJECT_MANIFEST.md`, `project-system/PROJECT_PROFILE.md`, `project-system/HEALTH_SCORE.md`, `project-brain/PROJECT_BRAIN.md` | **CBP-WP-016 Post-Commit Status Reconciliation** |
 
 **Der vierte Fehler entstand, nachdem die Regel eingeführt war**, und wurde
 erst ein Work Package später gefunden. Die Regel wirkt — aber nachlaufend. Das
@@ -449,10 +450,35 @@ Gatefreigabe, keine Aktivierung, keine Capability-Änderung; CBP-WP-016 bleibt
 
 **R-33 bleibt `gemindert, nicht geschlossen`** — Kritikalität unverändert
 **mittel**, kein Risiko geschlossen. **Elf Konsistenzvorgänge in fünfzehn Work
-Packages** sind dokumentiert (**neue aktuelle Basislinie**; löst „zehn" ab); die
-Zahl der Work Packages bleibt **fünfzehn**, weil der Vorgang CBP-WP-014 und
-CBP-WP-015 betrifft, die bereits Teil der Menge sind, und kein neues Work Package
-hinzukommt. Dieser Vorgang ist mit dem Eintrag in
+Packages** waren zu diesem Zeitpunkt dokumentiert (*Stand nach dem elften
+Vorgang; durch den zwölften Vorgang unten auf **zwölf** aktualisiert*; löst
+„zehn" ab); die Zahl der Work Packages blieb **fünfzehn**, weil der Vorgang
+CBP-WP-014 und CBP-WP-015 betrifft, die bereits Teil der Menge sind, und kein
+neues Work Package hinzukommt. Dieser Vorgang ist mit dem Eintrag in
+[RISK_REGISTER.md](RISK_REGISTER.md) **identisch** und zählt **nur einmal**.
+
+**Der zwölfte Vorgang (CBP-WP-016 Post-Commit Status Reconciliation) ist kein
+arithmetischer Zählfehler, sondern eine Git-/Register-Statusabweichung** derselben
+Klasse wie der zehnte Vorgang. Nach Commit und Push von CBP-WP-016 (`04c427c`)
+führten mehrere Statusdokumente (`README.md`, `CLAUDE.md`,
+`project-system/WORK_PACKAGE_QUEUE.md`, `project-system/PROJECT_MANIFEST.md`,
+`project-system/PROJECT_PROFILE.md`, `project-system/HEALTH_SCORE.md`,
+`project-brain/PROJECT_BRAIN.md`) CBP-WP-016 weiterhin als `in-review`/„nicht
+committet", obwohl Git CBP-WP-016 bereits als `committed` und mit origin/main
+synchron auswies. **Ursache:** Der Implementation Commit trug den korrekten
+Vor-Commit-Reviewstatus `in-review`; es fehlte danach die
+Post-Commit-Status-Reconciliation. Korrigiert durch Synchronisierung auf den
+`committed`-Zustand (`04c427c`); „aktuelles Work Package" auf **keines aktiv,
+zuletzt abgeschlossen CBP-WP-016** gesetzt; kein Work Package `active`/`in-review`;
+**CBP-WP-017 nicht autorisiert**. **Wirkung:** kein Funktionsfehler, keine
+Runtimeänderung, keine Gatefreigabe, keine Aktivierung, keine Capability-Änderung.
+
+**R-33 bleibt `gemindert, nicht geschlossen`** — Kritikalität unverändert
+**mittel**, kein Risiko geschlossen. **Zwölf Konsistenzvorgänge in sechzehn Work
+Packages** sind dokumentiert (**neue aktuelle Basislinie**; löst „elf" ab); die
+Zahl der Work Packages steigt auf **sechzehn**, weil dieser Vorgang **erstmals
+CBP-WP-016** betrifft, das durch `04c427c` Teil der committeten Menge wurde.
+Dieser Vorgang ist mit dem Eintrag in
 [RISK_REGISTER.md](RISK_REGISTER.md) **identisch** und zählt **nur einmal**.
 
 **Die Implementierung von CBP-WP-013 selbst führte keinen arithmetischen
