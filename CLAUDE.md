@@ -132,7 +132,7 @@ nennen.
 | Phase | **Phase 0 – COMPLETE** |
 | **Gate G0** | **PASSED WITH NOTES** — 2026-07-21, A0 |
 | **Phase 1** | **AUTHORIZED FOR PLANNING** — keine Implementierung freigegeben |
-| Aktuelles Work Package | **keines aktiv** — zuletzt abgeschlossen **CBP-WP-016** (`committed`, `04c427c`, D-050); kein weiteres Work Package vorgeschlagen |
+| Aktuelles Work Package | **CBP-WP-017** (`in-review`) — zuletzt abgeschlossen CBP-WP-016 (`committed`, `04c427c`); Evidence-Contract 2.0 implementiert (D-051), **nicht committet** |
 | Core-Kriterien | 25 von 25 `accepted`, 0 `answered`, 0 `open`, 0 `blocked` |
 | Angenommene ADRs | **12** (A1) |
 | **Mappingkonvention** | **entschieden** — ADR-0008; **0 Mappings, 0 Quellen, Gate `NOT EVALUATED`** |
@@ -141,7 +141,8 @@ nennen.
 | **Ingest-Quarantäne MVP** | **lokaler Prototyp** (CBP-WP-013, ADR-0010) — synthetic-only, fail-closed, content-addressed Store außerhalb Repo, **keine Promotion**; **nicht produktiv** |
 | **Source-Registry MVP** | **lokaler Prototyp** (CBP-WP-014, ADR-0011) — synthetic-only, fail-closed, **deaktiviert**, deterministische Source IDs, unveränderliche Records, append-only Retirement, minimierter Katalog; `activate` verweigert; **nicht produktiv** |
 | **Source-Mapping-Draft-Validator MVP** | **lokaler Prototyp** (CBP-WP-015, ADR-0012) — synthetic-only, read-only, fail-closed, **31-Feld-Vertrag** (29 Pflicht + 2 optional), externe read-only Registry-Bindung, `mapping_id` nur validiert, nicht persistierter Report; `activation-check` verweigert; **nicht produktiv** |
-| **Mapping-Activation-Gate-Evaluator MVP** | **lokaler Prototyp** (CBP-WP-016, D-050) — synthetic-only, read-only, nicht persistent, fail-closed; **20 Gate-Kriterien**, Ausgabestatus nur `NOT_EVALUATED`/`BLOCKED`; `READY FOR ACTIVATION DECISION`/`APPROVED FOR ACTIVATION`/`REVOKED` **nicht emittierbar**; `activation-evaluate` endet immer `BLOCKED` (Exit 14); Security Foundation/DRC keine Kriterien 21/22; **398 Tests**, **nicht produktiv** |
+| **Mapping-Activation-Gate-Evaluator MVP** | **lokaler Prototyp** (CBP-WP-016, D-050) — synthetic-only, read-only, nicht persistent, fail-closed; **20 Gate-Kriterien**, Ausgabestatus nur `NOT_EVALUATED`/`BLOCKED`; `READY FOR ACTIVATION DECISION`/`APPROVED FOR ACTIVATION`/`REVOKED` **nicht emittierbar**; `activation-evaluate` endet immer `BLOCKED` (Exit 14); Security Foundation/DRC keine Kriterien 21/22; **nicht produktiv** |
+| **Synthetic Evidence Contract 2.0 MVP** | **lokaler Prototyp** (CBP-WP-017, D-051, `in-review`) — synthetic-only, read-only, nicht persistent, fail-closed; Evidence-Schema **2.0** mit eingebetteten strukturierten Artefakten, Provenance-/Binding-Hashes, deterministische **Invalid-/Stale-/Conflict-Erkennung** (ohne Uhr), **negative-evidence-only** (keine positive Gate-Erfüllung); Schema 1.0 fail-closed; kein RT-2, keine Persistenz, keine Aktivierung; **451 Tests**, **nicht produktiv** |
 | **Repository-Zielstruktur** | **entschieden** — Ziel-Monorepo (D-029, ADR-0007); **Migration nicht autorisiert** |
 | **Bereichsmodell** | **W-3** — privater Operator-Workspace außerhalb des Core-Repositorys (D-030); **nicht angelegt** |
 | **Veröffentlichung** | Core-Repository `publication-capable by design`, **bleibt privat** — Freigabe benötigt A0 (OD-11) |

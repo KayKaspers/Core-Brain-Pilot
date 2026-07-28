@@ -1,15 +1,17 @@
-"""Geschlossenes, versioniertes synthetisches Evidenz-Bundle (CBP-WP-016).
+"""Geschlossenes, versioniertes synthetisches Evidenz-Bundle 2.0 (CBP-WP-017).
 
 Das Bundle **bindet** die synthetische Evaluation an genau eine Eingabe: Source
-ID, Mapping ID, Gate-Vertragsrevision, Evidenzrevision und die SHA-256-Hashes
-von Draft, Policy und Registry-Record. Es enthält **keine** realen Pfade, URLs,
-``source_reference``, Credential- oder Secret-Werte.
+ID, Mapping ID, Gate-/Evidence-Vertragsrevision, Evidenzrevision, die
+SHA-256-Hashes von Draft, Policy und Registry-Record sowie **eingebettete
+strukturierte Artefakte** je Kriterium. Es enthält **keine** realen Pfade, URLs,
+Locators, Credential- oder Secret-Werte.
 
 Fail-closed: BOM, ungültiges UTF-8, kein Objekt, doppelte Schlüssel, ``NaN``,
 ``Infinity``, unbekannte Felder, fehlende Pflichtfelder, unbekannte
-Schema-Version und nicht synthetische Bundles werden abgewiesen. Synthetische
-Human-Evidenz ist ausschließlich ein Test-Fixture **ohne** A0-Autorität; das
-Bundle kann eine Human-Entscheidung niemals erfüllen.
+Schema-Version (insb. das abgelöste 1.0), nicht synthetische Bundles/Artefakte,
+ungültige IDs/Hashes/Producer-Klassen und Mengenüberschreitungen werden
+abgewiesen. Synthetische Evidenz ist ausschließlich ein Test-Fixture **ohne**
+A0-/operative Autorität; sie erfüllt **kein** Kriterium.
 
 Der Import dieses Moduls hat keine Nebenwirkungen.
 """
@@ -23,16 +25,27 @@ from pathlib import Path
 from typing import Any, Final
 
 from ..errors import GateEvidenceError, ReasonCode
-from .models import EVIDENCE_SCHEMA_VERSION, GATE_CRITERION_COUNT
+from .models import (
+    EVIDENCE_SCHEMA_VERSION,
+    GATE_CRITERION_COUNT,
+    MAX_ARTIFACTS_PER_CRITERION,
+    MAX_ARTIFACTS_TOTAL,
+    PRODUCER_CLASSES,
+)
+from .provenance import ArtifactDescriptor
 
 __all__ = ["EvidenceBundle", "REQUIRED_EVIDENCE_FIELDS", "load_evidence"]
 
-_MAX_EVIDENCE_BYTES: Final[int] = 65536
+# Deterministisches Größenlimit: Worst Case 80 Artefakte (~25 KB kompakt,
+# ~50 KB eingerückt) plus Rahmen; 128 KiB bietet ~2,5× Reserve und bleibt hart
+# begrenzt (WP-016 nutzte 64 KiB für das artefaktfreie 1.0-Bundle).
+_MAX_EVIDENCE_BYTES: Final[int] = 131072
 _BOM = b"\xef\xbb\xbf"
 _SOURCE_ID_RE: Final[re.Pattern[str]] = re.compile(r"\Asrc-[0-9a-f]{24}\Z")
 _MAPPING_ID_RE: Final[re.Pattern[str]] = re.compile(r"\A[A-Za-z0-9][A-Za-z0-9._-]*\Z")
 _HEX64_RE: Final[re.Pattern[str]] = re.compile(r"\A[0-9a-f]{64}\Z")
-_SYNTH_REF_RE: Final[re.Pattern[str]] = re.compile(r"\Asynthetic-[A-Za-z0-9._-]+\Z")
+_ARTIFACT_ID_RE: Final[re.Pattern[str]] = re.compile(r"\Aart-[0-9a-f]{24}\Z")
+_PRODUCER_CLASSES: Final[frozenset[str]] = frozenset(PRODUCER_CLASSES)
 
 REQUIRED_EVIDENCE_FIELDS: Final[frozenset[str]] = frozenset(
     {
@@ -41,6 +54,7 @@ REQUIRED_EVIDENCE_FIELDS: Final[frozenset[str]] = frozenset(
         "source_id",
         "mapping_id",
         "gate_contract_revision",
+        "evidence_contract_revision",
         "evidence_revision",
         "mapping_draft_sha256",
         "mapping_policy_sha256",
@@ -49,21 +63,34 @@ REQUIRED_EVIDENCE_FIELDS: Final[frozenset[str]] = frozenset(
     }
 )
 
+_ARTIFACT_FIELDS: Final[frozenset[str]] = frozenset(
+    {
+        "artifact_id",
+        "artifact_sha256",
+        "binding_sha256",
+        "producer_class",
+        "evidence_revision",
+        "synthetic_test_only",
+    }
+)
+
 
 @dataclass(frozen=True, slots=True)
 class EvidenceBundle:
-    """Validiertes, synthetisches Evidenz-Bundle (read-only Bindung)."""
+    """Validiertes, synthetisches Evidenz-Bundle 2.0 (read-only Bindung)."""
 
     evidence_schema_version: str
     synthetic_test_only: bool
     source_id: str
     mapping_id: str
     gate_contract_revision: str
+    evidence_contract_revision: str
     evidence_revision: int
     mapping_draft_sha256: str
     mapping_policy_sha256: str
     registry_record_sha256: str
-    provided_evidence_count: int
+    criterion_artifacts: dict[int, tuple[ArtifactDescriptor, ...]]
+    total_artifact_count: int
 
 
 def _reject(reason: ReasonCode, detail: str = "") -> GateEvidenceError:
@@ -84,7 +111,7 @@ def _reject_constant(_token: str) -> Any:
 
 
 def load_evidence(path: Path) -> EvidenceBundle:
-    """Lädt und validiert ein synthetisches Evidenz-Bundle fail-closed.
+    """Lädt und validiert ein synthetisches Evidenz-Bundle 2.0 fail-closed.
 
     Raises:
         GateEvidenceError: Bei jedem strukturellen Verstoß.
@@ -121,6 +148,7 @@ def load_evidence(path: Path) -> EvidenceBundle:
 def _validate(data: dict[str, Any]) -> EvidenceBundle:
     version = data.get("evidence_schema_version")
     if version != EVIDENCE_SCHEMA_VERSION:
+        # Insbesondere das abgelöste 1.0 wird hier fail-closed abgewiesen.
         raise _reject(ReasonCode.GATE_EVIDENCE_SCHEMA_UNSUPPORTED, "version")
 
     unknown = sorted(set(data) - REQUIRED_EVIDENCE_FIELDS)
@@ -141,8 +169,10 @@ def _validate(data: dict[str, Any]) -> EvidenceBundle:
     if not (isinstance(mapping_id, str) and _MAPPING_ID_RE.match(mapping_id)):
         raise _reject(ReasonCode.GATE_EVIDENCE_INVALID_VALUE, "mapping_id")
 
-    if not isinstance(data["gate_contract_revision"], str):
-        raise _reject(ReasonCode.GATE_EVIDENCE_INVALID_VALUE, "gate_contract_revision")
+    for field in ("gate_contract_revision", "evidence_contract_revision"):
+        value = data[field]
+        if not (isinstance(value, str) and value):
+            raise _reject(ReasonCode.GATE_EVIDENCE_INVALID_VALUE, field)
 
     revision = data["evidence_revision"]
     if not isinstance(revision, int) or isinstance(revision, bool) or revision < 1:
@@ -157,7 +187,7 @@ def _validate(data: dict[str, Any]) -> EvidenceBundle:
         if not (isinstance(value, str) and _HEX64_RE.match(value)):
             raise _reject(ReasonCode.GATE_EVIDENCE_INVALID_VALUE, field)
 
-    provided = _validate_criterion_evidence(data["criterion_evidence"])
+    criterion_artifacts, total = _validate_criterion_evidence(data["criterion_evidence"])
 
     return EvidenceBundle(
         evidence_schema_version=version,
@@ -165,46 +195,80 @@ def _validate(data: dict[str, Any]) -> EvidenceBundle:
         source_id=source_id,
         mapping_id=mapping_id,
         gate_contract_revision=data["gate_contract_revision"],
+        evidence_contract_revision=data["evidence_contract_revision"],
         evidence_revision=revision,
         mapping_draft_sha256=data["mapping_draft_sha256"],
         mapping_policy_sha256=data["mapping_policy_sha256"],
         registry_record_sha256=data["registry_record_sha256"],
-        provided_evidence_count=provided,
+        criterion_artifacts=criterion_artifacts,
+        total_artifact_count=total,
     )
 
 
-def _validate_criterion_evidence(entries: Any) -> int:
-    """Prüft die geschlossene Kriterien-Evidenzliste (genau 20 Einträge).
-
-    Ein ``evidence_ref`` ist ``null`` oder ein synthetischer Marker
-    ``synthetic-*`` **ohne** Pfad, URL oder Secret. Die Referenzen erfüllen
-    **kein** Kriterium — sie sind reine Provenienz (fail-closed).
-
-    Returns:
-        Anzahl nicht-``null`` Evidenzreferenzen.
-    """
+def _validate_criterion_evidence(
+    entries: Any,
+) -> tuple[dict[int, tuple[ArtifactDescriptor, ...]], int]:
+    """Prüft die geschlossene 20er-Kriterienliste mit eingebetteten Artefakten."""
     if not isinstance(entries, list) or len(entries) != GATE_CRITERION_COUNT:
         raise _reject(ReasonCode.GATE_EVIDENCE_INVALID_VALUE, "criterion_evidence")
-    seen: set[int] = set()
-    provided = 0
-    for entry in entries:
-        if not isinstance(entry, dict) or set(entry) != {"criterion", "evidence_ref"}:
+    result: dict[int, tuple[ArtifactDescriptor, ...]] = {}
+    total = 0
+    for index, entry in enumerate(entries):
+        if not isinstance(entry, dict) or set(entry) != {"criterion", "artifacts"}:
             raise _reject(
                 ReasonCode.GATE_EVIDENCE_INVALID_VALUE, "criterion_evidence entry"
             )
         cid = entry["criterion"]
+        # Feste, lückenlose Reihenfolge 1..20 (kein Duplikat, keine Lücke).
         if (
             not isinstance(cid, int)
             or isinstance(cid, bool)
-            or not (1 <= cid <= GATE_CRITERION_COUNT)
-            or cid in seen
+            or cid != index + 1
         ):
             raise _reject(ReasonCode.GATE_EVIDENCE_INVALID_VALUE, "criterion id")
-        seen.add(cid)
-        ref = entry["evidence_ref"]
-        if ref is None:
-            continue
-        if not (isinstance(ref, str) and _SYNTH_REF_RE.match(ref)):
-            raise _reject(ReasonCode.GATE_EVIDENCE_INVALID_VALUE, "evidence_ref")
-        provided += 1
-    return provided
+        arts = _validate_artifacts(entry["artifacts"])
+        result[cid] = arts
+        total += len(arts)
+    if total > MAX_ARTIFACTS_TOTAL:
+        raise _reject(ReasonCode.GATE_EVIDENCE_INVALID_VALUE, "artifacts total")
+    return result, total
+
+
+def _validate_artifacts(items: Any) -> tuple[ArtifactDescriptor, ...]:
+    """Prüft die (0..4) Artefakte eines Kriteriums fail-closed."""
+    if not isinstance(items, list):
+        raise _reject(ReasonCode.GATE_EVIDENCE_INVALID_VALUE, "artifacts")
+    if len(items) > MAX_ARTIFACTS_PER_CRITERION:
+        raise _reject(ReasonCode.GATE_EVIDENCE_INVALID_VALUE, "artifacts per criterion")
+    out: list[ArtifactDescriptor] = []
+    for item in items:
+        if not isinstance(item, dict) or set(item) != _ARTIFACT_FIELDS:
+            raise _reject(ReasonCode.GATE_EVIDENCE_INVALID_VALUE, "artifact entry")
+        aid = item["artifact_id"]
+        if not (isinstance(aid, str) and _ARTIFACT_ID_RE.match(aid)):
+            raise _reject(ReasonCode.GATE_EVIDENCE_INVALID_VALUE, "artifact_id")
+        for field in ("artifact_sha256", "binding_sha256"):
+            value = item[field]
+            if not (isinstance(value, str) and _HEX64_RE.match(value)):
+                raise _reject(ReasonCode.GATE_EVIDENCE_INVALID_VALUE, field)
+        producer = item["producer_class"]
+        if producer not in _PRODUCER_CLASSES:
+            raise _reject(ReasonCode.GATE_EVIDENCE_INVALID_VALUE, "producer_class")
+        rev = item["evidence_revision"]
+        if not isinstance(rev, int) or isinstance(rev, bool) or rev < 1:
+            raise _reject(ReasonCode.GATE_EVIDENCE_INVALID_VALUE, "artifact revision")
+        if item["synthetic_test_only"] is not True:
+            raise _reject(
+                ReasonCode.GATE_EVIDENCE_NOT_SYNTHETIC, "artifact synthetic_test_only"
+            )
+        out.append(
+            ArtifactDescriptor(
+                artifact_id=aid,
+                artifact_sha256=item["artifact_sha256"],
+                binding_sha256=item["binding_sha256"],
+                producer_class=producer,
+                evidence_revision=rev,
+                synthetic_test_only=True,
+            )
+        )
+    return tuple(out)

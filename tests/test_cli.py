@@ -382,21 +382,24 @@ class TestNetworkGuard(unittest.TestCase):
                     self._run_under_guard(argv)
 
     def test_no_network_attempt_on_gate_evaluator_cli_path(self) -> None:
-        # CBP-WP-016: der Guard umfasst source-mapping activation-evaluate.
+        # CBP-WP-016/017: der Guard umfasst source-mapping activation-evaluate,
+        # inkl. des Schema-2.0-/Provenance-Pfads mit synthetischen Artefakten.
         from tests import gate_fixtures as gfx
 
-        with tempfile.TemporaryDirectory() as tmp:
-            case = gfx.build_case(tmp)
-            argv = (
-                "source-mapping", "activation-evaluate",
-                "--draft", str(case["draft_path"]),
-                "--policy", str(case["policy_path"]),
-                "--registry", str(case["root"]),
-                "--source-id", case["source_id"],
-                "--evidence", str(case["evidence_path"]),
-                "--synthetic-test-only",
-            )
-            self._run_under_guard(argv)
+        for specs in (None, {2: [{}], 4: [{"corrupt_hash": True}],
+                             6: [{}, {"artifact_id": gfx.ART_ID_B}]}):
+            with tempfile.TemporaryDirectory() as tmp:
+                case = gfx.build_case(tmp, artifact_specs=specs)
+                argv = (
+                    "source-mapping", "activation-evaluate",
+                    "--draft", str(case["draft_path"]),
+                    "--policy", str(case["policy_path"]),
+                    "--registry", str(case["root"]),
+                    "--source-id", case["source_id"],
+                    "--evidence", str(case["evidence_path"]),
+                    "--synthetic-test-only",
+                )
+                self._run_under_guard(argv)
 
 
 class TestUsage(unittest.TestCase):
@@ -443,6 +446,7 @@ class TestNoImportSideEffects(unittest.TestCase):
                 " core.core_brain.mapping.service,"
                 " core.core_brain.gate,"
                 " core.core_brain.gate.models,"
+                " core.core_brain.gate.provenance,"
                 " core.core_brain.gate.evidence,"
                 " core.core_brain.gate.evaluator,"
                 " core.core_brain.gate.service;"

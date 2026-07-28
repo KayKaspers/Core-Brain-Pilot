@@ -77,12 +77,15 @@ reg = base/"registry"; (reg/"records").mkdir(parents=True)
 raw = json.dumps(draft).encode("utf-8")
 (base/"draft.json").write_bytes(raw)
 policy = load_policy(Path("config/source_mapping_validation_policy.example.toml"))
-ev = {"evidence_schema_version":"1.0","synthetic_test_only":True,"source_id":sid,
-  "mapping_id":"MAP-EXAMPLE-0001","gate_contract_revision":"1.0","evidence_revision":1,
+# Evidence-Bundle 2.0 (CBP-WP-017) — hier ohne eingebettete Artefakte
+# (leere Listen zulaessig); der Ausgang bleibt BLOCKED (Exit 14).
+ev = {"evidence_schema_version":"2.0","synthetic_test_only":True,"source_id":sid,
+  "mapping_id":"MAP-EXAMPLE-0001","gate_contract_revision":"1.0",
+  "evidence_contract_revision":"2.0","evidence_revision":1,
   "mapping_draft_sha256":hashlib.sha256(raw).hexdigest(),
   "mapping_policy_sha256":policy.policy_sha256,
   "registry_record_sha256":hashlib.sha256(canonical_json_bytes(rec)).hexdigest(),
-  "criterion_evidence":[{"criterion":i,"evidence_ref":None} for i in range(1,21)]}
+  "criterion_evidence":[{"criterion":i,"artifacts":[]} for i in range(1,21)]}
 (base/"evidence.json").write_text(json.dumps(ev), encoding="utf-8")
 print(sid)
 '@

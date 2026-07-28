@@ -183,5 +183,87 @@ class TestGateCli(unittest.TestCase):
         self.assertEqual(code, EXIT_CODES[ExitCode.QUARANTINE_RELEASE_BLOCKED])
 
 
+class TestWP017Cli(unittest.TestCase):
+    """CBP-WP-017 — Schema 2.0 über den bestehenden --evidence-Pfad."""
+
+    def test_leaky_artifact_id_blocks_without_echo(self) -> None:
+        for leaky in ("/etc/shadow-secret", "C:\\Users\\secret.txt",
+                      "https://example.invalid/p", "art-XYZ"):
+            with self.subTest(artifact_id=leaky):
+                with tempfile.TemporaryDirectory() as tmp:
+                    case = fx.build_case(tmp, artifact_specs={2: [{"artifact_id": leaky}]})
+                    code, out, err = run_cli(*_argv(case))
+                self.assertEqual(code, 14)
+                self.assertIn("GATE_EVIDENCE_INVALID_VALUE", err)
+                self.assertNotIn(leaky, out + err)
+                self.assertNotIn("evaluation_status", out)  # kein Report
+                self.assertNotIn("Traceback", err)
+
+    def test_schema_1_0_rejected_via_cli(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            case = fx.build_case(
+                tmp, evidence_overrides={"evidence_schema_version": "1.0"})
+            code, out, err = run_cli(*_argv(case))
+        self.assertEqual(code, 14)
+        self.assertIn("GATE_EVIDENCE_SCHEMA_UNSUPPORTED", err)
+        self.assertNotIn("evaluation_status", out)
+
+    def test_report_has_new_fields(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            code, out, _ = run_cli(*_argv(fx.build_case(tmp), as_json=True))
+        self.assertEqual(code, 14)
+        parsed = json.loads(out)
+        for field in ("evidence_contract_revision", "evidence_contract_sha256",
+                      "validated_artifact_count", "invalid_artifact_count",
+                      "stale_artifact_count", "conflicting_artifact_count"):
+            self.assertIn(field, parsed)
+        self.assertRegex(parsed["evidence_contract_sha256"], r"\A[0-9a-f]{64}\Z")
+        self.assertEqual(parsed["evidence_contract_revision"], "2.0")
+
+    def test_report_counts_and_no_artifact_leak(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            case = fx.build_case(tmp, artifact_specs={
+                2: [{}],
+                4: [{"corrupt_hash": True}],
+                6: [{}, {"artifact_id": fx.ART_ID_B}],
+            })
+            code, out, err = run_cli(*_argv(case, as_json=True))
+        parsed = json.loads(out)
+        self.assertEqual(parsed["validated_artifact_count"], 1)
+        self.assertEqual(parsed["invalid_artifact_count"], 1)
+        self.assertEqual(parsed["conflicting_artifact_count"], 2)
+        combined = out + err
+        # Keine Artefakt-IDs, keine Rohartefakt-Metadaten im Report.
+        self.assertNotIn(fx.ART_ID_A, combined)
+        self.assertNotIn(fx.ART_ID_B, combined)
+        self.assertNotIn("producer_class", combined)
+        self.assertNotIn("binding_sha256", combined)
+        self.assertNotIn("artifact_sha256", combined)
+
+    def test_json_still_canonical_with_artifacts(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            case = fx.build_case(tmp, artifact_specs={3: [{}]})
+            a = run_cli(*_argv(case, as_json=True))
+            b = run_cli(*_argv(case, as_json=True))
+        self.assertEqual(a, b)
+        parsed = json.loads(a[1])
+        self.assertEqual(a[1].strip(), json.dumps(parsed, indent=2, sort_keys=True))
+
+    def test_activation_check_still_exit_13(self) -> None:
+        # WP-015 unverändert: `activation-check` verweigert weiter (Exit 13).
+        with tempfile.TemporaryDirectory() as tmp:
+            case = fx.build_case(tmp)
+            code, _, _ = run_cli(
+                "source-mapping", "activation-check",
+                "--draft", str(case["draft_path"]),
+                "--policy", str(case["policy_path"]),
+                "--registry", str(case["root"]),
+                "--source-id", case["source_id"],
+                "--synthetic-test-only",
+            )
+        self.assertEqual(code, EXIT_CODES[ExitCode.SOURCE_MAPPING_ACTIVATION_BLOCKED])
+        self.assertEqual(code, 13)
+
+
 if __name__ == "__main__":  # pragma: no cover
     unittest.main()

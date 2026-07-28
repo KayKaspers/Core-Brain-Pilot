@@ -273,6 +273,128 @@ class TestMappingIdContract(unittest.TestCase):
             self.assertEqual(case["draft_path"].read_bytes(), before)
 
 
+def _by_id(report) -> dict[int, str]:
+    return {o.criterion_id: o.result.value for o in report.criterion_results}
+
+
+class TestArtifactEvidence(unittest.TestCase):
+    """CBP-WP-017 — negative-evidence integration + Zähler + Mutationsschutz."""
+
+    def _eval_with(self, artifact_specs, *, evidence_revision=1):
+        with tempfile.TemporaryDirectory() as tmp:
+            case = fx.build_case(
+                tmp, artifact_specs=artifact_specs, evidence_revision=evidence_revision
+            )
+            return _evaluate(case)
+
+    # -- §20.7 negative-only: gültige Artefakte werten nie positiv auf --------
+    def test_valid_artifact_does_not_upgrade(self) -> None:
+        # Basisergebnis je Kriterium ohne Artefakt.
+        base = _by_id(self._eval_with({}))
+        for cid in (2, 5, 15, 16, 18, 19, 20):
+            with self.subTest(criterion=cid):
+                res = _by_id(self._eval_with({cid: [{}]}))
+                self.assertEqual(res[cid], base[cid])
+
+    def test_missing_artifact_keeps_base(self) -> None:
+        res = _by_id(self._eval_with({}))
+        self.assertEqual(res[2], "SATISFIED")
+        self.assertEqual(res[16], "HUMAN_DECISION_REQUIRED")
+        self.assertEqual(res[18], "MISSING_EVIDENCE")
+
+    # -- negative Überschreibung ---------------------------------------------
+    def test_invalid_overrides_satisfied(self) -> None:
+        res = _by_id(self._eval_with({2: [{"corrupt_hash": True}]}))
+        self.assertEqual(res[2], "INVALID_EVIDENCE")
+
+    def test_stale_overrides(self) -> None:
+        res = _by_id(self._eval_with(
+            {3: [{"binding_override": {"mapping_policy_sha256": "a" * 64}}]}))
+        self.assertEqual(res[3], "STALE_EVIDENCE")
+
+    def test_conflict_overrides(self) -> None:
+        res = _by_id(self._eval_with(
+            {6: [{}, {"artifact_id": fx.ART_ID_B}]}))
+        self.assertEqual(res[6], "CONFLICTING_EVIDENCE")
+
+    def test_producer_class_mismatch_is_invalid(self) -> None:
+        res = _by_id(self._eval_with(
+            {4: [{"producer_class": "operator-review-form"}]}))
+        self.assertEqual(res[4], "INVALID_EVIDENCE")
+
+    # -- §20.4 Stale je Bindungskomponente -----------------------------------
+    def test_stale_binding_each_component(self) -> None:
+        overrides = [
+            {"source_id": "src-ffffffffffffffffffffffff"},
+            {"mapping_id": "MAP-OTHER"},
+            {"mapping_draft_sha256": "1" * 64},
+            {"mapping_policy_sha256": "2" * 64},
+            {"registry_record_sha256": "3" * 64},
+            {"gate_contract_revision": "9.9"},
+            {"gate_contract_sha256": "4" * 64},
+            {"evidence_contract_revision": "9.9"},
+            {"evidence_contract_sha256": "5" * 64},
+            {"evidence_revision": 99},
+        ]
+        for ov in overrides:
+            with self.subTest(component=next(iter(ov))):
+                res = _by_id(self._eval_with({7: [{"binding_override": ov}]}))
+                self.assertEqual(res[7], "STALE_EVIDENCE")
+
+    def test_stale_evidence_revision(self) -> None:
+        res = _by_id(self._eval_with({8: [{"art_rev": 2}]}, evidence_revision=1))
+        self.assertEqual(res[8], "STALE_EVIDENCE")
+
+    # -- §20.8 Zähler ---------------------------------------------------------
+    def test_counts(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            case = fx.build_case(tmp, artifact_specs={
+                2: [{}],                                  # validated
+                4: [{"corrupt_hash": True}],              # invalid
+                3: [{"binding_override": {"mapping_policy_sha256": "a" * 64}}],  # stale
+                6: [{}, {"artifact_id": fx.ART_ID_B}],    # conflict (2)
+            })
+            report = _evaluate(case)
+        self.assertEqual(report.validated_artifact_count, 1)
+        self.assertEqual(report.invalid_artifact_count, 1)
+        self.assertEqual(report.stale_artifact_count, 1)
+        self.assertEqual(report.conflicting_artifact_count, 2)
+        self.assertEqual(report.evidence_count, 5)  # total geladen
+
+    def test_identical_duplicates_counted_once(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            case = fx.build_case(tmp, artifact_specs={5: [{}, {}, {}]})
+            report = _evaluate(case)
+        self.assertEqual(report.validated_artifact_count, 1)
+        self.assertEqual(report.conflicting_artifact_count, 0)
+
+    # -- §20.9 Mutationsschutz ------------------------------------------------
+    def test_inputs_not_mutated_and_no_new_files(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            case = fx.build_case(tmp, artifact_specs={2: [{}], 4: [{"corrupt_hash": True}]})
+            ev_before = case["evidence_path"].read_bytes()
+            draft_before = case["draft_path"].read_bytes()
+            reg_before = _hash_tree(case["root"])
+            tree_before = sorted(p.name for p in Path(tmp).iterdir())
+            _evaluate(case)
+            self.assertEqual(case["evidence_path"].read_bytes(), ev_before)
+            self.assertEqual(case["draft_path"].read_bytes(), draft_before)
+            self.assertEqual(_hash_tree(case["root"]), reg_before)
+            self.assertEqual(sorted(p.name for p in Path(tmp).iterdir()), tree_before)
+
+    # -- Determinismus / Reihenfolgeunabhängigkeit ---------------------------
+    def test_deterministic_and_order_independent(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            a = fx.build_case(tmp, artifact_specs={6: [{"artifact_id": fx.ART_ID_A},
+                                                       {"artifact_id": fx.ART_ID_B}]})
+            first = canonical_json_bytes(_evaluate(a).to_dict())
+        with tempfile.TemporaryDirectory() as tmp:
+            b = fx.build_case(tmp, artifact_specs={6: [{"artifact_id": fx.ART_ID_B},
+                                                       {"artifact_id": fx.ART_ID_A}]})
+            second = canonical_json_bytes(_evaluate(b).to_dict())
+        self.assertEqual(first, second)
+
+
 def _hash_tree(root: Path) -> list[tuple[str, str]]:
     result: list[tuple[str, str]] = []
     for path in sorted(root.rglob("*")):

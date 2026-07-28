@@ -108,32 +108,51 @@ Human-Evidenz ist ein Test-Fixture **ohne** A0-Autorität.
   (`NOT EVALUATED`) sind **keine** direkten Gate-Kriterien; sie wirken indirekt
   über die abhängigen Punkte 4–11, 17.
 
-## Eingabemodell und Bindung
+## Eingabemodell und Bindung (Evidence-Vertrag 2.0, CBP-WP-017)
 
-Das geschlossene, versionierte Evidenz-Bundle bindet: `source_id`, `mapping_id`,
-`gate_contract_revision`, `evidence_revision`, `mapping_draft_sha256`,
-`mapping_policy_sha256`, `registry_record_sha256`, `synthetic_test_only` und die
-geschlossene Kriterien-Evidenzliste (20 Einträge, `evidence_ref` = `null` oder
-synthetischer Marker). Fail-closed: BOM, ungültiges UTF-8, kein Objekt,
-doppelte Schlüssel, `NaN`/`Infinity`, unbekannte/fehlende Felder, unbekannte
-Version, nicht synthetisch, reale Pfade/URLs/Secrets werden abgewiesen.
+Das geschlossene, versionierte **Evidence-Bundle 2.0** bindet `source_id`,
+`mapping_id`, `gate_contract_revision`, `evidence_contract_revision`,
+`evidence_revision`, `mapping_draft_sha256`, `mapping_policy_sha256`,
+`registry_record_sha256`, `synthetic_test_only` und `criterion_evidence` (20
+Einträge `{criterion, artifacts}` mit **eingebetteten strukturierten
+Artefakten**). Vollständig in
+[SYNTHETIC_EVIDENCE_CONTRACT.md](SYNTHETIC_EVIDENCE_CONTRACT.md). **Schema 1.0**
+und unbekannte Versionen werden **fail-closed** abgewiesen; ferner BOM,
+ungültiges UTF-8, kein Objekt, doppelte Schlüssel, `NaN`/`Infinity`,
+unbekannte/fehlende Felder, nicht synthetisch (Bundle **und** Artefakt), reale
+Pfade/URLs/Secrets, ungültige IDs/Hashes/Producer-Klassen, > 4 Artefakte je
+Kriterium, > 80 gesamt, Überlänge.
 
 **Bindungs-Blocker (`GATE-BIND-*`):** Draft nicht `VALID_DRAFT`, Registry nicht
 gebunden, Source nicht `REGISTERED_DISABLED`, Draft-/Policy-/Record-Hash-Mismatch,
 Source-ID-/Mapping-ID-/Vertragsrevisions-Mismatch. `mapping_id` wird nur
 **validiert**, nie erzeugt, normalisiert oder ersetzt.
 
+**Artefakt-Verdikte (`GATE-EVID-*`, rein negativ):** je Kriterium leitet der
+Dienst aus seinen Artefakten ein **rein negatives** Verdikt ab —
+`INVALID_EVIDENCE` (Integrität/Klassenzuordnung), `CONFLICTING_EVIDENCE`
+(mehrere widersprüchliche, dedupliziert, keine Auto-Auflösung),
+`STALE_EVIDENCE` (Bindung/Revision veraltet, **ohne Uhr**). Priorität
+`INVALID > CONFLICTING > STALE > Basisergebnis`. Ein formal gültiges, aktuelles
+Artefakt **wertet nie positiv auf** (`SATISFIED` unverändert; 5/16/20 bleiben
+`HUMAN_DECISION_REQUIRED`; 15/18/19 bleiben `MISSING_EVIDENCE`). Damit sind die
+Ergebnisse `INVALID_/STALE_/CONFLICTING_EVIDENCE` — in WP-016 nur modelliert —
+nun **deterministisch erreichbar**.
+
 ## Report (A6, deterministisch, minimiert, nicht persistent)
 
 Felder: `report_schema_version`, `source_id`, `mapping_id`,
 `mapping_draft_sha256`, `mapping_policy_sha256`, `registry_record_sha256`,
-`gate_contract_revision`, `gate_contract_sha256`, `evaluation_status`,
-`criterion_results` (20, feste Ordnung), `blocker_codes`/`blocker_count`,
+`gate_contract_revision`, `gate_contract_sha256`, **`evidence_contract_revision`,
+`evidence_contract_sha256`** (WP-017), `evaluation_status`, `criterion_results`
+(20, feste Ordnung), `blocker_codes`/`blocker_count`,
 `missing_evidence_codes`/`_count`, `human_decision_codes`/`_count`,
-`evidence_count`, `implementation_version`. **Keine** Uhr/Datum/Zufall, **keine**
-Pfade, URLs, Locators, `source_reference`, Snippets, Secrets, Notes. Code-Listen
-sortiert und dedupliziert; Hashes über kanonische Darstellung; JSON mit
-sortierten Schlüsseln.
+`evidence_count`, **`validated_/invalid_/stale_/conflicting_artifact_count`**
+(WP-017, deduplizierte Zähler), `implementation_version`. **Keine** Uhr/Datum/
+Zufall, **keine** Pfade, URLs, Locators, `source_reference`, `artifact_id`,
+Rohartefakte, Producer-Personen, Snippets, Secrets, Notes. Code-Listen sortiert
+und dedupliziert; Hashes über kanonische Darstellung; JSON mit sortierten
+Schlüsseln. Die neuen Felder sind reine **A6-Diagnose** und autorisieren nichts.
 
 **Feste Semantik:** `evaluation_status` ist **niemals** eine Gatefreigabe oder
 Aktivierungsautorisierung; der Report besitzt ausschließlich **A6**-Autorität

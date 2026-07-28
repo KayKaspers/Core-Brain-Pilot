@@ -19,12 +19,14 @@ Source-Inhalt, keine Persistenz.
 | --- | --- | --- |
 | 1 | `py -3.13 --version` | **Python 3.13.14** |
 | 2 | `py -3.13 -m compileall core tests` | Exit 0 |
-| 3 | `py -3.13 -m unittest discover -v` | **EXIT=0**, **Ran 398 tests**, **OK** |
+| 3 | `py -3.13 -m unittest discover -v` | **EXIT=0**, **Ran 451 tests**, **OK** |
 
-Die **tatsächliche Testzahl** ist ausschließlich `Ran 398 tests` entnommen. Die
-Basislinie von **315** (CBP-WP-015) bleibt grün; CBP-WP-016 fügt **+83**
-additive Gate-Tests hinzu (398 > 315), davon der `mapping_id`-Fail-Closed-
-Vertrag (B.2) als eigene Regressionsklasse.
+Die **tatsächliche Testzahl** ist ausschließlich `Ran 451 tests` entnommen. Die
+Basislinie von **398** (CBP-WP-016) bleibt grün; CBP-WP-017 fügt **+53**
+additive Tests hinzu (451 > 398) — Evidence-Schema 2.0, Artefakt-/Binding-Hash,
+Provenance-Verdikte (Invalid/Conflict/Stale), negative-evidence-only, Report-
+und Leak-Schutz. Der **Evidence-Vertrag 2.0** ist vollständig in
+[SYNTHETIC_EVIDENCE_CONTRACT.md](SYNTHETIC_EVIDENCE_CONTRACT.md) beschrieben.
 
 ## CLI-SMOKE (echte Subprozesse, erfasste Exitcodes)
 

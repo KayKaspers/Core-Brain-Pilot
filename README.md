@@ -28,8 +28,8 @@ vorgesehene, **noch nicht implementierte** Anwendungslaufzeit.
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Aktuelles Work Package | **keines aktiv** — zuletzt abgeschlossen **CBP-WP-016** (`committed`, `04c427c`, D-050) |
-| Nächster Schritt | **keiner autorisiert** — CBP-WP-016 committed (`04c427c`); CBP-WP-017 nicht vorgeschlagen |
+| Aktuelles Work Package | **CBP-WP-017** (`in-review`) — zuletzt abgeschlossen **CBP-WP-016** (`committed`, `04c427c`); implementiert (D-051), **nicht committet** |
+| Nächster Schritt | **CBP-WP-017 in-review** — Evidence-Contract 2.0 implementiert (D-051), wartet auf Human-Review/Commit; **kein Commit ausgeführt** |
 | **Gate G0** | **PASSED WITH NOTES** — 2026-07-21, A0 |
 | Phase-1-Planung | **Streams F1–F5 geplant**, [Foundation Plan](docs/roadmap/PHASE_1_FOUNDATION_PLAN.md) |
 | **Repository-Struktur** | **entschieden** — [ADR-0007](docs/decisions/ADR-0007-repository-und-workspace-grenze.md); **Migration nicht autorisiert** |
@@ -39,7 +39,8 @@ vorgesehene, **noch nicht implementierte** Anwendungslaufzeit.
 | **Ingest-Quarantäne MVP** | **lokaler Prototyp** — [INGEST_QUARANTINE_MVP.md](docs/runtime/INGEST_QUARANTINE_MVP.md), [ADR-0010](docs/decisions/ADR-0010-ingest-quarantaene-mvp.md); synthetic-only, fail-closed, **keine Promotion**; **nicht produktiv** |
 | **Source-Registry MVP** | **lokaler Prototyp** — [SOURCE_REGISTRY_MVP.md](docs/runtime/SOURCE_REGISTRY_MVP.md), [ADR-0011](docs/decisions/ADR-0011-deterministische-source-registry.md); synthetic-only, fail-closed, **deaktiviert**, `activate` verweigert; **nicht produktiv** |
 | **Source-Mapping-Draft-Validator MVP** | **lokaler Prototyp** — [SOURCE_MAPPING_DRAFT_VALIDATOR.md](docs/runtime/SOURCE_MAPPING_DRAFT_VALIDATOR.md), [ADR-0012](docs/decisions/ADR-0012-source-mapping-draft-validator.md); synthetic-only, read-only, fail-closed, 31-Feld-Vertrag, externe read-only Registry-Bindung, `activation-check` verweigert; **nicht produktiv** |
-| **Mapping-Activation-Gate-Evaluator MVP** | **lokaler Prototyp** — [MAPPING_ACTIVATION_GATE_EVALUATOR.md](docs/runtime/MAPPING_ACTIVATION_GATE_EVALUATOR.md) (CBP-WP-016, D-050); synthetic-only, read-only, nicht persistent, fail-closed; **20 Gate-Kriterien**, Ausgabestatus nur `NOT_EVALUATED`/`BLOCKED`, `activation-evaluate` endet immer `BLOCKED` (Exit 14); **315 → 398 Tests**, **nicht produktiv** |
+| **Mapping-Activation-Gate-Evaluator MVP** | **lokaler Prototyp** — [MAPPING_ACTIVATION_GATE_EVALUATOR.md](docs/runtime/MAPPING_ACTIVATION_GATE_EVALUATOR.md) (CBP-WP-016, D-050); synthetic-only, read-only, nicht persistent, fail-closed; **20 Gate-Kriterien**, Ausgabestatus nur `NOT_EVALUATED`/`BLOCKED`, `activation-evaluate` endet immer `BLOCKED` (Exit 14); **nicht produktiv** |
+| **Synthetic Evidence Contract 2.0 MVP** | **lokaler Prototyp** — [SYNTHETIC_EVIDENCE_CONTRACT.md](docs/runtime/SYNTHETIC_EVIDENCE_CONTRACT.md) (CBP-WP-017, D-051, `in-review`); Schema 2.0 mit eingebetteten Artefakten, Provenance-/Binding-Hashes, deterministische Invalid-/Stale-/Conflict-Erkennung, **negative-evidence-only**; Schema 1.0 fail-closed; **315 → 451 Tests**, **nicht produktiv** |
 | Implementierte Capabilities | **keine (0 von 29)** — Capability 2/3/5/6/7 bleiben nicht vollständig `implemented` |
 | Angenommene ADRs | **12** |
 | Framework | Nova Development Framework v1.0.0 |

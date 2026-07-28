@@ -1,22 +1,30 @@
-"""Reine Kernlogik des Mapping-Activation-Gate-Evaluators (CBP-WP-016).
+"""Reine Kernlogik des Mapping-Activation-Gate-Evaluators (CBP-WP-016/017).
 
 Diese Schicht ist **rein**: sie öffnet **keine** Dateien, baut **keine**
 Verbindungen auf, liest **keine** Uhr, erzeugt **keinen** Zufall und verändert
-**nichts**. Sie bildet aus dem Draft-Validitätszustand, dem Allowlist-Zustand
-und den Bindungs-Blockern die 20 Kriterienresultate und einen deterministischen
-Report.
+**nichts**. Sie bildet aus dem Draft-Validitätszustand, dem Allowlist-Zustand,
+den Bindungs-Blockern und den **ausschließlich negativen** Artefaktverdikten die
+20 Kriterienresultate und einen deterministischen Report.
+
+Human-only decisions: **5, 16, 20** (`HUMAN_DECISION_REQUIRED`).
+Human-produced operational evidence: **15**.
+Additional operational evidence: **18, 19**.
+Diese Kriterien werden durch synthetische Artefakte **nie positiv** erfüllt;
+ein Artefakt kann ein Ergebnis höchstens **negativ** überschreiben
+(``INVALID_EVIDENCE``/``CONFLICTING_EVIDENCE``/``STALE_EVIDENCE``).
 
 Der synthetische MVP endet **immer** ``BLOCKED``. ``NOT_EVALUATED`` beschreibt
 ausschließlich den nicht ausgeführten Zustand und wird hier **nicht** erzeugt.
-Human-only-Kriterien (5, 15, 16, 20) gelten **nie** als erfüllt; synthetische
-Human-Evidenz hat keine A0-Autorität.
 
 Der Import dieses Moduls hat keine Nebenwirkungen.
 """
 
 from __future__ import annotations
 
+from typing import Final
+
 from .models import (
+    EVIDENCE_CONTRACT_REVISION,
     GATE_CONTRACT_REVISION,
     GATE_CRITERIA,
     REPORT_SCHEMA_VERSION,
@@ -26,16 +34,27 @@ from .models import (
     GateEvaluationReport,
     GateReasonCode,
     GateStatus,
+    evidence_contract_sha256,
     gate_contract_sha256,
 )
 
 __all__ = ["evaluate_criteria", "build_report"]
 
+# Rein negative Faltung: ausschließlich diese Ergebnisse dürfen ein bestehendes
+# Kriterienergebnis überschreiben. Eine positive Aufwertung ist **ausgeschlossen**.
+_NEGATIVE_OVERRIDES: Final[frozenset[CriterionResult]] = frozenset(
+    {
+        CriterionResult.INVALID_EVIDENCE,
+        CriterionResult.CONFLICTING_EVIDENCE,
+        CriterionResult.STALE_EVIDENCE,
+    }
+)
+
 
 def _result_for(
     criterion: Criterion, *, draft_valid: bool, allowed_subpaths_nonempty: bool
 ) -> CriterionResult:
-    """Bestimmt das deterministische MVP-Resultat eines Kriteriums."""
+    """Bestimmt das deterministische Basis-MVP-Resultat eines Kriteriums."""
     if criterion.mvp_result is not None:
         return criterion.mvp_result
     # Aus Draft/Bindung abgeleitete Kriterien.
@@ -54,22 +73,31 @@ def _result_for(
 
 
 def evaluate_criteria(
-    *, draft_valid: bool, allowed_subpaths_nonempty: bool
+    *,
+    draft_valid: bool,
+    allowed_subpaths_nonempty: bool,
+    evidence_overrides: dict[int, CriterionResult] | None = None,
 ) -> tuple[CriterionOutcome, ...]:
-    """Bewertet die 20 Kriterien in fester Reihenfolge 1..20."""
-    return tuple(
-        CriterionOutcome(
-            criterion_id=c.criterion_id,
-            code=c.code,
-            nachweisstufe=c.nachweisstufe,
-            result=_result_for(
-                c,
-                draft_valid=draft_valid,
-                allowed_subpaths_nonempty=allowed_subpaths_nonempty,
-            ),
+    """Bewertet die 20 Kriterien in fester Reihenfolge 1..20 (negativ gefaltet)."""
+    overrides = evidence_overrides or {}
+    outcomes: list[CriterionOutcome] = []
+    for c in GATE_CRITERIA:
+        base = _result_for(
+            c,
+            draft_valid=draft_valid,
+            allowed_subpaths_nonempty=allowed_subpaths_nonempty,
         )
-        for c in GATE_CRITERIA
-    )
+        override = overrides.get(c.criterion_id)
+        result = override if override in _NEGATIVE_OVERRIDES else base
+        outcomes.append(
+            CriterionOutcome(
+                criterion_id=c.criterion_id,
+                code=c.code,
+                nachweisstufe=c.nachweisstufe,
+                result=result,
+            )
+        )
+    return tuple(outcomes)
 
 
 def build_report(
@@ -82,6 +110,11 @@ def build_report(
     outcomes: tuple[CriterionOutcome, ...],
     binding_blockers: list[GateReasonCode],
     evidence_count: int,
+    evidence_blockers: list[GateReasonCode] | None = None,
+    validated_artifact_count: int = 0,
+    invalid_artifact_count: int = 0,
+    stale_artifact_count: int = 0,
+    conflicting_artifact_count: int = 0,
 ) -> GateEvaluationReport:
     """Baut den deterministischen, minimierten A6-Report (immer ``BLOCKED``)."""
     criterion_blockers = [
@@ -98,7 +131,10 @@ def build_report(
         )
     )
     binding_codes = [b.value for b in binding_blockers]
-    blocker_codes = tuple(sorted(set(criterion_blockers) | set(binding_codes)))
+    evidence_codes = [b.value for b in (evidence_blockers or [])]
+    blocker_codes = tuple(
+        sorted(set(criterion_blockers) | set(binding_codes) | set(evidence_codes))
+    )
 
     # Ausgeführte Evaluation: niemals NOT_EVALUATED, niemals READY/APPROVED.
     # Im MVP existiert stets mindestens ein blockierendes Kriterium.
@@ -113,6 +149,8 @@ def build_report(
         registry_record_sha256=registry_record_sha256,
         gate_contract_revision=GATE_CONTRACT_REVISION,
         gate_contract_sha256=gate_contract_sha256(),
+        evidence_contract_revision=EVIDENCE_CONTRACT_REVISION,
+        evidence_contract_sha256=evidence_contract_sha256(),
         evaluation_status=status,
         criterion_results=outcomes,
         blocker_codes=blocker_codes,
@@ -122,4 +160,8 @@ def build_report(
         human_decision_codes=human,
         human_decision_count=len(human),
         evidence_count=evidence_count,
+        validated_artifact_count=validated_artifact_count,
+        invalid_artifact_count=invalid_artifact_count,
+        stale_artifact_count=stale_artifact_count,
+        conflicting_artifact_count=conflicting_artifact_count,
     )

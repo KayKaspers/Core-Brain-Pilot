@@ -120,6 +120,27 @@ unverändert; `activation-evaluate` endet immer `BLOCKED`. **Kein** Gate
 ausgeführt, **keine** Aktivierung, **kein** gespeichertes Ergebnis. **R-33 bleibt
 offen.**
 
+## Lokale Synthetic-Evidence-Contract-Bausteine (CBP-WP-017)
+
+CBP-WP-017 hat einen geschlossenen, deterministischen, **synthetic-only**
+Evidence-Vertrag **2.0** mit eingebetteten strukturierten Artefakten erstellt und
+getestet (**451 Tests bestanden**, Basislinie WP-016: 398). Er setzt **keine**
+Produkt-Capability vollständig um: synthetische Evidenz erfüllt **kein**
+Kriterium, sie kann Ergebnisse nur **negativ** überschreiben.
+
+| Baustein | Status | Evidenz |
+| --- | --- | --- |
+| Evidence-Schema 2.0 + Artefaktmodell (fail-closed) | **implemented locally** | `gate/evidence.py`, `test_gate_evidence.py` |
+| Kanonische Artefakt-/Binding-/Contract-Hashes + Verdikt | **implemented locally** | `gate/provenance.py`, `test_gate_provenance.py` |
+| Negative-evidence-only Faltung (Invalid/Stale/Conflict) | **implemented locally** | `gate/evaluator.py`, `gate/service.py`, `test_gate_service.py` |
+| Minimal erweiterter A6-Report (6 Felder, leak-frei) | **implemented locally** | `gate/models.py`, `test_gate_cli.py` |
+
+**Kein Deploymentnachweis, keine Kontrolle, keine reale/operative Evidenz, kein
+RT-2, keine Persistenz, keine Aktivierung, keine Gatefreigabe.** Producer-Klasse
+`human-decision-form` (16/20) modelliert nur die Form; 5/16/20 bleiben
+`HUMAN_DECISION_REQUIRED`, 15/18/19 bleiben `MISSING_EVIDENCE`. **Product
+Capabilities implemented bleibt 0 von 29.** **R-33 bleibt offen.**
+
 ## Zuordnung zu geplanten Work Packages
 
 | Capability | Geplant in | Status bleibt |

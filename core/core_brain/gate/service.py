@@ -32,11 +32,17 @@ from ..mapping.validator import _path_url_reason, mapping_id_of
 from .evaluator import build_report, evaluate_criteria
 from .evidence import EvidenceBundle, load_evidence
 from .models import (
+    EVIDENCE_CONTRACT_REVISION,
     GATE_CONTRACT_REVISION,
+    GATE_CRITERIA,
+    CriterionResult,
     GateEvaluationReport,
     GateReasonCode,
     canonical_json_bytes,
+    evidence_contract_sha256,
+    gate_contract_sha256,
 )
+from .provenance import canonical_binding_sha256, evaluate_criterion_artifacts
 
 __all__ = ["run_activation_evaluate"]
 
@@ -171,8 +177,47 @@ def run_activation_evaluate(
         registry_record_sha256=registry_record_sha256,
     )
 
+    # CBP-WP-017 — je Kriterium: erwartete Bindung (aktueller Snapshot),
+    # rein negatives Artefaktverdikt und Artefaktzählung. Kein Uhrbezug,
+    # keine positive Erfüllung, keine Persistenz.
+    gate_sha = gate_contract_sha256()
+    evidence_sha = evidence_contract_sha256()
+    evidence_overrides: dict[int, CriterionResult] = {}
+    evidence_blockers: list[GateReasonCode] = []
+    validated = invalid = stale = conflicting = 0
+    for criterion in GATE_CRITERIA:
+        cid = criterion.criterion_id
+        expected_binding = canonical_binding_sha256(
+            source_id=source_id,
+            mapping_id=mapping_id,
+            criterion=cid,
+            mapping_draft_sha256=draft_sha256,
+            mapping_policy_sha256=policy.policy_sha256,
+            registry_record_sha256=registry_record_sha256,
+            gate_contract_revision=GATE_CONTRACT_REVISION,
+            gate_contract_sha256=gate_sha,
+            evidence_contract_revision=EVIDENCE_CONTRACT_REVISION,
+            evidence_contract_sha256=evidence_sha,
+            evidence_revision=evidence.evidence_revision,
+        )
+        ce = evaluate_criterion_artifacts(
+            cid,
+            evidence.criterion_artifacts.get(cid, ()),
+            expected_binding_sha256=expected_binding,
+            bundle_evidence_revision=evidence.evidence_revision,
+        )
+        if ce.override is not None:
+            evidence_overrides[cid] = ce.override
+        evidence_blockers.extend(ce.reason_codes)
+        validated += ce.validated_count
+        invalid += ce.invalid_count
+        stale += ce.stale_count
+        conflicting += ce.conflicting_count
+
     outcomes = evaluate_criteria(
-        draft_valid=draft_valid, allowed_subpaths_nonempty=allowed_nonempty
+        draft_valid=draft_valid,
+        allowed_subpaths_nonempty=allowed_nonempty,
+        evidence_overrides=evidence_overrides,
     )
 
     return build_report(
@@ -183,7 +228,12 @@ def run_activation_evaluate(
         registry_record_sha256=registry_record_sha256,
         outcomes=outcomes,
         binding_blockers=binding,
-        evidence_count=evidence.provided_evidence_count,
+        evidence_count=evidence.total_artifact_count,
+        evidence_blockers=evidence_blockers,
+        validated_artifact_count=validated,
+        invalid_artifact_count=invalid,
+        stale_artifact_count=stale,
+        conflicting_artifact_count=conflicting,
     )
 
 

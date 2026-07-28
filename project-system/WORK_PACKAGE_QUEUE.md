@@ -3,7 +3,7 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Aktuelles Work Package | **keines aktiv** — zuletzt abgeschlossen **CBP-WP-016** (`committed`, `04c427c`) |
+| Aktuelles Work Package | **CBP-WP-017** (`in-review`) — zuletzt abgeschlossen **CBP-WP-016** (`committed`, `04c427c`) |
 | Gate G0 | **PASSED WITH NOTES** — 2026-07-21 |
 | Überarbeitet in | **CBP-WP-016** |
 | Autoritätsklasse | A2 |
@@ -43,13 +43,14 @@ Spalten nach `WORK_PACKAGE_QUEUE_TEMPLATE.md` (NDF v1.0.0).
 | CBP-WP-014 | **Deterministic Source Registry and Catalog** | P1 | **`committed`** | [work-packages/CBP-WP-014.md](../work-packages/CBP-WP-014.md) |
 | CBP-WP-015 | **Deterministic Source Mapping Draft Validator** | P1 | **`committed`** | [work-packages/CBP-WP-015.md](../work-packages/CBP-WP-015.md) |
 | CBP-WP-016 | **Deterministic Mapping Activation Gate Evaluator** | P1 | **`committed`** | [work-packages/CBP-WP-016.md](../work-packages/CBP-WP-016.md) |
+| CBP-WP-017 | **Synthetic Evidence Contract & Provenance Foundation** | P1 | **`in-review`** | [work-packages/CBP-WP-017.md](../work-packages/CBP-WP-017.md) |
 
-**Kein Work Package ist als `proposed` geführt.** CBP-WP-016 (Deterministic
-Mapping Activation Gate Evaluator) ist **`committed`** (`04c427c`, A0-Freigabe
-D-050) und mit `origin/main` synchron. CBP-WP-015 ist `committed` (`645ccb1`);
-CBP-WP-014 ist `committed` (`d0c0531`). **Kein** Work Package ist `active` oder
-`in-review`; **zuletzt abgeschlossen ist CBP-WP-016**. **CBP-WP-017 ist nicht
-Bestandteil und nicht vorgeschlagen.**
+**Kein Work Package ist als `proposed` geführt.** CBP-WP-017 (Synthetic Evidence
+Contract & Provenance Foundation) steht auf **`in-review`** — unter A0-Freigabe
+**D-051** implementiert, **noch nicht committet**. CBP-WP-016 ist `committed`
+(`04c427c`, D-050) und mit `origin/main` synchron; CBP-WP-015 ist `committed`
+(`645ccb1`). Genau **ein** Work Package ist `active`/`in-review` (CBP-WP-017).
+**CBP-WP-018 ist nicht Bestandteil und nicht vorgeschlagen.**
 
 > **Titelkorrektur in CBP-WP-009.** Diese Übersichtstabelle trug bis dahin die
 > Titel eines verworfenen Entwurfs der Work-Package-Karte (009 „Repository and
@@ -392,6 +393,34 @@ Produktionsreife.** Capability-Stand unverändert **0 von 29**.
 > führte CBP-WP-016 zuvor als „**`in-review`. Commit nicht ausgeführt.**" — der
 > korrekte **Vor-Commit-Reviewstatus**. Er ist durch den belegten
 > `committed`-Zustand (`04c427c`, mit `origin/main` synchron) **abgelöst**.
+
+## CBP-WP-017
+
+| Feld | Wert |
+| --- | --- |
+| Titel | **Synthetic Evidence Contract & Provenance Foundation** |
+| Typ | **implementation** |
+| Prompt Mode | **Full** · Context Budget **B2 – Standard** |
+| Claude Code | Opus 4.8 (`claude-opus-4-8`), Effort **ultracode** |
+| Status | **`in-review`** |
+| Commit | **nicht** ausgeführt (Commit-Autorität beim Human Maintainer) |
+| A0-Entscheidung | **D-051** (APPROVE WITH NOTES; A2/B1/C2/D1/E2) |
+
+Ergebnis: **sechstes Artefakt mit technischer Wirkung.** Human-Autorisierung
+**D-051**. Geschlossener, deterministischer, **synthetic-only** Evidence-Vertrag
+**2.0** mit eingebetteten strukturierten Artefakten: **neues Modul**
+`core/core_brain/gate/provenance.py`, erweiterte `evidence.py`/`evaluator.py`/
+`service.py`/`models.py`; Provenance-/Binding-Hashes, deterministische
+**Invalid-/Stale-/Conflict-Erkennung** (ohne Uhr), **negative-evidence-only**
+(keine positive Gate-Erfüllung), minimal erweiterter A6-Report (6 Felder).
+Schema **1.0 fail-closed**. Bestehender CLI-Pfad `activation-evaluate --evidence`
+unverändert (Exit 14); `activation-check` bleibt 13. **Python 3.13.14**, keine
+Abhängigkeiten, **451 Tests bestanden** (Basislinie WP-016: 398, weiterhin grün),
+**compileall OK**. **Kein neues ADR**; keine neue offene Entscheidung.
+
+**Keine reale/operative Evidenz, keine Evidence-Promotion, kein Gate ausgeführt/
+freigegeben, keine Aktivierung, kein RT-2, keine Persistenz, keine
+Produktionsreife.** Capability-Stand unverändert **0 von 29**.
 
 ---
 
