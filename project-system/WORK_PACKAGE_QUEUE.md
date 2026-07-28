@@ -3,9 +3,9 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Aktuelles Work Package | **keines aktiv** — zuletzt abgeschlossen **CBP-WP-015** (`committed`, `645ccb1`), nächstes vorgeschlagen **CBP-WP-016** (`proposed`) |
+| Aktuelles Work Package | **CBP-WP-016** (`in-review`) — zuletzt abgeschlossen **CBP-WP-015** (`committed`, `645ccb1`) |
 | Gate G0 | **PASSED WITH NOTES** — 2026-07-21 |
-| Überarbeitet in | **CBP-WP-015** |
+| Überarbeitet in | **CBP-WP-016** |
 | Autoritätsklasse | A2 |
 | Stand | 2026-07-27 |
 
@@ -42,14 +42,14 @@ Spalten nach `WORK_PACKAGE_QUEUE_TEMPLATE.md` (NDF v1.0.0).
 | CBP-WP-013 | **Ingest Quarantine Minimum Viable Pipeline** | P1 | **`committed`** | [work-packages/CBP-WP-013.md](../work-packages/CBP-WP-013.md) |
 | CBP-WP-014 | **Deterministic Source Registry and Catalog** | P1 | **`committed`** | [work-packages/CBP-WP-014.md](../work-packages/CBP-WP-014.md) |
 | CBP-WP-015 | **Deterministic Source Mapping Draft Validator** | P1 | **`committed`** | [work-packages/CBP-WP-015.md](../work-packages/CBP-WP-015.md) |
-| CBP-WP-016 | Deterministic Mapping Activation Gate Evaluator | P1 | `proposed` | noch nicht erstellt |
+| CBP-WP-016 | **Deterministic Mapping Activation Gate Evaluator** | P1 | **`in-review`** | [work-packages/CBP-WP-016.md](../work-packages/CBP-WP-016.md) |
 
-**Ein Work Package ist als `proposed` geführt** — CBP-WP-016 (Deterministic
-Mapping Activation Gate Evaluator). **Nicht freigegeben. Implementierung
-autorisiert: nein.** CBP-WP-015 ist `committed` (`645ccb1`, mit origin/main
-synchron); CBP-WP-014 ist `committed` (`d0c0531`). **Kein Work Package steht auf
-`active`.** CBP-WP-016 Phase A wurde noch **nicht** ausgeführt (die read-only
-Vorprüfung hielt vor der Reconciliation an).
+**Kein Work Package ist als `proposed` geführt.** CBP-WP-016 (Deterministic
+Mapping Activation Gate Evaluator) steht auf **`in-review`** — Phase A/A.1
+read-only abgeschlossen, Phase B unter A0-Freigabe (D-050) implementiert,
+**noch nicht committet**. CBP-WP-015 ist `committed` (`645ccb1`); CBP-WP-014 ist
+`committed` (`d0c0531`). Genau **ein** Work Package ist `active`/`in-review`
+(CBP-WP-016). **CBP-WP-017 ist nicht Bestandteil und nicht vorgeschlagen.**
 
 > **Titelkorrektur in CBP-WP-009.** Diese Übersichtstabelle trug bis dahin die
 > Titel eines verworfenen Entwurfs der Work-Package-Karte (009 „Repository and
@@ -359,6 +359,33 @@ bleiben **nicht** vollständig `implemented`.
 > autorisiert: nein.**". Das war der **Planungsstand vor** der späteren
 > A0-Implementierungsfreigabe und ist durch den belegten `committed`-Zustand
 > (`645ccb1`, Status-Reconciliation `8d715e7`) **abgelöst**.
+
+## CBP-WP-016
+
+| Feld | Wert |
+| --- | --- |
+| Titel | **Deterministic Mapping Activation Gate Evaluator** |
+| Typ | **implementation**, interactive authorization |
+| Prompt Mode | **Full** · Context Budget **B2 – Standard** |
+| Claude Code | Opus 4.8 (`claude-opus-4-8`), Effort **ultracode** |
+| Status | **`in-review`** |
+| Commit | **nicht** ausgeführt (Commit-Autorität beim Human Maintainer) |
+
+Ergebnis: **fünftes Artefakt mit technischer Wirkung.** Phase A/A.1 read-only
+abgeschlossen (Feasibility PASS WITH NOTES); Human-Autorisierung **D-050**:
+APPROVE WITH NOTES (A0), A1/B1-eng/C1/D1. Lokaler, synthetischer, **read-only**,
+nicht persistenter, fail-closed Evaluator der Review-Bereitschaft anhand der
+**20 kanonischen Gate-Kriterien**: **5 Gate-Module** (`core/core_brain/gate/`),
+CLI `source-mapping activation-evaluate`, neuer Exitcode **14**. Ausgabestatus
+ausschließlich `NOT_EVALUATED`/`BLOCKED`; `READY FOR ACTIVATION DECISION`,
+`APPROVED FOR ACTIVATION` und `REVOKED` sind **nicht** emittierbar. Security
+Foundation/DRC sind **keine** Kriterien 21/22. **Python 3.13.14**, keine
+Abhängigkeiten, **398 Tests bestanden** (Basislinie WP-015: 315, weiterhin grün).
+**Kein neues ADR**; keine neue offene Entscheidung.
+
+**Kein Gate ausgeführt, kein Gate freigegeben, kein Gate-Status geändert, keine
+Aktivierung, kein gespeichertes Ergebnis, keine reale Source, keine
+Produktionsreife.** Capability-Stand unverändert **0 von 29**.
 
 ---
 

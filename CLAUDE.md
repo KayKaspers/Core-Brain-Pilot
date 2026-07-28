@@ -132,7 +132,7 @@ nennen.
 | Phase | **Phase 0 – COMPLETE** |
 | **Gate G0** | **PASSED WITH NOTES** — 2026-07-21, A0 |
 | **Phase 1** | **AUTHORIZED FOR PLANNING** — keine Implementierung freigegeben |
-| Aktuelles Work Package | **keines aktiv** — zuletzt abgeschlossen CBP-WP-015 (`committed`, `645ccb1`), nächstes vorgeschlagen CBP-WP-016 (`proposed`) |
+| Aktuelles Work Package | **CBP-WP-016** (`in-review`) — zuletzt abgeschlossen CBP-WP-015 (`committed`, `645ccb1`); Phase B implementiert (D-050), **nicht committet** |
 | Core-Kriterien | 25 von 25 `accepted`, 0 `answered`, 0 `open`, 0 `blocked` |
 | Angenommene ADRs | **12** (A1) |
 | **Mappingkonvention** | **entschieden** — ADR-0008; **0 Mappings, 0 Quellen, Gate `NOT EVALUATED`** |
@@ -140,13 +140,14 @@ nennen.
 | **Runtime Skeleton** | **lokal implementiert** (CBP-WP-012) — Python-Standardbibliothek, `run` fail-closed, **nicht produktionsbereit** |
 | **Ingest-Quarantäne MVP** | **lokaler Prototyp** (CBP-WP-013, ADR-0010) — synthetic-only, fail-closed, content-addressed Store außerhalb Repo, **keine Promotion**; **nicht produktiv** |
 | **Source-Registry MVP** | **lokaler Prototyp** (CBP-WP-014, ADR-0011) — synthetic-only, fail-closed, **deaktiviert**, deterministische Source IDs, unveränderliche Records, append-only Retirement, minimierter Katalog; `activate` verweigert; **nicht produktiv** |
-| **Source-Mapping-Draft-Validator MVP** | **lokaler Prototyp** (CBP-WP-015, ADR-0012) — synthetic-only, read-only, fail-closed, **31-Feld-Vertrag** (29 Pflicht + 2 optional), externe read-only Registry-Bindung, `mapping_id` nur validiert, nicht persistierter Report; `activation-check` verweigert; **315 Tests**, **nicht produktiv** |
+| **Source-Mapping-Draft-Validator MVP** | **lokaler Prototyp** (CBP-WP-015, ADR-0012) — synthetic-only, read-only, fail-closed, **31-Feld-Vertrag** (29 Pflicht + 2 optional), externe read-only Registry-Bindung, `mapping_id` nur validiert, nicht persistierter Report; `activation-check` verweigert; **nicht produktiv** |
+| **Mapping-Activation-Gate-Evaluator MVP** | **lokaler Prototyp** (CBP-WP-016, D-050) — synthetic-only, read-only, nicht persistent, fail-closed; **20 Gate-Kriterien**, Ausgabestatus nur `NOT_EVALUATED`/`BLOCKED`; `READY FOR ACTIVATION DECISION`/`APPROVED FOR ACTIVATION`/`REVOKED` **nicht emittierbar**; `activation-evaluate` endet immer `BLOCKED` (Exit 14); Security Foundation/DRC keine Kriterien 21/22; **398 Tests**, **nicht produktiv** |
 | **Repository-Zielstruktur** | **entschieden** — Ziel-Monorepo (D-029, ADR-0007); **Migration nicht autorisiert** |
 | **Bereichsmodell** | **W-3** — privater Operator-Workspace außerhalb des Core-Repositorys (D-030); **nicht angelegt** |
 | **Veröffentlichung** | Core-Repository `publication-capable by design`, **bleibt privat** — Freigabe benötigt A0 (OD-11) |
 | DRC | **NOT EVALUATED** |
 | Benchmark | **entworfen, nicht ausgeführt** (Dataset 2.0.0) |
-| Technische Implementierung | **Skeleton + Quarantäne- + Registry- + Mapping-Draft-Validator-Prototyp lokal** (CBP-WP-012/013/014/015) — keine KB-Kontrolle durchgesetzt, keine Quelle angebunden, kein Mapping gespeichert, nichts aktiviert |
+| Technische Implementierung | **Skeleton + Quarantäne- + Registry- + Mapping-Draft-Validator- + Gate-Evaluator-Prototyp lokal** (CBP-WP-012/013/014/015/016) — keine KB-Kontrolle durchgesetzt, keine Quelle angebunden, kein Mapping gespeichert, kein Gate ausgeführt, nichts aktiviert |
 | Implementierte Capabilities | **keine (0 von 29)** — lokale Bausteine belegt; **Capability 2/3/5/6/7 bleiben nicht vollständig `implemented`** |
 
 > **Criteria complete ≠ Technical implementation ≠ Deployment ready.**

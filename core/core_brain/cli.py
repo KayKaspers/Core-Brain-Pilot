@@ -4,9 +4,9 @@ Grundkommandos: ``version``, ``validate-config``, ``doctor``, ``run``.
 Kommandogruppe ``quarantine`` (CBP-WP-013): ``scan``, ``stage``, ``inspect``,
 ``release``. Kommandogruppe ``source-registry`` (CBP-WP-014):
 ``validate-definition``, ``register``, ``list``, ``inspect``, ``retire``,
-``activate``. Kommandogruppe ``source-mapping`` (CBP-WP-015):
-``validate-draft`` und ``activation-check`` — lokale, synthetisch testbare,
-read-only und fail-closed Prototypen.
+``activate``. Kommandogruppe ``source-mapping`` (CBP-WP-015/016):
+``validate-draft``, ``activation-check`` und ``activation-evaluate`` — lokale,
+synthetisch testbare, read-only und fail-closed Prototypen.
 
 Es gibt **keine** HTTP-API, keinen Webserver und keinen Netzwerklistener.
 ``run`` verweigert deterministisch fail-closed. ``quarantine release`` und
@@ -32,6 +32,7 @@ from .errors import (
     EXIT_CODES,
     ConfigError,
     ExitCode,
+    GateEvidenceError,
     MappingPolicyError,
     QuarantineInputRejected,
     QuarantinePolicyError,
@@ -119,7 +120,14 @@ def _add_source_mapping_parser(
         "activation-check",
         help="Validiert read-only und verweigert danach jede Aktivierung.",
     )
-    for parser_ in (validate, activation):
+    evaluate = msub.add_parser(
+        "activation-evaluate",
+        help=(
+            "Read-only Mapping-Activation-Gate-Evaluator (CBP-WP-016); "
+            "fail-closed BLOCKED, keine Aktivierung."
+        ),
+    )
+    for parser_ in (validate, activation, evaluate):
         parser_.add_argument("--draft", required=True, type=Path)
         parser_.add_argument("--policy", required=True, type=Path)
         parser_.add_argument("--registry", required=True, type=Path)
@@ -128,6 +136,8 @@ def _add_source_mapping_parser(
             "--synthetic-test-only", action="store_true", dest="synthetic_test_only"
         )
         parser_.add_argument("--json", action="store_true")
+    # Der Evaluator bindet zusätzlich ein synthetisches Evidenz-Bundle.
+    evaluate.add_argument("--evidence", required=True, type=Path)
 
 
 def _add_source_registry_parser(
@@ -841,6 +851,8 @@ def _cmd_source_mapping(args: argparse.Namespace, out: TextIO, err: TextIO) -> i
             return _cmd_mapping_validate_draft(args, out, err)
         case "activation-check":
             return _cmd_mapping_activation_check(args, out, err)
+        case "activation-evaluate":
+            return _cmd_mapping_activation_evaluate(args, out, err)
         case _:  # pragma: no cover — argparse erzwingt ein bekanntes Kommando
             print("USAGE_ERROR unknown source-mapping command", file=err)
             return EXIT_CODES[ExitCode.USAGE_ERROR]
@@ -953,6 +965,96 @@ def _cmd_mapping_activation_check(
         file=err,
     )
     return EXIT_CODES[ExitCode.SOURCE_MAPPING_ACTIVATION_BLOCKED]
+
+
+# -- source-mapping activation-evaluate (CBP-WP-016) ----------------------
+
+_GATE_DISCLAIMER = (
+    "Der Report ist keine Gatefreigabe und keine Aktivierungsautorisierung "
+    "(A6). evaluation_status ist ausschliesslich NOT_EVALUATED oder BLOCKED und "
+    "bedeutet keine Freigabe. READY FOR ACTIVATION DECISION, APPROVED FOR "
+    "ACTIVATION und REVOKED sind im synthetischen MVP nicht erreichbar."
+)
+
+
+def _render_gate_report(report: object) -> str:
+    """Rendert den Gate-Report minimiert — ohne Pfad, URL, Inhalt oder Ref."""
+    from .gate import GateEvaluationReport
+
+    assert isinstance(report, GateEvaluationReport)
+    lines = [
+        f"evaluation_status:      {report.evaluation_status.value}",
+        f"source_id:              {report.source_id}",
+        f"mapping_id:             {report.mapping_id}",
+        f"mapping_draft_sha256:   {report.mapping_draft_sha256}",
+        f"mapping_policy_sha256:  {report.mapping_policy_sha256}",
+        f"registry_record_sha256: {report.registry_record_sha256}",
+        f"gate_contract_revision: {report.gate_contract_revision}",
+        f"gate_contract_sha256:   {report.gate_contract_sha256}",
+        f"report_schema_version:  {report.report_schema_version}",
+        f"blocker_count:          {report.blocker_count}",
+        f"missing_evidence_count: {report.missing_evidence_count}",
+        f"human_decision_count:   {report.human_decision_count}",
+        f"evidence_count:         {report.evidence_count}",
+        f"implementation_version: {report.implementation_version}",
+        "criterion_results:",
+    ]
+    lines.extend(
+        f"  {c.code} stufe={c.nachweisstufe} {c.result.value}"
+        for c in report.criterion_results
+    )
+    lines.append("blocker_codes:")
+    lines.extend(f"  {code}" for code in report.blocker_codes)
+    lines.extend(["", _GATE_DISCLAIMER])
+    return "\n".join(lines)
+
+
+def _emit_gate_report(report: object, as_json: bool, out: TextIO) -> None:
+    """Gibt den Gate-Report aus (kanonisches JSON bei ``--json``); speichert nichts."""
+    from .gate import GateEvaluationReport
+
+    assert isinstance(report, GateEvaluationReport)
+    if as_json:
+        print(json.dumps(report.to_dict(), indent=2, sort_keys=True), file=out)
+    else:
+        print(_render_gate_report(report), file=out)
+
+
+def _cmd_mapping_activation_evaluate(
+    args: argparse.Namespace, out: TextIO, err: TextIO
+) -> int:
+    """``source-mapping activation-evaluate`` — read-only Gate-Evaluator.
+
+    Bewertet die 20 kanonischen Gate-Kriterien gegen ein synthetisches
+    Evidenz-Bundle und endet **immer** fail-closed ``BLOCKED`` (Exitcode 14).
+    Schreibt **nichts**, aktiviert **nichts**. Eine ungültige Policy liefert
+    Exitcode 2.
+    """
+    from .gate import run_activation_evaluate
+    from .mapping import load_policy
+
+    try:
+        policy = load_policy(args.policy)
+    except MappingPolicyError as exc:
+        print(f"MAPPING_POLICY_INVALID {exc.reason.value}".rstrip(), file=err)
+        return EXIT_CODES[ExitCode.CONFIG_INVALID]
+
+    try:
+        report = run_activation_evaluate(
+            draft_path=args.draft,
+            policy=policy,
+            registry_root=args.registry,
+            source_id=args.source_id,
+            evidence_path=args.evidence,
+            synthetic_confirmed=args.synthetic_test_only,
+        )
+    except GateEvidenceError as exc:
+        print(f"MAPPING_GATE_BLOCKED {exc.reason.value}".rstrip(), file=err)
+        return EXIT_CODES[ExitCode.MAPPING_GATE_EVALUATION_BLOCKED]
+
+    _emit_gate_report(report, args.json, out)
+    # Der synthetische MVP endet immer BLOCKED — keine Freigabe, keine Aktivierung.
+    return EXIT_CODES[ExitCode.MAPPING_GATE_EVALUATION_BLOCKED]
 
 
 def main(

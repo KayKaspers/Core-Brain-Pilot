@@ -3,7 +3,7 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Überarbeitet in | **CBP-WP-015** |
+| Überarbeitet in | **CBP-WP-016** |
 | Autoritätsklasse | A2 |
 | Stand | 2026-07-22 |
 
@@ -93,6 +93,32 @@ WP-014: 212). Er setzt **keine** Produkt-Capability vollständig um und erzeugt
 wird nur validiert, nie berechnet; die Registry bleibt bytegenau unverändert;
 `activation-check` verweigert immer. **Kein** Mapping gespeichert, **keine**
 Aktivierung. **R-33 bleibt offen.**
+
+## Lokale Mapping-Activation-Gate-Evaluator-Bausteine (CBP-WP-016)
+
+CBP-WP-016 hat einen lokalen, synthetisch testbaren, **read-only**, nicht
+persistenten und fail-closed Evaluator der **Review-Bereitschaft** anhand der
+**20 kanonischen Gate-Kriterien** erstellt und getestet (398 Tests bestanden,
+Basislinie WP-015: 315). Er **führt kein Gate aus**, setzt **keine** Produkt-
+Capability vollständig um und aktiviert nichts. Ausgabestatus ausschließlich
+`NOT_EVALUATED`/`BLOCKED`; `READY FOR ACTIVATION DECISION`/`APPROVED FOR
+ACTIVATION`/`REVOKED` sind **nicht** emittierbar.
+
+| Baustein | Status | Evidenz |
+| --- | --- | --- |
+| 20-Kriterien-Vertrag + `gate_contract_sha256` | **implemented locally** | `gate/models.py`, `test_gate_models.py` |
+| Geschlossenes, fail-closed Evidenz-Bundle | **implemented locally** | `gate/evidence.py`, `test_gate_evidence.py` |
+| Reine Kernbewertung (keine I/O/Uhr/Zufall) | **implemented locally** | `gate/evaluator.py`, `test_gate_evaluator.py` |
+| Read-only Registry-/Draft-Bindung (Wiederverwendung WP-014/WP-015) | **implemented locally** | `gate/service.py`, `test_gate_service.py` |
+| Deterministischer, nicht persistierter A6-Report | **implemented locally** | `gate/models.py`, `test_gate_cli.py` |
+
+**Diese Bausteine sind kein Deploymentnachweis und keine Kontrolle.** Security
+Foundation und DRC sind **keine** Kriterien 21/22; Human-only-Kriterien
+(5, 16, 20) gelten nie als erfüllt (Kriterium 15 ist operative Evidenz,
+`MISSING_EVIDENCE`); die Registry bleibt bytegenau
+unverändert; `activation-evaluate` endet immer `BLOCKED`. **Kein** Gate
+ausgeführt, **keine** Aktivierung, **kein** gespeichertes Ergebnis. **R-33 bleibt
+offen.**
 
 ## Zuordnung zu geplanten Work Packages
 

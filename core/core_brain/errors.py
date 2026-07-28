@@ -31,6 +31,8 @@ __all__ = [
     "RegistryCatalogError",
     "MappingPolicyError",
     "MappingActivationBlocked",
+    "GateEvidenceError",
+    "GateEvaluationBlocked",
 ]
 
 
@@ -57,6 +59,8 @@ class ExitCode(StrEnum):
     # CBP-WP-015 — Source Mapping Draft Validator.
     SOURCE_MAPPING_DRAFT_BLOCKED = "SOURCE_MAPPING_DRAFT_BLOCKED"
     SOURCE_MAPPING_ACTIVATION_BLOCKED = "SOURCE_MAPPING_ACTIVATION_BLOCKED"
+    # CBP-WP-016 — Mapping Activation Gate Evaluator.
+    MAPPING_GATE_EVALUATION_BLOCKED = "MAPPING_GATE_EVALUATION_BLOCKED"
     USAGE_ERROR = "USAGE_ERROR"
     INTERNAL_ERROR = "INTERNAL_ERROR"
 
@@ -75,6 +79,7 @@ EXIT_CODES: dict[ExitCode, int] = {
     ExitCode.SOURCE_REGISTRY_ACTIVATION_BLOCKED: 11,
     ExitCode.SOURCE_MAPPING_DRAFT_BLOCKED: 12,
     ExitCode.SOURCE_MAPPING_ACTIVATION_BLOCKED: 13,
+    ExitCode.MAPPING_GATE_EVALUATION_BLOCKED: 14,
     ExitCode.USAGE_ERROR: 64,
     ExitCode.INTERNAL_ERROR: 70,
 }
@@ -231,6 +236,19 @@ class ReasonCode(StrEnum):
     # CBP-WP-015 — Source Mapping. Aktivierung verweigert.
     MAPPING_ACTIVATION_ALWAYS_BLOCKED = "MAPPING_ACTIVATION_ALWAYS_BLOCKED"
 
+    # CBP-WP-016 — Mapping Activation Gate Evaluator. Evidenz-Bundle
+    # (kriterien- und bindungsseitige Gründe stehen als GateReasonCode im
+    # gate-Paket).
+    GATE_EVIDENCE_FILE_MISSING = "GATE_EVIDENCE_FILE_MISSING"
+    GATE_EVIDENCE_NOT_READABLE = "GATE_EVIDENCE_NOT_READABLE"
+    GATE_EVIDENCE_PARSE_ERROR = "GATE_EVIDENCE_PARSE_ERROR"
+    GATE_EVIDENCE_SCHEMA_UNSUPPORTED = "GATE_EVIDENCE_SCHEMA_UNSUPPORTED"
+    GATE_EVIDENCE_UNKNOWN_FIELD = "GATE_EVIDENCE_UNKNOWN_FIELD"
+    GATE_EVIDENCE_MISSING_FIELD = "GATE_EVIDENCE_MISSING_FIELD"
+    GATE_EVIDENCE_INVALID_VALUE = "GATE_EVIDENCE_INVALID_VALUE"
+    GATE_EVIDENCE_NOT_SYNTHETIC = "GATE_EVIDENCE_NOT_SYNTHETIC"
+    GATE_SYNTHETIC_CONFIRMATION_MISSING = "GATE_SYNTHETIC_CONFIRMATION_MISSING"
+
 
 class CoreBrainError(Exception):
     """Basisklasse aller Skeleton-Fehler."""
@@ -324,3 +342,19 @@ class MappingPolicyError(CoreBrainError):
 
 class MappingActivationBlocked(CoreBrainError):
     """``source-mapping activation-check`` verweigert unabhängig vom Ergebnis."""
+
+
+class GateEvidenceError(CoreBrainError):
+    """Das Gate-Evidenz-Bundle ist strukturell ungültig (fail-closed).
+
+    Trägt **keinen** Pfad, keine URL und keinen Inhalt — nur einen stabilen
+    Reason Code.
+    """
+
+
+class GateEvaluationBlocked(CoreBrainError):
+    """Die Mapping-Activation-Gate-Evaluation endet fail-closed ``BLOCKED``.
+
+    Der synthetische MVP erzeugt niemals eine Freigabe; dieser Ausgang bedeutet
+    **keine** Gatefreigabe und **keine** Aktivierung.
+    """

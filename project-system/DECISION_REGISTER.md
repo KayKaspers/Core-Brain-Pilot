@@ -110,6 +110,7 @@ Human-Maintainer-Entscheidung im Entscheidungsblock. Wortlaut unverändert in
 | **D-047** | **Teil B — externe read-only Registry-Bindung über `--source-id` und `--registry`; `source_id` ist kein Mapping-Feld.** Registry bytegenau unverändert; nur `collection`↔`collection_key` und `data_class`↔`data_class` exakt; **verbotene Crosswalks** `project`↔`domain_key`/`namespace`, `ai_transfer_policy`↔`ai_eligibility`, `location_reference`/`operator_reference`↔`source_id` | `accepted` | **A0** | Entscheidungsblock CBP-WP-015 | 2026-07-27 | Mapping-Draft-Validator | **ADR-0012** (A1) |
 | **D-048** | **Teil C — genau eine deaktivierte synthetische Boundary mit bestehenden kanonischen Feldern/Werten.** Kein neues `slot:synthetic:`-Präfix, keine neuen Enum-Werte; `slot_id` ∈ {PS-02, PS-03, PS-04}; `location_reference` = belegter synthetischer V7-Platzhalter `synthetic-placeholder-*`; Subpath-Listen leer, `follow_symlinks=false`, `enabled=false`, `read_only=true`. Präzisiert **D-033**, ändert ihn nicht | `accepted` | **A0** | Entscheidungsblock CBP-WP-015 | 2026-07-27 | Mapping-Draft-Validator | **ADR-0012** (A1) |
 | **D-049** | **Teil D — ausschließlich nicht persistierter, deterministischer Validierungsreport; Aktivierung immer verweigert.** `mapping_id` wird nach Vertrag (V4/V21) **validiert, nicht berechnet**; keine `map-`+SHA-256-Regel; `draft_sha256`/`policy_sha256` deterministisch; kein gespeicherter Report, keine Registry-Änderung; `VALID_DRAFT` bedeutet keine Freigabe und keine Aktivierung | `accepted` | **A0** | Entscheidungsblock CBP-WP-015 | 2026-07-27 | Mapping-Draft-Validator | **ADR-0012** (A1) |
+| **D-050** | **Konsolidierte Freigabe des Mapping-Activation-Gate-Evaluators (WP-016): APPROVE IMPLEMENTATION WITH NOTES; A1** synthetisches Eingabe-/Evidenzmodell; **B1 – eng** (Ausgabestatus nur `NOT_EVALUATED`/`BLOCKED`; `READY FOR ACTIVATION DECISION`/`APPROVED FOR ACTIVATION`/`REVOKED` nicht emittierbar); **C1** fehlende/veraltete/NOT-EVALUATED/widersprüchliche Abhängigkeiten blockieren fail-closed, Human-only nie automatisch erfüllt; **D1** deterministischer, minimierter, nicht persistierter A6-Report. 20 Kriterien fest; Security Foundation/DRC keine Kriterien 21/22; keine Aktivierung, keine Persistenz | `accepted` | **A0** | Entscheidungsblock CBP-WP-016 | 2026-07-27 | Gate-Evaluator | **— (kein ADR)** |
 
 > **Die vier Entscheidungen legen Sicherheitsarchitektur fest, keine
 > Implementierung.** Es wurde keine Identität angelegt, kein Recht gesetzt,
@@ -218,7 +219,7 @@ Legende: **P0** blockiert G0 · **P1** vor Architekturentscheidung · **P2** sp�
 
 | Kategorie | Anzahl |
 | --- | --- |
-| Getroffene Entscheidungen | **49** (davon **45** mit A0) |
+| Getroffene Entscheidungen | **50** (davon **46** mit A0) |
 | Angenommene ADRs | **12** (ADR-0001 bis ADR-0012, alle A1) |
 | Vorgeschlagene ADRs | 0 |
 | Neu in CBP-WP-003 | 12 (D-015 bis D-026) |
@@ -231,6 +232,7 @@ Legende: **P0** blockiert G0 · **P1** vor Architekturentscheidung · **P2** sp�
 | Neu in CBP-WP-013 | **4 A0-Entscheidungen** (D-038 Intake, D-039 Store, D-040 Scanner, D-041 Freigabe), **1 ADR**, 2 neue offene Entscheidungen (OD-37, OD-38) |
 | Neu in CBP-WP-014 | **4 A0-Entscheidungen** (D-042 Identität, D-043 Store, D-044 Lifecycle, D-045 Katalog), **1 ADR**, 0 neue offene Entscheidungen |
 | Neu in CBP-WP-015 | **4 A0-Entscheidungen** (D-046 Dokumentprofil, D-047 Registry-Bindung, D-048 Boundary, D-049 Report/Aktivierung), **1 ADR** (ADR-0012), 0 neue offene Entscheidungen |
+| Neu in CBP-WP-016 | **1 konsolidierte A0-Entscheidung** (D-050 Gate-Evaluator: A1/B1-eng/C1/D1), **0 ADR**, 0 neue offene Entscheidungen |
 | Geschlossene offene Entscheidungen | **12** |
 | Vertagte Entscheidungen | 4 |
 | Offene Entscheidungen | **23** |
