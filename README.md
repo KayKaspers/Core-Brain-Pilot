@@ -28,8 +28,8 @@ vorgesehene, **noch nicht implementierte** Anwendungslaufzeit.
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Aktuelles Work Package | **keines aktiv** — zuletzt abgeschlossen **CBP-WP-017** (`committed`, `d3168c4`, D-051) |
-| Nächster Schritt | **keiner autorisiert** — CBP-WP-017 committed (`d3168c4`); CBP-WP-018 nicht vorgeschlagen |
+| Aktuelles Work Package | **CBP-WP-018** (`in-review`, Phase B0 – Governance Foundation) — zuletzt abgeschlossen CBP-WP-017 (`committed`, `d3168c4`); ADR-0013/D-052, **technische Implementation nicht begonnen** |
+| Nächster Schritt | **CBP-WP-018 Governance Foundation** — Evidence Schema **3.0** governance-seitig entschieden (ADR-0013, D-052); Runtime-Stand bleibt **Schema 2.0**; technische Implementation nicht begonnen; **kein Commit ausgeführt** |
 | **Gate G0** | **PASSED WITH NOTES** — 2026-07-21, A0 |
 | Phase-1-Planung | **Streams F1–F5 geplant**, [Foundation Plan](docs/roadmap/PHASE_1_FOUNDATION_PLAN.md) |
 | **Repository-Struktur** | **entschieden** — [ADR-0007](docs/decisions/ADR-0007-repository-und-workspace-grenze.md); **Migration nicht autorisiert** |
@@ -42,7 +42,7 @@ vorgesehene, **noch nicht implementierte** Anwendungslaufzeit.
 | **Mapping-Activation-Gate-Evaluator MVP** | **lokaler Prototyp** — [MAPPING_ACTIVATION_GATE_EVALUATOR.md](docs/runtime/MAPPING_ACTIVATION_GATE_EVALUATOR.md) (CBP-WP-016, D-050); synthetic-only, read-only, nicht persistent, fail-closed; **20 Gate-Kriterien**, Ausgabestatus nur `NOT_EVALUATED`/`BLOCKED`, `activation-evaluate` endet immer `BLOCKED` (Exit 14); **nicht produktiv** |
 | **Synthetic Evidence Contract 2.0 MVP** | **lokaler Prototyp** — [SYNTHETIC_EVIDENCE_CONTRACT.md](docs/runtime/SYNTHETIC_EVIDENCE_CONTRACT.md) (CBP-WP-017, D-051, `committed` `d3168c4`); Schema 2.0 mit eingebetteten Artefakten, Provenance-/Binding-Hashes, deterministische Invalid-/Stale-/Conflict-Erkennung, **negative-evidence-only**; Schema 1.0 fail-closed; **315 → 451 Tests**, **nicht produktiv** |
 | Implementierte Capabilities | **keine (0 von 29)** — Capability 2/3/5/6/7 bleiben nicht vollständig `implemented` |
-| Angenommene ADRs | **12** |
+| Angenommene ADRs | **13** |
 | Framework | Nova Development Framework v1.0.0 |
 
 ## Pilotumfang

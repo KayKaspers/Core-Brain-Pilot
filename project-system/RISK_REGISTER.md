@@ -238,12 +238,34 @@ wurde. **R-33 bleibt `gemindert, nicht geschlossen`**, Kritikalität unveränder
 | Korrektur | Die kanonischen Statusdokumente wurden auf den durch Git belegten `committed`-Zustand von CBP-WP-017 (`d3168c4`) synchronisiert; „aktuelles Work Package" auf **keines aktiv, zuletzt abgeschlossen CBP-WP-017** gesetzt; kein Work Package ist `active`/`in-review`; **CBP-WP-018 nicht autorisiert** |
 | Aussagegrenze | **Kein Funktionsfehler, keine Runtimeänderung, keine Gatefreigabe, keine Aktivierung, keine Capability-Änderung**; keine neue Decision-ID, kein neues ADR, kein neues/geschlossenes Risiko; **keine** Risikokritikalität verändert; Mapping Activation Gate/Security Foundation Readiness Gate/DRC bleiben `NOT EVALUATED`; Capabilities **0 von 29** |
 
-Damit sind **dreizehn Konsistenzvorgänge in siebzehn Work Packages** dokumentiert
-(**neue aktuelle Basislinie**; löst die vorige Angabe „zwölf" ab). Die Zahl der
-Work Packages steigt auf **siebzehn**, weil dieser Vorgang **erstmals
-CBP-WP-017** betrifft, das durch den Commit `d3168c4` Teil der committeten Menge
+Damit waren **dreizehn Konsistenzvorgänge in siebzehn Work Packages** dokumentiert
+(*Stand nach dem dreizehnten Vorgang; durch den vierzehnten Vorgang unten auf
+**vierzehn** aktualisiert*; löst die vorige Angabe „zwölf" ab). Die Zahl der
+Work Packages stieg auf **siebzehn**, weil dieser Vorgang **erstmals
+CBP-WP-017** betraf, das durch den Commit `d3168c4` Teil der committeten Menge
 wurde. **R-33 bleibt `gemindert, nicht geschlossen`**, Kritikalität unverändert
 **mittel**. Derselbe Vorgang ist in
+[COMPLIANCE_CHECK.md](COMPLIANCE_CHECK.md) gespiegelt und zählt **nur einmal**.
+
+**R-33-Chronologie — vierzehnter Konsistenzvorgang (CBP-WP-018 Phase B0 — ADR-Index-Zählkorrektur, 2026-07-28):**
+
+| Feld | Inhalt |
+| --- | --- |
+| Work Package | **CBP-WP-018** (Governance Foundation, Phase B0; **erstes** R-33-Erfassen von CBP-WP-018) |
+| Fehlerklasse | **Vorbestehender Zählfehler in einem kanonischen Statusartefakt** (kein Post-Commit-Vorgang, kein arithmetischer Summenfehler im Register) — der kanonische ADR-Index `docs/decisions/README.md` wies im Kopf-Feld „Angenommene ADRs" **elf** aus, obwohl ADR-0001 bis ADR-0012 **bereits existierten** (der korrekte Wert vor CBP-WP-018 war **zwölf**) |
+| Betroffene aktuelle Repository-Artefakte | `docs/decisions/README.md` (ADR-Index-Kopf, Prosa, Tabelle) |
+| Ursache | Der ADR-Index wurde nach der Aufnahme von **ADR-0012** (CBP-WP-015) nicht auf zwölf nachgeführt; der Zähler blieb auf dem älteren Stand elf stehen. Der Fehler wurde erst im Governance-Diff von CBP-WP-018 sichtbar. |
+| Korrektur | Der ADR-Index wurde beim Hinzufügen von **ADR-0013** auf den durch Auszählung belegten Gesamtwert **13** gesetzt (11 → 13, davon der vorbestehende Fehler 11 → 12 plus die Ergänzung 12 → 13). Kein ADR wurde inhaltlich umgeschrieben. |
+| Aussagegrenze | **Kein Funktionsfehler, keine Runtimeänderung, keine Gatefreigabe, keine Aktivierung, keine Capability-Änderung**; keine neue Decision-ID, kein neues ADR **über ADR-0013 hinaus**, kein neues/geschlossenes Risiko; **keine** Risikokritikalität verändert; D-052/ADR-0013 unverändert; Gates `NOT EVALUATED`; Capabilities **0 von 29** |
+
+Damit sind **vierzehn Konsistenzvorgänge in achtzehn Work Packages** dokumentiert
+(**neue aktuelle Basislinie**; löst die vorige Angabe „dreizehn" ab). Die Zahl der
+Work Packages steigt auf **achtzehn**, weil dieser Vorgang **erstmals
+CBP-WP-018** betrifft. R-33 zählt eigenständige Korrekturen kanonischer Status-,
+Zähl- oder Konsistenzabweichungen — **nicht** ausschließlich
+Post-Commit-Reconciliations; die Korrektur eines vorbestehend falschen
+ADR-Zählers ist ein solcher Vorgang. **R-33 bleibt `gemindert, nicht
+geschlossen`**, Kritikalität unverändert **mittel**. Derselbe Vorgang ist in
 [COMPLIANCE_CHECK.md](COMPLIANCE_CHECK.md) gespiegelt und zählt **nur einmal**.
 
 **Verändert in CBP-WP-012:**

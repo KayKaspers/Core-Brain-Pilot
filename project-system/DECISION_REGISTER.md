@@ -112,6 +112,7 @@ Human-Maintainer-Entscheidung im Entscheidungsblock. Wortlaut unverändert in
 | **D-049** | **Teil D — ausschließlich nicht persistierter, deterministischer Validierungsreport; Aktivierung immer verweigert.** `mapping_id` wird nach Vertrag (V4/V21) **validiert, nicht berechnet**; keine `map-`+SHA-256-Regel; `draft_sha256`/`policy_sha256` deterministisch; kein gespeicherter Report, keine Registry-Änderung; `VALID_DRAFT` bedeutet keine Freigabe und keine Aktivierung | `accepted` | **A0** | Entscheidungsblock CBP-WP-015 | 2026-07-27 | Mapping-Draft-Validator | **ADR-0012** (A1) |
 | **D-050** | **Konsolidierte Freigabe des Mapping-Activation-Gate-Evaluators (WP-016): APPROVE IMPLEMENTATION WITH NOTES; A1** synthetisches Eingabe-/Evidenzmodell; **B1 – eng** (Ausgabestatus nur `NOT_EVALUATED`/`BLOCKED`; `READY FOR ACTIVATION DECISION`/`APPROVED FOR ACTIVATION`/`REVOKED` nicht emittierbar); **C1** fehlende/veraltete/NOT-EVALUATED/widersprüchliche Abhängigkeiten blockieren fail-closed, Human-only nie automatisch erfüllt; **D1** deterministischer, minimierter, nicht persistierter A6-Report. 20 Kriterien fest; Security Foundation/DRC keine Kriterien 21/22; keine Aktivierung, keine Persistenz | `accepted` | **A0** | Entscheidungsblock CBP-WP-016 | 2026-07-27 | Gate-Evaluator | **— (kein ADR)** |
 | **D-051** | **Konsolidierte Freigabe des Synthetic Evidence Contract & Provenance Foundation (WP-017): APPROVE IMPLEMENTATION WITH NOTES. A2** Evidence-Bundle mit eingebetteten strukturierten Artefakten (eine synthetische JSON-Datei, kein neuer CLI-Befehl); **B1** negative-evidence integration only (formal gültige, aktuelle synthetische Evidenz erfüllt **nie** zusätzlich `SATISFIED`); **C2** Evidence Schema 2.0, Schema 1.0 fail-closed; **D1** ADR_NOT_REQUIRED unter Scope Lock (reine Konkretisierung ADR-0007/0009, RT-1, keine Persistenz/Promotion/Konfliktpriorität/cross-component Provenance-Autorität); **E2** minimal erweiterter A6-Report (`evidence_contract_revision`/`_sha256` + vier Artefaktzähler). Keine Aktivierung, keine operative/reale Evidenz, kein RT-2 | `accepted` | **A0** | Entscheidungsblock CBP-WP-017 | 2026-07-28 | Evidence-Contract | **— (kein ADR)** |
+| **D-052** | **APPROVE CBP-WP-018 GOVERNANCE FOUNDATION WITH NOTES (Phase B0, rein dokumentarisch).** **A1** neue Producer-Klasse `security-control-form` mit Pflichtfeld `control_id`, Runtime-Identität `(criterion, control_id)`; **B1** Evidence Schema **3.0** / Contract-Revision 3.0, Schema 1.0 **und** 2.0 fail-closed; **C1** Security Contract vollständig im Security-Control-Artefakt-Binding (`control_id`, `security_contract_revision`, `security_contract_sha256`); **D1** Scope **S3** (12 dokumentierte, 7 runtime-scoped Controls, 11 `(criterion, control_id)`-Bindungen); **E1** **ADR-0013 `accepted`**. **Partielle Ablösung von D-051:** weiterhin gültig A2/B1/E2; abgelöst C2 (Schema 2.0) und D1 (ADR_NOT_REQUIRED); neu: Schema 3.0, ADR erforderlich und angenommen. **Autorisiert keine technische Implementation, keine Migration, keinen Runtime-Code** — implementierter Stand bleibt Schema 2.0; Kriterium 5 Human-only, Kriterium 9 non-security-structural; negative-evidence-only; keine Security-Freigabe/Enforcement/Aktivierung/RT-2/Persistenz | `accepted` | **A0** | Entscheidungsblock CBP-WP-018 | 2026-07-28 | Security-Readiness-Governance | **ADR-0013** (A1) |
 
 > **Die vier Entscheidungen legen Sicherheitsarchitektur fest, keine
 > Implementierung.** Es wurde keine Identität angelegt, kein Recht gesetzt,
@@ -220,8 +221,8 @@ Legende: **P0** blockiert G0 · **P1** vor Architekturentscheidung · **P2** sp�
 
 | Kategorie | Anzahl |
 | --- | --- |
-| Getroffene Entscheidungen | **51** (davon **47** mit A0) |
-| Angenommene ADRs | **12** (ADR-0001 bis ADR-0012, alle A1) |
+| Getroffene Entscheidungen | **52** (davon **48** mit A0) |
+| Angenommene ADRs | **13** (ADR-0001 bis ADR-0013, alle A1) |
 | Vorgeschlagene ADRs | 0 |
 | Neu in CBP-WP-003 | 12 (D-015 bis D-026) |
 | Neu in CBP-WP-004 | 0 Entscheidungen, 5 ADRs |
@@ -235,6 +236,7 @@ Legende: **P0** blockiert G0 · **P1** vor Architekturentscheidung · **P2** sp�
 | Neu in CBP-WP-015 | **4 A0-Entscheidungen** (D-046 Dokumentprofil, D-047 Registry-Bindung, D-048 Boundary, D-049 Report/Aktivierung), **1 ADR** (ADR-0012), 0 neue offene Entscheidungen |
 | Neu in CBP-WP-016 | **1 konsolidierte A0-Entscheidung** (D-050 Gate-Evaluator: A1/B1-eng/C1/D1), **0 ADR**, 0 neue offene Entscheidungen |
 | Neu in CBP-WP-017 | **1 konsolidierte A0-Entscheidung** (D-051 Evidence-Contract: A2/B1/C2/D1/E2), **0 ADR**, 0 neue offene Entscheidungen |
+| Neu in CBP-WP-018 | **1 konsolidierte A0-Entscheidung** (D-052 Governance Foundation: A1/B1/C1/D1/E1), **1 ADR** (ADR-0013 Evidence Schema 3.0), D-051 partiell abgelöst (C2/D1), 0 neue offene Entscheidungen |
 | Geschlossene offene Entscheidungen | **12** |
 | Vertagte Entscheidungen | 4 |
 | Offene Entscheidungen | **23** |

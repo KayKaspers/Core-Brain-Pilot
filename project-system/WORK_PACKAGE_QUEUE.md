@@ -3,7 +3,7 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Aktuelles Work Package | **keines aktiv** — zuletzt abgeschlossen **CBP-WP-017** (`committed`, `d3168c4`) |
+| Aktuelles Work Package | **CBP-WP-018** (`in-review`, Phase B0 – Governance Foundation) — zuletzt committed **CBP-WP-017** (`d3168c4`) |
 | Gate G0 | **PASSED WITH NOTES** — 2026-07-21 |
 | Überarbeitet in | **CBP-WP-016** |
 | Autoritätsklasse | A2 |
@@ -44,13 +44,16 @@ Spalten nach `WORK_PACKAGE_QUEUE_TEMPLATE.md` (NDF v1.0.0).
 | CBP-WP-015 | **Deterministic Source Mapping Draft Validator** | P1 | **`committed`** | [work-packages/CBP-WP-015.md](../work-packages/CBP-WP-015.md) |
 | CBP-WP-016 | **Deterministic Mapping Activation Gate Evaluator** | P1 | **`committed`** | [work-packages/CBP-WP-016.md](../work-packages/CBP-WP-016.md) |
 | CBP-WP-017 | **Synthetic Evidence Contract & Provenance Foundation** | P1 | **`committed`** | [work-packages/CBP-WP-017.md](../work-packages/CBP-WP-017.md) |
+| CBP-WP-018 | **Security Foundation Readiness Contract & Synthetic Form-Validator** | P1 | **`in-review`** (Phase B0) | [work-packages/CBP-WP-018.md](../work-packages/CBP-WP-018.md) |
 
-**Kein Work Package ist als `proposed` geführt.** CBP-WP-017 (Synthetic Evidence
-Contract & Provenance Foundation) ist **`committed`** (`d3168c4`, A0-Freigabe
-**D-051**) und mit `origin/main` synchron. CBP-WP-016 ist `committed`
-(`04c427c`, D-050); CBP-WP-015 ist `committed` (`645ccb1`). **Kein** Work Package
-ist `active` oder `in-review`; **zuletzt abgeschlossen ist CBP-WP-017**.
-**CBP-WP-018 ist nicht Bestandteil und nicht vorgeschlagen.**
+**Kein Work Package ist als `proposed` geführt.** CBP-WP-018 (Security Foundation
+Readiness Contract & Synthetic Form-Validator) steht auf **`in-review`** in
+**Phase B0 – Governance Foundation** (A0-Freigabe **D-052**, **ADR-0013**
+angenommen); die **technische Implementation ist nicht begonnen**, der
+Runtime-Stand bleibt **Evidence Schema 2.0**. CBP-WP-017 ist `committed`
+(`d3168c4`, D-051); CBP-WP-016 ist `committed` (`04c427c`, D-050). Genau **ein**
+Work Package ist `active`/`in-review` (CBP-WP-018). **CBP-WP-019 ist nicht
+Bestandteil, nicht begonnen und nicht autorisiert.**
 
 > **Titelkorrektur in CBP-WP-009.** Diese Übersichtstabelle trug bis dahin die
 > Titel eines verworfenen Entwurfs der Work-Package-Karte (009 „Repository and
@@ -426,6 +429,37 @@ Produktionsreife.** Capability-Stand unverändert **0 von 29**.
 > führte CBP-WP-017 zuvor als „**`in-review`. Commit nicht ausgeführt.**" — der
 > korrekte **Vor-Commit-Reviewstatus**. Er ist durch den belegten
 > `committed`-Zustand (`d3168c4`, mit `origin/main` synchron) **abgelöst**.
+
+## CBP-WP-018
+
+| Feld | Wert |
+| --- | --- |
+| Titel | **Security Foundation Readiness Contract & Synthetic Form-Validator** |
+| Typ | **implementation** (Governance-Phase vorangestellt) |
+| Prompt Mode | **Full** · Context Budget **B2 – Standard** |
+| Claude Code | Opus 4.8 (`claude-opus-4-8`), Effort **ultracode** |
+| Status | **`in-review`** |
+| Aktuelle Phase | **Phase B0 – Governance Foundation** (rein dokumentarisch) |
+| A0-Entscheidung | **D-052** (APPROVE GOVERNANCE FOUNDATION WITH NOTES; A1/B1/C1/D1/E1) |
+| ADR | **ADR-0013** `accepted` (Evidence Schema 3.0) |
+| Commit | **nicht** ausgeführt (Commit-Autorität beim Human Maintainer) |
+
+Ergebnis: **Governance-Grundlage für Evidence Schema 3.0.** Phase A/A.1 read-only
+abgeschlossen (Phase A REWORK, A.1 angenommen); Blocker A (fehlendes `control_id`)
+und Blocker B (fehlende Security-Contract-Bindung) bestätigt. **ADR-0013**
+(Evidence Schema 3.0 mit `security-control-form`/`control_id`, Security-Contract-
+Bindung, Scope S3) angenommen; **D-052** dokumentiert (partielle Ablösung von
+D-051: C2/D1). **Technische Implementation nicht begonnen**: kein `control_id`,
+keine neue Producer-Klasse, kein Security Contract im Code; **Runtime-Stand bleibt
+Evidence Schema 2.0**; **451 Tests – OK** unverändert, compileall grün. Die
+technische Migration 2.0 → 3.0 benötigt eine **gesonderte Nova- und
+Human-Freigabe**.
+
+**Kein Runtime-Code/Test geändert, keine Security-Evaluation, keine Enforcement,
+keine Gatefreigabe, keine Aktivierung, kein RT-2, keine Persistenz, keine
+Produktionsreife.** Capability-Stand unverändert **0 von 29**. Kriterium 5
+Human-only, Kriterium 9 non-security-structural, Gate-Kriterien 4/6/7/8/10/11
+`DEPENDENCY_BLOCKED`.
 
 ---
 

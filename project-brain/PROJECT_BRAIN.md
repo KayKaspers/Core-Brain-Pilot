@@ -23,14 +23,14 @@ verweigern deterministisch.
 
 | Feld | Wert |
 | --- | --- |
-| Aktuelles Work Package | **keines aktiv** — zuletzt abgeschlossen **CBP-WP-017** (`committed`, `d3168c4`, D-051); kein weiteres vorgeschlagen |
+| Aktuelles Work Package | **CBP-WP-018** (`in-review`, **Phase B0 – Governance Foundation**) — zuletzt abgeschlossen CBP-WP-017 (`committed`, `d3168c4`); ADR-0013/D-052; technische Implementation nicht begonnen |
 | Gate G0 | **PASSED WITH NOTES** — 2026-07-21 |
 | G0-Kriterien | **47**, dreistufig klassifiziert |
 | davon blockierend | **25** Core Required (zuvor 45) |
 | davon `accepted` | **25** — alle |
 | verbleibende Blocker | **0** |
 | Phase 1 | AUTHORIZED FOR PLANNING — [Backlog](../docs/roadmap/PHASE_1_BACKLOG.md), [Foundation Plan](../docs/roadmap/PHASE_1_FOUNDATION_PLAN.md) |
-| Geplante Work Packages | **keines** — CBP-WP-017 `committed` (`d3168c4`, D-051); kein weiteres vorgeschlagen |
+| Geplante Work Packages | **CBP-WP-018** `in-review` (Phase B0 – Governance Foundation, ADR-0013/D-052); technische Implementation nicht begonnen; kein weiteres vorgeschlagen |
 | **Repository-Struktur** | **entschieden** — Ziel-Monorepo + Workspace W-3 (ADR-0007); **Migration nicht autorisiert** |
 | **Mappingkonvention** | **entschieden** — ADR-0008; **0 Mappings, 0 Quellen**, Gate `NOT EVALUATED` |
 | **Sicherheitsgrundlage** | **spezifiziert** — ADR-0009; **12 Kontrollen `DOCUMENTED ONLY`** |
@@ -104,7 +104,9 @@ verweigert, bis eine Datenklasse sie erlaubt.**
 
 ## Entscheidungen
 
-Angenommene ADRs: **12** (ADR-0001 bis ADR-0012). ADR-0006 hält privaten
+Angenommene ADRs: **13** (ADR-0001 bis ADR-0013; **ADR-0013** legt Evidence
+Schema 3.0 mit Security-Control-Identität und Contract-Binding fest, D-052).
+ADR-0006 hält privaten
 Bestand konstruktiv außerhalb des Kern-Repositorys (D-028); **ADR-0007**
 (D-029, D-030) legt Zielstruktur und Bereichsgrenze fest und **schließt
 OD-26**; **ADR-0008** (D-031…D-033) legt die Mappingkonvention fest;
@@ -402,8 +404,13 @@ und [PHASE_1_WORK_PACKAGE_MAP.md](../docs/roadmap/PHASE_1_WORK_PACKAGE_MAP.md).
 A0-Freigabe **D-050** (APPROVE WITH NOTES, A1/B1-eng/C1/D1) implementiert und
 **committed** (`04c427c`). **CBP-WP-017 — Synthetic Evidence Contract &
 Provenance Foundation** ist unter **D-051** (APPROVE WITH NOTES, A2/B1/C2/D1/E2)
-implementiert und **committed** (`d3168c4`). Ein weiteres Work
-Package ist **nicht** vorgeschlagen; CBP-WP-018 ist nicht Bestandteil.
+implementiert und **committed** (`d3168c4`). **CBP-WP-018 — Security Foundation
+Readiness Contract & Synthetic Form-Validator** befindet sich in **Phase B0 –
+Governance Foundation**: **ADR-0013** (Evidence Schema 3.0) angenommen und
+**D-052** dokumentiert (partielle Ablösung von D-051, Teile C2/D1); die
+**technische Implementation ist nicht begonnen**, der Runtime-Stand bleibt
+Evidence Schema 2.0. Ein weiteres Work Package ist **nicht** vorgeschlagen;
+CBP-WP-019 ist nicht begonnen und nicht autorisiert.
 
 ## Rückmeldung an Nova
 

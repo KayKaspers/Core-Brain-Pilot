@@ -132,9 +132,9 @@ nennen.
 | Phase | **Phase 0 – COMPLETE** |
 | **Gate G0** | **PASSED WITH NOTES** — 2026-07-21, A0 |
 | **Phase 1** | **AUTHORIZED FOR PLANNING** — keine Implementierung freigegeben |
-| Aktuelles Work Package | **keines aktiv** — zuletzt abgeschlossen **CBP-WP-017** (`committed`, `d3168c4`, D-051); kein weiteres Work Package vorgeschlagen |
+| Aktuelles Work Package | **CBP-WP-018** (`in-review`, **Phase B0 – Governance Foundation**) — zuletzt abgeschlossen CBP-WP-017 (`committed`, `d3168c4`); **ADR-0013**/**D-052**; Evidence Schema 3.0 governance-seitig entschieden, Runtime-Stand bleibt **2.0**, **technische Implementation nicht begonnen** |
 | Core-Kriterien | 25 von 25 `accepted`, 0 `answered`, 0 `open`, 0 `blocked` |
-| Angenommene ADRs | **12** (A1) |
+| Angenommene ADRs | **13** (A1) |
 | **Mappingkonvention** | **entschieden** — ADR-0008; **0 Mappings, 0 Quellen, Gate `NOT EVALUATED`** |
 | **Sicherheitsgrundlage** | **spezifiziert** — ADR-0009; **12 Kontrollen `DOCUMENTED ONLY`**, Readiness Gate `NOT EVALUATED` |
 | **Runtime Skeleton** | **lokal implementiert** (CBP-WP-012) — Python-Standardbibliothek, `run` fail-closed, **nicht produktionsbereit** |

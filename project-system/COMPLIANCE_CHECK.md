@@ -329,6 +329,7 @@ existiert.
 | **CBP-WP-014/015 (Queue Detail Block Reconciliation)** | **Git-/Register-Statusabweichung in Detailblöcken** (kein arithmetischer Zählfehler). In `WORK_PACKAGE_QUEUE.md` blieben die Detailblöcke CBP-WP-014 (`in-review`, „Commit nicht ausgeführt") und CBP-WP-015 (`vorgeschlagen, nicht freigegeben`, `proposed`) auf Vor-Commit-/Vor-Autorisierungsständen, obwohl beide `committed` (d0c0531 bzw. 645ccb1) sind. Betroffen: `project-system/WORK_PACKAGE_QUEUE.md` (Detailblöcke CBP-WP-014, CBP-WP-015) | **CBP-WP-014/015 Queue Detail Block Reconciliation** |
 | **CBP-WP-016 (Post-Commit Reconciliation)** | **Git-/Register-Statusabweichung** (kein arithmetischer Zählfehler). Nach Commit und Push von CBP-WP-016 (`04c427c`) führten mehrere Statusdokumente CBP-WP-016 weiterhin als `in-review`/„nicht committet", obwohl Git CBP-WP-016 als `committed` und mit origin/main synchron auswies. Betroffen: `README.md`, `CLAUDE.md`, `project-system/WORK_PACKAGE_QUEUE.md`, `project-system/PROJECT_MANIFEST.md`, `project-system/PROJECT_PROFILE.md`, `project-system/HEALTH_SCORE.md`, `project-brain/PROJECT_BRAIN.md` | **CBP-WP-016 Post-Commit Status Reconciliation** |
 | **CBP-WP-017 (Post-Commit Reconciliation)** | **Git-/Register-Statusabweichung** (kein arithmetischer Zählfehler). Nach Commit und Push von CBP-WP-017 (`d3168c4`) führten mehrere Statusdokumente CBP-WP-017 weiterhin als `in-review`/„nicht committet", obwohl Git CBP-WP-017 als `committed` und mit origin/main synchron auswies. Betroffen: `README.md`, `CLAUDE.md`, `project-system/WORK_PACKAGE_QUEUE.md`, `project-system/PROJECT_MANIFEST.md`, `project-system/PROJECT_PROFILE.md`, `project-system/HEALTH_SCORE.md`, `project-brain/PROJECT_BRAIN.md` | **CBP-WP-017 Post-Commit Status Reconciliation** |
+| **CBP-WP-018 (ADR-Index-Zählkorrektur)** | **Vorbestehender Zählfehler in einem kanonischen Statusartefakt** (kein Post-Commit-Vorgang). Der ADR-Index `docs/decisions/README.md` wies „Angenommene ADRs" als **elf** aus, obwohl ADR-0001 bis ADR-0012 bereits existierten (korrekt: **zwölf**). Beim Hinzufügen von **ADR-0013** in Phase B0 auf den belegten Wert **13** korrigiert (11 → 12 vorbestehend + 12 → 13 Ergänzung). Betroffen: `docs/decisions/README.md` | **CBP-WP-018 Phase B0 Governance Foundation** |
 
 **Der vierte Fehler entstand, nachdem die Regel eingeführt war**, und wurde
 erst ein Work Package später gefunden. Die Regel wirkt — aber nachlaufend. Das
@@ -501,10 +502,31 @@ Runtimeänderung, keine Gatefreigabe, keine Aktivierung, keine Capability-Änder
 
 **R-33 bleibt `gemindert, nicht geschlossen`** — Kritikalität unverändert
 **mittel**, kein Risiko geschlossen. **Dreizehn Konsistenzvorgänge in siebzehn Work
-Packages** sind dokumentiert (**neue aktuelle Basislinie**; löst „zwölf" ab); die
-Zahl der Work Packages steigt auf **siebzehn**, weil dieser Vorgang **erstmals
-CBP-WP-017** betrifft, das durch `d3168c4` Teil der committeten Menge wurde.
-Dieser Vorgang ist mit dem Eintrag in
+Packages** waren zu diesem Zeitpunkt dokumentiert (*Stand nach dem dreizehnten
+Vorgang; durch den vierzehnten Vorgang unten auf **vierzehn** aktualisiert*; löst
+„zwölf" ab); die Zahl der Work Packages stieg auf **siebzehn**, weil dieser Vorgang
+**erstmals CBP-WP-017** betraf, das durch `d3168c4` Teil der committeten Menge
+wurde. Dieser Vorgang ist mit dem Eintrag in
+[RISK_REGISTER.md](RISK_REGISTER.md) **identisch** und zählt **nur einmal**.
+
+**Der vierzehnte Vorgang (CBP-WP-018 Phase B0 — ADR-Index-Zählkorrektur) ist kein
+Post-Commit-Vorgang und kein arithmetischer Summenfehler im Register, sondern die
+Korrektur eines vorbestehenden Zählfehlers in einem kanonischen Statusartefakt.**
+Der ADR-Index `docs/decisions/README.md` wies im Kopf-Feld „Angenommene ADRs"
+**elf** aus, obwohl ADR-0001 bis ADR-0012 bereits existierten; der korrekte Wert
+vor CBP-WP-018 war **zwölf**. **Ursache:** Der Index wurde nach der Aufnahme von
+ADR-0012 (CBP-WP-015) nicht auf zwölf nachgeführt. Beim Hinzufügen von **ADR-0013**
+in Phase B0 wurde der Index auf den durch Auszählung belegten Gesamtwert **13**
+gesetzt (11 → 12 vorbestehend + 12 → 13 Ergänzung); kein ADR wurde inhaltlich
+umgeschrieben. **Bestätigung der Zählregel:** R-33 zählt eigenständige Korrekturen
+kanonischer Status-, Zähl- oder Konsistenzabweichungen und ist **nicht** auf
+Post-Commit-Reconciliations beschränkt (vgl. den vierten bis neunten Vorgang).
+
+**R-33 bleibt `gemindert, nicht geschlossen`** — Kritikalität unverändert
+**mittel**, kein Risiko geschlossen. **Vierzehn Konsistenzvorgänge in achtzehn Work
+Packages** sind dokumentiert (**neue aktuelle Basislinie**; löst „dreizehn" ab);
+die Zahl der Work Packages steigt auf **achtzehn**, weil dieser Vorgang **erstmals
+CBP-WP-018** betrifft. Dieser Vorgang ist mit dem Eintrag in
 [RISK_REGISTER.md](RISK_REGISTER.md) **identisch** und zählt **nur einmal**.
 
 **Die Implementierung von CBP-WP-013 selbst führte keinen arithmetischen

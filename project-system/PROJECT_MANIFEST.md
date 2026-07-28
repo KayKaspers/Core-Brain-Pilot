@@ -37,10 +37,10 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 – COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Aktuelles Work Package | **keines aktiv** — zuletzt abgeschlossen **CBP-WP-017** (`committed`, `d3168c4`, D-051); kein weiteres vorgeschlagen |
+| Aktuelles Work Package | **CBP-WP-018** (`in-review`, **Phase B0 – Governance Foundation**) — ADR-0013/D-052; Runtime Evidence Schema **2.0**, Zielarchitektur **3.0** angenommen; **technische Implementation nicht begonnen** |
 | **Gate-Status G0** | **PASSED WITH NOTES** — 2026-07-21, A0 |
 | Nächstes Prüfmodell | **Deployment Readiness Check** — `NOT EVALUATED` |
-| Phase-1-Planung | Streams F1–F5; CBP-WP-016 **`committed`** (`04c427c`, D-050); CBP-WP-017 **`committed`** (`d3168c4`, D-051) |
+| Phase-1-Planung | Streams F1–F5; CBP-WP-016 **`committed`** (`04c427c`, D-050); CBP-WP-017 **`committed`** (`d3168c4`, D-051); CBP-WP-018 **`in-review`** (Phase B0, ADR-0013/D-052) |
 | **Runtime Skeleton** | **lokal implementiert** (CBP-WP-012) — `run` fail-closed; keine KB-Kontrolle durchgesetzt |
 | **Ingest-Quarantäne MVP** | **lokaler Prototyp** (CBP-WP-013, ADR-0010) — synthetic-only, fail-closed, keine Promotion, **nicht produktiv** |
 | **Source-Registry MVP** | **lokaler Prototyp** (CBP-WP-014, ADR-0011) — synthetic-only, fail-closed, **deaktiviert**, `activate` verweigert, **nicht produktiv** |
@@ -58,7 +58,7 @@
 | davon `accepted` | **25** — alle |
 | Kriterienstand | 25 von 25 `accepted` |
 | Capabilities implementiert | **0** von 29 — Capability 2/3/5/6/7 bleiben nicht vollständig `implemented` |
-| Angenommene ADRs | **12** |
+| Angenommene ADRs | **13** |
 | Scope gelockt | **ja** — mit Auflagen |
 
 ## Repository
