@@ -48,19 +48,21 @@ nur zur Statusvollständigkeit geführt:
 | **CBP-WP-017** | Synthetic Evidence Contract & Provenance Foundation | **`committed`** — `d3168c4` |
 | **CBP-WP-018** | Security Foundation Readiness Contract & Synthetic Form-Validator | **`committed`** — `4dec921` (Governance), `5ee2e83` (Implementation) |
 | **CBP-WP-019** | Deployment Readiness Intake and Profile-A Target Specification | **`committed`** — `3c437f2` |
-| **CBP-WP-020** | Controlled Profile-A Deployment Foundation | **`in-review`** (Phase B1/B2) — B0 `committed` `17057e2`, B1/B2 uncommitted |
+| **CBP-WP-020** | Controlled Profile-A Deployment Foundation | **`committed`** — `17057e2` (B0), `9c6c0fb` (B1/B2) |
 
-**CBP-WP-020 ist registriert** (D-055) und steht auf `in-review` in **Phase
-B1/B2**: Phase B0 ist `committed` (`17057e2`); das **Profil-A-Bundle** ist als
-Repository-Artefakt mit **genau sieben Dateien** unter `deployments/profile-a/`
-angelegt und **deterministisch offline validiert** (`PROFILE-A-BUNDLE VALID`,
-`issues=0`, Exit 0), begleitet von drei Runbooks, einem Runtime-Vertrag und
-**166 Bundle-Validation-Tests** (Gesamtstand **724 Tests OK**, 0 übersprungen).
+**CBP-WP-020 ist `committed` und `complete`** (D-055): Phase B0 `17057e2`,
+Phase B1/B2 `9c6c0fb`. Das **Profil-A-Bundle** liegt als Repository-Artefakt mit
+**genau sieben Dateien** unter `deployments/profile-a/` vor und ist
+**deterministisch offline validiert** (`PROFILE-A-BUNDLE VALID`, `issues=0`,
+Exit 0), begleitet von drei Runbooks, einem Runtime-Vertrag und **166
+Bundle-Validation-Tests** (Gesamtstand **724 Tests OK**, 0 übersprungen).
+**Zielzustand Z1 erreicht, Scope S2 abgeschlossen, RT-2-Grenze P1 eingehalten.**
 
 **Zulässige Statusaussage:** *repository artifact implemented* · *offline
 validation implemented* · *offline validation passed*. **B3 (reale
 Bereitstellung) ist ausgeschlossen** — es wurde nichts installiert, gestartet,
-verbunden oder durchgesetzt. **CBP-WP-021 ist nicht registriert, nicht begonnen
+verbunden oder durchgesetzt. **Kein Work Package ist aktiv, kein
+Folge-Work-Package autorisiert; CBP-WP-021 ist nicht registriert, nicht begonnen
 und nicht autorisiert.**
 
 **Die ersten drei sind `docs-only`.** CBP-WP-012 bis CBP-WP-015 sind committed;
@@ -240,14 +242,14 @@ ersten Nachweise vorliegen, wäre Planung ohne Rückkopplung.
 > `proposed`. Dieser Absatz beschreibt den damaligen Planungszustand und wird
 > **nicht rückwirkend umgedeutet**.
 
-**Aktueller Stand (nachgeführt in CBP-WP-020, 2026-07-29):** **Alle** Work
-Packages dieser Karte — **CBP-WP-009 bis CBP-WP-015** — sind **`committed`**.
-Ebenso committed sind die nach dem Kartenschnitt ergänzten **CBP-WP-016**,
-**CBP-WP-017**, **CBP-WP-018** und **CBP-WP-019** (`3c437f2`). **CBP-WP-020** ist
-**registriert** (D-055) und `in-review` in **Phase B1/B2**: Phase B0 ist
-`committed` (`17057e2`), die **Bundle-Artefakte existieren und sind offline
-validiert** — **aber es gibt weiterhin keine Bereitstellung**. **Kein
-Folge-Work-Package über CBP-WP-020 hinaus ist autorisiert.**
+**Aktueller Stand (nachgeführt in CBP-WP-020 Phase C, 2026-07-29):** **Alle**
+Work Packages dieser Karte — **CBP-WP-009 bis CBP-WP-015** — sind
+**`committed`**. Ebenso committed sind die nach dem Kartenschnitt ergänzten
+**CBP-WP-016**, **CBP-WP-017**, **CBP-WP-018**, **CBP-WP-019** (`3c437f2`) und
+**CBP-WP-020** (`17057e2`, `9c6c0fb`). Die **Bundle-Artefakte existieren, sind
+offline validiert und committed** — **aber es gibt weiterhin keine
+Bereitstellung**. **Kein Work Package ist aktiv; kein Folge-Work-Package über
+CBP-WP-020 hinaus ist autorisiert.**
 
 **Regeln A und B sind erfüllt:** Die Bereichsgrenze steht (009), die
 Mappingkonvention steht (010).

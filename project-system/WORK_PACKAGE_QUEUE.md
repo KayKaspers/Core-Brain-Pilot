@@ -3,7 +3,7 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Aktuelles Work Package | **CBP-WP-020** (`in-review`, Phase B1/B2 – Profile-A Deployment Bundle und deterministische Offline-Validierung) — Phase B0 `committed` (`17057e2`); zuletzt abgeschlossen **CBP-WP-019** (`committed`, `3c437f2`) |
+| Aktuelles Work Package | **keines** — zuletzt abgeschlossen **CBP-WP-020** (`committed`, `complete`; B0 `17057e2`, B1/B2 `9c6c0fb`). **Kein Folge-Work-Package autorisiert.** |
 | Gate G0 | **PASSED WITH NOTES** — 2026-07-21 |
 | Überarbeitet in | **CBP-WP-016** |
 | Autoritätsklasse | A2 |
@@ -46,7 +46,7 @@ Spalten nach `WORK_PACKAGE_QUEUE_TEMPLATE.md` (NDF v1.0.0).
 | CBP-WP-017 | **Synthetic Evidence Contract & Provenance Foundation** | P1 | **`committed`** | [work-packages/CBP-WP-017.md](../work-packages/CBP-WP-017.md) |
 | CBP-WP-018 | **Security Foundation Readiness Contract & Synthetic Form-Validator** | P1 | **`committed`** | [work-packages/CBP-WP-018.md](../work-packages/CBP-WP-018.md) |
 | CBP-WP-019 | **Deployment Readiness Intake and Profile-A Target Specification** | P1 | **`committed`** | [work-packages/CBP-WP-019.md](../work-packages/CBP-WP-019.md) |
-| CBP-WP-020 | **Controlled Profile-A Deployment Foundation** | P1 | **`in-review`** (Phase B1/B2; B0 `committed` `17057e2`) | [work-packages/CBP-WP-020.md](../work-packages/CBP-WP-020.md) |
+| CBP-WP-020 | **Controlled Profile-A Deployment Foundation** | P1 | **`committed`** (B0 `17057e2`, B1/B2 `9c6c0fb`) | [work-packages/CBP-WP-020.md](../work-packages/CBP-WP-020.md) |
 
 **Kein Work Package ist als `proposed` geführt.** **CBP-WP-019** (Deployment
 Readiness Intake and Profile-A Target Specification) steht auf **`in-review`** in
@@ -60,16 +60,16 @@ dokumentarisch**, ohne Installations-, Betriebs-, Security- oder
 Capability-Freigabe. CBP-WP-018 ist `committed` (Phase B0
 `4dec921`, Phase B1 `5ee2e83`, D-052/D-053, ADR-0013); CBP-WP-017 ist `committed`
 (`d3168c4`, D-051); CBP-WP-016 ist `committed` (`04c427c`, D-050). **CBP-WP-020** (Controlled Profile-A Deployment Foundation) ist unter **D-055**
-(`ADR_NOT_REQUIRED`) **registriert** und steht auf **`in-review`** in **Phase
-B1/B2 – Profile-A Deployment Bundle und deterministische Offline-Validierung**:
-Zielzustand **Z1**, Scope **S2**, RT-2-Grenze **P1**; Phase B0 ist `committed`
-(`17057e2`), das Bundle unter **`deployments/profile-a/`** ist mit **genau sieben
-Dateien** angelegt und **offline validiert** (`PROFILE-A-BUNDLE VALID`, Exit 0).
-**Nichts wurde bereitgestellt oder gestartet.** **Phase B3 (reale
-Bereitstellung) ist ausdrücklich nicht Bestandteil** von CBP-WP-020. Genau **ein**
-Work Package ist `active`/`in-review` (CBP-WP-020); **zuletzt abgeschlossen ist
-CBP-WP-019**. **CBP-WP-021 ist nicht registriert, nicht begonnen und nicht
-autorisiert.**
+(`ADR_NOT_REQUIRED`) **`committed` und `complete`**: Zielzustand **Z1 erreicht**,
+Scope **S2 abgeschlossen**, RT-2-Grenze **P1 eingehalten**; Phase B0 `17057e2`,
+Phase B1/B2 `9c6c0fb`. Das Bundle unter **`deployments/profile-a/`** liegt mit
+**genau sieben Dateien** vor und ist **offline validiert**
+(`PROFILE-A-BUNDLE VALID`, Exit 0). **Nichts wurde bereitgestellt oder
+gestartet.** **Phase B3 (reale Bereitstellung) ist ausdrücklich nicht
+Bestandteil** von CBP-WP-020. **Kein Work Package ist `active` oder
+`in-review`**; **zuletzt abgeschlossen ist CBP-WP-020**. **CBP-WP-021 ist nicht
+registriert, nicht begonnen und nicht autorisiert.** Der nächste Schritt wird
+durch den Human Maintainer und Nova separat bestimmt.
 
 > **Titelkorrektur in CBP-WP-009.** Diese Übersichtstabelle trug bis dahin die
 > Titel eines verworfenen Entwurfs der Work-Package-Karte (009 „Repository and
@@ -544,13 +544,13 @@ bleiben `DOCUMENTED ONLY`. **R-20 bleibt offen.**
 | Titel | **Controlled Profile-A Deployment Foundation** |
 | Typ | **implementation** (Deployment-Artefakte, offline validiert) |
 | Prompt Mode | **Full** · Context Budget **B2 – Standard** |
-| Status | **`in-review`** |
-| Aktuelle Phase | **Phase B1/B2 – Profile-A Deployment Bundle und deterministische Offline-Validierung** |
+| Status | **`committed`** · **`complete`** |
+| Aktuelle Phase | **Phase C – Post-Commit Reconciliation** (abgeschlossen) |
 | A0-Entscheidung | **D-055** (konsolidiert, A–J) |
 | ADR | **not required** (`ADR_NOT_REQUIRED`) |
-| Zielzustand / Scope / RT-2 | **Z1** / **S2** / **P1** |
+| Zielzustand / Scope / RT-2 | **Z1 erreicht** / **S2 abgeschlossen** / **P1 eingehalten** |
 | Tests | **724 – OK**, **0 übersprungen**; `compileall .` Exit 0, Validator Exit 0 |
-| Commit | **nicht** ausgeführt (Commit-Autorität beim Human Maintainer) |
+| Git-Beleg | `17057e2 CBP-WP-020: register controlled deployment foundation` (B0) · `9c6c0fb CBP-WP-020: add validated profile A deployment bundle` (B1/B2) |
 
 Phase A read-only abgeschlossen: bewertet wurden vier Zielzustände (Z0–Z3) und
 vier Scope-Varianten (S1–S4). Empfohlen und übernommen: **Z1** (Artefakte plus
@@ -564,7 +564,7 @@ Der Pfad **`deployments/profile-a/`** ist als **B1-Ort** autorisiert; die
 Autorisierung ist **rein additiv**, **D-029 bleibt vollständig wirksam** und
 **ADR-0007 unverändert**.
 
-**Phase B1/B2 (dieser Stand, uncommitted):** Das **Profil-A-Bundle** ist als
+**Phase B1/B2 (`committed` `9c6c0fb`):** Das **Profil-A-Bundle** ist als
 Repository-Artefakt angelegt — **genau sieben Dateien** unter
 `deployments/profile-a/` (`README.md`, `bundle.json`, `compose.yaml`,
 `operator.env.example`, `validate.py`, zwei TOML-Vorlagen unter `config/`).
@@ -599,7 +599,16 @@ und verlangt ein eigenes Folge-Work-Package mit eigenem Human Gate.
 **Keine Installation, keine Bereitstellung, keine Infrastrukturberührung.**
 Capability-Stand unverändert **0 von 29**; Mapping Activation Gate und Security
 Foundation Readiness Gate bleiben `NOT EVALUATED`; die zwölf KB-Kontrollen
-bleiben `DOCUMENTED ONLY`; **R-20 bleibt offen**; **R-33 unverändert 16/19**.
+bleiben `DOCUMENTED ONLY`; **R-20 bleibt offen**.
+
+**Phase C (dieser Stand, uncommitted):** Post-Commit-Reconciliation nach
+`9c6c0fb` (Parent `17057e2`, Commitzahl **29**, `origin/main` synchron). Der
+Commit umfasst **22 Pfade**, **3467 Einfügungen**, **87 Löschungen**, **12
+neue** und **10 modifizierte** Dateien; **nichts gelöscht, nichts umbenannt**.
+**CBP-WP-020 ist `committed` und `complete`**; **kein Work Package ist aktiv**
+und **kein Folge-Work-Package autorisiert**. **R-33 fortgeschrieben von 16/19
+auf 17/20** — siehe `RISK_REGISTER.md` und `COMPLIANCE_CHECK.md`. Decisions,
+A0-Decisions und ADRs bleiben **55 / 51 / 13**; keine Capability hochgestuft.
 
 ---
 

@@ -580,13 +580,62 @@ Installation, keine Bereitstellung, keine Gatefreigabe, keine Aktivierung, keine
 Capability-Änderung; **D-054 und der DRC-Vertrag unverändert**; **R-20 bleibt
 offen**.
 
-**R-33 bleibt `gemindert, nicht geschlossen`** — Kritikalität unverändert
+**R-33 blieb `gemindert, nicht geschlossen`** — Kritikalität unverändert
 **mittel**, kein Risiko geschlossen. **Sechzehn Konsistenzvorgänge in neunzehn Work
-Packages** sind dokumentiert (**neue aktuelle Basislinie**; löst „fünfzehn" ab);
-die Zahl der Work Packages steigt auf **neunzehn**, weil dieser Vorgang
-**erstmals CBP-WP-019** betrifft, das durch `3c437f2` Teil der committeten Menge
+Packages** waren dokumentiert (*Stand nach dem sechzehnten Vorgang; durch den
+siebzehnten Vorgang unten auf **17/20** aktualisiert*; löst „fünfzehn" ab);
+die Zahl der Work Packages stieg auf **neunzehn**, weil dieser Vorgang
+**erstmals CBP-WP-019** betraf, das durch `3c437f2` Teil der committeten Menge
 wurde (**15/18 → 16/19**). Dieser Vorgang ist mit dem Eintrag in
 [RISK_REGISTER.md](RISK_REGISTER.md) **identisch** und zählt **nur einmal**.
+
+### Siebzehnter Konsistenzvorgang — CBP-WP-020 Post-Commit Status Reconciliation (2026-07-29)
+
+**Gefunden in CBP-WP-020 Phase C.** Nach Commit und Push der B1/B2-Implementation
+von CBP-WP-020 (`9c6c0fb`, Parent `17057e2`) führten die Statusdokumente
+(`README.md`, `CLAUDE.md`, `project-system/WORK_PACKAGE_QUEUE.md`,
+`project-system/PROJECT_MANIFEST.md`, `project-system/PROJECT_PROFILE.md`,
+`project-system/HEALTH_SCORE.md`, `project-brain/PROJECT_BRAIN.md`,
+`docs/roadmap/PHASE_1_WORK_PACKAGE_MAP.md`, `work-packages/CBP-WP-020.md`)
+CBP-WP-020 weiterhin als `in-review` in „Phase B1/B2, uncommitted" und als
+**aktives** Work Package, obwohl Git es bereits als `committed` und mit
+origin/main synchron auswies. **Ursache:** Der Implementation Commit trug den
+korrekten Vor-Commit-Reviewstatus `in-review`; es fehlte danach die
+Post-Commit-Status-Reconciliation.
+
+**Zusätzlich bereinigte Zählabweichungen:** `project-brain/PROJECT_BRAIN.md`
+führte **45/41** statt der kanonischen **55/51** getroffenen bzw.
+A0-Entscheidungen; `project-system/HEALTH_SCORE.md` führte in der Zeile
+„Entscheidungslage" **54** statt **55**; die Commitzähler in
+`PROJECT_MANIFEST.md`, `PROJECT_BRAIN.md` und `HEALTH_SCORE.md` standen auf
+**28** statt **29**. Kanonische Quelle ist `DECISION_REGISTER.md` (**55**, davon
+**51** mit A0) beziehungsweise Git. **Alle durch Auszählung gefunden, keine durch
+die Regel verhindert.**
+
+**Korrigiert** durch Synchronisierung auf den `committed`-Zustand (B0
+`17057e2`, B1/B2 `9c6c0fb`), Eintragung der Commitbelege, Setzen von CBP-WP-020
+auf **`committed` und `complete`** und von „aktuelles Work Package" auf **keines
+aktiv, zuletzt abgeschlossen CBP-WP-020**; kein Work Package `active`/`in-review`;
+**kein nächstes Work Package autorisiert**, **CBP-WP-021 nicht registriert, nicht
+begonnen, nicht autorisiert**.
+
+**Wirkung:** kein Funktionsfehler, keine Runtimeänderung, keine Installation,
+keine Bereitstellung, kein Containerstart, keine Gatefreigabe, keine Aktivierung,
+keine Capability-Änderung; **D-055 unverändert**; das Profil-A-Bundle bleibt
+*repository artifact implemented* und *offline validation passed* — **nicht
+deployed, nicht operational, nicht production-ready**; die **166 Profile-A Bundle
+Validation Tests sind keine** Security Foundation NT-01 bis NT-31 (**0 von 31
+unverändert**); Capabilities **0 von 29**; beide Runtime-Gates `NOT EVALUATED`;
+die zwölf KB-Kontrollen `DOCUMENTED ONLY`; **R-20 bleibt offen**.
+
+**R-33 bleibt `gemindert, nicht geschlossen`** — Kritikalität unverändert
+**mittel**, kein Risiko geschlossen, **keine neue Risiko-ID**. **Siebzehn
+Konsistenzvorgänge in zwanzig Work Packages** sind dokumentiert (**neue aktuelle
+Basislinie**; löst „sechzehn" ab); die Zahl der Work Packages steigt auf
+**zwanzig**, weil dieser Vorgang **erstmals CBP-WP-020** betrifft, das durch
+`9c6c0fb` Teil der committeten Menge wurde (**16/19 → 17/20**). Dieser Vorgang
+ist mit dem Eintrag in [RISK_REGISTER.md](RISK_REGISTER.md) **identisch** und
+zählt **nur einmal**.
 
 **Die Implementierung von CBP-WP-013 selbst führte keinen arithmetischen
 Zählfehler ein.** Testzahl (**137**) aus `Ran N tests`, Git-Inventar aus

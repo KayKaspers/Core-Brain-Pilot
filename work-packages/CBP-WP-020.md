@@ -5,8 +5,8 @@
 | Titel | **Controlled Profile-A Deployment Foundation** |
 | Typ | **implementation** (Deployment-Artefakte, offline validiert) |
 | Prompt Mode | **Full** · Context Budget **B2 – Standard** |
-| Status | **`in-review`** |
-| Aktuelle Phase | **Phase B1/B2 – Profile-A Deployment Bundle und deterministische Offline-Validierung** |
+| Status | **`committed`** · **`complete`** |
+| Aktuelle Phase | **Phase C – Post-Commit Reconciliation** (abgeschlossen) |
 | A0-Entscheidung | **D-055** (konsolidiert, A–J) |
 | ADR | **not required** (`ADR_NOT_REQUIRED`) |
 | Zielzustand | **Z1** — Deployment-Artefakte plus lokale Offline-Validierung |
@@ -16,9 +16,9 @@
 | Gates | Mapping Activation `NOT EVALUATED` · Security Foundation Readiness `NOT EVALUATED` |
 | Security Controls | **12 `DOCUMENTED ONLY`** |
 | R-20 | **offen** |
-| R-33 | **16 Konsistenzvorgänge in 19 Work Packages** — in diesem Lauf unverändert |
+| R-33 | **17 Konsistenzvorgänge in 20 Work Packages** (`17/20`) — fortgeschrieben durch diese Post-Commit-Reconciliation |
 | Tests | **724 – OK**, **0 übersprungen**; `compileall .` Exit 0, Offline-Validator Exit 0 |
-| Commit | **B0 `committed` `17057e2`** · **B1/B2 nicht committed** — Commit-Autorität beim Human Maintainer |
+| Commit | **B0 `committed` `17057e2`** · **B1/B2 `committed` `9c6c0fb`** — Phase C uncommitted, Commit-Autorität beim Human Maintainer |
 
 ---
 
@@ -27,11 +27,11 @@
 | Phase | Stand |
 | --- | --- |
 | **A** — Architektur und Scope (read-only) | **abgeschlossen** |
-| **B0** — Registration and Additive Deployment-Root Authority | **abgeschlossen** — `committed` `17057e2` |
-| **B1** — Deployment Bundle | **abgeschlossen (dieser Stand, uncommitted)** |
-| **B2** — Offline Validation | **abgeschlossen (dieser Stand, uncommitted)** |
-| **B3** — reale Bereitstellung | **ausgeschlossen** — nicht Bestandteil von CBP-WP-020 |
-| **C** — Post-Commit-Reconciliation | **nicht begonnen** |
+| **B0** — Registration and Additive Deployment-Root Authority | **complete** — `committed` `17057e2` |
+| **B1** — Deployment Bundle | **complete** — `committed` `9c6c0fb` |
+| **B2** — Offline Validation | **complete** — `committed` `9c6c0fb` |
+| **B3** — reale Bereitstellung | **nicht Bestandteil von CBP-WP-020** — **nicht begonnen**, **nicht autorisiert** |
+| **C** — Post-Commit-Reconciliation | **abgeschlossen (dieser Stand, uncommitted)** |
 
 ---
 
@@ -249,7 +249,7 @@ operational · production-ready.
 | --- | --- | --- |
 | **1** | WP-020-Registrierung | **ausgeführt** — mit **D-055** |
 | **2** | B1-/B2-Implementierung | **ausgeführt** — auf separaten Nova-Prompt nach Commit von B0 (`17057e2`) |
-| **3** | Commit | **ausstehend für B1/B2** — ausschließlich Human Maintainer |
+| **3** | Commit | **ausgeführt** — B0 `17057e2`, B1/B2 `9c6c0fb`; Phase C bleibt uncommitted |
 | **4** | **Reale Profil-A-Bereitstellung** | **nicht Bestandteil von CBP-WP-020** — erfordert abgeschlossenes und committetes WP-020, ein **separates Folge-Work-Package**, eine eigene Human-Maintainer-Autorisierung sowie einen eigenen Infrastruktur- und Sicherheitsplan |
 
 **Keine reale Bereitstellung wird vorweggenommen.**
@@ -286,14 +286,38 @@ Secret-Werte · konkrete IP-Adressen, Domains, URLs, Hostnamen oder lokale
 Pfade · RT-2-Erzeugung · Persistenz · Backupausführung · Restore-Test ·
 Security-Evaluation · Enforcement · Gateauswertung oder -freigabe ·
 Capability-Änderung · Source- oder Mapping-Aktivierung · zusätzliche Decision ·
-ADR · neue Risiko-ID · R-33-Fortschreibung · Commit · Push · Tag · Release ·
-CBP-WP-021.
+ADR · neue Risiko-ID · Commit · Push · Tag · Release · CBP-WP-021.
 
 **In B1/B2 wurden ausschließlich neue Dateien angelegt und zehn bestehende
-Statusspiegel nachgeführt.**
+Statusspiegel nachgeführt.** **In Phase C wurden ausschließlich Statusspiegel
+und die R-33-Fortschreibung nachgeführt** — kein Bundle, kein Validator, kein
+Test, kein Runbook, kein Runtime-Vertrag und kein Runtime-Code berührt.
 
-**R-33 bleibt in diesem uncommitteten B1/B2-Lauf unverändert bei 16
-Konsistenzvorgängen in 19 Work Packages.** `RISK_REGISTER.md` und
-`COMPLIANCE_CHECK.md` wurden **nicht** verändert.
+---
 
-**CBP-WP-021 ist nicht registriert und nicht autorisiert.**
+## Phase C — Post-Commit Reconciliation
+
+| Feld | Wert |
+| --- | --- |
+| Implementation Commit | **`9c6c0fb`** — „CBP-WP-020: add validated profile A deployment bundle" |
+| Parent | `17057e2` (Phase B0) |
+| Commitinhalt | **22 Pfade**, **3467 Einfügungen**, **87 Löschungen**, **12 neue** und **10 modifizierte** Dateien, **0 gelöscht**, **0 umbenannt** |
+| Commitzahl | **29**, `origin/main` synchron |
+| Bundle | **exakt sieben Dateien** unter `deployments/profile-a/` |
+| Tests | **724 – OK**, **0 übersprungen**, davon **166** Profile-A Bundle Validation Tests |
+| Validator | `PROFILE-A-BUNDLE VALID`, `issues=0`, Exit 0, byte-identisch wiederholbar |
+| `compileall .` | Exit 0 |
+| R-33 | **16/19 → 17/20** |
+
+**Zielzustand Z1 erreicht · Scope S2 abgeschlossen · RT-2-Grenze P1 eingehalten.**
+
+**CBP-WP-020 ist `committed` und `complete`.** Es ist **kein Work Package
+aktiv** und **kein Folge-Work-Package autorisiert**. **CBP-WP-021 ist nicht
+registriert und nicht autorisiert.** Der nächste Schritt wird durch den Human
+Maintainer und Nova separat bestimmt.
+
+**Phase C ändert keine Sachaussage:** Deployment Foundation bleibt *repository
+artifact implemented* und *offline validation passed* — **nicht deployed, nicht
+operational, nicht production-ready**. Capabilities **0/29**, beide Gates
+`NOT EVALUATED`, zwölf Controls `DOCUMENTED ONLY`, Security-Foundation-NT-Tests
+**0/31**, **R-20 offen**.
