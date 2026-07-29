@@ -37,10 +37,10 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 – COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Aktuelles Work Package | **keines aktiv** — zuletzt abgeschlossen **CBP-WP-018** (`committed`: Phase B0 `4dec921`, Phase B1 `5ee2e83`); ADR-0013/D-052/D-053; **Runtime Evidence Schema 3.0** (Schema 1.0/2.0 fail-closed), **Security Contract 1.0**; **kein nächstes Work Package autorisiert** |
+| Aktuelles Work Package | **CBP-WP-019** (`in-review`, **Phase B1.2 – Human DRC Approval Reconciliation**) — **D-054**, `ADR_NOT_REQUIRED`; **DRC APPROVED BY HUMAN MAINTAINER** (Profil A, 2026-07-29; 19 Prüfpunkte, **19 `ready` / 0 `blocked`**); zuletzt committed **CBP-WP-018** (`5ee2e83`); **uncommitted**, Commit-Autorität beim Human Maintainer |
 | **Gate-Status G0** | **PASSED WITH NOTES** — 2026-07-21, A0 |
-| Nächstes Prüfmodell | **Deployment Readiness Check** — `NOT EVALUATED` |
-| Phase-1-Planung | Streams F1–F5; CBP-WP-016 **`committed`** (`04c427c`, D-050); CBP-WP-017 **`committed`** (`d3168c4`, D-051); CBP-WP-018 **`committed`** (ADR-0013/D-052/D-053; B0 `4dec921`, B1 `5ee2e83`) |
+| Nächstes Prüfmodell | **Deployment Readiness Check** — **`APPROVED BY HUMAN MAINTAINER`** (Profil A, 2026-07-29; 19 Prüfpunkte, **19 `ready` / 0 `blocked`**, D-054); **rein dokumentarisch, keine Installationsfreigabe** |
+| Phase-1-Planung | Streams F1–F5; CBP-WP-016 **`committed`** (`04c427c`, D-050); CBP-WP-017 **`committed`** (`d3168c4`, D-051); CBP-WP-018 **`committed`** (ADR-0013/D-052/D-053; B0 `4dec921`, B1 `5ee2e83`); CBP-WP-019 **`in-review`** (D-054, Deployment Readiness Intake, Phase B1.2, DRC für Profil A freigegeben, uncommitted) |
 | **Runtime Skeleton** | **lokal implementiert** (CBP-WP-012) — `run` fail-closed; keine KB-Kontrolle durchgesetzt |
 | **Ingest-Quarantäne MVP** | **lokaler Prototyp** (CBP-WP-013, ADR-0010) — synthetic-only, fail-closed, keine Promotion, **nicht produktiv** |
 | **Source-Registry MVP** | **lokaler Prototyp** (CBP-WP-014, ADR-0011) — synthetic-only, fail-closed, **deaktiviert**, `activate` verweigert, **nicht produktiv** |
@@ -94,7 +94,7 @@ Installationswerte.
 | Klasse | Anzahl | Blockiert G0 | Zuständiges Gate |
 | --- | --- | --- | --- |
 | **Core Required** | 25 | **ja** | G0 |
-| Deployment Required | 16 | nein | [Deployment Readiness Check](../docs/operations/DEPLOYMENT_READINESS_CHECK.md) — **NOT EVALUATED** |
+| Deployment Required | 16 | nein | [Deployment Readiness Check](../docs/operations/DEPLOYMENT_READINESS_CHECK.md) — **APPROVED BY HUMAN MAINTAINER** für Profil A, 19 Prüfpunkte (17 G0-abgeleitet + 2 ohne G0-Herkunft), alle 19 `ready` |
 | Conditional | 6 | nur bei aktivierter Funktion | je nach Funktion |
 
 ## Sichere Standardwerte

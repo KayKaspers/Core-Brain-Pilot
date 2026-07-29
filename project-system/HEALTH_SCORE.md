@@ -3,7 +3,7 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Letzte Bewertung | 2026-07-29, im Rahmen von **CBP-WP-018** (`committed`: Phase B0 `4dec921`, Phase B1 `5ee2e83`) |
+| Letzte Bewertung | 2026-07-29, im Rahmen von **CBP-WP-019** (`in-review`, Phase B1.2 – Human DRC Approval Reconciliation, D-054) |
 | Autoritätsklasse | A2 |
 
 > Diese Datei gehört zur kanonischen NDF-Ordnerstruktur, war aber in der
@@ -26,10 +26,10 @@ Keine Gesamtpunktzahl.
 | Dokumentation | **gut** | → | Fundament quellengestützt, Intake dokumentiert |
 | Prozesstreue | **gut** | → | Nova-REWORK sauber umgesetzt; keine Datei vor der Antwort verändert |
 | Quellenlage | **gut** | → | Beide Originalquellen abgeglichen; Human-Evidenz ergänzt |
-| Gate-Klarheit | **gut** | → | Dreistufiges Modell plus DRC als eigener Prüfort für die 16 vertagten Kriterien |
+| Gate-Klarheit | **gut** | → | Dreistufiges Modell plus DRC als eigener Prüfort für die 16 vertagten Kriterien; DRC erstmals vollständig erhoben und freigegeben — 19 Prüfpunkte, **19 `ready` / 0 `blocked`**; Gesamtstatus **APPROVED BY HUMAN MAINTAINER** (Profil A, 2026-07-29, D-054), rein dokumentarisch |
 | Architekturklarheit | **gut** | ↑↑ | 9 Schichten, 14 Komponenten, 5 Profile, Rebuild-Vertrag; zuvor kein Komponentenschnitt |
 | Scope-Klarheit | **gut** | ↑ | **Alle 25 Core-Kriterien `accepted`**; Quellenraum über logische Slots definiert |
-| Entscheidungslage | **gut** | ↑ | **53 Entscheidungen, 13 angenommene ADRs**; G0, OD-26, Mappingkonvention, Sicherheitsgrundlage, Quarantäne-, Registry-, Mapping-Draft-Validator-, Gate-Evaluator- (D-050), Evidence-Contract-2.0-MVP (D-051), Evidence-Schema-3.0-Governance (D-052, ADR-0013) und Evidence-Schema-3.0-Implementation (D-053) entschieden |
+| Entscheidungslage | **gut** | ↑ | **54 Entscheidungen, 13 angenommene ADRs**; G0, OD-26, Mappingkonvention, Sicherheitsgrundlage, Quarantäne-, Registry-, Mapping-Draft-Validator-, Gate-Evaluator- (D-050), Evidence-Contract-2.0-MVP (D-051), Evidence-Schema-3.0-Governance (D-052, ADR-0013) und Evidence-Schema-3.0-Implementation (D-053) und Deployment Readiness Intake Profil A (D-054) entschieden |
 | Quellenanbindung | **nicht bewertbar** | | Konvention entschieden, **0 Mappings, 0 angebundene Quellen** |
 | Strukturklarheit | **gut** | ↑↑ | Zielstruktur und Bereichsgrenze festgelegt (ADR-0007); zuvor drei konkurrierende Vorstellungen |
 | Antwortlage Discovery | **gut** | ↑ | Alle Core-Required-Fragen belegt; Entscheidung steht aus |
@@ -57,7 +57,7 @@ Durchsetzung, nicht ein weiteres Dokument.
 > „CBP-WP-002" zeigt die damals berichteten Werte; kursive Angaben waren
 > falsch addiert.
 
-| Kennzahl | CBP-WP-002 | **CBP-WP-018** |
+| Kennzahl | CBP-WP-002 | **CBP-WP-019** |
 | --- | --- | --- |
 | G0-Kriterien gesamt | *41* → korrekt 47 | **47** |
 | davon blockierend | *39* → korrekt 45 | **25** (dreistufiges Modell) |
@@ -71,8 +71,8 @@ Durchsetzung, nicht ein weiteres Dokument.
 | Discovery-Fragen | *55* → korrekt 56 | **56** |
 | davon P0 | *35* → korrekt 38 | **38** |
 | davon P0 offen und Core Required | 38 | **0** |
-| Getroffene Entscheidungen | 14 | **53** |
-| davon A0 | 8 | **49** |
+| Getroffene Entscheidungen | 14 | **54** |
+| davon A0 | 8 | **50** |
 | Offene Entscheidungen | 27 | **23** |
 | davon P0 | 14 | **5** |
 | Erfasste Risiken | 29 | **32** |
@@ -80,7 +80,7 @@ Durchsetzung, nicht ein weiteres Dokument.
 | davon hoch | 14 | 17 |
 | Capabilities `implemented` | **0** | **0** |
 | Angenommene ADRs | 0 | **13** |
-| Vorgeschlagene Work Packages | 0 | **0** — CBP-WP-018 ist `committed` (Phase B0 `4dec921`, Phase B1 `5ee2e83`, ADR-0013/D-052/D-053); kein weiteres, kein Work Package aktiv |
+| Vorgeschlagene Work Packages | 0 | **0** — **CBP-WP-019 `in-review`** (D-054, Deployment Readiness Intake, uncommitted); CBP-WP-018 `committed` (`4dec921` / `5ee2e83`); CBP-WP-020 nicht autorisiert |
 | **Erstellte Source Mappings** | 0 | **0** |
 | **Angebundene Quellen** | 0 | **0** |
 | **Umgesetzte Sicherheitskontrollen** | 0 | **0 von 12** |

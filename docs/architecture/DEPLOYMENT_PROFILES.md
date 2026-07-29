@@ -162,16 +162,61 @@ Profil falsch beschrieben, nicht der Core:
 10. Keine automatische Konfliktentscheidung
 11. Keine automatischen Commits oder Pushes
 
+## Pilot Profile-A Target Specification
+
+**Status: dokumentiertes Zielbild — nicht bereitgestellt.** Festgelegt durch
+**D-054** (CBP-WP-019) auf Grundlage der Angaben des Human Maintainers.
+
+| Feld | Zielwert |
+| --- | --- |
+| Virtualisierung | dedizierte QEMU/KVM-VM auf **Proxmox VE** |
+| Hosttopologie | **Einzelhost** |
+| Gast | **Ubuntu Server 26.04 LTS**, amd64 |
+| vCPU | **4** |
+| RAM | **8 GiB** |
+| Systemdisk | **64 GiB** |
+| Datendisk | **250 GiB**, **getrennte** virtuelle Disk |
+| Storageklasse | **NVMe-basierter LVM-Thin-Pool**, snapshot-fähig |
+| Netz | **private virtuelle Bridge** |
+| Adressierung | **statisch reservierte Adresse im privaten LAN** |
+| Fernzugriff | **WireGuard** über vorhandenes privates Gateway |
+| Anwendungslaufzeit | **Docker Compose innerhalb der VM** |
+| Backup — Stufe 1 | vollständiges **Proxmox-VM-Backup**, **wöchentlich**, auf **physisch separate NAS** |
+| Backup — Stufe 2 | **kanonische CBP-Daten täglich** gesichert |
+| Abgeleitete Daten | vollständig reproduzierbar — **kein** eigenes Backup; Rebuild aus kanonisch + Registry |
+| RPO | **24 Stunden** — getragen von der **täglichen kanonischen Sicherung** |
+| RTO | **8 Stunden** |
+
+### Aussagegrenzen
+
+Ausdrücklich gilt:
+
+| Grenze | Bedeutung |
+| --- | --- |
+| **Keine Produktmindestanforderung** | Die Werte sind **Pilotwerte** eines konkreten Deployments, keine Systemvoraussetzung des Produkts |
+| **Keine Proxmox-API-Berechtigung** | Der Dienst erhält **keinen** Hypervisor-Zugriff |
+| **Kein Betrieb auf dem Hypervisor-Host** | Ausführung ausschließlich in der Gast-VM |
+| **Keine öffentliche Freigabe** | Erreichbarkeit nur im privaten Netz oder über WireGuard; Egress bleibt **deny-by-default** |
+| **Keine konkrete Adresse** | Nur die abstrakte Klasse „statisch reservierte Adresse im privaten LAN" wird dokumentiert |
+| **Keine konkrete NAS-Kennung** | Nur die abstrakte Klasse „physisch separate NAS" wird dokumentiert |
+| **Keine Installation ausgeführt** | Es wurde nichts erstellt, verändert, gestartet oder verbunden |
+| **Zielbild, nicht deployed** | Die Spezifikation beschreibt ein geplantes Deployment. Alle 19 DRC-Einzelkriterien sind `ready`; der **DRC-Gesamtstatus** lautet seit **2026-07-29** **APPROVED BY HUMAN MAINTAINER** (Profil A). Das ist eine **dokumentarische** Freigabe — **keine** Installation, **keine** Bereitstellung, **keine** Betriebsfreigabe. Die erste kontrollierte Bereitstellung bleibt einem **separaten, ausdrücklich autorisierten** Work Package vorbehalten |
+
+**WireGuard und die Proxmox-Backuptechnik bleiben austauschbare,
+deploymentspezifische Entscheidungen** — sie sind **keine** Produktabhängigkeit
+und binden die deployment-neutrale Architektur (ADR-0001) nicht.
+
 ## Bewusst offene Entscheidungen
 
 | Punkt | Status |
 | --- | --- |
-| Linux-Distribution für Profil A | offen, Deployment Required |
-| VM-Ressourcengröße | offen, Deployment Required |
-| VPN- beziehungsweise Netzwerktechnologie | offen, Deployment Required (D-023 legt nur das Profil fest) |
-| Backupsoftware und -ziel | offen, Deployment Required |
-| Suchmaschine, Datenbank, Web-UI-Technologie | offen (OD-20, OD-25) |
+| Linux-Distribution für Profil A | **entschieden** — Ubuntu Server 26.04 LTS (D-054, DRC-02 `ready`) |
+| VM-Ressourcengröße | **entschieden** — 4 vCPU / 8 GiB / 64 + 250 GiB (D-054, DRC-04…06 `ready`) |
+| VPN- beziehungsweise Netzwerktechnologie | **entschieden** — WireGuard als Deploymentwahl (D-054, DRC-08 `ready`); D-023 legt weiterhin nur das Profil fest |
+| Backupsoftware und -ziel | **entschieden** — wöchentliches Proxmox-VM-Backup auf physisch separate NAS plus tägliche Sicherung kanonischer Daten (D-054, DRC-11/12/13 `ready`) |
+| Suchmaschine, Datenbank, Web-UI-Technologie | **weiterhin offen** (OD-20, OD-25) — **nicht** Gegenstand des DRC |
 | Nativer Betrieb ohne Container in B und C | offen, zu dokumentieren |
+| Gerätezahl, Secret-Deploymentwerte, Betriebsverantwortung, RT-2-Retention | **entschieden** — DRC-10, DRC-17, DRC-18, DRC-19 stehen auf `ready` (D-054) |
 
 Die Prüfung dieser Punkte erfolgt im
 [Deployment Readiness Check](../operations/DEPLOYMENT_READINESS_CHECK.md),
@@ -181,3 +226,24 @@ Die Prüfung dieser Punkte erfolgt im
 
 **Keine Installation, keine Compose-Datei, keine Infrastrukturbewertung.**
 Die reale Umgebung wurde in Phase 0 bewusst nicht geprüft.
+
+### Backupmodell — Abgrenzung
+
+Das Backupmodell ist **zweistufig**. Die beiden Stufen dürfen nicht vermengt
+werden:
+
+| Stufe | Gegenstand | Frequenz | Zweck |
+| --- | --- | --- | --- |
+| **1** | vollständiges **VM-Backup** (Proxmox VE) | **wöchentlich** | Wiederherstellung der gesamten Maschine |
+| **2** | **kanonische CBP-Daten** | **täglich** | Trägt das **RPO von 24 Stunden** |
+
+**Das wöchentliche VM-Backup allein würde ein RPO von 24 Stunden nicht
+belegen.** Erst die tägliche Sicherung der kanonischen Daten trägt diesen
+Zielwert. Vollständig reproduzierbare abgeleitete Daten werden **nicht**
+gesichert, sondern aus kanonischem Bestand und Registry **wieder aufgebaut**.
+
+> **Die konkrete technische Umsetzung der täglichen kanonischen Sicherung ist
+> nicht ausgeführt und nicht festgelegt.** Bestätigt sind ausschließlich
+> **Frequenz** und **Zielklasse**; das Werkzeug bleibt Bestandteil des späteren
+> Deployments. Es wurde **kein** Backupjob eingerichtet und **kein** Restore
+> ausgeführt.

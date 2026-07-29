@@ -23,14 +23,14 @@ verweigern deterministisch.
 
 | Feld | Wert |
 | --- | --- |
-| Aktuelles Work Package | **keines aktiv** — zuletzt abgeschlossen **CBP-WP-018** (`committed`: Phase B0 `4dec921`, Phase B1 `5ee2e83`); ADR-0013/D-052/D-053 |
+| Aktuelles Work Package | **CBP-WP-019** (`in-review`, **Phase B1.2 – Human DRC Approval Reconciliation**) — **D-054**, `ADR_NOT_REQUIRED`; DRC **19 Prüfpunkte**, **19 `ready` / 0 `blocked`**, Gesamtstatus **APPROVED BY HUMAN MAINTAINER** (2026-07-29, rein dokumentarisch); zuletzt committed **CBP-WP-018** (`5ee2e83`), uncommitted |
 | Gate G0 | **PASSED WITH NOTES** — 2026-07-21 |
 | G0-Kriterien | **47**, dreistufig klassifiziert |
 | davon blockierend | **25** Core Required (zuvor 45) |
 | davon `accepted` | **25** — alle |
 | verbleibende Blocker | **0** |
 | Phase 1 | AUTHORIZED FOR PLANNING — [Backlog](../docs/roadmap/PHASE_1_BACKLOG.md), [Foundation Plan](../docs/roadmap/PHASE_1_FOUNDATION_PLAN.md) |
-| Geplante Work Packages | **keine** — CBP-WP-018 ist `committed` (Phase B0 `4dec921`, Phase B1 `5ee2e83`, ADR-0013/D-052/D-053); **kein nächstes Work Package autorisiert oder vorgeschlagen** |
+| Geplante Work Packages | **CBP-WP-019** `in-review` (Phase B1.2, D-054); uncommitted, wartet auf Nova-Review und Human-Commit. CBP-WP-018 ist `committed` (Phase B0 `4dec921`, Phase B1 `5ee2e83`); **CBP-WP-020 nicht registriert, nicht begonnen, nicht autorisiert** |
 | **Repository-Struktur** | **entschieden** — Ziel-Monorepo + Workspace W-3 (ADR-0007); **Migration nicht autorisiert** |
 | **Mappingkonvention** | **entschieden** — ADR-0008; **0 Mappings, 0 Quellen**, Gate `NOT EVALUATED` |
 | **Sicherheitsgrundlage** | **spezifiziert** — ADR-0009; **12 Kontrollen `DOCUMENTED ONLY`** |
@@ -412,10 +412,20 @@ Readiness Contract & Synthetic Form-Validator** ist **`committed`**: **ADR-0013*
 `4dec921`) und **D-053** (Technical Implementation, `committed` `5ee2e83`)
 dokumentiert; der Runtime-Stand ist damit **Evidence Schema 3.0** mit statischem
 **Security Contract 1.0** (12 Controls, 7 runtime-scoped, 11 Bindungen),
-**558 Tests – OK**. **Kein Work Package ist aktiv**; zuletzt abgeschlossen ist
-**CBP-WP-018**. Ein weiteres Work Package ist **nicht** vorgeschlagen und
-**nicht autorisiert**; CBP-WP-019 ist nicht registriert, nicht begonnen und
-nicht autorisiert. Alle drei Gates bleiben `NOT EVALUATED`.
+**558 Tests – OK**. **CBP-WP-019 — Deployment Readiness Intake and Profile-A
+Target Specification** ist unter **D-054** (`ADR_NOT_REQUIRED`) registriert und
+steht auf **`in-review`**, uncommitted: der Deployment Readiness Check wurde von
+18 auf **19 Prüfpunkte** erweitert (neu **DRC-19 – RT-2-Aufbewahrung**, ohne
+G0-Herkunft), **DRC-16** auf das Betreiber-Backup-Regime präzisiert und für
+**Profil A** vollständig erhoben — **19 `ready`, 0 `blocked`**; der Human
+Maintainer hat den **DRC-Gesamtstatus** am **2026-07-29** auf
+**APPROVED BY HUMAN MAINTAINER** gesetzt. Die Freigabe ist **rein
+dokumentarisch** und **keine** Installations-, Betriebs-, Security-Readiness-,
+Mapping- oder Capability-Freigabe; **R-20 bleibt offen**.
+Die Profil-A-Zielspezifikation ist dokumentiert, **nicht bereitgestellt**.
+**Keine Installation, kein Deployment, keine Betriebsfreigabe.** Mapping
+Activation Gate und Security Foundation Readiness Gate bleiben `NOT EVALUATED`;
+**CBP-WP-020 ist nicht registriert, nicht begonnen und nicht autorisiert**.
 
 ## Rückmeldung an Nova
 

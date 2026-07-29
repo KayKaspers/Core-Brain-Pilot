@@ -106,7 +106,7 @@ stehenbleiben und sichtbar sein.
 | # | Regel |
 | --- | --- |
 | **RET-1** | **Aufbewahrung ist verpflichtend** |
-| **RET-2** | Die **Dauer ist deploymentspezifisch** und **Deployment Required** |
+| **RET-2** | Die **Dauer ist deploymentspezifisch** und **Deployment Required** — geprüft als **[DRC-19](DEPLOYMENT_READINESS_CHECK.md) – RT-2-Aufbewahrung** (Status **`ready`**; für Profil A bestätigt: **Mindestaufbewahrung 365 Tage**, danach **dauerhaft**) |
 | **RET-3** | **Der Ablauf einer Frist darf keine aktive Incident-, Legal- oder Restore-Sperre übergehen** |
 | **RET-4** | `retention_class` wird je Ereignis gesetzt |
 | **RET-5** | Ein Ablauf ohne Sperre erzeugt selbst ein Ereignis |
@@ -188,7 +188,7 @@ Integritätsschutz und Backup-/Restore-Nachweis**:
 | **Integritätsschutz** | **entschieden** — Verkettung oder gleichwertig, Bruch sichtbar (INT-1…INT-5) |
 | **Backup- und Restore-Nachweis** | **entschieden** — verpflichtend, mit Integritätsprüfung (BR-1…BR-8) |
 | **Aufbewahrungspflicht** | **entschieden** — verpflichtend (RET-1) |
-| **Konkrete Aufbewahrungsdauer** | **bleibt Deployment Required** — im DRC zu prüfen |
+| **Konkrete Aufbewahrungsdauer** | **Deployment Required** — als **DRC-19** geführt (CBP-WP-019, D-054); für **Profil A** bestätigt, Status **`ready`** |
 
 **Die Dauer wird nicht als allgemeine Architekturentscheidung erfunden.** Sie
 hängt von rechtlichen und betrieblichen Rahmenbedingungen ab, die der Human
@@ -198,11 +198,18 @@ Maintainer je Installation setzt.
 
 | Wert | Status |
 | --- | --- |
-| **Aufbewahrungsdauer je `retention_class`** | **Deployment Required** |
+| **Aufbewahrungsdauer je `retention_class`** | **Deployment Required** — **DRC-19**, `ready` (Profil A: mindestens 365 Tage, danach dauerhaft) |
 | Speichertechnologie | spätere Work Packages |
 | Hashverfahren | CBP-WP-012 |
-| Backupziel, RPO, RTO | **Deployment Required** |
+| Backupziel, RPO, RTO | **beantwortet** in CBP-WP-019 (D-054): physisch separate NAS; wöchentliches VM-Backup plus tägliche kanonische Sicherung; RPO 24 h, RTO 8 h — Prüfpunkte DRC-11, DRC-12, DRC-13, DRC-14 und DRC-15 stehen auf `ready` |
 | Ablageort von RT-2 | **Deployment Required** |
+
+> **Kein RT-2 implementiert.** Diese Zuordnung dokumentiert ausschließlich, **wo**
+> die Aufbewahrungsdauer geprüft wird. Es existiert **kein** RT-2-Speicher, keine
+> Verkettung, kein Backup und kein Restore-Nachweis von RT-2. Der
+> CBP-/RT-2-Restore mit Integritätsprüfung bleibt **Punkt 19** des
+> [Security Foundation Readiness Gate](SECURITY_FOUNDATION_READINESS_GATE.md)
+> und ist **nicht erbracht**.
 
 ## Status
 
@@ -212,3 +219,36 @@ kein Backup.** Keine Technologie wurde ausgewählt.
 **R-20 bleibt offen** — es wurde kein Restore durchgeführt.
 
 **Implementierung erlaubt: nein.**
+
+## RT-2-Aufbewahrung — Profil A (DRC-19)
+
+Bestätigt durch den Human Maintainer in CBP-WP-019 (**D-054**), geprüft als
+**DRC-19**, Status **`ready`**. Der **DRC-Gesamtstatus** für Profil A lautet seit
+**2026-07-29** **APPROVED BY HUMAN MAINTAINER** — das ist eine **dokumentarische**
+Feststellung und **keine** RT-2-Betriebsfreigabe.
+
+| Feld | Festlegung |
+| --- | --- |
+| Geltungsbereich | **alle** `retention_class`-Werte — einschließlich Security- und Incident-Evidenz; **keine** klassenspezifische Ausnahme |
+| **Mindestaufbewahrung** | **365 Tage** |
+| Verhalten nach Ablauf der Mindestfrist | **dauerhafte Aufbewahrung** |
+| Automatische Löschung | **nein** |
+| Separates Archiv | **nein** |
+| Owner | **Human Maintainer / Betreiber** |
+
+**Semantische Klarstellung.** Die tatsächliche Aufbewahrung ist **unbefristet**.
+Die 365 Tage sind die bestätigte **Mindestaufbewahrung**, keine Löschfrist. Nach
+Ablauf der Mindestfrist erfolgt **keine** automatische Löschung und **keine**
+Überführung in ein separates Archiv. **RET-3** bleibt unberührt: eine aktive
+Incident-, Legal- oder Restore-Sperre wird durch keinen Fristablauf übergangen.
+
+Es werden **keine neuen `retention_class`-Namen eingeführt.** Die Regel gilt
+einheitlich für die bestehenden Ereignisarten dieses Vertrags.
+
+> **Aussagegrenze.** Die Policy ist **dokumentiert**. **RT-2 ist weiterhin nicht
+> implementiert:** es existiert **keine** technische Retention-Engine, **kein**
+> RT-2-Speicher, **keine** Verkettung, **kein** RT-2-Backup und **kein**
+> RT-2-Restore-Nachweis. Der CBP-/RT-2-Restore mit Integritätsprüfung bleibt
+> **Punkt 19** des
+> [Security Foundation Readiness Gate](SECURITY_FOUNDATION_READINESS_GATE.md)
+> und ist **nicht erbracht**.

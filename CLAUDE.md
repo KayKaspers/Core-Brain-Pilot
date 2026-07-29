@@ -132,7 +132,8 @@ nennen.
 | Phase | **Phase 0 – COMPLETE** |
 | **Gate G0** | **PASSED WITH NOTES** — 2026-07-21, A0 |
 | **Phase 1** | **AUTHORIZED FOR PLANNING** — keine Implementierung freigegeben |
-| Aktuelles Work Package | **keines aktiv** — zuletzt abgeschlossen **CBP-WP-018** (`committed`: Phase B0 `4dec921`, Phase B1 `5ee2e83`); **ADR-0013**/**D-052**/**D-053**; Evidence Schema **3.0 implementiert** (Runtime-Stand 3.0), Schema 1.0/2.0 fail-closed; **kein nächstes Work Package autorisiert** |
+| Aktuelles Work Package | **CBP-WP-019** (`in-review`, **Phase B1.2 – Human DRC Approval Reconciliation**) — **D-054**, `ADR_NOT_REQUIRED`; DRC auf **19 Prüfpunkte** erweitert, für Profil A vollständig erhoben (**19 `ready`, 0 `blocked`**) und am **2026-07-29** vom Human Maintainer freigegeben (**APPROVED BY HUMAN MAINTAINER**); zuletzt committed **CBP-WP-018** (`5ee2e83`); **uncommitted, Commit-Autorität beim Human Maintainer** |
+| **Deployment Readiness (DRC)** | **APPROVED BY HUMAN MAINTAINER** — Profil A, **2026-07-29** (CBP-WP-019, D-054); **19 Prüfpunkte** (17 G0-abgeleitet + 2 ohne G0-Herkunft: DRC-01, DRC-19), **19 `ready`**, **0 `blocked`**; der Gesamtstatus wurde **nicht** automatisch abgeleitet. **Rein dokumentarisch: keine Installation, keine Bereitstellung, keine Betriebs-, Security-, Mapping- oder Capability-Freigabe.** Alle Angaben sind Zusagen des Human Maintainers, keine verifizierten Messwerte |
 | Core-Kriterien | 25 von 25 `accepted`, 0 `answered`, 0 `open`, 0 `blocked` |
 | Angenommene ADRs | **13** (A1) |
 | **Mappingkonvention** | **entschieden** — ADR-0008; **0 Mappings, 0 Quellen, Gate `NOT EVALUATED`** |
@@ -148,7 +149,7 @@ nennen.
 | **Repository-Zielstruktur** | **entschieden** — Ziel-Monorepo (D-029, ADR-0007); **Migration nicht autorisiert** |
 | **Bereichsmodell** | **W-3** — privater Operator-Workspace außerhalb des Core-Repositorys (D-030); **nicht angelegt** |
 | **Veröffentlichung** | Core-Repository `publication-capable by design`, **bleibt privat** — Freigabe benötigt A0 (OD-11) |
-| DRC | **NOT EVALUATED** |
+| DRC | **APPROVED BY HUMAN MAINTAINER** — Profil A, 2026-07-29; 19 Prüfpunkte, **19 `ready` / 0 `blocked`** (D-054); rein dokumentarisch |
 | Benchmark | **entworfen, nicht ausgeführt** (Dataset 2.0.0) |
 | Technische Implementierung | **Skeleton + Quarantäne- + Registry- + Mapping-Draft-Validator- + Gate-Evaluator- + Evidence-3.0-/Security-Contract-Prototyp lokal** (CBP-WP-012/013/014/015/016/017/018) — keine KB-Kontrolle durchgesetzt, keine Quelle angebunden, kein Mapping gespeichert, kein Gate ausgeführt, keine Security evaluiert, nichts aktiviert |
 | Implementierte Capabilities | **keine (0 von 29)** — lokale Bausteine belegt; **Capability 2/3/5/6/7 bleiben nicht vollständig `implemented`** |

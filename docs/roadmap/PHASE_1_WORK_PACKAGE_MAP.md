@@ -2,17 +2,26 @@
 
 | Feld | Wert |
 | --- | --- |
-| **Status aller Work Packages** | **`proposed`** |
-| **Implementierung autorisiert** | **nein** |
+| **Charakter** | **historisches Planungsartefakt** (Streamschnitt F1–F5, Stand 2026-07-21) |
+| **Statusabgleich** | nachgeführt in **CBP-WP-019** (2026-07-29) |
 | Stream-Grundlage | [PHASE_1_FOUNDATION_PLAN.md](PHASE_1_FOUNDATION_PLAN.md) (F1–F5) |
 | Backlog-Grundlage | [PHASE_1_BACKLOG.md](PHASE_1_BACKLOG.md) (P1–P5) |
 | Erfasst in | CBP-WP-008 |
 | Autoritätsklasse | A3 |
-| Stand | 2026-07-21 |
+| Stand | 2026-07-29 |
 
-**Kein Work Package in dieser Karte ist freigegeben.** Keines steht auf
-`active`. Ein Vorschlag wird erst durch eine ausdrückliche Freigabe des Human
-Maintainers ausführbar — Regel 6 der Work Package Queue.
+> **Diese Karte ist ein historisches Planungsartefakt.** Sie schnitt bewusst nur
+> **F1 bis F5** (CBP-WP-009 bis CBP-WP-014). Die **ursprüngliche
+> Stream-Planung wird nicht rückwirkend umgedeutet** — die Abhängigkeitsregeln
+> A–E und die Streamzuordnung bleiben im Wortlaut erhalten. Nachgeführt wurden
+> in CBP-WP-019 **ausschließlich die Statuswerte und Commit-Belege**, weil die
+> Karte Pakete weiterhin als `proposed`/`in-review` führte, die längst
+> `committed` sind.
+
+**Der kanonische Work-Package-Status steht in
+[WORK_PACKAGE_QUEUE.md](../../project-system/WORK_PACKAGE_QUEUE.md)** (A2), nicht
+in dieser Karte. Ein Vorschlag wird erst durch eine ausdrückliche Freigabe des
+Human Maintainers ausführbar — Regel 6 der Work Package Queue.
 
 ---
 
@@ -20,18 +29,32 @@ Maintainers ausführbar — Regel 6 der Work Package Queue.
 
 | ID | Titel | Typ | Stream | Status | Implementierung autorisiert |
 | --- | --- | --- | --- | --- | --- |
-| **CBP-WP-009** | Repository Boundary Decision | `docs-only`, interaktiv | F1 | **`in-review`** — ausgeführt 2026-07-21 | **nein** |
-| **CBP-WP-010** | Pilot Source Mapping Specification | `docs-only`, interaktiv | F2 | **`in-review`** — ausgeführt 2026-07-21 | **nein** |
-| **CBP-WP-011** | Technical Security Foundation Specification | `docs-only`, interaktiv | F3 | **`in-review`** — ausgeführt 2026-07-21 | **nein** |
+| **CBP-WP-009** | Repository Boundary Decision | `docs-only`, interaktiv | F1 | **`committed`** | **nein** |
+| **CBP-WP-010** | Pilot Source Mapping Specification | `docs-only`, interaktiv | F2 | **`committed`** | **nein** |
+| **CBP-WP-011** | Technical Security Foundation Specification | `docs-only`, interaktiv | F3 | **`committed`** — `8a7c455` | **nein** |
 | **CBP-WP-012** | Foundation Runtime Skeleton | implementation | F3 | **`committed`** — `1f55234` | **ausgeführt** |
 | **CBP-WP-013** | Ingest Quarantine Minimum Viable Pipeline | implementation | F4 | **`committed`** — `4a35245` | **ausgeführt** |
-| **CBP-WP-014** | Deterministic Source Registry and Catalog | implementation | F5 | **`in-review`** — ausgeführt 2026-07-22 | **ausgeführt** (A0 WITH NOTES) |
-| **CBP-WP-015** | Deterministic Source Mapping Draft Validator | spätere Implementierung | F5 | **`proposed`** | **nein** |
+| **CBP-WP-014** | Deterministic Source Registry and Catalog | implementation | F5 | **`committed`** — `d0c0531` | **ausgeführt** (A0 WITH NOTES) |
+| **CBP-WP-015** | Deterministic Source Mapping Draft Validator | implementation | F5 | **`committed`** — `645ccb1` | **ausgeführt** |
 
-**Die ersten drei sind `docs-only`.** CBP-WP-012/013 sind committed;
-**CBP-WP-014** ist das dritte Paket mit technischer Wirkung — ein lokaler,
-synthetisch testbarer, **deaktivierter** Source-Registry-Prototyp, `in-review`,
-**nicht produktiv**.
+### Nach dem Kartenschnitt ergänzte Work Packages
+
+Diese Pakete lagen **außerhalb** des ursprünglichen F1–F5-Schnitts und sind hier
+nur zur Statusvollständigkeit geführt:
+
+| ID | Titel | Status |
+| --- | --- | --- |
+| **CBP-WP-016** | Deterministic Mapping Activation Gate Evaluator | **`committed`** — `04c427c` |
+| **CBP-WP-017** | Synthetic Evidence Contract & Provenance Foundation | **`committed`** — `d3168c4` |
+| **CBP-WP-018** | Security Foundation Readiness Contract & Synthetic Form-Validator | **`committed`** — `4dec921` (Governance), `5ee2e83` (Implementation) |
+| **CBP-WP-019** | Deployment Readiness Intake and Profile-A Target Specification | **`in-review`** (Phase B1.2) — uncommitted |
+
+**Kein Folge-Work-Package ist autorisiert.** CBP-WP-020 ist nicht registriert,
+nicht begonnen und nicht autorisiert.
+
+**Die ersten drei sind `docs-only`.** CBP-WP-012 bis CBP-WP-015 sind committed;
+sie erzeugten lokale, synthetisch testbare, **deaktivierte** Prototypen —
+**nicht produktiv**, keine angebundene Quelle, keine Aktivierung.
 
 ---
 
@@ -49,7 +72,7 @@ synthetisch testbarer, **deaktivierter** Source-Registry-Prototyp, `in-review`,
 | **Abbruchbedingungen** | Human Maintainer entscheidet nicht oder nur teilweise → anhalten, **nicht annehmen** (SB-12) |
 | **Erwartete Risiken** | R-01, R-17 |
 | **Review Gate** | Nova-Review, dann Human-Maintainer-Entscheidung |
-| **Status** | **`in-review`** — ausgeführt am 2026-07-21 |
+| **Status** | **`committed`** — ausgeführt am 2026-07-21 |
 | **Ergebnis** | **OD-26 geschlossen** — D-029 (Layout-Option B) und D-030 (Modell W-3), [ADR-0007](../decisions/ADR-0007-repository-und-workspace-grenze.md) `accepted` |
 | **Implementierung autorisiert** | **nein** |
 
@@ -72,7 +95,7 @@ Migrations-Work-Package bestehen bleibt.
 | **Abbruchbedingungen** | Ein realer Pfad oder Secret soll ins Core Repository → **sofort anhalten** (SB-02, SB-01) |
 | **Erwartete Risiken** | **R-01**, R-27, R-03 |
 | **Review Gate** | Nova-Review; Freigabe der Quellenauswahl durch den Human Maintainer |
-| **Status** | **`in-review`** — ausgeführt am 2026-07-21 |
+| **Status** | **`committed`** — ausgeführt am 2026-07-21 |
 | **Ergebnis** | **D-031, D-032, D-033** (A0) · [ADR-0008](../decisions/ADR-0008-pilot-source-mapping-konvention.md) `accepted` · Spezifikation, Schema (31 Felder), Validierung (24 Regeln), Zustandsmodell (10 Zustände), 10 synthetische Beispiele, Aktivierungsgate (`NOT EVALUATED`) |
 | **Implementierung autorisiert** | **nein** |
 
@@ -97,7 +120,7 @@ Quellen später angebunden werden.
 | **Abbruchbedingungen** | Eine Kontrolle ruht allein auf Promptregeln → als **nicht durchgesetzt** kennzeichnen (SB-03) |
 | **Erwartete Risiken** | **R-25**, **R-27**, R-26 |
 | **Review Gate** | Nova-Review; Abnahme der Testdefinition durch den Human Maintainer |
-| **Status** | **`in-review`** — ausgeführt am 2026-07-21 |
+| **Status** | **`committed`** — ausgeführt am 2026-07-21, Commit `8a7c455` |
 | **Ergebnis** | **D-034 bis D-037** (A0) · [ADR-0009](../decisions/ADR-0009-technische-sicherheitsgrundlage.md) `accepted` · Spezifikation (18 Abschnitte), Identitätsmodell, Secret-Vertrag, Egress-Policy, Evidence-Policy, Abnahmematrix (31 Negativtests), Readiness Gate (24 Punkte, `NOT EVALUATED`). **OD-34 und OD-35 geschlossen** |
 | **Implementierung autorisiert** | **nein** |
 
@@ -118,7 +141,7 @@ Umsetzung. **Alle zwölf Kontrollen stehen auf `DOCUMENTED ONLY`.**
 | **Abbruchbedingungen** | Root- oder Hostausführung; unerwarteter Schreibzugriff auf Canonical; Secretfund (SB-01, SB-04 der Stop-Bedingungen) |
 | **Erwartete Risiken** | R-26, **R-25**, R-01 |
 | **Review Gate** | Human-Maintainer-Freigabe **vor** Beginn, Nova-Review danach |
-| **Status** | **`in-review`** — ausgeführt am 2026-07-21 |
+| **Status** | **`committed`** — ausgeführt am 2026-07-21, Commit `1f55234` |
 | **Ergebnis** | Human-Autorisierung APPROVE WITH NOTES (A0); Stack A1, CLI B1, Struktur C1. Additiver Python-Skeleton, **9 Module**, lokale CLI, vier verweigernde Ports, **69 Tests bestanden**, `run` fail-closed (Exit 4). **Keine KB-Kontrolle durchgesetzt** — alle `DOCUMENTED ONLY` |
 | **Implementierung autorisiert** | **ja, ausgeführt** — nur der lokale Skeleton, kein produktiver Betrieb |
 
@@ -141,8 +164,8 @@ Skeleton prüft lokal, er setzt nicht durch.
 | **Abbruchbedingungen** | Weg von Quarantäne nach kanonisch ohne Human Review; Secretfund; `excluded-from-ai` durchgebrochen |
 | **Erwartete Risiken** | **R-32**, **R-31**, R-30, R-04, R-01 |
 | **Review Gate** | Human-Maintainer-Freigabe vor Beginn; Abnahme der Negativtests danach |
-| **Status** | **`proposed`** |
-| **Implementierung autorisiert** | **nein** |
+| **Status** | **`committed`** — Commit `4a35245` |
+| **Implementierung autorisiert** | **ja, ausgeführt** — lokaler synthetischer Quarantäne-Prototyp, kein produktiver Ingest |
 
 **PDF und Office bleiben `deferred`.** Tests laufen mit **synthetischen** Daten.
 
@@ -160,8 +183,8 @@ Skeleton prüft lokal, er setzt nicht durch.
 | **Abbruchbedingungen** | Registry nicht reproduzierbar; Index enthält gelöschte Quelle; fehlender Rollback |
 | **Erwartete Risiken** | **R-10**, R-07, R-06 |
 | **Review Gate** | Human-Maintainer-Freigabe vor Beginn; Abnahme des Rebuild-Nachweises danach |
-| **Status** | **`proposed`** |
-| **Implementierung autorisiert** | **nein** |
+| **Status** | **`committed`** — Commit `d0c0531` |
+| **Implementierung autorisiert** | **ja, ausgeführt** — lokaler, deaktivierter Registry-Prototyp, nicht produktiv |
 
 ---
 
@@ -201,21 +224,34 @@ ersten Nachweise vorliegen, wäre Planung ohne Rückkopplung.
 
 ## Status
 
-**Stand nach CBP-WP-010:** CBP-WP-009 ist committed, CBP-WP-010 **ausgeführt**
-(`in-review`). Die vier übrigen Work Packages **CBP-WP-011 bis CBP-WP-014**
-stehen weiterhin auf **`proposed`** — keines ist freigegeben, keines steht auf
-`active`, keines ist begonnen.
+> **Historischer Stand nach CBP-WP-010 (unverändert erhalten):** CBP-WP-009 war
+> committed, CBP-WP-010 ausgeführt; CBP-WP-011 bis CBP-WP-014 standen auf
+> `proposed`. Dieser Absatz beschreibt den damaligen Planungszustand und wird
+> **nicht rückwirkend umgedeutet**.
+
+**Aktueller Stand (nachgeführt in CBP-WP-019, 2026-07-29):** **Alle** Work
+Packages dieser Karte — **CBP-WP-009 bis CBP-WP-015** — sind **`committed`**.
+Ebenso committed sind die nach dem Kartenschnitt ergänzten **CBP-WP-016**,
+**CBP-WP-017** und **CBP-WP-018**. **CBP-WP-019** ist **`in-review`** und
+uncommitted. **Kein Folge-Work-Package ist autorisiert.**
 
 **Regeln A und B sind erfüllt:** Die Bereichsgrenze steht (009), die
-Mappingkonvention steht (010). **CBP-WP-011 ist damit nicht mehr durch eine
-fehlende Vorentscheidung blockiert** — es ist deshalb **nicht freigegeben**.
+Mappingkonvention steht (010).
 
-**Regel C bleibt bindend:** CBP-WP-013 braucht **beide** Vorgänger. Der
-F3-Strang (011 → 012) hat noch nicht begonnen; ohne ihn ist das
-Aktivierungsgate nicht durchlaufbar, weil acht seiner zwanzig Punkte
-Nachweisstufe 4 verlangen.
+**Regel C und der F3-Strang:** Der F3-Strang (011 → 012) ist ausgeführt.
+**Die damalige Feststellung bleibt sachlich gültig:** Das Aktivierungsgate ist
+weiterhin **nicht durchlaufbar**, weil acht seiner zwanzig Punkte Nachweisstufe 4
+verlangen — CBP-WP-012 hat einen lokalen Skeleton erstellt, der **prüft, aber
+nicht durchsetzt**. **Keine der zwölf KB-Kontrollen ist durchgesetzt**; alle
+bleiben `DOCUMENTED ONLY`.
 
-**Implementierung autorisiert: nein.**
+**Aktueller Gatestand:** Mapping Activation Gate `NOT EVALUATED` · Security
+Foundation Readiness Gate `NOT EVALUATED` · **DRC `APPROVED BY HUMAN MAINTAINER`**
+(Profil A, 2026-07-29, **19 `ready` / 0 `blocked`**, CBP-WP-019/D-054) — **rein
+dokumentarisch, keine Installations- oder Betriebsfreigabe**.
+**Capabilities 0 von 29.**
+
+**Produktive Implementierung autorisiert: nein.**
 
 > **Ergänzung zu einem Migrations-Work-Package.** D-029 verlangt für die
 > Überführung in die Zielstruktur ein **separates, ausdrücklich freigegebenes**

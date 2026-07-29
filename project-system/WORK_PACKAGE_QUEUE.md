@@ -3,7 +3,7 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Aktuelles Work Package | **keines aktiv** — zuletzt abgeschlossen **CBP-WP-018** (`committed`, `5ee2e83`) |
+| Aktuelles Work Package | **CBP-WP-019** (`in-review`, Phase B1.2 – Human DRC Approval Reconciliation) — zuletzt committed **CBP-WP-018** (`5ee2e83`) |
 | Gate G0 | **PASSED WITH NOTES** — 2026-07-21 |
 | Überarbeitet in | **CBP-WP-016** |
 | Autoritätsklasse | A2 |
@@ -45,16 +45,22 @@ Spalten nach `WORK_PACKAGE_QUEUE_TEMPLATE.md` (NDF v1.0.0).
 | CBP-WP-016 | **Deterministic Mapping Activation Gate Evaluator** | P1 | **`committed`** | [work-packages/CBP-WP-016.md](../work-packages/CBP-WP-016.md) |
 | CBP-WP-017 | **Synthetic Evidence Contract & Provenance Foundation** | P1 | **`committed`** | [work-packages/CBP-WP-017.md](../work-packages/CBP-WP-017.md) |
 | CBP-WP-018 | **Security Foundation Readiness Contract & Synthetic Form-Validator** | P1 | **`committed`** | [work-packages/CBP-WP-018.md](../work-packages/CBP-WP-018.md) |
+| CBP-WP-019 | **Deployment Readiness Intake and Profile-A Target Specification** | P1 | **`in-review`** (Phase B1.2) | [work-packages/CBP-WP-019.md](../work-packages/CBP-WP-019.md) |
 
-**Kein Work Package ist als `proposed` geführt.** CBP-WP-018 (Security Foundation
-Readiness Contract & Synthetic Form-Validator) ist **`committed`** — Phase B0
-(Governance Foundation) mit `4dec921` und Phase B1 (Technical Implementation)
-mit `5ee2e83` (A0-Freigaben **D-052**, **D-053**; **ADR-0013** angenommen) — und
-mit `origin/main` synchron. Der Runtime-Stand ist **Evidence Schema 3.0** mit
-statischem **Security Contract 1.0**. CBP-WP-017 ist `committed` (`d3168c4`,
-D-051); CBP-WP-016 ist `committed` (`04c427c`, D-050). **Kein** Work Package ist
-`active` oder `in-review`; **zuletzt abgeschlossen ist CBP-WP-018**. Ein
-**nächstes autorisiertes Work Package existiert nicht**. **CBP-WP-019 ist nicht
+**Kein Work Package ist als `proposed` geführt.** **CBP-WP-019** (Deployment
+Readiness Intake and Profile-A Target Specification) steht auf **`in-review`** in
+**Phase B1.2 – Human DRC Approval Reconciliation** (A0-Freigabe **D-054**;
+**ADR_NOT_REQUIRED**). Es ist ein **docs-only, interaktives** Paket: die
+Deploymentangaben des Human Maintainers wurden dokumentiert, der DRC von 18 auf
+**19** Prüfpunkte erweitert und für **Profil A** vollständig erhoben — **19
+`ready`, 0 `blocked`**; der Human Maintainer hat am **2026-07-29** den
+**DRC-Gesamtstatus** auf **APPROVED BY HUMAN MAINTAINER** gesetzt — **rein
+dokumentarisch**, ohne Installations-, Betriebs-, Security- oder
+Capability-Freigabe. Die Implementation ist **uncommitted** und
+wartet auf Nova-Review und Human-Commit. CBP-WP-018 ist `committed` (Phase B0
+`4dec921`, Phase B1 `5ee2e83`, D-052/D-053, ADR-0013); CBP-WP-017 ist `committed`
+(`d3168c4`, D-051); CBP-WP-016 ist `committed` (`04c427c`, D-050). Genau **ein**
+Work Package ist `active`/`in-review` (CBP-WP-019). **CBP-WP-020 ist nicht
 Bestandteil, nicht registriert, nicht begonnen und nicht autorisiert.**
 
 > **Titelkorrektur in CBP-WP-009.** Diese Übersichtstabelle trug bis dahin die
@@ -116,7 +122,7 @@ fehlerhafte Summen korrigiert.
 
 Ergebnis: deployment-neutrale Systemarchitektur in 9 Schichten, 14 logische
 Komponenten mit Schreibrechten, 5 Deploymentprofile, Deployment Readiness Check
-(18 Prüfpunkte, NOT EVALUATED), Berechtigungsmodell, Secret-Incident-Response,
+(damals 18 Prüfpunkte, NOT EVALUATED; seit CBP-WP-019 **19**), Berechtigungsmodell, Secret-Incident-Response,
 5 ADRs. G0-`accepted` von 8 auf **18** gestiegen; verbleibende Blocker von 17
 auf **7**.
 
@@ -476,6 +482,48 @@ Capability-Stand unverändert **0 von 29**; alle drei Gates `NOT EVALUATED`; die
 zwölf KB-Kontrollen bleiben `DOCUMENTED ONLY`. Kriterium 5 Human-only,
 Kriterium 9 non-security-structural, Gate-Kriterien 4/6/7/8/10/11 bleiben
 `DEPENDENCY_BLOCKED` — auch bei elf gültigen Formbindungen.
+
+---
+
+## CBP-WP-019
+
+| Feld | Wert |
+| --- | --- |
+| Titel | **Deployment Readiness Intake and Profile-A Target Specification** |
+| Typ | **docs-only, interaktiv** (Human-Maintainer-Intake) |
+| Prompt Mode | **Full** · Context Budget **B2 – Standard** |
+| Status | **`in-review`** |
+| Aktuelle Phase | **Phase B1.2 – Human DRC Approval Reconciliation** |
+| A0-Entscheidung | **D-054** (konsolidiert, A–H) |
+| ADR | **not required** (`ADR_NOT_REQUIRED`) |
+| DRC | **19 Prüfpunkte** — **19 `ready`**, **0 `blocked`**; Gesamtstatus **APPROVED BY HUMAN MAINTAINER**, erteilt **2026-07-29** |
+| Tests | **558 – OK**, compileall Exit 0 (docs-only, unverändert) |
+| Commit | **nicht** ausgeführt (Commit-Autorität beim Human Maintainer) |
+
+Phase A und Phase A.1 read-only abgeschlossen. Phase A bestätigte die
+18/16-Struktur des DRC und meldete drei Coverage-Lücken; **Phase A.1 löste den
+gemeldeten DRC-16-Zyklus auf**: er entsteht nur unter einer nicht
+quellengedeckten Lesart. Standardwert 10, **D-027 §16 (getrennte Bedingungen 2
+und 4)** und **Readiness-Gate Punkt 19** belegen, dass der CBP-/RT-2-Restore
+bereits nachgelagert verortet ist. Gewähltes Lifecycle-Modell: **L0** mit
+Klarstellung des DRC-16-Prüfumfangs.
+
+**Phase B1 (dieser Stand, uncommitted):** CBP-WP-019 registriert; **D-054**
+dokumentiert (A Profil/Plattform · B Ressourcen · C Netzwerk · D Backup/Restore ·
+E DRC-Lifecycle · F DRC-19 · G Secret-/Produktabgrenzung · H Governance);
+**DRC-16 präzisiert** auf das Betreiber-Backup-Regime (nicht CBP, nicht RT-2);
+**DRC-17 erweitert** um die OD-34-Restpunkte; **DRC-19 – RT-2-Aufbewahrung**
+ergänzt (18 → **19** Prüfpunkte, davon 17 G0-abgeleitet und 2 ohne G0-Herkunft);
+Profil-A-Zielspezifikation dokumentiert; Phase-1-Roadmap gebündelt nachgeführt.
+**OD-22 und OD-30 beantwortet**; OD-20 bleibt außerhalb des DRC.
+
+**Keine Installation, kein Deployment, keine Betriebsfreigabe, keine
+Gatefreigabe, keine Aktivierung, kein RT-2, keine Persistenz.** Alle Angaben
+sind **Zusagen des Human Maintainers**, keine verifizierten Messwerte; es fand
+**kein** Zugriff auf Hypervisor, Speicher, Netz oder Sicherungsziel statt.
+Capability-Stand unverändert **0 von 29**; Mapping Activation Gate und Security
+Foundation Readiness Gate bleiben `NOT EVALUATED`; die zwölf KB-Kontrollen
+bleiben `DOCUMENTED ONLY`. **R-20 bleibt offen.**
 
 ---
 
