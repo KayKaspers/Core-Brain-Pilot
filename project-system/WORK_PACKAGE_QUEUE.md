@@ -3,7 +3,7 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Aktuelles Work Package | **CBP-WP-018** (`in-review`, Phase B0 – Governance Foundation) — zuletzt committed **CBP-WP-017** (`d3168c4`) |
+| Aktuelles Work Package | **CBP-WP-018** (`in-review`, Phase B1 – Technical Implementation) — zuletzt committed **CBP-WP-018 Phase B0** (`4dec921`) |
 | Gate G0 | **PASSED WITH NOTES** — 2026-07-21 |
 | Überarbeitet in | **CBP-WP-016** |
 | Autoritätsklasse | A2 |
@@ -44,13 +44,14 @@ Spalten nach `WORK_PACKAGE_QUEUE_TEMPLATE.md` (NDF v1.0.0).
 | CBP-WP-015 | **Deterministic Source Mapping Draft Validator** | P1 | **`committed`** | [work-packages/CBP-WP-015.md](../work-packages/CBP-WP-015.md) |
 | CBP-WP-016 | **Deterministic Mapping Activation Gate Evaluator** | P1 | **`committed`** | [work-packages/CBP-WP-016.md](../work-packages/CBP-WP-016.md) |
 | CBP-WP-017 | **Synthetic Evidence Contract & Provenance Foundation** | P1 | **`committed`** | [work-packages/CBP-WP-017.md](../work-packages/CBP-WP-017.md) |
-| CBP-WP-018 | **Security Foundation Readiness Contract & Synthetic Form-Validator** | P1 | **`in-review`** (Phase B0) | [work-packages/CBP-WP-018.md](../work-packages/CBP-WP-018.md) |
+| CBP-WP-018 | **Security Foundation Readiness Contract & Synthetic Form-Validator** | P1 | **`in-review`** (Phase B1) | [work-packages/CBP-WP-018.md](../work-packages/CBP-WP-018.md) |
 
 **Kein Work Package ist als `proposed` geführt.** CBP-WP-018 (Security Foundation
 Readiness Contract & Synthetic Form-Validator) steht auf **`in-review`** in
-**Phase B0 – Governance Foundation** (A0-Freigabe **D-052**, **ADR-0013**
-angenommen); die **technische Implementation ist nicht begonnen**, der
-Runtime-Stand bleibt **Evidence Schema 2.0**. CBP-WP-017 ist `committed`
+**Phase B1 – Technical Implementation** (A0-Freigaben **D-052**, **D-053**;
+**ADR-0013** angenommen); Phase B0 ist `committed` (`4dec921`). Der Runtime-Stand
+ist **Evidence Schema 3.0**; die Implementation ist **uncommitted** und wartet
+auf Nova-Review und Human-Commit. CBP-WP-017 ist `committed`
 (`d3168c4`, D-051); CBP-WP-016 ist `committed` (`04c427c`, D-050). Genau **ein**
 Work Package ist `active`/`in-review` (CBP-WP-018). **CBP-WP-019 ist nicht
 Bestandteil, nicht begonnen und nicht autorisiert.**
@@ -439,27 +440,33 @@ Produktionsreife.** Capability-Stand unverändert **0 von 29**.
 | Prompt Mode | **Full** · Context Budget **B2 – Standard** |
 | Claude Code | Opus 4.8 (`claude-opus-4-8`), Effort **ultracode** |
 | Status | **`in-review`** |
-| Aktuelle Phase | **Phase B0 – Governance Foundation** (rein dokumentarisch) |
-| A0-Entscheidung | **D-052** (APPROVE GOVERNANCE FOUNDATION WITH NOTES; A1/B1/C1/D1/E1) |
+| Aktuelle Phase | **Phase B1 – Technical Implementation** |
+| A0-Entscheidungen | **D-052** (Governance Foundation; `committed` `4dec921`) · **D-053** (APPROVE TECHNICAL IMPLEMENTATION WITH NOTES; A1/B1/C1/D1/E1) |
 | ADR | **ADR-0013** `accepted` (Evidence Schema 3.0) |
+| Tests | **558 – OK** (Basislinie 451), compileall Exit 0 |
 | Commit | **nicht** ausgeführt (Commit-Autorität beim Human Maintainer) |
 
-Ergebnis: **Governance-Grundlage für Evidence Schema 3.0.** Phase A/A.1 read-only
-abgeschlossen (Phase A REWORK, A.1 angenommen); Blocker A (fehlendes `control_id`)
-und Blocker B (fehlende Security-Contract-Bindung) bestätigt. **ADR-0013**
-(Evidence Schema 3.0 mit `security-control-form`/`control_id`, Security-Contract-
-Bindung, Scope S3) angenommen; **D-052** dokumentiert (partielle Ablösung von
-D-051: C2/D1). **Technische Implementation nicht begonnen**: kein `control_id`,
-keine neue Producer-Klasse, kein Security Contract im Code; **Runtime-Stand bleibt
-Evidence Schema 2.0**; **451 Tests – OK** unverändert, compileall grün. Die
-technische Migration 2.0 → 3.0 benötigt eine **gesonderte Nova- und
-Human-Freigabe**.
+Phase A/A.1 read-only abgeschlossen (Phase A REWORK, A.1 angenommen); Blocker A
+(fehlendes `control_id`) und Blocker B (fehlende Security-Contract-Bindung)
+bestätigt. **Phase B0** (`committed` `4dec921`): **ADR-0013** angenommen,
+**D-052** dokumentiert (partielle Ablösung von D-051: C2/D1). **Phase B0.1**:
+R-33-Konsistenzkorrektur (ADR-Indexzahl 11 → 13), R-33 = **14/18**.
 
-**Kein Runtime-Code/Test geändert, keine Security-Evaluation, keine Enforcement,
-keine Gatefreigabe, keine Aktivierung, kein RT-2, keine Persistenz, keine
-Produktionsreife.** Capability-Stand unverändert **0 von 29**. Kriterium 5
-Human-only, Kriterium 9 non-security-structural, Gate-Kriterien 4/6/7/8/10/11
-`DEPENDENCY_BLOCKED`.
+**Phase B1 (dieser Stand, uncommitted):** Evidence Schema **2.0 → 3.0**
+vollständig migriert (1.0 und 2.0 fail-closed); Producer-Klasse
+`security-control-form` mit Pflichtfeld `control_id`; neues reines Modul
+`core/core_brain/gate/security_contract.py` (Revision 1.0, **12** dokumentierte
+/ **7** runtime-scoped Controls / **11** `(criterion, control_id)`-Bindungen);
+per-Bindungs-Verdikte mit Priorität `INVALID > CONFLICTING > STALE`; A6-Report
+um Contract-Revision/-Hash und fünf Binding-Zähler (Summeninvariante = 11)
+erweitert; **D-053** dokumentiert.
+
+**Keine Security-Evaluation, kein Enforcement, keine Gatefreigabe, keine
+Aktivierung, kein RT-2, keine Persistenz, keine Produktionsreife.**
+Capability-Stand unverändert **0 von 29**; alle drei Gates `NOT EVALUATED`; die
+zwölf KB-Kontrollen bleiben `DOCUMENTED ONLY`. Kriterium 5 Human-only,
+Kriterium 9 non-security-structural, Gate-Kriterien 4/6/7/8/10/11 bleiben
+`DEPENDENCY_BLOCKED` — auch bei elf gültigen Formbindungen.
 
 ---
 

@@ -218,7 +218,35 @@ class TestWP017Cli(unittest.TestCase):
                       "stale_artifact_count", "conflicting_artifact_count"):
             self.assertIn(field, parsed)
         self.assertRegex(parsed["evidence_contract_sha256"], r"\A[0-9a-f]{64}\Z")
-        self.assertEqual(parsed["evidence_contract_revision"], "2.0")
+        self.assertEqual(parsed["evidence_contract_revision"], "3.0")
+
+    def test_report_has_security_contract_fields(self) -> None:
+        # CBP-WP-018: Security-Contract- und Binding-Zählerfelder mit Invariante.
+        with tempfile.TemporaryDirectory() as tmp:
+            code, out, _ = run_cli(*_argv(fx.build_case(tmp), as_json=True))
+        self.assertEqual(code, 14)
+        parsed = json.loads(out)
+        self.assertEqual(parsed["security_contract_revision"], "1.0")
+        self.assertRegex(parsed["security_contract_sha256"], r"\A[0-9a-f]{64}\Z")
+        self.assertEqual(parsed["documented_control_count"], 12)
+        self.assertEqual(parsed["runtime_scoped_control_count"], 7)
+        self.assertEqual(parsed["runtime_scoped_binding_count"], 11)
+        self.assertEqual(parsed["operationally_unevaluated_binding_count"], 11)
+        partition = (
+            parsed["valid_form_binding_count"]
+            + parsed["missing_form_binding_count"]
+            + parsed["invalid_form_binding_count"]
+            + parsed["stale_form_binding_count"]
+            + parsed["conflicting_form_binding_count"]
+        )
+        self.assertEqual(partition, 11)
+        # Leeres Bundle: alle elf Bindungen fehlen.
+        self.assertEqual(parsed["missing_form_binding_count"], 11)
+        # Keine unzulässigen Aggregatfelder / kein Readiness-Vokabular.
+        for forbidden in ("ready_control_count", "passed_control_count",
+                          "enforced_control_count", "approved_control_count",
+                          "security_ready", "security_passed"):
+            self.assertNotIn(forbidden, parsed)
 
     def test_report_counts_and_no_artifact_leak(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

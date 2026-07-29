@@ -1,4 +1,4 @@
-"""Gemeinsame synthetische Fixtures fuer die CBP-WP-016/017-Gate-Tests.
+"""Gemeinsame synthetische Fixtures fuer die CBP-WP-016/017/018-Gate-Tests.
 
 Dieses Modul ist **kein** Testmodul (Muster ``test_*.py``) und wird nicht
 gesammelt. Es liefert ausschliesslich synthetische, temporaere Daten: keine
@@ -16,10 +16,14 @@ from core.core_brain.gate import (
     EVIDENCE_CONTRACT_REVISION,
     EVIDENCE_SCHEMA_VERSION,
     GATE_CONTRACT_REVISION,
+    RUNTIME_SCOPED_BINDINGS,
+    SECURITY_CONTRACT_REVISION,
+    SECURITY_CONTROL_PRODUCER_CLASS,
     canonical_artifact_sha256,
     canonical_binding_sha256,
     evidence_contract_sha256,
     gate_contract_sha256,
+    security_contract_sha256,
 )
 from core.core_brain.gate.models import canonical_json_bytes
 from core.core_brain.mapping import load_policy
@@ -138,6 +142,19 @@ def fresh_binding(
     return canonical_binding_sha256(**params)  # type: ignore[arg-type]
 
 
+def default_control_id(criterion: int) -> str:
+    """Erste kanonische ``control_id`` eines Kriteriums (sonst ``KB-01``).
+
+    Für runtime-scoped Kriterien liefert dies ein zulässiges Vertragspaar; für
+    andere Kriterien nur eine syntaktisch gültige (aber unerwartete) KB-ID, damit
+    das Bundle lädt und der Service den Fehlbezug als INVALID verdikten kann.
+    """
+    for crit, ctrl in RUNTIME_SCOPED_BINDINGS:
+        if crit == criterion:
+            return ctrl
+    return "KB-01"
+
+
 def make_artifact(
     criterion: int,
     *,
@@ -147,15 +164,28 @@ def make_artifact(
     evidence_revision: int = 1,
     artifact_id: str = ART_ID_A,
     producer_class: str | None = None,
+    control_id: str | None = None,
     binding_override: dict[str, object] | None = None,
     binding_sha256: str | None = None,
     art_rev: int | None = None,
     corrupt_hash: bool = False,
     synthetic: bool = True,
 ) -> dict[str, object]:
-    """Baut ein synthetisches Artefakt (frisch oder gezielt fehlerhaft)."""
+    """Baut ein synthetisches Artefakt (frisch oder gezielt fehlerhaft).
+
+    Security-Control-Form-Artefakte tragen zusätzlich ``control_id`` und binden an
+    Security-Contract-Revision und -Hash. Ohne explizites ``control_id`` wird die
+    erste kanonische Control des Kriteriums verwendet.
+    """
     pc = producer_class if producer_class is not None else CRITERION_PRODUCER_CLASS[criterion]
+    is_security = pc == SECURITY_CONTROL_PRODUCER_CLASS
+    if is_security and control_id is None:
+        control_id = default_control_id(criterion)
     bo = dict(binding_override or {})
+    if is_security:
+        bo.setdefault("control_id", control_id)
+        bo.setdefault("security_contract_revision", SECURITY_CONTRACT_REVISION)
+        bo.setdefault("security_contract_sha256", security_contract_sha256())
     binding = binding_sha256 if binding_sha256 is not None else fresh_binding(
         criterion,
         draft_sha=draft_sha,
@@ -171,10 +201,11 @@ def make_artifact(
         producer_class=pc,
         evidence_revision=rev,
         synthetic_test_only=synthetic,
+        control_id=control_id if is_security else None,
     )
     if corrupt_hash:
         sha = "f" * 64 if sha != "f" * 64 else "e" * 64
-    return {
+    artifact: dict[str, object] = {
         "artifact_id": artifact_id,
         "artifact_sha256": sha,
         "binding_sha256": binding,
@@ -182,6 +213,9 @@ def make_artifact(
         "evidence_revision": rev,
         "synthetic_test_only": synthetic,
     }
+    if is_security:
+        artifact["control_id"] = control_id
+    return artifact
 
 
 def evidence_bundle(
@@ -203,6 +237,8 @@ def evidence_bundle(
         "gate_contract_revision": GATE_CONTRACT_REVISION,
         "evidence_contract_revision": EVIDENCE_CONTRACT_REVISION,
         "evidence_revision": evidence_revision,
+        "security_contract_revision": SECURITY_CONTRACT_REVISION,
+        "security_contract_sha256": security_contract_sha256(),
         "mapping_draft_sha256": draft_sha256,
         "mapping_policy_sha256": policy_sha256,
         "registry_record_sha256": record_sha256,

@@ -43,6 +43,8 @@ from pathlib import Path
 from core.core_brain.mapping import load_policy
 from core.core_brain.registry.models import RECORD_FIELDS
 from core.core_brain.gate.models import canonical_json_bytes
+from core.core_brain.gate.security_contract import (
+    SECURITY_CONTRACT_REVISION, security_contract_sha256)
 
 base = Path(sys.argv[1])
 sid = "src-000000000000000000000000"
@@ -77,11 +79,14 @@ reg = base/"registry"; (reg/"records").mkdir(parents=True)
 raw = json.dumps(draft).encode("utf-8")
 (base/"draft.json").write_bytes(raw)
 policy = load_policy(Path("config/source_mapping_validation_policy.example.toml"))
-# Evidence-Bundle 2.0 (CBP-WP-017) — hier ohne eingebettete Artefakte
-# (leere Listen zulaessig); der Ausgang bleibt BLOCKED (Exit 14).
-ev = {"evidence_schema_version":"2.0","synthetic_test_only":True,"source_id":sid,
+# Evidence-Bundle 3.0 (CBP-WP-018) — hier ohne eingebettete Artefakte
+# (leere Listen zulaessig); der Ausgang bleibt BLOCKED (Exit 14). Ohne
+# Security-Control-Artefakte sind alle elf Bindungen MISSING.
+ev = {"evidence_schema_version":"3.0","synthetic_test_only":True,"source_id":sid,
   "mapping_id":"MAP-EXAMPLE-0001","gate_contract_revision":"1.0",
-  "evidence_contract_revision":"2.0","evidence_revision":1,
+  "evidence_contract_revision":"3.0","evidence_revision":1,
+  "security_contract_revision":SECURITY_CONTRACT_REVISION,
+  "security_contract_sha256":security_contract_sha256(),
   "mapping_draft_sha256":hashlib.sha256(raw).hexdigest(),
   "mapping_policy_sha256":policy.policy_sha256,
   "registry_record_sha256":hashlib.sha256(canonical_json_bytes(rec)).hexdigest(),

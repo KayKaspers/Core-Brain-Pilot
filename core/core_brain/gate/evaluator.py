@@ -115,6 +115,17 @@ def build_report(
     invalid_artifact_count: int = 0,
     stale_artifact_count: int = 0,
     conflicting_artifact_count: int = 0,
+    security_contract_revision: str = "",
+    security_contract_sha256: str = "",
+    documented_control_count: int = 0,
+    runtime_scoped_control_count: int = 0,
+    runtime_scoped_binding_count: int = 0,
+    valid_form_binding_count: int = 0,
+    missing_form_binding_count: int = 0,
+    invalid_form_binding_count: int = 0,
+    stale_form_binding_count: int = 0,
+    conflicting_form_binding_count: int = 0,
+    operationally_unevaluated_binding_count: int = 0,
 ) -> GateEvaluationReport:
     """Baut den deterministischen, minimierten A6-Report (immer ``BLOCKED``)."""
     criterion_blockers = [
@@ -164,4 +175,15 @@ def build_report(
         invalid_artifact_count=invalid_artifact_count,
         stale_artifact_count=stale_artifact_count,
         conflicting_artifact_count=conflicting_artifact_count,
+        security_contract_revision=security_contract_revision,
+        security_contract_sha256=security_contract_sha256,
+        documented_control_count=documented_control_count,
+        runtime_scoped_control_count=runtime_scoped_control_count,
+        runtime_scoped_binding_count=runtime_scoped_binding_count,
+        valid_form_binding_count=valid_form_binding_count,
+        missing_form_binding_count=missing_form_binding_count,
+        invalid_form_binding_count=invalid_form_binding_count,
+        stale_form_binding_count=stale_form_binding_count,
+        conflicting_form_binding_count=conflicting_form_binding_count,
+        operationally_unevaluated_binding_count=operationally_unevaluated_binding_count,
     )

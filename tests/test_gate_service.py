@@ -1,4 +1,4 @@
-"""Tests der Gate-Orchestrierung und Bindung (CBP-WP-016)."""
+"""Tests der Gate-Orchestrierung und Bindung (CBP-WP-016/017/018)."""
 
 from __future__ import annotations
 
@@ -9,7 +9,11 @@ import unittest
 from pathlib import Path
 
 from core.core_brain.errors import GateEvidenceError
-from core.core_brain.gate import run_activation_evaluate
+from core.core_brain.gate import (
+    DOCUMENTED_CONTROLS,
+    RUNTIME_SCOPED_BINDINGS,
+    run_activation_evaluate,
+)
 from core.core_brain.gate.models import GateStatus, canonical_json_bytes
 
 from tests import gate_fixtures as fx
@@ -404,6 +408,309 @@ def _hash_tree(root: Path) -> list[tuple[str, str]]:
                  hashlib.sha256(path.read_bytes()).hexdigest())
             )
     return result
+
+
+# ---------------------------------------------------------------------------
+# CBP-WP-018 — Security-Control-Form-Bindungen (elf `(criterion, control_id)`)
+# ---------------------------------------------------------------------------
+
+
+def _all_eleven_specs() -> dict[int, list[dict]]:
+    """Artefaktspezifikationen fuer genau die elf kanonischen Bindungen."""
+    specs: dict[int, list[dict]] = {}
+    for criterion, control in RUNTIME_SCOPED_BINDINGS:
+        specs.setdefault(criterion, []).append({"control_id": control})
+    return specs
+
+
+def _partition(report) -> int:
+    return (
+        report.valid_form_binding_count
+        + report.missing_form_binding_count
+        + report.invalid_form_binding_count
+        + report.stale_form_binding_count
+        + report.conflicting_form_binding_count
+    )
+
+
+class TestSecurityBindingCounters(unittest.TestCase):
+    """CBP-WP-018 §17/§22.10 — Contract-Felder, Zaehler und Summeninvariante."""
+
+    def _eval_with(self, artifact_specs=None, *, evidence_overrides=None,
+                   evidence_revision=1):
+        with tempfile.TemporaryDirectory() as tmp:
+            case = fx.build_case(
+                tmp,
+                artifact_specs=artifact_specs or {},
+                evidence_overrides=evidence_overrides,
+                evidence_revision=evidence_revision,
+            )
+            return _evaluate(case)
+
+    def test_static_contract_counts(self) -> None:
+        report = self._eval_with()
+        self.assertEqual(report.security_contract_revision, "1.0")
+        self.assertRegex(report.security_contract_sha256, r"\A[0-9a-f]{64}\Z")
+        self.assertEqual(report.documented_control_count, 12)
+        self.assertEqual(report.runtime_scoped_control_count, 7)
+        self.assertEqual(report.runtime_scoped_binding_count, 11)
+        self.assertEqual(report.operationally_unevaluated_binding_count, 11)
+
+    def test_no_security_artifacts_yields_eleven_missing(self) -> None:
+        report = self._eval_with()
+        self.assertEqual(report.missing_form_binding_count, 11)
+        self.assertEqual(report.valid_form_binding_count, 0)
+        self.assertEqual(_partition(report), 11)
+
+    def test_all_eleven_valid(self) -> None:
+        report = self._eval_with(_all_eleven_specs())
+        self.assertEqual(report.valid_form_binding_count, 11)
+        self.assertEqual(report.missing_form_binding_count, 0)
+        self.assertEqual(report.invalid_form_binding_count, 0)
+        self.assertEqual(report.stale_form_binding_count, 0)
+        self.assertEqual(report.conflicting_form_binding_count, 0)
+        self.assertEqual(_partition(report), 11)
+
+    def test_mixed_categories_partition_holds(self) -> None:
+        specs = _all_eleven_specs()
+        specs[4] = [{"control_id": "KB-08", "corrupt_hash": True}]      # invalid
+        specs[10] = [{"control_id": "KB-11",
+                      "binding_override": {"mapping_policy_sha256": "a" * 64}}]
+        del specs[8]                                                    # 2x missing
+        report = self._eval_with(specs)
+        self.assertEqual(report.invalid_form_binding_count, 1)
+        self.assertEqual(report.stale_form_binding_count, 1)
+        self.assertEqual(report.missing_form_binding_count, 2)
+        self.assertEqual(report.valid_form_binding_count, 7)
+        self.assertEqual(_partition(report), 11)
+
+    def test_stale_contract_makes_all_present_bindings_stale(self) -> None:
+        report = self._eval_with(
+            _all_eleven_specs(),
+            evidence_overrides={"security_contract_revision": "0.9"},
+        )
+        self.assertEqual(report.stale_form_binding_count, 11)
+        self.assertEqual(report.valid_form_binding_count, 0)
+        self.assertEqual(_partition(report), 11)
+
+    def test_extra_invalid_pair_does_not_break_partition(self) -> None:
+        # Ein zusaetzliches, im Vertrag unzulaessiges Paar zaehlt nicht zur
+        # Elf-Bindungs-Partition, erzeugt aber ein negatives Verdikt.
+        specs = _all_eleven_specs()
+        specs[4].append({"control_id": "KB-01", "artifact_id": fx.ART_ID_B})
+        report = self._eval_with(specs)
+        self.assertEqual(_partition(report), 11)
+        self.assertEqual(report.valid_form_binding_count, 11)
+        self.assertEqual(report.invalid_artifact_count, 1)
+
+
+class TestSecurityBindingSemantics(unittest.TestCase):
+    """CBP-WP-018 §22.7/§22.8/§22.9 — Invalid/Stale/Conflict und Mehrfachcontrols."""
+
+    def _res(self, artifact_specs, *, evidence_overrides=None, evidence_revision=1):
+        with tempfile.TemporaryDirectory() as tmp:
+            case = fx.build_case(
+                tmp,
+                artifact_specs=artifact_specs,
+                evidence_overrides=evidence_overrides,
+                evidence_revision=evidence_revision,
+            )
+            return _by_id(_evaluate(case))
+
+    # -- §22.7 Invalid/Stale-Abgrenzung ---------------------------------------
+    def test_current_contract_plus_disallowed_pair_is_invalid(self) -> None:
+        # KB-01 ist nicht runtime-scoped ⇒ unzulaessiges Paar bei aktuellem Vertrag.
+        res = self._res({4: [{"control_id": "KB-01"}]})
+        self.assertEqual(res[4], "INVALID_EVIDENCE")
+
+    def test_wrong_criterion_for_valid_control_is_invalid(self) -> None:
+        # KB-08 ist runtime-scoped, aber nur an Kriterium 4 gebunden.
+        res = self._res({7: [{"control_id": "KB-08"}]})
+        self.assertEqual(res[7], "INVALID_EVIDENCE")
+
+    def test_stale_contract_revision_keeps_historic_pair_stale(self) -> None:
+        res = self._res(
+            {4: [{"control_id": "KB-08"}]},
+            evidence_overrides={"security_contract_revision": "0.9"},
+        )
+        self.assertEqual(res[4], "STALE_EVIDENCE")
+
+    def test_stale_contract_hash_is_stale(self) -> None:
+        res = self._res(
+            {6: [{"control_id": "KB-10"}]},
+            evidence_overrides={"security_contract_sha256": "d" * 64},
+        )
+        self.assertEqual(res[6], "STALE_EVIDENCE")
+
+    def test_integrity_error_outranks_stale_contract(self) -> None:
+        # Falscher Artifact Hash bleibt INVALID, auch bei veraltetem Vertrag.
+        res = self._res(
+            {4: [{"control_id": "KB-08", "corrupt_hash": True}]},
+            evidence_overrides={"security_contract_revision": "0.9"},
+        )
+        self.assertEqual(res[4], "INVALID_EVIDENCE")
+
+    def test_security_form_on_criterion_nine_is_invalid(self) -> None:
+        # Kriterium 9 ist non-security-structural und akzeptiert kein KB-Formular.
+        res = self._res({9: [{"producer_class": "security-control-form",
+                              "control_id": "KB-03"}]})
+        self.assertEqual(res[9], "INVALID_EVIDENCE")
+
+    def test_security_form_on_criterion_five_is_invalid(self) -> None:
+        res = self._res({5: [{"producer_class": "security-control-form",
+                              "control_id": "KB-03"}]})
+        self.assertEqual(res[5], "INVALID_EVIDENCE")
+
+    def test_foundation_form_on_security_criterion_is_invalid(self) -> None:
+        res = self._res({8: [{"producer_class": "foundation-form"}]})
+        self.assertEqual(res[8], "INVALID_EVIDENCE")
+
+    # -- §22.8 Mehrfachcontrols je Kriterium ----------------------------------
+    def test_multiple_controls_same_criterion_are_not_conflict(self) -> None:
+        for criterion, controls in (
+            (6, ("KB-10", "KB-11")),
+            (7, ("KB-02", "KB-04", "KB-07")),
+            (8, ("KB-03", "KB-04")),
+            (11, ("KB-03", "KB-04")),
+        ):
+            with self.subTest(criterion=criterion):
+                with tempfile.TemporaryDirectory() as tmp:
+                    case = fx.build_case(tmp, artifact_specs={
+                        criterion: [{"control_id": c} for c in controls]
+                    })
+                    report = _evaluate(case)
+                results = _by_id(report)
+                self.assertEqual(results[criterion], "DEPENDENCY_BLOCKED")
+                self.assertEqual(report.conflicting_form_binding_count, 0)
+                self.assertEqual(report.valid_form_binding_count, len(controls))
+                self.assertEqual(_partition(report), 11)
+
+    # -- §22.9 Konflikte -------------------------------------------------------
+    def test_same_binding_two_artifacts_is_conflict(self) -> None:
+        res = self._res({4: [{"control_id": "KB-08"},
+                             {"control_id": "KB-08", "artifact_id": fx.ART_ID_B}]})
+        self.assertEqual(res[4], "CONFLICTING_EVIDENCE")
+
+    def test_same_artifact_id_different_hash_is_conflict(self) -> None:
+        # Gleiche Artifact-ID, andere Bindung ⇒ anderer Artefakthash.
+        with tempfile.TemporaryDirectory() as tmp:
+            case = fx.build_case(tmp, artifact_specs={4: [
+                {"control_id": "KB-08"},
+                {"control_id": "KB-08", "art_rev": 1,
+                 "binding_override": {"mapping_id": "MAP-OTHER"}},
+            ]})
+            report = _evaluate(case)
+        self.assertEqual(_by_id(report)[4], "CONFLICTING_EVIDENCE")
+        self.assertEqual(report.conflicting_form_binding_count, 1)
+
+    def test_exact_duplicates_are_deduplicated(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            case = fx.build_case(tmp, artifact_specs={
+                4: [{"control_id": "KB-08"}, {"control_id": "KB-08"},
+                    {"control_id": "KB-08"}]
+            })
+            report = _evaluate(case)
+        self.assertEqual(report.valid_form_binding_count, 1)
+        self.assertEqual(report.conflicting_form_binding_count, 0)
+        self.assertEqual(_by_id(report)[4], "DEPENDENCY_BLOCKED")
+
+    def test_invalid_outranks_conflict(self) -> None:
+        res = self._res({4: [{"control_id": "KB-08", "corrupt_hash": True},
+                             {"control_id": "KB-08", "artifact_id": fx.ART_ID_B}]})
+        self.assertEqual(res[4], "INVALID_EVIDENCE")
+
+    def test_conflict_outranks_stale(self) -> None:
+        # Zwei unterschiedliche stale Artefakte derselben Bindung ⇒ Conflict.
+        res = self._res({4: [
+            {"control_id": "KB-08",
+             "binding_override": {"mapping_policy_sha256": "a" * 64}},
+            {"control_id": "KB-08", "artifact_id": fx.ART_ID_B,
+             "binding_override": {"mapping_policy_sha256": "b" * 64}},
+        ]})
+        self.assertEqual(res[4], "CONFLICTING_EVIDENCE")
+
+    def test_binding_order_independent(self) -> None:
+        controls = ["KB-02", "KB-04", "KB-07"]
+        with tempfile.TemporaryDirectory() as tmp:
+            case = fx.build_case(tmp, artifact_specs={
+                7: [{"control_id": c} for c in controls]})
+            first = canonical_json_bytes(_evaluate(case).to_dict())
+        with tempfile.TemporaryDirectory() as tmp:
+            case = fx.build_case(tmp, artifact_specs={
+                7: [{"control_id": c} for c in reversed(controls)]})
+            second = canonical_json_bytes(_evaluate(case).to_dict())
+        self.assertEqual(first, second)
+
+    # -- §22.6 Security-Binding-Hash je Komponente -----------------------------
+    def test_security_binding_drift_each_component(self) -> None:
+        overrides = [
+            {"source_id": "src-ffffffffffffffffffffffff"},
+            {"mapping_id": "MAP-OTHER"},
+            {"mapping_draft_sha256": "1" * 64},
+            {"mapping_policy_sha256": "2" * 64},
+            {"registry_record_sha256": "3" * 64},
+            {"gate_contract_revision": "9.9"},
+            {"gate_contract_sha256": "4" * 64},
+            {"evidence_contract_revision": "9.9"},
+            {"evidence_contract_sha256": "5" * 64},
+            {"security_contract_revision": "9.9"},
+            {"security_contract_sha256": "6" * 64},
+            {"evidence_revision": 99},
+        ]
+        for ov in overrides:
+            with self.subTest(component=next(iter(ov))):
+                res = self._res({4: [{"control_id": "KB-08",
+                                      "binding_override": ov}]})
+                self.assertEqual(res[4], "STALE_EVIDENCE")
+
+
+class TestSecurityNegativeEvidenceOnly(unittest.TestCase):
+    """CBP-WP-018 §22.11 — elf gueltige Formbindungen werten nichts positiv auf."""
+
+    def setUp(self) -> None:
+        self._tmp = tempfile.TemporaryDirectory()
+        case = fx.build_case(self._tmp.name, artifact_specs=_all_eleven_specs())
+        self.report = _evaluate(case)
+        self.results = _by_id(self.report)
+
+    def tearDown(self) -> None:
+        self._tmp.cleanup()
+
+    def test_security_criteria_stay_dependency_blocked(self) -> None:
+        for cid in (4, 6, 7, 8, 10, 11):
+            with self.subTest(criterion=cid):
+                self.assertEqual(self.results[cid], "DEPENDENCY_BLOCKED")
+
+    def test_criterion_five_stays_human_decision_required(self) -> None:
+        self.assertEqual(self.results[5], "HUMAN_DECISION_REQUIRED")
+
+    def test_criterion_nine_stays_structural(self) -> None:
+        # Leere Allowlist ⇒ strukturelles MISSING_EVIDENCE, unabhaengig von KB.
+        self.assertEqual(self.results[9], "MISSING_EVIDENCE")
+
+    def test_no_criterion_becomes_satisfied_by_security_forms(self) -> None:
+        baseline_tmp = tempfile.TemporaryDirectory()
+        try:
+            base = _by_id(_evaluate(fx.build_case(baseline_tmp.name)))
+        finally:
+            baseline_tmp.cleanup()
+        for cid in (4, 5, 6, 7, 8, 9, 10, 11):
+            with self.subTest(criterion=cid):
+                self.assertEqual(self.results[cid], base[cid])
+
+    def test_gate_status_stays_blocked(self) -> None:
+        self.assertEqual(self.report.evaluation_status, GateStatus.BLOCKED)
+        self.assertGreater(self.report.blocker_count, 0)
+
+    def test_report_leaks_no_control_or_artifact_identity(self) -> None:
+        payload = canonical_json_bytes(self.report.to_dict()).decode("utf-8")
+        for control in DOCUMENTED_CONTROLS:
+            self.assertNotIn(control, payload)
+        self.assertNotIn(fx.ART_ID_A, payload)
+        self.assertNotIn(fx.ART_ID_B, payload)
+        for token in ("control_id", "artifact_id", "producer_class",
+                      "binding_sha256", "artifact_sha256"):
+            self.assertNotIn(token, payload)
 
 
 if __name__ == "__main__":  # pragma: no cover

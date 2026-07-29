@@ -382,12 +382,21 @@ class TestNetworkGuard(unittest.TestCase):
                     self._run_under_guard(argv)
 
     def test_no_network_attempt_on_gate_evaluator_cli_path(self) -> None:
-        # CBP-WP-016/017: der Guard umfasst source-mapping activation-evaluate,
-        # inkl. des Schema-2.0-/Provenance-Pfads mit synthetischen Artefakten.
+        # CBP-WP-016/017/018: der Guard umfasst source-mapping
+        # activation-evaluate, inkl. des Schema-3.0-/Provenance-Pfads mit
+        # synthetischen Artefakten und Security-Control-Formularen. Der
+        # Security Contract ist rein statisch — kein Netz, keine Aufloesung.
         from tests import gate_fixtures as gfx
 
+        security_specs = {
+            4: [{"control_id": "KB-08"}],
+            7: [{"control_id": "KB-02"}, {"control_id": "KB-04"},
+                {"control_id": "KB-07"}],
+            11: [{"control_id": "KB-03"}, {"control_id": "KB-04"}],
+        }
         for specs in (None, {2: [{}], 4: [{"corrupt_hash": True}],
-                             6: [{}, {"artifact_id": gfx.ART_ID_B}]}):
+                             6: [{}, {"artifact_id": gfx.ART_ID_B}]},
+                      security_specs):
             with tempfile.TemporaryDirectory() as tmp:
                 case = gfx.build_case(tmp, artifact_specs=specs)
                 argv = (
@@ -446,6 +455,7 @@ class TestNoImportSideEffects(unittest.TestCase):
                 " core.core_brain.mapping.service,"
                 " core.core_brain.gate,"
                 " core.core_brain.gate.models,"
+                " core.core_brain.gate.security_contract,"
                 " core.core_brain.gate.provenance,"
                 " core.core_brain.gate.evidence,"
                 " core.core_brain.gate.evaluator,"

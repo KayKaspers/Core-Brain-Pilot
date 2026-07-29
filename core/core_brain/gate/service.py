@@ -1,10 +1,18 @@
-"""Orchestrierung des Mapping-Activation-Gate-Evaluators (CBP-WP-016).
+"""Orchestrierung des Mapping-Activation-Gate-Evaluators (CBP-WP-016/017/018).
 
 Diese Schicht bindet **read-only** die vorhandenen WP-014-/WP-015-Dienste
 (Registry-Record-Lesen, Draft-Validierung) an das synthetische Evidenz-Bundle
-und die reine Kernlogik. Sie **schreibt nichts**, öffnet **keine** Verbindung,
-liest **keinen** Source-Inhalt, **aktiviert nichts** und **verändert keine**
-Eingabe.
+3.0 und die reine Kernlogik. Sie **schreibt nichts**, öffnet **keine**
+Verbindung, liest **keinen** Source-Inhalt, **aktiviert nichts** und
+**verändert keine** Eingabe.
+
+Zusätzlich zum per-Kriterium-Artefaktverdikt (WP-017) prüft sie die elf
+kanonischen ``(criterion, control_id)``-Bindungen des statischen Security
+Contract (WP-018) rein synthetisch und **rein negativ**: sie bindet
+Security-Control-Artefakte an Contract-Revision und -Hash, unterscheidet
+mehrere Controls innerhalb eines Kriteriums und faltet ausschließlich negative
+Formverdikte (Invalid/Stale/Conflict) in die Kriterienresultate. Sie bestätigt
+**keine** Security Readiness, **keine** Wirksamkeit und **keine** Aktivierung.
 
 Der Ausgang ist **immer** ``BLOCKED``. Der Report ist nicht persistent und
 besitzt A6-Autorität.
@@ -42,7 +50,22 @@ from .models import (
     evidence_contract_sha256,
     gate_contract_sha256,
 )
-from .provenance import canonical_binding_sha256, evaluate_criterion_artifacts
+from .provenance import (
+    ArtifactDescriptor,
+    BindingVerdict,
+    canonical_binding_sha256,
+    evaluate_criterion_artifacts,
+    evaluate_security_binding,
+)
+from .security_contract import (
+    DOCUMENTED_CONTROLS,
+    RUNTIME_SCOPED_BINDINGS,
+    RUNTIME_SCOPED_CONTROLS,
+    RUNTIME_SCOPED_CRITERIA,
+    SECURITY_CONTRACT_REVISION,
+    is_runtime_scoped_binding,
+    security_contract_sha256,
+)
 
 __all__ = ["run_activation_evaluate"]
 
@@ -85,6 +108,28 @@ def _mapping_id_report_safe(value: str) -> bool:
         return False
     lowered = value.lower()
     return not any(marker in lowered for marker in _MAPPING_ID_SECRET_MARKERS)
+
+
+# Rein negative Faltungspriorität je Kriterium (INVALID vor CONFLICTING vor
+# STALE). Mehrere Security-Bindungen und der Nicht-Security-Pfad desselben
+# Kriteriums werden zum **schwersten** negativen Verdikt zusammengefasst. Eine
+# positive Aufwertung ist ausgeschlossen.
+_OVERRIDE_RANK: Final[dict[CriterionResult, int]] = {
+    CriterionResult.INVALID_EVIDENCE: 3,
+    CriterionResult.CONFLICTING_EVIDENCE: 2,
+    CriterionResult.STALE_EVIDENCE: 1,
+}
+
+
+def _worse_override(
+    current: CriterionResult | None, candidate: CriterionResult | None
+) -> CriterionResult | None:
+    """Kombiniert zwei Kriteriums-Overrides zum schwersten (fail-closed)."""
+    if candidate is None:
+        return current
+    if current is None:
+        return candidate
+    return candidate if _OVERRIDE_RANK[candidate] >= _OVERRIDE_RANK[current] else current
 
 
 def run_activation_evaluate(
@@ -177,16 +222,45 @@ def run_activation_evaluate(
         registry_record_sha256=registry_record_sha256,
     )
 
-    # CBP-WP-017 — je Kriterium: erwartete Bindung (aktueller Snapshot),
-    # rein negatives Artefaktverdikt und Artefaktzählung. Kein Uhrbezug,
-    # keine positive Erfüllung, keine Persistenz.
+    # CBP-WP-017/018 — je Kriterium: erwartete Bindung (aktueller Snapshot),
+    # rein negatives Artefaktverdikt und Artefaktzählung. Security-Control-Form-
+    # Artefakte werden zusätzlich je `(criterion, control_id)`-Bindung geprüft.
+    # Kein Uhrbezug, keine positive Erfüllung, keine Persistenz.
     gate_sha = gate_contract_sha256()
     evidence_sha = evidence_contract_sha256()
-    evidence_overrides: dict[int, CriterionResult] = {}
+    security_rev = SECURITY_CONTRACT_REVISION
+    security_sha = security_contract_sha256()
+    # Ein Bundle, dessen eingebettete Security-Contract-Bindung nicht dem
+    # aktuellen statischen Vertrag entspricht, gilt als **stale**: alle
+    # Security-Control-Artefakte werden STALE — historische Paare werden nicht
+    # nachträglich als aktuelle Invalid-Behauptung umklassifiziert.
+    contract_stale = (
+        evidence.security_contract_revision != security_rev
+        or evidence.security_contract_sha256 != security_sha
+    )
+
+    evidence_overrides: dict[int, CriterionResult | None] = {}
     evidence_blockers: list[GateReasonCode] = []
     validated = invalid = stale = conflicting = 0
+
+    # Security-Control-Artefakte je `(criterion, control_id)` gruppieren; alle
+    # übrigen Artefakte laufen über den bestehenden per-Kriterium-Pfad (WP-017).
+    security_groups: dict[tuple[int, str], list[ArtifactDescriptor]] = {}
+    for cid, arts in evidence.criterion_artifacts.items():
+        for art in arts:
+            if art.control_id is not None:
+                security_groups.setdefault((cid, art.control_id), []).append(art)
+
+    # Nicht-Security-Pfad (WP-017): per Kriterium, ausschließlich `control_id`-freie
+    # Artefakte. Mehrere Security-Controls desselben Kriteriums werden dadurch
+    # **nicht** fälschlich als CONFLICT verrechnet.
     for criterion in GATE_CRITERIA:
         cid = criterion.criterion_id
+        non_security = tuple(
+            a
+            for a in evidence.criterion_artifacts.get(cid, ())
+            if a.control_id is None
+        )
         expected_binding = canonical_binding_sha256(
             source_id=source_id,
             mapping_id=mapping_id,
@@ -202,22 +276,90 @@ def run_activation_evaluate(
         )
         ce = evaluate_criterion_artifacts(
             cid,
-            evidence.criterion_artifacts.get(cid, ()),
+            non_security,
             expected_binding_sha256=expected_binding,
             bundle_evidence_revision=evidence.evidence_revision,
         )
-        if ce.override is not None:
-            evidence_overrides[cid] = ce.override
+        evidence_overrides[cid] = _worse_override(
+            evidence_overrides.get(cid), ce.override
+        )
         evidence_blockers.extend(ce.reason_codes)
         validated += ce.validated_count
         invalid += ce.invalid_count
         stale += ce.stale_count
         conflicting += ce.conflicting_count
 
+    # Security-Pfad (WP-018): die elf kanonischen `(criterion, control_id)`-
+    # Bindungen. Jede Bindung wird geprüft — auch ohne Artefakt (⇒ MISSING). Die
+    # Fünf-Wege-Partition summiert sich exakt auf `runtime_scoped_binding_count`.
+    verdict_counts: dict[BindingVerdict, int] = {v: 0 for v in BindingVerdict}
+    for crit, ctrl in RUNTIME_SCOPED_BINDINGS:
+        arts = tuple(security_groups.pop((crit, ctrl), ()))
+        expected_binding = canonical_binding_sha256(
+            source_id=source_id,
+            mapping_id=mapping_id,
+            criterion=crit,
+            mapping_draft_sha256=draft_sha256,
+            mapping_policy_sha256=policy.policy_sha256,
+            registry_record_sha256=registry_record_sha256,
+            gate_contract_revision=GATE_CONTRACT_REVISION,
+            gate_contract_sha256=gate_sha,
+            evidence_contract_revision=EVIDENCE_CONTRACT_REVISION,
+            evidence_contract_sha256=evidence_sha,
+            evidence_revision=evidence.evidence_revision,
+            control_id=ctrl,
+            security_contract_revision=security_rev,
+            security_contract_sha256=security_sha,
+        )
+        result = evaluate_security_binding(
+            arts,
+            criterion_is_security=True,
+            is_expected_pair=True,
+            expected_binding_sha256=expected_binding,
+            bundle_evidence_revision=evidence.evidence_revision,
+            contract_stale=contract_stale,
+        )
+        verdict_counts[result.verdict] += 1
+        evidence_overrides[crit] = _worse_override(
+            evidence_overrides.get(crit), result.override
+        )
+        evidence_blockers.extend(result.reason_codes)
+        validated += result.validated_count
+        invalid += result.invalid_count
+        stale += result.stale_count
+        conflicting += result.conflicting_count
+
+    # Unerwartete/zusätzliche Security-Control-Artefakte (kein kanonisches Paar
+    # oder falsches Kriterium): sie erzeugen negative Verdikte (Override +
+    # Artefaktzählung + Reason-Code), zählen aber **nicht** zur Elf-Bindungs-
+    # Partition. Deterministische Reihenfolge über sortierte Schlüssel.
+    for crit, ctrl in sorted(security_groups):
+        result = evaluate_security_binding(
+            tuple(security_groups[(crit, ctrl)]),
+            criterion_is_security=crit in RUNTIME_SCOPED_CRITERIA,
+            is_expected_pair=is_runtime_scoped_binding(crit, ctrl),
+            expected_binding_sha256="",
+            bundle_evidence_revision=evidence.evidence_revision,
+            contract_stale=contract_stale,
+        )
+        evidence_overrides[crit] = _worse_override(
+            evidence_overrides.get(crit), result.override
+        )
+        evidence_blockers.extend(result.reason_codes)
+        validated += result.validated_count
+        invalid += result.invalid_count
+        stale += result.stale_count
+        conflicting += result.conflicting_count
+
+    # Nur negative Faltung an die Kernlogik geben (None-Overrides entfernen).
+    effective_overrides = {
+        cid: ov for cid, ov in evidence_overrides.items() if ov is not None
+    }
+
     outcomes = evaluate_criteria(
         draft_valid=draft_valid,
         allowed_subpaths_nonempty=allowed_nonempty,
-        evidence_overrides=evidence_overrides,
+        evidence_overrides=effective_overrides,
     )
 
     return build_report(
@@ -234,6 +376,17 @@ def run_activation_evaluate(
         invalid_artifact_count=invalid,
         stale_artifact_count=stale,
         conflicting_artifact_count=conflicting,
+        security_contract_revision=security_rev,
+        security_contract_sha256=security_sha,
+        documented_control_count=len(DOCUMENTED_CONTROLS),
+        runtime_scoped_control_count=len(RUNTIME_SCOPED_CONTROLS),
+        runtime_scoped_binding_count=len(RUNTIME_SCOPED_BINDINGS),
+        valid_form_binding_count=verdict_counts[BindingVerdict.VALID],
+        missing_form_binding_count=verdict_counts[BindingVerdict.MISSING],
+        invalid_form_binding_count=verdict_counts[BindingVerdict.INVALID],
+        stale_form_binding_count=verdict_counts[BindingVerdict.STALE],
+        conflicting_form_binding_count=verdict_counts[BindingVerdict.CONFLICTING],
+        operationally_unevaluated_binding_count=len(RUNTIME_SCOPED_BINDINGS),
     )
 
 

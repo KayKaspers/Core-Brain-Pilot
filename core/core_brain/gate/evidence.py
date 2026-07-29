@@ -1,15 +1,21 @@
-"""Geschlossenes, versioniertes synthetisches Evidenz-Bundle 2.0 (CBP-WP-017).
+"""Geschlossenes, versioniertes synthetisches Evidenz-Bundle 3.0 (CBP-WP-018).
 
 Das Bundle **bindet** die synthetische Evaluation an genau eine Eingabe: Source
 ID, Mapping ID, Gate-/Evidence-Vertragsrevision, Evidenzrevision, die
-SHA-256-Hashes von Draft, Policy und Registry-Record sowie **eingebettete
-strukturierte Artefakte** je Kriterium. Es enthält **keine** realen Pfade, URLs,
-Locators, Credential- oder Secret-Werte.
+Security-Contract-Revision und deren Hash, die SHA-256-Hashes von Draft, Policy
+und Registry-Record sowie **eingebettete strukturierte Artefakte** je Kriterium.
+Es enthält **keine** realen Pfade, URLs, Locators, Credential- oder
+Secret-Werte.
+
+Security-Control-Form-Artefakte tragen zusätzlich eine geschlossene
+``control_id`` (KB-01..KB-12); alle anderen Producer-Klassen dürfen **kein**
+``control_id`` tragen (bedingtes geschlossenes Schema).
 
 Fail-closed: BOM, ungültiges UTF-8, kein Objekt, doppelte Schlüssel, ``NaN``,
 ``Infinity``, unbekannte Felder, fehlende Pflichtfelder, unbekannte
-Schema-Version (insb. das abgelöste 1.0), nicht synthetische Bundles/Artefakte,
-ungültige IDs/Hashes/Producer-Klassen und Mengenüberschreitungen werden
+Schema-Version (insb. die abgelösten 1.0/2.0), nicht synthetische
+Bundles/Artefakte, ungültige IDs/Hashes/Producer-Klassen/Control-IDs,
+fehlendes/verbotenes ``control_id`` und Mengenüberschreitungen werden
 abgewiesen. Synthetische Evidenz ist ausschließlich ein Test-Fixture **ohne**
 A0-/operative Autorität; sie erfüllt **kein** Kriterium.
 
@@ -31,8 +37,10 @@ from .models import (
     MAX_ARTIFACTS_PER_CRITERION,
     MAX_ARTIFACTS_TOTAL,
     PRODUCER_CLASSES,
+    SECURITY_CONTROL_PRODUCER_CLASS,
 )
 from .provenance import ArtifactDescriptor
+from .security_contract import CONTROL_ID_RE
 
 __all__ = ["EvidenceBundle", "REQUIRED_EVIDENCE_FIELDS", "load_evidence"]
 
@@ -56,6 +64,8 @@ REQUIRED_EVIDENCE_FIELDS: Final[frozenset[str]] = frozenset(
         "gate_contract_revision",
         "evidence_contract_revision",
         "evidence_revision",
+        "security_contract_revision",
+        "security_contract_sha256",
         "mapping_draft_sha256",
         "mapping_policy_sha256",
         "registry_record_sha256",
@@ -63,6 +73,8 @@ REQUIRED_EVIDENCE_FIELDS: Final[frozenset[str]] = frozenset(
     }
 )
 
+# Sechs Basisfelder für Nicht-Security-Artefakte; Security-Control-Form-Artefakte
+# tragen zusätzlich genau ``control_id`` (bedingtes geschlossenes Schema).
 _ARTIFACT_FIELDS: Final[frozenset[str]] = frozenset(
     {
         "artifact_id",
@@ -73,11 +85,12 @@ _ARTIFACT_FIELDS: Final[frozenset[str]] = frozenset(
         "synthetic_test_only",
     }
 )
+_ARTIFACT_FIELDS_SECURITY: Final[frozenset[str]] = _ARTIFACT_FIELDS | {"control_id"}
 
 
 @dataclass(frozen=True, slots=True)
 class EvidenceBundle:
-    """Validiertes, synthetisches Evidenz-Bundle 2.0 (read-only Bindung)."""
+    """Validiertes, synthetisches Evidenz-Bundle 3.0 (read-only Bindung)."""
 
     evidence_schema_version: str
     synthetic_test_only: bool
@@ -86,6 +99,8 @@ class EvidenceBundle:
     gate_contract_revision: str
     evidence_contract_revision: str
     evidence_revision: int
+    security_contract_revision: str
+    security_contract_sha256: str
     mapping_draft_sha256: str
     mapping_policy_sha256: str
     registry_record_sha256: str
@@ -111,7 +126,7 @@ def _reject_constant(_token: str) -> Any:
 
 
 def load_evidence(path: Path) -> EvidenceBundle:
-    """Lädt und validiert ein synthetisches Evidenz-Bundle 2.0 fail-closed.
+    """Lädt und validiert ein synthetisches Evidenz-Bundle 3.0 fail-closed.
 
     Raises:
         GateEvidenceError: Bei jedem strukturellen Verstoß.
@@ -148,7 +163,7 @@ def load_evidence(path: Path) -> EvidenceBundle:
 def _validate(data: dict[str, Any]) -> EvidenceBundle:
     version = data.get("evidence_schema_version")
     if version != EVIDENCE_SCHEMA_VERSION:
-        # Insbesondere das abgelöste 1.0 wird hier fail-closed abgewiesen.
+        # Insbesondere die abgelösten 1.0/2.0 werden hier fail-closed abgewiesen.
         raise _reject(ReasonCode.GATE_EVIDENCE_SCHEMA_UNSUPPORTED, "version")
 
     unknown = sorted(set(data) - REQUIRED_EVIDENCE_FIELDS)
@@ -169,7 +184,11 @@ def _validate(data: dict[str, Any]) -> EvidenceBundle:
     if not (isinstance(mapping_id, str) and _MAPPING_ID_RE.match(mapping_id)):
         raise _reject(ReasonCode.GATE_EVIDENCE_INVALID_VALUE, "mapping_id")
 
-    for field in ("gate_contract_revision", "evidence_contract_revision"):
+    for field in (
+        "gate_contract_revision",
+        "evidence_contract_revision",
+        "security_contract_revision",
+    ):
         value = data[field]
         if not (isinstance(value, str) and value):
             raise _reject(ReasonCode.GATE_EVIDENCE_INVALID_VALUE, field)
@@ -179,6 +198,7 @@ def _validate(data: dict[str, Any]) -> EvidenceBundle:
         raise _reject(ReasonCode.GATE_EVIDENCE_INVALID_VALUE, "evidence_revision")
 
     for field in (
+        "security_contract_sha256",
         "mapping_draft_sha256",
         "mapping_policy_sha256",
         "registry_record_sha256",
@@ -197,6 +217,8 @@ def _validate(data: dict[str, Any]) -> EvidenceBundle:
         gate_contract_revision=data["gate_contract_revision"],
         evidence_contract_revision=data["evidence_contract_revision"],
         evidence_revision=revision,
+        security_contract_revision=data["security_contract_revision"],
+        security_contract_sha256=data["security_contract_sha256"],
         mapping_draft_sha256=data["mapping_draft_sha256"],
         mapping_policy_sha256=data["mapping_policy_sha256"],
         registry_record_sha256=data["registry_record_sha256"],
@@ -242,7 +264,17 @@ def _validate_artifacts(items: Any) -> tuple[ArtifactDescriptor, ...]:
         raise _reject(ReasonCode.GATE_EVIDENCE_INVALID_VALUE, "artifacts per criterion")
     out: list[ArtifactDescriptor] = []
     for item in items:
-        if not isinstance(item, dict) or set(item) != _ARTIFACT_FIELDS:
+        if not isinstance(item, dict):
+            raise _reject(ReasonCode.GATE_EVIDENCE_INVALID_VALUE, "artifact entry")
+        # Producer-Klasse zuerst prüfen: sie bestimmt das bedingte Feldschema.
+        producer = item.get("producer_class")
+        if producer not in _PRODUCER_CLASSES:
+            raise _reject(ReasonCode.GATE_EVIDENCE_INVALID_VALUE, "producer_class")
+        is_security = producer == SECURITY_CONTROL_PRODUCER_CLASS
+        expected = _ARTIFACT_FIELDS_SECURITY if is_security else _ARTIFACT_FIELDS
+        # Security-Control-Form verlangt genau ``control_id``; jede andere Klasse
+        # verbietet es — abweichende Feldmengen fallen fail-closed durch.
+        if set(item) != expected:
             raise _reject(ReasonCode.GATE_EVIDENCE_INVALID_VALUE, "artifact entry")
         aid = item["artifact_id"]
         if not (isinstance(aid, str) and _ARTIFACT_ID_RE.match(aid)):
@@ -251,9 +283,6 @@ def _validate_artifacts(items: Any) -> tuple[ArtifactDescriptor, ...]:
             value = item[field]
             if not (isinstance(value, str) and _HEX64_RE.match(value)):
                 raise _reject(ReasonCode.GATE_EVIDENCE_INVALID_VALUE, field)
-        producer = item["producer_class"]
-        if producer not in _PRODUCER_CLASSES:
-            raise _reject(ReasonCode.GATE_EVIDENCE_INVALID_VALUE, "producer_class")
         rev = item["evidence_revision"]
         if not isinstance(rev, int) or isinstance(rev, bool) or rev < 1:
             raise _reject(ReasonCode.GATE_EVIDENCE_INVALID_VALUE, "artifact revision")
@@ -261,6 +290,11 @@ def _validate_artifacts(items: Any) -> tuple[ArtifactDescriptor, ...]:
             raise _reject(
                 ReasonCode.GATE_EVIDENCE_NOT_SYNTHETIC, "artifact synthetic_test_only"
             )
+        control_id: str | None = None
+        if is_security:
+            control_id = item["control_id"]
+            if not (isinstance(control_id, str) and CONTROL_ID_RE.match(control_id)):
+                raise _reject(ReasonCode.GATE_EVIDENCE_INVALID_VALUE, "control_id")
         out.append(
             ArtifactDescriptor(
                 artifact_id=aid,
@@ -269,6 +303,7 @@ def _validate_artifacts(items: Any) -> tuple[ArtifactDescriptor, ...]:
                 producer_class=producer,
                 evidence_revision=rev,
                 synthetic_test_only=True,
+                control_id=control_id,
             )
         )
     return tuple(out)

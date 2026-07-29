@@ -128,5 +128,124 @@ class TestReport(unittest.TestCase):
         self.assertEqual(set(entry), {"criterion_id", "code", "nachweisstufe", "result"})
 
 
+class TestPureNegativeFolding(unittest.TestCase):
+    """CBP-WP-018 §22.15 — reine Faltung: nur negativ, deterministisch, ohne I/O."""
+
+    _NEGATIVE = (
+        CriterionResult.INVALID_EVIDENCE,
+        CriterionResult.CONFLICTING_EVIDENCE,
+        CriterionResult.STALE_EVIDENCE,
+    )
+
+    def _fold(self, overrides):
+        outcomes = evaluate_criteria(
+            draft_valid=True, allowed_subpaths_nonempty=False,
+            evidence_overrides=overrides,
+        )
+        return {o.criterion_id: o.result for o in outcomes}
+
+    def test_negative_overrides_apply(self) -> None:
+        for negative in self._NEGATIVE:
+            with self.subTest(result=negative.value):
+                self.assertEqual(self._fold({4: negative})[4], negative)
+
+    def test_positive_override_is_ignored(self) -> None:
+        # Eine positive "Aufwertung" darf niemals durchschlagen.
+        base = self._fold({})
+        for positive in (CriterionResult.SATISFIED,
+                         CriterionResult.HUMAN_DECISION_REQUIRED,
+                         CriterionResult.MISSING_EVIDENCE,
+                         CriterionResult.OUT_OF_SYNTHETIC_SCOPE,
+                         CriterionResult.DEPENDENCY_BLOCKED):
+            with self.subTest(result=positive.value):
+                self.assertEqual(self._fold({4: positive})[4], base[4])
+
+    def test_human_only_criteria_cannot_be_upgraded(self) -> None:
+        for cid in (5, 16, 20):
+            with self.subTest(criterion=cid):
+                folded = self._fold({cid: CriterionResult.SATISFIED})
+                self.assertEqual(folded[cid], CriterionResult.HUMAN_DECISION_REQUIRED)
+
+    def test_satisfied_criterion_can_be_downgraded_only(self) -> None:
+        base = self._fold({})
+        self.assertEqual(base[2], CriterionResult.SATISFIED)
+        self.assertEqual(self._fold({2: CriterionResult.INVALID_EVIDENCE})[2],
+                         CriterionResult.INVALID_EVIDENCE)
+
+    def test_override_mapping_is_not_mutated(self) -> None:
+        overrides = {4: CriterionResult.INVALID_EVIDENCE}
+        snapshot = dict(overrides)
+        self._fold(overrides)
+        self.assertEqual(overrides, snapshot)
+
+    def test_folding_is_deterministic(self) -> None:
+        overrides = {4: CriterionResult.INVALID_EVIDENCE,
+                     7: CriterionResult.STALE_EVIDENCE}
+        self.assertEqual(self._fold(overrides), self._fold(overrides))
+
+    def test_unaffected_criteria_keep_base_result(self) -> None:
+        base = self._fold({})
+        folded = self._fold({4: CriterionResult.INVALID_EVIDENCE})
+        for cid in range(1, 21):
+            if cid != 4:
+                with self.subTest(criterion=cid):
+                    self.assertEqual(folded[cid], base[cid])
+
+
+class TestReportSecurityFields(unittest.TestCase):
+    """CBP-WP-018 §17 — Security-Contract-Felder im reinen Report-Builder."""
+
+    def test_defaults_are_neutral(self) -> None:
+        # Ohne uebergebene Werte bleibt der Report neutral (keine Erfindung).
+        data = _report().to_dict()
+        self.assertEqual(data["security_contract_revision"], "")
+        self.assertEqual(data["security_contract_sha256"], "")
+        self.assertEqual(data["documented_control_count"], 0)
+        self.assertEqual(data["runtime_scoped_binding_count"], 0)
+
+    def test_counts_are_passed_through_unchanged(self) -> None:
+        outcomes = evaluate_criteria(draft_valid=True, allowed_subpaths_nonempty=False)
+        report = build_report(
+            source_id="src-0123456789abcdef01234567",
+            mapping_id="MAP-EXAMPLE-0001",
+            mapping_draft_sha256="a" * 64,
+            mapping_policy_sha256="b" * 64,
+            registry_record_sha256="c" * 64,
+            outcomes=outcomes,
+            binding_blockers=[],
+            evidence_count=0,
+            security_contract_revision="1.0",
+            security_contract_sha256="e" * 64,
+            documented_control_count=12,
+            runtime_scoped_control_count=7,
+            runtime_scoped_binding_count=11,
+            valid_form_binding_count=3,
+            missing_form_binding_count=5,
+            invalid_form_binding_count=1,
+            stale_form_binding_count=1,
+            conflicting_form_binding_count=1,
+            operationally_unevaluated_binding_count=11,
+        )
+        data = report.to_dict()
+        self.assertEqual(data["security_contract_revision"], "1.0")
+        self.assertEqual(data["documented_control_count"], 12)
+        self.assertEqual(
+            data["valid_form_binding_count"] + data["missing_form_binding_count"]
+            + data["invalid_form_binding_count"] + data["stale_form_binding_count"]
+            + data["conflicting_form_binding_count"],
+            data["runtime_scoped_binding_count"],
+        )
+        # Der reine Builder trifft keine Security-Aussage.
+        self.assertEqual(report.evaluation_status, GateStatus.BLOCKED)
+
+    def test_no_readiness_vocabulary_in_report_keys(self) -> None:
+        keys = set(_report().to_dict())
+        for banned in ("ready_control_count", "passed_control_count",
+                       "enforced_control_count", "approved_control_count",
+                       "human_decision_control_count", "security_ready",
+                       "security_passed"):
+            self.assertNotIn(banned, keys)
+
+
 if __name__ == "__main__":  # pragma: no cover
     unittest.main()

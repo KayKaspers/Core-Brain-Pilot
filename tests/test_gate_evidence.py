@@ -1,4 +1,4 @@
-"""Tests des fail-closed Gate-Evidenz-Bundles 2.0 (CBP-WP-016/017)."""
+"""Tests des fail-closed Gate-Evidenz-Bundles 3.0 (CBP-WP-016/017/018)."""
 
 from __future__ import annotations
 
@@ -12,6 +12,7 @@ from core.core_brain.gate.evidence import load_evidence
 
 HEX = "a" * 64
 ART_ID = "art-" + "0" * 24
+ART_ID_B = "art-" + "1" * 24
 
 
 def artifact(**over: object) -> dict[str, object]:
@@ -27,15 +28,32 @@ def artifact(**over: object) -> dict[str, object]:
     return art
 
 
+def security_artifact(**over: object) -> dict[str, object]:
+    """Ein Security-Control-Form-Artefakt mit Pflicht-``control_id`` (CBP-WP-018)."""
+    art: dict[str, object] = {
+        "artifact_id": ART_ID,
+        "artifact_sha256": "b" * 64,
+        "binding_sha256": "c" * 64,
+        "producer_class": "security-control-form",
+        "control_id": "KB-08",
+        "evidence_revision": 1,
+        "synthetic_test_only": True,
+    }
+    art.update(over)
+    return art
+
+
 def base_bundle(**over: object) -> dict[str, object]:
     bundle: dict[str, object] = {
-        "evidence_schema_version": "2.0",
+        "evidence_schema_version": "3.0",
         "synthetic_test_only": True,
         "source_id": "src-0123456789abcdef01234567",
         "mapping_id": "MAP-EXAMPLE-0001",
         "gate_contract_revision": "1.0",
-        "evidence_contract_revision": "2.0",
+        "evidence_contract_revision": "3.0",
         "evidence_revision": 1,
+        "security_contract_revision": "1.0",
+        "security_contract_sha256": HEX,
         "mapping_draft_sha256": HEX,
         "mapping_policy_sha256": HEX,
         "registry_record_sha256": HEX,
@@ -78,7 +96,10 @@ class TestSchema20(unittest.TestCase):
         bundle = _load_text(json.dumps(base_bundle()))
         self.assertTrue(bundle.synthetic_test_only)
         self.assertEqual(bundle.total_artifact_count, 0)
-        self.assertEqual(bundle.evidence_contract_revision, "2.0")
+        self.assertEqual(bundle.evidence_contract_revision, "3.0")
+        self.assertEqual(bundle.evidence_schema_version, "3.0")
+        self.assertEqual(bundle.security_contract_revision, "1.0")
+        self.assertEqual(bundle.security_contract_sha256, HEX)
 
     def test_valid_with_artifact_counts(self) -> None:
         b = base_bundle(criterion_evidence=_ce_with(1, [artifact(), artifact()]))
@@ -91,6 +112,43 @@ class TestSchema20(unittest.TestCase):
         legacy = base_bundle(evidence_schema_version="1.0")
         _assert_reason(self, json.dumps(legacy),
                        ReasonCode.GATE_EVIDENCE_SCHEMA_UNSUPPORTED)
+
+    def test_schema_2_0_fails_closed(self) -> None:
+        # CBP-WP-018: auch das abgelöste 2.0-Bundle wird fail-closed abgewiesen.
+        legacy = base_bundle(evidence_schema_version="2.0")
+        _assert_reason(self, json.dumps(legacy),
+                       ReasonCode.GATE_EVIDENCE_SCHEMA_UNSUPPORTED)
+
+    def test_missing_security_contract_revision_blocks(self) -> None:
+        data = base_bundle()
+        del data["security_contract_revision"]
+        _assert_reason(self, json.dumps(data),
+                       ReasonCode.GATE_EVIDENCE_MISSING_FIELD)
+
+    def test_missing_security_contract_sha256_blocks(self) -> None:
+        data = base_bundle()
+        del data["security_contract_sha256"]
+        _assert_reason(self, json.dumps(data),
+                       ReasonCode.GATE_EVIDENCE_MISSING_FIELD)
+
+    def test_bad_security_contract_sha256_blocks(self) -> None:
+        _assert_reason(self, json.dumps(base_bundle(security_contract_sha256="short")),
+                       ReasonCode.GATE_EVIDENCE_INVALID_VALUE)
+
+    def test_empty_security_contract_revision_blocks(self) -> None:
+        _assert_reason(self, json.dumps(base_bundle(security_contract_revision="")),
+                       ReasonCode.GATE_EVIDENCE_INVALID_VALUE)
+
+    def test_stale_security_contract_values_load(self) -> None:
+        # Strukturell wohlgeformte, aber (semantisch) veraltete Contract-Werte
+        # sind KEIN Loader-Schemafehler — sie laden und werden erst im Service
+        # als STALE_EVIDENCE ausgewertet.
+        bundle = _load_text(json.dumps(base_bundle(
+            security_contract_revision="0.9",
+            security_contract_sha256="d" * 64,
+        )))
+        self.assertEqual(bundle.security_contract_revision, "0.9")
+        self.assertEqual(bundle.security_contract_sha256, "d" * 64)
 
     def test_unknown_schema_version_blocks(self) -> None:
         _assert_reason(self, json.dumps(base_bundle(evidence_schema_version="9.9")),
@@ -150,6 +208,22 @@ class TestSchema20(unittest.TestCase):
               for i in range(1, 21)]
         bundle = _load_text(json.dumps(base_bundle(criterion_evidence=ce)))
         self.assertEqual(bundle.total_artifact_count, 80)
+
+    def test_worst_case_security_bundle_fits_size_limit(self) -> None:
+        # CBP-WP-018 §21: 80 Security-Control-Artefakte (das groesste Artefakt,
+        # da es zusaetzlich control_id traegt) bleiben unter 131072 Byte —
+        # eingerueckt serialisiert, also ueber dem realen kompakten Fall.
+        ce = [
+            {"criterion": i,
+             "artifacts": [security_artifact(artifact_id=aid)
+                           for aid in ("art-" + f"{n:024x}" for n in range(4))]}
+            for i in range(1, 21)
+        ]
+        payload = json.dumps(base_bundle(criterion_evidence=ce), indent=2)
+        self.assertLess(len(payload.encode("utf-8")), 131072)
+        bundle = _load_text(payload)
+        self.assertEqual(bundle.total_artifact_count, 80)
+        self.assertEqual(bundle.criterion_artifacts[4][0].control_id, "KB-08")
 
     def test_too_large_blocks(self) -> None:
         big = base_bundle(mapping_id="M" + "a" * 200000)
@@ -234,6 +308,67 @@ class TestArtifactIdAndProducer(unittest.TestCase):
                 b = base_bundle(criterion_evidence=_ce_with(1, [artifact(producer_class=bad)]))
                 _assert_reason(self, json.dumps(b),
                                ReasonCode.GATE_EVIDENCE_INVALID_VALUE)
+
+
+class TestControlIdConditionalSchema(unittest.TestCase):
+    """CBP-WP-018 — bedingtes `control_id` (security-control-form only)."""
+
+    def test_security_control_with_control_id_loads(self) -> None:
+        # Kriterium 4 trägt security-control-form; control_id ist Pflicht.
+        b = base_bundle(criterion_evidence=_ce_with(4, [security_artifact()]))
+        bundle = _load_text(json.dumps(b))
+        art = bundle.criterion_artifacts[4][0]
+        self.assertEqual(art.control_id, "KB-08")
+        self.assertEqual(art.producer_class, "security-control-form")
+
+    def test_security_control_without_control_id_blocks(self) -> None:
+        art = security_artifact()
+        del art["control_id"]
+        b = base_bundle(criterion_evidence=_ce_with(4, [art]))
+        _assert_reason(self, json.dumps(b), ReasonCode.GATE_EVIDENCE_INVALID_VALUE)
+
+    def test_foundation_form_with_control_id_blocks(self) -> None:
+        # foundation-form (z. B. Kriterium 5) darf kein control_id tragen.
+        art = artifact(producer_class="foundation-form", control_id="KB-01")
+        b = base_bundle(criterion_evidence=_ce_with(5, [art]))
+        _assert_reason(self, json.dumps(b), ReasonCode.GATE_EVIDENCE_INVALID_VALUE)
+
+    def test_every_non_security_class_forbids_control_id(self) -> None:
+        for pc in (
+            "structural-form", "foundation-form", "operator-review-form",
+            "rt2-audit-form", "backup-form", "rollback-form", "human-decision-form",
+        ):
+            with self.subTest(producer_class=pc):
+                art = artifact(producer_class=pc, control_id="KB-01")
+                b = base_bundle(criterion_evidence=_ce_with(1, [art]))
+                _assert_reason(self, json.dumps(b),
+                               ReasonCode.GATE_EVIDENCE_INVALID_VALUE)
+
+    def test_all_twelve_control_ids_load(self) -> None:
+        for i in range(1, 13):
+            kb = f"KB-{i:02d}"
+            with self.subTest(control_id=kb):
+                b = base_bundle(
+                    criterion_evidence=_ce_with(4, [security_artifact(control_id=kb)])
+                )
+                bundle = _load_text(json.dumps(b))
+                self.assertEqual(bundle.criterion_artifacts[4][0].control_id, kb)
+
+    def test_invalid_control_ids_block(self) -> None:
+        for bad in (
+            "KB-00", "KB-13", "KB-99", "kb-01", "KB-1", "KB-001", "KB-0a",
+            "../secret", "http://x", "AKIA0000000000000000", "token", "",
+        ):
+            with self.subTest(control_id=bad):
+                b = base_bundle(
+                    criterion_evidence=_ce_with(4, [security_artifact(control_id=bad)])
+                )
+                with self.assertRaises(GateEvidenceError) as ctx:
+                    _load_text(json.dumps(b))
+                self.assertEqual(ctx.exception.reason,
+                                 ReasonCode.GATE_EVIDENCE_INVALID_VALUE)
+                if bad:
+                    self.assertNotIn(bad, str(ctx.exception))
 
 
 if __name__ == "__main__":  # pragma: no cover

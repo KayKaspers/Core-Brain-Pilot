@@ -96,15 +96,15 @@ class TestCriterionResult(unittest.TestCase):
             self.assertNotIn(result.value, gate_values)
 
 
-class TestEvidenceContract20(unittest.TestCase):
+class TestEvidenceContract30(unittest.TestCase):
     def test_versions(self) -> None:
         from core.core_brain.gate.models import (
             EVIDENCE_CONTRACT_REVISION,
             EVIDENCE_SCHEMA_VERSION,
             GATE_CONTRACT_REVISION,
         )
-        self.assertEqual(EVIDENCE_SCHEMA_VERSION, "2.0")
-        self.assertEqual(EVIDENCE_CONTRACT_REVISION, "2.0")
+        self.assertEqual(EVIDENCE_SCHEMA_VERSION, "3.0")
+        self.assertEqual(EVIDENCE_CONTRACT_REVISION, "3.0")
         self.assertEqual(GATE_CONTRACT_REVISION, "1.0")  # Gate-Vertrag unverändert
 
     def test_evidence_contract_sha256_deterministic(self) -> None:
@@ -127,9 +127,24 @@ class TestEvidenceContract20(unittest.TestCase):
     def test_producer_classes_are_closed(self) -> None:
         from core.core_brain.gate.models import PRODUCER_CLASSES
         self.assertEqual(set(PRODUCER_CLASSES), {
-            "structural-form", "foundation-form", "operator-review-form",
-            "backup-form", "rollback-form", "rt2-audit-form", "human-decision-form",
+            "structural-form", "foundation-form", "security-control-form",
+            "operator-review-form", "backup-form", "rollback-form",
+            "rt2-audit-form", "human-decision-form",
         })
+
+    def test_security_control_form_criteria(self) -> None:
+        # CBP-WP-018: Kriterien 4/6/7/8/10/11 tragen security-control-form.
+        from core.core_brain.gate.models import (
+            CRITERION_PRODUCER_CLASS,
+            SECURITY_CONTROL_PRODUCER_CLASS,
+        )
+        self.assertEqual(SECURITY_CONTROL_PRODUCER_CLASS, "security-control-form")
+        security = {c for c, cls in CRITERION_PRODUCER_CLASS.items()
+                    if cls == SECURITY_CONTROL_PRODUCER_CLASS}
+        self.assertEqual(security, {4, 6, 7, 8, 10, 11})
+        # 5 und 9 bleiben foundation-form (nicht security-control-form).
+        self.assertEqual(CRITERION_PRODUCER_CLASS[5], "foundation-form")
+        self.assertEqual(CRITERION_PRODUCER_CLASS[9], "foundation-form")
 
     def test_every_criterion_maps_to_valid_class(self) -> None:
         from core.core_brain.gate.models import (
@@ -157,6 +172,35 @@ class TestEvidenceContract20(unittest.TestCase):
             "GATE-EVID-STALE-BINDING", "GATE-EVID-STALE-EVIDENCE-REVISION",
         ):
             self.assertIn(code, values)
+
+    def test_wp018_evid_reason_codes_exist(self) -> None:
+        from core.core_brain.gate.models import GateReasonCode
+        values = {c.value for c in GateReasonCode}
+        # Die beiden WP-018-Security-Control-Verdikte existieren. Ein separater
+        # Control-ID-Code wurde als unerreichbar entfernt (siehe models.py).
+        for code in (
+            "GATE-EVID-INVALID-CONTROL-BINDING",
+            "GATE-EVID-STALE-SECURITY-CONTRACT",
+        ):
+            self.assertIn(code, values)
+
+    def test_evidence_contract_descriptor_binds_schema_three(self) -> None:
+        # Der 3.0-Deskriptor bindet Schema-Version, bedingte Feldmengen und
+        # Security-Contract-Top-Level-Felder — belegt über den gehashten Payload.
+        import hashlib
+
+        from core.core_brain.gate.models import (
+            SECURITY_CONTROL_PRODUCER_CLASS,
+            canonical_json_bytes,
+            evidence_contract_sha256,
+        )
+        # Ein Payload OHNE die 3.0-Bestandteile (nur Version) darf niemals den
+        # echten Contract-Hash treffen — belegt, dass der Deskriptor mehr bindet.
+        naive = hashlib.sha256(
+            canonical_json_bytes({"evidence_schema_version": "3.0"})
+        ).hexdigest()
+        self.assertNotEqual(evidence_contract_sha256(), naive)
+        self.assertEqual(SECURITY_CONTROL_PRODUCER_CLASS, "security-control-form")
 
 
 if __name__ == "__main__":  # pragma: no cover

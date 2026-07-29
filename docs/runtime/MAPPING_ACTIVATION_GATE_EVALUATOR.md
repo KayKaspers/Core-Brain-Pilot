@@ -108,34 +108,40 @@ Human-Evidenz ist ein Test-Fixture **ohne** A0-Autorität.
   (`NOT EVALUATED`) sind **keine** direkten Gate-Kriterien; sie wirken indirekt
   über die abhängigen Punkte 4–11, 17.
 
-## Eingabemodell und Bindung (Evidence-Vertrag 2.0, CBP-WP-017)
+## Eingabemodell und Bindung (Evidence-Vertrag 3.0, CBP-WP-018)
 
-Das geschlossene, versionierte **Evidence-Bundle 2.0** bindet `source_id`,
+Das geschlossene, versionierte **Evidence-Bundle 3.0** bindet `source_id`,
 `mapping_id`, `gate_contract_revision`, `evidence_contract_revision`,
+**`security_contract_revision`**, **`security_contract_sha256`**,
 `evidence_revision`, `mapping_draft_sha256`, `mapping_policy_sha256`,
 `registry_record_sha256`, `synthetic_test_only` und `criterion_evidence` (20
 Einträge `{criterion, artifacts}` mit **eingebetteten strukturierten
 Artefakten**). Vollständig in
-[SYNTHETIC_EVIDENCE_CONTRACT.md](SYNTHETIC_EVIDENCE_CONTRACT.md). **Schema 1.0**
-und unbekannte Versionen werden **fail-closed** abgewiesen; ferner BOM,
-ungültiges UTF-8, kein Objekt, doppelte Schlüssel, `NaN`/`Infinity`,
+[SYNTHETIC_EVIDENCE_CONTRACT.md](SYNTHETIC_EVIDENCE_CONTRACT.md). **Schema 1.0
+und 2.0** sowie unbekannte Versionen werden **fail-closed** abgewiesen; ferner
+BOM, ungültiges UTF-8, kein Objekt, doppelte Schlüssel, `NaN`/`Infinity`,
 unbekannte/fehlende Felder, nicht synthetisch (Bundle **und** Artefakt), reale
-Pfade/URLs/Secrets, ungültige IDs/Hashes/Producer-Klassen, > 4 Artefakte je
-Kriterium, > 80 gesamt, Überlänge.
+Pfade/URLs/Secrets, ungültige IDs/Hashes/Producer-Klassen/Control-IDs,
+fehlendes `control_id` bei `security-control-form`, `control_id` bei jeder
+anderen Klasse, > 4 Artefakte je Kriterium, > 80 gesamt, Überlänge.
 
 **Bindungs-Blocker (`GATE-BIND-*`):** Draft nicht `VALID_DRAFT`, Registry nicht
 gebunden, Source nicht `REGISTERED_DISABLED`, Draft-/Policy-/Record-Hash-Mismatch,
 Source-ID-/Mapping-ID-/Vertragsrevisions-Mismatch. `mapping_id` wird nur
 **validiert**, nie erzeugt, normalisiert oder ersetzt.
 
-**Artefakt-Verdikte (`GATE-EVID-*`, rein negativ):** je Kriterium leitet der
-Dienst aus seinen Artefakten ein **rein negatives** Verdikt ab —
-`INVALID_EVIDENCE` (Integrität/Klassenzuordnung), `CONFLICTING_EVIDENCE`
+**Artefakt-Verdikte (`GATE-EVID-*`, rein negativ):** je Kriterium — und bei
+`security-control-form` je **`(criterion, control_id)`-Bindung** — leitet der
+Dienst ein **rein negatives** Verdikt ab: `INVALID_EVIDENCE`
+(Integrität/Klassenzuordnung/unzulässiges Control-Paar), `CONFLICTING_EVIDENCE`
 (mehrere widersprüchliche, dedupliziert, keine Auto-Auflösung),
-`STALE_EVIDENCE` (Bindung/Revision veraltet, **ohne Uhr**). Priorität
-`INVALID > CONFLICTING > STALE > Basisergebnis`. Ein formal gültiges, aktuelles
-Artefakt **wertet nie positiv auf** (`SATISFIED` unverändert; 5/16/20 bleiben
-`HUMAN_DECISION_REQUIRED`; 15/18/19 bleiben `MISSING_EVIDENCE`). Damit sind die
+`STALE_EVIDENCE` (Bindung/Revision/Security-Contract veraltet, **ohne Uhr**).
+Priorität `INVALID > CONFLICTING > STALE > Basisergebnis`; mehrere Bindungen
+eines Kriteriums werden zum schwersten negativen Verdikt aggregiert. Ein formal
+gültiges, aktuelles Artefakt **wertet nie positiv auf** (`SATISFIED`
+unverändert; 4/6/7/8/10/11 bleiben `DEPENDENCY_BLOCKED`; 5/16/20 bleiben
+`HUMAN_DECISION_REQUIRED`; 15/18/19 bleiben `MISSING_EVIDENCE`; 9 bleibt
+strukturell). Damit sind die
 Ergebnisse `INVALID_/STALE_/CONFLICTING_EVIDENCE` — in WP-016 nur modelliert —
 nun **deterministisch erreichbar**.
 

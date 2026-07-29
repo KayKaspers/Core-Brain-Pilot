@@ -32,6 +32,7 @@ __all__ = [
     "MAX_ARTIFACTS_PER_CRITERION",
     "MAX_ARTIFACTS_TOTAL",
     "PRODUCER_CLASSES",
+    "SECURITY_CONTROL_PRODUCER_CLASS",
     "CRITERION_PRODUCER_CLASS",
     "CANONICAL_GATE_STATES",
     "GateStatus",
@@ -47,11 +48,13 @@ __all__ = [
 ]
 
 REPORT_SCHEMA_VERSION = "1.0"
-# Evidence-Schema/-Vertrag CBP-WP-017: Version 2.0 (eingebettete strukturierte
-# Artefakte). Version 1.0 (WP-016) wird fail-closed abgewiesen — es existiert
-# keine persistierte oder produktive 1.0-Evidenz (nur Test-Fixtures).
-EVIDENCE_SCHEMA_VERSION = "2.0"
-EVIDENCE_CONTRACT_REVISION = "2.0"
+# Evidence-Schema/-Vertrag CBP-WP-018 (ADR-0013, D-053): Version 3.0 —
+# Security-Control-Identität (`security-control-form` + `control_id`) und
+# Security-Contract-Bindung. Version 1.0 (WP-016) und 2.0 (WP-017) werden
+# fail-closed abgewiesen — es existiert keine persistierte oder produktive
+# 1.0-/2.0-Evidenz (nur Test-Fixtures). Der Gate-Vertrag bleibt unverändert.
+EVIDENCE_SCHEMA_VERSION = "3.0"
+EVIDENCE_CONTRACT_REVISION = "3.0"
 GATE_CONTRACT_REVISION = "1.0"
 IMPLEMENTATION_VERSION = "0.1.0.dev0"
 GATE_CRITERION_COUNT = 20
@@ -61,9 +64,11 @@ MAX_ARTIFACTS_PER_CRITERION = 4
 MAX_ARTIFACTS_TOTAL = 80
 
 # Geschlossene Producer-Klassen (nur Klassen, **nie** Personen/Hosts/Instanzen).
+# `security-control-form` (CBP-WP-018) trägt zusätzlich ein Pflicht-`control_id`.
 PRODUCER_CLASSES: Final[tuple[str, ...]] = (
     "structural-form",
     "foundation-form",
+    "security-control-form",
     "operator-review-form",
     "backup-form",
     "rollback-form",
@@ -71,16 +76,20 @@ PRODUCER_CLASSES: Final[tuple[str, ...]] = (
     "human-decision-form",
 )
 
-# Feste Kriterien→Producer-Klassen-Zuordnung (jedes Kriterium genau eine Klasse).
-# `human-decision-form` deckt die reinen Human-Entscheidungen 16/20 ab (Form,
-# **nie** Erfüllung); Kriterium 5 bleibt `foundation-form` (Form, **nie**
-# Erfüllung). Die Zuordnung ändert **keine** Autoritätsgrenze — 5/16/20 bleiben
-# `HUMAN_DECISION_REQUIRED`, 15/18/19 bleiben operative `MISSING_EVIDENCE`.
+# Producer-Klasse, die ein Pflicht-`control_id` trägt (Security-Control-Form).
+SECURITY_CONTROL_PRODUCER_CLASS: Final[str] = "security-control-form"
+
+# Feste Kriterien→Producer-Klassen-Zuordnung (jedes Kriterium genau eine Klasse,
+# CBP-WP-018/ADR-0013). Kriterien 4/6/7/8/10/11 tragen `security-control-form`
+# (Formnachweis je KB-Control); 5 und 9 bleiben `foundation-form`. Die Zuordnung
+# ändert **keine** Autoritätsgrenze — 5/16/20 bleiben `HUMAN_DECISION_REQUIRED`,
+# 15/18/19 bleiben operative `MISSING_EVIDENCE`, 9 bleibt strukturell.
 CRITERION_PRODUCER_CLASS: Final[dict[int, str]] = {
     1: "structural-form", 2: "structural-form", 3: "structural-form",
-    4: "foundation-form", 5: "foundation-form", 6: "foundation-form",
-    7: "foundation-form", 8: "foundation-form", 9: "foundation-form",
-    10: "foundation-form", 11: "foundation-form",
+    4: "security-control-form", 5: "foundation-form",
+    6: "security-control-form", 7: "security-control-form",
+    8: "security-control-form", 9: "foundation-form",
+    10: "security-control-form", 11: "security-control-form",
     12: "structural-form", 13: "structural-form", 14: "structural-form",
     15: "operator-review-form",
     16: "human-decision-form",
@@ -149,6 +158,13 @@ class GateReasonCode(StrEnum):
     EVID_CONFLICT_HASH = "GATE-EVID-CONFLICT-HASH"
     EVID_STALE_BINDING = "GATE-EVID-STALE-BINDING"
     EVID_STALE_EVIDENCE_REVISION = "GATE-EVID-STALE-EVIDENCE-REVISION"
+    # CBP-WP-018 — Security-Control-Form-spezifische negative Verdikte.
+    # Eine syntaktisch ungültige control_id wird bereits vom Loader fail-closed
+    # abgewiesen (GATE_EVIDENCE_INVALID_VALUE, Exit 14); der semantische Pfad
+    # erhält nur validierte Werte. Ein separater Reason-Code für eine ungültige
+    # control_id wäre damit unerreichbar und existiert daher nicht.
+    EVID_INVALID_CONTROL_BINDING = "GATE-EVID-INVALID-CONTROL-BINDING"
+    EVID_STALE_SECURITY_CONTRACT = "GATE-EVID-STALE-SECURITY-CONTRACT"
 
 
 @dataclass(frozen=True, slots=True)
@@ -267,6 +283,18 @@ class GateEvaluationReport:
     invalid_artifact_count: int
     stale_artifact_count: int
     conflicting_artifact_count: int
+    # CBP-WP-018 — Security-Contract-Bindung + Formzähler (reine A6-Diagnose).
+    security_contract_revision: str
+    security_contract_sha256: str
+    documented_control_count: int
+    runtime_scoped_control_count: int
+    runtime_scoped_binding_count: int
+    valid_form_binding_count: int
+    missing_form_binding_count: int
+    invalid_form_binding_count: int
+    stale_form_binding_count: int
+    conflicting_form_binding_count: int
+    operationally_unevaluated_binding_count: int
     implementation_version: str = IMPLEMENTATION_VERSION
 
     def to_dict(self) -> dict[str, object]:
@@ -295,6 +323,17 @@ class GateEvaluationReport:
             "invalid_artifact_count": self.invalid_artifact_count,
             "stale_artifact_count": self.stale_artifact_count,
             "conflicting_artifact_count": self.conflicting_artifact_count,
+            "security_contract_revision": self.security_contract_revision,
+            "security_contract_sha256": self.security_contract_sha256,
+            "documented_control_count": self.documented_control_count,
+            "runtime_scoped_control_count": self.runtime_scoped_control_count,
+            "runtime_scoped_binding_count": self.runtime_scoped_binding_count,
+            "valid_form_binding_count": self.valid_form_binding_count,
+            "missing_form_binding_count": self.missing_form_binding_count,
+            "invalid_form_binding_count": self.invalid_form_binding_count,
+            "stale_form_binding_count": self.stale_form_binding_count,
+            "conflicting_form_binding_count": self.conflicting_form_binding_count,
+            "operationally_unevaluated_binding_count": self.operationally_unevaluated_binding_count,
             "implementation_version": self.implementation_version,
         }
 
@@ -322,12 +361,14 @@ def gate_contract_sha256() -> str:
 
 
 def evidence_contract_sha256() -> str:
-    """SHA-256 über den **vollständigen statischen** Evidence-Vertrag (WP-017).
+    """SHA-256 über den **vollständigen statischen** Evidence-Vertrag 3.0 (WP-018).
 
     Der Hash bindet ausschließlich statische Vertragsbestandteile — Schema-
-    Version, Vertragsrevision, geschlossene Feldmengen, erlaubte Producer-
-    Klassen, Kriterienzuordnung, Mengenlimits und die feste Evaluationspriorität.
-    Er enthält **keine** Laufzeitdaten; identischer Vertrag ⇒ identischer Hash.
+    Version, Vertragsrevision, geschlossene (bedingte) Feldmengen, erlaubte
+    Producer-Klassen, Kriterienzuordnung, `control_id`-Regeln, Security-Contract-
+    Top-Level-Felder, Binding-Regeln, Mengenlimits und die feste
+    Evaluationspriorität. Er enthält **keine** Laufzeitdaten; identischer
+    Vertrag ⇒ identischer Hash.
     """
     payload = {
         "evidence_schema_version": EVIDENCE_SCHEMA_VERSION,
@@ -335,25 +376,48 @@ def evidence_contract_sha256() -> str:
         "top_level_fields": [
             "evidence_schema_version", "synthetic_test_only", "source_id",
             "mapping_id", "gate_contract_revision", "evidence_contract_revision",
+            "security_contract_revision", "security_contract_sha256",
             "evidence_revision", "mapping_draft_sha256", "mapping_policy_sha256",
             "registry_record_sha256", "criterion_evidence",
         ],
         "criterion_evidence_fields": ["criterion", "artifacts"],
-        "artifact_fields": [
+        "artifact_fields_default": [
             "artifact_id", "artifact_sha256", "binding_sha256",
             "producer_class", "evidence_revision", "synthetic_test_only",
         ],
-        "artifact_hash_fields": [
+        "artifact_fields_security_control": [
+            "artifact_id", "artifact_sha256", "binding_sha256",
+            "producer_class", "control_id", "evidence_revision",
+            "synthetic_test_only",
+        ],
+        "artifact_hash_fields_default": [
             "artifact_id", "binding_sha256", "producer_class",
             "evidence_revision", "synthetic_test_only",
         ],
-        "binding_fields": [
+        "artifact_hash_fields_security_control": [
+            "artifact_id", "binding_sha256", "producer_class", "control_id",
+            "evidence_revision", "synthetic_test_only",
+        ],
+        "binding_fields_default": [
             "source_id", "mapping_id", "criterion", "mapping_draft_sha256",
             "mapping_policy_sha256", "registry_record_sha256",
             "gate_contract_revision", "gate_contract_sha256",
             "evidence_contract_revision", "evidence_contract_sha256",
             "evidence_revision",
         ],
+        "binding_fields_security_control": [
+            "source_id", "mapping_id", "criterion", "control_id",
+            "mapping_draft_sha256", "mapping_policy_sha256",
+            "registry_record_sha256", "gate_contract_revision",
+            "gate_contract_sha256", "evidence_contract_revision",
+            "evidence_contract_sha256", "security_contract_revision",
+            "security_contract_sha256", "evidence_revision",
+        ],
+        "control_id_rules": {
+            "required_for": SECURITY_CONTROL_PRODUCER_CLASS,
+            "forbidden_for_others": True,
+            "syntax": "KB-(0[1-9]|1[0-2])",
+        },
         "producer_classes": list(PRODUCER_CLASSES),
         "criterion_producer_class": {
             str(k): v for k, v in sorted(CRITERION_PRODUCER_CLASS.items())

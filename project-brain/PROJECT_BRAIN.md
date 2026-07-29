@@ -23,14 +23,14 @@ verweigern deterministisch.
 
 | Feld | Wert |
 | --- | --- |
-| Aktuelles Work Package | **CBP-WP-018** (`in-review`, **Phase B0 – Governance Foundation**) — zuletzt abgeschlossen CBP-WP-017 (`committed`, `d3168c4`); ADR-0013/D-052; technische Implementation nicht begonnen |
+| Aktuelles Work Package | **CBP-WP-018** (`in-review`, **Phase B1 – Technical Implementation**) — zuletzt committed `4dec921` (Phase B0); ADR-0013/D-052/D-053; technische Implementation abgeschlossen, **uncommitted** |
 | Gate G0 | **PASSED WITH NOTES** — 2026-07-21 |
 | G0-Kriterien | **47**, dreistufig klassifiziert |
 | davon blockierend | **25** Core Required (zuvor 45) |
 | davon `accepted` | **25** — alle |
 | verbleibende Blocker | **0** |
 | Phase 1 | AUTHORIZED FOR PLANNING — [Backlog](../docs/roadmap/PHASE_1_BACKLOG.md), [Foundation Plan](../docs/roadmap/PHASE_1_FOUNDATION_PLAN.md) |
-| Geplante Work Packages | **CBP-WP-018** `in-review` (Phase B0 – Governance Foundation, ADR-0013/D-052); technische Implementation nicht begonnen; kein weiteres vorgeschlagen |
+| Geplante Work Packages | **CBP-WP-018** `in-review` (Phase B1 – Technical Implementation, ADR-0013/D-052/D-053); uncommitted, wartet auf Nova-Review und Human-Commit; kein weiteres vorgeschlagen |
 | **Repository-Struktur** | **entschieden** — Ziel-Monorepo + Workspace W-3 (ADR-0007); **Migration nicht autorisiert** |
 | **Mappingkonvention** | **entschieden** — ADR-0008; **0 Mappings, 0 Quellen**, Gate `NOT EVALUATED` |
 | **Sicherheitsgrundlage** | **spezifiziert** — ADR-0009; **12 Kontrollen `DOCUMENTED ONLY`** |
@@ -39,7 +39,8 @@ verweigern deterministisch.
 | **Source-Registry MVP** | **lokaler Prototyp** (CBP-WP-014, ADR-0011) — synthetic-only, fail-closed, **deaktiviert**, `activate` verweigert, nicht produktiv |
 | **Source-Mapping-Draft-Validator MVP** | **lokaler Prototyp** (CBP-WP-015, ADR-0012) — synthetic-only, read-only, fail-closed, **31-Feld-Vertrag** (29+2), externe read-only Registry-Bindung, `mapping_id` nur validiert, `activation-check` verweigert, nicht produktiv |
 | **Mapping-Activation-Gate-Evaluator MVP** | **lokaler Prototyp** (CBP-WP-016, D-050) — synthetic-only, read-only, nicht persistent, fail-closed; **20 Gate-Kriterien**, Ausgabestatus nur `NOT_EVALUATED`/`BLOCKED`; `activation-evaluate` endet immer `BLOCKED` (Exit 14); nicht produktiv |
-| **Synthetic Evidence Contract 2.0 MVP** | **lokaler Prototyp** (CBP-WP-017, D-051, `committed` `d3168c4`) — Evidence-Schema 2.0 mit eingebetteten Artefakten, Provenance-/Binding-Hashes, deterministische Invalid-/Stale-/Conflict-Erkennung, **negative-evidence-only**; Schema 1.0 fail-closed; kein RT-2/Persistenz/Aktivierung; **451 Tests**, nicht produktiv |
+| **Synthetic Evidence Contract 3.0 MVP** | **lokaler Prototyp** (CBP-WP-018, ADR-0013, D-052/D-053, **uncommitted**) — Evidence-Schema 3.0 mit eingebetteten Artefakten, `security-control-form` + `control_id`, Provenance-/Binding-Hashes inkl. Security-Contract-Bindung, deterministische Invalid-/Stale-/Conflict-Erkennung, **negative-evidence-only**; Schema 1.0 **und 2.0** fail-closed; kein RT-2/Persistenz/Aktivierung; **558 Tests**, nicht produktiv |
+| **Security Foundation Readiness Contract MVP** | **lokaler Prototyp** (CBP-WP-018, ADR-0013, D-053, **uncommitted**) — statischer, reiner Vertrag 1.0 ohne I/O/Uhr/Zufall/Netz; **12 Controls / 7 runtime-scoped / 11 `(criterion, control_id)`-Bindungen**; nur synthetische Formprüfung, rein negativ; Kriterium 5 Human-only, Kriterium 9 non-security-structural; **keine** Security-Evaluation/Enforcement/Readiness; Readiness Gate `NOT EVALUATED`, nicht produktiv |
 | Implementierte Capabilities | **keine (0 von 29)** — Bausteine belegt; Capability 5/6 bleiben `planned` |
 | Nachweise oberhalb Stufe 1 | **keine** (lokale Bausteine, keine KB-Kontrolle) |
 | Commits | **14** |
@@ -105,7 +106,8 @@ verweigert, bis eine Datenklasse sie erlaubt.**
 ## Entscheidungen
 
 Angenommene ADRs: **13** (ADR-0001 bis ADR-0013; **ADR-0013** legt Evidence
-Schema 3.0 mit Security-Control-Identität und Contract-Binding fest, D-052).
+Schema 3.0 mit Security-Control-Identität und Contract-Binding fest, D-052;
+technisch umgesetzt unter **D-053**).
 ADR-0006 hält privaten
 Bestand konstruktiv außerhalb des Kern-Repositorys (D-028); **ADR-0007**
 (D-029, D-030) legt Zielstruktur und Bereichsgrenze fest und **schließt
@@ -405,12 +407,15 @@ A0-Freigabe **D-050** (APPROVE WITH NOTES, A1/B1-eng/C1/D1) implementiert und
 **committed** (`04c427c`). **CBP-WP-017 — Synthetic Evidence Contract &
 Provenance Foundation** ist unter **D-051** (APPROVE WITH NOTES, A2/B1/C2/D1/E2)
 implementiert und **committed** (`d3168c4`). **CBP-WP-018 — Security Foundation
-Readiness Contract & Synthetic Form-Validator** befindet sich in **Phase B0 –
-Governance Foundation**: **ADR-0013** (Evidence Schema 3.0) angenommen und
-**D-052** dokumentiert (partielle Ablösung von D-051, Teile C2/D1); die
-**technische Implementation ist nicht begonnen**, der Runtime-Stand bleibt
-Evidence Schema 2.0. Ein weiteres Work Package ist **nicht** vorgeschlagen;
-CBP-WP-019 ist nicht begonnen und nicht autorisiert.
+Readiness Contract & Synthetic Form-Validator** befindet sich in **Phase B1 –
+Technical Implementation**: **ADR-0013** (Evidence Schema 3.0) angenommen,
+**D-052** (Governance Foundation, `committed` `4dec921`) und **D-053**
+(Technical Implementation) dokumentiert; der Runtime-Stand ist damit **Evidence
+Schema 3.0** mit statischem Security Contract 1.0 (12 Controls, 7
+runtime-scoped, 11 Bindungen), **558 Tests – OK**. Die Implementation ist
+**uncommitted** und wartet auf Nova-Review und Human-Commit. Ein weiteres Work
+Package ist **nicht** vorgeschlagen; CBP-WP-019 ist nicht begonnen und nicht
+autorisiert.
 
 ## Rückmeldung an Nova
 

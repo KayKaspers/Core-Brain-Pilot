@@ -1002,6 +1002,18 @@ def _render_gate_report(report: object) -> str:
         f"invalid_artifact_count:      {report.invalid_artifact_count}",
         f"stale_artifact_count:        {report.stale_artifact_count}",
         f"conflicting_artifact_count:  {report.conflicting_artifact_count}",
+        f"security_contract_revision:  {report.security_contract_revision}",
+        f"security_contract_sha256:    {report.security_contract_sha256}",
+        f"documented_control_count:        {report.documented_control_count}",
+        f"runtime_scoped_control_count:    {report.runtime_scoped_control_count}",
+        f"runtime_scoped_binding_count:    {report.runtime_scoped_binding_count}",
+        f"valid_form_binding_count:        {report.valid_form_binding_count}",
+        f"missing_form_binding_count:      {report.missing_form_binding_count}",
+        f"invalid_form_binding_count:      {report.invalid_form_binding_count}",
+        f"stale_form_binding_count:        {report.stale_form_binding_count}",
+        f"conflicting_form_binding_count:  {report.conflicting_form_binding_count}",
+        f"operationally_unevaluated_binding_count: "
+        f"{report.operationally_unevaluated_binding_count}",
         f"implementation_version: {report.implementation_version}",
         "criterion_results:",
     ]

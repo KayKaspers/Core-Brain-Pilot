@@ -9,9 +9,10 @@
 | **Context Budget** | B2 – Standard |
 | **Modell / Effort** | Claude Opus 4.8 (`claude-opus-4-8`) / ultracode |
 | **Status** | **in-review** |
-| **Aktuelle Phase** | **Phase B0 – Governance Foundation** |
-| **Grundlage** | D-052 (A0); **ADR-0013** (A1); ADR-0007, ADR-0009; D-051 (partiell abgelöst) |
-| **Stand** | 2026-07-28 |
+| **Aktuelle Phase** | **Phase B1 – Technical Implementation** |
+| **Technische Implementation** | **implemented, pending Nova review and Human commit** |
+| **Grundlage** | D-052, **D-053** (A0); **ADR-0013** (A1); ADR-0007, ADR-0009; D-051 (partiell abgelöst) |
+| **Stand** | 2026-07-29 |
 
 ---
 
@@ -24,9 +25,18 @@
   abgeschlossen und von Nova angenommen; bestätigte Blocker A/B; empfahl
   Evidence Schema **3.0** mit explizitem `control_id`, Security-Contract-Bindung,
   Scope S3 und `ADR_REQUIRED`.
-- **Phase B0 — Governance Foundation (dieser Schritt):** **ADR-0013 angenommen**,
-  **D-052 dokumentiert**, WP-018 als `in-review` registriert. **Rein
-  dokumentarisch.**
+- **Phase B0 — Governance Foundation:** abgeschlossen und committed
+  (`4dec921`); **ADR-0013 angenommen**, **D-052 dokumentiert**, WP-018 als
+  `in-review` registriert. **Rein dokumentarisch.**
+- **Phase B0.1 — R-33-Konsistenzkorrektur:** abgeschlossen (ADR-Indexzahl
+  11 → 13 als 14. Konsistenzvorgang; R-33 = **14/18**).
+- **Phase B1 — Technical Implementation (dieser Schritt):** **D-053
+  dokumentiert**; Evidence Schema **2.0 → 3.0** vollständig migriert,
+  `security-control-form` + `control_id` eingeführt, statischer Security
+  Contract implementiert, elf `(criterion, control_id)`-Bindungen synthetisch
+  formgeprüft, rein negative Faltung, A6-Report um Contract- und
+  Binding-Zähler erweitert. **Uncommitted — Commit-Autorität beim Human
+  Maintainer.**
 
 ## Governance-Entscheidung (D-052 / ADR-0013)
 
@@ -46,41 +56,47 @@ B1 (negative-evidence-only), E2 (minimal erweiterter Report); **abgelöst** C2
 (Evidence Schema 2.0) und D1 (ADR_NOT_REQUIRED). D-051 bleibt historisch gültig
 und wird **nicht** umgeschrieben.
 
-## Technischer Stand (unverändert)
+## Governance-Entscheidung Phase B1 (D-053)
 
-- **Implementierter Runtime-Code-Stand: Evidence Schema 2.0** (WP-017, `d3168c4`).
-- **Evidence Schema 3.0 ist ausschließlich governance-seitig entschieden** — es
-  existiert **kein** `control_id`, **keine** Producer-Klasse
-  `security-control-form`, **kein** Security Contract und **keine** 3.0-Bindung
-  im Code.
-- **Kein** Runtime-Code, **keine** Tests, **keine** Runtime-/Security-Doku und
-  **keine** Fixtures wurden in diesem Schritt verändert. Testbasis unverändert
-  **451 Tests – OK**, compileall grün.
-- Die technische Implementation und die Fixture-/Doku-Migration 2.0 → 3.0
-  benötigen eine **gesonderte Nova- und Human-Freigabe** (spätere Phase B).
+**D-053 (A0):** APPROVE CBP-WP-018 TECHNICAL IMPLEMENTATION WITH NOTES — A1
+ADR-0013 technisch umgesetzt; B1 einzige akzeptierte Schema-Version **3.0**
+(1.0 und 2.0 fail-closed), Gate-Vertrag unverändert; C1 separater statischer
+Security Contract (12 / 7 / 11); D1 **negative-evidence-only**; E1 Report mit
+Contract-Revision, Contract-Hash und eindeutigen Binding-Zählern, **ohne**
+öffentliche Readiness-Aggregation.
 
-## Ziel (spätere technische Phase)
+## Technischer Stand (Phase B1, uncommitted)
 
-Geschlossener, deterministischer, **synthetic-only** Security-Readiness-
-Formvertrag: statischer Security Contract (KB-Control→Kriterium-Matrix,
-`security_contract_revision`/`_sha256`), `security-control-form`-Artefakte mit
-`control_id`, Formprüfung mit **ausschließlich negativer** Faltung
-(`INVALID_/CONFLICTING_/STALE_EVIDENCE`), minimal erweiterter A6-Report mit
-Bindungszählern und Summeninvariante. **Keine** positive Gate-Erfüllung, **keine**
-Security-Freigabe, **keine** reale Enforcement-Bewertung.
+- **Implementierter Runtime-Code-Stand: Evidence Schema 3.0.** Schema 1.0
+  (WP-016) und 2.0 (WP-017) werden fail-closed abgewiesen. Es existiert **keine**
+  produktive oder persistierte Evidenz — nur Test-Fixtures.
+- Neues Modul `core/core_brain/gate/security_contract.py` (Revision **1.0**):
+  rein statisch, ohne I/O, Uhr, Zufall oder Netz; 12 dokumentierte Controls, 7
+  runtime-scoped Controls, 11 `(criterion, control_id)`-Bindungen.
+- Producer-Klasse `security-control-form` (Kriterien 4/6/7/8/10/11) mit
+  Pflichtfeld `control_id`; **jede andere** Klasse verbietet `control_id`.
+- Bindungsidentität `(criterion, control_id)`; mehrere Controls desselben
+  Kriteriums sind getrennte Bindungen und erzeugen **keinen** Konflikt.
+- Rein negative Faltung mit Priorität `INVALID > CONFLICTING > STALE >
+  Basisergebnis`; A6-Report um Contract-Revision/-Hash und fünf Binding-Zähler
+  (Summeninvariante = 11) erweitert.
+- **Testbasis: 558 Tests – OK** (Basislinie 451), `compileall` Exit 0.
+- **Kein Commit, kein Push.** Nachweise in
+  [MAPPING_ACTIVATION_GATE_EVIDENCE.md](../docs/runtime/MAPPING_ACTIVATION_GATE_EVIDENCE.md).
 
 ## Autoritätsgrenzen
 
-Dieser Governance-Schritt autorisiert **keine** technische Implementation und
-**nicht**: reale Source, Ziel-VM, Netzwerk, Secrets, Credentials, RT-2,
-Persistenz, Enforcement, Security Readiness, Gate-Pass, Human Approval,
-Aktivierung, DRC. Kriterium 5 bleibt Human-only; Kriterium 9 bleibt
-non-security-structural; Gate-Kriterien 4/6/7/8/10/11 bleiben
-`DEPENDENCY_BLOCKED`.
+Die technische Implementation autorisiert **nicht**: reale Source, Ziel-VM,
+Netzwerk, Secrets, Credentials, RT-2, Persistenz, reale Security-Evaluation,
+Enforcement, Security Readiness, Gate-Pass, Human Approval, Aktivierung, DRC.
+Kriterium 5 bleibt Human-only; Kriterium 9 bleibt non-security-structural;
+Gate-Kriterien 4/6/7/8/10/11 bleiben `DEPENDENCY_BLOCKED` — auch bei elf
+gültigen Formbindungen. `GateStatus` bleibt `NOT_EVALUATED`/`BLOCKED`; alle drei
+Gates bleiben `NOT EVALUATED`; **0 von 29** Capabilities `implemented`.
 
 ## Rückmeldung an Nova
 
-Governance Foundation abgeschlossen, **in-review**. Kein Commit, kein Push
-(Commit-Autorität beim Human Maintainer). **Keine** technische Implementation
-begonnen. Kein nächstes Work Package vorgeschlagen (CBP-WP-019 ausdrücklich
-**nicht** begonnen und **nicht** autorisiert).
+Phase B1 technisch abgeschlossen, **in-review**. Kein Commit, kein Push
+(Commit-Autorität beim Human Maintainer). Kein nächstes Work Package
+vorgeschlagen (CBP-WP-019 ausdrücklich **nicht** begonnen und **nicht**
+autorisiert).

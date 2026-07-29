@@ -3,7 +3,7 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Letzte Bewertung | 2026-07-28, im Rahmen von **CBP-WP-018** (Phase B0 – Governance Foundation) |
+| Letzte Bewertung | 2026-07-29, im Rahmen von **CBP-WP-018** (Phase B1 – Technical Implementation) |
 | Autoritätsklasse | A2 |
 
 > Diese Datei gehört zur kanonischen NDF-Ordnerstruktur, war aber in der
@@ -29,7 +29,7 @@ Keine Gesamtpunktzahl.
 | Gate-Klarheit | **gut** | → | Dreistufiges Modell plus DRC als eigener Prüfort für die 16 vertagten Kriterien |
 | Architekturklarheit | **gut** | ↑↑ | 9 Schichten, 14 Komponenten, 5 Profile, Rebuild-Vertrag; zuvor kein Komponentenschnitt |
 | Scope-Klarheit | **gut** | ↑ | **Alle 25 Core-Kriterien `accepted`**; Quellenraum über logische Slots definiert |
-| Entscheidungslage | **gut** | ↑ | **52 Entscheidungen, 13 angenommene ADRs**; G0, OD-26, Mappingkonvention, Sicherheitsgrundlage, Quarantäne-, Registry-, Mapping-Draft-Validator-, Gate-Evaluator- (D-050), Evidence-Contract-2.0-MVP (D-051) und Evidence-Schema-3.0-Governance (D-052, ADR-0013) entschieden |
+| Entscheidungslage | **gut** | ↑ | **53 Entscheidungen, 13 angenommene ADRs**; G0, OD-26, Mappingkonvention, Sicherheitsgrundlage, Quarantäne-, Registry-, Mapping-Draft-Validator-, Gate-Evaluator- (D-050), Evidence-Contract-2.0-MVP (D-051), Evidence-Schema-3.0-Governance (D-052, ADR-0013) und Evidence-Schema-3.0-Implementation (D-053) entschieden |
 | Quellenanbindung | **nicht bewertbar** | | Konvention entschieden, **0 Mappings, 0 angebundene Quellen** |
 | Strukturklarheit | **gut** | ↑↑ | Zielstruktur und Bereichsgrenze festgelegt (ADR-0007); zuvor drei konkurrierende Vorstellungen |
 | Antwortlage Discovery | **gut** | ↑ | Alle Core-Required-Fragen belegt; Entscheidung steht aus |
@@ -39,7 +39,7 @@ Keine Gesamtpunktzahl.
 | Planungsklarheit Phase 1 | **gut** | ↑↑ | Fünf Streams, sechs geschnittene Work Packages, Nachweisstufen und zwölf Stop-Bedingungen; zuvor nur ein Backlog |
 | **Nachweislage** | **schwach** | → | **Alle Artefakte stehen auf Stufe 1 `dokumentiert`.** Kein Negativtest, kein Restore, kein Messwert |
 | Implementierung | **schwach** | ↑ | **Lokaler Runtime Skeleton** (CBP-WP-012), **Quarantäneprototyp** (CBP-WP-013), **Registry-Prototyp** (CBP-WP-014), **Mapping-Draft-Validator** (CBP-WP-015), **Gate-Evaluator** (CBP-WP-016) **und Synthetic-Evidence-Contract 2.0** (CBP-WP-017); keine operative Wirkung, keine KB-Kontrolle durchgesetzt, keine Promotion, kein gespeichertes Mapping, kein Gate ausgeführt, keine Aktivierung |
-| Testabdeckung | **ausreichend** | ↑↑ | **451 lokale Tests bestanden** (Skeleton 69 + Quarantäne + Registry + Mapping-Draft-Validator + Gate-Evaluator + Evidence-Contract-2.0-/Provenance-Tests, inkl. Netzwerk-Guard); kein Retrieval-, Ingest- oder Integrationstest |
+| Testabdeckung | **ausreichend** | ↑↑ | **558 lokale Tests bestanden** (Skeleton 69 + Quarantäne + Registry + Mapping-Draft-Validator + Gate-Evaluator + Evidence-Contract-3.0-/Provenance- + Security-Contract-Tests, inkl. Netzwerk-Guard); kein Retrieval-, Ingest- oder Integrationstest |
 | CI/CD | nicht bewertbar | | In Phase 0 verboten; lokale Tests manuell |
 | Betriebsreife | nicht bewertbar | | Keine Installation |
 | Retrieval-Qualität | nicht bewertbar | | Kein Index, kein Benchmark |
@@ -71,8 +71,8 @@ Durchsetzung, nicht ein weiteres Dokument.
 | Discovery-Fragen | *55* → korrekt 56 | **56** |
 | davon P0 | *35* → korrekt 38 | **38** |
 | davon P0 offen und Core Required | 38 | **0** |
-| Getroffene Entscheidungen | 14 | **52** |
-| davon A0 | 8 | **48** |
+| Getroffene Entscheidungen | 14 | **53** |
+| davon A0 | 8 | **49** |
 | Offene Entscheidungen | 27 | **23** |
 | davon P0 | 14 | **5** |
 | Erfasste Risiken | 29 | **32** |
@@ -80,7 +80,7 @@ Durchsetzung, nicht ein weiteres Dokument.
 | davon hoch | 14 | 17 |
 | Capabilities `implemented` | **0** | **0** |
 | Angenommene ADRs | 0 | **13** |
-| Vorgeschlagene Work Packages | 0 | **0** — CBP-WP-018 `in-review` (Phase B0 Governance Foundation, ADR-0013/D-052); CBP-WP-017 `committed` (`d3168c4`) |
+| Vorgeschlagene Work Packages | 0 | **0** — CBP-WP-018 `in-review` (Phase B1 Technical Implementation, ADR-0013/D-052/D-053); Phase B0 `committed` (`4dec921`) |
 | **Erstellte Source Mappings** | 0 | **0** |
 | **Angebundene Quellen** | 0 | **0** |
 | **Umgesetzte Sicherheitskontrollen** | 0 | **0 von 12** |
