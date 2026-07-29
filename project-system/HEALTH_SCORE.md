@@ -3,7 +3,7 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Letzte Bewertung | 2026-07-29, im Rahmen von **CBP-WP-018** (Phase B1 – Technical Implementation) |
+| Letzte Bewertung | 2026-07-29, im Rahmen von **CBP-WP-018** (`committed`: Phase B0 `4dec921`, Phase B1 `5ee2e83`) |
 | Autoritätsklasse | A2 |
 
 > Diese Datei gehört zur kanonischen NDF-Ordnerstruktur, war aber in der
@@ -80,7 +80,7 @@ Durchsetzung, nicht ein weiteres Dokument.
 | davon hoch | 14 | 17 |
 | Capabilities `implemented` | **0** | **0** |
 | Angenommene ADRs | 0 | **13** |
-| Vorgeschlagene Work Packages | 0 | **0** — CBP-WP-018 `in-review` (Phase B1 Technical Implementation, ADR-0013/D-052/D-053); Phase B0 `committed` (`4dec921`) |
+| Vorgeschlagene Work Packages | 0 | **0** — CBP-WP-018 ist `committed` (Phase B0 `4dec921`, Phase B1 `5ee2e83`, ADR-0013/D-052/D-053); kein weiteres, kein Work Package aktiv |
 | **Erstellte Source Mappings** | 0 | **0** |
 | **Angebundene Quellen** | 0 | **0** |
 | **Umgesetzte Sicherheitskontrollen** | 0 | **0 von 12** |

@@ -258,14 +258,35 @@ wurde. **R-33 bleibt `gemindert, nicht geschlossen`**, Kritikalität unveränder
 | Korrektur | Der ADR-Index wurde beim Hinzufügen von **ADR-0013** auf den durch Auszählung belegten Gesamtwert **13** gesetzt (11 → 13, davon der vorbestehende Fehler 11 → 12 plus die Ergänzung 12 → 13). Kein ADR wurde inhaltlich umgeschrieben. |
 | Aussagegrenze | **Kein Funktionsfehler, keine Runtimeänderung, keine Gatefreigabe, keine Aktivierung, keine Capability-Änderung**; keine neue Decision-ID, kein neues ADR **über ADR-0013 hinaus**, kein neues/geschlossenes Risiko; **keine** Risikokritikalität verändert; D-052/ADR-0013 unverändert; Gates `NOT EVALUATED`; Capabilities **0 von 29** |
 
-Damit sind **vierzehn Konsistenzvorgänge in achtzehn Work Packages** dokumentiert
-(**neue aktuelle Basislinie**; löst die vorige Angabe „dreizehn" ab). Die Zahl der
-Work Packages steigt auf **achtzehn**, weil dieser Vorgang **erstmals
-CBP-WP-018** betrifft. R-33 zählt eigenständige Korrekturen kanonischer Status-,
+Damit waren **vierzehn Konsistenzvorgänge in achtzehn Work Packages** dokumentiert
+(*Stand nach dem vierzehnten Vorgang; durch den fünfzehnten Vorgang unten auf
+**fünfzehn** aktualisiert*; löst die vorige Angabe „dreizehn" ab). Die Zahl der
+Work Packages stieg auf **achtzehn**, weil dieser Vorgang **erstmals
+CBP-WP-018** betraf. R-33 zählt eigenständige Korrekturen kanonischer Status-,
 Zähl- oder Konsistenzabweichungen — **nicht** ausschließlich
 Post-Commit-Reconciliations; die Korrektur eines vorbestehend falschen
 ADR-Zählers ist ein solcher Vorgang. **R-33 bleibt `gemindert, nicht
 geschlossen`**, Kritikalität unverändert **mittel**. Derselbe Vorgang ist in
+[COMPLIANCE_CHECK.md](COMPLIANCE_CHECK.md) gespiegelt und zählt **nur einmal**.
+
+**R-33-Chronologie — fünfzehnter Konsistenzvorgang (CBP-WP-018 Post-Commit Status Reconciliation, 2026-07-29):**
+
+| Feld | Inhalt |
+| --- | --- |
+| Work Package | **CBP-WP-018** (Post-Commit-Status-Reconciliation; CBP-WP-018 war **bereits** durch den vierzehnten Vorgang Teil der betroffenen Work-Package-Menge) |
+| Fehlerklasse | **Git-/Register-Statusabweichung** — nach Commit und Push der technischen Implementation von CBP-WP-018 (`5ee2e83`) führten die Statusdokumente CBP-WP-018 weiterhin als `in-review` / „Phase B1, uncommitted", obwohl Git CBP-WP-018 als `committed` und mit origin/main synchron auswies |
+| Betroffene aktuelle Repository-Artefakte | `README.md`, `CLAUDE.md`, `project-system/WORK_PACKAGE_QUEUE.md` (Header, Übersicht, Detailblock), `project-system/PROJECT_MANIFEST.md`, `project-system/PROJECT_PROFILE.md`, `project-system/HEALTH_SCORE.md`, `project-brain/PROJECT_BRAIN.md` |
+| Ursache | Der Implementation Commit trug den korrekten **Vor-Commit-Reviewstatus** `in-review`; es fehlte anschließend die **Post-Commit-Status-Reconciliation** (dieselbe Klasse wie der zehnte/zwölfte/dreizehnte Vorgang) |
+| Korrektur | Die kanonischen Statusdokumente wurden auf den durch Git belegten `committed`-Zustand von CBP-WP-018 (Governance `4dec921`, Implementation `5ee2e83`) synchronisiert; „aktuelles Work Package" auf **keines aktiv, zuletzt abgeschlossen CBP-WP-018** gesetzt; kein Work Package ist `active`/`in-review`; **kein nächstes Work Package autorisiert**, **CBP-WP-019 nicht registriert, nicht begonnen, nicht autorisiert** |
+| Aussagegrenze | **Kein Funktionsfehler, keine Runtimeänderung, keine Gatefreigabe, keine Aktivierung, keine Capability-Änderung**; keine neue Decision-ID, kein neues ADR, kein neues/geschlossenes Risiko; **keine** Risikokritikalität verändert; D-053/ADR-0013 unverändert; Mapping Activation Gate/Security Foundation Readiness Gate/DRC bleiben `NOT EVALUATED`; Capabilities **0 von 29**; die zwölf KB-Kontrollen bleiben `DOCUMENTED ONLY` |
+
+Damit sind **fünfzehn Konsistenzvorgänge in achtzehn Work Packages** dokumentiert
+(**neue aktuelle Basislinie**; löst die vorige Angabe „vierzehn" ab). Die Zahl der
+Work Packages bleibt **achtzehn**, weil CBP-WP-018 durch den vierzehnten Vorgang
+**bereits** Teil der betroffenen Menge war; ein weiterer Vorgang im selben,
+bereits erfassten Work Package erhöht **nur** den Vorgangszähler
+(**14/18 → 15/18**). **R-33 bleibt `gemindert, nicht geschlossen`**,
+Kritikalität unverändert **mittel**. Derselbe Vorgang ist in
 [COMPLIANCE_CHECK.md](COMPLIANCE_CHECK.md) gespiegelt und zählt **nur einmal**.
 
 **Verändert in CBP-WP-012:**

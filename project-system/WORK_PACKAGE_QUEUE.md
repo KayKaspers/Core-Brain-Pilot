@@ -3,11 +3,11 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Aktuelles Work Package | **CBP-WP-018** (`in-review`, Phase B1 – Technical Implementation) — zuletzt committed **CBP-WP-018 Phase B0** (`4dec921`) |
+| Aktuelles Work Package | **keines aktiv** — zuletzt abgeschlossen **CBP-WP-018** (`committed`, `5ee2e83`) |
 | Gate G0 | **PASSED WITH NOTES** — 2026-07-21 |
 | Überarbeitet in | **CBP-WP-016** |
 | Autoritätsklasse | A2 |
-| Stand | 2026-07-27 |
+| Stand | 2026-07-29 |
 
 Spalten nach `WORK_PACKAGE_QUEUE_TEMPLATE.md` (NDF v1.0.0).
 
@@ -44,17 +44,18 @@ Spalten nach `WORK_PACKAGE_QUEUE_TEMPLATE.md` (NDF v1.0.0).
 | CBP-WP-015 | **Deterministic Source Mapping Draft Validator** | P1 | **`committed`** | [work-packages/CBP-WP-015.md](../work-packages/CBP-WP-015.md) |
 | CBP-WP-016 | **Deterministic Mapping Activation Gate Evaluator** | P1 | **`committed`** | [work-packages/CBP-WP-016.md](../work-packages/CBP-WP-016.md) |
 | CBP-WP-017 | **Synthetic Evidence Contract & Provenance Foundation** | P1 | **`committed`** | [work-packages/CBP-WP-017.md](../work-packages/CBP-WP-017.md) |
-| CBP-WP-018 | **Security Foundation Readiness Contract & Synthetic Form-Validator** | P1 | **`in-review`** (Phase B1) | [work-packages/CBP-WP-018.md](../work-packages/CBP-WP-018.md) |
+| CBP-WP-018 | **Security Foundation Readiness Contract & Synthetic Form-Validator** | P1 | **`committed`** | [work-packages/CBP-WP-018.md](../work-packages/CBP-WP-018.md) |
 
 **Kein Work Package ist als `proposed` geführt.** CBP-WP-018 (Security Foundation
-Readiness Contract & Synthetic Form-Validator) steht auf **`in-review`** in
-**Phase B1 – Technical Implementation** (A0-Freigaben **D-052**, **D-053**;
-**ADR-0013** angenommen); Phase B0 ist `committed` (`4dec921`). Der Runtime-Stand
-ist **Evidence Schema 3.0**; die Implementation ist **uncommitted** und wartet
-auf Nova-Review und Human-Commit. CBP-WP-017 ist `committed`
-(`d3168c4`, D-051); CBP-WP-016 ist `committed` (`04c427c`, D-050). Genau **ein**
-Work Package ist `active`/`in-review` (CBP-WP-018). **CBP-WP-019 ist nicht
-Bestandteil, nicht begonnen und nicht autorisiert.**
+Readiness Contract & Synthetic Form-Validator) ist **`committed`** — Phase B0
+(Governance Foundation) mit `4dec921` und Phase B1 (Technical Implementation)
+mit `5ee2e83` (A0-Freigaben **D-052**, **D-053**; **ADR-0013** angenommen) — und
+mit `origin/main` synchron. Der Runtime-Stand ist **Evidence Schema 3.0** mit
+statischem **Security Contract 1.0**. CBP-WP-017 ist `committed` (`d3168c4`,
+D-051); CBP-WP-016 ist `committed` (`04c427c`, D-050). **Kein** Work Package ist
+`active` oder `in-review`; **zuletzt abgeschlossen ist CBP-WP-018**. Ein
+**nächstes autorisiertes Work Package existiert nicht**. **CBP-WP-019 ist nicht
+Bestandteil, nicht registriert, nicht begonnen und nicht autorisiert.**
 
 > **Titelkorrektur in CBP-WP-009.** Diese Übersichtstabelle trug bis dahin die
 > Titel eines verworfenen Entwurfs der Work-Package-Karte (009 „Repository and
@@ -439,12 +440,13 @@ Produktionsreife.** Capability-Stand unverändert **0 von 29**.
 | Typ | **implementation** (Governance-Phase vorangestellt) |
 | Prompt Mode | **Full** · Context Budget **B2 – Standard** |
 | Claude Code | Opus 4.8 (`claude-opus-4-8`), Effort **ultracode** |
-| Status | **`in-review`** |
-| Aktuelle Phase | **Phase B1 – Technical Implementation** |
+| Status | **`committed`** |
+| Abgeschlossene Phasen | **Phase B0 – Governance Foundation** · **Phase B1 – Technical Implementation** |
 | A0-Entscheidungen | **D-052** (Governance Foundation; `committed` `4dec921`) · **D-053** (APPROVE TECHNICAL IMPLEMENTATION WITH NOTES; A1/B1/C1/D1/E1) |
 | ADR | **ADR-0013** `accepted` (Evidence Schema 3.0) |
 | Tests | **558 – OK** (Basislinie 451), compileall Exit 0 |
-| Commit | **nicht** ausgeführt (Commit-Autorität beim Human Maintainer) |
+| Git-Beleg (Governance) | `4dec921 CBP-WP-018: establish evidence schema 3 governance` |
+| Git-Beleg (Implementation) | `5ee2e83 CBP-WP-018: implement evidence schema 3 security contract` |
 
 Phase A/A.1 read-only abgeschlossen (Phase A REWORK, A.1 angenommen); Blocker A
 (fehlendes `control_id`) und Blocker B (fehlende Security-Contract-Bindung)
@@ -452,14 +454,21 @@ bestätigt. **Phase B0** (`committed` `4dec921`): **ADR-0013** angenommen,
 **D-052** dokumentiert (partielle Ablösung von D-051: C2/D1). **Phase B0.1**:
 R-33-Konsistenzkorrektur (ADR-Indexzahl 11 → 13), R-33 = **14/18**.
 
-**Phase B1 (dieser Stand, uncommitted):** Evidence Schema **2.0 → 3.0**
+**Phase B1 (`committed` `5ee2e83`):** Evidence Schema **2.0 → 3.0**
 vollständig migriert (1.0 und 2.0 fail-closed); Producer-Klasse
 `security-control-form` mit Pflichtfeld `control_id`; neues reines Modul
 `core/core_brain/gate/security_contract.py` (Revision 1.0, **12** dokumentierte
 / **7** runtime-scoped Controls / **11** `(criterion, control_id)`-Bindungen);
 per-Bindungs-Verdikte mit Priorität `INVALID > CONFLICTING > STALE`; A6-Report
 um Contract-Revision/-Hash und fünf Binding-Zähler (Summeninvariante = 11)
-erweitert; **D-053** dokumentiert.
+erweitert; **D-053** dokumentiert. Der Commit umfasst **32 Pfade** (29
+modifiziert, 3 neu, 0 gelöscht, 0 umbenannt).
+
+> **Historischer Vorbereitungsstand (vor dem Commit):** Dieser Detailblock
+> führte CBP-WP-018 zuvor als „**`in-review`**, Phase B1, Commit nicht
+> ausgeführt" — der korrekte **Vor-Commit-Reviewstatus**. Er ist durch den
+> belegten `committed`-Zustand (`5ee2e83`, mit `origin/main` synchron)
+> **abgelöst**.
 
 **Keine Security-Evaluation, kein Enforcement, keine Gatefreigabe, keine
 Aktivierung, kein RT-2, keine Persistenz, keine Produktionsreife.**

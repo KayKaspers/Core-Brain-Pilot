@@ -524,9 +524,38 @@ Post-Commit-Reconciliations beschränkt (vgl. den vierten bis neunten Vorgang).
 
 **R-33 bleibt `gemindert, nicht geschlossen`** — Kritikalität unverändert
 **mittel**, kein Risiko geschlossen. **Vierzehn Konsistenzvorgänge in achtzehn Work
-Packages** sind dokumentiert (**neue aktuelle Basislinie**; löst „dreizehn" ab);
-die Zahl der Work Packages steigt auf **achtzehn**, weil dieser Vorgang **erstmals
-CBP-WP-018** betrifft. Dieser Vorgang ist mit dem Eintrag in
+Packages** waren zu diesem Zeitpunkt dokumentiert (*Stand nach dem vierzehnten
+Vorgang; durch den fünfzehnten Vorgang unten auf **fünfzehn** aktualisiert*; löst
+„dreizehn" ab); die Zahl der Work Packages stieg auf **achtzehn**, weil dieser
+Vorgang **erstmals CBP-WP-018** betraf. Dieser Vorgang ist mit dem Eintrag in
+[RISK_REGISTER.md](RISK_REGISTER.md) **identisch** und zählt **nur einmal**.
+
+**Der fünfzehnte Vorgang (CBP-WP-018 Post-Commit Status Reconciliation) ist kein
+arithmetischer Zählfehler, sondern eine Git-/Register-Statusabweichung** derselben
+Klasse wie der zehnte/zwölfte/dreizehnte Vorgang. Nach Commit und Push der
+technischen Implementation von CBP-WP-018 (`5ee2e83`) führten die
+Statusdokumente (`README.md`, `CLAUDE.md`,
+`project-system/WORK_PACKAGE_QUEUE.md`, `project-system/PROJECT_MANIFEST.md`,
+`project-system/PROJECT_PROFILE.md`, `project-system/HEALTH_SCORE.md`,
+`project-brain/PROJECT_BRAIN.md`) CBP-WP-018 weiterhin als `in-review` /
+„Phase B1, uncommitted", obwohl Git CBP-WP-018 bereits als `committed` und mit
+origin/main synchron auswies. **Ursache:** Der Implementation Commit trug den
+korrekten Vor-Commit-Reviewstatus `in-review`; es fehlte danach die
+Post-Commit-Status-Reconciliation. Korrigiert durch Synchronisierung auf den
+`committed`-Zustand (Governance `4dec921`, Implementation `5ee2e83`);
+„aktuelles Work Package" auf **keines aktiv, zuletzt abgeschlossen CBP-WP-018**
+gesetzt; kein Work Package `active`/`in-review`; **kein nächstes Work Package
+autorisiert**, **CBP-WP-019 nicht registriert, nicht begonnen, nicht
+autorisiert**. **Wirkung:** kein Funktionsfehler, keine Runtimeänderung, keine
+Gatefreigabe, keine Aktivierung, keine Capability-Änderung.
+
+**R-33 bleibt `gemindert, nicht geschlossen`** — Kritikalität unverändert
+**mittel**, kein Risiko geschlossen. **Fünfzehn Konsistenzvorgänge in achtzehn Work
+Packages** sind dokumentiert (**neue aktuelle Basislinie**; löst „vierzehn" ab);
+die Zahl der Work Packages bleibt **achtzehn**, weil CBP-WP-018 durch den
+vierzehnten Vorgang **bereits** Teil der betroffenen Menge war — ein weiterer
+Vorgang im selben, bereits erfassten Work Package erhöht **nur** den
+Vorgangszähler (**14/18 → 15/18**). Dieser Vorgang ist mit dem Eintrag in
 [RISK_REGISTER.md](RISK_REGISTER.md) **identisch** und zählt **nur einmal**.
 
 **Die Implementierung von CBP-WP-013 selbst führte keinen arithmetischen

@@ -37,17 +37,17 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 – COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Aktuelles Work Package | **CBP-WP-018** (`in-review`, **Phase B1 – Technical Implementation**) — ADR-0013/D-052/D-053; **Runtime Evidence Schema 3.0** (Schema 1.0/2.0 fail-closed); **uncommitted**, Commit-Autorität beim Human Maintainer |
+| Aktuelles Work Package | **keines aktiv** — zuletzt abgeschlossen **CBP-WP-018** (`committed`: Phase B0 `4dec921`, Phase B1 `5ee2e83`); ADR-0013/D-052/D-053; **Runtime Evidence Schema 3.0** (Schema 1.0/2.0 fail-closed), **Security Contract 1.0**; **kein nächstes Work Package autorisiert** |
 | **Gate-Status G0** | **PASSED WITH NOTES** — 2026-07-21, A0 |
 | Nächstes Prüfmodell | **Deployment Readiness Check** — `NOT EVALUATED` |
-| Phase-1-Planung | Streams F1–F5; CBP-WP-016 **`committed`** (`04c427c`, D-050); CBP-WP-017 **`committed`** (`d3168c4`, D-051); CBP-WP-018 **`in-review`** (Phase B1, ADR-0013/D-052/D-053; B0 `committed` `4dec921`) |
+| Phase-1-Planung | Streams F1–F5; CBP-WP-016 **`committed`** (`04c427c`, D-050); CBP-WP-017 **`committed`** (`d3168c4`, D-051); CBP-WP-018 **`committed`** (ADR-0013/D-052/D-053; B0 `4dec921`, B1 `5ee2e83`) |
 | **Runtime Skeleton** | **lokal implementiert** (CBP-WP-012) — `run` fail-closed; keine KB-Kontrolle durchgesetzt |
 | **Ingest-Quarantäne MVP** | **lokaler Prototyp** (CBP-WP-013, ADR-0010) — synthetic-only, fail-closed, keine Promotion, **nicht produktiv** |
 | **Source-Registry MVP** | **lokaler Prototyp** (CBP-WP-014, ADR-0011) — synthetic-only, fail-closed, **deaktiviert**, `activate` verweigert, **nicht produktiv** |
 | **Source-Mapping-Draft-Validator MVP** | **lokaler Prototyp** (CBP-WP-015, ADR-0012) — synthetic-only, read-only, fail-closed, **31-Feld-Vertrag** (29+2), externe read-only Registry-Bindung, `mapping_id` nur validiert, `activation-check` verweigert, **nicht produktiv** |
 | **Mapping-Activation-Gate-Evaluator MVP** | **lokaler Prototyp** (CBP-WP-016, D-050) — synthetic-only, read-only, nicht persistent, fail-closed; **20 Gate-Kriterien**, Ausgabestatus nur `NOT_EVALUATED`/`BLOCKED`, `activation-evaluate` endet immer `BLOCKED` (Exit 14); Security Foundation/DRC keine Kriterien 21/22; **nicht produktiv** |
-| **Synthetic Evidence Contract 3.0 MVP** | **lokaler Prototyp** (CBP-WP-018, ADR-0013, D-052/D-053, **uncommitted**) — Evidence-Schema 3.0 mit eingebetteten Artefakten, `security-control-form` + `control_id`, Provenance-/Binding-Hashes inkl. Security-Contract-Bindung, deterministische Invalid-/Stale-/Conflict-Erkennung, **negative-evidence-only**; Schema 1.0 **und 2.0** fail-closed; kein RT-2/Persistenz/Aktivierung; **558 Tests**, **nicht produktiv** |
-| **Security Foundation Readiness Contract MVP** | **lokaler Prototyp** (CBP-WP-018, ADR-0013, D-053, **uncommitted**) — statischer, reiner Vertrag 1.0 ohne I/O/Uhr/Zufall/Netz; **12 dokumentierte / 7 runtime-scoped Controls / 11 `(criterion, control_id)`-Bindungen**; ausschließlich synthetische Formprüfung, rein negative Faltung; **keine** Security-Evaluation, **kein** Enforcement, **keine** Readiness-Aussage; **nicht produktiv** |
+| **Synthetic Evidence Contract 3.0 MVP** | **lokaler Prototyp** (CBP-WP-018, ADR-0013, D-052/D-053, `committed` `5ee2e83`) — Evidence-Schema 3.0 mit eingebetteten Artefakten, `security-control-form` + `control_id`, Provenance-/Binding-Hashes inkl. Security-Contract-Bindung, deterministische Invalid-/Stale-/Conflict-Erkennung, **negative-evidence-only**; Schema 1.0 **und 2.0** fail-closed; kein RT-2/Persistenz/Aktivierung; **558 Tests**, **nicht produktiv** |
+| **Security Foundation Readiness Contract MVP** | **lokaler Prototyp** (CBP-WP-018, ADR-0013, D-053, `committed` `5ee2e83`) — statischer, reiner Vertrag 1.0 ohne I/O/Uhr/Zufall/Netz; **12 dokumentierte / 7 runtime-scoped Controls / 11 `(criterion, control_id)`-Bindungen**; ausschließlich synthetische Formprüfung, rein negative Faltung; **keine** Security-Evaluation, **kein** Enforcement, **keine** Readiness-Aussage; **nicht produktiv** |
 | **Mappingkonvention** | **entschieden** — ADR-0008 (D-031, D-032, D-033); Draft-Validator ADR-0012 (D-046…D-049) |
 | **Mapping Activation Gate** | **`NOT EVALUATED`** — 0 Mappings, 0 angebundene Quellen |
 | **Repository-Zielstruktur** | **entschieden** — Monorepo, ADR-0007 (D-029); **Migration nicht autorisiert** |
