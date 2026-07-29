@@ -28,8 +28,8 @@ vorgesehene, **noch nicht implementierte** Anwendungslaufzeit.
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Aktuelles Work Package | **CBP-WP-019** (`in-review`, Phase B1.2 – Human DRC Approval Reconciliation) — **D-054**, `ADR_NOT_REQUIRED`; zuletzt committed **CBP-WP-018** (`5ee2e83`) |
-| Nächster Schritt | **Nova-Review und Human-Commit von CBP-WP-019.** Deployment Readiness Check auf **19 Prüfpunkte** erweitert, für Profil A vollständig erhoben (**19 `ready`, 0 `blocked`**) und am **2026-07-29** freigegeben (**APPROVED BY HUMAN MAINTAINER**) — **rein dokumentarisch; keine Installation, keine Bereitstellung, keine Betriebsfreigabe** |
+| Aktuelles Work Package | **keines aktiv** — zuletzt abgeschlossen **CBP-WP-019** (`committed` `3c437f2`); **D-054**, `ADR_NOT_REQUIRED` |
+| Nächster Schritt | **Kein Work Package autorisiert.** Deployment Readiness Check für Profil A **APPROVED BY HUMAN MAINTAINER** (2026-07-29, 19 `ready` / 0 `blocked`) — **rein dokumentarisch; keine Installation, keine Bereitstellung, keine Betriebsfreigabe**. Die Freigabe eines nächsten Work Packages liegt beim Human Maintainer |
 | **Gate G0** | **PASSED WITH NOTES** — 2026-07-21, A0 |
 | Phase-1-Planung | **Streams F1–F5 geplant**, [Foundation Plan](docs/roadmap/PHASE_1_FOUNDATION_PLAN.md) |
 | **Repository-Struktur** | **entschieden** — [ADR-0007](docs/decisions/ADR-0007-repository-und-workspace-grenze.md); **Migration nicht autorisiert** |

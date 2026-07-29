@@ -3,7 +3,7 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Aktuelles Work Package | **CBP-WP-019** (`in-review`, Phase B1.2 – Human DRC Approval Reconciliation) — zuletzt committed **CBP-WP-018** (`5ee2e83`) |
+| Aktuelles Work Package | **keines aktiv** — zuletzt abgeschlossen **CBP-WP-019** (`committed`, `3c437f2`) |
 | Gate G0 | **PASSED WITH NOTES** — 2026-07-21 |
 | Überarbeitet in | **CBP-WP-016** |
 | Autoritätsklasse | A2 |
@@ -45,22 +45,22 @@ Spalten nach `WORK_PACKAGE_QUEUE_TEMPLATE.md` (NDF v1.0.0).
 | CBP-WP-016 | **Deterministic Mapping Activation Gate Evaluator** | P1 | **`committed`** | [work-packages/CBP-WP-016.md](../work-packages/CBP-WP-016.md) |
 | CBP-WP-017 | **Synthetic Evidence Contract & Provenance Foundation** | P1 | **`committed`** | [work-packages/CBP-WP-017.md](../work-packages/CBP-WP-017.md) |
 | CBP-WP-018 | **Security Foundation Readiness Contract & Synthetic Form-Validator** | P1 | **`committed`** | [work-packages/CBP-WP-018.md](../work-packages/CBP-WP-018.md) |
-| CBP-WP-019 | **Deployment Readiness Intake and Profile-A Target Specification** | P1 | **`in-review`** (Phase B1.2) | [work-packages/CBP-WP-019.md](../work-packages/CBP-WP-019.md) |
+| CBP-WP-019 | **Deployment Readiness Intake and Profile-A Target Specification** | P1 | **`committed`** | [work-packages/CBP-WP-019.md](../work-packages/CBP-WP-019.md) |
 
 **Kein Work Package ist als `proposed` geführt.** **CBP-WP-019** (Deployment
 Readiness Intake and Profile-A Target Specification) steht auf **`in-review`** in
-**Phase B1.2 – Human DRC Approval Reconciliation** (A0-Freigabe **D-054**;
-**ADR_NOT_REQUIRED**). Es ist ein **docs-only, interaktives** Paket: die
+**`committed`** (`3c437f2`, A0-Freigabe **D-054**; **ADR_NOT_REQUIRED**) und mit
+`origin/main` synchron. Es war ein **docs-only, interaktives** Paket: die
 Deploymentangaben des Human Maintainers wurden dokumentiert, der DRC von 18 auf
 **19** Prüfpunkte erweitert und für **Profil A** vollständig erhoben — **19
 `ready`, 0 `blocked`**; der Human Maintainer hat am **2026-07-29** den
 **DRC-Gesamtstatus** auf **APPROVED BY HUMAN MAINTAINER** gesetzt — **rein
 dokumentarisch**, ohne Installations-, Betriebs-, Security- oder
-Capability-Freigabe. Die Implementation ist **uncommitted** und
-wartet auf Nova-Review und Human-Commit. CBP-WP-018 ist `committed` (Phase B0
+Capability-Freigabe. CBP-WP-018 ist `committed` (Phase B0
 `4dec921`, Phase B1 `5ee2e83`, D-052/D-053, ADR-0013); CBP-WP-017 ist `committed`
-(`d3168c4`, D-051); CBP-WP-016 ist `committed` (`04c427c`, D-050). Genau **ein**
-Work Package ist `active`/`in-review` (CBP-WP-019). **CBP-WP-020 ist nicht
+(`d3168c4`, D-051); CBP-WP-016 ist `committed` (`04c427c`, D-050). **Kein** Work Package ist
+`active` oder `in-review`; **zuletzt abgeschlossen ist CBP-WP-019**. Ein
+**nächstes autorisiertes Work Package existiert nicht**. **CBP-WP-020 ist nicht
 Bestandteil, nicht registriert, nicht begonnen und nicht autorisiert.**
 
 > **Titelkorrektur in CBP-WP-009.** Diese Übersichtstabelle trug bis dahin die
@@ -492,13 +492,15 @@ Kriterium 9 non-security-structural, Gate-Kriterien 4/6/7/8/10/11 bleiben
 | Titel | **Deployment Readiness Intake and Profile-A Target Specification** |
 | Typ | **docs-only, interaktiv** (Human-Maintainer-Intake) |
 | Prompt Mode | **Full** · Context Budget **B2 – Standard** |
-| Status | **`in-review`** |
-| Aktuelle Phase | **Phase B1.2 – Human DRC Approval Reconciliation** |
+| Status | **`committed`** |
+| Abgeschlossene Phasen | **B1 – Registration and Human Intake** · **B1.1 – Final Human Evidence Reconciliation** · **B1.2 – Human DRC Approval Reconciliation** · **C – Post-Commit Reconciliation** |
+| Git-Beleg | `3c437f2 CBP-WP-019: approve profile A deployment readiness` |
+| Abschlussdatum | **2026-07-29** |
 | A0-Entscheidung | **D-054** (konsolidiert, A–H) |
 | ADR | **not required** (`ADR_NOT_REQUIRED`) |
 | DRC | **19 Prüfpunkte** — **19 `ready`**, **0 `blocked`**; Gesamtstatus **APPROVED BY HUMAN MAINTAINER**, erteilt **2026-07-29** |
 | Tests | **558 – OK**, compileall Exit 0 (docs-only, unverändert) |
-| Commit | **nicht** ausgeführt (Commit-Autorität beim Human Maintainer) |
+| Commit | **`3c437f2`** — durch den **Human Maintainer** erstellt und nach `origin/main` gepusht |
 
 Phase A und Phase A.1 read-only abgeschlossen. Phase A bestätigte die
 18/16-Struktur des DRC und meldete drei Coverage-Lücken; **Phase A.1 löste den

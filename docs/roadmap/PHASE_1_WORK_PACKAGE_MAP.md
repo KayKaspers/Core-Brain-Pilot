@@ -47,7 +47,7 @@ nur zur Statusvollständigkeit geführt:
 | **CBP-WP-016** | Deterministic Mapping Activation Gate Evaluator | **`committed`** — `04c427c` |
 | **CBP-WP-017** | Synthetic Evidence Contract & Provenance Foundation | **`committed`** — `d3168c4` |
 | **CBP-WP-018** | Security Foundation Readiness Contract & Synthetic Form-Validator | **`committed`** — `4dec921` (Governance), `5ee2e83` (Implementation) |
-| **CBP-WP-019** | Deployment Readiness Intake and Profile-A Target Specification | **`in-review`** (Phase B1.2) — uncommitted |
+| **CBP-WP-019** | Deployment Readiness Intake and Profile-A Target Specification | **`committed`** — `3c437f2` |
 
 **Kein Folge-Work-Package ist autorisiert.** CBP-WP-020 ist nicht registriert,
 nicht begonnen und nicht autorisiert.
@@ -232,8 +232,8 @@ ersten Nachweise vorliegen, wäre Planung ohne Rückkopplung.
 **Aktueller Stand (nachgeführt in CBP-WP-019, 2026-07-29):** **Alle** Work
 Packages dieser Karte — **CBP-WP-009 bis CBP-WP-015** — sind **`committed`**.
 Ebenso committed sind die nach dem Kartenschnitt ergänzten **CBP-WP-016**,
-**CBP-WP-017** und **CBP-WP-018**. **CBP-WP-019** ist **`in-review`** und
-uncommitted. **Kein Folge-Work-Package ist autorisiert.**
+**CBP-WP-017**, **CBP-WP-018** und **CBP-WP-019** (`3c437f2`). **Kein Work
+Package ist aktiv; kein Folge-Work-Package ist autorisiert.**
 
 **Regeln A und B sind erfüllt:** Die Bereichsgrenze steht (009), die
 Mappingkonvention steht (010).

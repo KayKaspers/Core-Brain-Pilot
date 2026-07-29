@@ -551,11 +551,41 @@ Gatefreigabe, keine Aktivierung, keine Capability-Änderung.
 
 **R-33 bleibt `gemindert, nicht geschlossen`** — Kritikalität unverändert
 **mittel**, kein Risiko geschlossen. **Fünfzehn Konsistenzvorgänge in achtzehn Work
-Packages** sind dokumentiert (**neue aktuelle Basislinie**; löst „vierzehn" ab);
-die Zahl der Work Packages bleibt **achtzehn**, weil CBP-WP-018 durch den
-vierzehnten Vorgang **bereits** Teil der betroffenen Menge war — ein weiterer
-Vorgang im selben, bereits erfassten Work Package erhöht **nur** den
+Packages** waren zu diesem Zeitpunkt dokumentiert (*Stand nach dem fünfzehnten
+Vorgang; durch den sechzehnten Vorgang unten auf **sechzehn** aktualisiert*; löst
+„vierzehn" ab); die Zahl der Work Packages blieb **achtzehn**, weil CBP-WP-018
+durch den vierzehnten Vorgang **bereits** Teil der betroffenen Menge war — ein
+weiterer Vorgang im selben, bereits erfassten Work Package erhöht **nur** den
 Vorgangszähler (**14/18 → 15/18**). Dieser Vorgang ist mit dem Eintrag in
+[RISK_REGISTER.md](RISK_REGISTER.md) **identisch** und zählt **nur einmal**.
+
+**Der sechzehnte Vorgang (CBP-WP-019 Post-Commit Status Reconciliation) ist kein
+arithmetischer Zählfehler, sondern eine Git-/Register-Statusabweichung** derselben
+Klasse wie der zehnte/zwölfte/dreizehnte/fünfzehnte Vorgang. Nach Commit und Push
+von CBP-WP-019 (`3c437f2`) führten die Statusdokumente (`README.md`, `CLAUDE.md`,
+`project-system/WORK_PACKAGE_QUEUE.md`, `project-system/PROJECT_MANIFEST.md`,
+`project-system/PROJECT_PROFILE.md`, `project-system/HEALTH_SCORE.md`,
+`project-brain/PROJECT_BRAIN.md`, `docs/roadmap/PHASE_1_WORK_PACKAGE_MAP.md`,
+`work-packages/CBP-WP-019.md`) CBP-WP-019 weiterhin als `in-review` und als
+**aktives** Work Package **ohne Commitbeleg**, obwohl Git es bereits als
+`committed` und mit origin/main synchron auswies. **Ursache:** Der Implementation
+Commit trug den korrekten Vor-Commit-Reviewstatus `in-review`; es fehlte danach
+die Post-Commit-Status-Reconciliation. Korrigiert durch Synchronisierung auf den
+`committed`-Zustand (`3c437f2`), Eintragung des Commitbelegs und Setzen von
+„aktuelles Work Package" auf **keines aktiv, zuletzt abgeschlossen CBP-WP-019**;
+kein Work Package `active`/`in-review`; **kein nächstes Work Package
+autorisiert**, **CBP-WP-020 nicht registriert, nicht begonnen, nicht
+autorisiert**. **Wirkung:** kein Funktionsfehler, keine Runtimeänderung, keine
+Installation, keine Bereitstellung, keine Gatefreigabe, keine Aktivierung, keine
+Capability-Änderung; **D-054 und der DRC-Vertrag unverändert**; **R-20 bleibt
+offen**.
+
+**R-33 bleibt `gemindert, nicht geschlossen`** — Kritikalität unverändert
+**mittel**, kein Risiko geschlossen. **Sechzehn Konsistenzvorgänge in neunzehn Work
+Packages** sind dokumentiert (**neue aktuelle Basislinie**; löst „fünfzehn" ab);
+die Zahl der Work Packages steigt auf **neunzehn**, weil dieser Vorgang
+**erstmals CBP-WP-019** betrifft, das durch `3c437f2` Teil der committeten Menge
+wurde (**15/18 → 16/19**). Dieser Vorgang ist mit dem Eintrag in
 [RISK_REGISTER.md](RISK_REGISTER.md) **identisch** und zählt **nur einmal**.
 
 **Die Implementierung von CBP-WP-013 selbst führte keinen arithmetischen
