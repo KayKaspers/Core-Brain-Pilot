@@ -6,7 +6,7 @@
 | Erfasst in | CBP-WP-004 |
 | Autoritätsklasse | A2 |
 | Status | **Beschreibung, keine Installation** |
-| Stand | 2026-07-20 |
+| Stand | 2026-07-29 — Profil-A-Bundle-Verweis ergänzt (CBP-WP-020, D-055) |
 
 Fünf Betriebsprofile für denselben deployment-neutralen Core. Kein Profil
 verlangt Änderungen am Kern.
@@ -205,6 +205,29 @@ Ausdrücklich gilt:
 **WireGuard und die Proxmox-Backuptechnik bleiben austauschbare,
 deploymentspezifische Entscheidungen** — sie sind **keine** Produktabhängigkeit
 und binden die deployment-neutrale Architektur (ADR-0001) nicht.
+
+### Zugehörige Repository-Artefakte (CBP-WP-020, D-055)
+
+Seit **CBP-WP-020** liegt zu diesem Zielbild ein **Repository-Artefakt** vor:
+das **Profil-A-Deployment-Bundle** unter `deployments/profile-a/` mit **genau
+sieben Dateien**, dokumentiert in
+[docs/runtime/PROFILE_A_DEPLOYMENT_BUNDLE.md](../runtime/PROFILE_A_DEPLOYMENT_BUNDLE.md)
+und begleitet von drei Runbooks
+([Installation](../operations/PROFILE_A_INSTALLATION_RUNBOOK.md),
+[Validierung](../operations/PROFILE_A_VALIDATION_RUNBOOK.md),
+[Rollback](../operations/PROFILE_A_ROLLBACK_RUNBOOK.md)).
+
+Das Bundle ist **deterministisch offline validiert** (`PROFILE-A-BUNDLE VALID`,
+`issues=0`, Exit 0). Es enthält **keine** konkreten Adressen, Domains,
+Hostnamen, NAS-Kennungen, Hostpfade, UID-/GID-Werte oder Secret-Werte — nur
+abstrakte Klassen, Platzhalter und fail-closed Operatorvariablen.
+
+> **Das Bundle ändert den Status dieses Abschnitts nicht.** Zulässig ist
+> ausschließlich *repository artifact implemented* · *offline validation
+> implemented* · *offline validation passed*. Das Zielbild bleibt **nicht
+> bereitgestellt**: keine VM, kein Container, kein Netz, kein Backup, kein
+> Restore. Die erste kontrollierte Bereitstellung bleibt einem **separaten,
+> ausdrücklich autorisierten** Work Package mit eigenem Human Gate vorbehalten.
 
 ## Bewusst offene Entscheidungen
 

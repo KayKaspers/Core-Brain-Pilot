@@ -23,14 +23,14 @@ verweigern deterministisch.
 
 | Feld | Wert |
 | --- | --- |
-| Aktuelles Work Package | **CBP-WP-020** (`in-review`, **Phase B0**) — **D-055**, `ADR_NOT_REQUIRED`; **Z1 / S2 / P1**; `deployments/profile-a/` autorisiert, **nicht angelegt**; B3 ausgeschlossen; zuletzt abgeschlossen **CBP-WP-019** (`committed` `3c437f2`) |
+| Aktuelles Work Package | **CBP-WP-020** (`in-review`, **Phase B1/B2**) — **D-055**, `ADR_NOT_REQUIRED`; **Z1 / S2 / P1**; Phase B0 `committed` (`17057e2`); `deployments/profile-a/` **angelegt** (genau sieben Dateien) und **offline validiert** (Exit 0, `issues=0`); **724 Tests OK, 0 übersprungen**; B3 ausgeschlossen; zuletzt abgeschlossen **CBP-WP-019** (`committed` `3c437f2`) |
 | Gate G0 | **PASSED WITH NOTES** — 2026-07-21 |
 | G0-Kriterien | **47**, dreistufig klassifiziert |
 | davon blockierend | **25** Core Required (zuvor 45) |
 | davon `accepted` | **25** — alle |
 | verbleibende Blocker | **0** |
 | Phase 1 | AUTHORIZED FOR PLANNING — [Backlog](../docs/roadmap/PHASE_1_BACKLOG.md), [Foundation Plan](../docs/roadmap/PHASE_1_FOUNDATION_PLAN.md) |
-| Geplante Work Packages | **CBP-WP-020** `in-review` (Phase B0, D-055); B1/B2 **nicht begonnen**, B3 **ausgeschlossen**. CBP-WP-019 ist `committed` (`3c437f2`, D-054); **CBP-WP-021 nicht registriert, nicht begonnen, nicht autorisiert** |
+| Geplante Work Packages | **CBP-WP-020** `in-review` (Phase **B1/B2**, D-055); B0 `committed` (`17057e2`), B1/B2 **abgeschlossen und uncommitted**, B3 **ausgeschlossen**. CBP-WP-019 ist `committed` (`3c437f2`, D-054); **CBP-WP-021 nicht registriert, nicht begonnen, nicht autorisiert** |
 | **Repository-Struktur** | **entschieden** — Ziel-Monorepo + Workspace W-3 (ADR-0007); **Migration nicht autorisiert** |
 | **Mappingkonvention** | **entschieden** — ADR-0008; **0 Mappings, 0 Quellen**, Gate `NOT EVALUATED` |
 | **Sicherheitsgrundlage** | **spezifiziert** — ADR-0009; **12 Kontrollen `DOCUMENTED ONLY`** |
@@ -41,9 +41,10 @@ verweigern deterministisch.
 | **Mapping-Activation-Gate-Evaluator MVP** | **lokaler Prototyp** (CBP-WP-016, D-050) — synthetic-only, read-only, nicht persistent, fail-closed; **20 Gate-Kriterien**, Ausgabestatus nur `NOT_EVALUATED`/`BLOCKED`; `activation-evaluate` endet immer `BLOCKED` (Exit 14); nicht produktiv |
 | **Synthetic Evidence Contract 3.0 MVP** | **lokaler Prototyp** (CBP-WP-018, ADR-0013, D-052/D-053, `committed` `5ee2e83`) — Evidence-Schema 3.0 mit eingebetteten Artefakten, `security-control-form` + `control_id`, Provenance-/Binding-Hashes inkl. Security-Contract-Bindung, deterministische Invalid-/Stale-/Conflict-Erkennung, **negative-evidence-only**; Schema 1.0 **und 2.0** fail-closed; kein RT-2/Persistenz/Aktivierung; **558 Tests**, nicht produktiv |
 | **Security Foundation Readiness Contract MVP** | **lokaler Prototyp** (CBP-WP-018, ADR-0013, D-053, `committed` `5ee2e83`) — statischer, reiner Vertrag 1.0 ohne I/O/Uhr/Zufall/Netz; **12 Controls / 7 runtime-scoped / 11 `(criterion, control_id)`-Bindungen**; nur synthetische Formprüfung, rein negativ; Kriterium 5 Human-only, Kriterium 9 non-security-structural; **keine** Security-Evaluation/Enforcement/Readiness; Readiness Gate `NOT EVALUATED`, nicht produktiv |
+| **Profile-A Deployment Bundle** | **Repository-Artefakt** (CBP-WP-020, D-055, Phase B1/B2, uncommitted) — sieben Dateien unter `deployments/profile-a/`; zwei getrennte Service-Identitäten, fail-closed Compose- und Konfigurationsvorlagen, maschinenlesbare Mount-/Egress-/Secret-/Backup-/RT-2-Verträge, **deterministischer stdlib-only Offline-Validator** (Exit 0, byte-identisch), **166 Bundle-Validation-Tests**; Statusaussage ausschließlich *repository artifact implemented* / *offline validation passed* — **nicht deployed, nicht operational, nicht production-ready** |
 | Implementierte Capabilities | **keine (0 von 29)** — Bausteine belegt; Capability 5/6 bleiben `planned` |
 | Nachweise oberhalb Stufe 1 | **keine** (lokale Bausteine, keine KB-Kontrolle) |
-| Commits | **14** |
+| Commits | **28** — aktueller Git-Gesamtzähler auf `main`, HEAD `17057e2` |
 
 ## Ziel
 
@@ -423,11 +424,29 @@ Maintainer hat den **DRC-Gesamtstatus** am **2026-07-29** auf
 dokumentarisch** und **keine** Installations-, Betriebs-, Security-Readiness-,
 Mapping- oder Capability-Freigabe; **R-20 bleibt offen**.
 Die Profil-A-Zielspezifikation ist dokumentiert, **nicht bereitgestellt**.
-**Keine Installation, kein Deployment, keine Betriebsfreigabe.** **Kein Work
-Package ist aktiv**; zuletzt abgeschlossen ist **CBP-WP-019**. Ein weiteres Work
-Package ist **nicht** vorgeschlagen und **nicht autorisiert**. Mapping
-Activation Gate und Security Foundation Readiness Gate bleiben `NOT EVALUATED`;
-**CBP-WP-020 ist nicht registriert, nicht begonnen und nicht autorisiert**.
+**Keine Installation, kein Deployment, keine Betriebsfreigabe.**
+
+**CBP-WP-020 — Controlled Profile-A Deployment Foundation** ist unter **D-055**
+(`ADR_NOT_REQUIRED`) registriert und steht auf **`in-review`** in **Phase
+B1/B2**. Phase B0 ist `committed` (`17057e2`). In B1/B2 wurde das
+**Profil-A-Bundle** als Repository-Artefakt angelegt — **genau sieben Dateien**
+unter `deployments/profile-a/` mit zwei getrennten Service-Identitäten,
+fail-closed Compose- und Konfigurationsvorlagen sowie maschinenlesbaren Mount-,
+Egress-, Secret-, Backup- und RT-2-Verträgen — und mit einem
+**deterministischen, stdlib-only Offline-Validator** geprüft:
+`PROFILE-A-BUNDLE VALID`, `issues=0`, **Exit 0**, bei zwei Läufen
+**byte-identisch**. Hinzu kommen drei Runbooks, ein Runtime-Vertrag und **166
+Bundle-Validation-Tests** (Gesamtstand **724 Tests OK**, **0 übersprungen**).
+
+**Zulässig ist ausschließlich:** *repository artifact implemented* · *offline
+validation implemented* · *offline validation passed*. **Es wurde nichts
+installiert, gestartet, verbunden oder durchgesetzt**; **B3 (reale
+Bereitstellung) ist ausgeschlossen** und verlangt ein eigenes
+Folge-Work-Package mit eigenem Human Gate. Mapping Activation Gate und Security
+Foundation Readiness Gate bleiben `NOT EVALUATED`, die zwölf KB-Kontrollen
+`DOCUMENTED ONLY`, **Security-Negativtests 0 von 31**, Capabilities **0 von
+29**, **R-20 offen**. **CBP-WP-021 ist nicht registriert, nicht begonnen und
+nicht autorisiert.**
 
 ## Rückmeldung an Nova
 

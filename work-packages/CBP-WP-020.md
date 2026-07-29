@@ -6,7 +6,7 @@
 | Typ | **implementation** (Deployment-Artefakte, offline validiert) |
 | Prompt Mode | **Full** · Context Budget **B2 – Standard** |
 | Status | **`in-review`** |
-| Aktuelle Phase | **Phase B0 – Registration and Additive Deployment-Root Authority** |
+| Aktuelle Phase | **Phase B1/B2 – Profile-A Deployment Bundle und deterministische Offline-Validierung** |
 | A0-Entscheidung | **D-055** (konsolidiert, A–J) |
 | ADR | **not required** (`ADR_NOT_REQUIRED`) |
 | Zielzustand | **Z1** — Deployment-Artefakte plus lokale Offline-Validierung |
@@ -17,8 +17,8 @@
 | Security Controls | **12 `DOCUMENTED ONLY`** |
 | R-20 | **offen** |
 | R-33 | **16 Konsistenzvorgänge in 19 Work Packages** — in diesem Lauf unverändert |
-| Tests | **558 – OK**, compileall Exit 0 (B0 ist docs-only) |
-| Commit | **nicht ausgeführt** — Commit-Autorität beim Human Maintainer |
+| Tests | **724 – OK**, **0 übersprungen**; `compileall .` Exit 0, Offline-Validator Exit 0 |
+| Commit | **B0 `committed` `17057e2`** · **B1/B2 nicht committed** — Commit-Autorität beim Human Maintainer |
 
 ---
 
@@ -27,9 +27,9 @@
 | Phase | Stand |
 | --- | --- |
 | **A** — Architektur und Scope (read-only) | **abgeschlossen** |
-| **B0** — Registration and Additive Deployment-Root Authority | **aktiv (dieser Stand)** |
-| **B1** — Deployment Bundle | **nicht begonnen** |
-| **B2** — Offline Validation | **nicht begonnen** |
+| **B0** — Registration and Additive Deployment-Root Authority | **abgeschlossen** — `committed` `17057e2` |
+| **B1** — Deployment Bundle | **abgeschlossen (dieser Stand, uncommitted)** |
+| **B2** — Offline Validation | **abgeschlossen (dieser Stand, uncommitted)** |
 | **B3** — reale Bereitstellung | **ausgeschlossen** — nicht Bestandteil von CBP-WP-020 |
 | **C** — Post-Commit-Reconciliation | **nicht begonnen** |
 
@@ -61,8 +61,9 @@ Autorisierter kanonischer Repository-Ort für spätere Profil-A-Artefakte:
 deployments/profile-a/
 ```
 
-**In Phase B0 wurde dieses Verzeichnis nicht angelegt.** Die Autorisierung gilt
-ausschließlich für **Phase B1**.
+**In Phase B0 wurde dieses Verzeichnis nicht angelegt; in Phase B1 wurde es
+angelegt** — mit **genau sieben Dateien** und ohne jede Berührung bestehender
+Inhalte.
 
 ### Verhältnis zu ADR-0007
 
@@ -145,31 +146,100 @@ Security Foundation Readiness Gate **`NOT EVALUATED`** · **R-20 bleibt offen**.
 
 ---
 
-## Geplantes B1-Zielbild — noch nicht erzeugt
+## B1-Ergebnis — Profil-A-Bundle
 
-Geplanter kanonischer Root: `deployments/profile-a/`
+Kanonischer Root: `deployments/profile-a/` — **genau sieben Dateien**:
 
-Geplante Artefaktklassen: Compose-Struktur für zwei getrennte Dienste · sichere
-Konfigurationsvorlagen · Mount- und Datenklassenbeschreibung ·
-Service-Identitätsabbildung · Secret-Referenzkonfiguration · Egress-Policy ·
-Installationsrunbook · Validierungsrunbook · Rollbackrunbook.
+```text
+deployments/profile-a/
+├── README.md
+├── bundle.json
+├── compose.yaml
+├── operator.env.example
+├── validate.py
+└── config/
+    ├── control-plane.example.toml
+    └── data-worker.example.toml
+```
 
-> **Keines dieser Artefakte existiert.** Sie sind autorisierter späterer Scope,
-> kein aktueller Stand.
+**Drei Runbooks** und **ein Runtime-Vertrag** liegen bewusst **außerhalb** des
+Bundles:
 
-## Geplantes B2-Zielbild — noch nicht erzeugt
+```text
+docs/operations/PROFILE_A_INSTALLATION_RUNBOOK.md
+docs/operations/PROFILE_A_VALIDATION_RUNBOOK.md
+docs/operations/PROFILE_A_ROLLBACK_RUNBOOK.md
+docs/runtime/PROFILE_A_DEPLOYMENT_BUNDLE.md
+```
 
-Geplante Prüfungen: Artefakt- und Schemakonsistenz · zwei getrennte Services ·
-non-root-Konfiguration · `no-new-privileges` · Capability-Drop ·
-schreibgeschütztes Root-Filesystem · RT-3 als tmpfs · Canonical-Mounts
-read-only · Backup-Storage **nicht** gemountet · Egress deny-by-default · keine
-Wildcard-Allowlist · keine konkreten Endpunkte · Secret-Referenzsyntax ·
-unbekannter Provider blockiert · fehlende Referenz blockiert · keine
-Secret-Werte · keine privaten Infrastrukturkennungen · deterministische
-Negativkonfigurationen.
+| Gegenstand | Umsetzung |
+| --- | --- |
+| Zwei getrennte Dienste | `control-plane` / `data-worker` mit den logischen Identitäten `svc-control-plane` / `svc-data-worker` |
+| Prozessidentität | ausschließlich **fail-closed Operatorvariablen** (`${...:?...}`) für UID **und** GID — **kein Root-Literal, keine numerische Identität, kein Default** |
+| Images | ausschließlich fail-closed Operatorvariablen — **keine Registry, Domain, URL oder `latest`** |
+| Härtung | `read_only: true` · `cap_drop: [ALL]` · `no-new-privileges:true` · `privileged: false` · `restart: "no"` · eigenes `tmpfs` |
+| Mounts | ausschließlich **benannte Volumes**; `canonical-data` beidseitig **read-only**; `backup-storage` und RT-2 **verboten**; **keine Bind-Mounts, kein Docker-Socket, keine Geräte** |
+| Netzwerk | **genau ein** internes Netz (`internal: true`), **keine Portpublikation**, kein Host-Netz/-PID/-IPC |
+| Egress | **deny-by-default**, sechs **abstrakte** Zielklassen, keine Wildcards, keine konkreten Endpunkte |
+| Secrets | **Referenz-, kein Wertmodell** — `cbp-secret:v1:file:<opaque-id>`; unbekannter Provider und fehlende Referenz **blockieren** |
+| RT-2 | **P1 contract-only** — kein Speicher, kein Ereignis, keine Hashverkettung, keine Retention-Engine, kein Backup, kein Restore |
+| Compose-Format | **JSON-kompatible YAML-Teilmenge** — erlaubt stdlib-only Validierung; **reversible Implementierungsentscheidung, keine neue Architekturbindung** |
 
-> **Kein Validator und kein Test wurde implementiert oder verändert.** Die
-> Testzahl bleibt in B0 unverändert bei **558**.
+## B2-Ergebnis — deterministische Offline-Validierung
+
+`deployments/profile-a/validate.py` — Python-Standardbibliothek, read-only.
+
+**API:** `validate_bundle(root: pathlib.Path) -> ValidationReport` mit
+`ValidationIssue(code, path, message)`; Issues stabil sortiert nach Code, Pfad,
+Meldung.
+
+**Exitcodes:** `0` gültig · `1` fachlich ungültig · `2` ungültiger Aufruf.
+
+**Ergebnis:**
+
+```text
+PROFILE-A-BUNDLE VALID
+issues=0
+```
+
+Zwei Läufe erzeugten **byte-identische** Ausgabe (SHA-256 gleich), Exit **0**.
+
+Geprüft: Dateisatz, Kodierung, BOM, NUL, Symlinks · Compose-Struktur und
+Härtungsvorlagen · Mountmatrix und Zielpfade · Netzwerk- und Egress-Vertrag ·
+Secret-Referenzsyntax · Vertragskonsistenz zwischen `compose.yaml`, beiden TOML-
+Vorlagen und `bundle.json` · Public-Neutrality und Leakage · kanonische
+JSON-Formatierung.
+
+**Nicht geprüft** (und nicht prüfbar): reale Hostrechte, reale UID-/GID-Werte,
+tatsächlich gemountete Volumes, echte Netzwerkdurchsetzung, aufgelöste Secrets,
+laufende Container, Security-Foundation-Wirksamkeit.
+
+**166 neue Tests** in `tests/test_profile_a_deployment_bundle.py` (25 positive,
+81 negative Konfigurationen, plus Determinismus-, CLI-, Literal- und
+Scope-Prüfungen). Gesamtstand **724 Tests OK**, **0 übersprungen**.
+
+Der **Symlink-Negativfall** wird deterministisch ausgeführt: Da die
+Ausführungsumgebung keine echten Symlinks anlegen darf, meldet genau ein
+Bundle-Eintrag über `Path.is_symlink` einen Symlink, während die vollständige
+`validate_bundle`-Pipeline unverändert läuft. Eine vorgeschaltete
+Kontrollzusicherung belegt, dass ohne die Simulation **kein**
+`BND-FILE-SYMLINK` entsteht — die Simulation kippt also genau den geprüften
+Zweig. Ein zweiter Test zeigt, dass ein als Symlink erkannter **erwarteter**
+Eintrag fail-closed übersprungen wird und zusätzlich `BND-FILE-MISSING`
+auslöst.
+
+> **Diese Tests sind Profile-A Bundle Validation Tests.** Sie sind
+> ausdrücklich **keine** Security Foundation NT-01 bis NT-31, **keine** realen
+> Containerprüfungen, **kein** Enforcement-Nachweis und **keine** operative
+> Evidenz. **Kanonische Kennzahl unverändert: 0 von 31.**
+
+## Zulässige Statusaussagen
+
+**Zulässig:** *repository artifact implemented* · *offline validation
+implemented* · *offline validation passed*.
+
+**Unzulässig:** Security Control implemented/tested/enforced · deployed ·
+operational · production-ready.
 
 ---
 
@@ -178,8 +248,8 @@ Negativkonfigurationen.
 | Gate | Gegenstand | Stand |
 | --- | --- | --- |
 | **1** | WP-020-Registrierung | **ausgeführt** — mit **D-055** |
-| **2** | B1-/B2-Implementierung | **nicht ausgeführt** — erfordert nach Abschluss und Review von B0 einen **separaten Nova-Prompt** |
-| **3** | Commit | **ausstehend** — ausschließlich Human Maintainer |
+| **2** | B1-/B2-Implementierung | **ausgeführt** — auf separaten Nova-Prompt nach Commit von B0 (`17057e2`) |
+| **3** | Commit | **ausstehend für B1/B2** — ausschließlich Human Maintainer |
 | **4** | **Reale Profil-A-Bereitstellung** | **nicht Bestandteil von CBP-WP-020** — erfordert abgeschlossenes und committetes WP-020, ein **separates Folge-Work-Package**, eine eigene Human-Maintainer-Autorisierung sowie einen eigenen Infrastruktur- und Sicherheitsplan |
 
 **Keine reale Bereitstellung wird vorweggenommen.**
@@ -207,18 +277,22 @@ Secret-Auflösung.
 
 ## Do-not-start-Scope
 
-Nicht durchgeführt und nicht autorisiert: `deployments/` anlegen ·
-Deployment-Artefakte, Konfigurationsvorlagen oder Compose-Dateien erzeugen ·
-Validatoren implementieren · Tests oder Runtime-Code ändern · Datei verschieben,
-umbenennen oder löschen · bestehende Struktur migrieren · VM-Erstellung ·
-Installation · Deployment · Containerstart · Infrastruktur- oder Netzwerkzugriff ·
-Secret-Auflösung oder Secret-Werte · konkrete UID/GID, IP-Adressen oder lokale
+Nicht durchgeführt und nicht autorisiert: Datei verschieben, umbenennen oder
+löschen · bestehende Struktur migrieren · Runtime-Code unter `core/` ändern ·
+VM-Erstellung · Installation · Deployment · Containerstart · Docker- oder
+Compose-Kommando · Infrastruktur- oder Netzwerkzugriff · DNS-, Port-, Prozess-
+oder Hostrechteprüfung · reale UID-/GID-Ermittlung · Secret-Auflösung oder
+Secret-Werte · konkrete IP-Adressen, Domains, URLs, Hostnamen oder lokale
 Pfade · RT-2-Erzeugung · Persistenz · Backupausführung · Restore-Test ·
 Security-Evaluation · Enforcement · Gateauswertung oder -freigabe ·
 Capability-Änderung · Source- oder Mapping-Aktivierung · zusätzliche Decision ·
-ADR · neue Risiko-ID · Commit · Push · Tag · Release · CBP-WP-021.
+ADR · neue Risiko-ID · R-33-Fortschreibung · Commit · Push · Tag · Release ·
+CBP-WP-021.
 
-**R-33 bleibt in diesem uncommitteten B0-Lauf unverändert bei 16
+**In B1/B2 wurden ausschließlich neue Dateien angelegt und zehn bestehende
+Statusspiegel nachgeführt.**
+
+**R-33 bleibt in diesem uncommitteten B1/B2-Lauf unverändert bei 16
 Konsistenzvorgängen in 19 Work Packages.** `RISK_REGISTER.md` und
 `COMPLIANCE_CHECK.md` wurden **nicht** verändert.
 

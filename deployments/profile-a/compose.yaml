@@ -1,0 +1,138 @@
+{
+  "name": "cbp-profile-a",
+  "services": {
+    "control-plane": {
+      "image": "${CBP_CONTROL_PLANE_IMAGE:?CBP_CONTROL_PLANE_IMAGE is required and has no default}",
+      "user": "${CBP_CONTROL_PLANE_UID:?CBP_CONTROL_PLANE_UID is required and has no default}:${CBP_CONTROL_PLANE_GID:?CBP_CONTROL_PLANE_GID is required and has no default}",
+      "read_only": true,
+      "privileged": false,
+      "restart": "no",
+      "cap_drop": [
+        "ALL"
+      ],
+      "security_opt": [
+        "no-new-privileges:true"
+      ],
+      "networks": [
+        "cbp-profile-a-internal"
+      ],
+      "tmpfs": [
+        "/run/cbp",
+        "/tmp"
+      ],
+      "volumes": [
+        {
+          "type": "volume",
+          "source": "canonical-data",
+          "target": "/var/lib/cbp/canonical",
+          "read_only": true
+        },
+        {
+          "type": "volume",
+          "source": "source-registry",
+          "target": "/var/lib/cbp/source-registry",
+          "read_only": false
+        },
+        {
+          "type": "volume",
+          "source": "mapping-registry",
+          "target": "/var/lib/cbp/mapping-registry",
+          "read_only": false
+        },
+        {
+          "type": "volume",
+          "source": "released-artifacts",
+          "target": "/var/lib/cbp/released",
+          "read_only": false
+        }
+      ],
+      "configs": [
+        {
+          "source": "control-plane-config",
+          "target": "/etc/cbp/control-plane.toml",
+          "mode": 292
+        }
+      ]
+    },
+    "data-worker": {
+      "image": "${CBP_DATA_WORKER_IMAGE:?CBP_DATA_WORKER_IMAGE is required and has no default}",
+      "user": "${CBP_DATA_WORKER_UID:?CBP_DATA_WORKER_UID is required and has no default}:${CBP_DATA_WORKER_GID:?CBP_DATA_WORKER_GID is required and has no default}",
+      "read_only": true,
+      "privileged": false,
+      "restart": "no",
+      "cap_drop": [
+        "ALL"
+      ],
+      "security_opt": [
+        "no-new-privileges:true"
+      ],
+      "networks": [
+        "cbp-profile-a-internal"
+      ],
+      "tmpfs": [
+        "/run/cbp",
+        "/tmp"
+      ],
+      "volumes": [
+        {
+          "type": "volume",
+          "source": "canonical-data",
+          "target": "/var/lib/cbp/canonical",
+          "read_only": true
+        },
+        {
+          "type": "volume",
+          "source": "source-registry",
+          "target": "/var/lib/cbp/source-registry",
+          "read_only": true
+        },
+        {
+          "type": "volume",
+          "source": "mapping-registry",
+          "target": "/var/lib/cbp/mapping-registry",
+          "read_only": true
+        },
+        {
+          "type": "volume",
+          "source": "quarantine",
+          "target": "/var/lib/cbp/quarantine",
+          "read_only": false
+        },
+        {
+          "type": "volume",
+          "source": "derived-indices",
+          "target": "/var/lib/cbp/derived",
+          "read_only": false
+        }
+      ],
+      "configs": [
+        {
+          "source": "data-worker-config",
+          "target": "/etc/cbp/data-worker.toml",
+          "mode": 292
+        }
+      ]
+    }
+  },
+  "networks": {
+    "cbp-profile-a-internal": {
+      "internal": true
+    }
+  },
+  "volumes": {
+    "canonical-data": {},
+    "source-registry": {},
+    "mapping-registry": {},
+    "quarantine": {},
+    "released-artifacts": {},
+    "derived-indices": {}
+  },
+  "configs": {
+    "control-plane-config": {
+      "file": "./config/control-plane.example.toml"
+    },
+    "data-worker-config": {
+      "file": "./config/data-worker.example.toml"
+    }
+  }
+}

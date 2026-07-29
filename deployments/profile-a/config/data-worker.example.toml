@@ -1,0 +1,45 @@
+# Profile-A data-worker configuration template — CBP-WP-020 (D-055).
+# Offline template only. Not a running configuration. No secret values.
+
+contract_revision = "1.0"
+deployment_profile = "A"
+service_identity = "svc-data-worker"
+compose_service = "data-worker"
+mode = "offline-template"
+
+[egress]
+mode = "deny-by-default"
+endpoints_resolved = false
+
+[secrets]
+provider_class = "os-protected-file-provider"
+provider_type = "file"
+reference_syntax = "cbp-secret:v1:file:<opaque-id>"
+example_reference = "cbp-secret:v1:file:<opaque-id>"
+values_in_bundle = false
+unknown_provider_blocks = true
+missing_reference_blocks = true
+
+[rt2]
+mode = "contract-only"
+implemented = false
+
+[activation]
+automatic_activation = false
+real_source_bound = false
+productive_mapping = false
+
+[access]
+canonical_data = "read-only"
+source_registry = "read-only"
+mapping_registry = "read-only"
+released_artifacts = "none"
+quarantine = "read-write"
+derived_indices = "read-write"
+backup_storage = "none"
+rt2_direct = "none"
+
+[privileges]
+administrative_access = false
+publish_rights = false
+approval_rights = false

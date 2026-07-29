@@ -3,7 +3,7 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Aktuelles Work Package | **CBP-WP-020** (`in-review`, Phase B0 – Registration and Additive Deployment-Root Authority) — zuletzt abgeschlossen **CBP-WP-019** (`committed`, `3c437f2`) |
+| Aktuelles Work Package | **CBP-WP-020** (`in-review`, Phase B1/B2 – Profile-A Deployment Bundle und deterministische Offline-Validierung) — Phase B0 `committed` (`17057e2`); zuletzt abgeschlossen **CBP-WP-019** (`committed`, `3c437f2`) |
 | Gate G0 | **PASSED WITH NOTES** — 2026-07-21 |
 | Überarbeitet in | **CBP-WP-016** |
 | Autoritätsklasse | A2 |
@@ -46,7 +46,7 @@ Spalten nach `WORK_PACKAGE_QUEUE_TEMPLATE.md` (NDF v1.0.0).
 | CBP-WP-017 | **Synthetic Evidence Contract & Provenance Foundation** | P1 | **`committed`** | [work-packages/CBP-WP-017.md](../work-packages/CBP-WP-017.md) |
 | CBP-WP-018 | **Security Foundation Readiness Contract & Synthetic Form-Validator** | P1 | **`committed`** | [work-packages/CBP-WP-018.md](../work-packages/CBP-WP-018.md) |
 | CBP-WP-019 | **Deployment Readiness Intake and Profile-A Target Specification** | P1 | **`committed`** | [work-packages/CBP-WP-019.md](../work-packages/CBP-WP-019.md) |
-| CBP-WP-020 | **Controlled Profile-A Deployment Foundation** | P1 | **`in-review`** (Phase B0) | [work-packages/CBP-WP-020.md](../work-packages/CBP-WP-020.md) |
+| CBP-WP-020 | **Controlled Profile-A Deployment Foundation** | P1 | **`in-review`** (Phase B1/B2; B0 `committed` `17057e2`) | [work-packages/CBP-WP-020.md](../work-packages/CBP-WP-020.md) |
 
 **Kein Work Package ist als `proposed` geführt.** **CBP-WP-019** (Deployment
 Readiness Intake and Profile-A Target Specification) steht auf **`in-review`** in
@@ -60,10 +60,12 @@ dokumentarisch**, ohne Installations-, Betriebs-, Security- oder
 Capability-Freigabe. CBP-WP-018 ist `committed` (Phase B0
 `4dec921`, Phase B1 `5ee2e83`, D-052/D-053, ADR-0013); CBP-WP-017 ist `committed`
 (`d3168c4`, D-051); CBP-WP-016 ist `committed` (`04c427c`, D-050). **CBP-WP-020** (Controlled Profile-A Deployment Foundation) ist unter **D-055**
-(`ADR_NOT_REQUIRED`) **registriert** und steht auf **`in-review`** in **Phase B0 –
-Registration and Additive Deployment-Root Authority**: Zielzustand **Z1**, Scope
-**S2**, RT-2-Grenze **P1**; der Pfad **`deployments/profile-a/`** ist als
-**späterer B1-Ort** autorisiert und in B0 **nicht angelegt**. **Phase B3 (reale
+(`ADR_NOT_REQUIRED`) **registriert** und steht auf **`in-review`** in **Phase
+B1/B2 – Profile-A Deployment Bundle und deterministische Offline-Validierung**:
+Zielzustand **Z1**, Scope **S2**, RT-2-Grenze **P1**; Phase B0 ist `committed`
+(`17057e2`), das Bundle unter **`deployments/profile-a/`** ist mit **genau sieben
+Dateien** angelegt und **offline validiert** (`PROFILE-A-BUNDLE VALID`, Exit 0).
+**Nichts wurde bereitgestellt oder gestartet.** **Phase B3 (reale
 Bereitstellung) ist ausdrücklich nicht Bestandteil** von CBP-WP-020. Genau **ein**
 Work Package ist `active`/`in-review` (CBP-WP-020); **zuletzt abgeschlossen ist
 CBP-WP-019**. **CBP-WP-021 ist nicht registriert, nicht begonnen und nicht
@@ -543,31 +545,54 @@ bleiben `DOCUMENTED ONLY`. **R-20 bleibt offen.**
 | Typ | **implementation** (Deployment-Artefakte, offline validiert) |
 | Prompt Mode | **Full** · Context Budget **B2 – Standard** |
 | Status | **`in-review`** |
-| Aktuelle Phase | **Phase B0 – Registration and Additive Deployment-Root Authority** |
+| Aktuelle Phase | **Phase B1/B2 – Profile-A Deployment Bundle und deterministische Offline-Validierung** |
 | A0-Entscheidung | **D-055** (konsolidiert, A–J) |
 | ADR | **not required** (`ADR_NOT_REQUIRED`) |
 | Zielzustand / Scope / RT-2 | **Z1** / **S2** / **P1** |
-| Tests | **558 – OK**, compileall Exit 0 (B0 ist docs-only) |
+| Tests | **724 – OK**, **0 übersprungen**; `compileall .` Exit 0, Validator Exit 0 |
 | Commit | **nicht** ausgeführt (Commit-Autorität beim Human Maintainer) |
 
 Phase A read-only abgeschlossen: bewertet wurden vier Zielzustände (Z0–Z3) und
 vier Scope-Varianten (S1–S4). Empfohlen und übernommen: **Z1** (Artefakte plus
 Offline-Validierung), **S2** (46/50) und **P1** (RT-2 nur als Vertrag).
 
-**Phase B0 (dieser Stand, uncommitted):** CBP-WP-020 registriert; **D-055**
+**Phase B0 (`committed` `17057e2`):** CBP-WP-020 registriert; **D-055**
 dokumentiert (A additive Struktur · B Verhältnis zu ADR-0007 · C Verhältnis zu
 D-029 · D Zielzustand · E ausgeschlossener Scope · F RT-2-Grenze · G
 Security-Status · H Capability-/Gate-Grenze · I `ADR_NOT_REQUIRED` · J Risiko).
-Der Pfad **`deployments/profile-a/`** ist als **späterer B1-Ort** autorisiert und
-in B0 **nicht angelegt**; die Autorisierung ist **rein additiv**, **D-029 bleibt
-vollständig wirksam** und **ADR-0007 unverändert**.
+Der Pfad **`deployments/profile-a/`** ist als **B1-Ort** autorisiert; die
+Autorisierung ist **rein additiv**, **D-029 bleibt vollständig wirksam** und
+**ADR-0007 unverändert**.
 
-**Nicht erzeugt:** kein Verzeichnis, keine Deployment-Artefakte, keine
-Konfigurationsvorlagen, keine Compose-Dateien, kein Validator; **keine Datei
-verschoben, umbenannt oder gelöscht**; **keine Tests und kein Runtime-Code
-geändert**.
+**Phase B1/B2 (dieser Stand, uncommitted):** Das **Profil-A-Bundle** ist als
+Repository-Artefakt angelegt — **genau sieben Dateien** unter
+`deployments/profile-a/` (`README.md`, `bundle.json`, `compose.yaml`,
+`operator.env.example`, `validate.py`, zwei TOML-Vorlagen unter `config/`).
+Zwei getrennte Service-Identitäten (`svc-control-plane`, `svc-data-worker`),
+fail-closed Compose-Vorlage, maschinenlesbare Mount-, Egress-, Secret-, Backup-
+und RT-2-Verträge. Der **deterministische Offline-Validator** meldet
+`PROFILE-A-BUNDLE VALID`, `issues=0`, **Exit 0**, bei zwei Läufen
+**byte-identisch**. Ergänzt um **drei Runbooks**
+(`docs/operations/PROFILE_A_{INSTALLATION,VALIDATION,ROLLBACK}_RUNBOOK.md`),
+den **Runtime-Vertrag** `docs/runtime/PROFILE_A_DEPLOYMENT_BUNDLE.md` und
+**166 neue Tests** in `tests/test_profile_a_deployment_bundle.py`
+(Gesamtstand **724 – OK**, **0 übersprungen**). Der Symlink-Negativfall wird
+deterministisch über die vollständige `validate_bundle`-Pipeline ausgeführt und
+ist **nicht** umgebungsabhängig.
 
-**B1 und B2 sind nicht begonnen** und erfordern einen **separaten Nova-Prompt**.
+**Statusaussage ausschließlich:** *repository artifact implemented* · *offline
+validation implemented* · *offline validation passed*. **Nicht** deployed,
+**nicht** operational, **nicht** production-ready.
+
+**Nicht ausgeführt:** kein Containerstart, kein Docker- oder Compose-Kommando,
+kein Netzwerkzugriff, keine Port-, Prozess- oder Hostrechteprüfung, keine reale
+UID-/GID-Ermittlung, keine Secret-Auflösung, kein Backup, kein Restore; **keine
+Datei verschoben, umbenannt oder gelöscht**; **kein Runtime-Code geändert**.
+
+**Die 166 neuen Tests sind Profile-A Bundle Validation Tests** — ausdrücklich
+**keine** Security Foundation NT-01 bis NT-31. **Kanonische Kennzahl unverändert:
+Security-Negativtests ausgeführt 0 von 31.**
+
 **B3 (reale Bereitstellung) ist ausdrücklich nicht Bestandteil** von CBP-WP-020
 und verlangt ein eigenes Folge-Work-Package mit eigenem Human Gate.
 

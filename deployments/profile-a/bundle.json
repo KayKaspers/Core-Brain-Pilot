@@ -1,0 +1,326 @@
+{
+  "backup": {
+    "canonical_data_interval": "daily",
+    "cbp_restore_evidence": false,
+    "job_implemented": false,
+    "rpo_hours": 24,
+    "rt2_restore_evidence": false,
+    "rto_hours": 8,
+    "target_class": "physically-separate-nas",
+    "vm_backup_interval": "weekly"
+  },
+  "capabilities": {
+    "implemented": 0,
+    "total": 29
+  },
+  "container_paths": [
+    "/etc/cbp",
+    "/run/cbp",
+    "/tmp",
+    "/var/lib/cbp/canonical",
+    "/var/lib/cbp/derived",
+    "/var/lib/cbp/mapping-registry",
+    "/var/lib/cbp/quarantine",
+    "/var/lib/cbp/released",
+    "/var/lib/cbp/source-registry"
+  ],
+  "contract_revision": "1.0",
+  "data_areas": {
+    "canonical-data": {
+      "backup_required": true,
+      "consumer": [
+        "control-plane",
+        "data-worker"
+      ],
+      "kind": "canonical",
+      "mode": "read-only",
+      "owner": "human-maintainer",
+      "persisted": true,
+      "rebuildable": false,
+      "restore_required": true,
+      "secret_risk": "medium"
+    },
+    "derived-indices": {
+      "backup_required": false,
+      "consumer": [
+        "data-worker"
+      ],
+      "kind": "derived",
+      "mode": "read-write",
+      "owner": "data-worker",
+      "persisted": true,
+      "rebuildable": true,
+      "restore_required": false,
+      "rt_class": "RT-1",
+      "secret_risk": "low"
+    },
+    "mapping-registry": {
+      "backup_required": true,
+      "consumer": [
+        "control-plane",
+        "data-worker"
+      ],
+      "kind": "canonical",
+      "mode": "mixed",
+      "owner": "control-plane",
+      "persisted": true,
+      "rebuildable": false,
+      "restore_required": true,
+      "secret_risk": "medium"
+    },
+    "quarantine": {
+      "backup_required": false,
+      "consumer": [
+        "data-worker"
+      ],
+      "kind": "derived",
+      "mode": "read-write",
+      "owner": "data-worker",
+      "persisted": true,
+      "rebuildable": true,
+      "restore_required": false,
+      "rt_class": "RT-1",
+      "secret_risk": "high"
+    },
+    "released-artifacts": {
+      "backup_required": true,
+      "consumer": [
+        "control-plane"
+      ],
+      "kind": "canonical",
+      "mode": "read-write",
+      "owner": "control-plane",
+      "persisted": true,
+      "rebuildable": false,
+      "restore_required": true,
+      "secret_risk": "medium"
+    },
+    "rt2-operational-evidence": {
+      "backup_required": true,
+      "consumer": [
+        "evidence-interface"
+      ],
+      "kind": "operational-evidence",
+      "mode": "contract-only",
+      "owner": "human-maintainer",
+      "persisted": false,
+      "rebuildable": false,
+      "restore_required": true,
+      "rt_class": "RT-2",
+      "secret_risk": "medium"
+    },
+    "runtime-transient": {
+      "backup_required": false,
+      "consumer": [
+        "control-plane",
+        "data-worker"
+      ],
+      "kind": "derived",
+      "mode": "read-write",
+      "owner": "service",
+      "persisted": false,
+      "rebuildable": true,
+      "restore_required": false,
+      "rt_class": "RT-3",
+      "secret_risk": "low"
+    },
+    "source-registry": {
+      "backup_required": true,
+      "consumer": [
+        "control-plane",
+        "data-worker"
+      ],
+      "kind": "canonical",
+      "mode": "mixed",
+      "owner": "control-plane",
+      "persisted": true,
+      "rebuildable": false,
+      "restore_required": true,
+      "secret_risk": "medium"
+    }
+  },
+  "decision": "D-055",
+  "deployed": false,
+  "deployment_profile": "A",
+  "egress": {
+    "change_authority": "human-maintainer",
+    "concrete_endpoints": false,
+    "contract_only": true,
+    "default": "deny",
+    "enforced": false,
+    "later_enforcement_layers": [
+      "host",
+      "service"
+    ],
+    "target_classes": [
+      "operating-system-package-and-security-repositories",
+      "required-container-registries",
+      "dns-services",
+      "ntp-services",
+      "certificate-renewal-and-revocation-services",
+      "explicitly-approved-git-and-artifact-sources"
+    ],
+    "wildcards_allowed": false
+  },
+  "files": [
+    "README.md",
+    "bundle.json",
+    "compose.yaml",
+    "config/control-plane.example.toml",
+    "config/data-worker.example.toml",
+    "operator.env.example",
+    "validate.py"
+  ],
+  "gates": {
+    "mapping_activation_gate": "NOT EVALUATED",
+    "security_foundation_readiness_gate": "NOT EVALUATED"
+  },
+  "network": {
+    "external": false,
+    "gateway_defined": false,
+    "host_network": false,
+    "internal": true,
+    "name": "cbp-profile-a-internal",
+    "published_ports": false,
+    "subnet_defined": false
+  },
+  "risks": {
+    "R-20": "open"
+  },
+  "rt2": {
+    "after_minimum": "permanent",
+    "automatic_deletion": false,
+    "backup": false,
+    "boundary": "P1",
+    "events": false,
+    "hash_chaining": false,
+    "minimum_retention_days": 365,
+    "mode": "contract-only",
+    "restore": false,
+    "retention_engine": false,
+    "separate_archive": false,
+    "storage": false
+  },
+  "rt2_boundary": "P1",
+  "runtime_started": false,
+  "schema_id": "cbp-profile-a-deployment-bundle",
+  "scope": "S2",
+  "secret_provider": {
+    "missing_reference_blocks": true,
+    "provider_class": "os-protected-file-provider",
+    "provider_type": "file",
+    "reference_syntax": "cbp-secret:v1:file:<opaque-id>",
+    "revocation": "block-and-replace-previous-reference",
+    "rotation": "controlled-manual-reference-replacement",
+    "unknown_provider_blocks": true,
+    "values_in_bundle": false,
+    "values_in_logs": false
+  },
+  "security_controls": {
+    "KB-01": {
+      "artifact_target": "compose-non-root-and-capability-drop-template",
+      "status": "DOCUMENTED ONLY"
+    },
+    "KB-02": {
+      "artifact_target": "two-separated-service-identities-template",
+      "status": "DOCUMENTED ONLY"
+    },
+    "KB-03": {
+      "artifact_target": "mount-matrix-and-tmpfs-template",
+      "status": "DOCUMENTED ONLY"
+    },
+    "KB-04": {
+      "artifact_target": "filesystem-permission-target-model",
+      "status": "DOCUMENTED ONLY"
+    },
+    "KB-05": {
+      "artifact_target": "api-endpoint-and-role-contract",
+      "status": "DOCUMENTED ONLY"
+    },
+    "KB-06": {
+      "artifact_target": "approval-state-contract",
+      "status": "DOCUMENTED ONLY"
+    },
+    "KB-07": {
+      "artifact_target": "git-and-artifact-source-class-contract",
+      "status": "DOCUMENTED ONLY"
+    },
+    "KB-08": {
+      "artifact_target": "secret-reference-and-provider-template",
+      "status": "DOCUMENTED ONLY"
+    },
+    "KB-09": {
+      "artifact_target": "rt2-mount-and-interface-contract",
+      "status": "DOCUMENTED ONLY"
+    },
+    "KB-10": {
+      "artifact_target": "egress-deny-by-default-policy-template",
+      "status": "DOCUMENTED ONLY"
+    },
+    "KB-11": {
+      "artifact_target": "excluded-from-ai-output-boundary-contract",
+      "status": "DOCUMENTED ONLY"
+    },
+    "KB-12": {
+      "artifact_target": "backup-storage-isolation-target-model",
+      "status": "DOCUMENTED ONLY"
+    }
+  },
+  "security_negative_tests": {
+    "executed": 0,
+    "total": 31
+  },
+  "services": {
+    "control-plane": {
+      "administrative_access": false,
+      "allowed_areas": {
+        "canonical-data": "read-only",
+        "mapping-registry": "read-write",
+        "released-artifacts": "read-write",
+        "source-registry": "read-write"
+      },
+      "approval_rights": true,
+      "backup_storage_access": false,
+      "compose_service": "control-plane",
+      "forbidden_areas": [
+        "backup-storage",
+        "derived-indices",
+        "quarantine",
+        "rt2-operational-evidence"
+      ],
+      "privilege_class": "control-plane",
+      "publish_rights": false,
+      "rt2_direct_access": false,
+      "service_identity": "svc-control-plane"
+    },
+    "data-worker": {
+      "administrative_access": false,
+      "allowed_areas": {
+        "canonical-data": "read-only",
+        "derived-indices": "read-write",
+        "mapping-registry": "read-only",
+        "quarantine": "read-write",
+        "source-registry": "read-only"
+      },
+      "approval_rights": false,
+      "backup_storage_access": false,
+      "compose_service": "data-worker",
+      "forbidden_areas": [
+        "backup-storage",
+        "released-artifacts",
+        "rt2-operational-evidence"
+      ],
+      "privilege_class": "data-worker",
+      "publish_rights": false,
+      "rt2_direct_access": false,
+      "service_identity": "svc-data-worker"
+    }
+  },
+  "status": "offline-template",
+  "target_state": "Z1",
+  "tmpfs_targets": [
+    "/run/cbp",
+    "/tmp"
+  ],
+  "work_package": "CBP-WP-020"
+}

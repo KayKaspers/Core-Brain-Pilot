@@ -3,7 +3,7 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Letzte Bewertung | 2026-07-29, im Rahmen von **CBP-WP-020** (`in-review`, Phase B0, D-055) |
+| Letzte Bewertung | 2026-07-29, im Rahmen von **CBP-WP-020** (`in-review`, Phase B1/B2, D-055) |
 | Autoritätsklasse | A2 |
 
 > Diese Datei gehört zur kanonischen NDF-Ordnerstruktur, war aber in der
@@ -39,7 +39,7 @@ Keine Gesamtpunktzahl.
 | Planungsklarheit Phase 1 | **gut** | ↑↑ | Fünf Streams, sechs geschnittene Work Packages, Nachweisstufen und zwölf Stop-Bedingungen; zuvor nur ein Backlog |
 | **Nachweislage** | **schwach** | → | **Alle Artefakte stehen auf Stufe 1 `dokumentiert`.** Kein Negativtest, kein Restore, kein Messwert |
 | Implementierung | **schwach** | ↑ | **Lokaler Runtime Skeleton** (CBP-WP-012), **Quarantäneprototyp** (CBP-WP-013), **Registry-Prototyp** (CBP-WP-014), **Mapping-Draft-Validator** (CBP-WP-015), **Gate-Evaluator** (CBP-WP-016) **und Synthetic-Evidence-Contract 2.0** (CBP-WP-017); keine operative Wirkung, keine KB-Kontrolle durchgesetzt, keine Promotion, kein gespeichertes Mapping, kein Gate ausgeführt, keine Aktivierung |
-| Testabdeckung | **ausreichend** | ↑↑ | **558 lokale Tests bestanden** (Skeleton 69 + Quarantäne + Registry + Mapping-Draft-Validator + Gate-Evaluator + Evidence-Contract-3.0-/Provenance- + Security-Contract-Tests, inkl. Netzwerk-Guard); kein Retrieval-, Ingest- oder Integrationstest |
+| Testabdeckung | **ausreichend** | ↑↑ | **724 lokale Tests bestanden**, **0 übersprungen** (Skeleton 69 + Quarantäne + Registry + Mapping-Draft-Validator + Gate-Evaluator + Evidence-Contract-3.0-/Provenance- + Security-Contract- + **166 Profile-A-Bundle-Validation-Tests**, inkl. Netzwerk-Guard); kein Retrieval-, Ingest- oder Integrationstest. **Die 166 neuen Tests prüfen ausschließlich Repository-Artefakte** — keine reale Bereitstellung, **keine Security Foundation NT-01…NT-31** (unverändert **0 von 31**); sie verbessern die **Nachweislage nicht** |
 | CI/CD | nicht bewertbar | | In Phase 0 verboten; lokale Tests manuell |
 | Betriebsreife | nicht bewertbar | | Keine Installation |
 | Retrieval-Qualität | nicht bewertbar | | Kein Index, kein Benchmark |
@@ -80,15 +80,16 @@ Durchsetzung, nicht ein weiteres Dokument.
 | davon hoch | 14 | 17 |
 | Capabilities `implemented` | **0** | **0** |
 | Angenommene ADRs | 0 | **13** |
-| Vorgeschlagene Work Packages | 0 | **0** — **CBP-WP-020 `in-review`** (D-055, Phase B0, uncommitted); CBP-WP-019 `committed` (`3c437f2`, D-054); CBP-WP-021 nicht autorisiert |
+| Vorgeschlagene Work Packages | 0 | **0** — **CBP-WP-020 `in-review`** (D-055, Phase B1/B2; B0 `committed` `17057e2`, B1/B2 uncommitted); CBP-WP-019 `committed` (`3c437f2`, D-054); CBP-WP-021 nicht autorisiert |
 | **Erstellte Source Mappings** | 0 | **0** |
 | **Angebundene Quellen** | 0 | **0** |
 | **Umgesetzte Sicherheitskontrollen** | 0 | **0 von 12** |
-| **Ausgeführte Sicherheits-Negativtests** | 0 | **0 von 32** |
+| **Ausgeführte Sicherheits-Negativtests** | 0 | **0 von 31** |
 | **Nachweise oberhalb Stufe 1** | 0 | **0** |
 | **Runtime-Module (Skeleton)** | 0 | **9** |
-| **Bestandene lokale Tests** | 0 | **69** |
-| Commits | 2 | **12** |
+| **Bestandene lokale Tests** | 0 | **724**, **0 übersprungen** — davon **166 Profile-A-Bundle-Validation-Tests**, die **keine** reale Bereitstellung und **keine** Security-Foundation-Negativtests belegen |
+| **Deployment-Artefakte (offline validiert)** | 0 | **7** — Profil-A-Bundle, Validator Exit 0; **nicht deployed** |
+| Commits | 2 | **28** (HEAD `17057e2`, `origin/main` synchron) |
 
 ## Fortschritt in einem Bild
 
