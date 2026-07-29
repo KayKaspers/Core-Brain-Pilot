@@ -3,7 +3,7 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Aktuelles Work Package | **keines aktiv** — zuletzt abgeschlossen **CBP-WP-019** (`committed`, `3c437f2`) |
+| Aktuelles Work Package | **CBP-WP-020** (`in-review`, Phase B0 – Registration and Additive Deployment-Root Authority) — zuletzt abgeschlossen **CBP-WP-019** (`committed`, `3c437f2`) |
 | Gate G0 | **PASSED WITH NOTES** — 2026-07-21 |
 | Überarbeitet in | **CBP-WP-016** |
 | Autoritätsklasse | A2 |
@@ -46,6 +46,7 @@ Spalten nach `WORK_PACKAGE_QUEUE_TEMPLATE.md` (NDF v1.0.0).
 | CBP-WP-017 | **Synthetic Evidence Contract & Provenance Foundation** | P1 | **`committed`** | [work-packages/CBP-WP-017.md](../work-packages/CBP-WP-017.md) |
 | CBP-WP-018 | **Security Foundation Readiness Contract & Synthetic Form-Validator** | P1 | **`committed`** | [work-packages/CBP-WP-018.md](../work-packages/CBP-WP-018.md) |
 | CBP-WP-019 | **Deployment Readiness Intake and Profile-A Target Specification** | P1 | **`committed`** | [work-packages/CBP-WP-019.md](../work-packages/CBP-WP-019.md) |
+| CBP-WP-020 | **Controlled Profile-A Deployment Foundation** | P1 | **`in-review`** (Phase B0) | [work-packages/CBP-WP-020.md](../work-packages/CBP-WP-020.md) |
 
 **Kein Work Package ist als `proposed` geführt.** **CBP-WP-019** (Deployment
 Readiness Intake and Profile-A Target Specification) steht auf **`in-review`** in
@@ -58,10 +59,15 @@ Deploymentangaben des Human Maintainers wurden dokumentiert, der DRC von 18 auf
 dokumentarisch**, ohne Installations-, Betriebs-, Security- oder
 Capability-Freigabe. CBP-WP-018 ist `committed` (Phase B0
 `4dec921`, Phase B1 `5ee2e83`, D-052/D-053, ADR-0013); CBP-WP-017 ist `committed`
-(`d3168c4`, D-051); CBP-WP-016 ist `committed` (`04c427c`, D-050). **Kein** Work Package ist
-`active` oder `in-review`; **zuletzt abgeschlossen ist CBP-WP-019**. Ein
-**nächstes autorisiertes Work Package existiert nicht**. **CBP-WP-020 ist nicht
-Bestandteil, nicht registriert, nicht begonnen und nicht autorisiert.**
+(`d3168c4`, D-051); CBP-WP-016 ist `committed` (`04c427c`, D-050). **CBP-WP-020** (Controlled Profile-A Deployment Foundation) ist unter **D-055**
+(`ADR_NOT_REQUIRED`) **registriert** und steht auf **`in-review`** in **Phase B0 –
+Registration and Additive Deployment-Root Authority**: Zielzustand **Z1**, Scope
+**S2**, RT-2-Grenze **P1**; der Pfad **`deployments/profile-a/`** ist als
+**späterer B1-Ort** autorisiert und in B0 **nicht angelegt**. **Phase B3 (reale
+Bereitstellung) ist ausdrücklich nicht Bestandteil** von CBP-WP-020. Genau **ein**
+Work Package ist `active`/`in-review` (CBP-WP-020); **zuletzt abgeschlossen ist
+CBP-WP-019**. **CBP-WP-021 ist nicht registriert, nicht begonnen und nicht
+autorisiert.**
 
 > **Titelkorrektur in CBP-WP-009.** Diese Übersichtstabelle trug bis dahin die
 > Titel eines verworfenen Entwurfs der Work-Package-Karte (009 „Repository and
@@ -526,6 +532,49 @@ sind **Zusagen des Human Maintainers**, keine verifizierten Messwerte; es fand
 Capability-Stand unverändert **0 von 29**; Mapping Activation Gate und Security
 Foundation Readiness Gate bleiben `NOT EVALUATED`; die zwölf KB-Kontrollen
 bleiben `DOCUMENTED ONLY`. **R-20 bleibt offen.**
+
+---
+
+## CBP-WP-020
+
+| Feld | Wert |
+| --- | --- |
+| Titel | **Controlled Profile-A Deployment Foundation** |
+| Typ | **implementation** (Deployment-Artefakte, offline validiert) |
+| Prompt Mode | **Full** · Context Budget **B2 – Standard** |
+| Status | **`in-review`** |
+| Aktuelle Phase | **Phase B0 – Registration and Additive Deployment-Root Authority** |
+| A0-Entscheidung | **D-055** (konsolidiert, A–J) |
+| ADR | **not required** (`ADR_NOT_REQUIRED`) |
+| Zielzustand / Scope / RT-2 | **Z1** / **S2** / **P1** |
+| Tests | **558 – OK**, compileall Exit 0 (B0 ist docs-only) |
+| Commit | **nicht** ausgeführt (Commit-Autorität beim Human Maintainer) |
+
+Phase A read-only abgeschlossen: bewertet wurden vier Zielzustände (Z0–Z3) und
+vier Scope-Varianten (S1–S4). Empfohlen und übernommen: **Z1** (Artefakte plus
+Offline-Validierung), **S2** (46/50) und **P1** (RT-2 nur als Vertrag).
+
+**Phase B0 (dieser Stand, uncommitted):** CBP-WP-020 registriert; **D-055**
+dokumentiert (A additive Struktur · B Verhältnis zu ADR-0007 · C Verhältnis zu
+D-029 · D Zielzustand · E ausgeschlossener Scope · F RT-2-Grenze · G
+Security-Status · H Capability-/Gate-Grenze · I `ADR_NOT_REQUIRED` · J Risiko).
+Der Pfad **`deployments/profile-a/`** ist als **späterer B1-Ort** autorisiert und
+in B0 **nicht angelegt**; die Autorisierung ist **rein additiv**, **D-029 bleibt
+vollständig wirksam** und **ADR-0007 unverändert**.
+
+**Nicht erzeugt:** kein Verzeichnis, keine Deployment-Artefakte, keine
+Konfigurationsvorlagen, keine Compose-Dateien, kein Validator; **keine Datei
+verschoben, umbenannt oder gelöscht**; **keine Tests und kein Runtime-Code
+geändert**.
+
+**B1 und B2 sind nicht begonnen** und erfordern einen **separaten Nova-Prompt**.
+**B3 (reale Bereitstellung) ist ausdrücklich nicht Bestandteil** von CBP-WP-020
+und verlangt ein eigenes Folge-Work-Package mit eigenem Human Gate.
+
+**Keine Installation, keine Bereitstellung, keine Infrastrukturberührung.**
+Capability-Stand unverändert **0 von 29**; Mapping Activation Gate und Security
+Foundation Readiness Gate bleiben `NOT EVALUATED`; die zwölf KB-Kontrollen
+bleiben `DOCUMENTED ONLY`; **R-20 bleibt offen**; **R-33 unverändert 16/19**.
 
 ---
 

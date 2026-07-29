@@ -132,7 +132,7 @@ nennen.
 | Phase | **Phase 0 – COMPLETE** |
 | **Gate G0** | **PASSED WITH NOTES** — 2026-07-21, A0 |
 | **Phase 1** | **AUTHORIZED FOR PLANNING** — keine Implementierung freigegeben |
-| Aktuelles Work Package | **keines aktiv** — zuletzt abgeschlossen **CBP-WP-019** (`committed` `3c437f2`, 2026-07-29): **D-054**, `ADR_NOT_REQUIRED`; DRC auf **19 Prüfpunkte** erweitert, für Profil A vollständig erhoben (**19 `ready`, 0 `blocked`**) und vom Human Maintainer freigegeben (**APPROVED BY HUMAN MAINTAINER**); **kein nächstes Work Package autorisiert** |
+| Aktuelles Work Package | **CBP-WP-020** (`in-review`, **Phase B0 – Registration and Additive Deployment-Root Authority**) — **D-055**, `ADR_NOT_REQUIRED`; Zielzustand **Z1**, Scope **S2**, RT-2-Grenze **P1**; `deployments/profile-a/` als **späterer B1-Pfad autorisiert, nicht angelegt**; **B3 (reale Bereitstellung) ausgeschlossen**; zuletzt abgeschlossen **CBP-WP-019** (`committed` `3c437f2`); **uncommitted, Commit-Autorität beim Human Maintainer** |
 | **Deployment Readiness (DRC)** | **APPROVED BY HUMAN MAINTAINER** — Profil A, **2026-07-29** (CBP-WP-019, D-054); **19 Prüfpunkte** (17 G0-abgeleitet + 2 ohne G0-Herkunft: DRC-01, DRC-19), **19 `ready`**, **0 `blocked`**; der Gesamtstatus wurde **nicht** automatisch abgeleitet. **Rein dokumentarisch: keine Installation, keine Bereitstellung, keine Betriebs-, Security-, Mapping- oder Capability-Freigabe.** Alle Angaben sind Zusagen des Human Maintainers, keine verifizierten Messwerte |
 | Core-Kriterien | 25 von 25 `accepted`, 0 `answered`, 0 `open`, 0 `blocked` |
 | Angenommene ADRs | **13** (A1) |

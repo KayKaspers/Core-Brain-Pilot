@@ -28,8 +28,8 @@ vorgesehene, **noch nicht implementierte** Anwendungslaufzeit.
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Aktuelles Work Package | **keines aktiv** — zuletzt abgeschlossen **CBP-WP-019** (`committed` `3c437f2`); **D-054**, `ADR_NOT_REQUIRED` |
-| Nächster Schritt | **Kein Work Package autorisiert.** Deployment Readiness Check für Profil A **APPROVED BY HUMAN MAINTAINER** (2026-07-29, 19 `ready` / 0 `blocked`) — **rein dokumentarisch; keine Installation, keine Bereitstellung, keine Betriebsfreigabe**. Die Freigabe eines nächsten Work Packages liegt beim Human Maintainer |
+| Aktuelles Work Package | **CBP-WP-020** (`in-review`, Phase B0 – Registration and Additive Deployment-Root Authority) — **D-055**, `ADR_NOT_REQUIRED`; zuletzt abgeschlossen **CBP-WP-019** (`committed` `3c437f2`) |
+| Nächster Schritt | **Nova-Review und Human-Commit von CBP-WP-020 Phase B0.** Registriert sind Zielzustand **Z1**, Scope **S2** und RT-2-Grenze **P1**; `deployments/profile-a/` ist als späterer B1-Pfad autorisiert und **nicht angelegt**. **Keine Artefakte, keine Installation, keine Bereitstellung** — B1/B2 erfordern einen separaten Nova-Prompt |
 | **Gate G0** | **PASSED WITH NOTES** — 2026-07-21, A0 |
 | Phase-1-Planung | **Streams F1–F5 geplant**, [Foundation Plan](docs/roadmap/PHASE_1_FOUNDATION_PLAN.md) |
 | **Repository-Struktur** | **entschieden** — [ADR-0007](docs/decisions/ADR-0007-repository-und-workspace-grenze.md); **Migration nicht autorisiert** |

@@ -48,9 +48,11 @@ nur zur Statusvollständigkeit geführt:
 | **CBP-WP-017** | Synthetic Evidence Contract & Provenance Foundation | **`committed`** — `d3168c4` |
 | **CBP-WP-018** | Security Foundation Readiness Contract & Synthetic Form-Validator | **`committed`** — `4dec921` (Governance), `5ee2e83` (Implementation) |
 | **CBP-WP-019** | Deployment Readiness Intake and Profile-A Target Specification | **`committed`** — `3c437f2` |
+| **CBP-WP-020** | Controlled Profile-A Deployment Foundation | **`in-review`** (Phase B0) — uncommitted |
 
-**Kein Folge-Work-Package ist autorisiert.** CBP-WP-020 ist nicht registriert,
-nicht begonnen und nicht autorisiert.
+**CBP-WP-020 ist registriert** (D-055) und steht auf `in-review` in Phase B0;
+B1/B2 sind **nicht begonnen**, B3 (reale Bereitstellung) ist **ausgeschlossen**.
+**CBP-WP-021 ist nicht registriert, nicht begonnen und nicht autorisiert.**
 
 **Die ersten drei sind `docs-only`.** CBP-WP-012 bis CBP-WP-015 sind committed;
 sie erzeugten lokale, synthetisch testbare, **deaktivierte** Prototypen —
@@ -232,8 +234,10 @@ ersten Nachweise vorliegen, wäre Planung ohne Rückkopplung.
 **Aktueller Stand (nachgeführt in CBP-WP-019, 2026-07-29):** **Alle** Work
 Packages dieser Karte — **CBP-WP-009 bis CBP-WP-015** — sind **`committed`**.
 Ebenso committed sind die nach dem Kartenschnitt ergänzten **CBP-WP-016**,
-**CBP-WP-017**, **CBP-WP-018** und **CBP-WP-019** (`3c437f2`). **Kein Work
-Package ist aktiv; kein Folge-Work-Package ist autorisiert.**
+**CBP-WP-017**, **CBP-WP-018** und **CBP-WP-019** (`3c437f2`). **CBP-WP-020** ist
+**registriert** (D-055) und `in-review` in Phase B0 — **keine Artefakte, keine
+Bereitstellung**. **Kein Folge-Work-Package über CBP-WP-020 hinaus ist
+autorisiert.**
 
 **Regeln A und B sind erfüllt:** Die Bereichsgrenze steht (009), die
 Mappingkonvention steht (010).

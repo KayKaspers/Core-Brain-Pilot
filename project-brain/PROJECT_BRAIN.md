@@ -23,14 +23,14 @@ verweigern deterministisch.
 
 | Feld | Wert |
 | --- | --- |
-| Aktuelles Work Package | **keines aktiv** — zuletzt abgeschlossen **CBP-WP-019** (`committed` `3c437f2`, 2026-07-29); **D-054**, `ADR_NOT_REQUIRED`; DRC **19 Prüfpunkte**, **19 `ready` / 0 `blocked`**, Gesamtstatus **APPROVED BY HUMAN MAINTAINER** (rein dokumentarisch) |
+| Aktuelles Work Package | **CBP-WP-020** (`in-review`, **Phase B0**) — **D-055**, `ADR_NOT_REQUIRED`; **Z1 / S2 / P1**; `deployments/profile-a/` autorisiert, **nicht angelegt**; B3 ausgeschlossen; zuletzt abgeschlossen **CBP-WP-019** (`committed` `3c437f2`) |
 | Gate G0 | **PASSED WITH NOTES** — 2026-07-21 |
 | G0-Kriterien | **47**, dreistufig klassifiziert |
 | davon blockierend | **25** Core Required (zuvor 45) |
 | davon `accepted` | **25** — alle |
 | verbleibende Blocker | **0** |
 | Phase 1 | AUTHORIZED FOR PLANNING — [Backlog](../docs/roadmap/PHASE_1_BACKLOG.md), [Foundation Plan](../docs/roadmap/PHASE_1_FOUNDATION_PLAN.md) |
-| Geplante Work Packages | **keine** — CBP-WP-019 ist `committed` (`3c437f2`, D-054); CBP-WP-018 ist `committed` (Phase B0 `4dec921`, Phase B1 `5ee2e83`); **CBP-WP-020 nicht registriert, nicht begonnen, nicht autorisiert** |
+| Geplante Work Packages | **CBP-WP-020** `in-review` (Phase B0, D-055); B1/B2 **nicht begonnen**, B3 **ausgeschlossen**. CBP-WP-019 ist `committed` (`3c437f2`, D-054); **CBP-WP-021 nicht registriert, nicht begonnen, nicht autorisiert** |
 | **Repository-Struktur** | **entschieden** — Ziel-Monorepo + Workspace W-3 (ADR-0007); **Migration nicht autorisiert** |
 | **Mappingkonvention** | **entschieden** — ADR-0008; **0 Mappings, 0 Quellen**, Gate `NOT EVALUATED` |
 | **Sicherheitsgrundlage** | **spezifiziert** — ADR-0009; **12 Kontrollen `DOCUMENTED ONLY`** |
