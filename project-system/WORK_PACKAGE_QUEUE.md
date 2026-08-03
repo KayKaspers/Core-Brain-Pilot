@@ -3,11 +3,11 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Aktuelles Work Package | **keines** — zuletzt abgeschlossen **CBP-WP-021** (`committed`, `complete`, 2026-08-03; **D-056**, `ADR_NOT_REQUIRED`; kanonisch **32 Negativtests / 1 Positivtest / 33 Testfälle**, **0 von 32** und **0 von 1** ausgeführt; B0 `0cb4ea9`, B1/B2 `271acc7`). Zuvor abgeschlossen **CBP-WP-020** (`committed`, `complete`; B0 `17057e2`, B1/B2 `9c6c0fb`, C `d6a1a3c`). **Kein Folge-Work-Package autorisiert; CBP-WP-022 nicht registriert.** |
+| Aktuelles Work Package | **CBP-WP-022** (`in-review`, **Phase B0 – Registration and Authority Baseline**) — **D-057** (`accepted`, **A0**, 2026-08-03), `ADR_NOT_REQUIRED` **nur für die Registration**; **KB-04 Enforcement Stage 1**; **technische Implementierung nicht autorisiert**, B1 und B2 **nicht freigegeben**. Zuletzt abgeschlossen **CBP-WP-021** (`committed`, `complete`, 2026-08-03; **D-056**, `ADR_NOT_REQUIRED`; kanonisch **32 Negativtests / 1 Positivtest / 33 Testfälle**, **0 von 32** und **0 von 1** ausgeführt; B0 `0cb4ea9`, B1/B2 `271acc7`). Zuvor abgeschlossen **CBP-WP-020** (`committed`, `complete`; B0 `17057e2`, B1/B2 `9c6c0fb`, C `d6a1a3c`). **CBP-WP-023 nicht registriert, nicht autorisiert.** |
 | Gate G0 | **PASSED WITH NOTES** — 2026-07-21 |
 | Überarbeitet in | **CBP-WP-016** |
 | Autoritätsklasse | A2 |
-| Stand | 2026-08-03 — CBP-WP-021 Phase C |
+| Stand | 2026-08-03 — CBP-WP-022 Phase B0 |
 
 Spalten nach `WORK_PACKAGE_QUEUE_TEMPLATE.md` (NDF v1.0.0).
 
@@ -47,7 +47,8 @@ Spalten nach `WORK_PACKAGE_QUEUE_TEMPLATE.md` (NDF v1.0.0).
 | CBP-WP-018 | **Security Foundation Readiness Contract & Synthetic Form-Validator** | P1 | **`committed`** | [work-packages/CBP-WP-018.md](../work-packages/CBP-WP-018.md) |
 | CBP-WP-019 | **Deployment Readiness Intake and Profile-A Target Specification** | P1 | **`committed`** | [work-packages/CBP-WP-019.md](../work-packages/CBP-WP-019.md) |
 | CBP-WP-020 | **Controlled Profile-A Deployment Foundation** | P1 | **`committed`** (B0 `17057e2`, B1/B2 `9c6c0fb`) | [work-packages/CBP-WP-020.md](../work-packages/CBP-WP-020.md) |
-| CBP-WP-021 | **Canonical Security Test Inventory Reconciliation** | P1 | **`committed`** (B0 `0cb4ea9`, B1/B2 `271acc7`) | [work-packages/CBP-WP-021.md](../work-packages/CBP-WP-021.md) |
+| CBP-WP-021 | **Canonical Security Test Inventory Reconciliation** | P1 | **`committed`** (B0 `0cb4ea9`, B1/B2 `271acc7`, C `0344774`) | [work-packages/CBP-WP-021.md](../work-packages/CBP-WP-021.md) |
+| CBP-WP-022 | **KB-04 Enforcement Stage 1** | P1 | **`in-review`** (Phase B0) | [work-packages/CBP-WP-022.md](../work-packages/CBP-WP-022.md) |
 
 **Kein Work Package ist als `proposed` geführt.** **CBP-WP-019** (Deployment
 Readiness Intake and Profile-A Target Specification) steht auf **`in-review`** in
@@ -81,10 +82,16 @@ weder die Feststellung eines Inventarwerts noch dessen Reconciliation ist eine
 Testausführung oder Gateauswertung. Die Reconciliation umfasste auch die
 **ausführbaren** Artefakte des Profil-A-Bundles.
 
-**Kein Work Package ist `active` oder `in-review`**; **zuletzt abgeschlossen ist
-CBP-WP-021**. **Kein Folge-Work-Package ist autorisiert. CBP-WP-022 ist nicht
-registriert, nicht begonnen und nicht autorisiert** — das KB-04-Paket bleibt ein
-**nicht autorisierter späterer Kandidat**.
+**CBP-WP-022** (KB-04 Enforcement Stage 1) ist unter **D-057** (`accepted`, **A0**,
+2026-08-03) **registriert** und steht auf **`in-review`** in **Phase B0 –
+Registration and Authority Baseline**. „Enforcement Stage 1“ bezeichnet
+**Stufe 1 der neunstufigen technischen Durchsetzungsreihenfolge** (**OS-Dateirechte**);
+**KB-04 ist die unterste tragende Ebene**. **KB-04 bleibt `DOCUMENTED ONLY`** — die
+Registrierung ist **keine Implementierungsfreigabe**; **B1 und B2 sind nicht
+autorisiert**. `ADR_NOT_REQUIRED` gilt **ausschließlich** für die
+Registration-Decision. Genau **ein** Work Package ist `in-review` (CBP-WP-022);
+**zuletzt abgeschlossen ist CBP-WP-021**. **CBP-WP-023 ist nicht registriert,
+nicht begonnen und nicht autorisiert.**
 
 > **Titelkorrektur in CBP-WP-009.** Diese Übersichtstabelle trug bis dahin die
 > Titel eines verworfenen Entwurfs der Work-Package-Karte (009 „Repository and
@@ -723,6 +730,63 @@ ausgeführt**: Bundle-Test **166 OK**, Gesamtsuite **724 OK**, je **0
 **KB-04 ist nicht Bestandteil von CBP-WP-021.** Das spätere KB-04-Paket ist als
 **nicht autorisierter späterer Kandidat** vorgemerkt; **CBP-WP-022 ist weder
 registriert noch autorisiert**.
+
+---
+
+## CBP-WP-022
+
+| Feld | Wert |
+| --- | --- |
+| Titel | **KB-04 Enforcement Stage 1** |
+| Typ | **security-foundation enforcement** (Stufe 1) |
+| Prompt Mode | **Full** · Context Budget **B2 – Standard** |
+| Status | **`in-review`** |
+| Aktuelle Phase | **Phase B0 – Registration and Authority Baseline** |
+| Registration Decision | **D-057** (konsolidiert, A–M), `accepted`, **A0**, 2026-08-03 |
+| ADR | **`ADR_NOT_REQUIRED`** — **nur für die Registration-Decision** |
+| Human-Maintainer-Freigabe | **Registration B0 authorized** |
+| Technische Implementierung | **nicht autorisiert** |
+| Commit | **nicht** ausgeführt (Commit-Autorität beim Human Maintainer) |
+
+**KB-04 ist der Kontrollbereich „Dateisystemrechte“.** Ziel: **Deny-by-default
+auf Dateiebene**; Bedrohung: **Direktzugriff unter Umgehung der Anwendung**.
+Anforderung laut Spezifikation: explizite Owner- und Gruppenregeln, **keine
+world-writable Dateien**, **kein Schreibrecht auf Canonical durch Retrieval oder
+Ingest**, **Symlink-Escapes blockieren**, sichere Dateierstellung und **atomare
+Writes**. Negativtests **NT-04** und **NT-05**, Stop-Bedingung **SB-S04**,
+Nachweisstufe **4**, Durchsetzungsstufe **1**.
+
+**„Enforcement Stage 1“** bezeichnet **Stufe 1 der neunstufigen technischen
+Durchsetzungsreihenfolge** (Spezifikation §11) — **OS-Dateirechte**, *„gilt
+noch, wenn die Anwendung kompromittiert ist“*. Der englische Begriff ist eine
+**Benennung** dieser bestehenden Stufe, **keine neue Definition**.
+
+**Phase B0 (dieser Stand, uncommitted):** CBP-WP-022 registriert; **D-057**
+dokumentiert (A Gegenstand · B kanonische KB-04-Bedeutung · C
+Stage-1-Zuordnung · D bestehende Registrierung als Control · E
+Voraussetzungen · F OD-37 · G Registrierungsgrenze · H Stage-1-Grenze
+· I ADR-Status · J unveränderte Grenzen · K Human-Authority ·
+L Folge-WP · M Commit-Autorität). Der repository-weite
+KB-04-Authority-Audit ergab **keinen Widerspruch**.
+
+**Ausdrücklich nicht autorisiert:** technische Implementierung ·
+Runtime-Code · Tests · Bundle- oder Validatoränderung ·
+Control-Hochstufung · Gateauswertung · Capability-Änderung ·
+Security-Testausführung · Stage 2 · Infrastruktur · RT-2 ·
+Persistenz · Folge-Work-Package.
+
+**Unverändert:** KB-04 und die übrigen elf Controls bleiben
+`DOCUMENTED ONLY`; beide Runtime-Gates `NOT EVALUATED`; Capabilities **0 von 29**;
+Security-Foundation-Tests **0 von 32** und **0 von 1**; **R-20 offen**; **R-33
+unverändert 18/21**; **keine neue Risiko-ID**.
+
+**Offene Voraussetzung:** **OD-37** (P1, Deployment Required) betrifft die
+produktive Isolation auf der Ziel-VM für KB-03 und KB-04 und bleibt
+**offen**. Die Nachweisstufe 4 verlangt eine **reale Profil-A-Instanz**, die
+**nicht existiert**.
+
+**Vor einer B1-Freigabe ist die ADR-Erforderlichkeit anhand des dann
+konkretisierten Designs erneut zu bewerten.**
 
 ---
 

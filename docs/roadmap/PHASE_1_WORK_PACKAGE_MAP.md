@@ -8,7 +8,7 @@
 | Backlog-Grundlage | [PHASE_1_BACKLOG.md](PHASE_1_BACKLOG.md) (P1–P5) |
 | Erfasst in | CBP-WP-008 |
 | Autoritätsklasse | A3 |
-| Stand | 2026-08-03 — CBP-WP-021 Phase C |
+| Stand | 2026-08-03 — CBP-WP-022 Phase B0 |
 
 > **Diese Karte ist ein historisches Planungsartefakt.** Sie schnitt bewusst nur
 > **F1 bis F5** (CBP-WP-009 bis CBP-WP-014). Die **ursprüngliche
@@ -49,7 +49,8 @@ nur zur Statusvollständigkeit geführt:
 | **CBP-WP-018** | Security Foundation Readiness Contract & Synthetic Form-Validator | **`committed`** — `4dec921` (Governance), `5ee2e83` (Implementation) |
 | **CBP-WP-019** | Deployment Readiness Intake and Profile-A Target Specification | **`committed`** — `3c437f2` |
 | **CBP-WP-020** | Controlled Profile-A Deployment Foundation | **`committed`** — `17057e2` (B0), `9c6c0fb` (B1/B2), `d6a1a3c` (C) |
-| **CBP-WP-021** | Canonical Security Test Inventory Reconciliation | **`committed`** — `0cb4ea9` (B0), `271acc7` (B1/B2) |
+| **CBP-WP-021** | Canonical Security Test Inventory Reconciliation | **`committed`** — `0cb4ea9` (B0), `271acc7` (B1/B2), `0344774` (C) |
+| **CBP-WP-022** | KB-04 Enforcement Stage 1 | **`in-review`** (Phase B0) — D-057, Registration-only, uncommitted |
 
 **CBP-WP-020 ist `committed` und `complete`** (D-055): Phase B0 `17057e2`,
 Phase B1/B2 `9c6c0fb`. Das **Profil-A-Bundle** liegt als Repository-Artefakt mit
@@ -76,8 +77,14 @@ Reconciliation umfasste auch die **ausführbaren** Profil-A-Artefakte.
 > **In CBP-WP-021 Phase B1 korrigiert.** Diese Karte führte zuvor „31
 > Negativtests"; der Wert ist auf den kanonischen Stand **32** gebracht.
 
-**CBP-WP-022 ist nicht registriert, nicht begonnen und nicht autorisiert** — das
-KB-04-Paket ist lediglich als möglicher Kandidat vorgemerkt.
+**CBP-WP-022 ist registriert** (D-057, `accepted`/A0, 2026-08-03) und steht auf
+**`in-review`** in **Phase B0 – Registration and Authority Baseline**. Titel:
+**KB-04 Enforcement Stage 1** — Stufe 1 der neunstufigen Durchsetzungsreihenfolge
+(**OS-Dateirechte**). **KB-04 bleibt `DOCUMENTED ONLY`; die technische
+Implementierung ist nicht autorisiert, B1 und B2 sind nicht freigegeben.**
+`ADR_NOT_REQUIRED` gilt **nur** für die Registration-Decision; die ADR-Frage der
+späteren Umsetzung ist vor einer B1-Freigabe neu zu bewerten. **CBP-WP-023 ist
+nicht registriert und nicht autorisiert.**
 
 **Die ersten drei sind `docs-only`.** CBP-WP-012 bis CBP-WP-015 sind committed;
 sie erzeugten lokale, synthetisch testbare, **deaktivierte** Prototypen —

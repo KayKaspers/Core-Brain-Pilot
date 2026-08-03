@@ -23,14 +23,15 @@ verweigern deterministisch.
 
 | Feld | Wert |
 | --- | --- |
-| Aktuelles Work Package | **keines** — zuletzt abgeschlossen **CBP-WP-021** (`committed`, `complete`, 2026-08-03; **D-056**; kanonisches Security-Testinventar **32 / 1 / 33**, **0 von 32** und **0 von 1** ausgeführt; B0 `0cb4ea9`, B1/B2 `271acc7`). Zuvor abgeschlossen **CBP-WP-020** (`committed`, `complete`; **D-055**; **Z1 erreicht / S2 abgeschlossen / P1 eingehalten**; B0 `17057e2`, B1/B2 `9c6c0fb`, C `d6a1a3c`). **CBP-WP-022 nicht registriert, nicht autorisiert** |
+| Aktuelles Work Package | **CBP-WP-022** (`in-review`, **Phase B0 – Registration and Authority Baseline**) — **D-057** (`accepted`, **A0**, 2026-08-03), `ADR_NOT_REQUIRED` **nur für die Registration**; **KB-04 Enforcement Stage 1** = Stufe 1 der neunstufigen Durchsetzungsreihenfolge (**OS-Dateirechte**); KB-04 bleibt **`DOCUMENTED ONLY`**. **Technische Implementierung nicht autorisiert; B1 und B2 nicht freigegeben.** Zuletzt abgeschlossen **CBP-WP-021** (`committed`, `complete`; B0 `0cb4ea9`, B1/B2 `271acc7`, C `0344774`). **CBP-WP-023 nicht registriert, nicht autorisiert** |
+| Zuletzt abgeschlossen | **CBP-WP-021** (`committed`, `complete`, 2026-08-03; **D-056**; kanonisches Security-Testinventar **32 / 1 / 33**, **0 von 32** und **0 von 1** ausgeführt; B0 `0cb4ea9`, B1/B2 `271acc7`). Zuvor abgeschlossen **CBP-WP-020** (`committed`, `complete`; **D-055**; **Z1 erreicht / S2 abgeschlossen / P1 eingehalten**; B0 `17057e2`, B1/B2 `9c6c0fb`, C `d6a1a3c`). **CBP-WP-023 nicht registriert, nicht autorisiert** |
 | Gate G0 | **PASSED WITH NOTES** — 2026-07-21 |
 | G0-Kriterien | **47**, dreistufig klassifiziert |
 | davon blockierend | **25** Core Required (zuvor 45) |
 | davon `accepted` | **25** — alle |
 | verbleibende Blocker | **0** |
 | Phase 1 | AUTHORIZED FOR PLANNING — [Backlog](../docs/roadmap/PHASE_1_BACKLOG.md), [Foundation Plan](../docs/roadmap/PHASE_1_FOUNDATION_PLAN.md) |
-| Geplante Work Packages | **keine** — **CBP-WP-021** ist `committed` und `complete` (D-056; B0 `0cb4ea9`, B1/B2 `271acc7`). **CBP-WP-020** ist `committed` und `complete` (D-055; B0 `17057e2`, B1/B2 `9c6c0fb`, C `d6a1a3c`), B3 **ausgeschlossen**; CBP-WP-019 ist `committed` (`3c437f2`, D-054). **CBP-WP-022 nicht registriert, nicht begonnen, nicht autorisiert** — das KB-04-Paket ist lediglich als möglicher Kandidat vorgemerkt |
+| Geplante Work Packages | **CBP-WP-022** `in-review` (D-057, Phase B0, Registration-only, uncommitted). **CBP-WP-021** ist `committed` und `complete` (D-056; B0 `0cb4ea9`, B1/B2 `271acc7`). **CBP-WP-020** ist `committed` und `complete` (D-055; B0 `17057e2`, B1/B2 `9c6c0fb`, C `d6a1a3c`), B3 **ausgeschlossen**; CBP-WP-019 ist `committed` (`3c437f2`, D-054). **CBP-WP-023 nicht registriert, nicht begonnen, nicht autorisiert** — das KB-04-Paket ist lediglich als möglicher Kandidat vorgemerkt |
 | **Repository-Struktur** | **entschieden** — Ziel-Monorepo + Workspace W-3 (ADR-0007); **Migration nicht autorisiert** |
 | **Mappingkonvention** | **entschieden** — ADR-0008; **0 Mappings, 0 Quellen**, Gate `NOT EVALUATED` |
 | **Sicherheitsgrundlage** | **spezifiziert** — ADR-0009; **12 Kontrollen `DOCUMENTED ONLY`** |
@@ -120,7 +121,7 @@ Source-Registry-MVP (beide 2026-07-22); **ADR-0012** (D-046…D-049) den
 Source-Mapping-Draft-Validator (2026-07-27), der **ADR-0008** präzisiert und
 den 31-Feld-Vertrag unverändert lässt.
 
-**56** getroffene Entscheidungen, davon **52** mit A0. **23** offene, davon
+**57** getroffene Entscheidungen, davon **53** mit A0. **23** offene, davon
 **5** mit P0. Geführt in
 [project-system/DECISION_REGISTER.md](../project-system/DECISION_REGISTER.md).
 
@@ -487,12 +488,13 @@ autorisiert.** **R-33 fortgeschrieben von 17/20 auf 18/21** — achtzehnter
 Konsistenzvorgang, identisch in `RISK_REGISTER.md` und `COMPLIANCE_CHECK.md`
 gespiegelt und **genau einmal gezählt**.
 
-Decisions, A0-Decisions und ADRs stehen damit auf **56 / 52 / 13**. Capabilities
-bleiben **0 von 29**, beide Gates `NOT EVALUATED`, die zwölf KB-Kontrollen
-`DOCUMENTED ONLY`, **R-20 offen**, **R-33 fortgeschrieben 17/20 → 18/21** in
-Phase C. **KB-04 ist nicht Bestandteil von CBP-WP-021**; das spätere
-KB-04-Paket ist als möglicher Kandidat **CBP-WP-022** vorgemerkt, aber **weder
-registriert noch autorisiert**.
+Decisions, A0-Decisions und ADRs standen zum Abschluss von CBP-WP-021 auf
+**56 / 52 / 13**. Capabilities bleiben **0 von 29**, beide Gates `NOT EVALUATED`,
+die zwölf KB-Kontrollen `DOCUMENTED ONLY`, **R-20 offen**, **R-33
+fortgeschrieben 17/20 → 18/21** in Phase C. **KB-04 war nicht Bestandteil von
+CBP-WP-021**; das KB-04-Paket ist inzwischen als **CBP-WP-022** registriert
+(D-057, Phase B0, Registration-only) — die **technische Umsetzung bleibt
+nicht autorisiert**.
 
 ## Rückmeldung an Nova
 
