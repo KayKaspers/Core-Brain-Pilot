@@ -268,7 +268,7 @@
   },
   "security_negative_tests": {
     "executed": 0,
-    "total": 31
+    "total": 32
   },
   "services": {
     "control-plane": {

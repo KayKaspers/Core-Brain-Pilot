@@ -25,16 +25,17 @@ reale Durchsetzung**.
 
 **Ein grüner Validatorlauf belegt keine Sicherheitsdurchsetzung.**
 
-## Abgrenzung zu NT-01 bis NT-31
+## Abgrenzung zu NT-01 bis NT-33 und PT-01
 
 Die Prüfungen dieses Runbooks und die zugehörigen Unit Tests heißen und gelten
 ausschließlich als **Profile-A Bundle Validation**.
 
-Sie sind **ausdrücklich nicht**: Security Foundation NT-01 bis NT-31, reale
+Sie sind **ausdrücklich nicht**: Security Foundation NT-01 bis NT-33 oder PT-01, reale
 Containerprüfungen, Infrastruktur- oder Deploymenttests,
 Security-Control-Enforcement-Nachweise oder operative Evidenz.
 
-**Kanonische Kennzahl unverändert: Security-Negativtests ausgeführt 0 von 31.**
+**Kanonische Kennzahl (D-056): 32 Negativtests, 1 Positivtest, 33 Testfälle —
+ausgeführt 0 von 32 Negativtests und 0 von 1 Positivtest.**
 
 ## Standardaufruf
 

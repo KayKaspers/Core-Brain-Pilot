@@ -249,7 +249,7 @@ Kontrolle gilt als implementiert** · OD-34 und OD-35 regelkonform behandelt ·
 | Neue Dokumente | **9** |
 | Kontrollbereiche | **12**, alle **DOCUMENTED ONLY** |
 | Durchsetzungsstufen | **9** |
-| Negativtests | **31** — **0 ausgeführt** |
+| Negativtests / Positivtests / Testfälle | **32** / **1** / **33** — **0 ausgeführt** |
 | Ereignisfelder / -arten | **18 / 17** |
 | Stop-Bedingungen | **16**, davon 10 mit A0 |
 | Readiness-Gate-Punkte | **24**, `NOT EVALUATED` |
@@ -257,6 +257,16 @@ Kontrolle gilt als implementiert** · OD-34 und OD-35 regelkonform behandelt ·
 | **Capabilities `implemented`** | **0 von 29**, unverändert |
 | Geschlossene Risiken | **0** |
 | **Commit / Push** | **nein / nein** |
+
+> **Zählkorrektur, nachgeführt in CBP-WP-021 (D-056, 2026-08-03).** Diese
+> Zusammenfassungszeile führte ursprünglich „Negativtests **31**". Das war der
+> **überholte Gesamtwert** aus der Zeit *vor* dem in diesem Work Package selbst
+> dokumentierten Zählaudit (30 NT + 1 PT = 31) — und zusätzlich **falsch
+> etikettiert**, weil ein Gesamtwert als Negativtestzahl geführt wurde. Der
+> Audit in diesem Dokument korrigierte die Negativtests auf **32** und die
+> Testfälle auf **33**; die Zusammenfassung wurde damals versehentlich nicht
+> mitgeführt. Sie ist jetzt an den eigenen Audit angeglichen. **Der Befund und
+> die historische Darstellung des ursprünglichen Fehlers bleiben unverändert.**
 
 ## Rückmeldung an Nova
 

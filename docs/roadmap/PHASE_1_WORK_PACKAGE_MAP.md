@@ -8,7 +8,7 @@
 | Backlog-Grundlage | [PHASE_1_BACKLOG.md](PHASE_1_BACKLOG.md) (P1–P5) |
 | Erfasst in | CBP-WP-008 |
 | Autoritätsklasse | A3 |
-| Stand | 2026-08-03 — CBP-WP-021 Phase B0 |
+| Stand | 2026-08-03 — CBP-WP-021 Phase B1/B2 |
 
 > **Diese Karte ist ein historisches Planungsartefakt.** Sie schnitt bewusst nur
 > **F1 bis F5** (CBP-WP-009 bis CBP-WP-014). Die **ursprüngliche
@@ -49,7 +49,7 @@ nur zur Statusvollständigkeit geführt:
 | **CBP-WP-018** | Security Foundation Readiness Contract & Synthetic Form-Validator | **`committed`** — `4dec921` (Governance), `5ee2e83` (Implementation) |
 | **CBP-WP-019** | Deployment Readiness Intake and Profile-A Target Specification | **`committed`** — `3c437f2` |
 | **CBP-WP-020** | Controlled Profile-A Deployment Foundation | **`committed`** — `17057e2` (B0), `9c6c0fb` (B1/B2), `d6a1a3c` (C) |
-| **CBP-WP-021** | Canonical Security Test Inventory Reconciliation | **`in-review`** (Phase B0) — uncommitted |
+| **CBP-WP-021** | Canonical Security Test Inventory Reconciliation | **`in-review`** (Phase B1/B2) — B0 `committed` `0cb4ea9`, B1/B2 uncommitted |
 
 **CBP-WP-020 ist `committed` und `complete`** (D-055): Phase B0 `17057e2`,
 Phase B1/B2 `9c6c0fb`. Das **Profil-A-Bundle** liegt als Repository-Artefakt mit
@@ -73,9 +73,8 @@ Ableitungswert. **Ausgeführt sind 0 von 32 und 0 von 1.** Die **Durchführung**
 der Reconciliation — einschließlich der ausführbaren Profil-A-Artefakte —
 erfolgt erst in **B1/B2**.
 
-> **Diese Karte führt an anderer Stelle noch „31 Negativtests".** Die Korrektur
-> dieser und aller weiteren Fundstellen ist ausdrücklich Gegenstand von
-> **CBP-WP-021 Phase B1** und in Phase B0 **bewusst nicht** ausgeführt.
+> **In CBP-WP-021 Phase B1 korrigiert.** Diese Karte führte zuvor „31
+> Negativtests"; der Wert ist auf den kanonischen Stand **32** gebracht.
 
 **CBP-WP-022 ist nicht registriert, nicht begonnen und nicht autorisiert** — das
 KB-04-Paket ist lediglich als möglicher Kandidat vorgemerkt.
@@ -149,7 +148,7 @@ Quellen später angebunden werden.
 | **Erwartete Risiken** | **R-25**, **R-27**, R-26 |
 | **Review Gate** | Nova-Review; Abnahme der Testdefinition durch den Human Maintainer |
 | **Status** | **`committed`** — ausgeführt am 2026-07-21, Commit `8a7c455` |
-| **Ergebnis** | **D-034 bis D-037** (A0) · [ADR-0009](../decisions/ADR-0009-technische-sicherheitsgrundlage.md) `accepted` · Spezifikation (18 Abschnitte), Identitätsmodell, Secret-Vertrag, Egress-Policy, Evidence-Policy, Abnahmematrix (31 Negativtests), Readiness Gate (24 Punkte, `NOT EVALUATED`). **OD-34 und OD-35 geschlossen** |
+| **Ergebnis** | **D-034 bis D-037** (A0) · [ADR-0009](../decisions/ADR-0009-technische-sicherheitsgrundlage.md) `accepted` · Spezifikation (18 Abschnitte), Identitätsmodell, Secret-Vertrag, Egress-Policy, Evidence-Policy, Abnahmematrix (**32** Negativtests, 1 Positivtest, 33 Testfälle), Readiness Gate (24 Punkte, `NOT EVALUATED`). **OD-34 und OD-35 geschlossen** |
 | **Implementierung autorisiert** | **nein** |
 
 **Auflage 1 der G0-Entscheidung** beginnt hier — als Spezifikation, nicht als

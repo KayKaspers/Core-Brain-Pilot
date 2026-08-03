@@ -137,7 +137,7 @@ RT-2-Restore.
 Alle **zwölf Security Controls bleiben `DOCUMENTED ONLY`**. **Kein** Control
 darf durch WP-020 auf `implemented`, `tested` oder `enforced` gesetzt werden.
 Die Offline-Validatoren prüfen **ausschließlich Artefakte und Verträge**, nicht
-die reale Durchsetzung auf Profil A. **0 von 31 Negativtests** werden ausgeführt.
+die reale Durchsetzung auf Profil A. **0 von 32 Negativtests** werden ausgeführt.
 
 ## Capability- und Gate-Grenze (D-055 H)
 
@@ -229,9 +229,10 @@ Eintrag fail-closed übersprungen wird und zusätzlich `BND-FILE-MISSING`
 auslöst.
 
 > **Diese Tests sind Profile-A Bundle Validation Tests.** Sie sind
-> ausdrücklich **keine** Security Foundation NT-01 bis NT-31, **keine** realen
-> Containerprüfungen, **kein** Enforcement-Nachweis und **keine** operative
-> Evidenz. **Kanonische Kennzahl unverändert: 0 von 31.**
+> ausdrücklich **keine** Security Foundation NT-01 bis NT-33 und **kein**
+> PT-01, **keine** realen Containerprüfungen, **kein** Enforcement-Nachweis und
+> **keine** operative Evidenz. **Kanonische Kennzahl (D-056): 0 von 32
+> Negativtests, 0 von 1 Positivtest.**
 
 ## Zulässige Statusaussagen
 
@@ -263,7 +264,7 @@ Dieses Work Package belegt **nicht**:
 | Nicht belegt | Tatsächlicher Stand |
 | --- | --- |
 | Ein Deployment existiere | **keines** — keine VM, kein Host, keine Runtime |
-| Eine Kontrolle sei implementiert, getestet oder enforced | **12 `DOCUMENTED ONLY`**, 0 von 31 Negativtests |
+| Eine Kontrolle sei implementiert, getestet oder enforced | **12 `DOCUMENTED ONLY`**, 0 von 32 Negativtests |
 | RT-2 existiere | **nicht implementiert** — nur Vertrag geplant |
 | Ein Gate sei ausgewertet | beide **`NOT EVALUATED`** |
 | Eine Capability sei erreicht | **0 von 29** |
@@ -320,4 +321,4 @@ Maintainer und Nova separat bestimmt.
 artifact implemented* und *offline validation passed* — **nicht deployed, nicht
 operational, nicht production-ready**. Capabilities **0/29**, beide Gates
 `NOT EVALUATED`, zwölf Controls `DOCUMENTED ONLY`, Security-Foundation-NT-Tests
-**0/31**, **R-20 offen**.
+**0/32** (D-056), **R-20 offen**.

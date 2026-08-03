@@ -6,7 +6,7 @@
 | Typ | **governance-and-validation reconciliation** |
 | Prompt Mode | **Full** · Context Budget **B2 – Standard** |
 | Status | **`in-review`** |
-| Aktuelle Phase | **Phase B0 – Registration and Canonical Authority** |
+| Aktuelle Phase | **Phase B1/B2 – Coordinated Reconciliation and Validation** |
 | A0-Entscheidung | **D-056** (konsolidiert, A–U) |
 | ADR | **not required** (`ADR_NOT_REQUIRED`) |
 | Kanonische Authority | **32** Negativtests · **1** Positivtest · **33** Testfälle |
@@ -15,8 +15,8 @@
 | Gates | Mapping Activation `NOT EVALUATED` · Security Foundation Readiness `NOT EVALUATED` |
 | Security Controls | **12 `DOCUMENTED ONLY`** |
 | R-20 | **offen** |
-| R-33 | **17/20** — in B0 unverändert, Fortschreibung erst in Phase C |
-| Commit | **nicht ausgeführt** — Commit-Autorität beim Human Maintainer |
+| R-33 | **17/20** — unverändert, Fortschreibung erst in Phase C |
+| Commit | **B0 `committed` `0cb4ea9`** · **B1/B2 nicht committed** — Commit-Autorität beim Human Maintainer |
 
 ---
 
@@ -140,42 +140,70 @@ ausführbare Artefakte gewandert.
 | Phase | Gegenstand | Stand |
 | --- | --- | --- |
 | **A** | Authority- und Scope-Analyse (read-only) | **abgeschlossen** |
-| **B0** | Registrierung und D-056 | **aktiv (dieser Stand, uncommitted)** |
-| **B1** | Dokumentarische und ausführbare Reconciliation | **nicht begonnen** |
-| **B2** | Vollständige Tests, Validator- und Konsistenzprüfung | **nicht begonnen** |
+| **B0** | Registrierung und D-056 | **abgeschlossen** — `committed` `0cb4ea9` |
+| **B1** | Dokumentarische und ausführbare Reconciliation | **implemented, uncommitted** |
+| **B2** | Vollständige Tests, Validator- und Konsistenzprüfung | **validated, uncommitted** |
 | **C** | Post-Commit-Reconciliation | **nicht begonnen** |
 
 **Keine reale Infrastrukturphase.**
 
 ---
 
-## Übergangszustand nach B0
+## Stand nach B1/B2
 
-**D-056 stellt 32 verbindlich fest. Die Durchführung erfolgt erst in B1/B2.**
+**Die Übergangsabweichung ist aufgelöst.** Die Reconciliation auf **32 / 1 / 33**
+ist durchgeführt.
 
-Bis dahin besteht eine **bekannte, ausdrücklich eingegrenzte
-Übergangsabweichung**:
+### Koordinierte Änderung der ausführbaren Artefakte
 
-| Feststellung |
-| --- |
-| Einige committete Dokumente und ausführbare Profil-A-Artefakte führen weiterhin **31** |
-| Die Abweichung ist **bekannt** und **aktiv in CBP-WP-021 eingegrenzt** |
-| Sie wird in **B1/B2** korrigiert |
-| Das bestehende Profil-A-Bundle bleibt bis zur koordinierten Änderung **unverändert und gegen seinen bisherigen Vertrag gültig** |
-| Es darf bis zur B1/B2-Korrektur **nicht als kanonisch hinsichtlich der Security-Test-Gesamtzahl** bezeichnet werden |
+Die drei Artefakte wurden **atomar in einem Lauf** geändert:
 
-> **Der Bundlevertrag ist fail-closed.** Eine Änderung von `bundle.json` ohne die
-> gleichzeitige Anpassung von Validator und Testsuite bricht die Validierung
-> sofort. Deshalb erfolgt die Korrektur **koordiniert in einem Schritt** und
-> **nicht** in B0.
+| Artefakt | vorher | nachher |
+| --- | --- | --- |
+| `deployments/profile-a/bundle.json` | `"total": 31` | **`"total": 32`** |
+| `deployments/profile-a/validate.py` | erzwingt `total == 31` | **erzwingt `total == 32`** |
+| `tests/test_profile_a_deployment_bundle.py` | `…are_zero_of_31`, erwartet `(0, 31)` | **`…are_zero_of_32`, erwartet `(0, 32)`** |
 
-### In B0 nicht verändert
+Schema, Issue-Codes, Exitcodes und Ausgabeformat sind **unverändert**. Der
+Validator meldet weiterhin bei **jedem** anderen Wert als 32 fail-closed
+`BND-CONTRACT-NEGATIVE-TESTS`. Die Testzahl ist **unverändert 166**.
 
-`deployments/**` · `tests/**` · `core/**` · `docs/operations/**` ·
-`docs/runtime/**` · `docs/security/**` · `docs/decisions/**` ·
-`project-system/RISK_REGISTER.md` · `project-system/COMPLIANCE_CHECK.md` ·
-`project-system/CAPABILITY_MATRIX.md` · `work-packages/CBP-WP-011.md` ·
-`work-packages/CBP-WP-020.md` · `docs/roadmap/PHASE_1_FOUNDATION_PLAN.md`.
+### Dokumentarische Reconciliation
+
+Korrigiert: `work-packages/CBP-WP-011.md` (falsch etikettierte
+Zusammenfassungszeile, mit Erläuterung), `docs/roadmap/PHASE_1_FOUNDATION_PLAN.md`,
+`docs/roadmap/PHASE_1_WORK_PACKAGE_MAP.md`, die drei Profil-A-Runbooks
+beziehungsweise der Runtime-Vertrag, `work-packages/CBP-WP-020.md` sowie die
+Statusspiegel.
+
+**Historische Darstellungen bleiben erhalten:** die Befundbeschreibung in
+CBP-WP-011 („Ursprünglich: 31 Tests, davon 30 Negativtests…"), die dortige
+Korrekturtabelle (Vorher 31 → 33) und die R-33-Chronologieeinträge dokumentieren
+weiterhin unverändert, dass **31 der frühere fehlerhafte Wert** war.
+
+### Phase B1/B2.1 — Restfundstelle geschlossen
+
+`deployments/profile-a/README.md` führte weiterhin „0 von 31 ausgeführt". Der
+Pfad wurde für einen eng begrenzten Nachlauf zusätzlich autorisiert und auf
+**0 von 32** korrigiert (mit Ergänzung **0 von 1** Positivtest). **Das
+Profil-A-Bundle ist damit intern konsistent.**
+
+**Bundle-Abhängigkeitsprüfung:** Die README ist in `bundle.json` **namentlich**
+geführt und Teil der Exakt-sieben-Dateien-Regel. Es existiert **kein** SHA-256,
+**keine** Dateigröße, **kein** aggregierter Bundle-Hash und **kein**
+manifestierter Inhaltswert für sie; weder `validate.py` noch die Bundle-Tests
+prüfen ihren Inhalt. **Es waren daher keine abhängigen Metadaten anzupassen** —
+die Korrektur blieb auf die eine Textzeile beschränkt.
+
+### Verbleibende Fundstellen — Phase C
+
+| Datei | Fundstelle | Charakter |
+| --- | --- | --- |
+| `project-system/RISK_REGISTER.md` | R-33-Chronologie, siebzehnter Vorgang | dokumentiert den damaligen Stand — Datei bisher nicht im Scope |
+| `project-system/COMPLIANCE_CHECK.md` | R-33-Chronologie, siebzehnter Vorgang | dokumentiert den damaligen Stand — Datei bisher nicht im Scope |
+
+Beide sind **Chronologieeinträge** und werden sachgerecht in **Phase C**
+behandelt. **Es verbleibt keine sachlich fehlerhafte aktuelle Fundstelle.**
 
 ---
 
@@ -221,11 +249,14 @@ Mapping-Aktivierung · Commitzähler-Governance · CBP-WP-022 · Commit · Push 
 Release.
 
 **In B0 wurden ausschließlich eine neue Work-Package-Datei angelegt und
-Authority- sowie Statusspiegel nachgeführt.**
+Authority- sowie Statusspiegel nachgeführt. In B1/B2 wurden ausschließlich die
+kanonische Testinventarzahl reconciliiert und die zugehörige Validierung
+ausgeführt** — keine neue Test-ID, kein geänderter NT- oder PT-Testinhalt, keine
+Testausführung der Security Foundation.
 
-**R-33 bleibt in diesem uncommitteten B0-Lauf unverändert bei 17
-Konsistenzvorgängen in 20 Work Packages.** `RISK_REGISTER.md` und
-`COMPLIANCE_CHECK.md` wurden **nicht** verändert.
+**R-33 bleibt unverändert bei 17 Konsistenzvorgängen in 20 Work Packages.**
+`RISK_REGISTER.md` und `COMPLIANCE_CHECK.md` wurden **nicht** verändert;
+die Fortschreibung erfolgt erst in Phase C.
 
 **Die Commitzähler-Governance C3 ist fachlich zur Kenntnis genommen, aber
 ausdrücklich nicht Bestandteil von D-056 oder CBP-WP-021.**

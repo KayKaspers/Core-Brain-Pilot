@@ -184,7 +184,7 @@ Quelle und kein Validator. **OD-05 und OD-06 bleiben offen**, das
 Aktivierungsgate steht auf `NOT EVALUATED`.
 
 **Stand nach CBP-WP-011:** Der Spezifikationsteil von **F3 ist erreicht** —
-zwölf Kontrollbereiche, neun Durchsetzungsstufen, 31 Negativtests und ein
+zwölf Kontrollbereiche, neun Durchsetzungsstufen, 32 Negativtests und ein
 Readiness Gate liegen vor. **F3 ist damit nicht abgeschlossen**: Es existiert
 keine Runtime, keine Identität, kein Secret Resolver, keine Egress-Regel und
 kein RT-2-Speicher.

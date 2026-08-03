@@ -3,11 +3,11 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Aktuelles Work Package | **CBP-WP-021** (`in-review`, **Phase B0 – Registration and Canonical Authority**) — **D-056**, `ADR_NOT_REQUIRED`; kanonisch **32 Negativtests / 1 Positivtest / 33 Testfälle**, **0 ausgeführt**; zuletzt abgeschlossen **CBP-WP-020** (`committed`, `complete`; B0 `17057e2`, B1/B2 `9c6c0fb`); **uncommitted**. **CBP-WP-022 nicht registriert, nicht autorisiert.** |
+| Aktuelles Work Package | **CBP-WP-021** (`in-review`, **Phase B1/B2 – Coordinated Reconciliation and Validation**) — **D-056**, `ADR_NOT_REQUIRED`; kanonisch **32 Negativtests / 1 Positivtest / 33 Testfälle**, **0 ausgeführt**; zuletzt abgeschlossen **CBP-WP-020** (`committed`, `complete`; B0 `17057e2`, B1/B2 `9c6c0fb`); **uncommitted**. **CBP-WP-022 nicht registriert, nicht autorisiert.** |
 | Gate G0 | **PASSED WITH NOTES** — 2026-07-21 |
 | Überarbeitet in | **CBP-WP-016** |
 | Autoritätsklasse | A2 |
-| Stand | 2026-08-03 — CBP-WP-021 Phase B0 |
+| Stand | 2026-08-03 — CBP-WP-021 Phase B1/B2 |
 
 Spalten nach `WORK_PACKAGE_QUEUE_TEMPLATE.md` (NDF v1.0.0).
 
@@ -47,7 +47,7 @@ Spalten nach `WORK_PACKAGE_QUEUE_TEMPLATE.md` (NDF v1.0.0).
 | CBP-WP-018 | **Security Foundation Readiness Contract & Synthetic Form-Validator** | P1 | **`committed`** | [work-packages/CBP-WP-018.md](../work-packages/CBP-WP-018.md) |
 | CBP-WP-019 | **Deployment Readiness Intake and Profile-A Target Specification** | P1 | **`committed`** | [work-packages/CBP-WP-019.md](../work-packages/CBP-WP-019.md) |
 | CBP-WP-020 | **Controlled Profile-A Deployment Foundation** | P1 | **`committed`** (B0 `17057e2`, B1/B2 `9c6c0fb`) | [work-packages/CBP-WP-020.md](../work-packages/CBP-WP-020.md) |
-| CBP-WP-021 | **Canonical Security Test Inventory Reconciliation** | P1 | **`in-review`** (Phase B0) | [work-packages/CBP-WP-021.md](../work-packages/CBP-WP-021.md) |
+| CBP-WP-021 | **Canonical Security Test Inventory Reconciliation** | P1 | **`in-review`** (Phase B1/B2; B0 `committed` `0cb4ea9`) | [work-packages/CBP-WP-021.md](../work-packages/CBP-WP-021.md) |
 
 **Kein Work Package ist als `proposed` geführt.** **CBP-WP-019** (Deployment
 Readiness Intake and Profile-A Target Specification) steht auf **`in-review`** in
@@ -71,7 +71,7 @@ Bestandteil** von CBP-WP-020.
 
 **CBP-WP-021** (Canonical Security Test Inventory Reconciliation) ist unter
 **D-056** (`ADR_NOT_REQUIRED`) **registriert** und steht auf **`in-review`** in
-**Phase B0 – Registration and Canonical Authority**. D-056 stellt das kanonische
+**Phase B1/B2 – Coordinated Reconciliation and Validation**; B0 ist `committed` (`0cb4ea9`). D-056 stellt das kanonische
 Security-Foundation-Testinventar verbindlich fest: **32 Negativtests**
 (NT-01…NT-24 und NT-26…NT-33), **1 Positivtest** (PT-01), **33 Testfälle**;
 **NT-25 bleibt nach Regel TT-5 bewusst frei**, **NT-32 und NT-33 sind gültig**.
@@ -603,8 +603,8 @@ UID-/GID-Ermittlung, keine Secret-Auflösung, kein Backup, kein Restore; **keine
 Datei verschoben, umbenannt oder gelöscht**; **kein Runtime-Code geändert**.
 
 **Die 166 neuen Tests sind Profile-A Bundle Validation Tests** — ausdrücklich
-**keine** Security Foundation NT-01 bis NT-31. **Kanonische Kennzahl unverändert:
-Security-Negativtests ausgeführt 0 von 31.**
+**keine** Security Foundation NT-01 bis NT-33 und **kein** PT-01. **Kanonische
+Kennzahl (D-056): ausgeführt 0 von 32 Negativtests und 0 von 1 Positivtest.**
 
 **B3 (reale Bereitstellung) ist ausdrücklich nicht Bestandteil** von CBP-WP-020
 und verlangt ein eigenes Folge-Work-Package mit eigenem Human Gate.
@@ -633,7 +633,7 @@ A0-Decisions und ADRs standen zum Abschluss von CBP-WP-020 auf
 | Typ | **governance-and-validation reconciliation** |
 | Prompt Mode | **Full** · Context Budget **B2 – Standard** |
 | Status | **`in-review`** |
-| Aktuelle Phase | **Phase B0 – Registration and Canonical Authority** |
+| Aktuelle Phase | **Phase B1/B2 – Coordinated Reconciliation and Validation** |
 | A0-Entscheidung | **D-056** (konsolidiert, A–U) |
 | ADR | **not required** (`ADR_NOT_REQUIRED`) |
 | Kanonische Authority | **32** Negativtests · **1** Positivtest · **33** Testfälle |
@@ -655,7 +655,7 @@ entspricht dem von CBP-WP-011 auf **33** korrigierten **Gesamtwert**
 (30 NT + 1 PT), der in einer nicht nachgeführten Zusammenfassungszeile
 fälschlich als „Negativtests" geführt und von dort weitergereicht wurde.
 
-**Phase B0 (dieser Stand, uncommitted):** CBP-WP-021 registriert; **D-056**
+**Phase B0 (`committed` `0cb4ea9`):** CBP-WP-021 registriert; **D-056**
 dokumentiert (A kanonischer Wert · B Positivtest · C Gesamtinventar · D NT-25 ·
 E NT-32/NT-33 · F Zahl 31 · G Authority-Rangfolge · H Zuständigkeit ·
 I Reconciliation-Umfang inklusive ausführbarer Artefakte · J keine
@@ -664,19 +664,35 @@ N R-20 · O R-33 · P Risiko · Q `ADR_NOT_REQUIRED` · R KB-04 ausgeschlossen �
 S CBP-WP-022 nur vorgemerkt · T Commitzähler-Governance ausgenommen ·
 U Commit-Autorität).
 
-**Übergangsabweichung, ausdrücklich dokumentiert:** D-056 stellt **32** fest;
-einige committete Dokumente und **ausführbare Profil-A-Artefakte**
-(`bundle.json`, `validate.py`, Bundle-Tests) führen weiterhin **31**. Die
-Abweichung ist **bekannt und in CBP-WP-021 eingegrenzt** und wird in **B1/B2**
-korrigiert. Das bestehende Profil-A-Bundle bleibt bis zur koordinierten Änderung
-**unverändert und gegen seinen bisherigen Vertrag gültig**; es darf bis dahin
-**nicht als kanonisch hinsichtlich der Security-Test-Gesamtzahl** bezeichnet
-werden. Der Bundlevertrag ist fail-closed — Bundle, Validator und Tests werden
-deshalb **in einem koordinierten Schritt** geändert, nicht in B0.
+**Phase B1/B2 (dieser Stand, uncommitted):** Die **Übergangsabweichung ist
+aufgelöst**. Die drei ausführbaren Artefakte wurden **atomar in einem Lauf**
+geändert: `bundle.json` führt `"total": 32`, `validate.py` erzwingt **32**, und
+der Bundle-Test heißt `test_security_negative_tests_are_zero_of_32` und erwartet
+`(0, 32)`. Schema, Issue-Codes, Exitcodes und Ausgabeformat sind
+**unverändert**; der Validator meldet weiterhin bei **jedem** anderen Wert
+fail-closed. Dokumentarisch korrigiert wurden `CBP-WP-011.md` (die falsch
+etikettierte Zusammenfassungszeile, mit Erläuterung), beide Roadmap-Dokumente,
+die Profil-A-Runbooks, der Runtime-Vertrag, `CBP-WP-020.md` und die
+Statusspiegel.
 
-**Nicht geändert in B0:** kein Bundle, kein Validator, keine Tests, keine
-Runbooks, kein Runtime-Vertrag, keine Acceptance Matrix, kein WP-011, kein
-WP-020, keine vollständige 31→32-Korrektur, kein KB-04.
+**Historische Darstellungen bleiben erhalten:** die Befundbeschreibung in
+CBP-WP-011 („Ursprünglich: 31 Tests, davon 30 Negativtests…"), die dortige
+Korrekturtabelle (Vorher 31 → 33) und die R-33-Chronologieeinträge dokumentieren
+weiterhin unverändert, dass **31 der frühere fehlerhafte Wert** war.
+
+**Phase B1/B2.1 — Restfundstelle geschlossen:** `deployments/profile-a/README.md`
+führte weiterhin „0 von 31 ausgeführt" und wurde in einem eng begrenzten
+Nachlauf auf **0 von 32** korrigiert. Die Abhängigkeitsprüfung ergab: die README
+ist in `bundle.json` **namentlich** geführt und Teil der
+Exakt-sieben-Dateien-Regel, es existiert jedoch **kein** Hash, **keine**
+Dateigröße, **kein** Aggregat und **keine** Inhaltsprüfung durch Validator oder
+Tests — **abhängige Metadaten waren nicht anzupassen**. **Das Bundle ist damit
+intern konsistent.** Die entsprechenden Angaben in `RISK_REGISTER.md` und
+`COMPLIANCE_CHECK.md` sind **Chronologieeinträge** und werden sachgerecht in
+**Phase C** behandelt.
+
+**Nicht geändert:** keine Acceptance Matrix, kein D-056, keine NT-/PT-Inhalte,
+keine neue Test-ID, kein KB-04.
 
 **Keine Control-Hochstufung, keine Testausführung, keine Gateauswertung.**
 Capability-Stand unverändert **0 von 29**; beide Runtime-Gates bleiben

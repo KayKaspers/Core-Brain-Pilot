@@ -23,7 +23,7 @@ kein Backup ausgeführt.
 | eine erfolgte Installation |
 | eine Betriebs- oder Produktivfreigabe |
 | eine wirksame Sicherheitskontrolle (**12 bleiben `DOCUMENTED ONLY`**) |
-| ein ausgeführter Security-Negativtest (**0 von 31**) |
+| ein ausgeführter Security-Negativtest (**0 von 32**, D-056) |
 | eine Gateauswertung (beide **`NOT EVALUATED`**) |
 | ein CBP- oder RT-2-Restore-Nachweis (**R-20 bleibt offen**) |
 

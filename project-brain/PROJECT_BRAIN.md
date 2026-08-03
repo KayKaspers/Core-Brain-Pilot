@@ -23,14 +23,14 @@ verweigern deterministisch.
 
 | Feld | Wert |
 | --- | --- |
-| Aktuelles Work Package | **CBP-WP-021** (`in-review`, **Phase B0**) — **D-056**, `ADR_NOT_REQUIRED`; kanonisches Security-Testinventar **32 / 1 / 33**, **0 ausgeführt**; uncommitted. Zuletzt abgeschlossen **CBP-WP-020** (`committed`, `complete`; **D-055**; **Z1 erreicht / S2 abgeschlossen / P1 eingehalten**; B0 `17057e2`, B1/B2 `9c6c0fb`, C `d6a1a3c`). **CBP-WP-022 nicht registriert, nicht autorisiert** |
+| Aktuelles Work Package | **CBP-WP-021** (`in-review`, **Phase B1/B2**) — **D-056**, `ADR_NOT_REQUIRED`; kanonisches Security-Testinventar **32 / 1 / 33**, **0 ausgeführt**; uncommitted. Zuletzt abgeschlossen **CBP-WP-020** (`committed`, `complete`; **D-055**; **Z1 erreicht / S2 abgeschlossen / P1 eingehalten**; B0 `17057e2`, B1/B2 `9c6c0fb`, C `d6a1a3c`). **CBP-WP-022 nicht registriert, nicht autorisiert** |
 | Gate G0 | **PASSED WITH NOTES** — 2026-07-21 |
 | G0-Kriterien | **47**, dreistufig klassifiziert |
 | davon blockierend | **25** Core Required (zuvor 45) |
 | davon `accepted` | **25** — alle |
 | verbleibende Blocker | **0** |
 | Phase 1 | AUTHORIZED FOR PLANNING — [Backlog](../docs/roadmap/PHASE_1_BACKLOG.md), [Foundation Plan](../docs/roadmap/PHASE_1_FOUNDATION_PLAN.md) |
-| Geplante Work Packages | **CBP-WP-021** `in-review` (D-056, Phase B0, uncommitted). **CBP-WP-020** ist `committed` und `complete` (D-055; B0 `17057e2`, B1/B2 `9c6c0fb`, C `d6a1a3c`), B3 **ausgeschlossen**; CBP-WP-019 ist `committed` (`3c437f2`, D-054). **CBP-WP-022 nicht registriert, nicht begonnen, nicht autorisiert** — das KB-04-Paket ist lediglich als möglicher Kandidat vorgemerkt |
+| Geplante Work Packages | **CBP-WP-021** `in-review` (D-056, Phase B1/B2; B0 `committed` `0cb4ea9`, B1/B2 uncommitted). **CBP-WP-020** ist `committed` und `complete` (D-055; B0 `17057e2`, B1/B2 `9c6c0fb`, C `d6a1a3c`), B3 **ausgeschlossen**; CBP-WP-019 ist `committed` (`3c437f2`, D-054). **CBP-WP-022 nicht registriert, nicht begonnen, nicht autorisiert** — das KB-04-Paket ist lediglich als möglicher Kandidat vorgemerkt |
 | **Repository-Struktur** | **entschieden** — Ziel-Monorepo + Workspace W-3 (ADR-0007); **Migration nicht autorisiert** |
 | **Mappingkonvention** | **entschieden** — ADR-0008; **0 Mappings, 0 Quellen**, Gate `NOT EVALUATED` |
 | **Sicherheitsgrundlage** | **spezifiziert** — ADR-0009; **12 Kontrollen `DOCUMENTED ONLY`** |
@@ -445,7 +445,7 @@ installiert, gestartet, verbunden oder durchgesetzt**; **B3 (reale
 Bereitstellung) ist ausgeschlossen** und verlangt ein eigenes
 Folge-Work-Package mit eigenem Human Gate. Mapping Activation Gate und Security
 Foundation Readiness Gate bleiben `NOT EVALUATED`, die zwölf KB-Kontrollen
-`DOCUMENTED ONLY`, **Security-Negativtests 0 von 31**, Capabilities **0 von
+`DOCUMENTED ONLY`, **Security-Negativtests 0 von 32** (D-056), Capabilities **0 von
 29**, **R-20 offen**.
 
 **Phase C — Post-Commit Reconciliation (dieser Stand, uncommitted):** Nach
@@ -458,7 +458,7 @@ Decision, kein ADR, keine neue Risiko-ID.
 
 **CBP-WP-021 — Canonical Security Test Inventory Reconciliation (dieser Stand,
 uncommitted):** Unter **D-056** (`ADR_NOT_REQUIRED`) registriert, Status
-**`in-review`**, **Phase B0 – Registration and Canonical Authority**. D-056
+**`in-review`**, **Phase B1/B2 – Coordinated Reconciliation and Validation**; B0 ist `committed` (`0cb4ea9`). D-056
 stellt das kanonische Security-Foundation-Testinventar verbindlich fest:
 **32 Negativtests** (NT-01…NT-24 und NT-26…NT-33), **1 Positivtest** (PT-01),
 **33 Testfälle**. **NT-25 ist nicht aktiv** — der Fall ist korrekt als PT-01

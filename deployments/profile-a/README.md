@@ -19,7 +19,7 @@ Dieses Bundle ist eine **Vorlage**. Es ist **kein** Deployment.
 | Eine Bereitstellung existiere | **keine** — `deployed: false`, `runtime_started: false` |
 | Ein Container sei gestartet | **nein** — in CBP-WP-020 wird nichts gestartet |
 | Eine Sicherheitskontrolle sei wirksam | **12 Controls `DOCUMENTED ONLY`** |
-| Security-Negativtests seien gelaufen | **0 von 31 ausgeführt** |
+| Security-Negativtests seien gelaufen | **0 von 32 ausgeführt** (D-056; zusätzlich **0 von 1** Positivtest) |
 | RT-2 existiere | **contract-only**, nicht implementiert |
 | Ein Gate sei ausgewertet | Mapping Activation und Security Foundation Readiness: **`NOT EVALUATED`** |
 | Eine Capability sei erreicht | **0 von 29** |

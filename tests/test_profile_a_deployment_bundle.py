@@ -1,10 +1,10 @@
 """Profile-A Bundle Validation Tests (CBP-WP-020, Phase B2).
 
 These tests validate the **repository deployment bundle** only. They are
-explicitly **not** Security Foundation NT-01 to NT-31, not real container
+explicitly **not** Security Foundation NT-01 to NT-33, not real container
 checks, not infrastructure or deployment tests, not enforcement evidence and
 not operational evidence. The canonical figure stays: security negative tests
-executed 0/31.
+executed 0/32, positive tests executed 0/1 (D-056).
 
 Standard library only. No Docker, no network, no host inspection.
 Forbidden test values are assembled at runtime from fragments so that no
@@ -267,9 +267,9 @@ class TestBundleValid(_BundleFixture):
             with self.subTest(key=key):
                 self.assertFalse(rt2[key])
 
-    def test_security_negative_tests_are_zero_of_31(self) -> None:
+    def test_security_negative_tests_are_zero_of_32(self) -> None:
         nt = self.contract()["security_negative_tests"]
-        self.assertEqual((nt["executed"], nt["total"]), (0, 31))
+        self.assertEqual((nt["executed"], nt["total"]), (0, 32))
 
     def test_validation_issue_is_sortable(self) -> None:
         a = V.ValidationIssue("A", "p", "m")
@@ -854,7 +854,7 @@ class TestContractNegative(_BundleFixture):
 
     def test_negative_tests_claimed_executed(self) -> None:
         doc = self.contract()
-        doc["security_negative_tests"]["executed"] = 31
+        doc["security_negative_tests"]["executed"] = 32
         self.write_contract(doc)
         self.assertIn("BND-CONTRACT-NEGATIVE-TESTS", self.codes())
 

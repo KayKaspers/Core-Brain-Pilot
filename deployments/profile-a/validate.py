@@ -622,8 +622,8 @@ def _check_contract_gates(ctx: _Ctx, rel: str, doc: dict) -> None:
             if gates.get(key) != "NOT EVALUATED":
                 ctx.add("BND-CONTRACT-GATE-STATUS", rel, f"{key} must be NOT EVALUATED")
     nt = doc.get("security_negative_tests")
-    if not isinstance(nt, dict) or nt.get("executed") != 0 or nt.get("total") != 31:
-        ctx.add("BND-CONTRACT-NEGATIVE-TESTS", rel, "security negative tests must be 0 of 31")
+    if not isinstance(nt, dict) or nt.get("executed") != 0 or nt.get("total") != 32:
+        ctx.add("BND-CONTRACT-NEGATIVE-TESTS", rel, "security negative tests must be 0 of 32")
     risks = doc.get("risks")
     if not isinstance(risks, dict) or risks.get("R-20") != "open":
         ctx.add("BND-CONTRACT-RISK", rel, "R-20 must remain open")

@@ -162,8 +162,9 @@ Python-Standardbibliothek.
 
 Die zugehörigen Unit Tests heißen und gelten ausschließlich als **Profile-A
 Bundle Validation Tests**. Sie sind **keine** Security Foundation NT-01 bis
-NT-31, **keine** realen Containerprüfungen, **keine** Infrastruktur- oder
-Deploymenttests, **kein** Enforcement-Nachweis und **keine** operative Evidenz.
+NT-33 und **kein** PT-01, **keine** realen Containerprüfungen, **keine**
+Infrastruktur- oder Deploymenttests, **kein** Enforcement-Nachweis und **keine**
+operative Evidenz.
 
 ## Verbindliche Aussagegrenzen
 
@@ -171,7 +172,7 @@ Deploymenttests, **kein** Enforcement-Nachweis und **keine** operative Evidenz.
 | --- | --- |
 | reale Bereitstellung | **keine** |
 | Security-Control-Hochstufung | **12 `DOCUMENTED ONLY`** |
-| Security-Negativtests | **0 von 31 ausgeführt** |
+| Security-Negativtests | **0 von 32 ausgeführt** (D-056; zusätzlich **0 von 1** Positivtest) |
 | Capability-Hochstufung | **0 von 29** |
 | Gateauswertung | Mapping Activation und Security Foundation Readiness **`NOT EVALUATED`** |
 | RT-2 | **nicht implementiert** |

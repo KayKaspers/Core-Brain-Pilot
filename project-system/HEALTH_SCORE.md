@@ -3,7 +3,7 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Letzte Bewertung | 2026-08-03, im Rahmen von **CBP-WP-021** (`in-review`, Phase B0, D-056) |
+| Letzte Bewertung | 2026-08-03, im Rahmen von **CBP-WP-021** (`in-review`, Phase B1/B2, D-056) |
 | Autoritätsklasse | A2 |
 
 > Diese Datei gehört zur kanonischen NDF-Ordnerstruktur, war aber in der
@@ -80,7 +80,7 @@ Durchsetzung, nicht ein weiteres Dokument.
 | davon hoch | 14 | 17 |
 | Capabilities `implemented` | **0** | **0** |
 | Angenommene ADRs | 0 | **13** |
-| Vorgeschlagene Work Packages | 0 | **0** — **CBP-WP-021 `in-review`** (D-056, Phase B0, uncommitted); **CBP-WP-020 `committed` und `complete`** (D-055; B0 `17057e2`, B1/B2 `9c6c0fb`, C `d6a1a3c`); CBP-WP-019 `committed` (`3c437f2`, D-054); **CBP-WP-022 nicht registriert, nicht autorisiert** |
+| Vorgeschlagene Work Packages | 0 | **0** — **CBP-WP-021 `in-review`** (D-056, Phase B1/B2; B0 `committed` `0cb4ea9`, B1/B2 uncommitted); **CBP-WP-020 `committed` und `complete`** (D-055; B0 `17057e2`, B1/B2 `9c6c0fb`, C `d6a1a3c`); CBP-WP-019 `committed` (`3c437f2`, D-054); **CBP-WP-022 nicht registriert, nicht autorisiert** |
 | **Erstellte Source Mappings** | 0 | **0** |
 | **Angebundene Quellen** | 0 | **0** |
 | **Umgesetzte Sicherheitskontrollen** | 0 | **0 von 12** |
