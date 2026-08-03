@@ -3,7 +3,7 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Letzte Bewertung | 2026-07-29, im Rahmen von **CBP-WP-020** (`committed`, `complete`, Phase C, D-055) |
+| Letzte Bewertung | 2026-08-03, im Rahmen von **CBP-WP-021** (`in-review`, Phase B0, D-056) |
 | Autoritätsklasse | A2 |
 
 > Diese Datei gehört zur kanonischen NDF-Ordnerstruktur, war aber in der
@@ -29,7 +29,7 @@ Keine Gesamtpunktzahl.
 | Gate-Klarheit | **gut** | → | Dreistufiges Modell plus DRC als eigener Prüfort für die 16 vertagten Kriterien; DRC erstmals vollständig erhoben und freigegeben — 19 Prüfpunkte, **19 `ready` / 0 `blocked`**; Gesamtstatus **APPROVED BY HUMAN MAINTAINER** (Profil A, 2026-07-29, D-054), rein dokumentarisch |
 | Architekturklarheit | **gut** | ↑↑ | 9 Schichten, 14 Komponenten, 5 Profile, Rebuild-Vertrag; zuvor kein Komponentenschnitt |
 | Scope-Klarheit | **gut** | ↑ | **Alle 25 Core-Kriterien `accepted`**; Quellenraum über logische Slots definiert |
-| Entscheidungslage | **gut** | ↑ | **55 Entscheidungen (51 mit A0), 13 angenommene ADRs**; G0, OD-26, Mappingkonvention, Sicherheitsgrundlage, Quarantäne-, Registry-, Mapping-Draft-Validator-, Gate-Evaluator- (D-050), Evidence-Contract-2.0-MVP (D-051), Evidence-Schema-3.0-Governance (D-052, ADR-0013) und Evidence-Schema-3.0-Implementation (D-053) und Deployment Readiness Intake Profil A (D-054) sowie additive Deployment-Artefaktstruktur und WP-020-Scope (D-055) entschieden |
+| Entscheidungslage | **gut** | ↑ | **56 Entscheidungen (52 mit A0), 13 angenommene ADRs**; G0, OD-26, Mappingkonvention, Sicherheitsgrundlage, Quarantäne-, Registry-, Mapping-Draft-Validator-, Gate-Evaluator- (D-050), Evidence-Contract-2.0-MVP (D-051), Evidence-Schema-3.0-Governance (D-052, ADR-0013) und Evidence-Schema-3.0-Implementation (D-053) und Deployment Readiness Intake Profil A (D-054) sowie additive Deployment-Artefaktstruktur und WP-020-Scope (D-055) entschieden |
 | Quellenanbindung | **nicht bewertbar** | | Konvention entschieden, **0 Mappings, 0 angebundene Quellen** |
 | Strukturklarheit | **gut** | ↑↑ | Zielstruktur und Bereichsgrenze festgelegt (ADR-0007); zuvor drei konkurrierende Vorstellungen |
 | Antwortlage Discovery | **gut** | ↑ | Alle Core-Required-Fragen belegt; Entscheidung steht aus |
@@ -39,7 +39,7 @@ Keine Gesamtpunktzahl.
 | Planungsklarheit Phase 1 | **gut** | ↑↑ | Fünf Streams, sechs geschnittene Work Packages, Nachweisstufen und zwölf Stop-Bedingungen; zuvor nur ein Backlog |
 | **Nachweislage** | **schwach** | → | **Alle Artefakte stehen auf Stufe 1 `dokumentiert`.** Kein Negativtest, kein Restore, kein Messwert |
 | Implementierung | **schwach** | ↑ | **Lokaler Runtime Skeleton** (CBP-WP-012), **Quarantäneprototyp** (CBP-WP-013), **Registry-Prototyp** (CBP-WP-014), **Mapping-Draft-Validator** (CBP-WP-015), **Gate-Evaluator** (CBP-WP-016) **und Synthetic-Evidence-Contract 2.0** (CBP-WP-017); keine operative Wirkung, keine KB-Kontrolle durchgesetzt, keine Promotion, kein gespeichertes Mapping, kein Gate ausgeführt, keine Aktivierung |
-| Testabdeckung | **ausreichend** | ↑↑ | **724 lokale Tests bestanden**, **0 übersprungen** (Skeleton 69 + Quarantäne + Registry + Mapping-Draft-Validator + Gate-Evaluator + Evidence-Contract-3.0-/Provenance- + Security-Contract- + **166 Profile-A-Bundle-Validation-Tests**, inkl. Netzwerk-Guard); kein Retrieval-, Ingest- oder Integrationstest. **Die 166 neuen Tests prüfen ausschließlich Repository-Artefakte** — keine reale Bereitstellung, **keine Security Foundation NT-01…NT-31** (unverändert **0 von 31**); sie verbessern die **Nachweislage nicht** |
+| Testabdeckung | **ausreichend** | ↑↑ | **724 lokale Tests bestanden**, **0 übersprungen** (Skeleton 69 + Quarantäne + Registry + Mapping-Draft-Validator + Gate-Evaluator + Evidence-Contract-3.0-/Provenance- + Security-Contract- + **166 Profile-A-Bundle-Validation-Tests**, inkl. Netzwerk-Guard); kein Retrieval-, Ingest- oder Integrationstest. **Die 166 neuen Tests prüfen ausschließlich Repository-Artefakte** — keine reale Bereitstellung, **keine Security Foundation NT-01…NT-33** (unverändert **0 von 32** Negativtests und **0 von 1** Positivtest, D-056); sie verbessern die **Nachweislage nicht** |
 | CI/CD | nicht bewertbar | | In Phase 0 verboten; lokale Tests manuell |
 | Betriebsreife | nicht bewertbar | | Keine Installation |
 | Retrieval-Qualität | nicht bewertbar | | Kein Index, kein Benchmark |
@@ -71,8 +71,8 @@ Durchsetzung, nicht ein weiteres Dokument.
 | Discovery-Fragen | *55* → korrekt 56 | **56** |
 | davon P0 | *35* → korrekt 38 | **38** |
 | davon P0 offen und Core Required | 38 | **0** |
-| Getroffene Entscheidungen | 14 | **55** |
-| davon A0 | 8 | **51** |
+| Getroffene Entscheidungen | 14 | **56** |
+| davon A0 | 8 | **52** |
 | Offene Entscheidungen | 27 | **23** |
 | davon P0 | 14 | **5** |
 | Erfasste Risiken | 29 | **32** |
@@ -80,11 +80,11 @@ Durchsetzung, nicht ein weiteres Dokument.
 | davon hoch | 14 | 17 |
 | Capabilities `implemented` | **0** | **0** |
 | Angenommene ADRs | 0 | **13** |
-| Vorgeschlagene Work Packages | 0 | **0** — **CBP-WP-020 `committed` und `complete`** (D-055; B0 `17057e2`, B1/B2 `9c6c0fb`); CBP-WP-019 `committed` (`3c437f2`, D-054); **kein Work Package aktiv**; CBP-WP-021 nicht autorisiert |
+| Vorgeschlagene Work Packages | 0 | **0** — **CBP-WP-021 `in-review`** (D-056, Phase B0, uncommitted); **CBP-WP-020 `committed` und `complete`** (D-055; B0 `17057e2`, B1/B2 `9c6c0fb`, C `d6a1a3c`); CBP-WP-019 `committed` (`3c437f2`, D-054); **CBP-WP-022 nicht registriert, nicht autorisiert** |
 | **Erstellte Source Mappings** | 0 | **0** |
 | **Angebundene Quellen** | 0 | **0** |
 | **Umgesetzte Sicherheitskontrollen** | 0 | **0 von 12** |
-| **Ausgeführte Sicherheits-Negativtests** | 0 | **0 von 31** |
+| **Ausgeführte Sicherheits-Negativtests** | 0 | **0 von 32** (D-056 · kanonisch; zusätzlich **0 von 1** Positivtest) |
 | **Nachweise oberhalb Stufe 1** | 0 | **0** |
 | **Runtime-Module (Skeleton)** | 0 | **9** |
 | **Bestandene lokale Tests** | 0 | **724**, **0 übersprungen** — davon **166 Profile-A-Bundle-Validation-Tests**, die **keine** reale Bereitstellung und **keine** Security-Foundation-Negativtests belegen |

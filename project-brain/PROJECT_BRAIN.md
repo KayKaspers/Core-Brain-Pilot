@@ -23,14 +23,14 @@ verweigern deterministisch.
 
 | Feld | Wert |
 | --- | --- |
-| Aktuelles Work Package | **keines** — zuletzt abgeschlossen **CBP-WP-020** (`committed`, `complete`; **D-055**, `ADR_NOT_REQUIRED`; **Z1 erreicht / S2 abgeschlossen / P1 eingehalten**; B0 `17057e2`, B1/B2 `9c6c0fb`; `deployments/profile-a/` mit genau sieben Dateien **offline validiert**, Exit 0, `issues=0`; **724 Tests OK, 0 übersprungen**; B3 ausgeschlossen). **Kein Folge-Work-Package autorisiert** |
+| Aktuelles Work Package | **CBP-WP-021** (`in-review`, **Phase B0**) — **D-056**, `ADR_NOT_REQUIRED`; kanonisches Security-Testinventar **32 / 1 / 33**, **0 ausgeführt**; uncommitted. Zuletzt abgeschlossen **CBP-WP-020** (`committed`, `complete`; **D-055**; **Z1 erreicht / S2 abgeschlossen / P1 eingehalten**; B0 `17057e2`, B1/B2 `9c6c0fb`, C `d6a1a3c`). **CBP-WP-022 nicht registriert, nicht autorisiert** |
 | Gate G0 | **PASSED WITH NOTES** — 2026-07-21 |
 | G0-Kriterien | **47**, dreistufig klassifiziert |
 | davon blockierend | **25** Core Required (zuvor 45) |
 | davon `accepted` | **25** — alle |
 | verbleibende Blocker | **0** |
 | Phase 1 | AUTHORIZED FOR PLANNING — [Backlog](../docs/roadmap/PHASE_1_BACKLOG.md), [Foundation Plan](../docs/roadmap/PHASE_1_FOUNDATION_PLAN.md) |
-| Geplante Work Packages | **keine** — **CBP-WP-020** ist `committed` und `complete` (D-055; B0 `17057e2`, B1/B2 `9c6c0fb`), B3 **ausgeschlossen**. CBP-WP-019 ist `committed` (`3c437f2`, D-054); **CBP-WP-021 nicht registriert, nicht begonnen, nicht autorisiert**. Der nächste Schritt wird durch den Human Maintainer und Nova separat bestimmt |
+| Geplante Work Packages | **CBP-WP-021** `in-review` (D-056, Phase B0, uncommitted). **CBP-WP-020** ist `committed` und `complete` (D-055; B0 `17057e2`, B1/B2 `9c6c0fb`, C `d6a1a3c`), B3 **ausgeschlossen**; CBP-WP-019 ist `committed` (`3c437f2`, D-054). **CBP-WP-022 nicht registriert, nicht begonnen, nicht autorisiert** — das KB-04-Paket ist lediglich als möglicher Kandidat vorgemerkt |
 | **Repository-Struktur** | **entschieden** — Ziel-Monorepo + Workspace W-3 (ADR-0007); **Migration nicht autorisiert** |
 | **Mappingkonvention** | **entschieden** — ADR-0008; **0 Mappings, 0 Quellen**, Gate `NOT EVALUATED` |
 | **Sicherheitsgrundlage** | **spezifiziert** — ADR-0009; **12 Kontrollen `DOCUMENTED ONLY`** |
@@ -120,7 +120,7 @@ Source-Registry-MVP (beide 2026-07-22); **ADR-0012** (D-046…D-049) den
 Source-Mapping-Draft-Validator (2026-07-27), der **ADR-0008** präzisiert und
 den 31-Feld-Vertrag unverändert lässt.
 
-**55** getroffene Entscheidungen, davon **51** mit A0. **23** offene, davon
+**56** getroffene Entscheidungen, davon **52** mit A0. **23** offene, davon
 **5** mit P0. Geführt in
 [project-system/DECISION_REGISTER.md](../project-system/DECISION_REGISTER.md).
 
@@ -452,11 +452,38 @@ Foundation Readiness Gate bleiben `NOT EVALUATED`, die zwölf KB-Kontrollen
 `9c6c0fb` (Parent `17057e2`, Commitzahl **29**, `origin/main` synchron) ist
 **CBP-WP-020 das zuletzt abgeschlossene Work Package**; **kein Work Package ist
 aktiv** und **kein Folge-Work-Package autorisiert**. **R-33 fortgeschrieben von
-16/19 auf 17/20.** Decisions, A0-Decisions und ADRs bleiben **55 / 51 / 13**;
-keine Capability hochgestuft, keine neue Decision, kein ADR, keine neue
-Risiko-ID. **CBP-WP-021 ist nicht registriert, nicht begonnen und nicht
-autorisiert.** Der nächste Schritt wird durch den Human Maintainer und Nova
-separat bestimmt.
+16/19 auf 17/20.** Decisions, A0-Decisions und ADRs standen zum Abschluss von
+CBP-WP-020 auf **55 / 51 / 13**; keine Capability hochgestuft, keine neue
+Decision, kein ADR, keine neue Risiko-ID.
+
+**CBP-WP-021 — Canonical Security Test Inventory Reconciliation (dieser Stand,
+uncommitted):** Unter **D-056** (`ADR_NOT_REQUIRED`) registriert, Status
+**`in-review`**, **Phase B0 – Registration and Canonical Authority**. D-056
+stellt das kanonische Security-Foundation-Testinventar verbindlich fest:
+**32 Negativtests** (NT-01…NT-24 und NT-26…NT-33), **1 Positivtest** (PT-01),
+**33 Testfälle**. **NT-25 ist nicht aktiv** — der Fall ist korrekt als PT-01
+klassifiziert, die Nummer bleibt nach Regel **TT-5** bewusst frei. **NT-32 und
+NT-33 sind gültig** und lösen die frühere dokumentübergreifende Doppelvergabe
+von NT-23 und NT-24 auf; die ursprünglichen Matrix-Fälle bleiben unverändert
+aktiv. **Die Zahl 31 ist ein überholter, falsch etikettierter Ableitungswert** —
+der von CBP-WP-011 auf 33 korrigierte Gesamtwert, in einer nicht nachgeführten
+Zusammenfassungszeile fälschlich als „Negativtests" geführt.
+
+**Ausgeführt sind 0 von 32 Negativtests und 0 von 1 Positivtest.** Die
+Feststellung eines Inventarwerts ist **keine** Testausführung und **keine**
+Gateauswertung. Die **Durchführung** der Reconciliation erfolgt erst in
+**B1/B2** und umfasst ausdrücklich auch die **ausführbaren** Profil-A-Artefakte
+(`bundle.json`, `validate.py`, Bundle-Tests). Bis dahin besteht eine bekannte,
+eingegrenzte **Übergangsabweichung**; das bestehende Bundle bleibt unverändert
+und gegen seinen bisherigen Vertrag gültig, darf aber hinsichtlich der
+Security-Test-Gesamtzahl **nicht als kanonisch** bezeichnet werden.
+
+Decisions, A0-Decisions und ADRs stehen damit auf **56 / 52 / 13**. Capabilities
+bleiben **0 von 29**, beide Gates `NOT EVALUATED`, die zwölf KB-Kontrollen
+`DOCUMENTED ONLY`, **R-20 offen**, **R-33 unverändert 17/20** (Fortschreibung
+erst in Phase C). **KB-04 ist nicht Bestandteil von CBP-WP-021**; das spätere
+KB-04-Paket ist als möglicher Kandidat **CBP-WP-022** vorgemerkt, aber **weder
+registriert noch autorisiert**.
 
 ## Rückmeldung an Nova
 

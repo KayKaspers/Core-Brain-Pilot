@@ -37,10 +37,11 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 – COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Aktuelles Work Package | **keines** — zuletzt abgeschlossen **CBP-WP-020** (`committed`, `complete`; **D-055**, `ADR_NOT_REQUIRED`; **Z1 erreicht / S2 abgeschlossen / P1 eingehalten**; B0 `17057e2`, B1/B2 `9c6c0fb`; Bundle mit **genau sieben Dateien**, **offline validiert** (Exit 0, `issues=0`), **724 Tests OK, 0 übersprungen**; **repository artifact implemented / offline validation passed** — **nicht deployed, nicht operational**). **Kein Folge-Work-Package autorisiert** |
+| Aktuelles Work Package | **CBP-WP-021** (`in-review`, **Phase B0 – Registration and Canonical Authority**) — **D-056**, `ADR_NOT_REQUIRED`; kanonisches Security-Testinventar **32 / 1 / 33**, **0 ausgeführt**; **uncommitted**. Zuletzt abgeschlossen **CBP-WP-020** (`committed`, `complete`; **D-055**; **Z1 erreicht / S2 abgeschlossen / P1 eingehalten**; B0 `17057e2`, B1/B2 `9c6c0fb`, C `d6a1a3c`). **CBP-WP-022 nicht registriert, nicht autorisiert** |
+| **Kanonisches Security-Testinventar** | **32 Negativtests · 1 Positivtest · 33 Testfälle** (D-056) — **0 von 32** und **0 von 1** ausgeführt; **NT-25 nicht aktiv** (TT-5), **NT-32/NT-33 gültig**; die Zahl **31** ist überholt. **Übergangsabweichung:** committete Dokumente und ausführbare Profil-A-Artefakte führen bis B1/B2 weiterhin 31 |
 | **Gate-Status G0** | **PASSED WITH NOTES** — 2026-07-21, A0 |
 | Nächstes Prüfmodell | **Deployment Readiness Check** — **`APPROVED BY HUMAN MAINTAINER`** (Profil A, 2026-07-29; 19 Prüfpunkte, **19 `ready` / 0 `blocked`**, D-054); **rein dokumentarisch, keine Installationsfreigabe** |
-| Phase-1-Planung | Streams F1–F5; CBP-WP-016 **`committed`** (`04c427c`, D-050); CBP-WP-017 **`committed`** (`d3168c4`, D-051); CBP-WP-018 **`committed`** (ADR-0013/D-052/D-053; B0 `4dec921`, B1 `5ee2e83`); CBP-WP-019 **`committed`** (`3c437f2`, D-054, Deployment Readiness Intake, DRC für Profil A freigegeben); CBP-WP-020 **`committed`** und **`complete`** (D-055, Controlled Profile-A Deployment Foundation; B0 `17057e2`, B1/B2 `9c6c0fb`) |
+| Phase-1-Planung | Streams F1–F5; CBP-WP-016 **`committed`** (`04c427c`, D-050); CBP-WP-017 **`committed`** (`d3168c4`, D-051); CBP-WP-018 **`committed`** (ADR-0013/D-052/D-053; B0 `4dec921`, B1 `5ee2e83`); CBP-WP-019 **`committed`** (`3c437f2`, D-054, Deployment Readiness Intake, DRC für Profil A freigegeben); CBP-WP-020 **`committed`** und **`complete`** (D-055, Controlled Profile-A Deployment Foundation; B0 `17057e2`, B1/B2 `9c6c0fb`, C `d6a1a3c`); CBP-WP-021 **`in-review`** (D-056, Canonical Security Test Inventory Reconciliation, Phase B0, uncommitted) |
 | **Runtime Skeleton** | **lokal implementiert** (CBP-WP-012) — `run` fail-closed; keine KB-Kontrolle durchgesetzt |
 | **Ingest-Quarantäne MVP** | **lokaler Prototyp** (CBP-WP-013, ADR-0010) — synthetic-only, fail-closed, keine Promotion, **nicht produktiv** |
 | **Source-Registry MVP** | **lokaler Prototyp** (CBP-WP-014, ADR-0011) — synthetic-only, fail-closed, **deaktiviert**, `activate` verweigert, **nicht produktiv** |
@@ -60,6 +61,7 @@
 | davon `accepted` | **25** — alle |
 | Kriterienstand | 25 von 25 `accepted` |
 | Capabilities implementiert | **0** von 29 — Capability 2/3/5/6/7 bleiben nicht vollständig `implemented` |
+| Getroffene Entscheidungen | **56** (davon **52** mit A0) |
 | Angenommene ADRs | **13** |
 | Scope gelockt | **ja** — mit Auflagen |
 
