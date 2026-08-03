@@ -320,14 +320,46 @@ Kritikalität unverändert **mittel**. Derselbe Vorgang ist in
 | Ursache | Der Implementation Commit trug den korrekten **Vor-Commit-Reviewstatus** `in-review`; es fehlte anschließend die **Post-Commit-Status-Reconciliation** (dieselbe Klasse wie der zehnte/zwölfte/dreizehnte/fünfzehnte/sechzehnte Vorgang) |
 | Zusätzlich bereinigte Zählabweichungen | `project-brain/PROJECT_BRAIN.md` führte **45/41** statt der kanonischen **55/51** getroffenen bzw. A0-Entscheidungen; `project-system/HEALTH_SCORE.md` führte in der Zeile „Entscheidungslage" **54** statt **55**; die Commitzähler in `PROJECT_MANIFEST.md`, `PROJECT_BRAIN.md` und `HEALTH_SCORE.md` standen auf **28** statt **29**. Kanonische Quelle ist `DECISION_REGISTER.md` (**55**, davon **51** mit A0) beziehungsweise Git |
 | Korrektur | Die kanonischen Statusdokumente wurden auf den durch Git belegten `committed`-Zustand von CBP-WP-020 (B0 `17057e2`, B1/B2 `9c6c0fb`) synchronisiert; **Commitbelege eingetragen**; CBP-WP-020 auf **`committed` und `complete`** gesetzt; „aktuelles Work Package" auf **keines aktiv, zuletzt abgeschlossen CBP-WP-020**; kein Work Package ist `active`/`in-review`; **kein nächstes Work Package autorisiert**, **CBP-WP-021 nicht registriert, nicht begonnen, nicht autorisiert**; Decisions/A0/ADRs auf **55 / 51 / 13** und Commitzahl auf **29** vereinheitlicht |
-| Aussagegrenze | **Kein Funktionsfehler, keine Runtimeänderung, keine Installation, keine Bereitstellung, kein Containerstart, keine Gatefreigabe, keine Aktivierung, keine Capability-Änderung**; keine neue Decision-ID, kein neues ADR, kein neues/geschlossenes Risiko; **keine** Risikokritikalität verändert; **D-055 unverändert**; das Profil-A-Bundle bleibt *repository artifact implemented* und *offline validation passed* — **nicht deployed, nicht operational, nicht production-ready**; die **166 Profile-A Bundle Validation Tests sind keine** Security Foundation NT-01 bis NT-31 (**0 von 31 unverändert**); Mapping Activation Gate und Security Foundation Readiness Gate bleiben `NOT EVALUATED`; Capabilities **0 von 29**; die zwölf KB-Kontrollen bleiben `DOCUMENTED ONLY`; **R-20 bleibt offen** |
+| Aussagegrenze | **Kein Funktionsfehler, keine Runtimeänderung, keine Installation, keine Bereitstellung, kein Containerstart, keine Gatefreigabe, keine Aktivierung, keine Capability-Änderung**; keine neue Decision-ID, kein neues ADR, kein neues/geschlossenes Risiko; **keine** Risikokritikalität verändert; **D-055 unverändert**; das Profil-A-Bundle bleibt *repository artifact implemented* und *offline validation passed* — **nicht deployed, nicht operational, nicht production-ready**; die **166 Profile-A Bundle Validation Tests sind keine** Security Foundation NT-01 bis NT-31 (**damals als 0 von 31 geführt** — siehe Nachtrag unten); Mapping Activation Gate und Security Foundation Readiness Gate bleiben `NOT EVALUATED`; Capabilities **0 von 29**; die zwölf KB-Kontrollen bleiben `DOCUMENTED ONLY`; **R-20 bleibt offen** |
 
-Damit sind **siebzehn Konsistenzvorgänge in zwanzig Work Packages** dokumentiert
-(**neue aktuelle Basislinie**; löst die vorige Angabe „sechzehn" ab). Die Zahl der
-Work Packages steigt auf **zwanzig**, weil dieser Vorgang **erstmals
-CBP-WP-020** betrifft, das durch den Commit `9c6c0fb` Teil der committeten Menge
+> **Nachtrag aus CBP-WP-021 (D-056, 2026-08-03).** Die im siebzehnten Vorgang
+> genannte Kennzahl „**0 von 31**" gibt den **damaligen** Stand wieder. Sie war
+> bereits zu diesem Zeitpunkt fehlerhaft: der kanonische Wert lautet
+> **32 Negativtests, 1 Positivtest, 33 Testfälle** — ausgeführt **0 von 32** und
+> **0 von 1**. Genau diese Abweichung ist Gegenstand des **achtzehnten**
+> Konsistenzvorgangs unten. **Der historische Eintrag wird nicht umgeschrieben**;
+> er dokumentiert weiterhin, was damals geführt wurde.
+
+Damit waren **siebzehn Konsistenzvorgänge in zwanzig Work Packages** dokumentiert
+(*Stand nach dem siebzehnten Vorgang; durch den achtzehnten Vorgang unten auf
+**18/21** aktualisiert*; löste die vorige Angabe „sechzehn" ab). Die Zahl der
+Work Packages stieg auf **zwanzig**, weil jener Vorgang **erstmals
+CBP-WP-020** betraf, das durch den Commit `9c6c0fb` Teil der committeten Menge
 wurde (**16/19 → 17/20**). **R-33 bleibt `gemindert, nicht geschlossen`**,
 Kritikalität unverändert **mittel**. Derselbe Vorgang ist in
+[COMPLIANCE_CHECK.md](COMPLIANCE_CHECK.md) gespiegelt und zählt **nur einmal**.
+
+**R-33-Chronologie — achtzehnter Konsistenzvorgang (CBP-WP-021 Canonical Security Test Inventory Reconciliation, 2026-08-03):**
+
+| Feld | Inhalt |
+| --- | --- |
+| Work Package | **CBP-WP-021** (**erstes** R-33-Erfassen von CBP-WP-021) |
+| Fehlerklasse | **Fortgeschriebene, falsch etikettierte Kennzahl** — der überholte Wert **31** wurde als **aktive Security-Foundation-Negativtest-Gesamtzahl** geführt, obwohl die authoritative A2-Acceptance-Matrix **32** Negativtests auszählt |
+| Herkunft des Fehlers | **31** war der von CBP-WP-011 auf **33** korrigierte **Gesamtwert** (30 NT + 1 PT). Die Zusammenfassungszeile jenes Work Packages wurde beim Audit nicht mitgeführt und etikettierte den Gesamtwert zusätzlich als „Negativtests". Von dort wanderte die Zahl über die Roadmap in spätere Dokumente **und in ausführbare Artefakte** |
+| Betroffene Repository-Artefakte | Status- und Roadmapdokumente (`CLAUDE.md`, `README.md`, `project-brain/PROJECT_BRAIN.md`, `project-system/HEALTH_SCORE.md`, `project-system/PROJECT_MANIFEST.md`, `project-system/PROJECT_PROFILE.md`, `project-system/WORK_PACKAGE_QUEUE.md`, `docs/roadmap/PHASE_1_WORK_PACKAGE_MAP.md`, `docs/roadmap/PHASE_1_FOUNDATION_PLAN.md`), Profil-A-Dokumentation (`docs/operations/PROFILE_A_INSTALLATION_RUNBOOK.md`, `docs/operations/PROFILE_A_VALIDATION_RUNBOOK.md`, `docs/runtime/PROFILE_A_DEPLOYMENT_BUNDLE.md`), Work Packages (`work-packages/CBP-WP-011.md`, `work-packages/CBP-WP-020.md`, `work-packages/CBP-WP-021.md`) sowie die **ausführbaren Artefakte** `deployments/profile-a/bundle.json`, `deployments/profile-a/validate.py`, `deployments/profile-a/README.md` und `tests/test_profile_a_deployment_bundle.py` |
+| Besonderheit | **Erstmals war ein Konsistenzfehler nicht rein redaktionell**, sondern in **committetem, ausführbarem Code** verankert: Bundlevertrag, fail-closed Validator und Bundle-Test erzwangen den falschen Wert. Die Korrektur musste deshalb **atomar** erfolgen — eine Teiländerung hätte die Bundlevalidierung sofort gebrochen |
+| Autorität | **D-056** (`accepted`, **A0**, 2026-08-03) stellt fest: **32** aktive Negativtests (NT-01…NT-24, NT-26…NT-33), **1** Positivtest (**PT-01**), **33** Testfälle; **NT-25** bleibt nach Regel **TT-5** frei; **NT-32** und **NT-33** sind gültig; **31** ist ein überholter, falsch etikettierter Ableitungswert |
+| Korrektur | Vollständige Reconciliation in CBP-WP-021: **B0** (`0cb4ea9`) Registrierung und Authority; **B1/B2** (`271acc7`) dokumentarische **und** ausführbare Angleichung auf **32 / 1 / 33** — `bundle.json` `"total": 32`, `validate.py` erzwingt 32 fail-closed unter unverändertem Issue-Code `BND-CONTRACT-NEGATIVE-TESTS`, Bundle-Test erwartet `(0, 32)`; **B1/B2.1** Schließung der Restfundstelle in `deployments/profile-a/README.md`; **B1/B2.2** Bereinigung des erzeugten Repository-Bytecodes. Die vier Teilschritte gehören zu **genau einem** Konsistenzvorgang |
+| Aussagegrenze | **Kein Funktionsfehler, keine Runtimeänderung, keine Installation, keine Bereitstellung, kein Containerstart, keine Gatefreigabe, keine Aktivierung, keine Capability-Änderung**; keine neue Decision-ID, kein neues ADR, kein neues/geschlossenes Risiko; **keine** Risikokritikalität verändert; **D-056 unverändert**; **die Reconciliation einer Inventarzahl ist keine Testausführung** — ausgeführt bleiben **0 von 32** Negativtests und **0 von 1** Positivtest; das Bundleschema enthält **keinen** eigenen Positivtestzähler und wurde **nicht** erweitert; Mapping Activation Gate und Security Foundation Readiness Gate bleiben `NOT EVALUATED`; Capabilities **0 von 29**; die zwölf KB-Kontrollen bleiben `DOCUMENTED ONLY`; **R-20 bleibt offen** |
+
+Damit sind **achtzehn Konsistenzvorgänge in einundzwanzig Work Packages**
+dokumentiert (**neue aktuelle Basislinie**; löst die vorige Angabe „siebzehn"
+ab). Die Zahl der Work Packages steigt auf **einundzwanzig**, weil dieser
+Vorgang **erstmals CBP-WP-021** betrifft, das durch den Commit `271acc7` Teil
+der committeten Menge wurde (**17/20 → 18/21**). **R-33 bleibt `gemindert,
+nicht geschlossen`**, Kritikalität unverändert **mittel**, kein Risiko
+geschlossen, **keine neue Risiko-ID**; **das projektweite Konsistenzrisiko ist
+nicht beseitigt**. Derselbe Vorgang ist in
 [COMPLIANCE_CHECK.md](COMPLIANCE_CHECK.md) gespiegelt und zählt **nur einmal**.
 
 **Verändert in CBP-WP-012:**

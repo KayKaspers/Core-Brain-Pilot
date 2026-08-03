@@ -624,18 +624,88 @@ keine Bereitstellung, kein Containerstart, keine Gatefreigabe, keine Aktivierung
 keine Capability-Änderung; **D-055 unverändert**; das Profil-A-Bundle bleibt
 *repository artifact implemented* und *offline validation passed* — **nicht
 deployed, nicht operational, nicht production-ready**; die **166 Profile-A Bundle
-Validation Tests sind keine** Security Foundation NT-01 bis NT-31 (**0 von 31
-unverändert**); Capabilities **0 von 29**; beide Runtime-Gates `NOT EVALUATED`;
-die zwölf KB-Kontrollen `DOCUMENTED ONLY`; **R-20 bleibt offen**.
+Validation Tests sind keine** Security Foundation NT-01 bis NT-31 (**damals als
+0 von 31 geführt** — siehe Nachtrag unten); Capabilities **0 von 29**; beide
+Runtime-Gates `NOT EVALUATED`; die zwölf KB-Kontrollen `DOCUMENTED ONLY`;
+**R-20 bleibt offen**.
 
-**R-33 bleibt `gemindert, nicht geschlossen`** — Kritikalität unverändert
+> **Nachtrag aus CBP-WP-021 (D-056, 2026-08-03).** Die hier genannte Kennzahl
+> „**0 von 31**" gibt den **damaligen** Stand wieder und war bereits zu diesem
+> Zeitpunkt fehlerhaft. Kanonisch sind **32 Negativtests, 1 Positivtest, 33
+> Testfälle** — ausgeführt **0 von 32** und **0 von 1**. Genau diese Abweichung
+> ist Gegenstand des **achtzehnten** Konsistenzvorgangs unten. **Der historische
+> Eintrag wird nicht umgeschrieben.**
+
+**R-33 blieb `gemindert, nicht geschlossen`** — Kritikalität unverändert
 **mittel**, kein Risiko geschlossen, **keine neue Risiko-ID**. **Siebzehn
-Konsistenzvorgänge in zwanzig Work Packages** sind dokumentiert (**neue aktuelle
-Basislinie**; löst „sechzehn" ab); die Zahl der Work Packages steigt auf
-**zwanzig**, weil dieser Vorgang **erstmals CBP-WP-020** betrifft, das durch
+Konsistenzvorgänge in zwanzig Work Packages** waren dokumentiert (*Stand nach
+dem siebzehnten Vorgang; durch den achtzehnten Vorgang unten auf **18/21**
+aktualisiert*; löste „sechzehn" ab); die Zahl der Work Packages stieg auf
+**zwanzig**, weil jener Vorgang **erstmals CBP-WP-020** betraf, das durch
 `9c6c0fb` Teil der committeten Menge wurde (**16/19 → 17/20**). Dieser Vorgang
 ist mit dem Eintrag in [RISK_REGISTER.md](RISK_REGISTER.md) **identisch** und
 zählt **nur einmal**.
+
+### Achtzehnter Konsistenzvorgang — CBP-WP-021 Canonical Security Test Inventory Reconciliation (2026-08-03)
+
+**Gefunden in CBP-WP-021 Phase A, behandelt in B0 bis B1/B2.2.** Der überholte
+Wert **31** wurde als **aktive Security-Foundation-Negativtest-Gesamtzahl**
+fortgeschrieben, obwohl die authoritative A2-Acceptance-Matrix **32**
+Negativtests auszählt.
+
+**Herkunft:** **31** war der von CBP-WP-011 auf **33** korrigierte
+**Gesamtwert** (30 NT + 1 PT). Die Zusammenfassungszeile jenes Work Packages
+wurde beim eigenen Zählaudit nicht mitgeführt und etikettierte den Gesamtwert
+zusätzlich als „Negativtests". Von dort wanderte die Zahl über die Roadmap in
+spätere Dokumente **und in ausführbare Artefakte**.
+
+**Betroffen:** Status- und Roadmapdokumente (`CLAUDE.md`, `README.md`,
+`project-brain/PROJECT_BRAIN.md`, `project-system/HEALTH_SCORE.md`,
+`project-system/PROJECT_MANIFEST.md`, `project-system/PROJECT_PROFILE.md`,
+`project-system/WORK_PACKAGE_QUEUE.md`,
+`docs/roadmap/PHASE_1_WORK_PACKAGE_MAP.md`,
+`docs/roadmap/PHASE_1_FOUNDATION_PLAN.md`), Profil-A-Dokumentation (beide
+Runbooks, Runtime-Vertrag), Work Packages (`CBP-WP-011.md`, `CBP-WP-020.md`,
+`CBP-WP-021.md`) sowie die **ausführbaren Artefakte**
+`deployments/profile-a/bundle.json`, `deployments/profile-a/validate.py`,
+`deployments/profile-a/README.md` und `tests/test_profile_a_deployment_bundle.py`.
+
+**Besonderheit:** **Erstmals war ein Konsistenzfehler nicht rein redaktionell**,
+sondern in **committetem, ausführbarem Code** verankert — Bundlevertrag,
+fail-closed Validator und Bundle-Test erzwangen den falschen Wert. Die Korrektur
+musste deshalb **atomar** erfolgen; eine Teiländerung hätte die
+Bundlevalidierung sofort gebrochen.
+
+**Autorität:** **D-056** (`accepted`, **A0**, 2026-08-03) stellt fest: **32**
+aktive Negativtests (NT-01…NT-24, NT-26…NT-33), **1** Positivtest (**PT-01**),
+**33** Testfälle; **NT-25** bleibt nach Regel **TT-5** frei; **NT-32** und
+**NT-33** sind gültig; **31** ist ein überholter, falsch etikettierter
+Ableitungswert.
+
+**Korrigiert** in vier Teilschritten, die zu **genau einem** Konsistenzvorgang
+gehören: **B0** (`0cb4ea9`) Registrierung und Authority · **B1/B2** (`271acc7`)
+dokumentarische **und** ausführbare Angleichung auf **32 / 1 / 33** ·
+**B1/B2.1** Schließung der Restfundstelle in der Profil-A-README · **B1/B2.2**
+Bereinigung des erzeugten Repository-Bytecodes.
+
+**Wirkung:** kein Funktionsfehler, keine Runtimeänderung, keine Installation,
+keine Bereitstellung, kein Containerstart, keine Gatefreigabe, keine
+Aktivierung, keine Capability-Änderung; **D-056 unverändert**; **die
+Reconciliation einer Inventarzahl ist keine Testausführung** — ausgeführt
+bleiben **0 von 32** Negativtests und **0 von 1** Positivtest; das Bundleschema
+enthält **keinen** eigenen Positivtestzähler und wurde **nicht** erweitert;
+Capabilities **0 von 29**; beide Runtime-Gates `NOT EVALUATED`; die zwölf
+KB-Kontrollen `DOCUMENTED ONLY`; **R-20 bleibt offen**.
+
+**R-33 bleibt `gemindert, nicht geschlossen`** — Kritikalität unverändert
+**mittel**, kein Risiko geschlossen, **keine neue Risiko-ID**. **Achtzehn
+Konsistenzvorgänge in einundzwanzig Work Packages** sind dokumentiert (**neue
+aktuelle Basislinie**; löst „siebzehn" ab); die Zahl der Work Packages steigt
+auf **einundzwanzig**, weil dieser Vorgang **erstmals CBP-WP-021** betrifft, das
+durch `271acc7` Teil der committeten Menge wurde (**17/20 → 18/21**). **Das
+projektweite Konsistenzrisiko ist nicht beseitigt.** Dieser Vorgang ist mit dem
+Eintrag in [RISK_REGISTER.md](RISK_REGISTER.md) **identisch** und zählt **nur
+einmal**.
 
 **Die Implementierung von CBP-WP-013 selbst führte keinen arithmetischen
 Zählfehler ein.** Testzahl (**137**) aus `Ran N tests`, Git-Inventar aus

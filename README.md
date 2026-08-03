@@ -28,8 +28,8 @@ vorgesehene, **noch nicht implementierte** Anwendungslaufzeit.
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Aktuelles Work Package | **CBP-WP-021** (`in-review`, Phase B1/B2 – Coordinated Reconciliation and Validation) — **D-056**, `ADR_NOT_REQUIRED`; B0 `committed` (`0cb4ea9`); zuletzt abgeschlossen **CBP-WP-020** (`committed`, `complete`; **D-055**; B0 `17057e2`, B1/B2 `9c6c0fb`, C `d6a1a3c`) |
-| Nächster Schritt | **Nova-Review und Human-Commit von CBP-WP-021 Phase B1/B2.** Das kanonische Security-Foundation-Testinventar ist reconciliiert: **32 Negativtests, 1 Positivtest, 33 Testfälle**; **0 ausgeführt**. Bundle, Validator und Bundle-Tests wurden koordiniert angepasst und validiert. **Weiterhin keine Installation und keine Bereitstellung.** **CBP-WP-022 ist nicht registriert und nicht autorisiert** |
+| Aktuelles Work Package | **keines** — zuletzt abgeschlossen **CBP-WP-021** (`committed`, `complete`, 2026-08-03; **D-056**, `ADR_NOT_REQUIRED`; B0 `0cb4ea9`, B1/B2 `271acc7`); zuvor abgeschlossen **CBP-WP-020** (`committed`, `complete`; **D-055**; B0 `17057e2`, B1/B2 `9c6c0fb`, C `d6a1a3c`) |
+| Nächster Schritt | **Wird durch den Human Maintainer und Nova separat bestimmt.** Das kanonische Security-Foundation-Testinventar ist reconciliiert: **32 Negativtests, 1 Positivtest, 33 Testfälle**; **0 von 32** und **0 von 1** ausgeführt. **Weiterhin keine Installation und keine Bereitstellung.** **Kein Folge-Work-Package autorisiert; CBP-WP-022 ist nicht registriert** |
 | **Gate G0** | **PASSED WITH NOTES** — 2026-07-21, A0 |
 | Phase-1-Planung | **Streams F1–F5 geplant**, [Foundation Plan](docs/roadmap/PHASE_1_FOUNDATION_PLAN.md) |
 | **Repository-Struktur** | **entschieden** — [ADR-0007](docs/decisions/ADR-0007-repository-und-workspace-grenze.md); **Migration nicht autorisiert** |

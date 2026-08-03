@@ -5,8 +5,9 @@
 | Titel | **Canonical Security Test Inventory Reconciliation** |
 | Typ | **governance-and-validation reconciliation** |
 | Prompt Mode | **Full** · Context Budget **B2 – Standard** |
-| Status | **`in-review`** |
-| Aktuelle Phase | **Phase B1/B2 – Coordinated Reconciliation and Validation** |
+| Status | **`committed`** · **`complete`** |
+| Aktuelle Phase | **Phase C – Post-Commit Reconciliation** (vorbereitet) |
+| Abschlussdatum | **2026-08-03** |
 | A0-Entscheidung | **D-056** (konsolidiert, A–U) |
 | ADR | **not required** (`ADR_NOT_REQUIRED`) |
 | Kanonische Authority | **32** Negativtests · **1** Positivtest · **33** Testfälle |
@@ -15,8 +16,8 @@
 | Gates | Mapping Activation `NOT EVALUATED` · Security Foundation Readiness `NOT EVALUATED` |
 | Security Controls | **12 `DOCUMENTED ONLY`** |
 | R-20 | **offen** |
-| R-33 | **17/20** — unverändert, Fortschreibung erst in Phase C |
-| Commit | **B0 `committed` `0cb4ea9`** · **B1/B2 nicht committed** — Commit-Autorität beim Human Maintainer |
+| R-33 | **18/21** — fortgeschrieben durch diese Post-Commit-Reconciliation (17/20 → 18/21) |
+| Commit | **B0 `committed` `0cb4ea9`** · **B1/B2 `committed` `271acc7`** — Phase C uncommitted, Commit-Autorität beim Human Maintainer |
 
 ---
 
@@ -140,10 +141,12 @@ ausführbare Artefakte gewandert.
 | Phase | Gegenstand | Stand |
 | --- | --- | --- |
 | **A** | Authority- und Scope-Analyse (read-only) | **abgeschlossen** |
-| **B0** | Registrierung und D-056 | **abgeschlossen** — `committed` `0cb4ea9` |
-| **B1** | Dokumentarische und ausführbare Reconciliation | **implemented, uncommitted** |
-| **B2** | Vollständige Tests, Validator- und Konsistenzprüfung | **validated, uncommitted** |
-| **C** | Post-Commit-Reconciliation | **nicht begonnen** |
+| **B0** | Registrierung und D-056 | **complete** — `committed` `0cb4ea9` |
+| **B1** | Dokumentarische und ausführbare Reconciliation | **complete** — `committed` `271acc7` |
+| **B2** | Vollständige Tests, Validator- und Konsistenzprüfung | **complete** — `committed` `271acc7` |
+| **B1/B2.1** | Restfundstelle Profil-A-README | **complete** — in `271acc7` enthalten |
+| **B1/B2.2** | Repository-Bytecode bereinigt | **complete** — keine versionierte Wirkung |
+| **C** | Post-Commit-Reconciliation | **vorbereitet (dieser Stand, uncommitted)** |
 
 **Keine reale Infrastrukturphase.**
 
@@ -204,6 +207,40 @@ die Korrektur blieb auf die eine Textzeile beschränkt.
 
 Beide sind **Chronologieeinträge** und werden sachgerecht in **Phase C**
 behandelt. **Es verbleibt keine sachlich fehlerhafte aktuelle Fundstelle.**
+
+---
+
+## Phase C — Post-Commit Reconciliation
+
+| Feld | Wert |
+| --- | --- |
+| B0-Commit | **`0cb4ea9`** — „CBP-WP-021: register canonical security test inventory reconciliation" |
+| B1/B2-Commit | **`271acc7`** — „CBP-WP-021: reconcile canonical security test inventory" |
+| Parent | `0cb4ea9` |
+| Commitinhalt | **19 Pfade**, **156 Einfügungen**, **97 Löschungen**, **ausschließlich modifiziert** — 0 neu, 0 gelöscht, 0 umbenannt |
+| Abschlussdatum | **2026-08-03** |
+| R-33 | **17/20 → 18/21** |
+
+**Erhaltene technische Evidenz aus B1/B2 — in Phase C nicht erneut ausgeführt:**
+Bundle-Test **166 Tests, 0 übersprungen, OK, Exit 0** · Gesamtsuite **724 Tests,
+0 übersprungen, OK, Exit 0** · `compileall` **Exit 0**, 108 `.pyc` im externen
+temporären Prefix, danach entfernt · Bundle-Validator **zwei Läufe, Exit 0/0**,
+`PROFILE-A-BUNDLE VALID`, `issues=0`, byte-identisch, SHA-256
+`44952a7681b40bd082fccfe8b4387d01bc52b6daee4bb07b0d697a743a7fbece` ·
+Repository-Bytecode **0**.
+
+**R-33-Fortschreibung:** Der **achtzehnte** Konsistenzvorgang erfasst **erstmals
+CBP-WP-021**. B0, B1/B2, die README-Note-Schließung (B1/B2.1) und der
+Bytecode-Cleanup (B1/B2.2) gehören zusammen zu **genau einem** Vorgang — keine
+Doppelzählung. Identisch gespiegelt in `RISK_REGISTER.md` und
+`COMPLIANCE_CHECK.md`. **R-33 bleibt `gemindert, nicht geschlossen`**,
+Kritikalität unverändert **mittel**; **keine neue Risiko-ID**. Das projektweite
+Konsistenzrisiko ist **nicht** beseitigt.
+
+**Kein Work Package ist aktiv. Kein Folge-Work-Package ist autorisiert.**
+**CBP-WP-022 ist nicht registriert, nicht begonnen und nicht autorisiert** — das
+KB-04-Paket bleibt ein nicht autorisierter späterer Kandidat. Der nächste
+Schritt wird durch den Human Maintainer und Nova separat bestimmt.
 
 ---
 

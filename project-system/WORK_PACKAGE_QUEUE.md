@@ -3,11 +3,11 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Aktuelles Work Package | **CBP-WP-021** (`in-review`, **Phase B1/B2 – Coordinated Reconciliation and Validation**) — **D-056**, `ADR_NOT_REQUIRED`; kanonisch **32 Negativtests / 1 Positivtest / 33 Testfälle**, **0 ausgeführt**; zuletzt abgeschlossen **CBP-WP-020** (`committed`, `complete`; B0 `17057e2`, B1/B2 `9c6c0fb`); **uncommitted**. **CBP-WP-022 nicht registriert, nicht autorisiert.** |
+| Aktuelles Work Package | **keines** — zuletzt abgeschlossen **CBP-WP-021** (`committed`, `complete`, 2026-08-03; **D-056**, `ADR_NOT_REQUIRED`; kanonisch **32 Negativtests / 1 Positivtest / 33 Testfälle**, **0 von 32** und **0 von 1** ausgeführt; B0 `0cb4ea9`, B1/B2 `271acc7`). Zuvor abgeschlossen **CBP-WP-020** (`committed`, `complete`; B0 `17057e2`, B1/B2 `9c6c0fb`, C `d6a1a3c`). **Kein Folge-Work-Package autorisiert; CBP-WP-022 nicht registriert.** |
 | Gate G0 | **PASSED WITH NOTES** — 2026-07-21 |
 | Überarbeitet in | **CBP-WP-016** |
 | Autoritätsklasse | A2 |
-| Stand | 2026-08-03 — CBP-WP-021 Phase B1/B2 |
+| Stand | 2026-08-03 — CBP-WP-021 Phase C |
 
 Spalten nach `WORK_PACKAGE_QUEUE_TEMPLATE.md` (NDF v1.0.0).
 
@@ -47,7 +47,7 @@ Spalten nach `WORK_PACKAGE_QUEUE_TEMPLATE.md` (NDF v1.0.0).
 | CBP-WP-018 | **Security Foundation Readiness Contract & Synthetic Form-Validator** | P1 | **`committed`** | [work-packages/CBP-WP-018.md](../work-packages/CBP-WP-018.md) |
 | CBP-WP-019 | **Deployment Readiness Intake and Profile-A Target Specification** | P1 | **`committed`** | [work-packages/CBP-WP-019.md](../work-packages/CBP-WP-019.md) |
 | CBP-WP-020 | **Controlled Profile-A Deployment Foundation** | P1 | **`committed`** (B0 `17057e2`, B1/B2 `9c6c0fb`) | [work-packages/CBP-WP-020.md](../work-packages/CBP-WP-020.md) |
-| CBP-WP-021 | **Canonical Security Test Inventory Reconciliation** | P1 | **`in-review`** (Phase B1/B2; B0 `committed` `0cb4ea9`) | [work-packages/CBP-WP-021.md](../work-packages/CBP-WP-021.md) |
+| CBP-WP-021 | **Canonical Security Test Inventory Reconciliation** | P1 | **`committed`** (B0 `0cb4ea9`, B1/B2 `271acc7`) | [work-packages/CBP-WP-021.md](../work-packages/CBP-WP-021.md) |
 
 **Kein Work Package ist als `proposed` geführt.** **CBP-WP-019** (Deployment
 Readiness Intake and Profile-A Target Specification) steht auf **`in-review`** in
@@ -70,19 +70,21 @@ gestartet.** **Phase B3 (reale Bereitstellung) ist ausdrücklich nicht
 Bestandteil** von CBP-WP-020.
 
 **CBP-WP-021** (Canonical Security Test Inventory Reconciliation) ist unter
-**D-056** (`ADR_NOT_REQUIRED`) **registriert** und steht auf **`in-review`** in
-**Phase B1/B2 – Coordinated Reconciliation and Validation**; B0 ist `committed` (`0cb4ea9`). D-056 stellt das kanonische
-Security-Foundation-Testinventar verbindlich fest: **32 Negativtests**
+**D-056** (`ADR_NOT_REQUIRED`) **`committed`** und **`complete`** — abgeschlossen
+am **2026-08-03**, Phase B0 `0cb4ea9`, Phase B1/B2 `271acc7`. D-056 stellt das
+kanonische Security-Foundation-Testinventar verbindlich fest: **32 Negativtests**
 (NT-01…NT-24 und NT-26…NT-33), **1 Positivtest** (PT-01), **33 Testfälle**;
 **NT-25 bleibt nach Regel TT-5 bewusst frei**, **NT-32 und NT-33 sind gültig**.
 Die Zahl **31** ist ein **überholter, falsch etikettierter Ableitungswert**.
-**Ausgeführt sind weiterhin 0 von 32 Negativtests und 0 von 1 Positivtest** — die
-Feststellung eines Inventarwerts ist **keine** Testausführung und **keine**
-Gateauswertung. Die **Durchführung** der Reconciliation erfolgt erst in **B1/B2**
-und umfasst auch die ausführbaren Artefakte des Profil-A-Bundles. Genau **ein**
-Work Package ist `in-review` (CBP-WP-021); **zuletzt abgeschlossen ist
-CBP-WP-020**. **CBP-WP-022 ist nicht registriert, nicht begonnen und nicht
-autorisiert.**
+**Ausgeführt sind weiterhin 0 von 32 Negativtests und 0 von 1 Positivtest** —
+weder die Feststellung eines Inventarwerts noch dessen Reconciliation ist eine
+Testausführung oder Gateauswertung. Die Reconciliation umfasste auch die
+**ausführbaren** Artefakte des Profil-A-Bundles.
+
+**Kein Work Package ist `active` oder `in-review`**; **zuletzt abgeschlossen ist
+CBP-WP-021**. **Kein Folge-Work-Package ist autorisiert. CBP-WP-022 ist nicht
+registriert, nicht begonnen und nicht autorisiert** — das KB-04-Paket bleibt ein
+**nicht autorisierter späterer Kandidat**.
 
 > **Titelkorrektur in CBP-WP-009.** Diese Übersichtstabelle trug bis dahin die
 > Titel eines verworfenen Entwurfs der Work-Package-Karte (009 „Repository and
@@ -633,7 +635,8 @@ A0-Decisions und ADRs standen zum Abschluss von CBP-WP-020 auf
 | Typ | **governance-and-validation reconciliation** |
 | Prompt Mode | **Full** · Context Budget **B2 – Standard** |
 | Status | **`in-review`** |
-| Aktuelle Phase | **Phase B1/B2 – Coordinated Reconciliation and Validation** |
+| Aktuelle Phase | **Phase C – Post-Commit Reconciliation** (vorbereitet) |
+| Abschlussdatum | **2026-08-03** |
 | A0-Entscheidung | **D-056** (konsolidiert, A–U) |
 | ADR | **not required** (`ADR_NOT_REQUIRED`) |
 | Kanonische Authority | **32** Negativtests · **1** Positivtest · **33** Testfälle |
@@ -697,11 +700,29 @@ keine neue Test-ID, kein KB-04.
 **Keine Control-Hochstufung, keine Testausführung, keine Gateauswertung.**
 Capability-Stand unverändert **0 von 29**; beide Runtime-Gates bleiben
 `NOT EVALUATED`; die zwölf KB-Kontrollen bleiben `DOCUMENTED ONLY`; **R-20
-bleibt offen**; **R-33 unverändert 17/20**, Fortschreibung erst in Phase C.
+bleibt offen**; **R-33 fortgeschrieben 17/20 → 18/21** in Phase C.
+
+**Phase C (dieser Stand, uncommitted):** Post-Commit-Reconciliation nach
+`271acc7` (Parent `0cb4ea9`, `origin/main` synchron). Der Commit umfasst **19
+Pfade**, **156 Einfügungen**, **97 Löschungen**, **ausschließlich modifizierte
+Dateien** — nichts neu, nichts gelöscht, nichts umbenannt. **CBP-WP-021 ist
+`committed` und `complete`**, Abschlussdatum **2026-08-03**; **kein Work Package
+ist aktiv** und **kein Folge-Work-Package autorisiert**. **R-33 fortgeschrieben
+von 17/20 auf 18/21** — achtzehnter Konsistenzvorgang, identisch gespiegelt in
+`RISK_REGISTER.md` und `COMPLIANCE_CHECK.md`, **genau einmal gezählt**; B0,
+B1/B2, die README-Note-Schließung und der Bytecode-Cleanup gehören zusammen zu
+**einem** Vorgang. Decisions, A0-Decisions und ADRs bleiben **56 / 52 / 13**;
+keine Capability hochgestuft, keine neue Decision, kein ADR, **keine neue
+Risiko-ID**.
+
+**Erhaltene technische Evidenz aus B1/B2** — in Phase C **nicht erneut
+ausgeführt**: Bundle-Test **166 OK**, Gesamtsuite **724 OK**, je **0
+übersprungen**, Exit 0; `compileall` Exit 0; Validator zweimal Exit 0,
+`PROFILE-A-BUNDLE VALID`, `issues=0`, byte-identisch; Repository-Bytecode **0**.
 
 **KB-04 ist nicht Bestandteil von CBP-WP-021.** Das spätere KB-04-Paket ist als
-möglicher Kandidat **CBP-WP-022** vorgemerkt, aber **weder registriert noch
-autorisiert**.
+**nicht autorisierter späterer Kandidat** vorgemerkt; **CBP-WP-022 ist weder
+registriert noch autorisiert**.
 
 ---
 

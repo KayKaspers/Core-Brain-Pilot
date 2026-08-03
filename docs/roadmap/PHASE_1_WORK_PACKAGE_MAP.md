@@ -8,7 +8,7 @@
 | Backlog-Grundlage | [PHASE_1_BACKLOG.md](PHASE_1_BACKLOG.md) (P1–P5) |
 | Erfasst in | CBP-WP-008 |
 | Autoritätsklasse | A3 |
-| Stand | 2026-08-03 — CBP-WP-021 Phase B1/B2 |
+| Stand | 2026-08-03 — CBP-WP-021 Phase C |
 
 > **Diese Karte ist ein historisches Planungsartefakt.** Sie schnitt bewusst nur
 > **F1 bis F5** (CBP-WP-009 bis CBP-WP-014). Die **ursprüngliche
@@ -49,7 +49,7 @@ nur zur Statusvollständigkeit geführt:
 | **CBP-WP-018** | Security Foundation Readiness Contract & Synthetic Form-Validator | **`committed`** — `4dec921` (Governance), `5ee2e83` (Implementation) |
 | **CBP-WP-019** | Deployment Readiness Intake and Profile-A Target Specification | **`committed`** — `3c437f2` |
 | **CBP-WP-020** | Controlled Profile-A Deployment Foundation | **`committed`** — `17057e2` (B0), `9c6c0fb` (B1/B2), `d6a1a3c` (C) |
-| **CBP-WP-021** | Canonical Security Test Inventory Reconciliation | **`in-review`** (Phase B1/B2) — B0 `committed` `0cb4ea9`, B1/B2 uncommitted |
+| **CBP-WP-021** | Canonical Security Test Inventory Reconciliation | **`committed`** — `0cb4ea9` (B0), `271acc7` (B1/B2) |
 
 **CBP-WP-020 ist `committed` und `complete`** (D-055): Phase B0 `17057e2`,
 Phase B1/B2 `9c6c0fb`. Das **Profil-A-Bundle** liegt als Repository-Artefakt mit
@@ -64,14 +64,14 @@ validation implemented* · *offline validation passed*. **B3 (reale
 Bereitstellung) ist ausgeschlossen** — es wurde nichts installiert, gestartet,
 verbunden oder durchgesetzt.
 
-**CBP-WP-021 ist registriert** (D-056) und steht auf **`in-review`** in **Phase
-B0 – Registration and Canonical Authority**. D-056 stellt das kanonische
-Security-Foundation-Testinventar fest: **32 Negativtests**, **1 Positivtest**,
-**33 Testfälle**; **NT-25 bleibt nach Regel TT-5 frei**, **NT-32 und NT-33 sind
-gültig**, die Zahl **31** ist ein überholter, falsch etikettierter
-Ableitungswert. **Ausgeführt sind 0 von 32 und 0 von 1.** Die **Durchführung**
-der Reconciliation — einschließlich der ausführbaren Profil-A-Artefakte —
-erfolgt erst in **B1/B2**.
+**CBP-WP-021 ist `committed` und `complete`** (D-056), abgeschlossen am
+**2026-08-03**: Phase B0 `0cb4ea9`, Phase B1/B2 `271acc7`. D-056 stellt das
+kanonische Security-Foundation-Testinventar fest: **32 Negativtests**, **1
+Positivtest**, **33 Testfälle**; **NT-25 bleibt nach Regel TT-5 frei**, **NT-32
+und NT-33 sind gültig**, die Zahl **31** ist ein überholter, falsch
+etikettierter Ableitungswert. **Ausgeführt sind 0 von 32 und 0 von 1.** Die
+Reconciliation umfasste auch die **ausführbaren** Profil-A-Artefakte.
+**Kein Work Package ist aktiv, kein Folge-Work-Package autorisiert.**
 
 > **In CBP-WP-021 Phase B1 korrigiert.** Diese Karte führte zuvor „31
 > Negativtests"; der Wert ist auf den kanonischen Stand **32** gebracht.
