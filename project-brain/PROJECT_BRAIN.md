@@ -23,7 +23,7 @@ verweigern deterministisch.
 
 | Feld | Wert |
 | --- | --- |
-| Aktuelles Work Package | **CBP-WP-022** (`in-review`, **Phase B0 – Registration and Authority Baseline**) — **D-057** (`accepted`, **A0**, 2026-08-03), `ADR_NOT_REQUIRED` **nur für die Registration**; **KB-04 Enforcement Stage 1** = Stufe 1 der neunstufigen Durchsetzungsreihenfolge (**OS-Dateirechte**); KB-04 bleibt **`DOCUMENTED ONLY`**. **Technische Implementierung nicht autorisiert; B1 und B2 nicht freigegeben.** Zuletzt abgeschlossen **CBP-WP-021** (`committed`, `complete`; B0 `0cb4ea9`, B1/B2 `271acc7`, C `0344774`). **CBP-WP-023 nicht registriert, nicht autorisiert** |
+| Aktuelles Work Package | **CBP-WP-022** (`in-review`, **Phase B1A – Contract Boundary and ADR Gate**) — **D-057** (`accepted`, **A0**, 2026-08-03), `ADR_NOT_REQUIRED` **nur für die Registration**; **KB-04 Enforcement Stage 1** = Stufe 1 der neunstufigen Durchsetzungsreihenfolge (**OS-Dateirechte**); KB-04 bleibt **`DOCUMENTED ONLY`**. **Technische Implementierung nicht autorisiert; B1 und B2 nicht freigegeben.** Zuletzt abgeschlossen **CBP-WP-021** (`committed`, `complete`; B0 `0cb4ea9`, B1/B2 `271acc7`, C `0344774`). **CBP-WP-023 nicht registriert, nicht autorisiert** |
 | Zuletzt abgeschlossen | **CBP-WP-021** (`committed`, `complete`, 2026-08-03; **D-056**; kanonisches Security-Testinventar **32 / 1 / 33**, **0 von 32** und **0 von 1** ausgeführt; B0 `0cb4ea9`, B1/B2 `271acc7`). Zuvor abgeschlossen **CBP-WP-020** (`committed`, `complete`; **D-055**; **Z1 erreicht / S2 abgeschlossen / P1 eingehalten**; B0 `17057e2`, B1/B2 `9c6c0fb`, C `d6a1a3c`). **CBP-WP-023 nicht registriert, nicht autorisiert** |
 | Gate G0 | **PASSED WITH NOTES** — 2026-07-21 |
 | G0-Kriterien | **47**, dreistufig klassifiziert |
@@ -31,7 +31,7 @@ verweigern deterministisch.
 | davon `accepted` | **25** — alle |
 | verbleibende Blocker | **0** |
 | Phase 1 | AUTHORIZED FOR PLANNING — [Backlog](../docs/roadmap/PHASE_1_BACKLOG.md), [Foundation Plan](../docs/roadmap/PHASE_1_FOUNDATION_PLAN.md) |
-| Geplante Work Packages | **CBP-WP-022** `in-review` (D-057, Phase B0, Registration-only, uncommitted). **CBP-WP-021** ist `committed` und `complete` (D-056; B0 `0cb4ea9`, B1/B2 `271acc7`). **CBP-WP-020** ist `committed` und `complete` (D-055; B0 `17057e2`, B1/B2 `9c6c0fb`, C `d6a1a3c`), B3 **ausgeschlossen**; CBP-WP-019 ist `committed` (`3c437f2`, D-054). **CBP-WP-023 nicht registriert, nicht begonnen, nicht autorisiert** — das KB-04-Paket ist lediglich als möglicher Kandidat vorgemerkt |
+| Geplante Work Packages | **CBP-WP-022** `in-review` (D-057 Registrierung, D-058 ADR-Gate; **Phase B1A**, B0 `committed` `e4caa14`, B1A uncommitted; **`ADR_REQUIRED`**, ADR-0014 nicht angelegt). **CBP-WP-021** ist `committed` und `complete` (D-056; B0 `0cb4ea9`, B1/B2 `271acc7`). **CBP-WP-020** ist `committed` und `complete` (D-055; B0 `17057e2`, B1/B2 `9c6c0fb`, C `d6a1a3c`), B3 **ausgeschlossen**; CBP-WP-019 ist `committed` (`3c437f2`, D-054). **CBP-WP-023 nicht registriert, nicht begonnen, nicht autorisiert** — das KB-04-Paket ist lediglich als möglicher Kandidat vorgemerkt |
 | **Repository-Struktur** | **entschieden** — Ziel-Monorepo + Workspace W-3 (ADR-0007); **Migration nicht autorisiert** |
 | **Mappingkonvention** | **entschieden** — ADR-0008; **0 Mappings, 0 Quellen**, Gate `NOT EVALUATED` |
 | **Sicherheitsgrundlage** | **spezifiziert** — ADR-0009; **12 Kontrollen `DOCUMENTED ONLY`** |
@@ -121,7 +121,7 @@ Source-Registry-MVP (beide 2026-07-22); **ADR-0012** (D-046…D-049) den
 Source-Mapping-Draft-Validator (2026-07-27), der **ADR-0008** präzisiert und
 den 31-Feld-Vertrag unverändert lässt.
 
-**57** getroffene Entscheidungen, davon **53** mit A0. **23** offene, davon
+**58** getroffene Entscheidungen, davon **54** mit A0. **23** offene, davon
 **5** mit P0. Geführt in
 [project-system/DECISION_REGISTER.md](../project-system/DECISION_REGISTER.md).
 

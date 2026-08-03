@@ -37,7 +37,7 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 – COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Aktuelles Work Package | **CBP-WP-022** (`in-review`, **Phase B0 – Registration and Authority Baseline**) — **D-057** (`accepted`, **A0**, 2026-08-03), `ADR_NOT_REQUIRED` **nur für die Registration**; **KB-04 Enforcement Stage 1** = Stufe 1 der neunstufigen Durchsetzungsreihenfolge (**OS-Dateirechte**); KB-04 bleibt **`DOCUMENTED ONLY`**. **Technische Implementierung nicht autorisiert; B1 und B2 nicht freigegeben.** Zuletzt abgeschlossen **CBP-WP-021** (`committed`, `complete`; B0 `0cb4ea9`, B1/B2 `271acc7`, C `0344774`). **CBP-WP-023 nicht registriert, nicht autorisiert** |
+| Aktuelles Work Package | **CBP-WP-022** (`in-review`, **Phase B1A – Contract Boundary and ADR Gate**) — **D-057** (`accepted`, **A0**, 2026-08-03), `ADR_NOT_REQUIRED` **nur für die Registration**; **KB-04 Enforcement Stage 1** = Stufe 1 der neunstufigen Durchsetzungsreihenfolge (**OS-Dateirechte**); KB-04 bleibt **`DOCUMENTED ONLY`**. **Technische Implementierung nicht autorisiert; B1 und B2 nicht freigegeben.** Zuletzt abgeschlossen **CBP-WP-021** (`committed`, `complete`; B0 `0cb4ea9`, B1/B2 `271acc7`, C `0344774`). **CBP-WP-023 nicht registriert, nicht autorisiert** |
 | Zuletzt abgeschlossen | **CBP-WP-021** (`committed`, `complete`, 2026-08-03; **D-056**, `ADR_NOT_REQUIRED`; kanonisches Security-Testinventar **32 / 1 / 33**, **0 von 32** und **0 von 1** ausgeführt; B0 `0cb4ea9`, B1/B2 `271acc7`). **Kein Folge-Work-Package autorisiert.** Zuvor abgeschlossen **CBP-WP-020** (`committed`, `complete`; **D-055**; **Z1 erreicht / S2 abgeschlossen / P1 eingehalten**; B0 `17057e2`, B1/B2 `9c6c0fb`, C `d6a1a3c`). **CBP-WP-023 nicht registriert, nicht autorisiert** |
 | **Kanonisches Security-Testinventar** | **32 Negativtests · 1 Positivtest · 33 Testfälle** (D-056) — **0 von 32** und **0 von 1** ausgeführt; **NT-25 nicht aktiv** (TT-5), **NT-32/NT-33 gültig**; die Zahl **31** ist überholt. **In B1/B2 reconciliiert** — Dokumente, `bundle.json`, `validate.py` und Bundle-Tests |
 | **Gate-Status G0** | **PASSED WITH NOTES** — 2026-07-21, A0 |
@@ -62,7 +62,7 @@
 | davon `accepted` | **25** — alle |
 | Kriterienstand | 25 von 25 `accepted` |
 | Capabilities implementiert | **0** von 29 — Capability 2/3/5/6/7 bleiben nicht vollständig `implemented` |
-| Getroffene Entscheidungen | **57** (davon **53** mit A0) |
+| Getroffene Entscheidungen | **58** (davon **54** mit A0) |
 | Angenommene ADRs | **13** |
 | Scope gelockt | **ja** — mit Auflagen |
 

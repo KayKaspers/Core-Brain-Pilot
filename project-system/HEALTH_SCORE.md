@@ -3,7 +3,7 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Letzte Bewertung | 2026-08-03, im Rahmen von **CBP-WP-022** (`in-review`, Phase B0, D-057) |
+| Letzte Bewertung | 2026-08-03, im Rahmen von **CBP-WP-022** (`in-review`, Phase B1A, D-057/D-058) |
 | Autoritätsklasse | A2 |
 
 > Diese Datei gehört zur kanonischen NDF-Ordnerstruktur, war aber in der
@@ -71,8 +71,8 @@ Durchsetzung, nicht ein weiteres Dokument.
 | Discovery-Fragen | *55* → korrekt 56 | **56** |
 | davon P0 | *35* → korrekt 38 | **38** |
 | davon P0 offen und Core Required | 38 | **0** |
-| Getroffene Entscheidungen | 14 | **57** |
-| davon A0 | 8 | **53** |
+| Getroffene Entscheidungen | 14 | **58** |
+| davon A0 | 8 | **54** |
 | Offene Entscheidungen | 27 | **23** |
 | davon P0 | 14 | **5** |
 | Erfasste Risiken | 29 | **32** |
@@ -80,7 +80,7 @@ Durchsetzung, nicht ein weiteres Dokument.
 | davon hoch | 14 | 17 |
 | Capabilities `implemented` | **0** | **0** |
 | Angenommene ADRs | 0 | **13** |
-| Vorgeschlagene Work Packages | 0 | **0** — **CBP-WP-022 `in-review`** (D-057, Phase B0, Registration-only, uncommitted); **CBP-WP-021 `committed` und `complete`** (D-056; B0 `0cb4ea9`, B1/B2 `271acc7`, C `0344774`); **CBP-WP-020 `committed` und `complete`** (D-055; B0 `17057e2`, B1/B2 `9c6c0fb`, C `d6a1a3c`); CBP-WP-019 `committed` (`3c437f2`, D-054); **CBP-WP-023 nicht registriert, nicht autorisiert** |
+| Vorgeschlagene Work Packages | 0 | **0** — **CBP-WP-022 `in-review`** (D-057/D-058, **Phase B1A**, B0 `committed` `e4caa14`, B1A uncommitted; ADR-Gate **`ADR_REQUIRED`**, ADR-0014 **nicht angelegt**); **CBP-WP-021 `committed` und `complete`** (D-056; B0 `0cb4ea9`, B1/B2 `271acc7`, C `0344774`); **CBP-WP-020 `committed` und `complete`** (D-055; B0 `17057e2`, B1/B2 `9c6c0fb`, C `d6a1a3c`); CBP-WP-019 `committed` (`3c437f2`, D-054); **CBP-WP-023 nicht registriert, nicht autorisiert** |
 | **Erstellte Source Mappings** | 0 | **0** |
 | **Angebundene Quellen** | 0 | **0** |
 | **Umgesetzte Sicherheitskontrollen** | 0 | **0 von 12** |

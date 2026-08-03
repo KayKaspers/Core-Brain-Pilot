@@ -3,11 +3,11 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Aktuelles Work Package | **CBP-WP-022** (`in-review`, **Phase B0 – Registration and Authority Baseline**) — **D-057** (`accepted`, **A0**, 2026-08-03), `ADR_NOT_REQUIRED` **nur für die Registration**; **KB-04 Enforcement Stage 1**; **technische Implementierung nicht autorisiert**, B1 und B2 **nicht freigegeben**. Zuletzt abgeschlossen **CBP-WP-021** (`committed`, `complete`, 2026-08-03; **D-056**, `ADR_NOT_REQUIRED`; kanonisch **32 Negativtests / 1 Positivtest / 33 Testfälle**, **0 von 32** und **0 von 1** ausgeführt; B0 `0cb4ea9`, B1/B2 `271acc7`). Zuvor abgeschlossen **CBP-WP-020** (`committed`, `complete`; B0 `17057e2`, B1/B2 `9c6c0fb`, C `d6a1a3c`). **CBP-WP-023 nicht registriert, nicht autorisiert.** |
+| Aktuelles Work Package | **CBP-WP-022** (`in-review`, **Phase B1A – Contract Boundary and ADR Gate**) — **D-057** Registrierung und **D-058** ADR-Gate (beide `accepted`, **A0**, 2026-08-03); ADR-Gate-Ergebnis **`ADR_REQUIRED`**, voraussichtlich **ADR-0014**, **nicht angelegt**; B0 `committed` (`e4caa14`), B1A uncommitted; **KB-04 Enforcement Stage 1**; **technische Implementierung nicht autorisiert**, B1B und B2 **nicht freigegeben**. Zuletzt abgeschlossen **CBP-WP-021** (`committed`, `complete`, 2026-08-03; **D-056**, `ADR_NOT_REQUIRED`; kanonisch **32 Negativtests / 1 Positivtest / 33 Testfälle**, **0 von 32** und **0 von 1** ausgeführt; B0 `0cb4ea9`, B1/B2 `271acc7`). Zuvor abgeschlossen **CBP-WP-020** (`committed`, `complete`; B0 `17057e2`, B1/B2 `9c6c0fb`, C `d6a1a3c`). **CBP-WP-023 nicht registriert, nicht autorisiert.** |
 | Gate G0 | **PASSED WITH NOTES** — 2026-07-21 |
 | Überarbeitet in | **CBP-WP-016** |
 | Autoritätsklasse | A2 |
-| Stand | 2026-08-03 — CBP-WP-022 Phase B0 |
+| Stand | 2026-08-03 — CBP-WP-022 Phase B1A |
 
 Spalten nach `WORK_PACKAGE_QUEUE_TEMPLATE.md` (NDF v1.0.0).
 
@@ -48,7 +48,7 @@ Spalten nach `WORK_PACKAGE_QUEUE_TEMPLATE.md` (NDF v1.0.0).
 | CBP-WP-019 | **Deployment Readiness Intake and Profile-A Target Specification** | P1 | **`committed`** | [work-packages/CBP-WP-019.md](../work-packages/CBP-WP-019.md) |
 | CBP-WP-020 | **Controlled Profile-A Deployment Foundation** | P1 | **`committed`** (B0 `17057e2`, B1/B2 `9c6c0fb`) | [work-packages/CBP-WP-020.md](../work-packages/CBP-WP-020.md) |
 | CBP-WP-021 | **Canonical Security Test Inventory Reconciliation** | P1 | **`committed`** (B0 `0cb4ea9`, B1/B2 `271acc7`, C `0344774`) | [work-packages/CBP-WP-021.md](../work-packages/CBP-WP-021.md) |
-| CBP-WP-022 | **KB-04 Enforcement Stage 1** | P1 | **`in-review`** (Phase B0) | [work-packages/CBP-WP-022.md](../work-packages/CBP-WP-022.md) |
+| CBP-WP-022 | **KB-04 Enforcement Stage 1** | P1 | **`in-review`** (Phase B1A; B0 `committed` `e4caa14`) | [work-packages/CBP-WP-022.md](../work-packages/CBP-WP-022.md) |
 
 **Kein Work Package ist als `proposed` geführt.** **CBP-WP-019** (Deployment
 Readiness Intake and Profile-A Target Specification) steht auf **`in-review`** in
@@ -741,12 +741,13 @@ registriert noch autorisiert**.
 | Typ | **security-foundation enforcement** (Stufe 1) |
 | Prompt Mode | **Full** · Context Budget **B2 – Standard** |
 | Status | **`in-review`** |
-| Aktuelle Phase | **Phase B0 – Registration and Authority Baseline** |
+| Aktuelle Phase | **Phase B1A – Contract Boundary and ADR Gate** |
 | Registration Decision | **D-057** (konsolidiert, A–M), `accepted`, **A0**, 2026-08-03 |
-| ADR | **`ADR_NOT_REQUIRED`** — **nur für die Registration-Decision** |
+| ADR-Gate-Decision | **D-058** (konsolidiert, A–M), `accepted`, **A0**, 2026-08-03 — Ergebnis **`ADR_REQUIRED`** |
+| ADR | **`ADR_REQUIRED`** vor jeder Implementierung; voraussichtlich **ADR-0014**, **nicht angelegt** |
 | Human-Maintainer-Freigabe | **Registration B0 authorized** |
 | Technische Implementierung | **nicht autorisiert** |
-| Commit | **nicht** ausgeführt (Commit-Autorität beim Human Maintainer) |
+| Commit | **B0 `committed` `e4caa14`** · **B1A nicht committed** (Commit-Autorität beim Human Maintainer) |
 
 **KB-04 ist der Kontrollbereich „Dateisystemrechte“.** Ziel: **Deny-by-default
 auf Dateiebene**; Bedrohung: **Direktzugriff unter Umgehung der Anwendung**.
@@ -785,8 +786,39 @@ produktive Isolation auf der Ziel-VM für KB-03 und KB-04 und bleibt
 **offen**. Die Nachweisstufe 4 verlangt eine **reale Profil-A-Instanz**, die
 **nicht existiert**.
 
-**Vor einer B1-Freigabe ist die ADR-Erforderlichkeit anhand des dann
-konkretisierten Designs erneut zu bewerten.**
+**Phase B1A (dieser Stand, uncommitted):** Vollständiger technischer
+KB-04-Authority- und Design-Grenzen-Audit durchgeführt — **kein Konflikt**.
+Die **Contract Boundary** ist implementierungsneutral festgehalten: sieben
+verbindliche Sicherheitsinvarianten (I-1 bis I-7), die noch offenen
+Designparameter, fünf implementierungsneutrale Verantwortlichkeiten, die
+Fail-closed-Grenze und der Nicht-Stage-1-Scope.
+
+**ADR-Gate — Ergebnis `ADR_REQUIRED` (D-058).** Sechs der zehn Designachsen
+enthalten eine offene, architekturweit wirkende Wahl: **Owner- und
+Gruppenmodell** (das Identity Model führt bewusst keine Benutzer, Gruppen,
+UID- oder GID-Werte), **UID-/GID-Abbildung und Host-/Container-Grenze**
+(Deployment Required), **konkrete Datei- und Verzeichnismodi** (im Foundation
+Plan ausdrücklich *offen — Deployment*), **Durchsetzungsakteur**,
+**Verifikations- gegen Korrektursemantik** sowie **Migrations- und
+Reparaturverhalten**. **ADR-0009 ist nicht konkret genug**, und **keine
+bestehende ADR** deckt die Lösungswahl ab. Die Entscheidung ist **schwer
+reversibel** und **sicherheitskritisch**, weil KB-04 die unterste tragende
+Ebene ist.
+
+**Voraussichtlich ADR-0014 — in diesem Lauf nicht angelegt.** Nächste
+mögliche Phase: **B1B – ADR-0014 Authoring and Design Decision**;
+**B1B ist nicht autorisiert**. **B2 bleibt gesperrt.**
+
+**Bereits entschieden und daher keine offene Achse:** die Schreib- und
+Erstellungssemantik — exklusive Temp-Datei, `fsync`, `os.replace`, kein
+Schreiben außerhalb des Roots, keine Hard- oder Symlinks (ADR-0010/ADR-0011,
+in `quarantine/store.py` und `registry/storage.py` bereits implementiert).
+
+**Unverändert:** KB-04 und alle zwölf Controls `DOCUMENTED ONLY`; beide
+Runtime-Gates `NOT EVALUATED`; Capabilities **0 von 29**; **NT-04 und NT-05
+nicht ausgeführt**; **R-20 offen**; **OD-37 offen**; **R-33 18/21**; keine neue
+Risiko-ID; keine reale Bereitstellung; kein RT-2; **CBP-WP-023 nicht
+registriert**.
 
 ---
 

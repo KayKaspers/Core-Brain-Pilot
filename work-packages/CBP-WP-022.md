@@ -6,10 +6,11 @@
 | Typ | **security-foundation enforcement** (Stufe 1) |
 | Prompt Mode | **Full** · Context Budget **B2 – Standard** |
 | Status | **`in-review`** |
-| Aktuelle Phase | **Phase B0 – Registration and Authority Baseline** |
+| Aktuelle Phase | **Phase B1A – Contract Boundary and ADR Gate** |
 | Registration Decision | **D-057** (konsolidiert, A–M) |
+| ADR-Gate-Decision | **D-058** (konsolidiert, A–M) — Ergebnis **`ADR_REQUIRED`** |
 | Decision Class | **A0** |
-| ADR | **`ADR_NOT_REQUIRED`** — **nur für die Registration-Decision** |
+| ADR | **`ADR_REQUIRED`** vor jeder Implementierung (D-058); voraussichtlich **ADR-0014**, **nicht angelegt**. `ADR_NOT_REQUIRED` galt nur für D-057 |
 | Registrierungsdatum | **2026-08-03** |
 | Human-Maintainer-Freigabe | **Registration B0 authorized** |
 | Technische Implementierung | **nicht autorisiert** |
@@ -19,7 +20,7 @@
 | Security Controls | **12 `DOCUMENTED ONLY`** |
 | R-20 | **offen** |
 | R-33 | **18/21** — in diesem Lauf **unverändert** |
-| Commit | **noch nicht vorhanden** — Commit-Autorität beim Human Maintainer |
+| Commit | **B0 `committed` `e4caa14`** · **B1A nicht committed** — Commit-Autorität beim Human Maintainer |
 
 ---
 
@@ -167,8 +168,9 @@ ohne Durchsetzung), CBP-WP-020 (Profil-A-Bundle), CBP-WP-021 (Testinventar).
 
 | Phase | Gegenstand | Stand |
 | --- | --- | --- |
-| **B0** | **Registration and Authority Baseline** | **aktuell autorisiert (dieser Stand, uncommitted)** |
-| **B1** | **Contract and Design Boundary** | **nicht autorisiert** |
+| **B0** | **Registration and Authority Baseline** | **complete** — `committed` `e4caa14` |
+| **B1A** | **Contract Boundary and ADR Gate** | **complete (dieser Stand, uncommitted)** |
+| **B1B** | **ADR-0014 Authoring and Design Decision** | **nicht autorisiert** |
 | **B2** | **Implementation and Validation** | **nicht autorisiert** |
 | **C** | **Post-Commit Reconciliation** | **nicht autorisiert** |
 
@@ -198,6 +200,132 @@ B0 ist **nur** erfüllt, wenn:
 | Scope außerhalb Stufe 1 | anhalten |
 | notwendige Änderung einer verbotenen Datei | anhalten |
 | technische Implementierung wäre zur bloßen Registrierung erforderlich | anhalten |
+
+---
+
+## Phase B1A — Contract Boundary and ADR Gate
+
+**B0-Commit:** `e4caa14` — „CBP-WP-022: register KB-04 enforcement stage 1“,
+10 Pfade (1 neu, 9 modifiziert), 338 Einfügungen, 32 Löschungen.
+
+### Technische Fundstellen
+
+| Quelle | Aussage | Klasse | Bindung | Offene Designfrage | ADR-Relevanz |
+| --- | --- | :---: | --- | --- | :---: |
+| Spezifikation §KB-04 | Owner-/Gruppenregeln, keine world-writable Dateien, kein Canonical-Schreiben durch Retrieval/Ingest, Symlink-Escapes blockieren, sichere Erstellung, atomare Writes | **C** | **bindend** | — | Grundlage |
+| Spezifikation §44, §468 | Unix-/Container-Identitäten, UID, GID — **Deployment Required** | **C** | **bindend** | Identitätsabbildung | **hoch** |
+| Acceptance Matrix §KB-04 | Status `DOCUMENTED ONLY`, **NT-04**, **NT-05**, Nachweisstufe **4**, **SB-S04** | **C** | **bindend** | — | Nachweisziel |
+| Identity Model :13, :225 | **keine konkreten Unix-Benutzer, keine Gruppen, keine UID-/GID-Werte**; UID/GID **Deployment Required** | **C** | **bindend** | **Owner-/Gruppenmodell** | **hoch** |
+| Identity Model V-1, V-3, V-5, V-11, V-12 | kein root, kein privilegierter Container, kein Canonical-Schreiben ohne Freigabe, kein Backup-Schreiben, keine Impersonation | **C** | **bindend** | — | Randbedingung |
+| Identity Model M-1…M-4 | keine unkontrollierten Host-Mounts · RT-2 nie direkt eingebunden · nicht benötigter Bereich **gar nicht** eingebunden · **Symlink-Escapes blockieren** | **C** | **bindend** | Mount-Modus je Bereich | mittel |
+| Foundation Plan KB-04 | Voraussetzung **KB-01, KB-02**; Umsetzungsreihenfolge Schritt 1 | **E** | informativ | Reihenfolge | mittel |
+| Foundation Plan :91, :306 | „Konkrete UIDs und GIDs werden hier nicht festgelegt“ · **„Konkrete UIDs, GIDs, Dateimodi — offen, Deployment“** | **E** | informativ | **Dateimodi** | **hoch** |
+| ADR-0010 / Quarantine MVP | atomare Schreibweise (exklusive Temp-Datei, `fsync`, `os.replace`), **kein Schreiben außerhalb des Roots, keine Hard- oder Symlinks**, `QF-STRUCTURE-SYMLINK` | **B/C** | **bindend** | — | **Präzedenzfall** |
+| ADR-0011 / Registry MVP | unveränderliche Records, atomar ersetzter Katalog, kein Schreiben außerhalb des Roots, keine Hard-/Symlinks | **B/C** | **bindend** | — | **Präzedenzfall** |
+| `core/core_brain/quarantine/store.py`, `registry/storage.py` | `_atomic_write_bytes`: Temp-Datei, `fsync`, `os.replace`; Reason Codes `*_STORE_IS_SYMLINK`, `*_WRITE_OUTSIDE_ROOT` | **C** | **bindend** (implementiert) | — | **Präzedenzfall** |
+| Profil-A-Bundle | `read_only: true`, `cap_drop: ALL`, `no-new-privileges`, kein `privileged`, UID/GID nur als fail-closed Operatorvariablen, Config `mode 0444`, `canonical-data` beidseitig read-only, Backup und RT-2 **nicht gemountet** | **C** | **bindend** | Host-/Container-Grenze | **hoch** |
+| Readiness Gate 3, 5 | „OS-Rechte umgesetzt“ (Stufe 2) · „Canonical read-only nachgewiesen“ (**NT-04**, Stufe 4) | **C/E** | **bindend** | — | Nachweisziel |
+| Mapping Gate 7, 8, 11 | KB-01…KB-04 Voraussetzung; **Symlink-Verhalten geprüft** | **C/E** | **bindend** | — | mittelbar |
+| Stop Conditions :45–46 | Wiederaufnahme erst nach bestandenem KB-04-Negativtest | **E** | informativ | — | Nachweisziel |
+| Quarantine Plan :141, :169 | Quarantänebereich für den Indexer über KB-03/KB-04 unzugänglich | **E** | informativ | Bereichsschnitt | mittel |
+| **OD-37** | Produktive Isolation auf der Ziel-VM (KB-03, KB-04) — **offen**, Deployment Required | **A** | **bindend** | **Durchsetzungsort** | **hoch** |
+| PERMISSION_MODEL :35 | „Nicht-privilegierte UIDs; kanonische Volumes lesend eingebunden, wo möglich“ | **C** | **bindend** | „wo möglich“ unbestimmt | mittel |
+
+**Konflikte: keine.** Alle Quellen sind widerspruchsfrei; die Differenz zwischen
+neun Durchsetzungsstufen (A2-Spezifikation) und sieben Ebenen (A3-Plan) betrifft
+die Stufenzahl, nicht KB-04 — beide ordnen KB-04 der Stufe 1 zu.
+
+### Designachsen
+
+| # | Achse | Verbindlich festgelegt | Offen | Wirkung | ADR |
+| --- | --- | --- | --- | --- | :---: |
+| 5.1 | **Geschützte Datenbereiche** | Canonical (read-only beidseitig), Quarantine, Freigabebereich, Source-/Mapping-Registry, `tmpfs` als RT-3, Backup und RT-2 **nicht gemountet**; Bereichsschnitt aus der Mountmatrix | Zuordnung der Evidenz-/Metadatendateien innerhalb der Bereiche | lokal | nein |
+| 5.2 | **Akteure und Rollen** | Zwei logische Identitäten (`svc-control-plane`, `svc-data-worker`) plus Operator; V-5 verbietet Canonical-Schreiben ohne Freigabe; Mountmatrix regelt ro/rw je Identität | Rolle des **Setup-/Deploymentprozesses** — nirgends definiert | **architekturweit** | **ja** |
+| 5.3 | **Besitz- und Gruppenmodell** | **nichts** — Identity Model führt ausdrücklich keine Benutzer, Gruppen, UID- oder GID-Werte | Einzelbenutzer gegen gemeinsame Gruppe gegen getrennte Gruppen; Container-UID/GID-Abbildung; statisch oder konfigurierbar | **architekturweit** | **ja** |
+| 5.4 | **Datei- und Verzeichnismodi** | Verbot world-writable; Config im Bundle `0444`; Deny-by-default | konkrete Modi — Foundation Plan: **offen, Deployment**; Execute-Bit, world-readable, group-writable, setgid, `umask` | **architekturweit** | **ja** |
+| 5.5 | **Schreib- und Erstellungssemantik** | **weitgehend entschieden** — exklusive Temp-Datei, `fsync`, `os.replace`, kein Schreiben außerhalb des Roots (ADR-0010/0011, implementiert) | Übertragung des Musters auf Canonical und Freigabebereich | lokal | nein |
+| 5.6 | **Link- und Pfadsicherheit** | Symlink-Escapes blockieren (KB-04, M-4); keine Hard-/Symlinks in den Stores; `*_WRITE_OUTSIDE_ROOT`; Bundle-Validator folgt keinen Symlinks | Hardlink-Behandlung außerhalb der Stores; **TOCTOU-Strategie**; Pfadauflösungsverfahren | mittel | teilweise |
+| 5.7 | **Deployment- und Plattformgrenze** | Ubuntu Server 26.04 LTS amd64, Docker Compose in dedizierter VM; Container `read_only`, non-root über Operatorvariablen | **Host- gegen Container-Verantwortung** für Besitz und Modi; Verhalten auf Nicht-POSIX-Plattformen | **architekturweit** | **ja** |
+| 5.8 | **Nachweis und Tests** | NT-04, NT-05, SB-S04, Nachweisstufe 4, Gate-Punkte 3 und 5 | Was offline prüfbar ist gegen was eine **reale Profil-A-Instanz** verlangt | lokal | nein |
+| 5.9 | **Migration und Kompatibilität** | **nichts** | Umgang mit bestehenden Artefakten falscher Rechte; Reparaturmodus; Idempotenz; Rückwärtskompatibilität | **architekturweit** | **ja** |
+| 5.10 | **Konfigurationsoberfläche** | Fail-closed-Prinzip; Bundle nutzt `${...:?...}` ohne Defaults | Welche Werte konfigurierbar sein dürfen; verbotene unsichere Werte; Validierungszeitpunkt | mittel | teilweise |
+
+**Sechs der zehn Achsen enthalten eine offene, architekturweit wirkende Wahl.**
+
+### Contract Boundary
+
+**Verbindliche Sicherheitsinvarianten** (ausschließlich repository-gestützt):
+
+| # | Invariante | Beleg |
+| --- | --- | --- |
+| **I-1** | **Deny-by-default auf Dateiebene** | Spezifikation §KB-04 |
+| **I-2** | **Keine world-writable geschützten Artefakte** | Spezifikation §KB-04, Acceptance Matrix |
+| **I-3** | **Retrieval besitzt keinen Schreibzugriff auf Canonical** | §KB-04, V-5, Mountmatrix |
+| **I-4** | **Ingest besitzt keinen unkontrollierten Schreibzugriff auf Canonical** | §KB-04, V-5, TB-1/TB-2 |
+| **I-5** | **Symlink-Escapes werden verhindert** | §KB-04, M-4, **NT-05** |
+| **I-6** | **Schreibvorgänge erzeugen keinen unsicheren Zwischenzustand** | §KB-04 (sichere Erstellung, atomare Writes); ADR-0010/0011 |
+| **I-7** | **Rechtefehler führen fail-closed, nicht zu stiller Abschwächung** | §KB-04, SB-S04, projektweites Fail-closed-Prinzip |
+
+**Noch offene Designparameter:** Owner- und Gruppenmodell · UID-/GID-Abbildung
+· konkrete Datei- und Verzeichnismodi · `umask` · Execute-Bit-Regel für
+Verzeichnisse · setgid · Durchsetzungsakteur · Verifikations- gegen
+Korrektursemantik · Validierungszeitpunkt · Migrations- und Reparaturverhalten
+· Host-/Container-Verantwortungsgrenze · Plattformgrenze.
+
+**Implementierungsneutrale Verantwortlichkeiten** — **keine** konkrete
+Programmierschnittstelle:
+
+| Verantwortung | Gegenstand |
+| --- | --- |
+| **Setup/Initialisierung** | Herstellung des dokumentierten Ausgangszustands eines Bereichs |
+| **Validierung** | Feststellung, ob der Ist-Zustand die Invarianten I-1 bis I-7 erfüllt |
+| **Runtime-Write** | Einhaltung von I-6 bei jedem Schreibvorgang |
+| **Fehlerklassifikation** | Unterscheidung zwischen Vertragsverletzung, Umgebungsfehler und nicht anwendbarer Plattform |
+| **Nachweis und Audit** | Rechteauflistung vor und nach dem Start; Ereignisart `incident` bei Verletzung |
+
+**Fail-closed-Grenze** — eine spätere Implementierung **muss ablehnen**:
+world-writable geschützte Artefakte · Schreibpfade auf Canonical für Retrieval
+oder Ingest ohne dokumentierte Freigabe · Symlinks, deren Ziel den Bereich
+verlässt · Schreibvorgänge ohne atomare Ersetzung · unbekannte oder nicht
+zugeordnete Pfade · nicht feststellbare Rechte · jeden Zustand, der nicht
+positiv als vertragskonform belegt ist. **Keine Exitcodes und keine Issue-Codes
+festgelegt.**
+
+**Nicht in Stage 1:** Application-Level-Autorisierung · Prozessisolation höherer
+Stufen · Netzwerk-Enforcement · Secret-Management · Gate-Freigabe · reale
+Testausführung · **KB-04 Stage 2** · **KB-01/KB-02-Implementierung** ·
+**KB-03-Implementierung** · **KB-05 bis KB-12**.
+
+### ADR-Gate — Ergebnis
+
+| # | Prüffrage | Antwort |
+| ---: | --- | --- |
+| 1 | Neue Architektur oder neues Sicherheitsmuster? | **ja** — Durchsetzungsverantwortung ist nirgends festgelegt |
+| 2 | Mehrere tragfähige Owner-/Gruppenmodelle? | **ja** — Identity Model führt bewusst keine Gruppen |
+| 3 | Wahl root / rootless / gemischt? | **teilweise** — V-1/V-3 verbieten root im Dienst; die Privilegierung des **Setup-Akteurs** ist offen |
+| 4 | Dauerhafte Host-/Container-Verantwortungsgrenze? | **ja** |
+| 5 | Neue Verträge? | **ja** — ein Rechtevertrag entsteht |
+| 6 | Migrations-, Kompatibilitäts- oder Deploymentwirkung? | **ja** |
+| 7 | Schwer reversibel? | **ja** — persistente Besitz- und Modusverhältnisse |
+| 8 | Mehrere Komponenten betroffen? | **ja** — Quarantine, Registry, Canonical, Freigabe, Bundle, Deployment |
+| 9 | Ist ADR-0009 konkret genug? | **nein** — legt die Anforderung fest, verweist UID/GID/Modi auf Deployment |
+| 10 | Decken bestehende ADRs die Lösungswahl ab? | **nein** |
+
+> **Ergebnis: `ADR_REQUIRED`** — festgestellt in **D-058**. Vor jeder technischen
+> Implementierung ist ein neuer ADR zu erstellen; voraussichtliche Kennung
+> **ADR-0014**. **ADR-0014 wurde in diesem Lauf nicht angelegt.**
+
+### Stand nach B1A
+
+**B0 complete** (`e4caa14`) · **B1A complete** (dieser Stand, uncommitted) ·
+**B1B — ADR-0014 Authoring and Design Decision: nicht autorisiert** · **B2 und C:
+nicht autorisiert** · **technische Implementierung nicht autorisiert**.
+
+**Unverändert:** KB-04 und alle zwölf Controls **`DOCUMENTED ONLY`** · beide
+Gates **`NOT EVALUATED`** · Capabilities **0 von 29** · **NT-04 und NT-05 nicht
+ausgeführt** (0 von 32 Negativtests, 0 von 1 Positivtest) · **R-20 offen** ·
+**OD-37 offen** · **R-33 18/21** · keine neue Risiko-ID · keine reale
+Bereitstellung · kein RT-2 · **CBP-WP-023 nicht registriert**.
 
 ---
 

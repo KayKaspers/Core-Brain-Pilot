@@ -8,7 +8,7 @@
 | Backlog-Grundlage | [PHASE_1_BACKLOG.md](PHASE_1_BACKLOG.md) (P1–P5) |
 | Erfasst in | CBP-WP-008 |
 | Autoritätsklasse | A3 |
-| Stand | 2026-08-03 — CBP-WP-022 Phase B0 |
+| Stand | 2026-08-03 — CBP-WP-022 Phase B1A |
 
 > **Diese Karte ist ein historisches Planungsartefakt.** Sie schnitt bewusst nur
 > **F1 bis F5** (CBP-WP-009 bis CBP-WP-014). Die **ursprüngliche
@@ -50,7 +50,7 @@ nur zur Statusvollständigkeit geführt:
 | **CBP-WP-019** | Deployment Readiness Intake and Profile-A Target Specification | **`committed`** — `3c437f2` |
 | **CBP-WP-020** | Controlled Profile-A Deployment Foundation | **`committed`** — `17057e2` (B0), `9c6c0fb` (B1/B2), `d6a1a3c` (C) |
 | **CBP-WP-021** | Canonical Security Test Inventory Reconciliation | **`committed`** — `0cb4ea9` (B0), `271acc7` (B1/B2), `0344774` (C) |
-| **CBP-WP-022** | KB-04 Enforcement Stage 1 | **`in-review`** (Phase B0) — D-057, Registration-only, uncommitted |
+| **CBP-WP-022** | KB-04 Enforcement Stage 1 | **`in-review`** (Phase B1A) — B0 `committed` `e4caa14`; D-057/D-058, **`ADR_REQUIRED`**, B1A uncommitted |
 
 **CBP-WP-020 ist `committed` und `complete`** (D-055): Phase B0 `17057e2`,
 Phase B1/B2 `9c6c0fb`. Das **Profil-A-Bundle** liegt als Repository-Artefakt mit
@@ -80,10 +80,12 @@ Reconciliation umfasste auch die **ausführbaren** Profil-A-Artefakte.
 **CBP-WP-022 ist registriert** (D-057, `accepted`/A0, 2026-08-03) und steht auf
 **`in-review`** in **Phase B0 – Registration and Authority Baseline**. Titel:
 **KB-04 Enforcement Stage 1** — Stufe 1 der neunstufigen Durchsetzungsreihenfolge
-(**OS-Dateirechte**). **KB-04 bleibt `DOCUMENTED ONLY`; die technische
-Implementierung ist nicht autorisiert, B1 und B2 sind nicht freigegeben.**
-`ADR_NOT_REQUIRED` gilt **nur** für die Registration-Decision; die ADR-Frage der
-späteren Umsetzung ist vor einer B1-Freigabe neu zu bewerten. **CBP-WP-023 ist
+(**OS-Dateirechte**). Phase B0 ist `committed` (`e4caa14`); **Phase B1A – Contract Boundary and ADR Gate**
+ist abgeschlossen und uncommitted. **D-058** stellt das ADR-Gate-Ergebnis fest:
+**`ADR_REQUIRED`** — vor jeder technischen Implementierung ist ein neuer ADR zu
+erstellen, voraussichtlich **ADR-0014**; **ADR-0014 wurde nicht angelegt**.
+**KB-04 bleibt `DOCUMENTED ONLY`; die technische Implementierung ist nicht
+autorisiert, B1B und B2 sind nicht freigegeben.** **CBP-WP-023 ist
 nicht registriert und nicht autorisiert.**
 
 **Die ersten drei sind `docs-only`.** CBP-WP-012 bis CBP-WP-015 sind committed;
