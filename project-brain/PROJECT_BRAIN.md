@@ -23,7 +23,7 @@ verweigern deterministisch.
 
 | Feld | Wert |
 | --- | --- |
-| Aktuelles Work Package | **CBP-WP-022** (`in-review`, **Phase B1A – Contract Boundary and ADR Gate**) — **D-057** (`accepted`, **A0**, 2026-08-03), `ADR_NOT_REQUIRED` **nur für die Registration**; **KB-04 Enforcement Stage 1** = Stufe 1 der neunstufigen Durchsetzungsreihenfolge (**OS-Dateirechte**); KB-04 bleibt **`DOCUMENTED ONLY`**. **Technische Implementierung nicht autorisiert; B1 und B2 nicht freigegeben.** Zuletzt abgeschlossen **CBP-WP-021** (`committed`, `complete`; B0 `0cb4ea9`, B1/B2 `271acc7`, C `0344774`). **CBP-WP-023 nicht registriert, nicht autorisiert** |
+| Aktuelles Work Package | **CBP-WP-022** (`in-review`, **Phase B1B – ADR-0014 Authoring and Design Decision**) — **D-057** Registrierung, **D-058** ADR-Gate (**`ADR_REQUIRED`**) und **D-059** Architekturannahme (alle `accepted`, **A0**, 2026-08-03); **ADR-0014 `accepted`, A1** — **Host-authoritative Enforcement mit deklarativem Zielmodell und read-only Runtime-Validierung**. Wesentliche Konsequenzen: die Runtime benötigt **keinerlei Rechteprivilegien** und ist mit **V-1**, **V-3**, `cap_drop: ALL` und `read_only` vereinbar; **keine realen UID-, GID-, Benutzer- oder Gruppenwerte im Repository**; eine Rechteabweichung führt zur **Startverweigerung statt Selbstheilung** und bleibt für **NT-04/NT-05** sichtbar; **Reparatur nur ausdrücklich, geplant und auditiert** — und ist mangels **RT-2** bis auf Weiteres **nicht freigegeben**. **KB-04 Enforcement Stage 1** bleibt **`DOCUMENTED ONLY`**; B0 `committed` `e4caa14`, B1A `committed` `1a7696d`, B1B uncommitted. **Keine Implementierungsfreigabe; B1C und B2 nicht freigegeben.** Zuletzt abgeschlossen **CBP-WP-021** (`committed`, `complete`; B0 `0cb4ea9`, B1/B2 `271acc7`, C `0344774`). **CBP-WP-023 nicht registriert, nicht autorisiert** |
 | Zuletzt abgeschlossen | **CBP-WP-021** (`committed`, `complete`, 2026-08-03; **D-056**; kanonisches Security-Testinventar **32 / 1 / 33**, **0 von 32** und **0 von 1** ausgeführt; B0 `0cb4ea9`, B1/B2 `271acc7`). Zuvor abgeschlossen **CBP-WP-020** (`committed`, `complete`; **D-055**; **Z1 erreicht / S2 abgeschlossen / P1 eingehalten**; B0 `17057e2`, B1/B2 `9c6c0fb`, C `d6a1a3c`). **CBP-WP-023 nicht registriert, nicht autorisiert** |
 | Gate G0 | **PASSED WITH NOTES** — 2026-07-21 |
 | G0-Kriterien | **47**, dreistufig klassifiziert |
@@ -31,7 +31,7 @@ verweigern deterministisch.
 | davon `accepted` | **25** — alle |
 | verbleibende Blocker | **0** |
 | Phase 1 | AUTHORIZED FOR PLANNING — [Backlog](../docs/roadmap/PHASE_1_BACKLOG.md), [Foundation Plan](../docs/roadmap/PHASE_1_FOUNDATION_PLAN.md) |
-| Geplante Work Packages | **CBP-WP-022** `in-review` (D-057 Registrierung, D-058 ADR-Gate; **Phase B1A**, B0 `committed` `e4caa14`, B1A uncommitted; **`ADR_REQUIRED`**, ADR-0014 nicht angelegt). **CBP-WP-021** ist `committed` und `complete` (D-056; B0 `0cb4ea9`, B1/B2 `271acc7`). **CBP-WP-020** ist `committed` und `complete` (D-055; B0 `17057e2`, B1/B2 `9c6c0fb`, C `d6a1a3c`), B3 **ausgeschlossen**; CBP-WP-019 ist `committed` (`3c437f2`, D-054). **CBP-WP-023 nicht registriert, nicht begonnen, nicht autorisiert** — das KB-04-Paket ist lediglich als möglicher Kandidat vorgemerkt |
+| Geplante Work Packages | **CBP-WP-022** `in-review` (D-057 Registrierung, D-058 ADR-Gate, **D-059** Architekturannahme; **Phase B1B**, B0 `committed` `e4caa14`, B1A `committed` `1a7696d`, B1B uncommitted; **ADR-0014 `accepted`/A1**, **Host-authoritative Enforcement mit deklarativem Zielmodell und read-only Runtime-Validierung**; **B1C und B2 nicht autorisiert**). **CBP-WP-021** ist `committed` und `complete` (D-056; B0 `0cb4ea9`, B1/B2 `271acc7`). **CBP-WP-020** ist `committed` und `complete` (D-055; B0 `17057e2`, B1/B2 `9c6c0fb`, C `d6a1a3c`), B3 **ausgeschlossen**; CBP-WP-019 ist `committed` (`3c437f2`, D-054). **CBP-WP-023 nicht registriert, nicht begonnen, nicht autorisiert** — das KB-04-Paket ist lediglich als möglicher Kandidat vorgemerkt |
 | **Repository-Struktur** | **entschieden** — Ziel-Monorepo + Workspace W-3 (ADR-0007); **Migration nicht autorisiert** |
 | **Mappingkonvention** | **entschieden** — ADR-0008; **0 Mappings, 0 Quellen**, Gate `NOT EVALUATED` |
 | **Sicherheitsgrundlage** | **spezifiziert** — ADR-0009; **12 Kontrollen `DOCUMENTED ONLY`** |
@@ -107,9 +107,10 @@ verweigert, bis eine Datenklasse sie erlaubt.**
 
 ## Entscheidungen
 
-Angenommene ADRs: **13** (ADR-0001 bis ADR-0013; **ADR-0013** legt Evidence
+Angenommene ADRs: **14** (ADR-0001 bis ADR-0014; **ADR-0013** legt Evidence
 Schema 3.0 mit Security-Control-Identität und Contract-Binding fest, D-052;
-technisch umgesetzt unter **D-053**).
+technisch umgesetzt unter **D-053**. **ADR-0014** entscheidet die **KB-04-Stage-1-Durchsetzungsarchitektur**, D-059 — angenommen, **nicht
+implementiert**).
 ADR-0006 hält privaten
 Bestand konstruktiv außerhalb des Kern-Repositorys (D-028); **ADR-0007**
 (D-029, D-030) legt Zielstruktur und Bereichsgrenze fest und **schließt
@@ -121,7 +122,7 @@ Source-Registry-MVP (beide 2026-07-22); **ADR-0012** (D-046…D-049) den
 Source-Mapping-Draft-Validator (2026-07-27), der **ADR-0008** präzisiert und
 den 31-Feld-Vertrag unverändert lässt.
 
-**58** getroffene Entscheidungen, davon **54** mit A0. **23** offene, davon
+**59** getroffene Entscheidungen, davon **55** mit A0. **23** offene, davon
 **5** mit P0. Geführt in
 [project-system/DECISION_REGISTER.md](../project-system/DECISION_REGISTER.md).
 

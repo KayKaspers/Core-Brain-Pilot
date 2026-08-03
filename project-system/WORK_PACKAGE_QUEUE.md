@@ -3,11 +3,11 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Aktuelles Work Package | **CBP-WP-022** (`in-review`, **Phase B1A – Contract Boundary and ADR Gate**) — **D-057** Registrierung und **D-058** ADR-Gate (beide `accepted`, **A0**, 2026-08-03); ADR-Gate-Ergebnis **`ADR_REQUIRED`**, voraussichtlich **ADR-0014**, **nicht angelegt**; B0 `committed` (`e4caa14`), B1A uncommitted; **KB-04 Enforcement Stage 1**; **technische Implementierung nicht autorisiert**, B1B und B2 **nicht freigegeben**. Zuletzt abgeschlossen **CBP-WP-021** (`committed`, `complete`, 2026-08-03; **D-056**, `ADR_NOT_REQUIRED`; kanonisch **32 Negativtests / 1 Positivtest / 33 Testfälle**, **0 von 32** und **0 von 1** ausgeführt; B0 `0cb4ea9`, B1/B2 `271acc7`). Zuvor abgeschlossen **CBP-WP-020** (`committed`, `complete`; B0 `17057e2`, B1/B2 `9c6c0fb`, C `d6a1a3c`). **CBP-WP-023 nicht registriert, nicht autorisiert.** |
+| Aktuelles Work Package | **CBP-WP-022** (`in-review`, **Phase B1B – ADR-0014 Authoring and Design Decision**) — **D-057** Registrierung, **D-058** ADR-Gate (**`ADR_REQUIRED`**) und **D-059** Architekturannahme (alle `accepted`, **A0**, 2026-08-03); **ADR-0014 `accepted`, Autoritätsklasse A1** — **Host-authoritative Enforcement mit deklarativem Zielmodell und read-only Runtime-Validierung**; B0 `committed` (`e4caa14`), B1A `committed` (`1a7696d`), **B1B uncommitted**; **KB-04 Enforcement Stage 1** bleibt `DOCUMENTED ONLY`; **technische Implementierung nicht autorisiert**, B1C und B2 **nicht freigegeben**. Zuletzt abgeschlossen **CBP-WP-021** (`committed`, `complete`, 2026-08-03; **D-056**, `ADR_NOT_REQUIRED`; kanonisch **32 Negativtests / 1 Positivtest / 33 Testfälle**, **0 von 32** und **0 von 1** ausgeführt; B0 `0cb4ea9`, B1/B2 `271acc7`). Zuvor abgeschlossen **CBP-WP-020** (`committed`, `complete`; B0 `17057e2`, B1/B2 `9c6c0fb`, C `d6a1a3c`). **CBP-WP-023 nicht registriert, nicht autorisiert.** |
 | Gate G0 | **PASSED WITH NOTES** — 2026-07-21 |
 | Überarbeitet in | **CBP-WP-016** |
 | Autoritätsklasse | A2 |
-| Stand | 2026-08-03 — CBP-WP-022 Phase B1A |
+| Stand | 2026-08-03 — CBP-WP-022 Phase B1B |
 
 Spalten nach `WORK_PACKAGE_QUEUE_TEMPLATE.md` (NDF v1.0.0).
 
@@ -48,7 +48,7 @@ Spalten nach `WORK_PACKAGE_QUEUE_TEMPLATE.md` (NDF v1.0.0).
 | CBP-WP-019 | **Deployment Readiness Intake and Profile-A Target Specification** | P1 | **`committed`** | [work-packages/CBP-WP-019.md](../work-packages/CBP-WP-019.md) |
 | CBP-WP-020 | **Controlled Profile-A Deployment Foundation** | P1 | **`committed`** (B0 `17057e2`, B1/B2 `9c6c0fb`) | [work-packages/CBP-WP-020.md](../work-packages/CBP-WP-020.md) |
 | CBP-WP-021 | **Canonical Security Test Inventory Reconciliation** | P1 | **`committed`** (B0 `0cb4ea9`, B1/B2 `271acc7`, C `0344774`) | [work-packages/CBP-WP-021.md](../work-packages/CBP-WP-021.md) |
-| CBP-WP-022 | **KB-04 Enforcement Stage 1** | P1 | **`in-review`** (Phase B1A; B0 `committed` `e4caa14`) | [work-packages/CBP-WP-022.md](../work-packages/CBP-WP-022.md) |
+| CBP-WP-022 | **KB-04 Enforcement Stage 1** | P1 | **`in-review`** (Phase B1B; B0 `committed` `e4caa14`, B1A `committed` `1a7696d`; **ADR-0014 `accepted`/A1**) | [work-packages/CBP-WP-022.md](../work-packages/CBP-WP-022.md) |
 
 **Kein Work Package ist als `proposed` geführt.** **CBP-WP-019** (Deployment
 Readiness Intake and Profile-A Target Specification) steht auf **`in-review`** in
@@ -741,13 +741,14 @@ registriert noch autorisiert**.
 | Typ | **security-foundation enforcement** (Stufe 1) |
 | Prompt Mode | **Full** · Context Budget **B2 – Standard** |
 | Status | **`in-review`** |
-| Aktuelle Phase | **Phase B1A – Contract Boundary and ADR Gate** |
+| Aktuelle Phase | **Phase B1B – ADR-0014 Authoring and Design Decision** |
 | Registration Decision | **D-057** (konsolidiert, A–M), `accepted`, **A0**, 2026-08-03 |
 | ADR-Gate-Decision | **D-058** (konsolidiert, A–M), `accepted`, **A0**, 2026-08-03 — Ergebnis **`ADR_REQUIRED`** |
-| ADR | **`ADR_REQUIRED`** vor jeder Implementierung; voraussichtlich **ADR-0014**, **nicht angelegt** |
+| Architektur-Decision | **D-059** (konsolidiert, A–N), `accepted`, **A0**, 2026-08-03 — Ergebnis **`ADR-0014_ACCEPTED`** |
+| ADR | **ADR-0014** — *KB-04 Stage 1 Filesystem Enforcement Architecture*, `accepted`, **Autoritätsklasse A1**, 2026-08-03 |
 | Human-Maintainer-Freigabe | **Registration B0 authorized** |
 | Technische Implementierung | **nicht autorisiert** |
-| Commit | **B0 `committed` `e4caa14`** · **B1A nicht committed** (Commit-Autorität beim Human Maintainer) |
+| Commit | **B0 `committed` `e4caa14`** · **B1A `committed` `1a7696d`** · **B1B nicht committed** (Commit-Autorität beim Human Maintainer) |
 
 **KB-04 ist der Kontrollbereich „Dateisystemrechte“.** Ziel: **Deny-by-default
 auf Dateiebene**; Bedrohung: **Direktzugriff unter Umgehung der Anwendung**.
@@ -806,8 +807,8 @@ reversibel** und **sicherheitskritisch**, weil KB-04 die unterste tragende
 Ebene ist.
 
 **Voraussichtlich ADR-0014 — in diesem Lauf nicht angelegt.** Nächste
-mögliche Phase: **B1B – ADR-0014 Authoring and Design Decision**;
-**B1B ist nicht autorisiert**. **B2 bleibt gesperrt.**
+mögliche Phase: **B1B – ADR-0014 Authoring and Design Decision**.
+*Phase B1A ist seit `1a7696d` committed; B1B wurde anschließend freigegeben.*
 
 **Bereits entschieden und daher keine offene Achse:** die Schreib- und
 Erstellungssemantik — exklusive Temp-Datei, `fsync`, `os.replace`, kein
@@ -819,6 +820,58 @@ Runtime-Gates `NOT EVALUATED`; Capabilities **0 von 29**; **NT-04 und NT-05
 nicht ausgeführt**; **R-20 offen**; **OD-37 offen**; **R-33 18/21**; keine neue
 Risiko-ID; keine reale Bereitstellung; kein RT-2; **CBP-WP-023 nicht
 registriert**.
+
+**Phase B1B (dieser Stand, uncommitted):** **ADR-0014** — *KB-04 Stage 1
+Filesystem Enforcement Architecture* — wurde erstellt und ist **`accepted`**
+mit **Autoritätsklasse A1**; angenommen durch **D-059** (`accepted`, **A0**,
+2026-08-03, Teile A–N). Das bestehende Autoritätsmodell bleibt
+unverändert: **die Decision trägt A0, der angenommene ADR trägt A1**.
+
+**Gewählte Architektur:** **Host-authoritative Enforcement mit deklarativem Zielmodell und read-only Runtime-Validierung** (Option A). Drei Schichten mit
+disjunkten Befugnissen — das **Repository** hält ausschließlich das
+**abstrakte** Zielmodell ohne reale Identitäten, UIDs, GIDs, Modi, Benutzer,
+Gruppen oder Hostpfade; der **Deployment- und Setup-Akteur** bindet Rollen an
+konkrete Identitäten und setzt Besitz und Rechte **vor** dem Runtime-Start;
+die **Runtime** besitzt **ausschließlich Lese- und Ablehnungsrecht**.
+**Keine lang laufende Runtime-Komponente verändert jemals Besitz, Gruppe,
+Modus oder Identität** — unabhängig davon, ob die Umgebung die
+nötigen Privilegien böte.
+
+**Entschieden** sind Authority-Modell, Identitätsmodell mit explizit
+erklärter und beim Start gegen die **effektive** Identität geprüfter
+Host-/Container-Bindung, das **Rechteprofil-Modell PP-1 bis PP-4**,
+Initialisierung, Validierung an vier Zeitpunkten, Migration und Reparatur nach
+dem Prinzip **Plan vor Wirkung**, Link- und Pfadsicherheit einschließlich
+ausdrücklich anerkannter **TOCTOU**-Grenze, Plattformgrenze und
+Nachweisgrenze. Die Invarianten **I-1 bis I-7** bleiben unverändert bindend.
+
+**Verworfen:** Option C (Runtime Self-Repair) als **repository-widersprüchlich**
+— V-1, V-3 und `cap_drop: ALL` entziehen die nötigen Privilegien, I-7 wird
+verletzt, NT-04/NT-05 verlieren ihre Aussagekraft; Option D (ACL-centric) als
+Hauptmechanismus; Option E (Zielmodell ohne Validierung). Option B ist
+**nicht verworfen, sondern verortet** — die Initialisierung liegt auf der
+**Deployment-Seite** der Grenze.
+
+**Bewusst offen — vierzehn Implementierungsparameter**, darunter die
+vollständige Pfad-zu-Rolle-zu-Modus-Matrix, exakte Modusprofile, `umask`,
+Konfigurationsschema, Initialisierungs-, Validierungs-, Migrations- und
+Reparaturvertrag, Fehlerklassen, Issue- und Exitcodebedarf, Testmatrix,
+NT-04-/NT-05-Abbildung, B2-Scope sowie **sämtliche realen UID-, GID-,
+Benutzer- und Gruppenwerte** (Deployment Required).
+
+**Nächste mögliche Phase: B1C – Enforcement Contract and Validation
+Plan — nicht autorisiert.** **B2 bleibt gesperrt**; ohne B1C ist keine
+technische Implementierung zulässig.
+
+**Unverändert nach B1B:** **KB-04 bleibt `DOCUMENTED ONLY`**, alle zwölf
+Controls `DOCUMENTED ONLY` — **keine Control-Hochstufung**; beide
+Runtime-Gates `NOT EVALUATED` — **keine Gateauswertung**; Capabilities
+**0 von 29**; **NT-04 und NT-05 nicht ausgeführt** (0 von 32 Negativtests,
+0 von 1 Positivtest); **R-20 offen**; **OD-37 offen** — **strukturiert, nicht
+geschlossen**; **R-33 18/21**; keine neue Risiko-ID; keine reale Bereitstellung;
+kein RT-2; **CBP-WP-023 nicht registriert**.
+
+**Eine entschiedene Architektur ist keine Sicherheitswirkung.**
 
 ---
 

@@ -6,11 +6,12 @@
 | Typ | **security-foundation enforcement** (Stufe 1) |
 | Prompt Mode | **Full** · Context Budget **B2 – Standard** |
 | Status | **`in-review`** |
-| Aktuelle Phase | **Phase B1A – Contract Boundary and ADR Gate** |
+| Aktuelle Phase | **Phase B1B – ADR-0014 Authoring and Design Decision** |
 | Registration Decision | **D-057** (konsolidiert, A–M) |
 | ADR-Gate-Decision | **D-058** (konsolidiert, A–M) — Ergebnis **`ADR_REQUIRED`** |
-| Decision Class | **A0** |
-| ADR | **`ADR_REQUIRED`** vor jeder Implementierung (D-058); voraussichtlich **ADR-0014**, **nicht angelegt**. `ADR_NOT_REQUIRED` galt nur für D-057 |
+| Architektur-Decision | **D-059** (konsolidiert, A–N) — Ergebnis **`ADR-0014_ACCEPTED`** |
+| Decision Class | **A0** — für D-057, D-058 und D-059 |
+| ADR | **ADR-0014** — *KB-04 Stage 1 Filesystem Enforcement Architecture*, `accepted`, **Autoritätsklasse A1**, 2026-08-03. `ADR_NOT_REQUIRED` galt nur für D-057 |
 | Registrierungsdatum | **2026-08-03** |
 | Human-Maintainer-Freigabe | **Registration B0 authorized** |
 | Technische Implementierung | **nicht autorisiert** |
@@ -20,7 +21,7 @@
 | Security Controls | **12 `DOCUMENTED ONLY`** |
 | R-20 | **offen** |
 | R-33 | **18/21** — in diesem Lauf **unverändert** |
-| Commit | **B0 `committed` `e4caa14`** · **B1A nicht committed** — Commit-Autorität beim Human Maintainer |
+| Commit | **B0 `committed` `e4caa14`** · **B1A `committed` `1a7696d`** · **B1B nicht committed** — Commit-Autorität beim Human Maintainer |
 
 ---
 
@@ -169,13 +170,15 @@ ohne Durchsetzung), CBP-WP-020 (Profil-A-Bundle), CBP-WP-021 (Testinventar).
 | Phase | Gegenstand | Stand |
 | --- | --- | --- |
 | **B0** | **Registration and Authority Baseline** | **complete** — `committed` `e4caa14` |
-| **B1A** | **Contract Boundary and ADR Gate** | **complete (dieser Stand, uncommitted)** |
-| **B1B** | **ADR-0014 Authoring and Design Decision** | **nicht autorisiert** |
+| **B1A** | **Contract Boundary and ADR Gate** | **complete** — `committed` `1a7696d` |
+| **B1B** | **ADR-0014 Authoring and Design Decision** | **complete (dieser Stand, uncommitted)** |
+| **B1C** | **Enforcement Contract and Validation Plan** | **nicht autorisiert** |
 | **B2** | **Implementation and Validation** | **nicht autorisiert** |
 | **C** | **Post-Commit Reconciliation** | **nicht autorisiert** |
 
-**Vor einer B1-Freigabe ist die ADR-Erforderlichkeit anhand des dann
-konkretisierten Designs erneut zu bewerten.**
+**Die ADR-Erforderlichkeit wurde in B1A bewertet und in D-058 mit
+`ADR_REQUIRED` beantwortet; ADR-0014 ist in B1B angenommen. Ohne B1C ist
+keine technische Implementierung zulässig.**
 
 ## Acceptance Criteria für B0
 
@@ -329,9 +332,148 @@ Bereitstellung · kein RT-2 · **CBP-WP-023 nicht registriert**.
 
 ---
 
+## Phase B1B — ADR-0014 Authoring and Design Decision
+
+**B0-Commit:** `e4caa14` — „CBP-WP-022: register KB-04 enforcement stage 1",
+10 Pfade (1 neu, 9 modifiziert), 338 Einfügungen, 32 Löschungen.
+**B1A-Commit:** `1a7696d` — „CBP-WP-022: determine KB-04 contract and ADR
+boundary", **10 modifizierte Pfade**.
+
+**Ausgangspunkt:** **D-058** (A0) stellte **`ADR_REQUIRED`** fest. Sechs der zehn
+Designachsen enthielten eine offene, architekturweit wirkende Wahl.
+
+### Optionenanalyse
+
+| Option | Kern | Ergebnis |
+| --- | --- | :---: |
+| **A** | **Host-authoritative Deployment Enforcement** — Setup und Deployment besitzen die Authority, die Runtime validiert und scheitert fail-closed | **gewählt** |
+| **B** | **Privileged Bootstrap, Unprivileged Runtime** — abgegrenzter Initialisierungsprozess innerhalb der Bereitstellungseinheit | **verortet** |
+| **C** | **Runtime Self-Repair** — Langläufer korrigieren Besitz und Rechte selbst | **verworfen** |
+| **D** | **ACL-centric Enforcement** — POSIX-ACLs als Hauptdurchsetzung | **verworfen** |
+| **E** | **Zielmodell ohne Runtime-Validierung** — rein dokumentarisch *(ergänzt als Nullvergleich, weil `bundle.json` KB-04 bereits als `filesystem-permission-target-model` führt)* | **verworfen** |
+
+**Ausschlusskriterien** waren die Invarianten **I-1 bis I-7**, **V-1** und
+**V-3** (kein root, kein privilegierter Container), die Vereinbarkeit mit
+`cap_drop: ALL`, `no-new-privileges` und `read_only` aus dem bereits
+committeten Profil-A-Bundle sowie das Verbot realer UID-, GID-, Modus-,
+Benutzer- und Gruppenwerte im Repository.
+
+**Option C ist nicht die schwächere Wahl, sondern repository-widersprüchlich:**
+sie verlangt Privilegien, die V-1 und V-3 verbieten und die das Bundle mit
+`cap_drop: ALL` entzieht; sie verletzt **I-7**, weil sie eine Abweichung
+**behebt statt sie abzulehnen**; und sie entwertet **NT-04** und **NT-05**,
+deren Aussagekraft davon abhängt, dass ein falscher Zustand bestehen bleibt und
+auffällt. **Option D** setzt Werkzeuge, Dateisystemoptionen und
+Plattformzusagen voraus, die das Projekt nicht führt, während die
+Spezifikation die Anforderung in Owner-, Gruppen- und
+world-writable-Begriffen formuliert. **Option E** unterscheidet sich nicht vom
+heutigen `DOCUMENTED ONLY`. **Option B ist nicht verworfen, sondern verortet:**
+ihre Initialisierungsverantwortung ist Teil der gewählten Architektur und
+liegt **vollständig auf der Deployment-Seite der Grenze**.
+
+### Ausgewählte Architektur
+
+> **Host-authoritative Enforcement mit deklarativem Zielmodell und read-only
+> Runtime-Validierung.**
+
+| Schicht | Ort | Befugnis |
+| --- | --- | --- |
+| **Zielmodell** | dieses Repository | beschreibt **abstrakt** Bereiche, Rollen, Zugriffsart, Rechteprofilklassen, Invarianten und Prüfregeln — **keine** realen Identitäten, UIDs, GIDs, Modi, Benutzer, Gruppen oder Hostpfade |
+| **Durchsetzung** | Deployment und Operator, **außerhalb** von Runtime und Repository | bindet Rollen an Identitäten, **setzt** Besitz und Rechte **vor** dem Start, **repariert** nur ausdrücklich aufgerufen |
+| **Validierung** | Runtime | **liest**, vergleicht, meldet, **scheitert fail-closed** — **setzt, ändert, repariert und mildert nichts** |
+
+**Kategorisch:** **Keine lang laufende Runtime-Komponente verändert jemals
+Besitz, Gruppe, Modus oder Identität** — unabhängig davon, ob die
+Umgebung die nötigen Privilegien böte.
+
+**Entschieden** sind Authority-Modell · Identitätsmodell mit explizit
+erklärter und beim Start gegen die **effektive** Identität geprüfter
+Host-/Container-Bindung · **Rechteprofil-Modell PP-1 bis PP-4** (owner-write ·
+owner-write mit group-read · service-read-only · not-present) mit acht
+kategorischen Klassenregeln · Initialisierung · Validierung an vier
+Zeitpunkten · Migration und Reparatur nach dem Prinzip **Plan vor Wirkung**
+· Link- und Pfadsicherheit einschließlich ausdrücklich anerkannter
+**TOCTOU**-Grenze · Plattformgrenze · Nachweisgrenze.
+
+**Die sieben Invarianten I-1 bis I-7 aus Phase B1A bleiben unverändert
+bindend.** Die atomare Schreibsemantik aus **ADR-0010/ADR-0011** wird
+**unverändert übernommen** und **nicht neu entschieden**.
+
+### ADR-0014 und D-059
+
+| Feld | Wert |
+| --- | --- |
+| Datei | [ADR-0014-kb-04-stage-1-filesystem-enforcement.md](../docs/decisions/ADR-0014-kb-04-stage-1-filesystem-enforcement.md) |
+| Titel | **KB-04 Stage 1 Filesystem Enforcement Architecture** |
+| Status | **`accepted`**, **Autoritätsklasse A1**, 2026-08-03 |
+| Grundlage | **D-059** — `accepted`, **Decision Class A0**, ausdrücklicher Human-Maintainer-Beschluss |
+| Verhältnis | konkretisiert **ADR-0009**; **löst nichts ab**; **OD-37 bleibt offen** |
+
+**Das bestehende Autoritätsmodell bleibt unverändert:** A0 ist der
+ausdrückliche Human-Maintainer-Beschluss, A1 der angenommene ADR. **Die
+Decision trägt A0, der ADR trägt A1.**
+
+### Konsequenzen
+
+**Positiv:** Die Runtime benötigt **keinerlei** Rechteprivilegien · **keine
+realen Werte im Repository** · eine Rechteabweichung wird **sichtbar** statt
+überdeckt, **NT-04** und **NT-05** bleiben aussagekräftig · die konkreten
+Werte bleiben außerhalb und damit neu bindbar · die Verantwortlichkeiten sind
+disjunkt · der Nachweis entspricht wörtlich der Vorgabe „Rechteauflistung
+vor und nach dem Start" · **OD-37** ist erstmals strukturiert.
+
+**Negativ:** Die Sicherheit hängt an einem Vorgang **außerhalb** dieses
+Repositorys · ein falsch vorbereiteter Bereich führt zu **Startverweigerung
+statt Selbstheilung** · Bestandsdaten benötigen einen ausdrücklichen
+Migrationsweg · der Reparaturweg ist an **RT-2** gebunden und deshalb bis auf
+Weiteres **nicht freigegeben** · ein Teil der Zusage ist **nur real** prüfbar
+· zwei Wahrheitsorte erfordern eine gepflegte Bindung · auf Nicht-POSIX-
+Plattformen ist **keine** Durchsetzungsaussage möglich.
+
+### Verbleibende Parameter
+
+**Vierzehn Implementierungsparameter bleiben bewusst offen:** vollständige
+Pfad-zu-Rolle-zu-Modus-Matrix · exakte symbolische oder numerische
+Modusprofile · `umask` · Zuordnung der acht Bundle-Bereiche zu den
+Profilklassen · Konfigurationsschema der Identitätsbindung ·
+Identitätsvalidierungsvertrag · Initialisierungs- und Validierungsvertrag ·
+Migrations- und Reparaturvertrag · Fehlerklassen · Bedarf an Issue- und
+Exitcodes (**in ADR-0014 bewusst keine festgelegt**) · Testmatrix und
+**NT-04-/NT-05**-Abbildung · Abgrenzung synthetischer gegen reale Nachweise ·
+**B2-Implementierungs- und Dateiscope** · **sämtliche realen UID-, GID-,
+Benutzer- und Gruppenwerte** (Deployment Required, **niemals im Repository**).
+
+### Verbleibende Contract-Finalisierung
+
+**B1C — Enforcement Contract and Validation Plan. Nicht autorisiert.**
+
+B1C konkretisiert die vierzehn offenen Parameter zu einem prüfbaren Vertrag
+und legt den Datei- und Implementierungsscope für B2 fest.
+
+**B2 bleibt gesperrt. Ohne B1C ist keine technische Implementierung
+zulässig.**
+
+### Stand nach B1B
+
+**B0 complete** (`e4caa14`) · **B1A complete** (`1a7696d`) · **B1B complete**
+(dieser Stand, uncommitted) · **B1C nicht autorisiert** · **B2 und C nicht
+autorisiert** · **technische Implementierung nicht autorisiert**.
+
+**Unverändert:** **KB-04 bleibt `DOCUMENTED ONLY`**, alle zwölf Controls
+`DOCUMENTED ONLY` — **keine Control-Hochstufung**; beide Gates
+**`NOT EVALUATED`** — **keine Gateauswertung**; Capabilities **0 von 29**;
+**NT-04 und NT-05 nicht ausgeführt** (0 von 32 Negativtests, 0 von 1
+Positivtest); **SB-S04 nicht wirksam**; **R-20 offen**; **OD-37 offen** —
+strukturiert, **nicht geschlossen**; **R-33 18/21**; keine neue Risiko-ID;
+keine reale Bereitstellung; kein RT-2; **CBP-WP-023 nicht registriert**.
+
+**Eine entschiedene Architektur ist keine Sicherheitswirkung.**
+
+---
+
 ## Aussageschutz
 
-Dieses Work Package belegt in Phase B0 **nicht**:
+Dieses Work Package belegt auch nach Phase B1B **nicht**:
 
 | Nicht belegt | Tatsächlicher Stand |
 | --- | --- |
@@ -341,7 +483,8 @@ Dieses Work Package belegt in Phase B0 **nicht**:
 | Eine Capability sei erreicht | **0 von 29** |
 | Eine Bereitstellung existiere | **keine** |
 | RT-2 existiere | **nicht implementiert** |
-| Die spätere Umsetzung sei ADR-frei | **erneut zu bewerten vor B1** |
+| Die spätere Umsetzung sei ADR-frei | **ADR-0014 angenommen** (D-059) — **keine Implementierungsfreigabe** |
+| Eine Architekturentscheidung sei eine Sicherheitswirkung | **nein** — kein Recht gesetzt, kein Test gelaufen, kein Nachweis erbracht |
 
 **Die Registrierung eines Work Packages ist keine Implementierungsfreigabe.**
 
