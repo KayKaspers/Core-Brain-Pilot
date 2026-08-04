@@ -3,11 +3,11 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Aktuelles Work Package | **CBP-WP-022** (`in-review`, **Phase B1B – ADR-0014 Authoring and Design Decision**) — **D-057** Registrierung, **D-058** ADR-Gate (**`ADR_REQUIRED`**) und **D-059** Architekturannahme (alle `accepted`, **A0**, 2026-08-03); **ADR-0014 `accepted`, Autoritätsklasse A1** — **Host-authoritative Enforcement mit deklarativem Zielmodell und read-only Runtime-Validierung**; B0 `committed` (`e4caa14`), B1A `committed` (`1a7696d`), **B1B uncommitted**; **KB-04 Enforcement Stage 1** bleibt `DOCUMENTED ONLY`; **technische Implementierung nicht autorisiert**, B1C und B2 **nicht freigegeben**. Zuletzt abgeschlossen **CBP-WP-021** (`committed`, `complete`, 2026-08-03; **D-056**, `ADR_NOT_REQUIRED`; kanonisch **32 Negativtests / 1 Positivtest / 33 Testfälle**, **0 von 32** und **0 von 1** ausgeführt; B0 `0cb4ea9`, B1/B2 `271acc7`). Zuvor abgeschlossen **CBP-WP-020** (`committed`, `complete`; B0 `17057e2`, B1/B2 `9c6c0fb`, C `d6a1a3c`). **CBP-WP-023 nicht registriert, nicht autorisiert.** |
+| Aktuelles Work Package | **CBP-WP-022** (`in-review`, **Phase B1C – Enforcement Contract and Validation Plan**) — **D-057** Registrierung, **D-058** ADR-Gate (**`ADR_REQUIRED`**), **D-059** Architekturannahme und **D-060** Enforcement Contract (alle `accepted`, **A0**, 2026-08-03); **ADR-0014 `accepted`, Autoritätsklasse A1** — **Host-authoritative Enforcement mit deklarativem Zielmodell und read-only Runtime-Validierung**; Vertrag [KB_04_STAGE_1_ENFORCEMENT_CONTRACT.md](../docs/security/KB_04_STAGE_1_ENFORCEMENT_CONTRACT.md) **`accepted contract`** (**`ADR_NOT_REQUIRED`** innerhalb ADR-0014); B0 `committed` (`e4caa14`), B1A `committed` (`1a7696d`), B1B `committed` (`b86a35f`), **B1C uncommitted**; **KB-04 Enforcement Stage 1** bleibt `DOCUMENTED ONLY`; **technische Implementierung nicht autorisiert**, B2 **nicht freigegeben**. Zuletzt abgeschlossen **CBP-WP-021** (`committed`, `complete`, 2026-08-03; **D-056**, `ADR_NOT_REQUIRED`; kanonisch **32 Negativtests / 1 Positivtest / 33 Testfälle**, **0 von 32** und **0 von 1** ausgeführt; B0 `0cb4ea9`, B1/B2 `271acc7`). Zuvor abgeschlossen **CBP-WP-020** (`committed`, `complete`; B0 `17057e2`, B1/B2 `9c6c0fb`, C `d6a1a3c`). **CBP-WP-023 nicht registriert, nicht autorisiert.** |
 | Gate G0 | **PASSED WITH NOTES** — 2026-07-21 |
 | Überarbeitet in | **CBP-WP-016** |
 | Autoritätsklasse | A2 |
-| Stand | 2026-08-03 — CBP-WP-022 Phase B1B |
+| Stand | 2026-08-03 — CBP-WP-022 Phase B1C |
 
 Spalten nach `WORK_PACKAGE_QUEUE_TEMPLATE.md` (NDF v1.0.0).
 
@@ -48,7 +48,7 @@ Spalten nach `WORK_PACKAGE_QUEUE_TEMPLATE.md` (NDF v1.0.0).
 | CBP-WP-019 | **Deployment Readiness Intake and Profile-A Target Specification** | P1 | **`committed`** | [work-packages/CBP-WP-019.md](../work-packages/CBP-WP-019.md) |
 | CBP-WP-020 | **Controlled Profile-A Deployment Foundation** | P1 | **`committed`** (B0 `17057e2`, B1/B2 `9c6c0fb`) | [work-packages/CBP-WP-020.md](../work-packages/CBP-WP-020.md) |
 | CBP-WP-021 | **Canonical Security Test Inventory Reconciliation** | P1 | **`committed`** (B0 `0cb4ea9`, B1/B2 `271acc7`, C `0344774`) | [work-packages/CBP-WP-021.md](../work-packages/CBP-WP-021.md) |
-| CBP-WP-022 | **KB-04 Enforcement Stage 1** | P1 | **`in-review`** (Phase B1B; B0 `committed` `e4caa14`, B1A `committed` `1a7696d`; **ADR-0014 `accepted`/A1**) | [work-packages/CBP-WP-022.md](../work-packages/CBP-WP-022.md) |
+| CBP-WP-022 | **KB-04 Enforcement Stage 1** | P1 | **`in-review`** (Phase B1C; B0 `committed` `e4caa14`, B1A `committed` `1a7696d`, B1B `committed` `b86a35f`; **ADR-0014 `accepted`/A1**, **Contract `accepted`**) | [work-packages/CBP-WP-022.md](../work-packages/CBP-WP-022.md) |
 
 **Kein Work Package ist als `proposed` geführt.** **CBP-WP-019** (Deployment
 Readiness Intake and Profile-A Target Specification) steht auf **`in-review`** in
@@ -741,14 +741,16 @@ registriert noch autorisiert**.
 | Typ | **security-foundation enforcement** (Stufe 1) |
 | Prompt Mode | **Full** · Context Budget **B2 – Standard** |
 | Status | **`in-review`** |
-| Aktuelle Phase | **Phase B1B – ADR-0014 Authoring and Design Decision** |
+| Aktuelle Phase | **Phase B1C – Enforcement Contract and Validation Plan** |
 | Registration Decision | **D-057** (konsolidiert, A–M), `accepted`, **A0**, 2026-08-03 |
 | ADR-Gate-Decision | **D-058** (konsolidiert, A–M), `accepted`, **A0**, 2026-08-03 — Ergebnis **`ADR_REQUIRED`** |
 | Architektur-Decision | **D-059** (konsolidiert, A–N), `accepted`, **A0**, 2026-08-03 — Ergebnis **`ADR-0014_ACCEPTED`** |
+| Contract-Decision | **D-060** (konsolidiert, A–S), `accepted`, **A0**, 2026-08-03 — Ergebnis **`KB-04_STAGE_1_CONTRACT_ACCEPTED`**, **`ADR_NOT_REQUIRED`** |
 | ADR | **ADR-0014** — *KB-04 Stage 1 Filesystem Enforcement Architecture*, `accepted`, **Autoritätsklasse A1**, 2026-08-03 |
-| Human-Maintainer-Freigabe | **Registration B0 authorized** |
+| Enforcement Contract | [KB_04_STAGE_1_ENFORCEMENT_CONTRACT.md](../docs/security/KB_04_STAGE_1_ENFORCEMENT_CONTRACT.md) — **`accepted contract`**, 2026-08-03 |
+| Human-Maintainer-Freigabe | **B1C Contract and Validation Plan authorized** |
 | Technische Implementierung | **nicht autorisiert** |
-| Commit | **B0 `committed` `e4caa14`** · **B1A `committed` `1a7696d`** · **B1B nicht committed** (Commit-Autorität beim Human Maintainer) |
+| Commit | **B0 `committed` `e4caa14`** · **B1A `committed` `1a7696d`** · **B1B `committed` `b86a35f`** · **B1C nicht committed** (Commit-Autorität beim Human Maintainer) |
 
 **KB-04 ist der Kontrollbereich „Dateisystemrechte“.** Ziel: **Deny-by-default
 auf Dateiebene**; Bedrohung: **Direktzugriff unter Umgehung der Anwendung**.
@@ -859,9 +861,8 @@ Reparaturvertrag, Fehlerklassen, Issue- und Exitcodebedarf, Testmatrix,
 NT-04-/NT-05-Abbildung, B2-Scope sowie **sämtliche realen UID-, GID-,
 Benutzer- und Gruppenwerte** (Deployment Required).
 
-**Nächste mögliche Phase: B1C – Enforcement Contract and Validation
-Plan — nicht autorisiert.** **B2 bleibt gesperrt**; ohne B1C ist keine
-technische Implementierung zulässig.
+**Phase B1C ist seit diesem Stand abgeschlossen** — siehe unten. **B2 bleibt
+gesperrt.**
 
 **Unverändert nach B1B:** **KB-04 bleibt `DOCUMENTED ONLY`**, alle zwölf
 Controls `DOCUMENTED ONLY` — **keine Control-Hochstufung**; beide
@@ -872,6 +873,99 @@ geschlossen**; **R-33 18/21**; keine neue Risiko-ID; keine reale Bereitstellung;
 kein RT-2; **CBP-WP-023 nicht registriert**.
 
 **Eine entschiedene Architektur ist keine Sicherheitswirkung.**
+
+**Phase B1C (dieser Stand, uncommitted):** **D-060** (`accepted`, **A0**,
+2026-08-03, Teile A–S) nimmt den implementierungsfähigen Vertrag
+[KB_04_STAGE_1_ENFORCEMENT_CONTRACT.md](../docs/security/KB_04_STAGE_1_ENFORCEMENT_CONTRACT.md)
+an — Status **`accepted contract`**, Ergebnis
+**`KB-04_STAGE_1_CONTRACT_ACCEPTED`**, ADR-Status **`ADR_NOT_REQUIRED`**.
+**D-060 konkretisiert ADR-0014, ändert es nicht und führt keine neue
+Architektur ein.** **ADR-0014 bleibt die bindende A1-Authority.**
+
+**Gebunden sind die vierzehn offenen Parameter aus ADR-0014:**
+
+- **elf Pfadklassen PC-01 bis PC-11**, verankert an den bereits committeten
+  `container_paths` und `tmpfs_targets` des Profil-A-Bundles — **kein
+  erfundener Rootpfad, kein Hostpfad**; **PC-11 ist die Klasse der unbekannten
+  Pfade und endet fail-closed**;
+- **zehn Akteure** mit zwölf Befugnisspalten; nur der Setup-Akteur setzt
+  initial Besitz und Rechte, **keine normale Runtime-Komponente ändert
+  jemals Besitz, Gruppe, Modus oder Bindung**;
+- **Rechteprofile** — **PP-1** `0600`/`0700`, **PP-2** `0640`/`0750`
+  (setgid `2750` nur bei zwingender Gruppenvererbung), **PP-3a** `0640`/`0750`,
+  **PP-3b** `0444`/`0555` — **eng begrenztes Kompatibilitätsprofil, nur PC-07,
+  secretfrei** — und **PP-4** *not-present*; `umask` **`0077`**
+  beziehungsweise **`0027`**; acht kategorische Klassenregeln. **PP-3b ist eine
+  ausdrückliche, vollständig begründete Ausnahme** (Regeln 3b-1 bis
+  3b-16), weil das committete Bundle den Config-Bindmount mit `mode: 292`
+  (`0444`) führt — **der Vertrag ändert das Bundle nicht, er
+  übernimmt und validiert den Wert**. **PP-3b gilt ausschließlich für
+  PC-07**, ist **nicht übertragbar**, **kein allgemeines read-only Profil**
+  und **kein sicherer Default**; **Secrets, Credentials, lokale UID-/GID-Werte,
+  Benutzer- und Gruppennamen, Identitätsbindungen sowie sensible Operator-
+  und Deploymentwerte sind darunter unzulässig** und enden fail-closed;
+  **`world-writable` bleibt ausnahmslos verboten**;
+- **vier getrennte Prüfdimensionen** **D-I** Host-Quellobjekt, **D-II**
+  Mountvertrag, **D-III** Runtime-sichtbares Objekt und **D-IV**
+  Runtimeidentität (MT-9 bis MT-14): **der Bundlemodus ist kein Nachweis der
+  Host-Quellrechte**, keine Dimension belegt eine andere, **eine nicht
+  prüfbare Dimension gilt als nicht erfüllt**;
+- **Mount- und POSIX-Trennung MT-1 bis MT-8** — Runtime-Schreibzugriff
+  verlangt **gleichzeitig** Mountmodus, Rolle, PP-Profil und **positive**
+  Identitätsbindung; **unbekannter Mountstatus = fail-closed**;
+- **Identitätsbindungsvertrag** mit elf Feldern, davon zehn Pflichtfeldern;
+  **keine Konfigurationsdatei angelegt, kein realer Wert eingetragen**; **kein
+  Default, keine Ableitung, kein Fallback**;
+- **Initialisierung strikt getrennt von Bestandsmigration** — Apply nur auf
+  nachweislich neuer, leerer Struktur; Transaktionsgrenze **Preflight → Plan
+  → begrenztes Apply → Post-Validation**; **keine Rollback-Zusage**,
+  weil kein Mechanismus existiert;
+- **vier read-only Validierungszeitpunkte** — Installation, **Start vor
+  Dienstaufnahme**, Schreibzeit, Gate; **kein periodischer Self-Repair**;
+  Grundregel **nicht feststellbar = nicht erfüllt**;
+- **zehn Link- und Pfadregeln LP-1 bis LP-10** einschließlich abgelehnter
+  interner Symlinks, verbotener Hardlinks und ausdrücklich anerkannter
+  **TOCTOU**-Grenze;
+- **24 Fehlerklassen** mit Präfix **`KB04-`**, alle fail-closed;
+- **Issue- und Exitcodes** — Wiederverwendung von
+  `RUNTIME_START_BLOCKED` (4), `CONFIG_INVALID` (2) und `USAGE_ERROR` (64)
+  **ohne semantische Überladung**, dazu zwei **reservierte, nicht
+  implementierte** Namen `FILESYSTEM_ENFORCEMENT_BLOCKED` (**15**) und
+  `FILESYSTEM_MIGRATION_REQUIRED` (**16**). **Keine bestehende Kennung
+  überschrieben, keine neue Security-Test-ID, NT-25 bleibt frei.**
+  **Reservierung heißt nicht Implementierung** (RC-1 bis RC-10): die Codes
+  sind **nicht implementiert**, **kein Pfad emittiert sie**, **das heutige
+  öffentliche Verhalten bleibt unverändert**, und vor einer Umsetzung
+  sind Nummer, Name, Semantik und öffentliche Kompatibilität erneut zu
+  prüfen — bei Kollision **keine stille Neunummerierung, B2 stoppen**;
+- **Test- und Evidenzplan** mit **zwölf positiven** und **dreiunddreißig
+  negativen** Fällen — einschließlich der vollständigen
+  PP-3b-Prüffolge und acht negativer PP-3b-Fälle — unter den vorläufigen internen Kennungen
+  `KB04-T-P*` und `KB04-T-N*` — **ausdrücklich keine Security-Test-IDs**;
+  synthetische und reale Evidenz getrennt, **nur real** sind die Fälle zu
+  **NT-04** und **NT-05**. **Kein Testfall wurde ausgeführt.**
+
+**Reparatur bleibt an RT-2 gebunden.** RT-2 ist **nicht implementiert**, damit
+ist der **ausführende Reparaturmodus gesperrt**; zulässig ist
+ausschließlich **plan-only**.
+
+**B2-Kandidat beschrieben, nicht autorisiert:** **B2A** Contract Model and
+Read-only Validator · **B2B** New-target Initialization Boundary ·
+**B2C** Synthetic Tests and Evidence · **B2D** Profile-A Deployment
+Integration. Gesperrt bleiben produktive Reparatur, Migration bestehender
+Daten, RT-2, reale Gatefreigabe, Control-Uplift und **Stage 2**.
+
+**Unverändert nach B1C:** **KB-04 bleibt `DOCUMENTED ONLY`**, alle zwölf
+Controls `DOCUMENTED ONLY` — **keine Control-Hochstufung**; beide
+Runtime-Gates `NOT EVALUATED` — **keine Gateauswertung**; Capabilities
+**0 von 29**; **NT-04 und NT-05 nicht ausgeführt** (0 von 32 Negativtests,
+0 von 1 Positivtest); **SB-S04 nicht wirksam**; **R-20 offen**; **OD-37 offen**
+— **strukturiert, nicht geschlossen**; **R-33 18/21**; keine neue
+Risiko-ID; **RT-2 nicht implementiert**; keine reale Bereitstellung;
+**CBP-WP-023 nicht registriert**.
+
+**Ein implementierungsfähiger Vertrag ist keine Implementierung, und eine
+geplante Prüfung ist kein Nachweis.**
 
 ---
 
