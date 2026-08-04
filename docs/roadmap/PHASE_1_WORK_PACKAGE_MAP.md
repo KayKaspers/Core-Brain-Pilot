@@ -50,7 +50,7 @@ nur zur Statusvollständigkeit geführt:
 | **CBP-WP-019** | Deployment Readiness Intake and Profile-A Target Specification | **`committed`** — `3c437f2` |
 | **CBP-WP-020** | Controlled Profile-A Deployment Foundation | **`committed`** — `17057e2` (B0), `9c6c0fb` (B1/B2), `d6a1a3c` (C) |
 | **CBP-WP-021** | Canonical Security Test Inventory Reconciliation | **`committed`** — `0cb4ea9` (B0), `271acc7` (B1/B2), `0344774` (C) |
-| **CBP-WP-022** | KB-04 Enforcement Stage 1 | **`in-review`** (Phase B2B-P) — B0 `committed` `e4caa14`, B1A `committed` `1a7696d`, B1B `committed` `b86a35f`, B1C `committed` `24de07e`, B2A `committed` `929d10b`; D-057/D-058/D-059/D-060, **ADR-0014 `accepted`/A1**, **Enforcement Contract `accepted contract`**; **read-only Validator- und Initialisierungsplanungspaket implementiert** (206 + 120 neue Tests, Gesamtsuite 1050), B2B-P uncommitted; **B2B-Apply/B2C/B2D nicht autorisiert** |
+| **CBP-WP-022** | KB-04 Enforcement Stage 1 | **`in-review`** (Phase B2C.2) — B0…B2A committed, B2B-P `committed` `fff8227`, **B2C.1 `committed` `38eb33f`**; D-057/D-058/D-059/D-060/D-061/**D-062**, **ADR-0014 `accepted`/A1**, **Enforcement Contract `accepted contract`**; **read-only Validator- und Initialisierungsplanungspaket implementiert** (206 + 120 neue Tests, Gesamtsuite 1050); **erster B2C-T-Lauf `BLOCKED` ohne Dateiänderung**, Split **37/2/6** über 45 Kennungen, **B2C.2 uncommitted**; **B2C-T-Resume/B2B-Apply/B2D nicht autorisiert** |
 
 **CBP-WP-020 ist `committed` und `complete`** (D-055): Phase B0 `17057e2`,
 Phase B1/B2 `9c6c0fb`. Das **Profil-A-Bundle** liegt als Repository-Artefakt mit
@@ -112,11 +112,22 @@ Exitcode, keine Mutation.**
 abgeschlossen und ergab **`DECISION REQUIRED`**; **Phase B2C.1** registriert
 daraufhin **D-061** (`accepted`, **A0**,
 `B2C_TRACEABILITY_AND_NT_PREPARATION_SELECTED`, `ADR_NOT_REQUIRED`) und ist
-**abgeschlossen und uncommitted**. Gewählt ist **Variante T** — eine rein
+**`committed` (`38eb33f`)**. Gewählt ist **Variante T** — eine rein
 synthetische Test-, Fixture- und Rückverfolgbarkeitsphase; **Variante E**
 (Security-Control-Form- oder Gate-Evidence-Artefakt) ist **nicht autorisiert**.
 
-**Nächste mögliche Phasen: B2C-T, B2B-Apply und B2D — sämtlich nicht
+**Der erste B2C-T-Lauf endete `BLOCKED` — vor jeder Dateiänderung, null
+geänderte Dateien.** Der read-only Audit fand **zwei** als *synthetisch
+abdeckbar* geführte Kennungen, die derzeit **nicht abgedeckt** sind.
+**Phase B2C.2** registriert daraufhin **D-062** (`accepted`, **A0**,
+`B2C_TRACEABILITY_COVERAGE_SPLIT_RECONCILED`, `ADR_NOT_REQUIRED`) und ist
+**abgeschlossen und uncommitted**. Kanonische Aufteilung der **45** Kennungen:
+**37 `SYNTHETIC_COVERED` · 2 `SYNTHETIC_COVERAGE_GAP` · 6 `B2D_REAL_ONLY`**.
+Die zwei Lücken sind **`KB04-T-P10`** und **`KB04-T-N25`** — beide **Contract
+§10.3 Schreibzeitvalidierung**, weder als Produktionslogik noch als
+funktionaler Test vorhanden. **Es entsteht kein Evidence-Artefakt.**
+
+**Nächste mögliche Phasen: B2C-T-Resume, B2B-Apply und B2D — sämtlich nicht
 begonnen und nicht autorisiert.** **KB-04 bleibt `DOCUMENTED ONLY`; es gibt keine
 Gate- und keine Control-Hochstufung.** **CBP-WP-023 ist nicht registriert und nicht
 autorisiert.**
