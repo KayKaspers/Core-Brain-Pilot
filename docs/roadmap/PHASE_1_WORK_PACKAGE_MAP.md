@@ -8,7 +8,7 @@
 | Backlog-Grundlage | [PHASE_1_BACKLOG.md](PHASE_1_BACKLOG.md) (P1–P5) |
 | Erfasst in | CBP-WP-008 |
 | Autoritätsklasse | A3 |
-| Stand | 2026-08-03 — CBP-WP-022 Phase B1C |
+| Stand | 2026-08-03 — CBP-WP-022 Phase B2A |
 
 > **Diese Karte ist ein historisches Planungsartefakt.** Sie schnitt bewusst nur
 > **F1 bis F5** (CBP-WP-009 bis CBP-WP-014). Die **ursprüngliche
@@ -50,7 +50,7 @@ nur zur Statusvollständigkeit geführt:
 | **CBP-WP-019** | Deployment Readiness Intake and Profile-A Target Specification | **`committed`** — `3c437f2` |
 | **CBP-WP-020** | Controlled Profile-A Deployment Foundation | **`committed`** — `17057e2` (B0), `9c6c0fb` (B1/B2), `d6a1a3c` (C) |
 | **CBP-WP-021** | Canonical Security Test Inventory Reconciliation | **`committed`** — `0cb4ea9` (B0), `271acc7` (B1/B2), `0344774` (C) |
-| **CBP-WP-022** | KB-04 Enforcement Stage 1 | **`in-review`** (Phase B1C) — B0 `committed` `e4caa14`, B1A `committed` `1a7696d`, B1B `committed` `b86a35f`; D-057/D-058/D-059/**D-060**, **ADR-0014 `accepted`/A1** und **Enforcement Contract `accepted contract`**, B1C uncommitted; **B2 nicht autorisiert** |
+| **CBP-WP-022** | KB-04 Enforcement Stage 1 | **`in-review`** (Phase B2A) — B0 `committed` `e4caa14`, B1A `committed` `1a7696d`, B1B `committed` `b86a35f`, B1C `committed` `24de07e`; D-057/D-058/D-059/D-060, **ADR-0014 `accepted`/A1**, **Enforcement Contract `accepted contract`**; **internes read-only Validatorpaket implementiert** (206 neue Tests, Gesamtsuite 930), B2A uncommitted; **B2B/B2C/B2D nicht autorisiert** |
 
 **CBP-WP-020 ist `committed` und `complete`** (D-055): Phase B0 `17057e2`,
 Phase B1/B2 `9c6c0fb`. Das **Profil-A-Bundle** liegt als Repository-Artefakt mit
@@ -78,7 +78,7 @@ Reconciliation umfasste auch die **ausführbaren** Profil-A-Artefakte.
 > Negativtests"; der Wert ist auf den kanonischen Stand **32** gebracht.
 
 **CBP-WP-022 ist registriert** (D-057, `accepted`/A0, 2026-08-03) und steht auf
-**`in-review`** in **Phase B1C – Enforcement Contract and Validation Plan**. Titel:
+**`in-review`** in **Phase B2A – Contract Model and Read-only Validator**. Titel:
 **KB-04 Enforcement Stage 1** — Stufe 1 der neunstufigen Durchsetzungsreihenfolge
 (**OS-Dateirechte**). **Phase B0 ist `committed` (`e4caa14`), Phase B1A ist `committed`
 (`1a7696d`), Phase B1B ist `committed` (`b86a35f`)**; **Phase B1C** ist abgeschlossen und
@@ -100,9 +100,16 @@ Exitcodes. **`ADR_NOT_REQUIRED`** gilt nur, solange der Vertrag vollständig
 innerhalb **ADR-0014** bleibt; die ausführende Reparatur bleibt an **RT-2**
 gebunden und **gesperrt**.
 
-**Nächste mögliche Phase: B2 — nicht autorisiert.** **KB-04 bleibt
-`DOCUMENTED ONLY`; die technische Implementierung ist nicht autorisiert, B2 ist
-nicht freigegeben.** **CBP-WP-023 ist nicht registriert und nicht autorisiert.**
+**Phase B1C ist `committed` (`24de07e`); Phase B2A** ist abgeschlossen und
+**uncommitted**. B2A implementiert das interne, **read-only**
+Enforcement-Paket `core/core_brain/enforcement/` — sechs Module, **21 additive
+`KB04-*`-ReasonCodes**, **206 neue Tests**, Gesamtsuite **930 grün**.
+**Keine CLI, keine Config-Datei, keine Deploymentänderung, kein neuer
+Exitcode, keine Mutation.**
+
+**Nächste mögliche Phasen: B2B, B2C und B2D — sämtlich nicht
+autorisiert.** **KB-04 bleibt `DOCUMENTED ONLY`; es gibt keine Gate- und keine
+Control-Hochstufung.** **CBP-WP-023 ist nicht registriert und nicht autorisiert.**
 
 **Die ersten drei sind `docs-only`.** CBP-WP-012 bis CBP-WP-015 sind committed;
 sie erzeugten lokale, synthetisch testbare, **deaktivierte** Prototypen —

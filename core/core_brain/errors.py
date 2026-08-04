@@ -33,6 +33,7 @@ __all__ = [
     "MappingActivationBlocked",
     "GateEvidenceError",
     "GateEvaluationBlocked",
+    "FilesystemEnforcementError",
 ]
 
 
@@ -249,6 +250,38 @@ class ReasonCode(StrEnum):
     GATE_EVIDENCE_NOT_SYNTHETIC = "GATE_EVIDENCE_NOT_SYNTHETIC"
     GATE_SYNTHETIC_CONFIRMATION_MISSING = "GATE_SYNTHETIC_CONFIRMATION_MISSING"
 
+    # CBP-WP-022 — KB-04 Enforcement Stage 1 (ADR-0014, D-060).
+    #
+    # Die 21 in B2A erreichbaren Fehlerklassen des Enforcement Contract. Der
+    # Wert ist der kanonische Issue-Code aus dem Contract-Dokument; das
+    # Enum-Mitglied folgt der Namenskonvention dieses Moduls.
+    #
+    # Drei der 24 Contract-Fehlerklassen bleiben **reine Vertragsreservierung**
+    # und werden hier bewusst NICHT geführt, weil B2A sie nicht erreichen kann:
+    # KB04-PLATFORM-UNSUPPORTED, KB04-MIGRATION-REQUIRED und
+    # KB04-REPAIR-RT2-REQUIRED.
+    KB04_CONTRACT_MISSING = "KB04-CONTRACT-MISSING"
+    KB04_CONTRACT_INVALID = "KB04-CONTRACT-INVALID"
+    KB04_BINDING_MISSING = "KB04-BINDING-MISSING"
+    KB04_BINDING_COLLISION = "KB04-BINDING-COLLISION"
+    KB04_IDENTITY_MISMATCH = "KB04-IDENTITY-MISMATCH"
+    KB04_ROLE_UNKNOWN = "KB04-ROLE-UNKNOWN"
+    KB04_PATHCLASS_UNKNOWN = "KB04-PATHCLASS-UNKNOWN"
+    KB04_OBJECT_KIND_INVALID = "KB04-OBJECT-KIND-INVALID"
+    KB04_OWNER_MISMATCH = "KB04-OWNER-MISMATCH"
+    KB04_GROUP_MISMATCH = "KB04-GROUP-MISMATCH"
+    KB04_MODE_MISMATCH = "KB04-MODE-MISMATCH"
+    KB04_MODE_WORLD_BITS = "KB04-MODE-WORLD-BITS"
+    KB04_MODE_SPECIAL_BITS = "KB04-MODE-SPECIAL-BITS"
+    KB04_MOUNT_MODE_MISMATCH = "KB04-MOUNT-MODE-MISMATCH"
+    KB04_LINK_SYMLINK_ESCAPE = "KB04-LINK-SYMLINK-ESCAPE"
+    KB04_LINK_HARDLINK = "KB04-LINK-HARDLINK"
+    KB04_PATH_OUTSIDE_ROOT = "KB04-PATH-OUTSIDE-ROOT"
+    KB04_STATE_INDETERMINATE = "KB04-STATE-INDETERMINATE"
+    KB04_INIT_PARTIAL = "KB04-INIT-PARTIAL"
+    KB04_WRITE_CONTRACT_VIOLATION = "KB04-WRITE-CONTRACT-VIOLATION"
+    KB04_EVIDENCE_INCOMPLETE = "KB04-EVIDENCE-INCOMPLETE"
+
 
 class CoreBrainError(Exception):
     """Basisklasse aller Skeleton-Fehler."""
@@ -357,4 +390,18 @@ class GateEvaluationBlocked(CoreBrainError):
 
     Der synthetische MVP erzeugt niemals eine Freigabe; dieser Ausgang bedeutet
     **keine** Gatefreigabe und **keine** Aktivierung.
+    """
+
+
+class FilesystemEnforcementError(CoreBrainError):
+    """Fehlerhafte Nutzung oder interne Inkonsistenz des KB-04-Modells.
+
+    Ausschließlich für **ungültige API-Nutzung**, **interne
+    Contract-Inkonsistenz** und **Programmierfehler**, die sich nicht als
+    regulärer Finding darstellen lassen.
+
+    Eine normale Dateisystem- oder Vertragsabweichung ist **kein** Fehler
+    dieser Klasse, sondern ein ``Finding`` mit ``VIOLATION`` oder
+    ``INDETERMINATE``. Der Fehler trägt niemals einen realen Hostpfad, eine
+    reale Identität oder einen Inhaltswert.
     """

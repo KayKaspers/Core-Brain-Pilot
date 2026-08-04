@@ -3,11 +3,11 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Aktuelles Work Package | **CBP-WP-022** (`in-review`, **Phase B1C – Enforcement Contract and Validation Plan**) — **D-057** Registrierung, **D-058** ADR-Gate (**`ADR_REQUIRED`**), **D-059** Architekturannahme und **D-060** Enforcement Contract (alle `accepted`, **A0**, 2026-08-03); **ADR-0014 `accepted`, Autoritätsklasse A1** — **Host-authoritative Enforcement mit deklarativem Zielmodell und read-only Runtime-Validierung**; Vertrag [KB_04_STAGE_1_ENFORCEMENT_CONTRACT.md](../docs/security/KB_04_STAGE_1_ENFORCEMENT_CONTRACT.md) **`accepted contract`** (**`ADR_NOT_REQUIRED`** innerhalb ADR-0014); B0 `committed` (`e4caa14`), B1A `committed` (`1a7696d`), B1B `committed` (`b86a35f`), **B1C uncommitted**; **KB-04 Enforcement Stage 1** bleibt `DOCUMENTED ONLY`; **technische Implementierung nicht autorisiert**, B2 **nicht freigegeben**. Zuletzt abgeschlossen **CBP-WP-021** (`committed`, `complete`, 2026-08-03; **D-056**, `ADR_NOT_REQUIRED`; kanonisch **32 Negativtests / 1 Positivtest / 33 Testfälle**, **0 von 32** und **0 von 1** ausgeführt; B0 `0cb4ea9`, B1/B2 `271acc7`). Zuvor abgeschlossen **CBP-WP-020** (`committed`, `complete`; B0 `17057e2`, B1/B2 `9c6c0fb`, C `d6a1a3c`). **CBP-WP-023 nicht registriert, nicht autorisiert.** |
+| Aktuelles Work Package | **CBP-WP-022** (`in-review`, **Phase B2A – Contract Model and Read-only Validator**) — **D-057** Registrierung, **D-058** ADR-Gate (**`ADR_REQUIRED`**), **D-059** Architekturannahme und **D-060** Enforcement Contract (alle `accepted`, **A0**, 2026-08-03); **ADR-0014 `accepted`, Autoritätsklasse A1** — **Host-authoritative Enforcement mit deklarativem Zielmodell und read-only Runtime-Validierung**; Vertrag [KB_04_STAGE_1_ENFORCEMENT_CONTRACT.md](../docs/security/KB_04_STAGE_1_ENFORCEMENT_CONTRACT.md) **`accepted contract`** (**`ADR_NOT_REQUIRED`** innerhalb ADR-0014); B0 `committed` (`e4caa14`), B1A `committed` (`1a7696d`), B1B `committed` (`b86a35f`), B1C `committed` (`24de07e`), **B2A uncommitted**; **B2A implementiert das interne, read-only Enforcement-Paket** `core/core_brain/enforcement/` (sechs Module, 21 additive `KB04-*`-ReasonCodes, **206 neue Tests**, Gesamtsuite **930 grün**) — **keine CLI, keine Config, kein Deployment, keine Mutation, keine operative Evidenz**; **KB-04 Enforcement Stage 1** bleibt `DOCUMENTED ONLY`; **B2B, B2C und B2D nicht autorisiert**. Zuletzt abgeschlossen **CBP-WP-021** (`committed`, `complete`, 2026-08-03; **D-056**, `ADR_NOT_REQUIRED`; kanonisch **32 Negativtests / 1 Positivtest / 33 Testfälle**, **0 von 32** und **0 von 1** ausgeführt; B0 `0cb4ea9`, B1/B2 `271acc7`). Zuvor abgeschlossen **CBP-WP-020** (`committed`, `complete`; B0 `17057e2`, B1/B2 `9c6c0fb`, C `d6a1a3c`). **CBP-WP-023 nicht registriert, nicht autorisiert.** |
 | Gate G0 | **PASSED WITH NOTES** — 2026-07-21 |
 | Überarbeitet in | **CBP-WP-016** |
 | Autoritätsklasse | A2 |
-| Stand | 2026-08-03 — CBP-WP-022 Phase B1C |
+| Stand | 2026-08-03 — CBP-WP-022 Phase B2A |
 
 Spalten nach `WORK_PACKAGE_QUEUE_TEMPLATE.md` (NDF v1.0.0).
 
@@ -48,7 +48,7 @@ Spalten nach `WORK_PACKAGE_QUEUE_TEMPLATE.md` (NDF v1.0.0).
 | CBP-WP-019 | **Deployment Readiness Intake and Profile-A Target Specification** | P1 | **`committed`** | [work-packages/CBP-WP-019.md](../work-packages/CBP-WP-019.md) |
 | CBP-WP-020 | **Controlled Profile-A Deployment Foundation** | P1 | **`committed`** (B0 `17057e2`, B1/B2 `9c6c0fb`) | [work-packages/CBP-WP-020.md](../work-packages/CBP-WP-020.md) |
 | CBP-WP-021 | **Canonical Security Test Inventory Reconciliation** | P1 | **`committed`** (B0 `0cb4ea9`, B1/B2 `271acc7`, C `0344774`) | [work-packages/CBP-WP-021.md](../work-packages/CBP-WP-021.md) |
-| CBP-WP-022 | **KB-04 Enforcement Stage 1** | P1 | **`in-review`** (Phase B1C; B0 `committed` `e4caa14`, B1A `committed` `1a7696d`, B1B `committed` `b86a35f`; **ADR-0014 `accepted`/A1**, **Contract `accepted`**) | [work-packages/CBP-WP-022.md](../work-packages/CBP-WP-022.md) |
+| CBP-WP-022 | **KB-04 Enforcement Stage 1** | P1 | **`in-review`** (Phase B2A; B0 `committed` `e4caa14`, B1A `committed` `1a7696d`, B1B `committed` `b86a35f`, B1C `committed` `24de07e`; **ADR-0014 `accepted`/A1**, **Contract `accepted`**, **Validatorpaket implementiert**) | [work-packages/CBP-WP-022.md](../work-packages/CBP-WP-022.md) |
 
 **Kein Work Package ist als `proposed` geführt.** **CBP-WP-019** (Deployment
 Readiness Intake and Profile-A Target Specification) steht auf **`in-review`** in
@@ -741,7 +741,7 @@ registriert noch autorisiert**.
 | Typ | **security-foundation enforcement** (Stufe 1) |
 | Prompt Mode | **Full** · Context Budget **B2 – Standard** |
 | Status | **`in-review`** |
-| Aktuelle Phase | **Phase B1C – Enforcement Contract and Validation Plan** |
+| Aktuelle Phase | **Phase B2A – Contract Model and Read-only Validator** |
 | Registration Decision | **D-057** (konsolidiert, A–M), `accepted`, **A0**, 2026-08-03 |
 | ADR-Gate-Decision | **D-058** (konsolidiert, A–M), `accepted`, **A0**, 2026-08-03 — Ergebnis **`ADR_REQUIRED`** |
 | Architektur-Decision | **D-059** (konsolidiert, A–N), `accepted`, **A0**, 2026-08-03 — Ergebnis **`ADR-0014_ACCEPTED`** |
@@ -750,7 +750,7 @@ registriert noch autorisiert**.
 | Enforcement Contract | [KB_04_STAGE_1_ENFORCEMENT_CONTRACT.md](../docs/security/KB_04_STAGE_1_ENFORCEMENT_CONTRACT.md) — **`accepted contract`**, 2026-08-03 |
 | Human-Maintainer-Freigabe | **B1C Contract and Validation Plan authorized** |
 | Technische Implementierung | **nicht autorisiert** |
-| Commit | **B0 `committed` `e4caa14`** · **B1A `committed` `1a7696d`** · **B1B `committed` `b86a35f`** · **B1C nicht committed** (Commit-Autorität beim Human Maintainer) |
+| Commit | **B0 `committed` `e4caa14`** · **B1A `committed` `1a7696d`** · **B1B `committed` `b86a35f`** · **B1C `committed` `24de07e`** · **B2A nicht committed** (Commit-Autorität beim Human Maintainer) |
 
 **KB-04 ist der Kontrollbereich „Dateisystemrechte“.** Ziel: **Deny-by-default
 auf Dateiebene**; Bedrohung: **Direktzugriff unter Umgehung der Anwendung**.
@@ -966,6 +966,52 @@ Risiko-ID; **RT-2 nicht implementiert**; keine reale Bereitstellung;
 
 **Ein implementierungsfähiger Vertrag ist keine Implementierung, und eine
 geplante Prüfung ist kein Nachweis.**
+
+**Phase B2A (dieser Stand, uncommitted):** Das interne, **read-only**
+Enforcement-Paket `core/core_brain/enforcement/` ist implementiert — sechs Module:
+
+| Modul | Verantwortung |
+| --- | --- |
+| `contract.py` | Teilmodell: **elf Pfadklassen**, **fünf Profilausprägungen**, zehn Akteure, vier Dimensionen, Selbstkonsistenzprüfung, **Dokument- und Modellhash** gegen Drift |
+| `binding.py` | Identitätsbindung mit **zehn Pflichtfeldern**; keine Auflösung realer Identitäten, **kein Default, kein Fallback** |
+| `paths.py` | Root-Boundary, Symlink- und Hardlinkablehnung, Objektartklassifikation, dokumentierte **TOCTOU**-Grenze |
+| `validator.py` | injizierbare Beobachtungsmodelle **D-I bis D-IV**, read-only Prüfungen, **PP-3b-Inhaltsklassifikation** |
+| `aggregate.py` | Befunde, **fail-closed Faltung**, deterministische Serialisierung |
+| `__init__.py` | explizite Re-Exporte; **nicht** in `core/core_brain/__init__.py` aufgenommen |
+
+Dazu **21 additive `KB04-*`-ReasonCodes** und `FilesystemEnforcementError` in
+`errors.py`. **206 neue Tests**, Gesamtsuite **930 grün, 0 übersprungen**,
+**ohne einen einzigen Plattformskip**.
+
+**Herkunft ist Pflicht.** Jede Beobachtung trägt `SYNTHETIC`, `DECLARED`
+oder `OBSERVED`. `operationally_verified` wird **nur** wahr, wenn alle vier
+Dimensionen konform **und** durchgängig `OBSERVED` sind — eine
+synthetische oder deklarierte Konformität erzeugt sie **nie**.
+
+**PP-3b bleibt eng begrenzt:** nur PC-07; `SENSITIVE_OR_SECRET` ist eine
+Verletzung, `UNCLASSIFIED` und eine fehlende Klassifikation sind
+**`INDETERMINATE`** — **kein Default auf secret-free**, **keine
+Inhaltsanalyse**, **kein Secret-Scanning**.
+
+**Nicht implementiert und nicht autorisiert:** CLI · Config-Datei ·
+Deploymentänderung · neuer Exitcode (15 und 16 bleiben **reine
+Reservierung**) · Initialisierung · Migration · Reparatur ·
+`chmod` · `chown` · jede Dateisystemmutation · RT-2 ·
+Gateauswertung · Control-Hochstufung · Ausführung von NT-04 oder
+NT-05.
+
+**Unverändert nach B2A:** Decisions/A0/ADRs **60/56/14** · **KB-04 und
+alle zwölf Controls `DOCUMENTED ONLY`** · beide Gates
+**`NOT EVALUATED`** · Capabilities **0 von 29** · **NT-04 und NT-05
+nicht ausgeführt** · **SB-S04 nicht wirksam** · **R-20 offen**
+· **OD-37 offen** · **R-33 18/21** · keine neue Risiko-ID ·
+**RT-2 nicht implementiert** · keine reale Bereitstellung ·
+**CBP-WP-023 nicht registriert**.
+
+**Nächste mögliche Phasen: B2B, B2C und B2D — sämtlich nicht
+autorisiert.**
+
+**Eine synthetisch festgestellte Konformität ist keine KB-04-Evidenz.**
 
 ---
 

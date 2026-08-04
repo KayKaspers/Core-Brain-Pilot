@@ -6,7 +6,7 @@
 | Typ | **security-foundation enforcement** (Stufe 1) |
 | Prompt Mode | **Full** · Context Budget **B2 – Standard** |
 | Status | **`in-review`** |
-| Aktuelle Phase | **Phase B1C – Enforcement Contract and Validation Plan** |
+| Aktuelle Phase | **Phase B2A – Contract Model and Read-only Validator** |
 | Registration Decision | **D-057** (konsolidiert, A–M) |
 | ADR-Gate-Decision | **D-058** (konsolidiert, A–M) — Ergebnis **`ADR_REQUIRED`** |
 | Architektur-Decision | **D-059** (konsolidiert, A–N) — Ergebnis **`ADR-0014_ACCEPTED`** |
@@ -15,15 +15,15 @@
 | ADR | **ADR-0014** — *KB-04 Stage 1 Filesystem Enforcement Architecture*, `accepted`, **Autoritätsklasse A1**, 2026-08-03. `ADR_NOT_REQUIRED` galt für D-057 und gilt für **D-060**, **solange der Vertrag vollständig innerhalb ADR-0014 bleibt** |
 | Enforcement Contract | [KB_04_STAGE_1_ENFORCEMENT_CONTRACT.md](../docs/security/KB_04_STAGE_1_ENFORCEMENT_CONTRACT.md) — **`accepted contract`**, 2026-08-03 |
 | Registrierungsdatum | **2026-08-03** |
-| Human-Maintainer-Freigabe | **B1C Contract and Validation Plan authorized** |
-| Technische Implementierung | **nicht autorisiert** |
+| Human-Maintainer-Freigabe | **B2A Contract Model and Read-only Validator authorized** |
+| Technische Implementierung | **B2A implementiert** (intern, read-only) · **B2B, B2C und B2D nicht autorisiert** |
 | KB-04-Status | **`DOCUMENTED ONLY`** — unverändert |
 | Capabilities | **0 von 29** — unverändert |
 | Gates | Mapping Activation `NOT EVALUATED` · Security Foundation Readiness `NOT EVALUATED` |
 | Security Controls | **12 `DOCUMENTED ONLY`** |
 | R-20 | **offen** |
 | R-33 | **18/21** — in diesem Lauf **unverändert** |
-| Commit | **B0 `committed` `e4caa14`** · **B1A `committed` `1a7696d`** · **B1B `committed` `b86a35f`** · **B1C nicht committed** — Commit-Autorität beim Human Maintainer |
+| Commit | **B0 `committed` `e4caa14`** · **B1A `committed` `1a7696d`** · **B1B `committed` `b86a35f`** · **B1C `committed` `24de07e`** · **B2A nicht committed** — Commit-Autorität beim Human Maintainer |
 
 ---
 
@@ -174,8 +174,11 @@ ohne Durchsetzung), CBP-WP-020 (Profil-A-Bundle), CBP-WP-021 (Testinventar).
 | **B0** | **Registration and Authority Baseline** | **complete** — `committed` `e4caa14` |
 | **B1A** | **Contract Boundary and ADR Gate** | **complete** — `committed` `1a7696d` |
 | **B1B** | **ADR-0014 Authoring and Design Decision** | **complete** — `committed` `b86a35f` |
-| **B1C** | **Enforcement Contract and Validation Plan** | **complete (dieser Stand, uncommitted)** |
-| **B2** | **Implementation and Validation** | **nicht autorisiert** |
+| **B1C** | **Enforcement Contract and Validation Plan** | **complete** — `committed` `24de07e` |
+| **B2A** | **Contract Model and Read-only Validator** | **complete (dieser Stand, uncommitted)** |
+| **B2B** | **New-target Initialization Boundary** | **nicht autorisiert** |
+| **B2C** | **Synthetic Tests and Evidence** | **nicht autorisiert** |
+| **B2D** | **Profile-A Deployment Integration** | **nicht autorisiert** |
 | **C** | **Post-Commit Reconciliation** | **nicht autorisiert** |
 
 **Die ADR-Erforderlichkeit wurde in B1A bewertet und in D-058 mit
@@ -600,9 +603,120 @@ geplante Prüfung ist kein Nachweis.**
 
 ---
 
+## Phase B2A — Contract Model and Read-only Validator
+
+**B1C-Commit:** `24de07e` — „CBP-WP-022: define KB-04 enforcement
+contract and validation plan", **10 modifizierte Dateien und eine neue
+Contract-Datei**.
+
+B2A implementiert das interne, **read-only** Enforcement-Paket innerhalb von
+**ADR-0014** und **D-060**. **Es entsteht keine neue öffentliche API, keine
+CLI-Semantik, keine Config-Semantik und kein Deploymentmodell.**
+
+### Exakte Dateien
+
+| Pfad | Art | Verantwortung |
+| --- | --- | --- |
+| `core/core_brain/enforcement/__init__.py` | neu | Paketdoc, Negativabgrenzung, explizite Re-Exporte, vollständiges `__all__` |
+| `core/core_brain/enforcement/contract.py` | neu | Teilmodell: PC-01…PC-11, PP-1…PP-4 mit PP-3a/PP-3b, zehn Akteure, D-I…D-IV, Selbstkonsistenz, Dokument- und Modellhash |
+| `core/core_brain/enforcement/binding.py` | neu | Identitätsbindung, zehn Pflichtfelder, Kollisionsprüfung |
+| `core/core_brain/enforcement/paths.py` | neu | Root-Boundary, Symlink, Hardlink, Objektart, TOCTOU-Grenze |
+| `core/core_brain/enforcement/validator.py` | neu | Beobachtungsmodelle D-I…D-IV, read-only Prüfungen, PP-3b-Klassifikation |
+| `core/core_brain/enforcement/aggregate.py` | neu | `FindingStatus`, `Finding`, `ValidationResult`, fail-closed Faltung |
+| `core/core_brain/errors.py` | **additiv** | **21 `KB04-*`-ReasonCodes** + `FilesystemEnforcementError` — **keine ExitCode-Änderung** |
+| `tests/kb04_fixtures.py` | neu | injizierbare Zustände, synthetischer Secretmarker |
+| `tests/test_kb04_contract.py` | neu | Contract-Modell und Driftschutz |
+| `tests/test_kb04_paths.py` | neu | Pfad-, Link- und Objektartprüfungen |
+| `tests/test_kb04_validator.py` | neu | Bindung, vier Dimensionen, PP-3b, Herkunft |
+| `tests/test_kb04_aggregate.py` | neu | Aggregation, operative Verifikation, Determinismus |
+
+### API-Lock
+
+**Enums:** `PathClass` (11) · `PermissionProfile` (5) · `ObjectKind` (5)
+· `Actor` (10) · `Dimension` (4) · `MountMode` (5) ·
+`ServiceRole` (7) · `ObservationOrigin` (3) · `ContentClassification`
+(3) · `ValueOrigin` (4) · `ValidationState` (3) · `CollisionState`
+(4) · `FindingStatus` (4).
+
+**Dataclasses**, sämtlich `frozen=True, slots=True`, Mehrfachwerte nur als
+Tupel: `ProfileSpec` · `PathClassSpec` · `IdentityBinding` ·
+`PathResolution` · `HostObjectState` · `MountState` ·
+`RuntimeObjectState` · `RuntimeIdentityState` · `Observation` ·
+`Finding` (zusätzlich `order=True`) · `ValidationResult`.
+
+**Funktionen:** `path_class_spec` · `profile_spec` · `validate_contract`
+· `contract_model_sha256` · `normalize_document_bytes` ·
+`validate_binding` · `validate_binding_set` · `resolve_within_root`
+· `classify_object_kind` · `classify_link` · `detect_hardlink`
+· `check_path` · `validate_observation` · `aggregate_findings`
+· `canonical_json_bytes`.
+
+**Keine Funktion mutiert.** Das Paket importiert ausschließlich aus der
+Standardbibliothek, aus `core.core_brain.errors` und aus sich selbst; es wird
+**nicht** in `core/core_brain/__init__.py` re-exportiert.
+
+### Testumfang
+
+**206 neue Tests** — Gesamtsuite **930 grün, 0 übersprungen**,
+**ohne einen einzigen Plattformskip**. Symlinks, Hardlinks, FIFOs, Sockets und
+Devices werden über **injizierte `stat`-Zustände** geprüft, nicht
+über reale Objekte; damit laufen alle Fälle auch unter Windows ohne
+Entwicklermodus und ohne Administratorrechte.
+
+### Synthetische Grenze
+
+Jede Beobachtung trägt eine **explizite Herkunft**: `SYNTHETIC`,
+`DECLARED` oder `OBSERVED`. `ValidationResult.conform` bezeichnet die
+**logische** Vertragskonformität; `operationally_verified` verlangt
+zusätzlich, dass **alle vier Dimensionen** konform **und** durchgängig
+`OBSERVED` sind. **Eine synthetische oder deklarierte Konformität erzeugt
+sie niemals.**
+
+### PP-3b-Grenze
+
+PP-3b gilt **ausschließlich für PC-07** und ist im Modell als
+`exclusive_path_class` verankert; `validate_contract()` weist jede
+Verwendung außerhalb zurück. Die Inhaltsklassifikation ist
+**deklarativ**: `SENSITIVE_OR_SECRET` ist eine **Verletzung**, `UNCLASSIFIED`
+und eine **fehlende** Klassifikation sind **`INDETERMINATE`** — es gibt
+**keinen Default auf secret-free**. **Keine Inhaltsanalyse, kein
+Secret-Scanning, keine KB-08-Architektur.**
+
+### Contract-Drift-Schutz
+
+`CONTRACT_DOCUMENT_PATH` ist ein **relativer** Repositorypfad;
+`CONTRACT_DOCUMENT_SHA256` ist der Hash der **zeilenendennormalisierten**
+Dokumentfassung. Die Normalisierung ist zwingend, weil das Repository mit
+`core.autocrlf` arbeitet und die Arbeitskopie unter Windows CRLF trägt,
+der Commit-Blob aber LF — ohne sie wäre der Driftschutz
+plattformabhängig. **Der Produktionscode liest das Dokument beim Import
+nicht**; nur die Tests vergleichen. `contract_model_sha256()` sichert
+zusätzlich das Teilmodell; ein geändertes Profil verändert den
+Hash nachweislich.
+
+### Keine operative Wirkung
+
+**KB-04 bleibt `DOCUMENTED ONLY`.** Es ist kein Recht gesetzt, kein Besitz
+zugewiesen, kein realer Mount geprüft, kein Test gegen eine Profil-A-Instanz
+gelaufen. **NT-04 und NT-05 bleiben unausgeführt**, **SB-S04 nicht
+wirksam**, **OD-37 offen**, beide Gates **`NOT EVALUATED`**, Capabilities
+**0 von 29**, **RT-2 nicht implementiert**. Die Exitcodes **15** und **16**
+bleiben **reine Vertragsreservierung** — **kein Pfad emittiert sie**, das
+öffentliche CLI-Verhalten ist **unverändert**.
+
+### Folgeschritte
+
+**B2B** (New-target Initialization Boundary) · **B2C** (Synthetic Tests and
+Evidence) · **B2D** (Profile-A Deployment Integration) — **sämtlich
+nicht autorisiert**. **C** ist nicht autorisiert.
+
+**Eine synthetisch festgestellte Konformität ist keine KB-04-Evidenz.**
+
+---
+
 ## Aussageschutz
 
-Dieses Work Package belegt auch nach Phase B1C **nicht**:
+Dieses Work Package belegt auch nach Phase B2A **nicht**:
 
 | Nicht belegt | Tatsächlicher Stand |
 | --- | --- |
@@ -614,7 +728,8 @@ Dieses Work Package belegt auch nach Phase B1C **nicht**:
 | RT-2 existiere | **nicht implementiert** |
 | Die spätere Umsetzung sei ADR-frei | **ADR-0014 angenommen** (D-059) — **keine Implementierungsfreigabe** |
 | Eine Architekturentscheidung sei eine Sicherheitswirkung | **nein** — kein Recht gesetzt, kein Test gelaufen, kein Nachweis erbracht |
-| Ein implementierungsfähiger Vertrag sei eine Implementierung | **nein** — D-060 autorisiert **B2 nicht**; die ausführende Reparatur bleibt an **RT-2** gebunden und gesperrt |
+| Ein implementierungsfähiger Vertrag sei eine Implementierung | **nein** — D-060 autorisiert **B2B/B2C/B2D nicht**; die ausführende Reparatur bleibt an **RT-2** gebunden und gesperrt |
+| Der implementierte Validator sei KB-04-Evidenz | **nein** — rein intern, read-only, **ausschließlich synthetisch nachgewiesen**; `operationally_verified` bleibt bei synthetischer oder deklarierter Herkunft **`False`** |
 
 **Die Registrierung eines Work Packages ist keine Implementierungsfreigabe.**
 
