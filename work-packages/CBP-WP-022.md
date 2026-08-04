@@ -6,7 +6,7 @@
 | Typ | **security-foundation enforcement** (Stufe 1) |
 | Prompt Mode | **Full** · Context Budget **B2 – Standard** |
 | Status | **`in-review`** |
-| Aktuelle Phase | **Phase B2C.2 – Traceability Coverage Split Reconciliation Decision** |
+| Aktuelle Phase | **Phase B2C-T-R – Contract Traceability and NT Preparation Resume** |
 | Registration Decision | **D-057** (konsolidiert, A–M) |
 | ADR-Gate-Decision | **D-058** (konsolidiert, A–M) — Ergebnis **`ADR_REQUIRED`** |
 | Architektur-Decision | **D-059** (konsolidiert, A–N) — Ergebnis **`ADR-0014_ACCEPTED`** |
@@ -17,8 +17,8 @@
 | ADR | **ADR-0014** — *KB-04 Stage 1 Filesystem Enforcement Architecture*, `accepted`, **Autoritätsklasse A1**, 2026-08-03. `ADR_NOT_REQUIRED` galt für D-057 und gilt für **D-060**, **solange der Vertrag vollständig innerhalb ADR-0014 bleibt** |
 | Enforcement Contract | [KB_04_STAGE_1_ENFORCEMENT_CONTRACT.md](../docs/security/KB_04_STAGE_1_ENFORCEMENT_CONTRACT.md) — **`accepted contract`**, 2026-08-03 |
 | Registrierungsdatum | **2026-08-03** |
-| Human-Maintainer-Freigabe | **B2C.2 Traceability Coverage Split Reconciliation Decision authorized** |
-| Technische Implementierung | **B2A und B2B-P implementiert** (intern, read-only, **plan-only**) · **B2C-T nicht umgesetzt** — erster Lauf `BLOCKED`, **0 geänderte Dateien** · **B2C-T-Resume, B2B-Apply und B2D nicht autorisiert** |
+| Human-Maintainer-Freigabe | **B2C-T-R Contract Traceability and NT Preparation Resume authorized** |
+| Technische Implementierung | **B2A und B2B-P implementiert** (intern, read-only, **plan-only**) · **B2C-T-R implementiert** die vollständige 45er-Traceability (drei reine Testdateien, **152 neue Tests**, Gesamtsuite **1202**) · **B2B-Apply und B2D nicht autorisiert** |
 | KB-04-Status | **`DOCUMENTED ONLY`** — unverändert |
 | Capabilities | **0 von 29** — unverändert |
 | Gates | Mapping Activation `NOT EVALUATED` · Security Foundation Readiness `NOT EVALUATED` |
@@ -182,8 +182,8 @@ ohne Durchsetzung), CBP-WP-020 (Profil-A-Bundle), CBP-WP-021 (Testinventar).
 | **B2C.0** | **Remaining Phase Boundary and Architecture Gate** | **complete** — read-only, Ergebnis `DECISION REQUIRED` |
 | **B2C.1** | **Synthetic Evidence Scope Decision** | **complete** — `committed` `38eb33f`, **D-061** |
 | **B2C-T** (erster Lauf) | **Traceability and NT Preparation** | **`BLOCKED`** — vor jeder Dateiänderung beendet, **0 geänderte Dateien** |
-| **B2C.2** | **Traceability Coverage Split Reconciliation Decision** | **complete (dieser Stand, uncommitted)** — **D-062** |
-| **B2C-T-Resume** | **Traceability and NT Preparation** | **nicht autorisiert** |
+| **B2C.2** | **Traceability Coverage Split Reconciliation Decision** | **complete** — `committed` `117647f`, **D-062** |
+| **B2C-T-R** | **Contract Traceability and NT Preparation Resume** | **complete (dieser Stand, uncommitted)** |
 | **B2B-Apply** | **New-target Initialization Apply** | **nicht autorisiert** — ADR-Frage offen |
 | **B2C** | **Synthetic Tests and Evidence** | **nicht autorisiert** |
 | **B2D** | **Profile-A Deployment Integration** | **nicht autorisiert** |
@@ -1096,9 +1096,163 @@ eine Falschaussage.**
 
 ---
 
+## Phase B2C-T-R — Contract Traceability and NT Preparation Resume
+
+**B2C.2-Commit:** `117647f` — „CBP-WP-022: reconcile B2C traceability coverage
+split", **10 modifizierte Dateien**. **D-062** ist damit `committed`.
+
+### Drei neue Dateien — ausschließlich Testbereich
+
+| Datei | Rolle |
+| --- | --- |
+| `tests/kb04_nt_fixtures.py` | Test-Support ohne `test_`-Präfix: Datenmodelle, die **45** Traceability-Einträge, die **sechs** Vorbereitungs-Fixtures, die kanonischen Konstanten und die deterministische Serialisierung |
+| `tests/test_kb04_contract_traceability.py` | **84** Metatests: Contract-ID-Drift, Dispositionen, Gapsemantik, Test-ID-Existenz, Abdeckungsregeln, Determinismus, bestehende Testbasis |
+| `tests/test_kb04_nt_preparation.py` | **68** Tests: Fixture-Vollständigkeit, Aussagegrenzen, NT-Zuordnung, Realitätsgrenze, Contracttreue, die sechs Einzelfälle |
+
+**Kein Produktionscode**, keine neue Produktionsdatei, kein Re-Export, kein
+Produktionsimport der Fixtures, keine Runtime-, CLI-, Deployment- oder
+Gatekopplung. `core/**` trägt **null** Diff-Zeilen, und **keine vorhandene
+Test- oder Fixturedatei wurde geändert**.
+
+### Die 45 Contractkennungen
+
+Die Matrix bildet **alle 45** Kennungen aus Contract §15 ab —
+`KB04-T-P01` bis `KB04-T-P12` und `KB04-T-N01` bis `KB04-T-N33`. Ein
+Drift-Test liest das Contractdokument **read-only**, extrahiert die
+Kennungen und prüft lückenlose Bereiche, Dublettenfreiheit und **exakte
+Gleichheit** mit der Matrix. Titel und Kurzbeschreibungen sind **semantisch
+treu** übernommen; es wurde **keine Sicherheitsanforderung erfunden** und
+**keine Contractkennung ergänzt**.
+
+### 37 synthetische Zuordnungen
+
+Die **37** `SYNTHETIC_COVERED`-Kennungen sind auf **vorhandene funktionale**
+KB-04-Tests der sechs zulässigen Module abgebildet. Jede Referenz ist eine
+**vollständig qualifizierte** unittest-Kennung und wird gegen das per
+`unittest`-Loader erhobene Inventar geprüft — **null** fehlende Referenzen.
+Referenzen auf die beiden **neuen** Testmodule, auf das Fixturemodul selbst
+oder auf Module außerhalb des KB-04-Bereichs sind durch eigene Tests
+ausgeschlossen; damit gibt es **keine zirkuläre Selbstevidenz**.
+
+Mehrfachzuordnungen sind zulässig, aber begründungspflichtig. Sie treten
+gezielt auf, wo der Contract denselben Prüfgegenstand mehrfach adressiert —
+etwa `test_missing_host_is_indeterminate` für **N28** und **N29**, oder
+`test_wrong_mount_mode_is_violation` für **N18** und **N30**; die Begründung
+steht jeweils im `coverage_note`.
+
+### Zwei Coverage Gaps — P10 und N25
+
+| Feld | `KB04-T-P10` | `KB04-T-N25` |
+| --- | --- | --- |
+| Disposition | **`SYNTHETIC_COVERAGE_GAP`** | **`SYNTHETIC_COVERAGE_GAP`** |
+| `covered_by` | **leer** | **leer** |
+| `gap_contract_section` | **`10.3`** | **`10.3`** |
+| `gap_reason_code` | **leer** — kein ReasonCode erfunden | **`KB04-WRITE-CONTRACT-VIOLATION`** |
+| B2D-Felder | keine — **kein real-only Fall** | keine — **kein real-only Fall** |
+
+Die Gapbeschreibung benennt ausdrücklich die fehlende
+**§10.3-Schreibzeitvalidierung**, die fehlende Prüfung atomarer Ersetzung
+und des temporären Schreibkontexts, den **fehlenden produktiven
+Verwendungsort** des ReasonCodes und die **fehlenden funktionalen Tests**.
+Sie hält fest, dass beide Fälle **grundsätzlich synthetisch testbar** bleiben,
+dass eine **Ersatzzuordnung zu Root-Boundary-Tests unzulässig** ist und dass
+eine Umsetzung eine **eigene Scopefreigabe** verlangt.
+
+Ein eigener Test stellt sicher, dass in Note und Gaptext **keine unverneinte**
+Abdeckungs- oder Bestehensbehauptung steht: Formulierungen wie *„weder als
+abgedeckt noch als bestanden"* werden korrekt als Verneinung erkannt, eine
+behauptende Fundstelle würde den Test scheitern lassen.
+
+### Sechs real-only Vorbereitungen
+
+`KB04-T-N07` und `KB04-T-N08` (**NT-04**), `KB04-T-N14` (**NT-05**),
+`KB04-T-N31`, `KB04-T-N33` und `KB04-T-P12`. Jede Vorbereitung trägt
+unveränderlich **`PREPARED_ONLY`** und **`NOT_EXECUTED`**, Herkunft der
+Vorbereitung **`SYNTHETIC`**, erforderliche spätere Ausführung
+**`OBSERVED`** auf einer Profil-A-Instanz. Das Modell besitzt **kein Feld
+`passed`, `conform` oder `operationally_verified`**.
+
+Die erwarteten ReasonCodes stammen sämtlich aus den **24 registrierten**
+KB04-Codes; **kein Code wurde neu eingeführt**. Wo der Contract ein Detail
+nicht festlegt — die Dimensionen von N07, N08 und N14 —, steht der neutrale
+Marker **`CONTRACT_DOES_NOT_SPECIFY`**; wo er es festlegt, steht der
+belegte Wert: **D-III** für N31 (§10.6 Prüfung 6), **D-II gegen D-III** für
+N33 (§10.6 Prüfung 12) und **D-I** für P12. Der fehlende NT-Bezug von N31,
+N33 und P12 ist als **`CONTRACT_DECLARES_NO_NT_REFERENCE`** kodiert — der
+Contract sagt dort ausdrücklich „—".
+
+### P12 — die D-I-Grenze
+
+`KB04-T-P12` bleibt **B2D-real-only**, weil allein die **reale Dimension
+D-I** eine Profil-A-Instanz verlangt. Die synthetischen Vorprüfungen zu
+D-II, D-III und D-IV stehen ausschließlich unter
+`synthetic_support_tests` und **niemals** unter `covered_by`; eigene Tests
+belegen, dass P12 **nicht als bestanden** ausgegeben wird und dass **D-III
+den Zustand von D-I nicht belegt** (MT-10).
+
+### Traceability-Manifest und Hash
+
+`traceability_manifest_dict()` liefert eine kanonisch sortierte, vollständige
+Abbildung über alle 45 Kennungen und die sechs Vorbereitungen;
+`traceability_manifest_sha256()` bildet den byte-stabilen Hash darüber.
+Beide sind **reine Testhelfer**: sie **schreiben keine Datei**, rufen **keine
+Gate-API** auf und verändern **keinen Controlstatus**. Die Serialisierung
+enthält **keine absoluten Pfade, keine temporären Pfade, keine Laufzeiten,
+keine Angaben zur lokalen Testumgebung und keine realen Identitätswerte** —
+jeweils durch eigene Tests belegt.
+
+**Das ist ausdrücklich kein Evidence-Schema-3.0-Artefakt.**
+
+### Testumfang
+
+**152 neue Testmethoden** — **84** Traceability, **68** NT-Vorbereitung.
+Fokussierter Lauf **Exit 0**; Gesamtsuite **1202 grün, 0 übersprungen**, in
+zwei Läufen nach Normalisierung der Laufzeitzeile **byte-identisch**.
+`compileall` mit **externem** Pycache-Ziel **Exit 0**, alle 45 erzeugten
+`.pyc` außerhalb des Repositorys, **Repository-Bytecode 0**. **Keine
+Plattformskips.**
+
+### Keine operative Evidenz
+
+**Kein Security-Control-Form-Artefakt** · **kein Evidence-Schema-3.0-Datensatz**
+· **kein Evidence-Producer** · **keine Evidence-Datei** · **keine
+JSON-Evidence-Ausgabe** · **keine Gate-Eingabe** · **kein Gate-Manifest** ·
+**keine Gateauswertung** · **kein Control-Uplift**. **NT-04 und NT-05 wurden
+nicht ausgeführt.**
+
+### Contract §10.3 nicht implementiert
+
+Die Schreibzeitvalidierung bleibt **technisch offen**: keine
+Validierungsfunktion, keine atomare Ersetzungsprüfung, kein temporärer
+Schreibkontext, `KB04-WRITE-CONTRACT-VIOLATION` weiterhin **ausschließlich
+in `errors.py` deklariert** und **null** Referenzen im Enforcement-Paket.
+Eine Umsetzung ist **nicht Bestandteil von B2C-T-R** und verlangt eine
+**eigene Scopefreigabe** sowie eine erneute **ADR-** und
+**Decision-Erforderlichkeitsprüfung**.
+
+### Stand nach B2C-T-R
+
+**B0** `e4caa14` · **B1A** `1a7696d` · **B1B** `b86a35f` · **B1C** `24de07e` ·
+**B2A** `929d10b` · **B2B-P** `fff8227` · **B2C.1** `38eb33f` · **B2C.2**
+`117647f` — sämtlich committed. **B2C.0** complete (read-only) · **B2C-T
+erster Lauf `BLOCKED`**, 0 geänderte Dateien · **B2C-T-R** complete (dieser
+Stand, uncommitted) · **B2B-Apply nicht autorisiert** · **B2D nicht
+autorisiert**.
+
+**Unverändert:** Decisions/A0/ADRs **62/58/14** · **keine neue Decision, keine
+D-063** · **KB-04 `DOCUMENTED ONLY`** · beide Gates **`NOT EVALUATED`** ·
+Capabilities **0 von 29** · **NT-04 und NT-05 nicht ausgeführt** · **SB-S04
+nicht wirksam** · **R-20 offen** · **OD-37 offen** · **R-33 18/21** · **RT-2
+nicht implementiert** · **ADR-0014, D-060, D-061, D-062 und das
+Contract-Dokument unverändert** · **CBP-WP-023 nicht registriert**.
+
+**Eine vollständige Matrix ist keine vollständige technische Abdeckung.**
+
+---
+
 ## Aussageschutz
 
-Dieses Work Package belegt auch nach Phase B2C.2 **nicht**:
+Dieses Work Package belegt auch nach Phase B2C-T-R **nicht**:
 
 | Nicht belegt | Tatsächlicher Stand |
 | --- | --- |
@@ -1116,6 +1270,10 @@ Dieses Work Package belegt auch nach Phase B2C.2 **nicht**:
 | Die B2C-Scopeentscheidung sei eine B2C-Implementierung | **nein** — **D-061 legt ausschließlich die Lesart fest**; **B2C-T ist nicht autorisiert**, es entstand kein Test-, Fixture- oder Produktionscode |
 | Ein vollständiger Abdeckungssplit sei eine vollständige Abdeckung | **nein** — **D-062** stellt lediglich fest, **welche** der 45 Kennungen abgedeckt sind (**37**), welche eine **dokumentierte Lücke** tragen (**2**) und welche **real** bleiben (**6**); **eine sichtbare Lücke ist keine Abdeckung und keine Bestehensaussage** |
 | Contract §10.3 sei umgesetzt | **nein** — es existiert **keine** Schreibzeitvalidierung, **keine** Prüfung atomarer Ersetzung und **kein** produktiver Verwendungsort von **`KB04-WRITE-CONTRACT-VIOLATION`**; eine Umsetzung verlangt eine **eigene Scopefreigabe** |
+| Eine vollständige Traceability-Matrix sei eine vollständige technische Abdeckung | **nein** — die Matrix bildet **45** Kennungen ab, davon sind **37** funktional zugeordnet, **2** ausdrücklich **nicht abgedeckt** und **6** ausschließlich real prüfbar und **nicht ausgeführt** |
+| Die Traceability-Metatests seien eine fachliche Abdeckung | **nein** — sie prüfen ausschließlich die Matrix und ihre Aussagegrenzen; die beiden neuen Testmodule sind als `covered_by`-Quelle **ausgeschlossen** |
+| Eine deklarative NT-Vorbereitung sei eine NT-Ausführung | **nein** — jedes Fixture ist unveränderlich **`PREPARED_ONLY`/`NOT_EXECUTED`**; **NT-04 und NT-05 wurden nicht ausgeführt** |
+| Der Traceability-Hash sei ein Evidenzartefakt | **nein** — `traceability_manifest_sha256()` ist ein **reiner Testhelfer**: keine Datei, keine Gate-API, kein Controlstatus |
 
 **Die Registrierung eines Work Packages ist keine Implementierungsfreigabe.**
 
