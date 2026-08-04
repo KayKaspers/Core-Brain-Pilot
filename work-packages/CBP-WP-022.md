@@ -6,7 +6,7 @@
 | Typ | **security-foundation enforcement** (Stufe 1) |
 | Prompt Mode | **Full** · Context Budget **B2 – Standard** |
 | Status | **`in-review`** |
-| Aktuelle Phase | **Phase B2A – Contract Model and Read-only Validator** |
+| Aktuelle Phase | **Phase B2B-P – New-target Initialization Plan and Safety Guard** |
 | Registration Decision | **D-057** (konsolidiert, A–M) |
 | ADR-Gate-Decision | **D-058** (konsolidiert, A–M) — Ergebnis **`ADR_REQUIRED`** |
 | Architektur-Decision | **D-059** (konsolidiert, A–N) — Ergebnis **`ADR-0014_ACCEPTED`** |
@@ -15,15 +15,15 @@
 | ADR | **ADR-0014** — *KB-04 Stage 1 Filesystem Enforcement Architecture*, `accepted`, **Autoritätsklasse A1**, 2026-08-03. `ADR_NOT_REQUIRED` galt für D-057 und gilt für **D-060**, **solange der Vertrag vollständig innerhalb ADR-0014 bleibt** |
 | Enforcement Contract | [KB_04_STAGE_1_ENFORCEMENT_CONTRACT.md](../docs/security/KB_04_STAGE_1_ENFORCEMENT_CONTRACT.md) — **`accepted contract`**, 2026-08-03 |
 | Registrierungsdatum | **2026-08-03** |
-| Human-Maintainer-Freigabe | **B2A Contract Model and Read-only Validator authorized** |
-| Technische Implementierung | **B2A implementiert** (intern, read-only) · **B2B, B2C und B2D nicht autorisiert** |
+| Human-Maintainer-Freigabe | **B2B-P New-target Initialization Plan and Safety Guard authorized** |
+| Technische Implementierung | **B2A und B2B-P implementiert** (intern, read-only, **plan-only**) · **B2B-Apply, B2C und B2D nicht autorisiert** |
 | KB-04-Status | **`DOCUMENTED ONLY`** — unverändert |
 | Capabilities | **0 von 29** — unverändert |
 | Gates | Mapping Activation `NOT EVALUATED` · Security Foundation Readiness `NOT EVALUATED` |
 | Security Controls | **12 `DOCUMENTED ONLY`** |
 | R-20 | **offen** |
 | R-33 | **18/21** — in diesem Lauf **unverändert** |
-| Commit | **B0 `committed` `e4caa14`** · **B1A `committed` `1a7696d`** · **B1B `committed` `b86a35f`** · **B1C `committed` `24de07e`** · **B2A nicht committed** — Commit-Autorität beim Human Maintainer |
+| Commit | **B0 `committed` `e4caa14`** · **B1A `committed` `1a7696d`** · **B1B `committed` `b86a35f`** · **B1C `committed` `24de07e`** · **B2A `committed` `929d10b`** · **B2B-P nicht committed** — Commit-Autorität beim Human Maintainer |
 
 ---
 
@@ -175,8 +175,9 @@ ohne Durchsetzung), CBP-WP-020 (Profil-A-Bundle), CBP-WP-021 (Testinventar).
 | **B1A** | **Contract Boundary and ADR Gate** | **complete** — `committed` `1a7696d` |
 | **B1B** | **ADR-0014 Authoring and Design Decision** | **complete** — `committed` `b86a35f` |
 | **B1C** | **Enforcement Contract and Validation Plan** | **complete** — `committed` `24de07e` |
-| **B2A** | **Contract Model and Read-only Validator** | **complete (dieser Stand, uncommitted)** |
-| **B2B** | **New-target Initialization Boundary** | **nicht autorisiert** |
+| **B2A** | **Contract Model and Read-only Validator** | **complete** — `committed` `929d10b` |
+| **B2B-P** | **New-target Initialization Plan and Safety Guard** | **complete (dieser Stand, uncommitted)** |
+| **B2B-Apply** | **New-target Initialization Apply** | **nicht autorisiert** — ADR-Frage offen |
 | **B2C** | **Synthetic Tests and Evidence** | **nicht autorisiert** |
 | **B2D** | **Profile-A Deployment Integration** | **nicht autorisiert** |
 | **C** | **Post-Commit Reconciliation** | **nicht autorisiert** |
@@ -714,9 +715,126 @@ nicht autorisiert**. **C** ist nicht autorisiert.
 
 ---
 
+## Phase B2B-P — New-target Initialization Plan and Safety Guard
+
+**B2A-Commit:** `929d10b` — „CBP-WP-022: implement KB-04 read-only
+enforcement validator", **11 neue und 10 modifizierte Dateien**.
+
+B2B-P setzt den durch Contract §12 erlaubten Teil um, der **ohne Mutation**
+auskommt: Beobachtung, Klassifikation und Planung. **Apply bleibt gesperrt.**
+
+### Exakte Dateien
+
+| Pfad | Art | Verantwortung |
+| --- | --- | --- |
+| `core/core_brain/enforcement/filesystem_adapter.py` | neu | **rein lesendes** `Protocol` — `exists`, `lstat`, `stat`, `iterdir`, `resolve`, `is_mount`, `posix_semantics`; `RealFilesystemAdapter` über die Standardbibliothek |
+| `core/core_brain/enforcement/initialization.py` | neu | Neu-und-leer-Nachweis, Bestandsklassifikation, Planmodell, Guards |
+| `core/core_brain/errors.py` | **additiv** | **+3 ReasonCodes** (21 → 24) — **keine ExitCode-Änderung** |
+| `tests/kb04_init_fixtures.py` | neu | virtueller Fake-Adapter, injizierbare Zustände |
+| `tests/test_kb04_initialization_plan.py` | neu | Planerzeugung, Determinismus, stabile Ausgabe, Authority |
+| `tests/test_kb04_initialization_guard.py` | neu | Boundary-, Objektart-, Pfad-, Race- und Isolationsgrenzen |
+
+### API-Lock
+
+**Enums:** `TargetState` (8) · `InitializationStatus` (7) ·
+`OperationKind` (3).
+**Dataclasses**, sämtlich `frozen=True, slots=True`: `TargetPathBinding`
+(`order=True`) · `InitializationRequest` · `PlannedOperation`
+(`order=True`) · `InitializationPlan` · `TargetAssessment` ·
+`InitializationAssessment`.
+**Funktionen:** `assess_target()` · `build_initialization_plan()` ·
+`verify_initialized()`.
+
+**`InitializationStatus` enthält bewusst kein `APPLIED`, `APPLYING`,
+`ROLLED_BACK` und `CLEANED_UP`** — diese Zustände sind nicht erreichbar
+und sollen auch nicht behauptbar sein. Es gibt **kein** `mutated`-Feld und
+**kein** `InitializationResult` mit Ausführungssemantik.
+
+### Neu und leer
+
+| Zustand | Bedingungen |
+| --- | --- |
+| **N-1** | Root fehlt · Boundary existiert, ist Verzeichnis, kein Symlink · kein Parentbestandteil ein Symlink · Ziel innerhalb der Boundary · Ziel **nicht** im Repository |
+| **N-2** | Root ist Verzeichnis · kein Symlink · kein Mountpoint · **exakt null Einträge**, versteckte eingeschlossen |
+
+**Alles andere ist fail-closed** — `MIGRATION_REQUIRED`, `PARTIAL`,
+`REPAIR_REQUIRED`, `INDETERMINATE` oder `BLOCKED`. **Keine Klassifikation
+führt zu einer Mutation.**
+
+### Plansemantik
+
+Ein Plan deklariert ausschließlich `CREATE_ROOT`,
+`CREATE_CLASS_DIRECTORY` und `POST_VALIDATE`. Modi stammen aus den
+bestehenden `ProfileSpec`-Werten und beschreiben den **bei der Erstellung**
+erforderlichen Zielmodus (Regel **G-7**) — **keine nachträgliche
+Modusmutation**. Owner und Gruppe sind **abstrakte Rollen**, keine realen
+UID-/GID-Werte. Pfadklassen mit **PP-4** (*not-present*) erzeugen **keine**
+Anlageoperation.
+
+### Guards
+
+Boundary und Repository-Ausschluss · Symlink als Root oder in der
+Parentkette · Mountpoint · unzulässige Objektart (FIFO, Socket,
+Device, reguläre Datei) · Hardlink · `..` und absolute Pfade in
+Bindungen · doppelte Pfadklasse oder doppelter Zielpfad ·
+`PermissionError` · **fehlende POSIX-Semantik** (`KB04-PLATFORM-UNSUPPORTED`)
+· **Race mit Revalidierung**: weicht der Zustand zwischen zwei
+Beobachtungen ab, gilt `KB04-STATE-INDETERMINATE`.
+
+**TOCTOU ist damit nicht gelöst.** Jede Beobachtung bleibt eine
+Zeitpunktaussage (Contract LP-9).
+
+### ReasonCodes
+
+**+3 additiv:** `KB04-PLATFORM-UNSUPPORTED` · `KB04-MIGRATION-REQUIRED`
+· `KB04-REPAIR-RT2-REQUIRED`. Damit sind **alle 24 Contract-Fehlerklassen**
+technisch registriert. **Keine neue Kennung, keine ExitCode-Änderung** —
+**Exitcodes 15 und 16 bleiben unimplementiert**.
+
+### Testumfang
+
+**120 neue Tests** — Gesamtsuite **1050 grün, 0 übersprungen**,
+**ohne Plattformskip**. Sämtliche Objektarten, Mountpoints, Hardlinks,
+Berechtigungsfehler und Wettläufe laufen über einen **virtuellen**
+Fake-Adapter; kein Test legt etwas an oder benötigt Administratorrechte.
+
+### Plan-only-Grenze
+
+**Es gibt kein `apply_plan`, `execute_plan`, `initialize` oder
+`create_target`.** AST-Tests belegen, dass in beiden neuen Modulen **kein**
+Aufruf von `mkdir`, `makedirs`, `open`, `touch`, `write`, `chmod`, `chown`,
+`unlink`, `remove`, `rmdir`, `rename`, `replace`, `fsync`, `subprocess` oder
+`os.system` vorkommt, dass **kein Re-Export** stattfindet und dass **kein
+bestehendes Produktionsmodul** die neuen Module importiert.
+
+`applicable=True` bedeutet ausschließlich: *nach Contract wäre dieser
+Plan ausführbar*. Es bedeutet **nicht**, dass er ausgeführt wurde, und
+**nicht**, dass eine ausführende Funktion existiert.
+`operationally_verified` ist **immer `False`**.
+
+### Offene ADR-Frage für Apply
+
+**B2B-Apply ist nicht autorisiert.** ADR-0014 verortet die
+Durchsetzungsschicht — die „setzt Besitz und Rechte" —
+**außerhalb der Runtime und außerhalb des Repositorys**. Ein Apply
+innerhalb des importierbaren Runtimepakets verlangt daher eine **erneute
+ADR-Erforderlichkeitsprüfung**, die Klärung, **wo das Setup-Werkzeug
+lebt**, und eine **ausdrückliche Human-Maintainer-Freigabe**.
+
+### Keine operative Wirkung
+
+**KB-04 bleibt `DOCUMENTED ONLY`.** Kein Verzeichnis angelegt, kein Recht
+gesetzt, kein realer Mount geprüft. **NT-04 und NT-05 bleiben
+unausgeführt**, **SB-S04 nicht wirksam**, **OD-37 offen**, beide Gates
+**`NOT EVALUATED`**, Capabilities **0 von 29**, **RT-2 nicht implementiert**.
+
+**Ein Plan ist keine Initialisierung.**
+
+---
+
 ## Aussageschutz
 
-Dieses Work Package belegt auch nach Phase B2A **nicht**:
+Dieses Work Package belegt auch nach Phase B2B-P **nicht**:
 
 | Nicht belegt | Tatsächlicher Stand |
 | --- | --- |
@@ -730,6 +848,7 @@ Dieses Work Package belegt auch nach Phase B2A **nicht**:
 | Eine Architekturentscheidung sei eine Sicherheitswirkung | **nein** — kein Recht gesetzt, kein Test gelaufen, kein Nachweis erbracht |
 | Ein implementierungsfähiger Vertrag sei eine Implementierung | **nein** — D-060 autorisiert **B2B/B2C/B2D nicht**; die ausführende Reparatur bleibt an **RT-2** gebunden und gesperrt |
 | Der implementierte Validator sei KB-04-Evidenz | **nein** — rein intern, read-only, **ausschließlich synthetisch nachgewiesen**; `operationally_verified` bleibt bei synthetischer oder deklarierter Herkunft **`False`** |
+| Ein anwendbarer Initialisierungsplan sei eine Initialisierung | **nein** — **Plan-only**; es existiert **keine** ausführende Funktion, `applicable=True` heißt nur *nach Contract ausführbar* |
 
 **Die Registrierung eines Work Packages ist keine Implementierungsfreigabe.**
 

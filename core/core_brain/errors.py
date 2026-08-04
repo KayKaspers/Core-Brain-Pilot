@@ -282,6 +282,17 @@ class ReasonCode(StrEnum):
     KB04_WRITE_CONTRACT_VIOLATION = "KB04-WRITE-CONTRACT-VIOLATION"
     KB04_EVIDENCE_INCOMPLETE = "KB04-EVIDENCE-INCOMPLETE"
 
+    # CBP-WP-022 Phase B2B-P — die drei zuvor rein vertraglich reservierten
+    # Fehlerklassen werden durch die Plan-only-Zielklassifikation erreichbar.
+    # Damit sind alle 24 Contract-Fehlerklassen technisch registriert.
+    #
+    # Keine dieser Kennungen autorisiert eine Reparatur, eine Migration oder
+    # eine Plattformumgehung — sie benennen ausschließlich einen fail-closed
+    # Befund.
+    KB04_PLATFORM_UNSUPPORTED = "KB04-PLATFORM-UNSUPPORTED"
+    KB04_MIGRATION_REQUIRED = "KB04-MIGRATION-REQUIRED"
+    KB04_REPAIR_RT2_REQUIRED = "KB04-REPAIR-RT2-REQUIRED"
+
 
 class CoreBrainError(Exception):
     """Basisklasse aller Skeleton-Fehler."""
