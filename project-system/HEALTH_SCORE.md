@@ -3,7 +3,7 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Letzte Bewertung | 2026-08-03, im Rahmen von **CBP-WP-022** (`in-review`, Phase B2B-P, D-057/D-058/D-059/D-060, ADR-0014 und Enforcement Contract) — **read-only Validator und Plan-only Initialisierungsplanung implementiert und ausschließlich synthetisch getestet; keine reale Messung, keine operative Sicherheitswirkung, keine Reifehochwertung** |
+| Letzte Bewertung | 2026-08-04, im Rahmen von **CBP-WP-022** (`in-review`, Phase B2C.1, D-057/D-058/D-059/D-060/**D-061**, ADR-0014 und Enforcement Contract) — **reine Scopeentscheidung: keine neue Testausführung, keine neue Messung, keine Reifehochwertung, keine operative Sicherheitswirkung**; Testbasis unverändert **1050**; **KB-04 bleibt `DOCUMENTED ONLY`** |
 | Autoritätsklasse | A2 |
 
 > Diese Datei gehört zur kanonischen NDF-Ordnerstruktur, war aber in der
@@ -71,8 +71,8 @@ Durchsetzung, nicht ein weiteres Dokument.
 | Discovery-Fragen | *55* → korrekt 56 | **56** |
 | davon P0 | *35* → korrekt 38 | **38** |
 | davon P0 offen und Core Required | 38 | **0** |
-| Getroffene Entscheidungen | 14 | **60** |
-| davon A0 | 8 | **56** |
+| Getroffene Entscheidungen | 14 | **61** |
+| davon A0 | 8 | **57** |
 | Offene Entscheidungen | 27 | **23** |
 | davon P0 | 14 | **5** |
 | Erfasste Risiken | 29 | **32** |
@@ -80,7 +80,7 @@ Durchsetzung, nicht ein weiteres Dokument.
 | davon hoch | 14 | 17 |
 | Capabilities `implemented` | **0** | **0** |
 | Angenommene ADRs | 0 | **14** |
-| Vorgeschlagene Work Packages | 0 | **0** — **CBP-WP-022 `in-review`** (D-057/D-058/D-059/D-060, **Phase B2B-P**, B0 `committed` `e4caa14`, B1A `committed` `1a7696d`, B1B `committed` `b86a35f`, B1C `committed` `24de07e`, B2A `committed` `929d10b`, B2B-P uncommitted; **ADR-0014 `accepted`/A1** — **Host-authoritative Enforcement mit deklarativem Zielmodell und read-only Runtime-Validierung**; **Enforcement Contract `accepted contract`**; **read-only Validator und Plan-only Initialisierungsplanung implementiert**, **206 + 120 neue Tests**, **keine reale Messung, keine Reifehochwertung**; **B2B-Apply/B2C/B2D nicht autorisiert**); **CBP-WP-021 `committed` und `complete`** (D-056; B0 `0cb4ea9`, B1/B2 `271acc7`, C `0344774`); **CBP-WP-020 `committed` und `complete`** (D-055; B0 `17057e2`, B1/B2 `9c6c0fb`, C `d6a1a3c`); CBP-WP-019 `committed` (`3c437f2`, D-054); **CBP-WP-023 nicht registriert, nicht autorisiert** |
+| Vorgeschlagene Work Packages | 0 | **0** — **CBP-WP-022 `in-review`** (D-057/D-058/D-059/D-060, **Phase B2C.1**, B0 `committed` `e4caa14`, B1A `committed` `1a7696d`, B1B `committed` `b86a35f`, B1C `committed` `24de07e`, B2A `committed` `929d10b`, B2B-P `committed` `fff8227`, B2C.1 uncommitted; **ADR-0014 `accepted`/A1** — **Host-authoritative Enforcement mit deklarativem Zielmodell und read-only Runtime-Validierung**; **Enforcement Contract `accepted contract`**; **read-only Validator und Plan-only Initialisierungsplanung implementiert**, **206 + 120 Tests**, **D-061** begrenzt B2C auf Traceability und NT-Vorbereitung; **keine reale Messung, keine Reifehochwertung**; **B2C-T/B2B-Apply/B2D nicht autorisiert**); **CBP-WP-021 `committed` und `complete`** (D-056; B0 `0cb4ea9`, B1/B2 `271acc7`, C `0344774`); **CBP-WP-020 `committed` und `complete`** (D-055; B0 `17057e2`, B1/B2 `9c6c0fb`, C `d6a1a3c`); CBP-WP-019 `committed` (`3c437f2`, D-054); **CBP-WP-023 nicht registriert, nicht autorisiert** |
 | **Erstellte Source Mappings** | 0 | **0** |
 | **Angebundene Quellen** | 0 | **0** |
 | **Umgesetzte Sicherheitskontrollen** | 0 | **0 von 12** |

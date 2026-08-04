@@ -3,11 +3,11 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Aktuelles Work Package | **CBP-WP-022** (`in-review`, **Phase B2B-P – New-target Initialization Plan and Safety Guard**) — **D-057** Registrierung, **D-058** ADR-Gate (**`ADR_REQUIRED`**), **D-059** Architekturannahme und **D-060** Enforcement Contract (alle `accepted`, **A0**, 2026-08-03); **ADR-0014 `accepted`, Autoritätsklasse A1** — **Host-authoritative Enforcement mit deklarativem Zielmodell und read-only Runtime-Validierung**; Vertrag [KB_04_STAGE_1_ENFORCEMENT_CONTRACT.md](../docs/security/KB_04_STAGE_1_ENFORCEMENT_CONTRACT.md) **`accepted contract`** (**`ADR_NOT_REQUIRED`** innerhalb ADR-0014); B0 `committed` (`e4caa14`), B1A `committed` (`1a7696d`), B1B `committed` (`b86a35f`), B1C `committed` (`24de07e`), B2A `committed` (`929d10b`), **B2B-P uncommitted**; **B2B-P ergänzt eine Plan-only Initialisierungsplanung** (zwei Module, drei aktivierte Contract-ReasonCodes, **120 neue Tests**, Gesamtsuite **1050 grün**) — **kein `apply_plan`, kein `mkdir`, kein `chmod`, kein `chown`, keine Mutation**; zuvor **B2A: das interne, read-only Enforcement-Paket** `core/core_brain/enforcement/` (sechs Module, 21 additive `KB04-*`-ReasonCodes, **206 neue Tests**, Gesamtsuite **930 grün**) — **keine CLI, keine Config, kein Deployment, keine Mutation, keine operative Evidenz**; **KB-04 Enforcement Stage 1** bleibt `DOCUMENTED ONLY`; **B2B-Apply, B2C und B2D nicht autorisiert**. Zuletzt abgeschlossen **CBP-WP-021** (`committed`, `complete`, 2026-08-03; **D-056**, `ADR_NOT_REQUIRED`; kanonisch **32 Negativtests / 1 Positivtest / 33 Testfälle**, **0 von 32** und **0 von 1** ausgeführt; B0 `0cb4ea9`, B1/B2 `271acc7`). Zuvor abgeschlossen **CBP-WP-020** (`committed`, `complete`; B0 `17057e2`, B1/B2 `9c6c0fb`, C `d6a1a3c`). **CBP-WP-023 nicht registriert, nicht autorisiert.** |
+| Aktuelles Work Package | **CBP-WP-022** (`in-review`, **Phase B2C.1 – Synthetic Evidence Scope Decision**) — **D-057** Registrierung, **D-058** ADR-Gate (**`ADR_REQUIRED`**), **D-059** Architekturannahme und **D-060** Enforcement Contract (alle `accepted`, **A0**, 2026-08-03); **ADR-0014 `accepted`, Autoritätsklasse A1** — **Host-authoritative Enforcement mit deklarativem Zielmodell und read-only Runtime-Validierung**; Vertrag [KB_04_STAGE_1_ENFORCEMENT_CONTRACT.md](../docs/security/KB_04_STAGE_1_ENFORCEMENT_CONTRACT.md) **`accepted contract`** (**`ADR_NOT_REQUIRED`** innerhalb ADR-0014); B0 `committed` (`e4caa14`), B1A `committed` (`1a7696d`), B1B `committed` (`b86a35f`), B1C `committed` (`24de07e`), B2A `committed` (`929d10b`), B2B-P `committed` (`fff8227`), **B2C.1 uncommitted**; **D-061** (`accepted`, **A0**) begrenzt **B2C** auf eine rein synthetische Test-, Fixture- und Traceabilityphase — **Variante E nicht autorisiert**; **B2B-P ergänzt eine Plan-only Initialisierungsplanung** (zwei Module, drei aktivierte Contract-ReasonCodes, **120 neue Tests**, Gesamtsuite **1050 grün**) — **kein `apply_plan`, kein `mkdir`, kein `chmod`, kein `chown`, keine Mutation**; zuvor **B2A: das interne, read-only Enforcement-Paket** `core/core_brain/enforcement/` (sechs Module, 21 additive `KB04-*`-ReasonCodes, **206 neue Tests**, Gesamtsuite **930 grün**) — **keine CLI, keine Config, kein Deployment, keine Mutation, keine operative Evidenz**; **KB-04 Enforcement Stage 1** bleibt `DOCUMENTED ONLY`; **B2C-T, B2B-Apply und B2D nicht autorisiert**. Zuletzt abgeschlossen **CBP-WP-021** (`committed`, `complete`, 2026-08-03; **D-056**, `ADR_NOT_REQUIRED`; kanonisch **32 Negativtests / 1 Positivtest / 33 Testfälle**, **0 von 32** und **0 von 1** ausgeführt; B0 `0cb4ea9`, B1/B2 `271acc7`). Zuvor abgeschlossen **CBP-WP-020** (`committed`, `complete`; B0 `17057e2`, B1/B2 `9c6c0fb`, C `d6a1a3c`). **CBP-WP-023 nicht registriert, nicht autorisiert.** |
 | Gate G0 | **PASSED WITH NOTES** — 2026-07-21 |
 | Überarbeitet in | **CBP-WP-016** |
 | Autoritätsklasse | A2 |
-| Stand | 2026-08-03 — CBP-WP-022 Phase B2B-P |
+| Stand | 2026-08-04 — CBP-WP-022 Phase B2C.1 |
 
 Spalten nach `WORK_PACKAGE_QUEUE_TEMPLATE.md` (NDF v1.0.0).
 
@@ -48,7 +48,7 @@ Spalten nach `WORK_PACKAGE_QUEUE_TEMPLATE.md` (NDF v1.0.0).
 | CBP-WP-019 | **Deployment Readiness Intake and Profile-A Target Specification** | P1 | **`committed`** | [work-packages/CBP-WP-019.md](../work-packages/CBP-WP-019.md) |
 | CBP-WP-020 | **Controlled Profile-A Deployment Foundation** | P1 | **`committed`** (B0 `17057e2`, B1/B2 `9c6c0fb`) | [work-packages/CBP-WP-020.md](../work-packages/CBP-WP-020.md) |
 | CBP-WP-021 | **Canonical Security Test Inventory Reconciliation** | P1 | **`committed`** (B0 `0cb4ea9`, B1/B2 `271acc7`, C `0344774`) | [work-packages/CBP-WP-021.md](../work-packages/CBP-WP-021.md) |
-| CBP-WP-022 | **KB-04 Enforcement Stage 1** | P1 | **`in-review`** (Phase B2B-P; B0 `committed` `e4caa14`, B1A `committed` `1a7696d`, B1B `committed` `b86a35f`, B1C `committed` `24de07e`, B2A `committed` `929d10b`; **ADR-0014 `accepted`/A1**, **Contract `accepted`**, **Validator- und Plan-only-Paket implementiert**) | [work-packages/CBP-WP-022.md](../work-packages/CBP-WP-022.md) |
+| CBP-WP-022 | **KB-04 Enforcement Stage 1** | P1 | **`in-review`** (Phase B2C.1; B0…B2A committed, B2B-P `committed` `fff8227`; **ADR-0014 `accepted`/A1**, **Contract `accepted`**, **D-061 B2C-Scope**, B2C.1 uncommitted) | [work-packages/CBP-WP-022.md](../work-packages/CBP-WP-022.md) |
 
 **Kein Work Package ist als `proposed` geführt.** **CBP-WP-019** (Deployment
 Readiness Intake and Profile-A Target Specification) steht auf **`in-review`** in
@@ -741,7 +741,7 @@ registriert noch autorisiert**.
 | Typ | **security-foundation enforcement** (Stufe 1) |
 | Prompt Mode | **Full** · Context Budget **B2 – Standard** |
 | Status | **`in-review`** |
-| Aktuelle Phase | **Phase B2B-P – New-target Initialization Plan and Safety Guard** |
+| Aktuelle Phase | **Phase B2C.1 – Synthetic Evidence Scope Decision** |
 | Registration Decision | **D-057** (konsolidiert, A–M), `accepted`, **A0**, 2026-08-03 |
 | ADR-Gate-Decision | **D-058** (konsolidiert, A–M), `accepted`, **A0**, 2026-08-03 — Ergebnis **`ADR_REQUIRED`** |
 | Architektur-Decision | **D-059** (konsolidiert, A–N), `accepted`, **A0**, 2026-08-03 — Ergebnis **`ADR-0014_ACCEPTED`** |
@@ -750,7 +750,7 @@ registriert noch autorisiert**.
 | Enforcement Contract | [KB_04_STAGE_1_ENFORCEMENT_CONTRACT.md](../docs/security/KB_04_STAGE_1_ENFORCEMENT_CONTRACT.md) — **`accepted contract`**, 2026-08-03 |
 | Human-Maintainer-Freigabe | **B1C Contract and Validation Plan authorized** |
 | Technische Implementierung | **nicht autorisiert** |
-| Commit | **B0 `committed` `e4caa14`** · **B1A `committed` `1a7696d`** · **B1B `committed` `b86a35f`** · **B1C `committed` `24de07e`** · **B2A `committed` `929d10b`** · **B2B-P nicht committed** (Commit-Autorität beim Human Maintainer) |
+| Commit | **B0 `committed` `e4caa14`** · **B1A `committed` `1a7696d`** · **B1B `committed` `b86a35f`** · **B1C `committed` `24de07e`** · **B2A `committed` `929d10b`** · **B2B-P `committed` `fff8227`** · **B2C.1 nicht committed** (Commit-Autorität beim Human Maintainer) |
 
 **KB-04 ist der Kontrollbereich „Dateisystemrechte“.** Ziel: **Deny-by-default
 auf Dateiebene**; Bedrohung: **Direktzugriff unter Umgehung der Anwendung**.
@@ -1073,6 +1073,57 @@ alle zwölf Controls `DOCUMENTED ONLY`** · beide Gates `NOT EVALUATED`
 · **CBP-WP-023 nicht registriert**.
 
 **Ein Plan ist keine Initialisierung.**
+
+**Phase B2C.0 und B2C.1 (dieser Stand, uncommitted):** Der read-only Audit
+**B2C.0** ergab **`DECISION REQUIRED`**. Der Contract definiert **B2C** an genau
+einer Stelle (§18) als *„Synthetic Tests and Evidence · Unit- und
+Contract-Tests · negative Fixtures · Vorbereitung von NT-04/NT-05 ·
+keine reale Deploymentausführung“*. Zwei der drei Punkte waren mit **326
+KB-04-Testmethoden** bereits geliefert, und **„Evidence“ war nicht
+definiert**.
+
+**D-061** (`accepted`, **A0**, Teile A–R, Ergebnis
+**`B2C_TRACEABILITY_AND_NT_PREPARATION_SELECTED`**, **`ADR_NOT_REQUIRED`**)
+wählt **Variante T**:
+
+| Gegenstand | Festlegung |
+| --- | --- |
+| Charakter | **ausschließlich synthetische** Test-, Fixture- und Rückverfolgbarkeitsphase |
+| Traceability-Basis | die **45** Contract-Testkennungen `KB04-T-P01…P12` und `KB04-T-N01…N33` |
+| Synthetisch abdeckbar | **39** Fälle — später nachvollziehbar zu belegen |
+| **Real-only, bleibt B2D** | **sechs** — `KB04-T-N07`, `KB04-T-N08` (**NT-04**), `KB04-T-N14` (**NT-05**), `KB04-T-N31`, `KB04-T-N33` sowie die Dimension **D-I** von `KB04-T-P12` |
+| Produktionscode | **keiner** — kein neues Enforcement-Modul |
+| CLI, Config, Deployment | **keine Änderung** |
+| ReasonCodes | **keine neuen** — die 24 genügen; Exitcodes 15/16 bleiben reserviert |
+
+**Variante E** — ein Security-Control-Form- oder Gate-Evidence-Artefakt
+— ist für CBP-WP-022 **nicht autorisiert**. Grund: die
+**Eingabefläche des Gate-Evaluators** darf nicht als Nebenwirkung einer
+Testphase erweitert werden; KB-04 trägt dort die Bindungen **(7, KB-04)**,
+**(8, KB-04)** und **(11, KB-04)**. Eine spätere Integration verlangt eine
+**eigenständige A0-Entscheidung**.
+
+**Aussagegrenze, verbindlich:** **Eine Vorbereitung ist kein Nachweis. Ein
+Fixture ist keine NT-Ausführung. Eine synthetische Abdeckung ist keine
+operative Evidenz.**
+
+**B2C ist unabhängig von B2B-Apply** — NT-04 und NT-05 verlangen eine
+reale Profil-A-Instanz, keine Apply-Funktion; die Kette lautet **B2C → B2D**.
+
+**In diesem Lauf keine technische Umsetzung:** kein Produktionscode, kein
+Testcode, keine Fixtures, kein Evidence-Artefakt, keine Tests, kein
+`compileall`, keine Python-Imports.
+
+**Unverändert nach B2C.1:** Decisions/A0/ADRs **61/57/14** · **KB-04
+und alle zwölf Controls `DOCUMENTED ONLY`** · beide Gates
+**`NOT EVALUATED`** · Capabilities **0 von 29** · **NT-04 und NT-05
+nicht ausgeführt** · **SB-S04 nicht wirksam** · **R-20 offen** ·
+**OD-37 offen** · **R-33 18/21** · keine neue Risiko-, Control- oder
+Security-Test-ID · **RT-2 nicht implementiert** · **ADR-0014 und D-060
+unverändert** · **B2C-T, B2B-Apply und B2D nicht autorisiert** ·
+**CBP-WP-023 nicht registriert**.
+
+**Eine Lesart ist keine Implementierung.**
 
 ---
 

@@ -108,9 +108,18 @@ Enforcement-Paket `core/core_brain/enforcement/` — sechs Module, **21 additive
 **Keine CLI, keine Config-Datei, keine Deploymentänderung, kein neuer
 Exitcode, keine Mutation.**
 
-**Nächste mögliche Phasen: B2B, B2C und B2D — sämtlich nicht
-autorisiert.** **KB-04 bleibt `DOCUMENTED ONLY`; es gibt keine Gate- und keine
-Control-Hochstufung.** **CBP-WP-023 ist nicht registriert und nicht autorisiert.**
+**B2B-P ist `committed` (`fff8227`).** **Phase B2C.0** wurde read-only
+abgeschlossen und ergab **`DECISION REQUIRED`**; **Phase B2C.1** registriert
+daraufhin **D-061** (`accepted`, **A0**,
+`B2C_TRACEABILITY_AND_NT_PREPARATION_SELECTED`, `ADR_NOT_REQUIRED`) und ist
+**abgeschlossen und uncommitted**. Gewählt ist **Variante T** — eine rein
+synthetische Test-, Fixture- und Rückverfolgbarkeitsphase; **Variante E**
+(Security-Control-Form- oder Gate-Evidence-Artefakt) ist **nicht autorisiert**.
+
+**Nächste mögliche Phasen: B2C-T, B2B-Apply und B2D — sämtlich nicht
+begonnen und nicht autorisiert.** **KB-04 bleibt `DOCUMENTED ONLY`; es gibt keine
+Gate- und keine Control-Hochstufung.** **CBP-WP-023 ist nicht registriert und nicht
+autorisiert.**
 
 **Die ersten drei sind `docs-only`.** CBP-WP-012 bis CBP-WP-015 sind committed;
 sie erzeugten lokale, synthetisch testbare, **deaktivierte** Prototypen —

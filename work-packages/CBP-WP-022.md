@@ -6,16 +6,17 @@
 | Typ | **security-foundation enforcement** (Stufe 1) |
 | Prompt Mode | **Full** · Context Budget **B2 – Standard** |
 | Status | **`in-review`** |
-| Aktuelle Phase | **Phase B2B-P – New-target Initialization Plan and Safety Guard** |
+| Aktuelle Phase | **Phase B2C.1 – Synthetic Evidence Scope Decision** |
 | Registration Decision | **D-057** (konsolidiert, A–M) |
 | ADR-Gate-Decision | **D-058** (konsolidiert, A–M) — Ergebnis **`ADR_REQUIRED`** |
 | Architektur-Decision | **D-059** (konsolidiert, A–N) — Ergebnis **`ADR-0014_ACCEPTED`** |
 | Contract-Decision | **D-060** (konsolidiert, A–S) — Ergebnis **`KB-04_STAGE_1_CONTRACT_ACCEPTED`**, **`ADR_NOT_REQUIRED`** |
-| Decision Class | **A0** — für D-057, D-058, D-059 und D-060 |
+| B2C-Scope-Decision | **D-061** (konsolidiert, A–R) — Ergebnis **`B2C_TRACEABILITY_AND_NT_PREPARATION_SELECTED`**, **`ADR_NOT_REQUIRED`** |
+| Decision Class | **A0** — für D-057, D-058, D-059, D-060 und D-061 |
 | ADR | **ADR-0014** — *KB-04 Stage 1 Filesystem Enforcement Architecture*, `accepted`, **Autoritätsklasse A1**, 2026-08-03. `ADR_NOT_REQUIRED` galt für D-057 und gilt für **D-060**, **solange der Vertrag vollständig innerhalb ADR-0014 bleibt** |
 | Enforcement Contract | [KB_04_STAGE_1_ENFORCEMENT_CONTRACT.md](../docs/security/KB_04_STAGE_1_ENFORCEMENT_CONTRACT.md) — **`accepted contract`**, 2026-08-03 |
 | Registrierungsdatum | **2026-08-03** |
-| Human-Maintainer-Freigabe | **B2B-P New-target Initialization Plan and Safety Guard authorized** |
+| Human-Maintainer-Freigabe | **B2C.1 Synthetic Evidence Scope Decision authorized** |
 | Technische Implementierung | **B2A und B2B-P implementiert** (intern, read-only, **plan-only**) · **B2B-Apply, B2C und B2D nicht autorisiert** |
 | KB-04-Status | **`DOCUMENTED ONLY`** — unverändert |
 | Capabilities | **0 von 29** — unverändert |
@@ -23,7 +24,7 @@
 | Security Controls | **12 `DOCUMENTED ONLY`** |
 | R-20 | **offen** |
 | R-33 | **18/21** — in diesem Lauf **unverändert** |
-| Commit | **B0 `committed` `e4caa14`** · **B1A `committed` `1a7696d`** · **B1B `committed` `b86a35f`** · **B1C `committed` `24de07e`** · **B2A `committed` `929d10b`** · **B2B-P nicht committed** — Commit-Autorität beim Human Maintainer |
+| Commit | **B0 `committed` `e4caa14`** · **B1A `committed` `1a7696d`** · **B1B `committed` `b86a35f`** · **B1C `committed` `24de07e`** · **B2A `committed` `929d10b`** · **B2B-P `committed` `fff8227`** · **B2C.1 nicht committed** — Commit-Autorität beim Human Maintainer |
 
 ---
 
@@ -176,7 +177,10 @@ ohne Durchsetzung), CBP-WP-020 (Profil-A-Bundle), CBP-WP-021 (Testinventar).
 | **B1B** | **ADR-0014 Authoring and Design Decision** | **complete** — `committed` `b86a35f` |
 | **B1C** | **Enforcement Contract and Validation Plan** | **complete** — `committed` `24de07e` |
 | **B2A** | **Contract Model and Read-only Validator** | **complete** — `committed` `929d10b` |
-| **B2B-P** | **New-target Initialization Plan and Safety Guard** | **complete (dieser Stand, uncommitted)** |
+| **B2B-P** | **New-target Initialization Plan and Safety Guard** | **complete** — `committed` `fff8227` |
+| **B2C.0** | **Remaining Phase Boundary and Architecture Gate** | **complete** — read-only, Ergebnis `DECISION REQUIRED` |
+| **B2C.1** | **Synthetic Evidence Scope Decision** | **complete (dieser Stand, uncommitted)** — **D-061** |
+| **B2C-T** | **Traceability and NT Preparation** | **nicht autorisiert** |
 | **B2B-Apply** | **New-target Initialization Apply** | **nicht autorisiert** — ADR-Frage offen |
 | **B2C** | **Synthetic Tests and Evidence** | **nicht autorisiert** |
 | **B2D** | **Profile-A Deployment Integration** | **nicht autorisiert** |
@@ -832,9 +836,122 @@ unausgeführt**, **SB-S04 nicht wirksam**, **OD-37 offen**, beide Gates
 
 ---
 
+## Phase B2C.0 und B2C.1 — Scopeaudit und Entscheidung
+
+**B2B-P-Commit:** `fff8227` — „CBP-WP-022: add KB-04 initialization
+planning and safety guards", **5 neue und 10 modifizierte Dateien**.
+
+### B2C.0-Befund
+
+Der read-only Audit prüfte den verbleibenden Phasenzuschnitt und ergab
+**`DECISION REQUIRED`**. Drei Feststellungen:
+
+| # | Befund |
+| --- | --- |
+| 1 | **B2C ist normativ an genau einer Stelle definiert** — Contract §18: *„Synthetic Tests and Evidence · Unit- und Contract-Tests · negative Fixtures · **Vorbereitung** von NT-04/NT-05 · **keine reale Deploymentausführung**“*. Alle übrigen Fundstellen sind Statusspiegel. **Keine Widersprüche.** |
+| 2 | **Zwei der drei Scopepunkte waren bereits geliefert** — **326 KB-04-Testmethoden** in sechs Modulen samt umfangreicher Negativfixtures aus B2A und B2B-P. |
+| 3 | **„Evidence“ war in der bindenden Scopespalte nicht definiert**, obwohl die Evidence-3.0-Infrastruktur (`security-control-form` + `control_id`) vollständig existiert und **KB-04 runtime-scoped** ist mit den Gate-Bindungen **(7, KB-04)**, **(8, KB-04)**, **(11, KB-04)**. |
+
+**Belegte Traceability-Lücke:** Die **45** Contract-Testkennungen aus §15
+kommen im gesamten Test- und Produktionscode **null Mal** vor. Die Abdeckung der
+326 Tests gegen den vertraglichen Testplan ist damit **nicht belegbar**.
+
+### Entscheidungsbedarf
+
+Zu entscheiden war eine einzige, klar umrissene Frage: **Umfasst B2C ein
+Evidenzartefakt oder nicht?** Sie eigenmächtig zu beantworten hätte
+entweder eine fast leere Phase erzeugt oder die **Eingabefläche des
+Gate-Evaluators** als Nebenwirkung einer Testphase erweitert. Beides wäre
+unzulässig gewesen.
+
+### D-061 — gewählte Variante T
+
+| Feld | Wert |
+| --- | --- |
+| Decision | **D-061**, `accepted`, **A0**, 2026-08-04, Teile A–R |
+| Ergebnis | **`B2C_TRACEABILITY_AND_NT_PREPARATION_SELECTED`** |
+| ADR-Gate | **`ADR_NOT_REQUIRED`** — innerhalb **ADR-0014** (A1) und **D-060** |
+| Charakter | **ausschließlich synthetische** Test-, Fixture- und Rückverfolgbarkeitsphase |
+| Produktionscode | **keiner** — kein neues Enforcement-Modul, kein mutierender Code |
+| CLI, Config, Deployment | **keine Änderung** |
+| ReasonCodes | **keine neuen** — die **24** registrierten genügen |
+| Exitcodes 15/16 | **reserviert, nicht implementiert** |
+
+### 45-Kennungs-Traceability
+
+Die **45** Kennungen `KB04-T-P01` bis `KB04-T-P12` und `KB04-T-N01` bis
+`KB04-T-N33` bilden die vollständige spätere Nachweisbasis.
+
+**39 synthetisch abdeckbare Fälle** müssen später nachvollziehbar als
+**synthetisch abgedeckt** belegt werden.
+
+**Sechs ausschließlich real ausführbare Fälle** werden **nur
+deklarativ vorbereitet** und **niemals als bestanden ausgegeben**:
+
+| Kennung | Gegenstand | Bezug |
+| --- | --- | --- |
+| `KB04-T-N07` | Retrieval kann Canonical schreiben | **NT-04** |
+| `KB04-T-N08` | Ingest schreibt Canonical unkontrolliert | **NT-04** |
+| `KB04-T-N14` | Symlink-Escape | **NT-05** |
+| `KB04-T-N31` | Runtime kann das Artefakt verändern | — |
+| `KB04-T-N33` | Bundlemodus weicht vom sichtbaren Zustand ab | — |
+| `KB04-T-P12`, Dimension **D-I** | reales Host-Quellobjekt | — |
+
+**Ihre tatsächliche Ausführung bleibt B2D.**
+
+### Abgelehnte Variante E
+
+Ein **Security-Control-Form-** oder **Gate-Evidence-Artefakt** ist für
+CBP-WP-022 **nicht autorisiert**. Ergänzend gilt unverändert die
+Schutzregel aus **ADR-0013**: ein solches Artefakt wäre
+**negative-evidence-only** und erfüllte **niemals** ein Gatekriterium. Eine
+spätere Integration verlangt eine **eigenständige A0-Entscheidung**.
+
+### Spätere hypothetische B2C-T-Dateigrenze
+
+> **Nicht autorisiert.** Der folgende Zuschnitt ist eine Vorbereitung, keine
+> Freigabe.
+
+**12 Pfade — 3 neu, 9 modifiziert:** `tests/test_kb04_contract_traceability.py`
+· `tests/test_kb04_nt_preparation.py` · `tests/kb04_nt_fixtures.py`
+sowie die neun Statusspiegel. **Kein Produktionscode, keine `errors.py`-Änderung.**
+
+### Keine technische Implementierung in diesem Lauf
+
+Nicht angelegt und nicht ausgeführt: Produktionscode · Testcode ·
+Fixtures · Evidence-Artefakt · Testausführung · `compileall`
+· Python-Imports.
+
+### Keine Evidence- oder Gateintegration
+
+**Kein** Security-Control-Form-Artefakt · **kein**
+Evidence-Schema-3.0-Producer · **keine** Gate-Eingabe · **keine**
+Gateauswertung · **keine** Control-Hochstufung. **Eine Vorbereitung ist kein
+Nachweis, ein Fixture keine NT-Ausführung, eine synthetische Abdeckung keine
+operative Evidenz.**
+
+### Stand nach B2C.1
+
+**B0** `e4caa14` · **B1A** `1a7696d` · **B1B** `b86a35f` · **B1C**
+`24de07e` · **B2A** `929d10b` · **B2B-P** `fff8227` — sämtlich
+committed. **B2C.0** complete (read-only) · **B2C.1** complete (dieser Stand,
+uncommitted) · **B2C-T nicht autorisiert** · **B2B-Apply nicht
+autorisiert** · **B2D nicht autorisiert**.
+
+**Unverändert:** Decisions/A0/ADRs **61/57/14** · **KB-04 `DOCUMENTED
+ONLY`** · beide Gates **`NOT EVALUATED`** · Capabilities **0 von 29**
+· **NT-04 und NT-05 nicht ausgeführt** · **SB-S04 nicht wirksam**
+· **R-20 offen** · **OD-37 offen** · **R-33 18/21** · **RT-2
+nicht implementiert** · **ADR-0014 und D-060 unverändert** ·
+**CBP-WP-023 nicht registriert**.
+
+**Eine Lesart ist keine Implementierung.**
+
+---
+
 ## Aussageschutz
 
-Dieses Work Package belegt auch nach Phase B2B-P **nicht**:
+Dieses Work Package belegt auch nach Phase B2C.1 **nicht**:
 
 | Nicht belegt | Tatsächlicher Stand |
 | --- | --- |
@@ -849,6 +966,7 @@ Dieses Work Package belegt auch nach Phase B2B-P **nicht**:
 | Ein implementierungsfähiger Vertrag sei eine Implementierung | **nein** — D-060 autorisiert **B2B/B2C/B2D nicht**; die ausführende Reparatur bleibt an **RT-2** gebunden und gesperrt |
 | Der implementierte Validator sei KB-04-Evidenz | **nein** — rein intern, read-only, **ausschließlich synthetisch nachgewiesen**; `operationally_verified` bleibt bei synthetischer oder deklarierter Herkunft **`False`** |
 | Ein anwendbarer Initialisierungsplan sei eine Initialisierung | **nein** — **Plan-only**; es existiert **keine** ausführende Funktion, `applicable=True` heißt nur *nach Contract ausführbar* |
+| Die B2C-Scopeentscheidung sei eine B2C-Implementierung | **nein** — **D-061 legt ausschließlich die Lesart fest**; **B2C-T ist nicht autorisiert**, es entstand kein Test-, Fixture- oder Produktionscode |
 
 **Die Registrierung eines Work Packages ist keine Implementierungsfreigabe.**
 
