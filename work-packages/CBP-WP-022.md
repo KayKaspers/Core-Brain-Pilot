@@ -6,7 +6,7 @@
 | Typ | **security-foundation enforcement** (Stufe 1) |
 | Prompt Mode | **Full** · Context Budget **B2 – Standard** |
 | Status | **`in-review`** |
-| Aktuelle Phase | **Phase B2C-T-R – Contract Traceability and NT Preparation Resume** |
+| Aktuelle Phase | **Phase B2D-P – Profile-A Integration Plan and Execution Authorization Gates** |
 | Registration Decision | **D-057** (konsolidiert, A–M) |
 | ADR-Gate-Decision | **D-058** (konsolidiert, A–M) — Ergebnis **`ADR_REQUIRED`** |
 | Architektur-Decision | **D-059** (konsolidiert, A–N) — Ergebnis **`ADR-0014_ACCEPTED`** |
@@ -17,8 +17,8 @@
 | ADR | **ADR-0014** — *KB-04 Stage 1 Filesystem Enforcement Architecture*, `accepted`, **Autoritätsklasse A1**, 2026-08-03. `ADR_NOT_REQUIRED` galt für D-057 und gilt für **D-060**, **solange der Vertrag vollständig innerhalb ADR-0014 bleibt** |
 | Enforcement Contract | [KB_04_STAGE_1_ENFORCEMENT_CONTRACT.md](../docs/security/KB_04_STAGE_1_ENFORCEMENT_CONTRACT.md) — **`accepted contract`**, 2026-08-03 |
 | Registrierungsdatum | **2026-08-03** |
-| Human-Maintainer-Freigabe | **B2C-T-R Contract Traceability and NT Preparation Resume authorized** |
-| Technische Implementierung | **B2A und B2B-P implementiert** (intern, read-only, **plan-only**) · **B2C-T-R implementiert** die vollständige 45er-Traceability (drei reine Testdateien, **152 neue Tests**, Gesamtsuite **1202**) · **B2B-Apply und B2D nicht autorisiert** |
+| Human-Maintainer-Freigabe | **B2D-P Profile-A Integration Plan and Execution Authorization Gates authorized** |
+| Technische Implementierung | **B2A und B2B-P implementiert** (intern, read-only, **plan-only**) · **B2C-T-R implementiert** die vollständige 45er-Traceability (drei reine Testdateien, **152 neue Tests**, Gesamtsuite **1202**) · **B2D-P ist plan-only** — ein Dokument, **keine reale Infrastruktur** · **B2D-H, B2D-E, B2D-V, B2D-G und B2B-Apply nicht autorisiert** |
 | KB-04-Status | **`DOCUMENTED ONLY`** — unverändert |
 | Capabilities | **0 von 29** — unverändert |
 | Gates | Mapping Activation `NOT EVALUATED` · Security Foundation Readiness `NOT EVALUATED` |
@@ -183,7 +183,13 @@ ohne Durchsetzung), CBP-WP-020 (Profil-A-Bundle), CBP-WP-021 (Testinventar).
 | **B2C.1** | **Synthetic Evidence Scope Decision** | **complete** — `committed` `38eb33f`, **D-061** |
 | **B2C-T** (erster Lauf) | **Traceability and NT Preparation** | **`BLOCKED`** — vor jeder Dateiänderung beendet, **0 geänderte Dateien** |
 | **B2C.2** | **Traceability Coverage Split Reconciliation Decision** | **complete** — `committed` `117647f`, **D-062** |
-| **B2C-T-R** | **Contract Traceability and NT Preparation Resume** | **complete (dieser Stand, uncommitted)** |
+| **B2C-T-R** | **Contract Traceability and NT Preparation Resume** | **complete** — `committed` `9cde9de` |
+| **B2D.0** | **Profile-A Deployment Integration Boundary and Execution Readiness Audit** | **complete** — read-only, `PASS WITH NOTES` |
+| **B2D-P** | **Profile-A Integration Plan and Execution Authorization Gates** | **complete (dieser Stand, uncommitted)** |
+| **B2D-H** | **Optionaler operator-geführter Harness** | **nicht autorisiert** |
+| **B2D-E** | **Reale Ausführung in isolierter Referenzumgebung** | **nicht autorisiert** |
+| **B2D-V** | **Read-only Verifikation und Anonymisierung** | **nicht autorisiert** |
+| **B2D-G** | **Gate- und OD-37-Reconciliation** | **nicht autorisiert** |
 | **B2B-Apply** | **New-target Initialization Apply** | **nicht autorisiert** — ADR-Frage offen |
 | **B2C** | **Synthetic Tests and Evidence** | **nicht autorisiert** |
 | **B2D** | **Profile-A Deployment Integration** | **nicht autorisiert** |
@@ -1250,9 +1256,158 @@ Contract-Dokument unverändert** · **CBP-WP-023 nicht registriert**.
 
 ---
 
+## Phase B2D.0 und B2D-P — Integrationsrahmen und Plan
+
+**B2C-T-R-Commit:** `9cde9de` — „CBP-WP-022: add KB-04 contract traceability
+and NT preparation", **zwölf Pfade** (drei neue Testdateien, neun
+Statusspiegel).
+
+### B2D.0 — read-only Audit
+
+Der Audit prüfte Architektur, Governance, Sicherheit und Ausführbarkeit von
+B2D vollständig read-only und ergab **`PASS WITH NOTES`** bei **null
+Konflikten** über 25 geprüfte Quellen.
+
+| Befund | Inhalt |
+| --- | --- |
+| **B2D-Zweck** | Contract §18 ist die **einzige** normative Definition: *„lokale Identitätsbindung · reale Profil-A-Instanz · reale Nachweise · OD-37 · Gate-Evidenz"* — *„späterer Kandidat, nicht autorisiert"* |
+| **Gesperrter Scope** | *„produktive Reparatur · Migration bestehender Daten · RT-2 · **reale Gatefreigabe** · **Control-Uplift** · Stage 2"* |
+| **B2B-Apply** | **keine Abhängigkeit** — ADR-0014 verortet die Durchsetzung *„außerhalb der Runtime, außerhalb des Repositorys"* |
+| **Sequenzbedingung** | Contract §18 nennt „Gate-Evidenz", **D-061 Teil O** bindet deren Integration an eine **eigenständige A0-Entscheidung** |
+| **Reale Infrastruktur** | `REAL_INFRA_REQUIRED_BUT_NOT_AUTHORIZED` |
+| **Risikokandidaten** | **sechs** B2D-spezifische, keiner bestehenden Risiko-ID zugeordnet |
+
+Nova-Entscheidung: **`PASS WITH NOTES` — `AUTHORIZE B2D PLAN ONLY`**.
+
+### B2D-P — der Plan
+
+Neue Datei: [KB_04_PROFILE_A_INTEGRATION_PLAN.md](../docs/runtime/KB_04_PROFILE_A_INTEGRATION_PLAN.md)
+— **zwanzig Kapitel, plan-only**, ohne ausführbare Befehle.
+
+#### B2D-Phasenmodell
+
+| Phase | Zweck | Reale Infra | Repositoryänderung | Status |
+| --- | --- | :-: | --- | --- |
+| **B2D-P** | Planung und Freigabegates | **nein** | ein Plandokument, neun Spiegel | **dieser Stand** |
+| **B2D-H** | optionaler operator-geführter Harness | nein | offen | **nicht autorisiert** |
+| **B2D-E** | reale Ausführung | **ja** | **keine** | **nicht autorisiert** |
+| **B2D-V** | read-only Verifikation und Anonymisierung | nein | Statusspiegel | **nicht autorisiert** |
+| **B2D-G** | Gate- und OD-37-Reconciliation | nein | Gate- und Registerdateien | **nicht autorisiert** |
+
+**Fünf Sequenzregeln:** B2D-P zuerst committed und geprüft · **B2D-E und
+B2D-G niemals im selben Lauf** · **kein automatischer Übergang** von B2D-E
+nach B2D-V oder B2D-G · jede Folgephase braucht eine **eigene** Freigabe ·
+**B2D-E erzeugt keine Repositorydateiänderung**.
+
+#### B2B-Apply-Unabhängigkeit
+
+Der **Setup-Akteur ist hostseitig und operatorgeführt** und liegt **außerhalb
+von Runtime und Repository**; er darf Besitz und Rechte **initial herstellen**
+und **niemals als Dauerprozess laufen**. Die **Runtime bleibt strikt
+read-only**, es gibt **kein `apply_plan`**, und ein mutierender Repo-Helfer
+wäre dieselbe Grenzverletzung unter anderem Namen. **B2B-Apply bleibt
+unabhängig nicht autorisiert.**
+
+#### VM-Referenzumgebung
+
+Geplant ist ausschließlich eine **dedizierte, nicht produktive VM** mit
+**nachweislich neuer und leerer** Zielstruktur, ohne produktive Daten und ohne
+wiederverwendete Produktionsinstanz. **Ein Container wird ausdrücklich nicht
+als gleichwertiger Ersatz festgelegt** — die getrennte Feststellbarkeit von
+**D-I gegenüber D-III** hängt von der verfügbaren Host- und Mountsicht ab, was
+Contract §7.1 als **offenen Punkt der realen Deployment-Evidenz** führt. Eine
+spätere Containeroption benötigte eine **eigene Eignungs- und
+Autorisierungsprüfung**.
+
+#### Recovery-Gate
+
+Contract §9.3 gibt **keine Rollback-Zusage**. Nova ergänzt deshalb als
+**Ausführungsvoraussetzung**: Snapshot oder gleichwertiger
+Wiederherstellungspunkt **vor** dem Lauf · dokumentierte Zielinstanz ·
+dokumentierter Wiederherstellungsweg · **kein Lauf ohne bestätigten
+Recovery-Punkt**. **In B2D-P wurde kein Snapshot erzeugt.**
+
+#### Preconditions für B2D-E
+
+Eine **dreizehnteilige Checkliste** — von „B2D-P committed und geprüft" über
+eigene **A0-Ausführungsfreigabe**, bestätigte nicht produktive Zielinstanz,
+neue und leere Struktur, bestätigten Recovery-Punkt, vollständige
+Identitätsbindung und geprüften Mountplan bis zu „B2D-G ist nicht gleichzeitig
+autorisiert". **Ohne vollständige Checkliste darf B2D-E nicht beginnen.**
+
+#### Sechs Real-only-Fälle
+
+`KB04-T-N07` und `KB04-T-N08` (**NT-04**, zwei **getrennte** reale Fälle,
+PC-01/PP-3a, Scheitern **auf Betriebssystemebene**) · `KB04-T-N14`
+(**NT-05**, PC-02/PP-1, Auflösung **verweigert**, **Cleanup verpflichtend**) ·
+`KB04-T-N31` (PC-07/PP-3b, **D-III**, negativ zu belegen) · `KB04-T-N33`
+(PC-07/PP-3b, **D-II gegen D-III**, MT-9) · `KB04-T-P12 / D-I` (PC-07/PP-3b,
+**D-I**, solange nicht positiv validierbar **offen auszuweisen**). Je Fall
+sind zulässige und **verbotene** Aussage, Abbruchbedingung und Cleanupbedarf
+festgehalten; **Gatewirkung: keine**.
+
+#### Evidenzoptionen ohne Auswahl
+
+**Neun Optionen** mit zehn Bewertungsspalten und vier Statuswerten —
+`OPTION_ONLY`, `LOCAL_ONLY`, `NOT_AUTHORIZED`, `SEPARATE_DECISION_REQUIRED`.
+**Keine Option ausgewählt, kein Producer definiert, keine Gate-Eingabe
+definiert.** Ein KB-04-Security-Control-Form-Artefakt berührte die
+**Eingabefläche des Gate-Evaluators** und wäre nach **ADR-0013**
+**negative-evidence-only** — es könnte ein Gate nur blockieren, nie freigeben.
+
+#### Gate- und OD-37-Trennung
+
+B2D **bereitet Nachweise vor**, wertet **kein** Gate aus, setzt **kein**
+PASS, hebt **keine** Control hoch, setzt **SB-S04 nicht wirksam** und
+**schließt OD-37 nicht**. OD-37 verlangt zusätzlich einen **KB-03-Anteil**,
+reale Ziel-Instanz-Nachweise, einen **RT-2-nahen Auditeintrag**, eine
+**separate Reconciliation** und eine **separate A0-Decision**.
+
+#### Sechs Risikokandidaten
+
+falsche Zielinstanz · unzureichende Isolation · Umgehung der
+B2B-Apply-Grenze · fehlender Snapshot oder Recovery-Punkt · Ausführung auf dem
+falschen Host · Beschädigung realer Daten. Je Kandidat sind Beschreibung,
+Auslöser, Auswirkung, Prävention, Detektion, Abbruchbedingung, Restgrenze und
+betroffene Phase dokumentiert. **Status sämtlich
+`RISK_CANDIDATE_NOT_REGISTERED` — keine Risiko-ID erzeugt, nichts im Risk
+Register registriert.** **Vor B2D-E ist zu entscheiden, ob und wie sie
+kanonisch registriert werden.**
+
+#### Keine reale Ausführung, keine Gate- oder OD-37-Wirkung
+
+Nicht durchgeführt: reale Infrastrukturaktion · Snapshot-Erzeugung · Benutzer-
+oder Gruppenanlage · UID-/GID-Bindung · Rechte- oder Mountänderung ·
+Schreibversuch · Symlink-Test · **NT-04** · **NT-05** · Evidenzerzeugung ·
+Gate-Eingabe · Gateauswertung · Control-Uplift · OD-37-Schließung ·
+Harness · Script · CLI · Config · Deployment · Tests · `compileall` ·
+Python-Ausführung.
+
+### Stand nach B2D-P
+
+**B0** `e4caa14` · **B1A** `1a7696d` · **B1B** `b86a35f` · **B1C** `24de07e` ·
+**B2A** `929d10b` · **B2B-P** `fff8227` · **B2C.1** `38eb33f` · **B2C.2**
+`117647f` · **B2C-T-R** `9cde9de` — sämtlich committed. **B2C.0** und
+**B2D.0** complete (read-only) · **B2C-T erster Lauf `BLOCKED`**, 0 geänderte
+Dateien · **B2D-P** complete (dieser Stand, uncommitted) · **B2D-H, B2D-E,
+B2D-V, B2D-G, B2B-Apply und reale Infrastruktur nicht autorisiert**.
+
+**Unverändert:** Decisions/A0/ADRs **62/58/14** · **keine neue Decision, keine
+D-063, keine neue Risiko-ID** · Traceability **45 / 37 / 2 / 6** · Tests
+**1202 grün, 0 übersprungen** · **KB-04 `DOCUMENTED ONLY`** · beide Gates
+**`NOT EVALUATED`** · Capabilities **0 von 29** · **NT-04 und NT-05 nicht
+ausgeführt** · **SB-S04 nicht wirksam** · **R-20 offen** · **OD-37 offen** ·
+**R-33 18/21** · **RT-2 nicht implementiert** · **Contract §10.3 technisch
+offen** · **ADR-0013, ADR-0014, D-060, D-061, D-062 und das Contract-Dokument
+unverändert** · **CBP-WP-023 nicht registriert**.
+
+**Ein Plan ist keine Ausführung.**
+
+---
+
 ## Aussageschutz
 
-Dieses Work Package belegt auch nach Phase B2C-T-R **nicht**:
+Dieses Work Package belegt auch nach Phase B2D-P **nicht**:
 
 | Nicht belegt | Tatsächlicher Stand |
 | --- | --- |
@@ -1274,6 +1429,9 @@ Dieses Work Package belegt auch nach Phase B2C-T-R **nicht**:
 | Die Traceability-Metatests seien eine fachliche Abdeckung | **nein** — sie prüfen ausschließlich die Matrix und ihre Aussagegrenzen; die beiden neuen Testmodule sind als `covered_by`-Quelle **ausgeschlossen** |
 | Eine deklarative NT-Vorbereitung sei eine NT-Ausführung | **nein** — jedes Fixture ist unveränderlich **`PREPARED_ONLY`/`NOT_EXECUTED`**; **NT-04 und NT-05 wurden nicht ausgeführt** |
 | Der Traceability-Hash sei ein Evidenzartefakt | **nein** — `traceability_manifest_sha256()` ist ein **reiner Testhelfer**: keine Datei, keine Gate-API, kein Controlstatus |
+| Ein Integrationsplan sei eine Integration | **nein** — **B2D-P ist plan-only**; es existiert **keine** Profil-A-Instanz, **kein** gesetztes Recht, **kein** ausgeführter Test |
+| Eine Freigabespezifikation sei eine Freigabe | **nein** — die Autorisierungsmatrix führt **B2D-P** als einzige autorisierte Zeile; B2D-H, B2D-E, B2D-V, B2D-G, Evidence-Producer, Gate-Eingabe, Gateauswertung, OD-37-Schließung und reale Infrastruktur sind **nicht autorisiert** |
+| Ein dokumentierter Risikokandidat sei ein registriertes Risiko | **nein** — alle sechs tragen **`RISK_CANDIDATE_NOT_REGISTERED`**; das Risk Register ist **unverändert** |
 
 **Die Registrierung eines Work Packages ist keine Implementierungsfreigabe.**
 

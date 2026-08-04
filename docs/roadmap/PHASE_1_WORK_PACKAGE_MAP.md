@@ -50,7 +50,7 @@ nur zur Statusvollständigkeit geführt:
 | **CBP-WP-019** | Deployment Readiness Intake and Profile-A Target Specification | **`committed`** — `3c437f2` |
 | **CBP-WP-020** | Controlled Profile-A Deployment Foundation | **`committed`** — `17057e2` (B0), `9c6c0fb` (B1/B2), `d6a1a3c` (C) |
 | **CBP-WP-021** | Canonical Security Test Inventory Reconciliation | **`committed`** — `0cb4ea9` (B0), `271acc7` (B1/B2), `0344774` (C) |
-| **CBP-WP-022** | KB-04 Enforcement Stage 1 | **`in-review`** (Phase B2C-T-R) — B0…B2B-P committed, B2C.1 `committed` `38eb33f`, **B2C.2 `committed` `117647f`**; D-057/D-058/D-059/D-060/D-061/**D-062**, **ADR-0014 `accepted`/A1**, **Enforcement Contract `accepted contract`**; **read-only Validator- und Initialisierungsplanungspaket implementiert** (206 + 120 Tests); **erster B2C-T-Lauf `BLOCKED` ohne Dateiänderung**; **B2C-T-R implementiert die vollständige 45er-Traceability** (Split **37/2/6**, drei neue Testdateien, **152 neue Tests**, Gesamtsuite **1202**), **uncommitted**; **kein Evidence-Artefakt**, Contract §10.3 offen; **B2B-Apply/B2D nicht autorisiert** |
+| **CBP-WP-022** | KB-04 Enforcement Stage 1 | **`in-review`** (Phase B2D-P) — B0…B2C.2 committed, **B2C-T-R `committed` `9cde9de`**; D-057…**D-062**, **ADR-0014 `accepted`/A1**, **Enforcement Contract `accepted contract`**; **read-only Validator- und Initialisierungsplanungspaket implementiert**; **vollständige 45er-Traceability** (Split **37/2/6**, Gesamtsuite **1202**); **B2D.0 read-only complete** (`PASS WITH NOTES`, keine Konflikte); **B2D-P legt den Profile-A-Integrationsplan vor**, **uncommitted**; **kein Evidence-Artefakt**, Contract §10.3 offen; **reale Infrastruktur, B2D-H/E/V/G und B2B-Apply nicht autorisiert** |
 
 **CBP-WP-020 ist `committed` und `complete`** (D-055): Phase B0 `17057e2`,
 Phase B1/B2 `9c6c0fb`. Das **Profil-A-Bundle** liegt als Repository-Artefakt mit
@@ -137,8 +137,23 @@ real-only Fälle rein deklarativ vor. **152 neue Tests**, Gesamtsuite
 Gate-Eingabe und kein Produktionscode; **Contract §10.3 bleibt offen** und
 verlangt für eine Umsetzung eine eigene Scopefreigabe.
 
-**Nächste mögliche Phasen: B2B-Apply und B2D — beide nicht
-begonnen und nicht autorisiert.** **KB-04 bleibt `DOCUMENTED ONLY`; es gibt keine
+**Phase B2D.0 ist read-only abgeschlossen** und ergab `PASS WITH NOTES` bei
+**null Konflikten**: Contract §18 definiert B2D als *„lokale Identitätsbindung
+· reale Profil-A-Instanz · reale Nachweise · OD-37 · Gate-Evidenz"*, und
+**B2D hängt nicht von B2B-Apply ab**, weil ADR-0014 den Setup-Akteur
+hostseitig und operatorgeführt außerhalb von Runtime und Repository verortet.
+
+**Phase B2D-P ist abgeschlossen und uncommitted.** Sie legt
+[KB_04_PROFILE_A_INTEGRATION_PLAN.md](../runtime/KB_04_PROFILE_A_INTEGRATION_PLAN.md)
+vor — **plan-only**, zwanzig Kapitel, fünfstufiges Phasenmodell, verbindliches
+**Snapshot-/Recovery-Gate**, dreizehnteilige Precondition-Checkliste, neun
+Evidenzoptionen **ohne Auswahl** und sechs Risikokandidaten **ohne ID**.
+**Es entsteht kein Evidence-Artefakt**, keine Gate-Eingabe, keine reale
+Aktion.
+
+**Nächste mögliche Phasen: B2D-H, B2D-E, B2D-V, B2D-G und B2B-Apply —
+sämtlich nicht begonnen und nicht autorisiert; reale Infrastruktur ist nicht
+autorisiert.** **KB-04 bleibt `DOCUMENTED ONLY`; es gibt keine
 Gate- und keine Control-Hochstufung.** **CBP-WP-023 ist nicht registriert und nicht
 autorisiert.**
 
