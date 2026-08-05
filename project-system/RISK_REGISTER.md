@@ -71,15 +71,17 @@ Ein irreversibler Schaden ist mindestens **hoch**.
 | R-21 | Retrieval-Qualität verschlechtert sich unbemerkt | mittel | **Benchmark entworfen** (Dataset **2.0.0**): 36 Fragen, 4 Metrikgruppen, Regressionsregeln bei 7 Systemänderungen. **Kein Lauf durchgeführt.** Auflage 3 der G0-Entscheidung; Backlogpunkt P7 | **gemindert, nicht geschlossen** |
 | R-29 | Produktive Synchronisation ohne Test-Vault führt zu Datenverlust | **hoch** | **D-025 vertagt native Obsidian-Nutzung**; Freigabe erst nach Test-Vault, Konflikt- und Restore-Prüfung | **gemindert** |
 | R-30 | Datenschutzklassifikation ohne technische Durchsetzung | **hoch** | **D-021 macht daraus eine prüfbare Anforderung** — Sperrwirkung mit Testdaten nachzuweisen | **konkretisiert** |
+| **R-35** | **Reale KB-04-Nachweisausführung trifft eine falsche oder unzureichend isolierte Zielinstanz** | **hoch** | **Auslöser:** falsche Zielinstanz · falscher Host · nicht ausreichend isolierte Referenzumgebung · produktive oder wiederverwendete Datenstruktur · Übertragung einer alten Freigabe auf einen anderen Lauf. **Auswirkung:** Beschädigung realer Daten · Veränderung einer nicht autorisierten Instanz · ungültige oder falsch zugeordnete Nachweise · Verletzung der Public- und Operational-Boundary. **Gegenmaßnahmen (D-063):** dedizierte, nicht produktive VM · lokal eindeutig bezeichnete Zielinstanz · **nachweislich neue und leere** Zielstruktur (Contract §9.1) · **einmalige, nicht übertragbare Freigabe je Lauf** · unmittelbare Zielbestätigung vor dem Start · **Stop bei jeder Abweichung**. **Restgrenze:** eine organisatorische Fehlbindung bleibt möglich; **das Repository kennt die reale Zielinstanz nicht**. **Betroffene Phase: B2D-E.** Integriert die B2D-P-Kandidaten *falsche Zielinstanz*, *unzureichende Isolation*, *Ausführung auf dem falschen Host* sowie *Beschädigung realer Daten* als **Auswirkung**. **Ersetzt weder R-26 noch R-29 noch R-32**; macht **keine** produktive Ausführung zulässig; **B2D-E bleibt nicht autorisiert** | **neu, offen** |
+| **R-36** | **Reale KB-04-Nachweisausführung beginnt ohne bestätigten Wiederherstellungspunkt** | **hoch** | **Auslöser:** kein Snapshot · kein gleichwertiger Recovery-Punkt · Recovery-Punkt nicht bestätigt · Recovery-Punkt nicht mehr gültig · Wiederherstellungsweg nicht nachweislich verfügbar. **Auswirkung:** unerwartete Änderungen können nicht zuverlässig zurückgeführt werden · Daten- oder Zustandsbeschädigung bleibt bestehen · die Ausführung kann nicht sicher abgebrochen und zurückgesetzt werden. **Gegenmaßnahmen (D-063):** **Recovery-Gate R-1 bis R-4** der Profile-A-Plandatei · **kein Start ohne bestätigten Recovery-Punkt** · Bestätigung des Recovery-Status unmittelbar vor dem Lauf · **Freigabe bei jeder Änderung verwerfen**. **Restgrenze:** ein vorhandener Recovery-Punkt garantiert **nicht** automatisch eine erfolgreiche Wiederherstellung. **Betroffene Phase: B2D-E.** Der **Contract enthält keine Rollbackzusage** (§9.3) — das Recovery-Gate ist eine **Nova-Ausführungsvoraussetzung**. **R-20 wird weder geschlossen noch ersetzt noch erweitert**; **in diesem Lauf wurde kein Snapshot erzeugt** | **neu, offen** |
 
 ## Zusammenfassung
 
 | Schwere | Anzahl |
 | --- | --- |
-| hoch | 17 |
-| mittel | 13 |
-| niedrig | 2 |
-| **Summe** | **32** |
+| hoch | **20** |
+| mittel | **14** |
+| niedrig | **1** |
+| **Summe** | **35** |
 
 | Status | Anzahl |
 | --- | --- |
@@ -88,7 +90,33 @@ Ein irreversibler Schaden ist mindestens **hoch**.
 | konkretisiert | 4 |
 | dokumentiert | 1 |
 | teilweise gemindert | 1 |
-| offen | **10** |
+| offen | **13** |
+
+> **Aggregatreconciliation in CBP-WP-022 Phase B2D-GOV (D-063).** Die zuvor
+> ausgewiesenen Werte **hoch 17 · mittel 13 · niedrig 2 · Summe 32** waren
+> **nicht konsistent** mit den damals **33** kanonischen Risikodatensätzen.
+> Die Reconciliation beruht auf einer **vollständigen Neuauszählung aller
+> kanonischen Risikozeilen**, nicht auf einer Fortschreibung.
+>
+> **Die Abweichung ließ sich nicht allein R-34 zuschreiben.** Sie zerfiel in
+> **zwei voneinander unabhängige Fehler**: erstens war **R-34** in beiden
+> Aggregattabellen **nicht mitgezählt** — das erklärt `hoch` und die Summe;
+> zweitens war der **`mittel`/`niedrig`-Schnitt falsch** — ausgewiesen
+> **13/2**, kanonisch **14/1**, wobei **R-17** die einzige Zeile mit Schwere
+> `niedrig` ist. Der zweite Fehler betrifft **ausschließlich die
+> Schweretabelle**; die Statustabelle war allein durch die R-34-Auslassung
+> verschoben (`offen` **10** statt **11**).
+>
+> **Auszählung vor den neuen Risiken:** hoch **18** · mittel **14** · niedrig
+> **1** · gesamt **33**. **Nach Aufnahme von R-35 und R-36** — beide **hoch**
+> und **offen** —: hoch **20** · mittel **14** · niedrig **1** · gesamt
+> **35**; `offen` **13** (11 + 2).
+>
+> **R-33 bleibt unverändert in seinem bisherigen Status. Diese Reconciliation
+> schließt R-33 nicht** — sie ist ein weiterer belegter Vorgang seiner
+> Fehlerklasse, keine Behebung ihrer Ursache. **R-01 bis R-34 sind
+> inhaltlich unverändert**, **R-18 bleibt eine nicht wiederverwendete
+> Nummernlücke**, und es wurde **keine R-37** vergeben.
 
 **Neu in CBP-WP-012:** keine.
 

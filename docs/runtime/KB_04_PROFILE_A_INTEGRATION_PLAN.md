@@ -657,6 +657,108 @@ Erfüllung der Checkliste aus Kapitel 10.
 
 ---
 
+## Nachtrag B2D-GOV — Kanonisierte Ausführungsvoraussetzungen
+
+> **Ergänzt in Phase B2D-GOV.** Dieser Nachtrag **schwächt keine der
+> vorstehenden Sicherheitsgrenzen ab**; er macht sie kanonisch verbindlich.
+> **B2D-P ist `committed` (`b409d25`).**
+
+### N.1 — Entscheidungsgrundlage
+
+| Feld | Wert |
+| --- | --- |
+| Decision | **D-063**, `accepted`, **A0**, 2026-08-04, Teile A–O |
+| Ergebnis | **`B2D_EXECUTION_PREREQUISITES_ESTABLISHED`** |
+| ADR-Gate | **`ADR_NOT_REQUIRED`** — innerhalb ADR-0014, D-060, D-061 und D-062 |
+| Vorlauf | **B2D.1** read-only Audit, `PASS WITH NOTES` |
+
+### N.2 — Kanonisierte Risiken
+
+| ID | Titel | Schwere | Status |
+| --- | --- | --- | --- |
+| **R-35** | Reale KB-04-Nachweisausführung trifft eine **falsche oder unzureichend isolierte Zielinstanz** | **hoch** | **offen** |
+| **R-36** | Reale KB-04-Nachweisausführung beginnt **ohne bestätigten Wiederherstellungspunkt** | **hoch** | **offen** |
+
+Von den **sechs** Kandidaten aus Kapitel 17 wurden damit **vier** in **R-35**
+gebündelt — *falsche Zielinstanz*, *unzureichende Isolation*, *falscher Host*
+und *Beschädigung realer Daten* als **Auswirkung**. **Kandidat 3 — Umgehung
+der B2B-Apply-Grenze — ist durch R-12 abgedeckt** und erhielt **keine eigene
+ID**. **R-20 wurde nicht erweitert**, **R-18 nicht wiederverwendet**.
+
+### N.3 — Harnessentscheidung
+
+> ### **`NO_HARNESS_REQUIRED`**
+
+Die **reale Erhebung bleibt hostseitig und operatorgeführt**; der **vorhandene
+Validator** verarbeitet injizierte Beobachtungen mit Herkunft **`OBSERVED`**.
+**Es fehlt kein technischer Repositorybaustein.** Ein Repository-Harness
+erzeugte zusätzliche Angriffs- und Governancefläche in genau der Zone, die
+ADR-0014 freihält.
+
+**Nicht umgesetzt:** **H1** (Testhelper) · **H2** (operatorgeführtes Script) ·
+**H3** (Repository-CLI) · keine CLI · kein Script · **kein externes Werkzeug
+durch das Repository definiert**. **Ein optionaler zukünftiger H1-Testhelper
+benötigt eine eigene Freigabe.**
+
+### N.4 — Maximaler späterer B2D-E-Scope
+
+Ausschließlich die **sechs** B2D-real-only-Fälle: **`KB04-T-N07`** ·
+**`KB04-T-N08`** · **`KB04-T-N14`** · **`KB04-T-N31`** · **`KB04-T-N33`** ·
+**`KB04-T-P12` / Dimension D-I**.
+
+**`KB04-T-P10` und `KB04-T-N25` bleiben Coverage Gaps** und sind **kein Teil
+einer B2D-E-Erfolgsaussage**.
+
+### N.5 — Producer-Unabhängigkeit
+
+**B2D-E benötigt keinen neuen Evidence-Producer.** Zulässige spätere Formen
+bleiben **lokal-only**: Rohbeobachtung · lokales Testprotokoll ·
+Operatorbestätigung · normalisierte In-Memory-Beobachtung · lokale
+Hashbindung. **Diese Formen sind keine Gate-Eingabe.** **In B2D-GOV wurde
+nichts erzeugt.**
+
+### N.6 — Freigabe je Lauf
+
+**D-063 autorisiert keinen B2D-E-Lauf.** Jeder spätere Lauf verlangt zehn
+Bestätigungen: ausdrückliche **Human-Maintainer-Ausführungsfreigabe** ·
+Bindung an **genau eine lokal bezeichnete Zielinstanz** · **nicht produktiver**
+Zustand · **neue und leere** Zielstruktur · **gültiger Recovery-Punkt** ·
+**lokale Identitätsbindung** · **Stop- und Cleanupplan** · **Fallumfang** ·
+**B2D-G nicht gleichzeitig freigegeben** · **konkreter Startzeitpunkt**.
+
+Eine Ausführungsfreigabe gilt für **genau einen Lauf**, ist **nicht
+übertragbar** und **nicht wiederverwendbar**. Sie verfällt bei anderer
+Instanz, anderem Strukturzustand, geänderter Identitätsbindung, geändertem
+Fallumfang, ausgelöster Stop-Bedingung sowie bei Änderung von Contract,
+ADR-0014 oder D-063.
+
+**Eine globale A0-Pauschalfreigabe ist unzulässig.** Die konkrete Form der
+per-run Dokumentation wird **erst in einer separaten
+B2D-E-Autorisierungsphase** festgelegt.
+
+**Reale Werte bleiben außerhalb des Repositorys.**
+
+### N.7 — Unverändert getrennte Gegenstände
+
+**B2D-E und B2D-G bleiben getrennt** — nie im selben Lauf. **Nicht Bestandteil
+von D-063:** anonymisierte versionierbare Zusammenfassung ·
+Security-Control-Form · Evidence-Schema-3.0-Produktion · Evidence-Producer ·
+Gate-Eingabe · Gateauswertung · Gatefreigabe · Control-Uplift ·
+SB-S04-Aktivierung · **OD-37-Reconciliation und -Schließung** · KB-03-Nachweis
+· Auditeintrag · RT-2 · **Contract §10.3**.
+
+### N.8 — Status nach B2D-GOV
+
+**B2D-H**, **B2D-E**, **B2D-V**, **B2D-G** und **reale Infrastruktur** bleiben
+**nicht autorisiert**. Die Autorisierungsmatrix aus Kapitel 18 gilt
+unverändert fort; **B2D-H** trägt nun zusätzlich das Ergebnis
+**`NO_HARNESS_REQUIRED`**.
+
+**Eine Voraussetzung ist keine Ausführung, und eine Ausführungsfreigabe ist
+kein Nachweis.**
+
+---
+
 ## Aussagegrenzen dieses Dokuments
 
 | Nicht belegt | Tatsächlicher Stand |

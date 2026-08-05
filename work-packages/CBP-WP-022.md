@@ -6,18 +6,20 @@
 | Typ | **security-foundation enforcement** (Stufe 1) |
 | Prompt Mode | **Full** · Context Budget **B2 – Standard** |
 | Status | **`in-review`** |
-| Aktuelle Phase | **Phase B2D-P – Profile-A Integration Plan and Execution Authorization Gates** |
+| Aktuelle Phase | **Phase B2D-GOV – Execution Prerequisites, Risk Canonicalization and Authorization Model** |
 | Registration Decision | **D-057** (konsolidiert, A–M) |
 | ADR-Gate-Decision | **D-058** (konsolidiert, A–M) — Ergebnis **`ADR_REQUIRED`** |
 | Architektur-Decision | **D-059** (konsolidiert, A–N) — Ergebnis **`ADR-0014_ACCEPTED`** |
 | Contract-Decision | **D-060** (konsolidiert, A–S) — Ergebnis **`KB-04_STAGE_1_CONTRACT_ACCEPTED`**, **`ADR_NOT_REQUIRED`** |
 | B2C-Scope-Decision | **D-061** (konsolidiert, A–R) — Ergebnis **`B2C_TRACEABILITY_AND_NT_PREPARATION_SELECTED`**, **`ADR_NOT_REQUIRED`** |
 | B2C-Split-Decision | **D-062** (konsolidiert, A–O) — Ergebnis **`B2C_TRACEABILITY_COVERAGE_SPLIT_RECONCILED`**, **`ADR_NOT_REQUIRED`**, 2026-08-04 |
-| Decision Class | **A0** — für D-057, D-058, D-059, D-060, D-061 und D-062 |
+| Decision Class | **A0** — für D-057, D-058, D-059, D-060, D-061, D-062 und D-063 |
 | ADR | **ADR-0014** — *KB-04 Stage 1 Filesystem Enforcement Architecture*, `accepted`, **Autoritätsklasse A1**, 2026-08-03. `ADR_NOT_REQUIRED` galt für D-057 und gilt für **D-060**, **solange der Vertrag vollständig innerhalb ADR-0014 bleibt** |
 | Enforcement Contract | [KB_04_STAGE_1_ENFORCEMENT_CONTRACT.md](../docs/security/KB_04_STAGE_1_ENFORCEMENT_CONTRACT.md) — **`accepted contract`**, 2026-08-03 |
 | Registrierungsdatum | **2026-08-03** |
-| Human-Maintainer-Freigabe | **B2D-P Profile-A Integration Plan and Execution Authorization Gates authorized** |
+| B2D-Voraussetzungs-Decision | **D-063** (konsolidiert, A–O) — Ergebnis **`B2D_EXECUTION_PREREQUISITES_ESTABLISHED`**, **`ADR_NOT_REQUIRED`**, 2026-08-04 |
+| Neue kanonische Risiken | **R-35** und **R-36** — beide **hoch**, **offen**; Risiken gesamt **35** (Severity **20/14/1**) |
+| Human-Maintainer-Freigabe | **B2D-GOV Execution Prerequisites, Risk Canonicalization and Authorization Model authorized** |
 | Technische Implementierung | **B2A und B2B-P implementiert** (intern, read-only, **plan-only**) · **B2C-T-R implementiert** die vollständige 45er-Traceability (drei reine Testdateien, **152 neue Tests**, Gesamtsuite **1202**) · **B2D-P ist plan-only** — ein Dokument, **keine reale Infrastruktur** · **B2D-H, B2D-E, B2D-V, B2D-G und B2B-Apply nicht autorisiert** |
 | KB-04-Status | **`DOCUMENTED ONLY`** — unverändert |
 | Capabilities | **0 von 29** — unverändert |
@@ -185,7 +187,9 @@ ohne Durchsetzung), CBP-WP-020 (Profil-A-Bundle), CBP-WP-021 (Testinventar).
 | **B2C.2** | **Traceability Coverage Split Reconciliation Decision** | **complete** — `committed` `117647f`, **D-062** |
 | **B2C-T-R** | **Contract Traceability and NT Preparation Resume** | **complete** — `committed` `9cde9de` |
 | **B2D.0** | **Profile-A Deployment Integration Boundary and Execution Readiness Audit** | **complete** — read-only, `PASS WITH NOTES` |
-| **B2D-P** | **Profile-A Integration Plan and Execution Authorization Gates** | **complete (dieser Stand, uncommitted)** |
+| **B2D-P** | **Profile-A Integration Plan and Execution Authorization Gates** | **complete** — `committed` `b409d25` |
+| **B2D.1** | **Execution Prerequisite, Risk and Harness Audit** | **complete** — read-only, `PASS WITH NOTES` |
+| **B2D-GOV** | **Execution Prerequisites, Risk Canonicalization and Authorization Model** | **complete (dieser Stand, uncommitted)** — **D-063**, **R-35**, **R-36** |
 | **B2D-H** | **Optionaler operator-geführter Harness** | **nicht autorisiert** |
 | **B2D-E** | **Reale Ausführung in isolierter Referenzumgebung** | **nicht autorisiert** |
 | **B2D-V** | **Read-only Verifikation und Anonymisierung** | **nicht autorisiert** |
@@ -1405,9 +1409,138 @@ unverändert** · **CBP-WP-023 nicht registriert**.
 
 ---
 
+## Phase B2D.1 und B2D-GOV — Voraussetzungen und Risikokanonisierung
+
+**B2D-P-Commit:** `b409d25` — „CBP-WP-022: define Profile-A integration plan
+and execution gates", **eine neue Datei und neun Statusspiegel**.
+
+### B2D.1 — read-only Audit
+
+Der Audit prüfte die sechs Risikokandidaten gegen das vollständige Risk
+Register, die Harnessnotwendigkeit, den minimalen Ausführungsgegenstand, das
+Evidenzminimum und die A0-Zerlegung. Ergebnis:
+**`AUTHORIZE_B2D_GOVERNANCE_DECISION_PACKAGE`**, Nova-Entscheidung
+**`PASS WITH NOTES`**.
+
+### D-063 — die Voraussetzungsentscheidung
+
+| Feld | Wert |
+| --- | --- |
+| Decision | **D-063**, `accepted`, **A0**, 2026-08-04, Teile A–O |
+| Ergebnis | **`B2D_EXECUTION_PREREQUISITES_ESTABLISHED`** |
+| ADR-Gate | **`ADR_NOT_REQUIRED`** — bestätigt ADR-0014, führt keinen Harness, keine Runtimekopplung, keine CLI, keine Configsemantik, kein Deploymentmodell und keinen Producer ein, verändert **keine Gate-Eingabefläche** und **autorisiert keine reale Ausführung** |
+
+### Risikokanonisierung
+
+Von den **sechs** Kandidaten aus B2D-P werden **zwei** kanonisch:
+
+| ID | Titel | Schwere | Status | Integriert |
+| --- | --- | --- | --- | --- |
+| **R-35** | Reale KB-04-Nachweisausführung trifft eine **falsche oder unzureichend isolierte Zielinstanz** | **hoch** | **offen** | Kandidaten **1, 2, 5** sowie **6 als Auswirkung** |
+| **R-36** | Reale KB-04-Nachweisausführung beginnt **ohne bestätigten Wiederherstellungspunkt** | **hoch** | **offen** | Kandidat **4** |
+
+**Kandidat 3 — Umgehung der B2B-Apply-Grenze — ist durch R-12 vollständig
+abgedeckt** (*„Vorgezogene Implementierung präjudiziert offene
+Architekturentscheidungen"*, Sperrliste `DO_NOT_START`, Aufhebung nur per A0)
+und erhielt **keine eigene ID**. **Beschädigung realer Daten ist eine
+Auswirkung, kein eigener Auslöser.** **R-20 wurde nicht erweitert**, **R-18
+nicht wiederverwendet**, **keine R-37** vergeben.
+
+### Risk-Register-Reconciliation
+
+Die zuvor ausgewiesenen Aggregate **hoch 17 · mittel 13 · niedrig 2 · Summe
+32** waren nicht konsistent mit den damals **33** kanonischen
+Risikodatensätzen. Die Neuauszählung ergab **hoch 18 · mittel 14 · niedrig 1 ·
+gesamt 33**.
+
+**Die Abweichung ließ sich nicht allein R-34 zuschreiben** — sie zerfiel in
+**zwei unabhängige Fehler**: die **Nichtzählung von R-34** in beiden
+Aggregattabellen sowie ein **falscher `mittel`/`niedrig`-Schnitt** in der
+Schweretabelle (**R-17** ist die einzige Zeile mit Schwere `niedrig`). Die
+Statustabelle war allein durch die R-34-Auslassung verschoben.
+
+Nach Aufnahme von R-35 und R-36: **hoch 20 · mittel 14 · niedrig 1 · Summe
+35**, `offen` **13**. **R-33 bleibt unverändert und wird durch diese
+Reconciliation nicht geschlossen** — sie ist ein weiterer belegter Vorgang
+seiner Fehlerklasse, keine Behebung ihrer Ursache.
+
+### Harnessentscheidung
+
+> **`NO_HARNESS_REQUIRED`**
+
+Die **Erhebung** ist nach ADR-0014 **hostseitig und operatorgeführt**; die
+**Validierung** existiert bereits — `validate_observation()` nimmt injizierte
+Beobachtungen mit Herkunft **`OBSERVED`** entgegen. **Es fehlt kein
+technischer Repositorybaustein.** Nicht umgesetzt: **H1**, **H2**, **H3**,
+keine CLI, kein Script, kein durch das Repository definiertes externes
+Werkzeug. Ein optionaler späterer **H1**-Testhelper verlangt eine eigene
+Freigabe.
+
+### Maximaler späterer B2D-E-Scope
+
+Ausschließlich **`KB04-T-N07`**, **`KB04-T-N08`**, **`KB04-T-N14`**,
+**`KB04-T-N31`**, **`KB04-T-N33`** und **`KB04-T-P12` / Dimension D-I**.
+**`KB04-T-P10` und `KB04-T-N25` bleiben Coverage Gaps** und sind **kein Teil
+einer Erfolgsaussage**.
+
+### Producer-Unabhängigkeit
+
+**B2D-E benötigt keinen Evidence-Producer.** Zulässige spätere Formen bleiben
+**lokal-only**: Rohbeobachtung · lokales Testprotokoll · Operatorbestätigung ·
+normalisierte In-Memory-Beobachtung · lokale Hashbindung. **Diese Formen sind
+keine Gate-Eingabe. In diesem Lauf wurde nichts erzeugt.**
+
+### Freigabemodell je Lauf
+
+**D-063 autorisiert keinen B2D-E-Lauf.** Jeder spätere Lauf verlangt **zehn
+Bestätigungen** — Ausführungsfreigabe, genau eine lokal bezeichnete
+Zielinstanz, nicht produktiver Zustand, neue und leere Zielstruktur, gültiger
+Recovery-Punkt, lokale Identitätsbindung, Stop- und Cleanupplan, Fallumfang,
+**B2D-G nicht gleichzeitig freigegeben**, konkreter Startzeitpunkt.
+
+Eine Freigabe gilt für **genau einen Lauf**, ist **nicht übertragbar** und
+**nicht wiederverwendbar**; sie verfällt bei anderer Instanz, anderem
+Strukturzustand, geänderter Bindung, geändertem Fallumfang, ausgelöster
+Stop-Bedingung sowie bei Änderung von Contract, ADR-0014 oder D-063. **Eine
+globale Pauschalfreigabe ist unzulässig.** **Reale Werte bleiben außerhalb des
+Repositorys.**
+
+### Evidence-, Gate-, OD-37- und §10.3-Ausschlüsse
+
+**Nicht Bestandteil von D-063:** anonymisierte versionierbare Zusammenfassung ·
+Security-Control-Form · Evidence-Schema-3.0-Produktion · Evidence-Producer ·
+Gate-Eingabe · Gateauswertung · Gatefreigabe · Control-Uplift ·
+SB-S04-Aktivierung · **OD-37-Reconciliation und -Schließung** · KB-03-Nachweis
+· Auditeintrag · RT-2 · **Contract §10.3**. **P10 und N25 bleiben offen; B2D
+schließt §10.3 nicht.**
+
+### Stand nach B2D-GOV
+
+**B0** `e4caa14` · **B1A** `1a7696d` · **B1B** `b86a35f` · **B1C** `24de07e` ·
+**B2A** `929d10b` · **B2B-P** `fff8227` · **B2C.1** `38eb33f` · **B2C.2**
+`117647f` · **B2C-T-R** `9cde9de` · **B2D-P** `b409d25` — sämtlich committed.
+**B2C.0**, **B2D.0** und **B2D.1** complete (read-only) · **B2C-T erster Lauf
+`BLOCKED`** · **B2D-GOV** complete (dieser Stand, uncommitted) · **B2D-H,
+B2D-E, B2D-V, B2D-G, B2B-Apply und reale Infrastruktur nicht autorisiert**.
+
+**Zähler:** Decisions/A0/ADRs **63/59/14** · **Risiken 35** (**20/14/1**) ·
+Tests **1202 grün, 0 übersprungen** · Traceability **45 / 37 / 2 / 6** ·
+Capabilities **0 von 29**.
+
+**Unverändert:** **KB-04 `DOCUMENTED ONLY`** · beide Gates **`NOT EVALUATED`** ·
+**NT-04 und NT-05 nicht ausgeführt** · **SB-S04 nicht wirksam** · **R-20
+offen** · **OD-37 offen** · **R-33 18/21 und nicht geschlossen** · **RT-2 nicht
+implementiert** · **Contract §10.3 technisch offen** · **ADR-0013, ADR-0014,
+D-060 bis D-062, R-01 bis R-34 und das Contract-Dokument unverändert** ·
+**keine D-064**, **keine R-37** · **CBP-WP-023 nicht registriert**.
+
+**Eine Voraussetzung ist keine Ausführung.**
+
+---
+
 ## Aussageschutz
 
-Dieses Work Package belegt auch nach Phase B2D-P **nicht**:
+Dieses Work Package belegt auch nach Phase B2D-GOV **nicht**:
 
 | Nicht belegt | Tatsächlicher Stand |
 | --- | --- |
@@ -1431,7 +1564,10 @@ Dieses Work Package belegt auch nach Phase B2D-P **nicht**:
 | Der Traceability-Hash sei ein Evidenzartefakt | **nein** — `traceability_manifest_sha256()` ist ein **reiner Testhelfer**: keine Datei, keine Gate-API, kein Controlstatus |
 | Ein Integrationsplan sei eine Integration | **nein** — **B2D-P ist plan-only**; es existiert **keine** Profil-A-Instanz, **kein** gesetztes Recht, **kein** ausgeführter Test |
 | Eine Freigabespezifikation sei eine Freigabe | **nein** — die Autorisierungsmatrix führt **B2D-P** als einzige autorisierte Zeile; B2D-H, B2D-E, B2D-V, B2D-G, Evidence-Producer, Gate-Eingabe, Gateauswertung, OD-37-Schließung und reale Infrastruktur sind **nicht autorisiert** |
-| Ein dokumentierter Risikokandidat sei ein registriertes Risiko | **nein** — alle sechs tragen **`RISK_CANDIDATE_NOT_REGISTERED`**; das Risk Register ist **unverändert** |
+| Ein dokumentierter Risikokandidat sei ein registriertes Risiko | **nein für B2D-P** — dort trugen alle sechs `RISK_CANDIDATE_NOT_REGISTERED`; **in B2D-GOV** sind zwei davon als **R-35** und **R-36** kanonisiert, vier gehen darin auf oder sind durch **R-12** abgedeckt |
+| Eine kanonisierte Voraussetzung sei eine Ausführungsfreigabe | **nein** — **D-063 autorisiert keinen B2D-E-Lauf**; jeder Lauf verlangt eine **einmalige, nicht übertragbare** Freigabe über zehn Bestätigungen |
+| `NO_HARNESS_REQUIRED` bedeute, ein Harness sei verboten | **nein** — es bedeutet, dass **keiner technisch erforderlich** ist; ein optionaler **H1**-Testhelper bliebe möglich, verlangte aber eine eigene Freigabe |
+| Die Aggregatreconciliation schließe R-33 | **nein** — sie ist ein **weiterer belegter Vorgang** seiner Fehlerklasse; **R-33 bleibt unverändert offen** |
 
 **Die Registrierung eines Work Packages ist keine Implementierungsfreigabe.**
 
