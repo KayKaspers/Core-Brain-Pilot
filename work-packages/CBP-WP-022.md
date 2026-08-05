@@ -6,18 +6,19 @@
 | Typ | **security-foundation enforcement** (Stufe 1) |
 | Prompt Mode | **Full** · Context Budget **B2 – Standard** |
 | Status | **`in-review`** |
-| Aktuelle Phase | **Phase B2D-GOV – Execution Prerequisites, Risk Canonicalization and Authorization Model** |
+| Aktuelle Phase | **Phase B2D-AUTH – D-064 Per-Run Authorization Artifact Form** |
 | Registration Decision | **D-057** (konsolidiert, A–M) |
 | ADR-Gate-Decision | **D-058** (konsolidiert, A–M) — Ergebnis **`ADR_REQUIRED`** |
 | Architektur-Decision | **D-059** (konsolidiert, A–N) — Ergebnis **`ADR-0014_ACCEPTED`** |
 | Contract-Decision | **D-060** (konsolidiert, A–S) — Ergebnis **`KB-04_STAGE_1_CONTRACT_ACCEPTED`**, **`ADR_NOT_REQUIRED`** |
 | B2C-Scope-Decision | **D-061** (konsolidiert, A–R) — Ergebnis **`B2C_TRACEABILITY_AND_NT_PREPARATION_SELECTED`**, **`ADR_NOT_REQUIRED`** |
 | B2C-Split-Decision | **D-062** (konsolidiert, A–O) — Ergebnis **`B2C_TRACEABILITY_COVERAGE_SPLIT_RECONCILED`**, **`ADR_NOT_REQUIRED`**, 2026-08-04 |
-| Decision Class | **A0** — für D-057, D-058, D-059, D-060, D-061, D-062 und D-063 |
+| Decision Class | **A0** — für D-057 bis D-064 |
 | ADR | **ADR-0014** — *KB-04 Stage 1 Filesystem Enforcement Architecture*, `accepted`, **Autoritätsklasse A1**, 2026-08-03. `ADR_NOT_REQUIRED` galt für D-057 und gilt für **D-060**, **solange der Vertrag vollständig innerhalb ADR-0014 bleibt** |
 | Enforcement Contract | [KB_04_STAGE_1_ENFORCEMENT_CONTRACT.md](../docs/security/KB_04_STAGE_1_ENFORCEMENT_CONTRACT.md) — **`accepted contract`**, 2026-08-03 |
 | Registrierungsdatum | **2026-08-03** |
 | B2D-Voraussetzungs-Decision | **D-063** (konsolidiert, A–O) — Ergebnis **`B2D_EXECUTION_PREREQUISITES_ESTABLISHED`**, **`ADR_NOT_REQUIRED`**, 2026-08-04 |
+| B2D-Autorisierungsform-Decision | **D-064** (konsolidiert, A–P) — Ergebnis **`B2D_E_RUN_AUTHORIZATION_ARTIFACT_FORM_SELECTED`**, **`ADR_NOT_REQUIRED`**, 2026-08-05 |
 | Neue kanonische Risiken | **R-35** und **R-36** — beide **hoch**, **offen**; Risiken gesamt **35** (Severity **20/14/1**) |
 | Human-Maintainer-Freigabe | **B2D-GOV Execution Prerequisites, Risk Canonicalization and Authorization Model authorized** |
 | Technische Implementierung | **B2A und B2B-P implementiert** (intern, read-only, **plan-only**) · **B2C-T-R implementiert** die vollständige 45er-Traceability (drei reine Testdateien, **152 neue Tests**, Gesamtsuite **1202**) · **B2D-P ist plan-only** — ein Dokument, **keine reale Infrastruktur** · **B2D-H, B2D-E, B2D-V, B2D-G und B2B-Apply nicht autorisiert** |
@@ -189,7 +190,9 @@ ohne Durchsetzung), CBP-WP-020 (Profil-A-Bundle), CBP-WP-021 (Testinventar).
 | **B2D.0** | **Profile-A Deployment Integration Boundary and Execution Readiness Audit** | **complete** — read-only, `PASS WITH NOTES` |
 | **B2D-P** | **Profile-A Integration Plan and Execution Authorization Gates** | **complete** — `committed` `b409d25` |
 | **B2D.1** | **Execution Prerequisite, Risk and Harness Audit** | **complete** — read-only, `PASS WITH NOTES` |
-| **B2D-GOV** | **Execution Prerequisites, Risk Canonicalization and Authorization Model** | **complete (dieser Stand, uncommitted)** — **D-063**, **R-35**, **R-36** |
+| **B2D-GOV** | **Execution Prerequisites, Risk Canonicalization and Authorization Model** | **complete** — `committed` `7e8328a`, **D-063**, **R-35**, **R-36** |
+| **B2D-E0** | **Per-Run Authorization Artifact and Local Execution Package Audit** | **complete** — read-only, `PASS WITH NOTES` |
+| **B2D-AUTH** | **D-064 Per-Run Authorization Artifact Form** | **complete (dieser Stand, uncommitted)** — **D-064**, Variante **A1** |
 | **B2D-H** | **Optionaler operator-geführter Harness** | **nicht autorisiert** |
 | **B2D-E** | **Reale Ausführung in isolierter Referenzumgebung** | **nicht autorisiert** |
 | **B2D-V** | **Read-only Verifikation und Anonymisierung** | **nicht autorisiert** |
@@ -1538,9 +1541,140 @@ D-060 bis D-062, R-01 bis R-34 und das Contract-Dokument unverändert** ·
 
 ---
 
+## Phase B2D-E0 und B2D-AUTH — Form der per-run Autorisierung
+
+**B2D-GOV-Commit:** `7e8328a` — „CBP-WP-022: establish B2D execution
+prerequisites and risks", **zwölf modifizierte Dateien**, **355 Einfügungen /
+29 Löschungen**.
+
+### B2D-E0 — read-only Audit
+
+Der Audit bewertete fünf Autorisierungsvarianten, den Pflichtfeldsatz, das
+Einmaligkeitsmodell, die Trennung von Autorisierung und Evidenz sowie den
+Decision-Bedarf. Ergebnis:
+**`AUTHORIZE_D064_AUTHORIZATION_ARTIFACT_DECISION_PACKAGE`**, Nova-Review
+**`PASS WITH NOTES`**.
+
+**Zwei Korrekturen aus dem Review sind eingearbeitet:**
+
+| # | Korrektur |
+| --- | --- |
+| 1 | **Genau 20 Pre-run-Felder, nicht 21.** Das im Audit als Feld 21 geführte Post-run-Feld gehört **nicht** zum Pre-run-Autorisierungsrecord. Es gibt **kein `AUTH-21`**. |
+| 2 | **Alle Werte bleiben lokal.** Auch die zehn abstrakt repository-neutralen Feldarten tragen im Repository **keinen Wert**; versioniert sind ausschließlich Definition, Semantik und leerer Platzhalter. |
+
+### D-064 — die Formentscheidung
+
+| Feld | Wert |
+| --- | --- |
+| Decision | **D-064**, `accepted`, **A0**, 2026-08-05, Teile A–P |
+| Ergebnis | **`B2D_E_RUN_AUTHORIZATION_ARTIFACT_FORM_SELECTED`** |
+| ADR-Gate | **`ADR_NOT_REQUIRED`** — dokumentarisches Template, kein Harness, keine CLI, keine Configsemantik, kein maschinenlesbares Objekt, keine Runtimekopplung, keine Gate-Eingabefläche |
+| Anlass | löst die Vertagung aus **D-063 Teil H** ein |
+
+### Gewählte Variante A1
+
+**`VERSIONED_EMPTY_TEMPLATE_WITH_LOCAL_FILLED_COPY`.** Im Repository liegt ein
+**vollständig leeres** Template; **jede ausgefüllte Kopie liegt ausschließlich
+im lokalen Operator-Workspace** und darf **niemals** zurückkopiert, gestaged,
+committed, gepusht oder veröffentlicht werden. **Leere Pflichtwerte sind
+beabsichtigt und fail-closed.** Die Form folgt dem bereits etablierten
+Präzedenzfall `operator.env.example` (D-055).
+
+**Neue Datei:** [KB_04_B2D_E_RUN_AUTHORIZATION_TEMPLATE.md](../docs/runtime/KB_04_B2D_E_RUN_AUTHORIZATION_TEMPLATE.md)
+— siebzehn Kapitel, **keine ausführbaren Befehle**, **kein YAML, JSON oder
+TOML**, **keine Environment-Semantik**.
+
+### Exakt 20 Pre-run-Felder
+
+| Klasse | Anzahl | Felder |
+| --- | :-: | --- |
+| **`REPO_NEUTRAL_BINDING`** | **10** | `AUTH-01`…`AUTH-10` — Work Package und Phase · D-063 · Repository-HEAD · Contract-Revision und -Hash · ADR-0014 · Fallumfang · Ausschluss von P10 und N25 · Verfallsbedingungen · Stop-Bedingungen · B2D-G nicht gleichzeitig autorisiert |
+| **`LOCAL_ONLY_VALUE`** | **4** | `AUTH-11`…`AUTH-14` — opake Zielinstanzreferenz · Startzeitfenster · **einmalige lokale Run-ID** · Pre-run-Status |
+| **`VERSIONED_DEFINITION_LOCAL_VALUE`** | **6** | `AUTH-15`…`AUTH-20` — nicht produktiv · neu und leer · Recovery-Punkt · Identitätsbindung · Cleanup-Verantwortung · Human-Maintainer-Sign-off |
+
+Die Feldkennungen sind **dokumentarische Kennungen** — **keine** Decision-,
+Risk-, Control- oder Security-Test-IDs und **keine** Gate-Kriterien.
+
+### Elf gemeinsame Bindungen
+
+Repo-neutral: **HEAD · D-063 · Contract-Revision und -Hash · ADR-0014 ·
+Fallumfang.** Lokal: **Zielinstanzreferenz · Recovery-Punktreferenz ·
+Identitätsbindungszustand · Startzeitfenster · Run-ID · Sign-off.**
+
+**Fehlt eine Bindung: `INCOMPLETE_FAIL_CLOSED` — der Lauf darf nicht
+beginnen.**
+
+### Stop- und Verfallsmodell
+
+**Neunzehn Bedingungen.** Bei jeder gilt: **die Freigabe verfällt**, der Lauf
+**darf nicht beginnen oder muss abbrechen**, und **eine neue Freigabe ist
+erforderlich**. Eine Freigabe gilt für **genau einen Lauf, eine Zielinstanz
+und einen Fallumfang**, ist **nicht übertragbar**, **nicht wiederverwendbar**
+und wird **mit dem Laufbeginn verbraucht**. **Keine kryptografische Signatur,
+keine Schlüsselverwaltung**; eine lokale Hashbindung bleibt **optional**.
+
+**Lifecycle:** `INCOMPLETE_FAIL_CLOSED` · `AUTHORIZED_SINGLE_RUN` · `EXPIRED`
+· `REVOKED` — **im versionierten Template ist kein Zustand ausgewählt**.
+
+### Sechs-Fälle-Grenze und P10/N25-Ausschluss
+
+Maximaler späterer Scope: **`KB04-T-N07`**, **`KB04-T-N08`**,
+**`KB04-T-N14`**, **`KB04-T-N31`**, **`KB04-T-N33`** und **`KB04-T-P12` /
+Dimension D-I**. **Teilmengen sind zulässig**, verlangen aber **je eine eigene
+Freigabe**; **N07 und N08 bleiben getrennt**; **N14 benötigt eine gesicherte
+Cleanup-Verantwortung**. **`KB04-T-P10` und `KB04-T-N25` bleiben
+ausgeschlossen** — **kein B2D-E-Lauf schließt Contract §10.3.**
+
+### Pre-run und Post-run strikt getrennt
+
+Das Pre-run-Record wird **nach Laufbeginn nicht ergänzt** und enthält **keine
+Ausführungsergebnisse, kein Pass/Fail, keine Contract-Konformitätsaussage,
+keine Beobachtung und keine Cleanup-Bestätigung**. Ein **Post-run Operator
+Record** ist ein **separates lokales Artefakt**, **nicht Bestandteil dieses
+Work Packages**, hier **weder definiert noch erzeugt**.
+
+### Autorisierung ist keine Evidence
+
+**Eine Ausführungsfreigabe ist kein Sicherheitsnachweis.** Verboten sind die
+Aussagen *bestanden*, *erfüllt*, *nachgewiesen*, *konform*, *verified*,
+*`operationally_verified`*, *Gate erfüllt*, *Control hochgestuft*, *SB-S04
+wirksam*, *OD-37 geschlossen* und *Contract §10.3 abgedeckt*.
+
+### Weiterhin keine Ausführungsfreigabe
+
+**D-064 autorisiert keinen B2D-E-Lauf.** **B2D-E**, **B2D-V**, **B2D-G**,
+**B2D-H** (`NO_HARNESS_REQUIRED`), **B2B-Apply** und **reale Infrastruktur**
+bleiben **nicht autorisiert**; **NT-04 und NT-05 nicht ausgeführt**.
+
+### Stand nach B2D-AUTH
+
+**B0** `e4caa14` · **B1A** `1a7696d` · **B1B** `b86a35f` · **B1C** `24de07e` ·
+**B2A** `929d10b` · **B2B-P** `fff8227` · **B2C.1** `38eb33f` · **B2C.2**
+`117647f` · **B2C-T-R** `9cde9de` · **B2D-P** `b409d25` · **B2D-GOV**
+`7e8328a` — sämtlich committed. **B2C.0**, **B2D.0**, **B2D.1** und
+**B2D-E0** complete (read-only) · **B2C-T erster Lauf `BLOCKED`** ·
+**B2D-AUTH** complete (dieser Stand, uncommitted).
+
+**Zähler:** Decisions/A0/ADRs **64/60/14** · Risiken **35** (**20/14/1**),
+`offen` **13** · Tests **1202 grün, 0 übersprungen** · Traceability
+**45 / 37 / 2 / 6** · Capabilities **0 von 29**.
+
+**Unverändert:** **keine neue Risiko-ID** · **keine D-065** · **R-33
+unverändert und nicht geschlossen** · **KB-04 `DOCUMENTED ONLY`** · beide
+Gates **`NOT EVALUATED`** · **NT-04 und NT-05 nicht ausgeführt** · **SB-S04
+nicht wirksam** · **R-20 und OD-37 offen** · **RT-2 nicht implementiert** ·
+**Contract §10.3 technisch offen** · **ADR-0013, ADR-0014, D-001 bis D-063,
+R-01 bis R-36 und das Contract-Dokument unverändert** · **CBP-WP-023 nicht
+registriert**.
+
+**Ein leeres Formular ist keine Freigabe, und eine Freigabe ist kein
+Nachweis.**
+
+---
+
 ## Aussageschutz
 
-Dieses Work Package belegt auch nach Phase B2D-GOV **nicht**:
+Dieses Work Package belegt auch nach Phase B2D-AUTH **nicht**:
 
 | Nicht belegt | Tatsächlicher Stand |
 | --- | --- |
@@ -1568,6 +1702,9 @@ Dieses Work Package belegt auch nach Phase B2D-GOV **nicht**:
 | Eine kanonisierte Voraussetzung sei eine Ausführungsfreigabe | **nein** — **D-063 autorisiert keinen B2D-E-Lauf**; jeder Lauf verlangt eine **einmalige, nicht übertragbare** Freigabe über zehn Bestätigungen |
 | `NO_HARNESS_REQUIRED` bedeute, ein Harness sei verboten | **nein** — es bedeutet, dass **keiner technisch erforderlich** ist; ein optionaler **H1**-Testhelper bliebe möglich, verlangte aber eine eigene Freigabe |
 | Die Aggregatreconciliation schließe R-33 | **nein** — sie ist ein **weiterer belegter Vorgang** seiner Fehlerklasse; **R-33 bleibt unverändert offen** |
+| Ein leeres Autorisierungstemplate sei eine Ausführungsfreigabe | **nein** — es enthält **keine** Zielinstanz, **keine** Run-ID, **keinen** Recovery-Punkt, **keine** Identitätswerte, **keinen** Startzeitpunkt und **keine** Unterschrift; **D-064 autorisiert keinen Lauf** |
+| Ein Pflichtfeldsatz sei ein Nachweis | **nein** — **eine Ausführungsfreigabe ist kein Sicherheitsnachweis**; Pass/Fail und Konformitätsaussagen sind im Template **verboten** |
+| Ein repo-neutrales Feld dürfe einen Wert im Repository tragen | **nein** — **alle** Werte, auch opake Referenzen und die Run-ID, bleiben **lokal-only**; versioniert sind nur Definition, Semantik und leerer Platzhalter |
 
 **Die Registrierung eines Work Packages ist keine Implementierungsfreigabe.**
 

@@ -50,7 +50,7 @@ nur zur Statusvollständigkeit geführt:
 | **CBP-WP-019** | Deployment Readiness Intake and Profile-A Target Specification | **`committed`** — `3c437f2` |
 | **CBP-WP-020** | Controlled Profile-A Deployment Foundation | **`committed`** — `17057e2` (B0), `9c6c0fb` (B1/B2), `d6a1a3c` (C) |
 | **CBP-WP-021** | Canonical Security Test Inventory Reconciliation | **`committed`** — `0cb4ea9` (B0), `271acc7` (B1/B2), `0344774` (C) |
-| **CBP-WP-022** | KB-04 Enforcement Stage 1 | **`in-review`** (Phase B2D-P) — B0…B2C.2 committed, **B2C-T-R `committed` `9cde9de`**; D-057…**D-062**, **ADR-0014 `accepted`/A1**, **Enforcement Contract `accepted contract`**; **read-only Validator- und Initialisierungsplanungspaket implementiert**; **vollständige 45er-Traceability** (Split **37/2/6**, Gesamtsuite **1202**); **B2D.0 und B2D.1 read-only complete** (je `PASS WITH NOTES`); **B2D-P `committed` `b409d25`**; **B2D-GOV registriert D-063, R-35 und R-36**, **uncommitted**; **kein Evidence-Artefakt**, Contract §10.3 offen; **reale Infrastruktur, B2D-H/E/V/G und B2B-Apply nicht autorisiert** |
+| **CBP-WP-022** | KB-04 Enforcement Stage 1 | **`in-review`** (Phase B2D-P) — B0…B2C.2 committed, **B2C-T-R `committed` `9cde9de`**; D-057…**D-062**, **ADR-0014 `accepted`/A1**, **Enforcement Contract `accepted contract`**; **read-only Validator- und Initialisierungsplanungspaket implementiert**; **vollständige 45er-Traceability** (Split **37/2/6**, Gesamtsuite **1202**); **B2D.0, B2D.1 und B2D-E0 read-only complete** (je `PASS WITH NOTES`); **B2D-P `committed` `b409d25`**, **B2D-GOV `committed` `7e8328a`**; **B2D-AUTH registriert D-064 und legt das leere Autorisierungstemplate an**, **uncommitted**; **kein Evidence-Artefakt**, Contract §10.3 offen; **reale Infrastruktur, B2D-H/E/V/G und B2B-Apply nicht autorisiert** |
 
 **CBP-WP-020 ist `committed` und `complete`** (D-055): Phase B0 `17057e2`,
 Phase B1/B2 `9c6c0fb`. Das **Profil-A-Bundle** liegt als Repository-Artefakt mit
@@ -152,7 +152,7 @@ Evidenzoptionen **ohne Auswahl** und sechs Risikokandidaten **ohne ID**.
 Aktion.
 
 **Phase B2D.1 ist read-only abgeschlossen** (`PASS WITH NOTES`) und
-**Phase B2D-GOV abgeschlossen und uncommitted**: **D-063** (`accepted`,
+**Phase B2D-GOV `committed` (`7e8328a`)**: **D-063** (`accepted`,
 **A0**, `B2D_EXECUTION_PREREQUISITES_ESTABLISHED`, `ADR_NOT_REQUIRED`)
 kanonisiert die Ausführungsvoraussetzungen, registriert **R-35** und **R-36**
 (beide **hoch**, **offen**), entscheidet die Harnessfrage mit
@@ -161,6 +161,17 @@ kanonisiert die Ausführungsvoraussetzungen, registriert **R-35** und **R-36**
 Lauf** — jeder spätere B2D-E-Lauf verlangt eine **einmalige, nicht
 übertragbare** Freigabe. **Es entsteht kein Evidence-Artefakt und keine
 Gate-Eingabe.**
+
+**Phase B2D-E0 ist read-only abgeschlossen** (`PASS WITH NOTES`) und
+**Phase B2D-AUTH abgeschlossen und uncommitted**: **D-064** (`accepted`,
+**A0**, `B2D_E_RUN_AUTHORIZATION_ARTIFACT_FORM_SELECTED`,
+`ADR_NOT_REQUIRED`) wählt **Variante A1** und legt ein **leeres versioniertes
+Autorisierungstemplate** mit **20 Pre-run-Pflichtfeldern** `AUTH-01` bis
+`AUTH-20` an (**10 repo-neutral · 4 lokal-only · 6 Definition mit lokalem
+Wert**). **Ausgefüllte Kopien bleiben ausschließlich lokal**, eine Freigabe
+ist **einmalig und nicht übertragbar**, und **Pre-run und Post-run bleiben
+getrennt**. **Kein Evidence-Artefakt, keine Gate-Eingabe, keine
+Ausführungsfreigabe.**
 
 **Nächste mögliche Phasen: B2D-H, B2D-E, B2D-V, B2D-G und B2B-Apply —
 sämtlich nicht begonnen und nicht autorisiert; reale Infrastruktur ist nicht

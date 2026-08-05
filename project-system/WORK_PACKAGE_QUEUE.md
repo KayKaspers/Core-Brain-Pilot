@@ -3,11 +3,11 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Aktuelles Work Package | **CBP-WP-022** (`in-review`, **Phase B2D-GOV – Execution Prerequisites, Risk Canonicalization and Authorization Model**) — **D-057** Registrierung, **D-058** ADR-Gate (**`ADR_REQUIRED`**), **D-059** Architekturannahme und **D-060** Enforcement Contract (alle `accepted`, **A0**, 2026-08-03); **ADR-0014 `accepted`, Autoritätsklasse A1** — **Host-authoritative Enforcement mit deklarativem Zielmodell und read-only Runtime-Validierung**; Vertrag [KB_04_STAGE_1_ENFORCEMENT_CONTRACT.md](../docs/security/KB_04_STAGE_1_ENFORCEMENT_CONTRACT.md) **`accepted contract`** (**`ADR_NOT_REQUIRED`** innerhalb ADR-0014); B0 `committed` (`e4caa14`), B1A `committed` (`1a7696d`), B1B `committed` (`b86a35f`), B1C `committed` (`24de07e`), B2A `committed` (`929d10b`), B2B-P `committed` (`fff8227`), **B2C.1 `committed` (`38eb33f`), B2C.2 `committed` (`117647f`), **B2C-T-R uncommitted**; **D-061** (`accepted`, **A0**) begrenzt **B2C** auf eine rein synthetische Test-, Fixture- und Traceabilityphase — **Variante E nicht autorisiert**; **D-062** (`accepted`, **A0**) setzt nach dem `BLOCKED` beendeten ersten B2C-T-Lauf den kanonischen Abdeckungssplit **37/2/6** über 45 Kennungen; **B2C-T-R implementiert diese Traceability** mit drei neuen Testdateien, **152 neuen Tests** und einer Gesamtsuite von **1202 grün** — **Contract §10.3 bleibt offen**; **B2B-P ergänzt eine Plan-only Initialisierungsplanung** (zwei Module, drei aktivierte Contract-ReasonCodes, **120 neue Tests**, Gesamtsuite **1050 grün**) — **kein `apply_plan`, kein `mkdir`, kein `chmod`, kein `chown`, keine Mutation**; zuvor **B2A: das interne, read-only Enforcement-Paket** `core/core_brain/enforcement/` (sechs Module, 21 additive `KB04-*`-ReasonCodes, **206 neue Tests**, Gesamtsuite **930 grün**) — **keine CLI, keine Config, kein Deployment, keine Mutation, keine operative Evidenz**; **KB-04 Enforcement Stage 1** bleibt `DOCUMENTED ONLY`; **B2C-T-Resume, B2B-Apply und B2D nicht autorisiert**. Zuletzt abgeschlossen **CBP-WP-021** (`committed`, `complete`, 2026-08-03; **D-056**, `ADR_NOT_REQUIRED`; kanonisch **32 Negativtests / 1 Positivtest / 33 Testfälle**, **0 von 32** und **0 von 1** ausgeführt; B0 `0cb4ea9`, B1/B2 `271acc7`). Zuvor abgeschlossen **CBP-WP-020** (`committed`, `complete`; B0 `17057e2`, B1/B2 `9c6c0fb`, C `d6a1a3c`). **CBP-WP-023 nicht registriert, nicht autorisiert.** |
+| Aktuelles Work Package | **CBP-WP-022** (`in-review`, **Phase B2D-AUTH – D-064 Per-Run Authorization Artifact Form**) — **D-057** Registrierung, **D-058** ADR-Gate (**`ADR_REQUIRED`**), **D-059** Architekturannahme und **D-060** Enforcement Contract (alle `accepted`, **A0**, 2026-08-03); **ADR-0014 `accepted`, Autoritätsklasse A1** — **Host-authoritative Enforcement mit deklarativem Zielmodell und read-only Runtime-Validierung**; Vertrag [KB_04_STAGE_1_ENFORCEMENT_CONTRACT.md](../docs/security/KB_04_STAGE_1_ENFORCEMENT_CONTRACT.md) **`accepted contract`** (**`ADR_NOT_REQUIRED`** innerhalb ADR-0014); B0 `committed` (`e4caa14`), B1A `committed` (`1a7696d`), B1B `committed` (`b86a35f`), B1C `committed` (`24de07e`), B2A `committed` (`929d10b`), B2B-P `committed` (`fff8227`), **B2C.1 `committed` (`38eb33f`), B2C.2 `committed` (`117647f`), **B2C-T-R uncommitted**; **D-061** (`accepted`, **A0**) begrenzt **B2C** auf eine rein synthetische Test-, Fixture- und Traceabilityphase — **Variante E nicht autorisiert**; **D-062** (`accepted`, **A0**) setzt nach dem `BLOCKED` beendeten ersten B2C-T-Lauf den kanonischen Abdeckungssplit **37/2/6** über 45 Kennungen; **B2C-T-R implementiert diese Traceability** mit drei neuen Testdateien, **152 neuen Tests** und einer Gesamtsuite von **1202 grün** — **Contract §10.3 bleibt offen**; **B2B-P ergänzt eine Plan-only Initialisierungsplanung** (zwei Module, drei aktivierte Contract-ReasonCodes, **120 neue Tests**, Gesamtsuite **1050 grün**) — **kein `apply_plan`, kein `mkdir`, kein `chmod`, kein `chown`, keine Mutation**; zuvor **B2A: das interne, read-only Enforcement-Paket** `core/core_brain/enforcement/` (sechs Module, 21 additive `KB04-*`-ReasonCodes, **206 neue Tests**, Gesamtsuite **930 grün**) — **keine CLI, keine Config, kein Deployment, keine Mutation, keine operative Evidenz**; **KB-04 Enforcement Stage 1** bleibt `DOCUMENTED ONLY`; **B2C-T-Resume, B2B-Apply und B2D nicht autorisiert**. Zuletzt abgeschlossen **CBP-WP-021** (`committed`, `complete`, 2026-08-03; **D-056**, `ADR_NOT_REQUIRED`; kanonisch **32 Negativtests / 1 Positivtest / 33 Testfälle**, **0 von 32** und **0 von 1** ausgeführt; B0 `0cb4ea9`, B1/B2 `271acc7`). Zuvor abgeschlossen **CBP-WP-020** (`committed`, `complete`; B0 `17057e2`, B1/B2 `9c6c0fb`, C `d6a1a3c`). **CBP-WP-023 nicht registriert, nicht autorisiert.** |
 | Gate G0 | **PASSED WITH NOTES** — 2026-07-21 |
 | Überarbeitet in | **CBP-WP-016** |
 | Autoritätsklasse | A2 |
-| Stand | 2026-08-04 — CBP-WP-022 Phase B2D-GOV |
+| Stand | 2026-08-05 — CBP-WP-022 Phase B2D-AUTH |
 
 Spalten nach `WORK_PACKAGE_QUEUE_TEMPLATE.md` (NDF v1.0.0).
 
@@ -48,7 +48,7 @@ Spalten nach `WORK_PACKAGE_QUEUE_TEMPLATE.md` (NDF v1.0.0).
 | CBP-WP-019 | **Deployment Readiness Intake and Profile-A Target Specification** | P1 | **`committed`** | [work-packages/CBP-WP-019.md](../work-packages/CBP-WP-019.md) |
 | CBP-WP-020 | **Controlled Profile-A Deployment Foundation** | P1 | **`committed`** (B0 `17057e2`, B1/B2 `9c6c0fb`) | [work-packages/CBP-WP-020.md](../work-packages/CBP-WP-020.md) |
 | CBP-WP-021 | **Canonical Security Test Inventory Reconciliation** | P1 | **`committed`** (B0 `0cb4ea9`, B1/B2 `271acc7`, C `0344774`) | [work-packages/CBP-WP-021.md](../work-packages/CBP-WP-021.md) |
-| CBP-WP-022 | **KB-04 Enforcement Stage 1** | P1 | **`in-review`** (Phase B2D-GOV; B0…B2C-T-R committed, **B2D-P `committed` `b409d25`**; **ADR-0014 `accepted`/A1**, **Contract `accepted`**, **D-061 B2C-Scope**, **D-062 Coverage-Split 37/2/6**, **D-063 B2D-Voraussetzungen**; 45er-Traceability implementiert, Gesamtsuite 1202; **B2D.0 und B2D.1 read-only complete**, **B2D-GOV uncommitted** — **R-35**, **R-36**, **`NO_HARNESS_REQUIRED`**; **reale Infrastruktur und B2D-H/E/V/G nicht autorisiert**) | [work-packages/CBP-WP-022.md](../work-packages/CBP-WP-022.md) |
+| CBP-WP-022 | **KB-04 Enforcement Stage 1** | P1 | **`in-review`** (Phase B2D-AUTH; B0…B2D-P committed, **B2D-GOV `committed` `7e8328a`**; **ADR-0014 `accepted`/A1**, **Contract `accepted`**, **D-061 B2C-Scope**, **D-062 Coverage-Split 37/2/6**, **D-063 B2D-Voraussetzungen**; 45er-Traceability implementiert, Gesamtsuite 1202; **B2D.0 und B2D.1 read-only complete**, **B2D-AUTH uncommitted** — **D-064**, Variante **A1**, leeres Template mit **20** Pre-run-Feldern; **reale Infrastruktur und B2D-H/E/V/G nicht autorisiert**) | [work-packages/CBP-WP-022.md](../work-packages/CBP-WP-022.md) |
 
 **Kein Work Package ist als `proposed` geführt.** **CBP-WP-019** (Deployment
 Readiness Intake and Profile-A Target Specification) steht auf **`in-review`** in
@@ -741,7 +741,7 @@ registriert noch autorisiert**.
 | Typ | **security-foundation enforcement** (Stufe 1) |
 | Prompt Mode | **Full** · Context Budget **B2 – Standard** |
 | Status | **`in-review`** |
-| Aktuelle Phase | **Phase B2D-GOV – Execution Prerequisites, Risk Canonicalization and Authorization Model** |
+| Aktuelle Phase | **Phase B2D-AUTH – D-064 Per-Run Authorization Artifact Form** |
 | Registration Decision | **D-057** (konsolidiert, A–M), `accepted`, **A0**, 2026-08-03 |
 | ADR-Gate-Decision | **D-058** (konsolidiert, A–M), `accepted`, **A0**, 2026-08-03 — Ergebnis **`ADR_REQUIRED`** |
 | Architektur-Decision | **D-059** (konsolidiert, A–N), `accepted`, **A0**, 2026-08-03 — Ergebnis **`ADR-0014_ACCEPTED`** |
@@ -750,7 +750,7 @@ registriert noch autorisiert**.
 | Enforcement Contract | [KB_04_STAGE_1_ENFORCEMENT_CONTRACT.md](../docs/security/KB_04_STAGE_1_ENFORCEMENT_CONTRACT.md) — **`accepted contract`**, 2026-08-03 |
 | Human-Maintainer-Freigabe | **B1C Contract and Validation Plan authorized** |
 | Technische Implementierung | **nicht autorisiert** |
-| Commit | **B0 `committed` `e4caa14`** · **B1A `committed` `1a7696d`** · **B1B `committed` `b86a35f`** · **B1C `committed` `24de07e`** · **B2A `committed` `929d10b`** · **B2B-P `committed` `fff8227`** · **B2C.1 `committed` `38eb33f`** · **B2C.2 `committed` `117647f`** · **B2C-T-R `committed` `9cde9de`** · **B2D-P `committed` `b409d25`** · **B2D-GOV nicht committed** (Commit-Autorität beim Human Maintainer) |
+| Commit | **B0 `committed` `e4caa14`** · **B1A `committed` `1a7696d`** · **B1B `committed` `b86a35f`** · **B1C `committed` `24de07e`** · **B2A `committed` `929d10b`** · **B2B-P `committed` `fff8227`** · **B2C.1 `committed` `38eb33f`** · **B2C.2 `committed` `117647f`** · **B2C-T-R `committed` `9cde9de`** · **B2D-P `committed` `b409d25`** · **B2D-GOV `committed` `7e8328a`** · **B2D-AUTH nicht committed** (Commit-Autorität beim Human Maintainer) |
 
 **KB-04 ist der Kontrollbereich „Dateisystemrechte“.** Ziel: **Deny-by-default
 auf Dateiebene**; Bedrohung: **Direktzugriff unter Umgehung der Anwendung**.
@@ -1210,7 +1210,32 @@ Gate-Eingabe · Gateauswertung · Control-Uplift · SB-S04-Aktivierung ·
 **Eine Voraussetzung ist keine Ausführung, und eine Ausführungsfreigabe ist
 kein Nachweis.**
 
-**Unverändert nach B2D-GOV:** Decisions/A0/ADRs **63/59/14** · **KB-04
+**Phase B2D-E0 und B2D-AUTH (dieser Stand, uncommitted):** **B2D-GOV ist
+`committed` (`7e8328a`).** Der read-only Audit **B2D-E0** bewertete die
+Autorisierungsvarianten und ergab `PASS WITH NOTES`; **B2D-AUTH** registriert
+daraufhin **D-064** (`accepted`, **A0**, Teile A–P, Ergebnis
+**`B2D_E_RUN_AUTHORIZATION_ARTIFACT_FORM_SELECTED`**, **`ADR_NOT_REQUIRED`**,
+2026-08-05) und löst die Vertagung aus **D-063 Teil H** ein:
+
+| Gegenstand | Festlegung |
+| --- | --- |
+| Variante | **A1** — **`VERSIONED_EMPTY_TEMPLATE_WITH_LOCAL_FILLED_COPY`** |
+| Neue Datei | **leeres** [KB_04_B2D_E_RUN_AUTHORIZATION_TEMPLATE.md](../docs/runtime/KB_04_B2D_E_RUN_AUTHORIZATION_TEMPLATE.md) |
+| Pflichtfelder | **genau 20** — `AUTH-01`…`AUTH-20`, **kein `AUTH-21`** |
+| Klassifikation | **10 `REPO_NEUTRAL_BINDING` · 4 `LOCAL_ONLY_VALUE` · 6 `VERSIONED_DEFINITION_LOCAL_VALUE`** |
+| Lokalitätsgrenze | **Zielinstanzreferenz, Run-ID, Zeit- und Recovery-Angaben bleiben lokal-only** |
+| Bindungen | **elf gemeinsam**; fehlt eine: **`INCOMPLETE_FAIL_CLOSED`** |
+| Einmaligkeit | **ein Lauf, eine Zielinstanz, ein Fallumfang**; mit Laufbeginn **verbraucht**; **keine Signatur** |
+| Lifecycle | `INCOMPLETE_FAIL_CLOSED` · `AUTHORIZED_SINGLE_RUN` · `EXPIRED` · `REVOKED` — **im Template keiner ausgewählt** |
+| Trennung | **Pre-run und Post-run strikt getrennt**; kein Pass/Fail, keine Konformitätsaussage |
+
+**Das Template ist keine Freigabe und kein Nachweis.** **Ausdrücklich
+außerhalb:** Post-run Record · lokale Beobachtung · Testprotokoll ·
+anonymisierte Zusammenfassung · Security-Control-Form · Evidence-Producer ·
+Gate-Eingabe · Gateauswertung · Control-Uplift · SB-S04-Aktivierung ·
+**OD-37** · **§10.3** · **B2B-Apply** · **B2D-E-Ausführung**.
+
+**Unverändert nach B2D-AUTH:** Decisions/A0/ADRs **64/60/14** · **KB-04
 und alle zwölf Controls `DOCUMENTED ONLY`** · beide Gates
 **`NOT EVALUATED`** · Capabilities **0 von 29** · **NT-04 und NT-05
 nicht ausgeführt** · **SB-S04 nicht wirksam** · **R-20 offen** ·

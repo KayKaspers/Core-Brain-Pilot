@@ -759,6 +759,87 @@ kein Nachweis.**
 
 ---
 
+## Nachtrag B2D-AUTH — Form der per-run Autorisierung
+
+> **Ergänzt in Phase B2D-AUTH.** Dieser Nachtrag **schwächt keine der
+> vorstehenden Sicherheitsgrenzen ab**. Er löst die Vertagung aus
+> **D-063 Teil H** ein.
+
+### N2.1 — Entscheidungsgrundlage
+
+| Feld | Wert |
+| --- | --- |
+| Decision | **D-064**, `accepted`, **A0**, 2026-08-05, Teile A–P |
+| Ergebnis | **`B2D_E_RUN_AUTHORIZATION_ARTIFACT_FORM_SELECTED`** |
+| ADR-Gate | **`ADR_NOT_REQUIRED`** — innerhalb ADR-0014 und D-063 |
+| Vorlauf | **B2D-E0** read-only Audit, `PASS WITH NOTES` |
+
+### N2.2 — Gewählte Variante A1
+
+**`VERSIONED_EMPTY_TEMPLATE_WITH_LOCAL_FILLED_COPY`.** Das Repository hält
+**nur ein vollständig leeres Template** —
+[KB_04_B2D_E_RUN_AUTHORIZATION_TEMPLATE.md](KB_04_B2D_E_RUN_AUTHORIZATION_TEMPLATE.md).
+**Jede ausgefüllte Kopie liegt ausschließlich im lokalen Operator-Workspace**
+und darf **niemals** zurückkopiert, gestaged, committed, gepusht oder
+veröffentlicht werden. **Leere Pflichtwerte sind beabsichtigt und
+fail-closed.**
+
+### N2.3 — Genau zwanzig Pre-run-Pflichtfelder
+
+Ratifiziert sind **`AUTH-01`** bis **`AUTH-20`** — **kein `AUTH-21`**. Das im
+Audit als Feld 21 beschriebene **Post-run-Feld gehört nicht** zum
+Pre-run-Autorisierungsrecord.
+
+| Klasse | Anzahl | Inhalt |
+| --- | :-: | --- |
+| **`REPO_NEUTRAL_BINDING`** | **10** | Work Package und Phase · D-063 · Repository-HEAD · Contract-Revision und -Hash · ADR-0014 · Fallumfang · Ausschluss von P10 und N25 · Verfallsbedingungen · Stop-Bedingungen · B2D-G nicht gleichzeitig autorisiert |
+| **`LOCAL_ONLY_VALUE`** | **4** | opake Zielinstanzreferenz · Startzeitfenster · **einmalige lokale Run-ID** · Pre-run-Status |
+| **`VERSIONED_DEFINITION_LOCAL_VALUE`** | **6** | nicht produktiv · neu und leer · Recovery-Punkt · Identitätsbindung · Cleanup-Verantwortung · Human-Maintainer-Sign-off |
+
+**Auch die zehn repo-neutralen Feldarten tragen im Repository keinen Wert** —
+versioniert sind ausschließlich **Definition, Semantik und leerer
+Platzhalter**.
+
+### N2.4 — Elf gemeinsame Bindungen
+
+Repo-neutral: **HEAD · D-063 · Contract-Revision und -Hash · ADR-0014 ·
+Fallumfang**. Lokal: **Zielinstanzreferenz · Recovery-Punktreferenz ·
+Identitätsbindungszustand · Startzeitfenster · Run-ID · Sign-off**.
+
+**Fehlt eine Bindung: `INCOMPLETE_FAIL_CLOSED` — der Lauf darf nicht
+beginnen.** Eine Freigabe gilt für **genau einen Lauf, eine Zielinstanz und
+einen Fallumfang**, wird **mit dem Laufbeginn verbraucht** und verfällt bei
+jeder bindungsrelevanten Änderung. **Keine Signatur, keine
+Schlüsselverwaltung**; eine lokale Hashbindung bleibt **optional**.
+
+### N2.5 — Lokalitätsgrenze
+
+**Die opake Zielinstanzreferenz bleibt lokal-only**, ebenso die **lokale
+Run-ID** sowie Zeit- und Recovery-Angaben. Begründung: eine einzelne opake
+Kennung verrät den Wert nicht, ihre **Versionierung über mehrere Läufe** legt
+jedoch **Anzahl, Reihenfolge und Zeitpunkte** realer Instanzen offen.
+
+### N2.6 — Pre-run und Post-run getrennt
+
+Das Pre-run-Record wird **nach Laufbeginn nicht ergänzt** und enthält **kein
+Pass/Fail, keine Konformitätsaussage, keine Beobachtung und keine
+Cleanup-Bestätigung**. Ein **Post-run Operator Record** ist ein **separates
+lokales Artefakt**, **nicht Bestandteil dieses Work Packages**, hier **weder
+definiert noch erzeugt**.
+
+### N2.7 — Kein Evidence- oder Gate-Artefakt
+
+Das Template ist **keine** Evidenz, **keine** Gate-Eingabe und **keine**
+Ausführungsfreigabe. **Eine Ausführungsfreigabe ist kein Sicherheitsnachweis.**
+
+### N2.8 — Status nach B2D-AUTH
+
+**B2D-E**, **B2D-V**, **B2D-G**, **B2D-H** (`NO_HARNESS_REQUIRED`) und **reale
+Infrastruktur** bleiben **nicht autorisiert**. **NT-04 und NT-05 nicht
+ausgeführt.** Die Autorisierungsmatrix aus Kapitel 18 gilt unverändert fort.
+
+---
+
 ## Aussagegrenzen dieses Dokuments
 
 | Nicht belegt | Tatsächlicher Stand |
