@@ -952,6 +952,100 @@ Ausführungsfreigabe.**
 
 ---
 
+## Nachtrag B2D-E-N07-GOV — Retrieval-Instanziierungsgrenze
+
+**Rechtsgrundlage: D-066** (`accepted`, **A0**, 2026-08-05, Ergebnis
+**`PROFILE_A_RETRIEVAL_NOT_INSTANTIATED_N07_DEFERRED`**, **`ADR_NOT_REQUIRED`**).
+Dieser Nachtrag ist **rein dokumentarisch** und autorisiert nichts.
+
+### N4.1 — Anlass
+
+Der read-only Lauf **B2D-E-N07-PREP** sollte ein Einzellaufpaket für
+**`KB04-T-N07`** herleiten und endete mit **`N07_IDENTITY_MAPPING_INSUFFICIENT`**.
+Die Contract-Rolle **`retrieval`** besitzt in der gegenwärtigen
+Profile-A-Ausbaustufe **keine belegte actor-specific Bindung** an eine
+konkrete Runtimeidentität.
+
+### N4.2 — Bestätigte Befunde
+
+| # | Befund |
+| ---: | --- |
+| 1 | Die Rolle `retrieval` ist **abstrakt definiert** und gehört zu den zehn Akteuren aus §5 |
+| 2 | **Profil A instanziiert derzeit keinen eindeutig benannten Retrieval-Dienst** |
+| 3 | Es besteht **keine ausreichend belegte actor-specific Bindung** an eine Profile-A-Runtimeidentität |
+| 4 | **Eine willkürliche Zuordnung wäre ergebnisbestimmend** |
+| 5 | Ein vollständiger N07-Lauf verlangt **D-II** und **D-III** |
+| 6 | **D-II und D-III sind ohne autorisierte Runtime nicht beobachtbar** |
+| 7 | Ein Hostprozess unter einer POSIX-Identität ist **kein vollständiger Ersatz** für eine gebundene Runtimeidentität |
+| 8 | **Ein vollständiger N07-Lauf ist derzeit nicht autorisierbar** |
+
+### N4.3 — Gewählte Variante C
+
+Die abstrakte Rolle `retrieval` ist **weder als eigenständige
+Runtimekomponente noch als eindeutig gebundene Runtimeidentität
+instanziiert**. Sie wird **nicht** auf eine vorhandene
+Profile-A-Dienstidentität abgebildet und **insbesondere nicht ohne weitere
+Governanceentscheidung** mit **control-plane**, **data-worker**, einer
+**Eigentümeridentität** oder einer **deployment-owned** Identität
+gleichgesetzt.
+
+### N4.4 — Verworfene Varianten
+
+| Variante | Verwerfungsgrund |
+| --- | --- |
+| **A** — Zuordnung auf eine bestehende Dienstidentität ohne zusätzliche Governance | keine kanonisch eindeutige Zuordnung · die Zuordnung **bestimmt den Testausgang** · sie **konkretisierte das Identitätsmodell materiell** |
+| **B** — jetzt eine neue Retrieval-Identität oder Runtimekomponente einführen | Retrieval-Pilot und -Komponente **nicht begonnen** · **vorgezogene Implementierung** · **Phase-0-Sperrgrenzen** · **R-12** |
+
+### N4.5 — Verbindliche Folgen
+
+**Keine** Retrieval-Zuordnung, lokal wie repositoryseitig · **keine** neue
+Identität · **keine** neue Gruppe · **keine** neue Runtimekomponente ·
+**kein** Container · **kein** Deployment · **kein** N07-Schreibversuch ·
+**kein** actor-specific N07-Host-Precheck · **keine** lokale
+N07-Autorisierungskopie · **AUTH-14 bleibt für N07
+`INCOMPLETE_FAIL_CLOSED`** · **AUTH-20 bleibt ungesetzt** · **N07 bleibt
+`B2D_REAL_ONLY`**, ist aber **gegenwärtig nicht ausführbar** ·
+**Traceability-Disposition unverändert** · **`KB04-T-P10` und
+`KB04-T-N25` bleiben ausgeschlossen**.
+
+### N4.6 — AUTH-18-Grenze
+
+| Gegenstand | Aussage |
+| --- | --- |
+| **Allgemeine Baseline** | Die Bindungen der **bereits instanziierten** Rollen bleiben **gültig**, ihre lokale Beobachtung bleibt unverändert, und die **fixturefreie Baseline bleibt vorbereitet**. **AUTH-18 bleibt dafür lokal belegbar.** |
+| **N07-Einzellauf** | Die actor-specific Rolle `retrieval` besitzt **keine akzeptierte konkrete Runtimeidentitätsbindung**; **AUTH-18 ist im N07-Autorisierungsrecord nicht vollständig belegbar**, und der Lauf bleibt **fail-closed blockiert**. |
+
+### N4.7 — ReasonCode-Grenze
+
+**Betriebssystembeobachtung** umfasst höchstens *Schreiboperation
+verweigert*, *Exitcode ungleich null* und gegebenenfalls die
+*EACCES-/EPERM-Klasse*. **KB-04-ReasonCodes werden ausschließlich durch
+einen tatsächlichen Validatorlauf beobachtet**; ohne einen solchen darf
+**kein** ReasonCode als beobachtet behauptet werden — weder
+`KB04-MODE-MISMATCH` noch `KB04-MOUNT-MODE-MISMATCH` noch ein anderer.
+**D-066 registriert keine Validatorbeobachtung.**
+
+### N4.8 — Fünf Reopen-Trigger
+
+**(1)** Retrieval-Phase offiziell autorisiert · **(2)** Retrieval Policy
+Gateway als reale Profile-A-Komponente autorisiert · **(3)**
+Profile-A-Runtime erhält eine ausdrücklich akzeptierte
+Retrieval-Instanziierung · **(4)** eine spätere A0-Entscheidung legt eine
+actor-specific Identitätsbindung fest · **(5)** eine Contract-Klarstellung
+verändert die N07-Akteurs- oder Dimensionsanforderungen.
+
+### N4.9 — Status nach B2D-E-N07-GOV
+
+**`KB04-T-N07` zurückgestellt** · **`KB04-T-N14`** ist **nur** der nächste
+mögliche Planungskandidat und **nicht autorisiert** · **keine Runtime, kein
+Deployment, keine Testausführung** · **B2D-E nicht ausgeführt** · **B2D-G
+nicht autorisiert** · **NT-04 und NT-05 nicht ausgeführt** · **keine neue
+Risiko-ID**.
+
+**Eine zurückgestellte Prüfung ist weder ein Fehlschlag noch ein Nachweis.**
+
+---
+
 ## Aussagegrenzen dieses Dokuments
 
 | Nicht belegt | Tatsächlicher Stand |

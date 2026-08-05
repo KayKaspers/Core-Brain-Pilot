@@ -1273,6 +1273,99 @@ Security-Test-ID · **RT-2 nicht implementiert** · **ADR-0014, D-060 und D-061
 unverändert** · **B2B-Apply, B2D-H, B2D-E, B2D-V, B2D-G und reale
 Infrastruktur nicht autorisiert** · **CBP-WP-023 nicht registriert**.
 
+---
+
+### Phase B2D-E-N07-GOV — D-066 Profile-A Retrieval Role Instantiation Boundary
+
+**B2D-ENV-GOV ist `committed` (`0cd21f5`).** Anschließend haben die read-only
+Läufe **B2D-PREP-PLAN** und **B2D-PREP-PLAN-N1** den target-spezifischen
+Baselineplan hergeleitet und korrigiert; **B2D-E-N07-PREP** sollte daraus ein
+Einzellaufpaket für **`KB04-T-N07`** ableiten und endete mit
+**`N07_IDENTITY_MAPPING_INSUFFICIENT`**.
+
+**D-066** (`accepted`, **A0**, 2026-08-05, Ergebnis
+**`PROFILE_A_RETRIEVAL_NOT_INSTANTIATED_N07_DEFERRED`**,
+**`ADR_NOT_REQUIRED`**) hält daraufhin die **Instanziierungsgrenze** fest.
+
+**Gewählte Variante C:** Die Contract-Rolle **`retrieval`** ist in der
+gegenwärtigen Profile-A-Ausbaustufe **weder als eigenständige
+Runtimekomponente noch als eindeutig gebundene Runtimeidentität
+instanziiert** und wird **nicht** auf `control-plane`, `data-worker`, eine
+Eigentümeridentität oder eine deployment-owned Identität abgebildet.
+**Variante A** — Zuordnung ohne zusätzliche Governance — ist verworfen, weil
+keine kanonisch eindeutige Zuordnung vorliegt, die Zuordnung **den
+Testausgang bestimmt** und sie das **Identitätsmodell materiell
+konkretisierte**. **Variante B** — jetzt eine neue Retrieval-Identität oder
+Runtimekomponente — ist verworfen wegen **vorgezogener Implementierung**, der
+**Phase-0-Sperrgrenzen** und **R-12**.
+
+**`KB04-T-N07` ist zurückgestellt, nicht gescheitert:** der Fall bleibt
+**`B2D_REAL_ONLY`** mit **unveränderter Traceability-Disposition**; **kein
+Schreibversuch**, **kein actor-specific Host-Precheck** und **keine lokale
+N07-Autorisierungskopie** sind autorisiert, **AUTH-14 bleibt für N07
+`INCOMPLETE_FAIL_CLOSED`** und **AUTH-20 ungesetzt**.
+
+**AUTH-18 ist präzise abgegrenzt:** die Bindungen der **bereits
+instanziierten** Rollen und die **fixturefreie Baseline bleiben gültig und
+lokal belegbar** — unbelegbar ist AUTH-18 **ausschließlich im
+N07-spezifischen** Autorisierungsrecord. **Betriebssystembeobachtung und
+KB-04-ReasonCode bleiben strikt getrennt**; ohne tatsächlichen Validatorlauf
+darf **kein** ReasonCode als beobachtet behauptet werden, und **D-066
+registriert keine Validatorbeobachtung**.
+
+**Fünf Reopen-Trigger** sind festgehalten. **`KB04-T-N14`** darf **nach
+Commit und Reconciliation von D-066** als nächster separater
+B2D-E-Planungskandidat **geprüft** werden und ist **nicht autorisiert**.
+
+**Unverändert nach B2D-E-N07-GOV:** **KB-04 und alle zwölf Controls
+`DOCUMENTED ONLY`** · beide Gates **`NOT EVALUATED`** · Capabilities **0 von
+29** · **NT-04 und NT-05 nicht ausgeführt** · **SB-S04 nicht wirksam** ·
+**R-20 offen** · **OD-37 offen** · **Contract §10.3 offen** · Risiken **35**
+(**20/14/1**), `offen` **13** · Tests **1202** · Traceability
+**45 / 37 / 2 / 6** · **keine neue Risiko-, Control- oder Security-Test-ID**
+· **RT-2 nicht implementiert** · **ADR-0014, der Contract, das
+Autorisierungstemplate und D-001 bis D-065 unverändert** · **B2B-Apply,
+B2D-H, B2D-E, B2D-V, B2D-G und reale Infrastruktur nicht autorisiert** ·
+**CBP-WP-023 nicht registriert**.
+
+**Zählerkorrektur, ausdrücklich ausgewiesen:** Zwei Spiegel führten am HEAD
+`0cd21f5` noch den Stand **61/57** aus `38eb33f`, während das kanonische
+Register **65/61** auswies — die Aktualisierung war in D-062 bis D-065
+unterblieben. Beide Stellen sind innerhalb der Allowlist auf den korrekten
+Stand **66/62** gebracht.
+
+---
+
+### Phase B2D-E-N07-GOV-N1-R1 — R-33 Notes Closure
+
+**Der erste Versuch B2D-E-N07-GOV-N1 endete korrekt mit
+`ALLOWLIST_INSUFFICIENT`:** `project-system/COMPLIANCE_CHECK.md` führt eine
+**parallele kanonische R-33-Chronologie**, erklärt sich mit dem Risk Register
+für **identisch** und wurde beim achtzehnten Vorgang im Präzedenz-Commit
+`0344774` gemeinsam mit ihm geändert — lag aber außerhalb des damaligen
+Dateiscopes. Eine einseitige Registrierung hätte **19/22 gegen 18/21**
+gestellt und damit genau die Inkonsistenzklasse erzeugt, die R-33 beschreibt.
+
+**Im Retry ist der neunzehnte R-33-Konsistenzvorgang registriert** —
+**D-066-Zählerspiegel-Reconciliation**, **identisch** in
+[RISK_REGISTER.md](RISK_REGISTER.md) und
+[COMPLIANCE_CHECK.md](COMPLIANCE_CHECK.md), und er **zählt nur einmal**. Weil
+es das **erste R-33-Erfassen von CBP-WP-022** ist, steigt auch der Nenner:
+**18/21 → 19/22**.
+
+**R-33 bleibt offen und `gemindert, nicht geschlossen`**, Kritikalität
+unverändert **mittel**, **keine neue Risiko-ID**, Risikoanzahl **35** und
+Severity **20/14/1** unverändert. Die aktiven Zählerspiegel stimmen wieder mit
+dem kanonischen Decision Register überein; der Vorgang ist im Kandidaten
+**behoben**. Das historische Result des D-066-Ausführungsberichts bleibt
+zutreffend **`COUNTER_INCONSISTENCY`** — **D-066 selbst trägt dieses Result
+nicht**, und **R-33 ist nicht geschlossen**.
+
+**Historische Momentaufnahmen bleiben unverändert:** die phasendatierten
+„Unverändert nach …"-Blöcke, die Fortschreibungsaussage **17/20 → 18/21** aus
+CBP-WP-021, die per-Decision-Notizen in `DECISION_REGISTER.md` sowie die
+älteren Evidenz- und Work-Package-Dokumente.
+
 **Eine Lesart ist keine Implementierung — und eine sichtbare Lücke ist keine
 Abdeckung.**
 

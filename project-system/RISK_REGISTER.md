@@ -390,6 +390,41 @@ geschlossen, **keine neue Risiko-ID**; **das projektweite Konsistenzrisiko ist
 nicht beseitigt**. Derselbe Vorgang ist in
 [COMPLIANCE_CHECK.md](COMPLIANCE_CHECK.md) gespiegelt und zählt **nur einmal**.
 
+---
+
+**R-33-Chronologie — neunzehnter Konsistenzvorgang (CBP-WP-022 D-066-Zählerspiegel-Reconciliation, 2026-08-05):**
+
+| Feld | Inhalt |
+| --- | --- |
+| Work Package | **CBP-WP-022** (**erstes** R-33-Erfassen von CBP-WP-022) |
+| Phase und Anlass | **B2D-E-N07-GOV** / **D-066** — die Zählerprüfung des D-066-Registrierungslaufs deckte den Befund auf |
+| Fehlerklasse | **Unterbliebene Fortschreibung eines aktiven Zählerspiegels** — zwei allgemeine Statusspiegel führten veraltete Decision- und A0-Zähler, während das kanonische Register bereits fortgeschrieben war |
+| Kanonischer Sollstand vor D-066 | **65** Decisions · **61** mit **A0** · **14** ADRs |
+| Fehlerhafter Spiegelstand | **61** Decisions · **57** mit **A0** — die ADR-Zahl **14** war korrekt |
+| Abweichung | **je vier fehlende Fortschreibungen** bei Decisions und A0 |
+| Herkunft des Fehlers | Stand aus Commit **`38eb33f`**; die Fortschreibung unterblieb bei **D-062**, **D-063**, **D-064** und **D-065**. Die betroffenen Zeilen liegen in allgemeinen Zustandstabellen, nicht in den phasendatierten Momentaufnahmen — deren jüngste wies korrekt **65/61/14** aus |
+| Betroffene Repository-Artefakte | **`CLAUDE.md`** und **`project-brain/PROJECT_BRAIN.md`** — je genau eine Zeile des allgemeinen Projektzustands |
+| Besonderheit | **Rein dokumentarisch** — im Gegensatz zum achtzehnten Vorgang war **kein ausführbares Artefakt** betroffen, weder Bundlevertrag noch Validator noch Test. Der Fehler wurde **innerhalb** des D-066-Laufs durch die vorgeschriebene Zählerprüfung gefunden, **nicht** durch die fünfteilige Zähl- und Statusregel verhindert |
+| Autorität | **D-066** (`accepted`, **A0**, 2026-08-05, `PROFILE_A_RETRIEVAL_NOT_INSTANTIATED_N07_DEFERRED`, `ADR_NOT_REQUIRED`) — die Registrierung erfolgt im selben Kandidaten; **D-062 bis D-065 bleiben unverändert** |
+| Korrektur | Im D-066-Arbeitsbaum wurden beide Spiegel auf den Kandidatenstand **66** Decisions · **62** mit **A0** · **14** ADRs gebracht — innerhalb des autorisierten D-066-Dateiscopes und im D-066-Ausführungsbericht offengelegt, dessen Result deshalb **`COUNTER_INCONSISTENCY`** lautete. Die Registrierung dieses Vorgangs erfolgte im Retry **B2D-E-N07-GOV-N1-R1**, nachdem der erste Versuch mit **`ALLOWLIST_INSUFFICIENT`** angehalten hatte, weil [COMPLIANCE_CHECK.md](COMPLIANCE_CHECK.md) außerhalb des damaligen Dateiscopes lag |
+| Closure | Die **aktiven** Decision- und A0-Spiegel stimmen im aktuellen Arbeitsbaum wieder mit dem kanonischen Decision Register überein; der Vorgang ist im Kandidaten **behoben** |
+| Aussagegrenze | **Keine Decision vor D-066 geändert**, **keine ADR geändert**, **keine Risiko-ID ergänzt**, **keine Severity geändert**, **keine Tests geändert**, **keine Traceability geändert**, **keine technische Reifeaussage**; die **D-066-Semantik ist unverändert**; **KB-04 bleibt `DOCUMENTED ONLY`**, beide Gates `NOT EVALUATED`, Capabilities **0 von 29**, **NT-04 und NT-05 nicht ausgeführt**, **OD-37 offen**, **Contract §10.3 offen**, **`KB04-T-N07` zurückgestellt**, **`KB04-T-N14` nicht autorisiert**, **R-20 bleibt offen** |
+
+Damit sind **neunzehn Konsistenzvorgänge in zweiundzwanzig Work Packages**
+dokumentiert (**neue aktuelle Basislinie**; löst die vorige Angabe „achtzehn"
+ab). Die Zahl der Work Packages steigt auf **zweiundzwanzig**, weil dieser
+Vorgang **erstmals CBP-WP-022** betrifft, das durch die Commits `e4caa14` bis
+`0cd21f5` Teil der committeten Menge ist (**18/21 → 19/22**). **R-33 bleibt
+`gemindert, nicht geschlossen`**, Kritikalität unverändert **mittel**, kein
+Risiko geschlossen, **keine neue Risiko-ID**; **das projektweite
+Konsistenzrisiko ist nicht beseitigt** — dieser Vorgang belegt es erneut.
+Derselbe Vorgang ist in [COMPLIANCE_CHECK.md](COMPLIANCE_CHECK.md) gespiegelt
+und zählt **nur einmal**. Die dortige Darstellung folgt der **Prosaform** jenes
+Dokuments, während hier die **Tabellenform** des Risk Registers verwendet wird;
+**Fakten, Zahlen, Closure-Grenze und R-33-Wirkung sind identisch**.
+
+---
+
 **Verändert in CBP-WP-012:**
 
 | ID | Änderung | Auslöser |

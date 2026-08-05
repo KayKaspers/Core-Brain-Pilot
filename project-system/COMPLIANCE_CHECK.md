@@ -716,6 +716,74 @@ Kennzahl. **Der achte Konsistenzvorgang entstand erst im ersten
 Nova-Korrekturlauf** — in den beiden oben genannten Dokumenten — und ist als
 solcher in der Tabelle geführt. **R-33 bleibt offen.**
 
+### Neunzehnter Konsistenzvorgang — CBP-WP-022 D-066-Zählerspiegel-Reconciliation (2026-08-05)
+
+**Gefunden in CBP-WP-022 Phase B2D-E-N07-GOV, behandelt im Retry
+B2D-E-N07-GOV-N1-R1.** Zwei allgemeine Statusspiegel führten **veraltete
+Decision- und A0-Zähler**: `CLAUDE.md` und `project-brain/PROJECT_BRAIN.md`
+wiesen **61** Decisions und **57** mit **A0** aus, während das kanonische
+Decision Register bereits **65** Decisions und **61** mit **A0** führte. Die
+ADR-Zahl **14** war korrekt. Die Abweichung betrug **je vier fehlende
+Fortschreibungen**.
+
+**Herkunft:** Der Stand entstammt Commit **`38eb33f`**. Die Fortschreibung
+unterblieb bei **D-062**, **D-063**, **D-064** und **D-065**. Betroffen waren
+ausschließlich Zeilen allgemeiner Zustandstabellen; die **phasendatierten
+Momentaufnahmen** in `project-system/WORK_PACKAGE_QUEUE.md` und
+`work-packages/CBP-WP-022.md` waren **korrekt** und wiesen zuletzt
+**65/61/14** aus.
+
+**Betroffen:** **`CLAUDE.md`** und **`project-brain/PROJECT_BRAIN.md`** — je
+genau eine Zeile des allgemeinen Projektzustands.
+
+**Besonderheit:** **Rein dokumentarisch.** Im Gegensatz zum achtzehnten
+Vorgang war **kein ausführbares Artefakt** betroffen — weder Bundlevertrag
+noch fail-closed Validator noch Bundle-Test. Der Fehler wurde **innerhalb**
+des D-066-Laufs durch die vorgeschriebene Zählerprüfung gefunden und **nicht**
+durch die fünfteilige Zähl- und Statusregel verhindert.
+
+**Autorität:** **D-066** (`accepted`, **A0**, 2026-08-05, Result
+`PROFILE_A_RETRIEVAL_NOT_INSTANTIATED_N07_DEFERRED`, ADR-Gate
+`ADR_NOT_REQUIRED`). Die Registrierung erfolgt im selben Kandidaten; **D-062
+bis D-065 bleiben unverändert**.
+
+**Korrigiert:** Im D-066-Arbeitsbaum wurden beide Spiegel auf den
+Kandidatenstand **66** Decisions · **62** mit **A0** · **14** ADRs gebracht —
+innerhalb des autorisierten D-066-Dateiscopes und im D-066-Ausführungsbericht
+offengelegt, dessen Result deshalb **`COUNTER_INCONSISTENCY`** lautete. Die
+Registrierung dieses Vorgangs erfolgte im Retry **B2D-E-N07-GOV-N1-R1**,
+nachdem der erste Versuch mit **`ALLOWLIST_INSUFFICIENT`** angehalten hatte,
+weil dieses Dokument außerhalb des damaligen Dateiscopes lag.
+
+**Closure:** Die **aktiven** Decision- und A0-Spiegel stimmen im aktuellen
+Arbeitsbaum wieder mit dem kanonischen Decision Register überein; der Vorgang
+ist im Kandidaten **behoben**.
+
+**Wirkung:** **keine Decision vor D-066 geändert**, **keine ADR geändert**,
+**keine Risiko-ID ergänzt**, **keine Severity geändert**, **keine Tests
+geändert**, **keine Traceability geändert**, **keine technische
+Reifeaussage**; die **D-066-Semantik ist unverändert**; **KB-04 bleibt
+`DOCUMENTED ONLY`**; Mapping Activation Gate und Security Foundation
+Readiness Gate bleiben `NOT EVALUATED`; Capabilities **0 von 29**; **NT-04 und
+NT-05 nicht ausgeführt**; **OD-37 offen**; **Contract §10.3 offen**;
+**`KB04-T-N07` zurückgestellt**; **`KB04-T-N14` nicht autorisiert**; **R-20
+bleibt offen**.
+
+**R-33 bleibt `gemindert, nicht geschlossen`** — Kritikalität unverändert
+**mittel**, kein Risiko geschlossen, **keine neue Risiko-ID**. **Neunzehn
+Konsistenzvorgänge in zweiundzwanzig Work Packages** sind dokumentiert (**neue
+aktuelle Basislinie**; löst „achtzehn" ab); die Zahl der Work Packages steigt
+auf **zweiundzwanzig**, weil dieser Vorgang **erstmals CBP-WP-022** betrifft,
+das durch die Commits `e4caa14` bis `0cd21f5` Teil der committeten Menge ist
+(**18/21 → 19/22**). **Das projektweite Konsistenzrisiko ist nicht
+beseitigt** — dieser Vorgang belegt es erneut. Dieser Vorgang ist mit dem
+Eintrag in [RISK_REGISTER.md](RISK_REGISTER.md) **identisch** und zählt **nur
+einmal**. Die dortige Darstellung folgt der **Tabellenform** des Risk
+Registers, während hier die **Prosaform** dieses Dokuments verwendet wird;
+**Fakten, Zahlen, Closure-Grenze und R-33-Wirkung sind identisch**.
+
+---
+
 ## Offene Punkte
 
 | Punkt | Bezug |

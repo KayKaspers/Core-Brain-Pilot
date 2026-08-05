@@ -6,7 +6,7 @@
 | Typ | **security-foundation enforcement** (Stufe 1) |
 | Prompt Mode | **Full** · Context Budget **B2 – Standard** |
 | Status | **`in-review`** |
-| Aktuelle Phase | **Phase B2D-ENV-GOV – D-065 Profile-A Reference Environment Preparation Model** |
+| Aktuelle Phase | **Phase B2D-E-N07-GOV – D-066 Profile-A Retrieval Role Instantiation Boundary** |
 | Registration Decision | **D-057** (konsolidiert, A–M) |
 | ADR-Gate-Decision | **D-058** (konsolidiert, A–M) — Ergebnis **`ADR_REQUIRED`** |
 | Architektur-Decision | **D-059** (konsolidiert, A–N) — Ergebnis **`ADR-0014_ACCEPTED`** |
@@ -28,7 +28,7 @@
 | Gates | Mapping Activation `NOT EVALUATED` · Security Foundation Readiness `NOT EVALUATED` |
 | Security Controls | **12 `DOCUMENTED ONLY`** |
 | R-20 | **offen** |
-| R-33 | **18/21** — in diesem Lauf **unverändert** |
+| R-33 | **19/22** — fortgeschrieben durch die **D-066-Zählerspiegel-Reconciliation** (**erstes** R-33-Erfassen von CBP-WP-022); **offen**, Severity unverändert |
 | Commit | **B0 `committed` `e4caa14`** · **B1A `committed` `1a7696d`** · **B1B `committed` `b86a35f`** · **B1C `committed` `24de07e`** · **B2A `committed` `929d10b`** · **B2B-P `committed` `fff8227`** · **B2C.1 nicht committed** — Commit-Autorität beim Human Maintainer |
 
 ---
@@ -195,7 +195,11 @@ ohne Durchsetzung), CBP-WP-020 (Profil-A-Bundle), CBP-WP-021 (Testinventar).
 | **B2D-E0** | **Per-Run Authorization Artifact and Local Execution Package Audit** | **complete** — read-only, `PASS WITH NOTES` |
 | **B2D-AUTH** | **D-064 Per-Run Authorization Artifact Form** | **complete** — `committed` `1222ec0`, **D-064**, Variante **A1** |
 | **B2D-E1** | **Committed Authorization Template Readiness and Local Input Gate Audit** | **complete** — read-only, `PASS WITH NOTES` |
-| **B2D-ENV-GOV** | **D-065 Profile-A Reference Environment Preparation Model** | **complete (dieser Stand, uncommitted)** — **D-065** |
+| **B2D-ENV-GOV** | **D-065 Profile-A Reference Environment Preparation Model** | **`committed` (`0cd21f5`)** — **D-065** |
+| **B2D-PREP-PLAN** | Target-Specific KB-04 Profile-A Preparation Plan | **complete (read-only)** — `PREPARATION_PLAN_READY_WITH_NOTES`; keine Dateiänderung |
+| **B2D-PREP-PLAN-N1** | Identity, Root-Boundary, Case-Fixture and Sequence Correction | **complete (read-only)** — `PREPARATION_PLAN_CORRECTED_WITH_NOTES`; keine Dateiänderung |
+| **B2D-E-N07-PREP** | Single-Run Authorization Package for `KB04-T-N07` | **complete (read-only)** — **`N07_IDENTITY_MAPPING_INSUFFICIENT`**; keine Dateiänderung |
+| **B2D-E-N07-GOV** | **D-066 Profile-A Retrieval Role Instantiation Boundary** | **complete (dieser Stand, uncommitted)** — **D-066** |
 | **B2D-H** | **Optionaler operator-geführter Harness** | **nicht autorisiert** |
 | **B2D-E** | **Reale Ausführung in isolierter Referenzumgebung** | **nicht autorisiert** |
 | **B2D-V** | **Read-only Verifikation und Anonymisierung** | **nicht autorisiert** |
@@ -1802,9 +1806,154 @@ Ausführungsfreigabe.**
 
 ---
 
+## Phase B2D-E-N07-GOV — Retrieval-Instanziierungsgrenze
+
+**B2D-ENV-GOV-Commit:** `0cd21f5` — „CBP-WP-022: define Profile-A reference
+environment model", **elf Dateien**, **330 Einfügungen / 22 Löschungen**.
+
+### Vorlauf
+
+**B2D-PREP-PLAN** hat den target-spezifischen Baselineplan hergeleitet
+(`PREPARATION_PLAN_READY_WITH_NOTES`); **B2D-PREP-PLAN-N1** hat ihn nach
+Nova-`REWORK` korrigiert (`PREPARATION_PLAN_CORRECTED_WITH_NOTES`) — unter
+anderem die Identitätskardinalität, die Phasenreihenfolge, die
+`<KB04_ROOT>`-Klassifikation, die Herauslösung der N14-Fixture aus der
+Baseline und die Rückstufung von **P12/D-I** auf `REQUIRES_DEPLOYMENT`.
+**B2D-E-N07-PREP** sollte daraus ein Einzellaufpaket für **`KB04-T-N07`**
+ableiten und endete mit **`N07_IDENTITY_MAPPING_INSUFFICIENT`**.
+
+### Der Befund — strukturell, nicht lückenhaft
+
+| # | Ableitungsweg | Ergebnis |
+| ---: | --- | --- |
+| 1 | `deployments/profile-a/**` | **null** Fundstellen für „retrieval"; das Bundle definiert **genau zwei** Dienste, **keiner** ist ein Retrieval-Dienst |
+| 2 | beide Konfigurationsvorlagen | **beide** setzen `canonical_data = "read-only"` — **kein Unterscheidungsmerkmal** |
+| 3 | `core/core_brain/enforcement/contract.py` | `RETRIEVAL` als **einzelnes Enum-Mitglied**, ohne jede Bindung |
+| 4 | Akteursmatrix §5 | `retrieval` schreibt in **keiner** Pfadklasse — **kein schreibbasierter Ableitungsweg** |
+| 5 | Komponentenmodell | **Retrieval Policy Gateway** ist eine **eigene, nicht instanziierte** Komponente; Retrieval-Pilot ist **Phase 3, nicht begonnen** |
+| 6 | §8 und ADR-0014 §2 | `host_identity_ref` ist **lokal, außerhalb des Repositorys** — die Abwesenheit ist **gewollt** |
+| 7 | lokale Angaben | Bindungen für control-plane, data-worker und Canonical-Owner erklärt — **für `retrieval` keine** |
+
+**Folge:** `expected_effective_identity` ist undefiniert →
+**`KB04-BINDING-MISSING`**, fail-closed.
+
+**Die Zuordnung ist ergebnisbestimmend:** unter einer Dienstidentität greift
+auf PC-01 nur die Lesegruppe mit `r-x` und der Schreibversuch scheitert;
+unter dem **Canonical-Owner** greift Eigentümerschaft und er **gelingt**.
+Eine geratene Identität erzeugte daher entweder ein nichtssagendes Scheitern
+oder einen Erfolg, der fälschlich als Vertragsverletzung erschiene.
+
+### D-066
+
+| Feld | Wert |
+| --- | --- |
+| Decision | **D-066** · `accepted` · **A0** · 2026-08-05 · Teile A–O |
+| Titel | **Profile-A Retrieval Role Instantiation Boundary** |
+| Ergebnis | **`PROFILE_A_RETRIEVAL_NOT_INSTANTIATED_N07_DEFERRED`** |
+| ADR-Gate | **`ADR_NOT_REQUIRED`** — keine Architekturänderung, keine neue Komponente, keine Neumodellierung einer Identität; der **abstrakte Rollenvertrag bleibt erhalten** |
+| Gewählt | **Variante C** — Retrieval derzeit nicht instanziiert, N07 zurückgestellt |
+| Verworfen | **A** (Zuordnung ohne Governance) · **B** (jetzt neue Identität oder Komponente) |
+
+### Verbindliche Folgen
+
+**Keine** Retrieval-Zuordnung · **keine** neue Identität · **keine** neue
+Gruppe · **keine** neue Runtimekomponente · **kein** Container · **kein**
+Deployment · **kein** N07-Schreibversuch · **kein** actor-specific
+N07-Host-Precheck · **keine** lokale N07-Autorisierungskopie · **AUTH-14
+bleibt für N07 `INCOMPLETE_FAIL_CLOSED`** · **AUTH-20 ungesetzt** · **N07
+bleibt `B2D_REAL_ONLY`**, gegenwärtig **nicht ausführbar** ·
+**Traceability-Disposition unverändert** · **`KB04-T-P10` und `KB04-T-N25`
+bleiben ausgeschlossen**.
+
+### AUTH-18 — die entscheidende Abgrenzung
+
+| Gegenstand | Aussage |
+| --- | --- |
+| **Allgemeine Baseline** | Bindungen der **bereits instanziierten** Rollen **gültig**, lokale Beobachtung unverändert, **fixturefreie Baseline vorbereitet** — **AUTH-18 lokal belegbar** |
+| **N07-Einzellauf** | **keine** akzeptierte konkrete Runtimeidentitätsbindung für `retrieval` — **AUTH-18 nicht vollständig belegbar**, Lauf **fail-closed blockiert** |
+
+### Dimensions- und ReasonCode-Grenze
+
+Ein vollständiger N07-Lauf verlangt **D-II** und **D-III**; beide sind
+**ohne autorisierte Runtime nicht beobachtbar**, und nach **MT-14** ist eine
+übersprungene Dimension **keine bestandene Dimension**. Ein Hostprozess unter
+einer POSIX-Identität ist **kein vollständiger Ersatz** für eine gebundene
+Runtimeidentität.
+
+**Betriebssystembeobachtung** umfasst höchstens *Schreiboperation
+verweigert*, *Exitcode ungleich null* und gegebenenfalls die
+*EACCES-/EPERM-Klasse*. **KB-04-ReasonCodes werden ausschließlich durch einen
+tatsächlichen Validatorlauf beobachtet.** **D-066 registriert keine
+Validatorbeobachtung.**
+
+### Fünf Reopen-Trigger
+
+**(1)** Retrieval-Phase autorisiert · **(2)** Retrieval Policy Gateway als
+reale Profile-A-Komponente autorisiert · **(3)** akzeptierte
+Retrieval-Instanziierung der Runtime · **(4)** spätere A0-Entscheidung zur
+actor-specific Bindung · **(5)** Contract-Klarstellung zu Akteur oder
+Dimensionen.
+
+### Nächster Kandidat
+
+**`KB04-T-N14`** darf **nach Commit und Reconciliation von D-066** als
+nächster separater B2D-E-Planungskandidat **geprüft** werden. **D-066
+autorisiert N14 nicht.**
+
+### Risikogrenze
+
+**Keine neue Risiko-ID.** **R-12** deckt die vorgezogene Implementierung,
+**R-25** die technisch unvollständige Durchsetzung, **R-35** die Bindung an
+die korrekte Zielinstanz, **R-36** bleibt für reale Läufe und Recovery offen.
+**Risikoanzahl und Severity unverändert.**
+
+### Zählerkorrektur
+
+Zwei Spiegel führten am HEAD `0cd21f5` noch **61/57** aus `38eb33f`, während
+das kanonische Register **65/61** auswies; die Aktualisierung war in D-062
+bis D-065 unterblieben. Beide Stellen sind innerhalb der Allowlist auf
+**66/62** gebracht und hier **ausdrücklich ausgewiesen**.
+
+**Notes Closure — der Vorgang ist registriert.** Der erste Versuch
+**B2D-E-N07-GOV-N1** endete korrekt mit **`ALLOWLIST_INSUFFICIENT`**, weil
+`project-system/COMPLIANCE_CHECK.md` als **paralleler kanonischer
+R-33-Spiegel** außerhalb des damaligen Dateiscopes lag. Im Retry
+**B2D-E-N07-GOV-N1-R1** ist der **neunzehnte R-33-Konsistenzvorgang** —
+**D-066-Zählerspiegel-Reconciliation** — **identisch in `RISK_REGISTER.md`
+und `COMPLIANCE_CHECK.md`** registriert und zählt **nur einmal**. Es ist das
+**erste R-33-Erfassen von CBP-WP-022**, weshalb auch der Nenner steigt:
+**18/21 → 19/22**. **R-33 bleibt offen und `gemindert, nicht geschlossen`**,
+Severity unverändert **mittel**, **keine neue Risiko-ID**. Die
+Decision-/A0-Spiegel stimmen wieder mit dem kanonischen Register überein; der
+Vorgang ist im Kandidaten **behoben**. Das historische Result des
+D-066-Ausführungsberichts bleibt zutreffend **`COUNTER_INCONSISTENCY`** — die
+Inkonsistenz bestand zu Laufbeginn tatsächlich. **D-066 selbst trägt dieses
+Result nicht.**
+
+### Stand nach B2D-E-N07-GOV
+
+**Zähler:** Decisions/A0/ADRs **66/62/14** · Risiken **35** (**20/14/1**),
+`offen` **13** · Tests **1202 grün, 0 übersprungen** · Traceability
+**45 / 37 / 2 / 6** · Capabilities **0 von 29**.
+
+**R-33:** **19/22**, **offen**, Severity unverändert — fortgeschrieben durch
+die Notes Closure, doppelregistriert und **nur einmal gezählt**.
+
+**Unverändert:** **keine neue Datei** · **keine D-067** · **keine neue
+Risiko-ID** · **keine neue ADR** · **KB-04 `DOCUMENTED ONLY`** · beide Gates
+**`NOT EVALUATED`** · **NT-04 und NT-05 nicht ausgeführt** · **SB-S04 nicht
+wirksam** · **R-20 und OD-37 offen** · **RT-2 nicht implementiert** ·
+**Contract §10.3 offen** · **ADR-0014, der Contract, das Risk Register, das
+Autorisierungstemplate und D-001 bis D-065 unverändert** · **B2D-E nicht
+ausgeführt, B2D-G nicht autorisiert** · **CBP-WP-023 nicht registriert**.
+
+**Eine zurückgestellte Prüfung ist weder ein Fehlschlag noch ein Nachweis.**
+
+---
+
 ## Aussageschutz
 
-Dieses Work Package belegt auch nach Phase B2D-ENV-GOV **nicht**:
+Dieses Work Package belegt auch nach Phase B2D-E-N07-GOV **nicht**:
 
 | Nicht belegt | Tatsächlicher Stand |
 | --- | --- |
