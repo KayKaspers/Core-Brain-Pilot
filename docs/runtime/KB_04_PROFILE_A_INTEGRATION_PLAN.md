@@ -840,6 +840,118 @@ ausgeführt.** Die Autorisierungsmatrix aus Kapitel 18 gilt unverändert fort.
 
 ---
 
+## Nachtrag B2D-ENV-GOV — Referenzumgebungsmodell
+
+> **Ergänzt in Phase B2D-ENV-GOV.** Dieser Nachtrag **schwächt keine der
+> vorstehenden Sicherheitsgrenzen ab** und wählt **keine konkrete Instanz**.
+
+### N3.1 — Entscheidungsgrundlage
+
+| Feld | Wert |
+| --- | --- |
+| Decision | **D-065**, `accepted`, **A0**, 2026-08-05, Teile A–N |
+| Ergebnis | **`B2D_REFERENCE_ENVIRONMENT_PREPARATION_MODEL_SELECTED`** |
+| ADR-Gate | **`ADR_NOT_REQUIRED`** — innerhalb ADR-0014, D-063 und D-064 |
+| Vorlauf | **B2D-E1** read-only Audit, `PASS WITH NOTES` |
+
+### N3.2 — Gewähltes Modell
+
+> **`DEDICATED_NON_PRODUCTION_PROFILE_A_VM_WITH_LOCAL_PER_TARGET_APPROVAL`**
+
+Die Referenzumgebung ist eine **dedizierte, nicht produktive
+Linux/POSIX-VM**, die ausschließlich der KB-04-Profile-A-Vorbereitung und
+später gegebenenfalls den sechs B2D-real-only-Fällen dient.
+
+| Gegenstand | Festlegung |
+| --- | --- |
+| Bestehende isolierte VM | **zulässig**, wenn sie alle Anforderungen erfüllt |
+| Neue VM | **zulässig, aber nicht zwingend** |
+| Container | **nicht automatisch gleichwertig** für den ersten Profile-A-Realnachweis — verlangt eine **separate A0-Prüfung** |
+| Konkrete Instanz | **wird im Repository weder benannt noch registriert** |
+
+### N3.3 — Lokale Per-Target-Freigabe
+
+D-065 wählt **das Modell, nicht die Instanz**. Jede konkrete Auswahl oder
+Vorbereitung verlangt vorab: **Human-Maintainer-Freigabe** · Bindung an
+**genau eine** lokale Zielinstanz · Bestätigung des **nicht produktiven**
+Charakters · Bestätigung der **Isolation** · Bestätigung, dass **keine
+produktiven Daten** betroffen sind · Festlegung der
+**Cleanup-Verantwortung**.
+
+Diese Freigabe **ist keine kanonische Decision**, **wird nicht versioniert**,
+**bleibt vollständig lokal** und ist **nicht übertragbar**.
+
+### N3.4 — Zulässige spätere Vorbereitungskategorien
+
+Zehn Kategorien sind **dokumentiert und in diesem Lauf nicht ausgeführt**:
+Auswahl einer dedizierten nicht produktiven VM · Prüfung der Isolation ·
+Prüfung des Linux/POSIX-Profils · Anlage oder Auswahl einer **neuen und
+leeren** Zielstruktur · Auswahl vorhandener isolierter Identitäten ·
+gegebenenfalls Anlage dedizierter nicht produktiver Identitäten · Festlegung
+der lokalen Identitätsbindung · Festlegung der Mount- und Rechteparameter ·
+Einrichtung oder Bestätigung eines Recovery-Punkts · Festlegung der
+Cleanup-Verantwortung.
+
+### N3.5 — Identitäten
+
+**Neue Benutzer oder Gruppen sind nicht automatisch erforderlich.**
+Vorhandene, dedizierte und hinreichend isolierte Identitäten dürfen verwendet
+werden; neue nur, wenn die vorhandenen die Contract-Anforderungen **nicht
+erfüllen können**. Konkrete UID-, GID-, Benutzer- und Gruppennamen bleiben
+**lokal**. **In diesem Lauf wird keine Identität angelegt oder verändert.**
+
+### N3.6 — Recovery-Grenze
+
+Vor einer späteren B2D-E-Ausführung muss ein **bestätigter
+Wiederherstellungspunkt** bestehen. Bei einer **neu angelegten, vollständig
+disponiblen** VM darf ein **reproduzierbarer Basis- oder Clone-Zustand** als
+Grundlage bewertet werden; bei einer **bestehenden** VM ist **vor jeder
+mutierenden Vorbereitung** ein bestätigter Recovery-Punkt erforderlich.
+
+**D-065 erzeugt keine Rollbackzusage des Contract** — §9.3 gibt ausdrücklich
+keine. **R-36 bleibt offen.** **In diesem Lauf wurde kein Snapshot und kein
+Recovery-Punkt erzeugt.**
+
+### N3.7 — Neue und leere Zielstruktur
+
+Der spätere Zielbereich **muss neu und leer sein**; **keine produktiven
+Daten**, **keine Migration bestehender Daten**, **keine bestehenden
+produktiven Pfade**. Konkrete Pfade und Mountpunkte bleiben **lokal**. **In
+diesem Lauf wurde keine Struktur angelegt.**
+
+### N3.8 — Zeitpunkt der lokalen Templatekopie
+
+**Eine lokale Kopie des Autorisierungstemplates darf erst nach dem Commit von
+D-065 angelegt werden.** Grund: **`AUTH-03` bindet an den Repository-HEAD**;
+eine vor dem Commit angelegte Kopie **verfiele unmittelbar**. Die Kopie ist an
+den **dann aktuellen committeten HEAD** zu binden.
+
+### N3.9 — Verbindliche Reihenfolge nach D-065
+
+| # | Schritt |
+| ---: | --- |
+| 1 | **D-065 committen** und mit origin/main synchronisieren |
+| 2 | konkrete lokale Referenzumgebung durch den **Human Maintainer** auswählen |
+| 3 | Nova erhält **ausschließlich** die für die Planung erforderlichen lokalen Angaben |
+| 4 | Nova erstellt einen **target-spezifischen lokalen Vorbereitungsplan** |
+| 5 | der Human Maintainer **autorisiert diesen Plan ausdrücklich** |
+| 6 | **erst danach** darf eine reale Vorbereitung erfolgen |
+| 7 | **`AUTH-15` bis `AUTH-18`** erst **nach wahrheitsgemäßer Prüfung** setzen |
+| 8 | **`AUTH-12`** und **`AUTH-20`** **zuletzt** setzen |
+| 9 | **B2D-E benötigt weiterhin eine separate ausdrückliche Freigabe** |
+
+### N3.10 — Status nach B2D-ENV-GOV
+
+**Konkrete Referenzumgebung nicht ausgewählt** · **konkrete Vorbereitung
+nicht autorisiert** · **lokale Templatekopie nicht erzeugt** · **B2D-E,
+B2D-V, B2D-G und reale Infrastruktur nicht autorisiert** · **NT-04 und NT-05
+nicht ausgeführt**.
+
+**Ein Modell ist keine Instanz, und eine Instanzauswahl ist keine
+Ausführungsfreigabe.**
+
+---
+
 ## Aussagegrenzen dieses Dokuments
 
 | Nicht belegt | Tatsächlicher Stand |

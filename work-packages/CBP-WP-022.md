@@ -6,19 +6,20 @@
 | Typ | **security-foundation enforcement** (Stufe 1) |
 | Prompt Mode | **Full** · Context Budget **B2 – Standard** |
 | Status | **`in-review`** |
-| Aktuelle Phase | **Phase B2D-AUTH – D-064 Per-Run Authorization Artifact Form** |
+| Aktuelle Phase | **Phase B2D-ENV-GOV – D-065 Profile-A Reference Environment Preparation Model** |
 | Registration Decision | **D-057** (konsolidiert, A–M) |
 | ADR-Gate-Decision | **D-058** (konsolidiert, A–M) — Ergebnis **`ADR_REQUIRED`** |
 | Architektur-Decision | **D-059** (konsolidiert, A–N) — Ergebnis **`ADR-0014_ACCEPTED`** |
 | Contract-Decision | **D-060** (konsolidiert, A–S) — Ergebnis **`KB-04_STAGE_1_CONTRACT_ACCEPTED`**, **`ADR_NOT_REQUIRED`** |
 | B2C-Scope-Decision | **D-061** (konsolidiert, A–R) — Ergebnis **`B2C_TRACEABILITY_AND_NT_PREPARATION_SELECTED`**, **`ADR_NOT_REQUIRED`** |
 | B2C-Split-Decision | **D-062** (konsolidiert, A–O) — Ergebnis **`B2C_TRACEABILITY_COVERAGE_SPLIT_RECONCILED`**, **`ADR_NOT_REQUIRED`**, 2026-08-04 |
-| Decision Class | **A0** — für D-057 bis D-064 |
+| Decision Class | **A0** — für D-057 bis D-065 |
 | ADR | **ADR-0014** — *KB-04 Stage 1 Filesystem Enforcement Architecture*, `accepted`, **Autoritätsklasse A1**, 2026-08-03. `ADR_NOT_REQUIRED` galt für D-057 und gilt für **D-060**, **solange der Vertrag vollständig innerhalb ADR-0014 bleibt** |
 | Enforcement Contract | [KB_04_STAGE_1_ENFORCEMENT_CONTRACT.md](../docs/security/KB_04_STAGE_1_ENFORCEMENT_CONTRACT.md) — **`accepted contract`**, 2026-08-03 |
 | Registrierungsdatum | **2026-08-03** |
 | B2D-Voraussetzungs-Decision | **D-063** (konsolidiert, A–O) — Ergebnis **`B2D_EXECUTION_PREREQUISITES_ESTABLISHED`**, **`ADR_NOT_REQUIRED`**, 2026-08-04 |
 | B2D-Autorisierungsform-Decision | **D-064** (konsolidiert, A–P) — Ergebnis **`B2D_E_RUN_AUTHORIZATION_ARTIFACT_FORM_SELECTED`**, **`ADR_NOT_REQUIRED`**, 2026-08-05 |
+| B2D-Referenzumgebungs-Decision | **D-065** (konsolidiert, A–N) — Ergebnis **`B2D_REFERENCE_ENVIRONMENT_PREPARATION_MODEL_SELECTED`**, **`ADR_NOT_REQUIRED`**, 2026-08-05 |
 | Neue kanonische Risiken | **R-35** und **R-36** — beide **hoch**, **offen**; Risiken gesamt **35** (Severity **20/14/1**) |
 | Human-Maintainer-Freigabe | **B2D-GOV Execution Prerequisites, Risk Canonicalization and Authorization Model authorized** |
 | Technische Implementierung | **B2A und B2B-P implementiert** (intern, read-only, **plan-only**) · **B2C-T-R implementiert** die vollständige 45er-Traceability (drei reine Testdateien, **152 neue Tests**, Gesamtsuite **1202**) · **B2D-P ist plan-only** — ein Dokument, **keine reale Infrastruktur** · **B2D-H, B2D-E, B2D-V, B2D-G und B2B-Apply nicht autorisiert** |
@@ -192,7 +193,9 @@ ohne Durchsetzung), CBP-WP-020 (Profil-A-Bundle), CBP-WP-021 (Testinventar).
 | **B2D.1** | **Execution Prerequisite, Risk and Harness Audit** | **complete** — read-only, `PASS WITH NOTES` |
 | **B2D-GOV** | **Execution Prerequisites, Risk Canonicalization and Authorization Model** | **complete** — `committed` `7e8328a`, **D-063**, **R-35**, **R-36** |
 | **B2D-E0** | **Per-Run Authorization Artifact and Local Execution Package Audit** | **complete** — read-only, `PASS WITH NOTES` |
-| **B2D-AUTH** | **D-064 Per-Run Authorization Artifact Form** | **complete (dieser Stand, uncommitted)** — **D-064**, Variante **A1** |
+| **B2D-AUTH** | **D-064 Per-Run Authorization Artifact Form** | **complete** — `committed` `1222ec0`, **D-064**, Variante **A1** |
+| **B2D-E1** | **Committed Authorization Template Readiness and Local Input Gate Audit** | **complete** — read-only, `PASS WITH NOTES` |
+| **B2D-ENV-GOV** | **D-065 Profile-A Reference Environment Preparation Model** | **complete (dieser Stand, uncommitted)** — **D-065** |
 | **B2D-H** | **Optionaler operator-geführter Harness** | **nicht autorisiert** |
 | **B2D-E** | **Reale Ausführung in isolierter Referenzumgebung** | **nicht autorisiert** |
 | **B2D-V** | **Read-only Verifikation und Anonymisierung** | **nicht autorisiert** |
@@ -1672,9 +1675,136 @@ Nachweis.**
 
 ---
 
+## Phase B2D-E1 und B2D-ENV-GOV — Referenzumgebungsmodell
+
+**B2D-AUTH-Commit:** `1222ec0` — „CBP-WP-022: define per-run authorization
+artifact", **zwölf Dateien**, **677 Einfügungen / 22 Löschungen**.
+
+### B2D-E1 — read-only Readiness-Audit
+
+Der Audit prüfte das committete Template gegen zwölf Reifekriterien und ergab
+**`TEMPLATE_READY_WITH_NOTES`**: **20 Felder**, **elf Bindungen**, **19 Stop-
+und Verfallsbedingungen**, **acht Einmaligkeitsregeln**, kein aktiver
+Lifecycle-Status, **0 positive Erfüllungsaussagen**. Empfehlung des Laufs war
+**`AUTHORIZE_HUMAN_MAINTAINER_LOCAL_INPUT_COLLECTION`**.
+
+### Nova-Korrektur — verfrühte Input Collection
+
+Nova hat die breite Empfehlung **nicht übernommen**. Der tragende Grund ist
+ein **Bindungsproblem**, kein Mangel des Templates:
+
+| # | Grund |
+| ---: | --- |
+| 1 | Der D-065-Commit **verändert den Repository-HEAD**. Eine vorher an HEAD `1222ec0` gebundene lokale Kopie **verfiele unmittelbar** — `AUTH-03` bindet an den HEAD. |
+| 2 | **`AUTH-11`** setzt die Auswahl einer **konkreten Referenzumgebung** voraus. |
+| 3 | **`AUTH-12`** darf erst für einen **vorbereiteten konkreten Lauf** gesetzt werden. |
+| 4 | **`AUTH-15` bis `AUTH-18`** verlangen die **Beobachtung und Vorbereitung** einer realen Referenzumgebung. |
+| 5 | **`AUTH-20`** darf erst **nach vollständiger Bestätigung** aller anderen Pflichtfelder gesetzt werden. |
+| 6 | **`AUTH-14`** dürfte vor Abschluss der Vorbereitung höchstens **`INCOMPLETE_FAIL_CLOSED`** lauten. |
+
+### D-065 — die Umgebungsentscheidung
+
+| Feld | Wert |
+| --- | --- |
+| Decision | **D-065**, `accepted`, **A0**, 2026-08-05, Teile A–N |
+| Ergebnis | **`B2D_REFERENCE_ENVIRONMENT_PREPARATION_MODEL_SELECTED`** |
+| ADR-Gate | **`ADR_NOT_REQUIRED`** — bestätigt ADR-0014; kein neuer technischer Akteur, kein Harness, keine CLI, keine Configsemantik, kein Deploymentartefakt, kein maschinenlesbares Objekt, kein Evidence-Producer, keine Gate-Eingabe |
+
+### Gewähltes Referenzumgebungsmodell
+
+> **`DEDICATED_NON_PRODUCTION_PROFILE_A_VM_WITH_LOCAL_PER_TARGET_APPROVAL`**
+
+Eine **dedizierte, nicht produktive Linux/POSIX-VM**, ausschließlich für die
+KB-04-Profile-A-Vorbereitung und später gegebenenfalls die sechs
+B2D-real-only-Fälle. **Eine bestehende isolierte VM darf verwendet werden**,
+wenn sie alle Anforderungen erfüllt; **eine neue VM darf verwendet werden, ist
+aber nicht zwingend**. **Ein Container gilt für den ersten
+Profile-A-Realnachweis nicht automatisch als gleichwertig** und verlangt eine
+**separate A0-Prüfung**. **Keine konkrete VM wird im Repository benannt oder
+registriert.**
+
+### Lokale Per-Target-Freigabe
+
+D-065 wählt **das Modell, nicht die Instanz**. Jede konkrete Auswahl oder
+Vorbereitung verlangt vorab **Human-Maintainer-Freigabe**, Bindung an **genau
+eine** lokale Zielinstanz, Bestätigung des **nicht produktiven** Charakters,
+der **Isolation** und der **Unberührtheit produktiver Daten** sowie eine
+festgelegte **Cleanup-Verantwortung**. Die Freigabe ist **keine kanonische
+Decision**, **wird nicht versioniert**, **bleibt vollständig lokal** und ist
+**nicht übertragbar**.
+
+### Identitätsmodell
+
+**Neue Benutzer oder Gruppen sind nicht automatisch erforderlich.**
+Vorhandene, dedizierte und hinreichend isolierte Identitäten dürfen verwendet
+werden; neue nur, wenn die vorhandenen die Contract-Anforderungen **nicht
+erfüllen können**. Konkrete UID-, GID-, Benutzer- und Gruppennamen bleiben
+**lokal**. **In diesem Lauf wurde keine Identität angelegt oder verändert.**
+
+### Recovery-Modell
+
+Bei einer **neu angelegten, vollständig disponiblen** VM darf ein
+**reproduzierbarer Basis- oder Clone-Zustand** als Recovery-Grundlage gelten;
+bei einer **bestehenden** VM ist **vor jeder mutierenden Vorbereitung** ein
+**bestätigter Recovery-Punkt** erforderlich. **D-065 erzeugt keine
+Rollbackzusage des Contract** — §9.3 gibt ausdrücklich keine — und **R-36
+bleibt offen**. **Kein Snapshot und kein Recovery-Punkt wurde erzeugt.**
+
+### Zeitpunkt der lokalen Templatekopie
+
+**Eine lokale Kopie darf erst nach dem D-065-Commit entstehen** und ist an den
+**dann aktuellen committeten HEAD** zu binden.
+
+### Reihenfolge nach D-065
+
+**(1)** D-065 committen und synchronisieren · **(2)** lokale Referenzumgebung
+durch den Human Maintainer auswählen · **(3)** Nova erhält **ausschließlich**
+die planungsnotwendigen lokalen Angaben · **(4)** target-spezifischer lokaler
+Vorbereitungsplan · **(5)** ausdrückliche Human-Maintainer-Freigabe des Plans
+· **(6)** erst danach reale Vorbereitung · **(7)** `AUTH-15` bis `AUTH-18`
+nach wahrheitsgemäßer Prüfung · **(8)** `AUTH-12` und `AUTH-20` zuletzt ·
+**(9)** **B2D-E verlangt weiterhin eine separate ausdrückliche Freigabe**.
+
+### Weiterhin keine konkrete Vorbereitung oder Ausführung
+
+**Nicht durchgeführt und nicht autorisiert:** konkrete Zielinstanz ·
+VM-Auswahl · VM-Erstellung · Containerauswahl · Infrastrukturzugriff ·
+Snapshot · Recovery-Punkt · Benutzer- oder Gruppenanlage · Identitätsbindung ·
+Rechteänderung · Mountänderung · Anlage einer Zielstruktur · Schreibversuch ·
+Symlink-Test · **NT-04** · **NT-05** · Evidence · Gatearbeit · **B2D-E**,
+**B2D-V**, **B2D-G**. **Keine lokale Templatekopie erzeugt, keine lokalen
+Werte erhoben.**
+
+### Stand nach B2D-ENV-GOV
+
+**B0** `e4caa14` · **B1A** `1a7696d` · **B1B** `b86a35f` · **B1C** `24de07e` ·
+**B2A** `929d10b` · **B2B-P** `fff8227` · **B2C.1** `38eb33f` · **B2C.2**
+`117647f` · **B2C-T-R** `9cde9de` · **B2D-P** `b409d25` · **B2D-GOV**
+`7e8328a` · **B2D-AUTH** `1222ec0` — sämtlich committed. **B2C.0**, **B2D.0**,
+**B2D.1**, **B2D-E0** und **B2D-E1** complete (read-only) · **B2C-T erster
+Lauf `BLOCKED`** · **B2D-AUTH-N1** Sprachkorrektur eingearbeitet ·
+**B2D-ENV-GOV** complete (dieser Stand, uncommitted).
+
+**Zähler:** Decisions/A0/ADRs **65/61/14** · Risiken **35** (**20/14/1**),
+`offen` **13** · Tests **1202 grün, 0 übersprungen** · Traceability
+**45 / 37 / 2 / 6** · Capabilities **0 von 29**.
+
+**Unverändert:** **keine neue Risiko-ID** · **keine D-066** · **keine neue
+Datei** · **R-33 unverändert und nicht geschlossen** · **KB-04 `DOCUMENTED
+ONLY`** · beide Gates **`NOT EVALUATED`** · **NT-04 und NT-05 nicht
+ausgeführt** · **SB-S04 nicht wirksam** · **R-20 und OD-37 offen** · **RT-2
+nicht implementiert** · **Contract §10.3 technisch offen** · **ADR-0013,
+ADR-0014, D-001 bis D-064, R-01 bis R-36, das Contract-Dokument und das
+Autorisierungstemplate unverändert** · **CBP-WP-023 nicht registriert**.
+
+**Ein Modell ist keine Instanz, und eine Instanzauswahl ist keine
+Ausführungsfreigabe.**
+
+---
+
 ## Aussageschutz
 
-Dieses Work Package belegt auch nach Phase B2D-AUTH **nicht**:
+Dieses Work Package belegt auch nach Phase B2D-ENV-GOV **nicht**:
 
 | Nicht belegt | Tatsächlicher Stand |
 | --- | --- |
@@ -1705,6 +1835,9 @@ Dieses Work Package belegt auch nach Phase B2D-AUTH **nicht**:
 | Ein leeres Autorisierungstemplate sei eine Ausführungsfreigabe | **nein** — es enthält **keine** Zielinstanz, **keine** Run-ID, **keinen** Recovery-Punkt, **keine** Identitätswerte, **keinen** Startzeitpunkt und **keine** Unterschrift; **D-064 autorisiert keinen Lauf** |
 | Ein Pflichtfeldsatz sei ein Nachweis | **nein** — **eine Ausführungsfreigabe ist kein Sicherheitsnachweis**; Pass/Fail und Konformitätsaussagen sind im Template **verboten** |
 | Ein repo-neutrales Feld dürfe einen Wert im Repository tragen | **nein** — **alle** Werte, auch opake Referenzen und die Run-ID, bleiben **lokal-only**; versioniert sind nur Definition, Semantik und leerer Platzhalter |
+| Ein gewähltes Referenzumgebungsmodell sei eine ausgewählte Instanz | **nein** — **D-065 wählt das Modell, nicht die Instanz**; **keine konkrete VM wird im Repository benannt oder registriert** |
+| Eine lokale Per-Target-Freigabe sei eine kanonische Decision | **nein** — sie **bleibt lokal**, **wird nicht versioniert**, ist **nicht übertragbar** und erzeugt **keine Registerzeile** |
+| Das Referenzumgebungsmodell autorisiere eine Vorbereitung | **nein** — jede konkrete Auswahl und jede reale Vorbereitung verlangt eine **ausdrückliche Human-Maintainer-Freigabe**; **B2D-E bleibt zusätzlich separat freigabepflichtig** |
 
 **Die Registrierung eines Work Packages ist keine Implementierungsfreigabe.**
 
