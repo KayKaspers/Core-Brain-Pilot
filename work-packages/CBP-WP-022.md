@@ -6,7 +6,7 @@
 | Typ | **security-foundation enforcement** (Stufe 1) |
 | Prompt Mode | **Full** · Context Budget **B2 – Standard** |
 | Status | **`in-review`** |
-| Aktuelle Phase | **Phase B2D-E-N07-GOV – D-066 Profile-A Retrieval Role Instantiation Boundary** |
+| Aktuelle Phase | **Phase B2D-E-N14-GOV – D-067 N14 Ephemeral Observation Bridge Classification** |
 | Registration Decision | **D-057** (konsolidiert, A–M) |
 | ADR-Gate-Decision | **D-058** (konsolidiert, A–M) — Ergebnis **`ADR_REQUIRED`** |
 | Architektur-Decision | **D-059** (konsolidiert, A–N) — Ergebnis **`ADR-0014_ACCEPTED`** |
@@ -199,7 +199,10 @@ ohne Durchsetzung), CBP-WP-020 (Profil-A-Bundle), CBP-WP-021 (Testinventar).
 | **B2D-PREP-PLAN** | Target-Specific KB-04 Profile-A Preparation Plan | **complete (read-only)** — `PREPARATION_PLAN_READY_WITH_NOTES`; keine Dateiänderung |
 | **B2D-PREP-PLAN-N1** | Identity, Root-Boundary, Case-Fixture and Sequence Correction | **complete (read-only)** — `PREPARATION_PLAN_CORRECTED_WITH_NOTES`; keine Dateiänderung |
 | **B2D-E-N07-PREP** | Single-Run Authorization Package for `KB04-T-N07` | **complete (read-only)** — **`N07_IDENTITY_MAPPING_INSUFFICIENT`**; keine Dateiänderung |
-| **B2D-E-N07-GOV** | **D-066 Profile-A Retrieval Role Instantiation Boundary** | **complete (dieser Stand, uncommitted)** — **D-066** |
+| **B2D-E-N07-GOV** | **D-066 Profile-A Retrieval Role Instantiation Boundary** | **`committed` (`c4b0426`)** — **D-066**, R-33 auf **19/22** fortgeschrieben |
+| **B2D-E-N07-GOV-PCR** | Post-Commit Reconciliation von D-066 und R-33 | **complete (read-only)** — `D066_POST_COMMIT_RECONCILED`; N14-Planung freigegeben |
+| **B2D-E-N14-PREP** | Single-Run Fixture, Authorization and Cleanup Package für `KB04-T-N14` | **complete (read-only)** — **`N14_A0_DECISION_REQUIRED`**; keine Dateiänderung |
+| **B2D-E-N14-GOV** | **D-067 N14 Ephemeral Observation Bridge Classification** | **complete (dieser Stand, uncommitted)** — **D-067** |
 | **B2D-H** | **Optionaler operator-geführter Harness** | **nicht autorisiert** |
 | **B2D-E** | **Reale Ausführung in isolierter Referenzumgebung** | **nicht autorisiert** |
 | **B2D-V** | **Read-only Verifikation und Anonymisierung** | **nicht autorisiert** |
@@ -1951,9 +1954,128 @@ ausgeführt, B2D-G nicht autorisiert** · **CBP-WP-023 nicht registriert**.
 
 ---
 
+## Phase B2D-E-N14-GOV — Ephemeral Observation Bridge
+
+**B2D-E-N07-GOV-Commit:** `c4b0426` — „CBP-WP-022: defer N07 retrieval and
+reconcile R-33", **13 Dateien**, **473 Einfügungen / 19 Löschungen**, in
+**B2D-E-N07-GOV-PCR** vollständig post-commit reconciliiert
+(`D066_POST_COMMIT_RECONCILED`). Damit ist die Bedingung aus **D-066 Teil J**
+erfüllt und **`KB04-T-N14`** als separater read-only Planungskandidat
+freigegeben.
+
+### Vorlauf B2D-E-N14-PREP
+
+Das Einzellaufpaket ist vollständig hergeleitet; der Lauf endete mit
+**`N14_A0_DECISION_REQUIRED`**. Contractsemantik: **PC-02**, **PP-1**,
+**NT-05**, Disposition **`B2D_REAL_ONLY`**, erwarteter ReasonCode
+**`KB04-LINK-SYMLINK-ESCAPE`**, Cleanup **verpflichtend** (D-064 Teil K).
+
+### Die zwei Codebefunde
+
+| # | Befund |
+| ---: | --- |
+| **1** | **Nur `validate_observation` ist geeignet.** `_check_host` erzeugt den Zielbefund allein aus der **D-I**-Hostbeobachtung und **löst überhaupt nicht auf** — **LP-4** („nicht aufgelöst, sondern abgelehnt") bleibt gewahrt. **`paths.check_path` ist ungeeignet**: es ruft über `resolve_within_root` zuerst `Path.resolve()`, **folgt** damit dem Symlink und kehrt für einen bereichsverlassenden Link **vorzeitig mit `KB04-PATH-OUTSIDE-ROOT`** zurück — der Symlinkzweig wird nie erreicht |
+| **2** | **Der Erwartungsbefund ist mehrteilig.** Linux-Symlinks tragen stets `0777`, `chmod` ist auf ihnen wirkungslos. Neben dem Zielbefund entstehen zwingend **`KB04-OBJECT-KIND-INVALID`**, **`KB04-MODE-MISMATCH`** und **`KB04-MODE-WORLD-BITS`**, dazu **drei `INDETERMINATE`** für **D-II**, **D-III**, **D-IV**. Akzeptanz: *die Menge **enthält** den Zielbefund und **überschreitet** die sieben Positionen nicht* — **nicht** „genau ein Befund". **`operationally_verified` bleibt `False`** |
+
+**N14 benötigt weder Runtime noch Deployment** und ist über **D-I**
+vollständig hostseitig prüfbar. Die **Identitätsbindung ist eindeutig** — die
+PC-02-Eigentümerrolle ist kanonisch benannt und lokal instanziiert, und **der
+Testausgang hängt nicht von der Identitätswahl ab**; das ist der wesentliche
+Unterschied zu N07.
+
+### Die offene Lücke
+
+**Keine CLI** · **kein exportierter oder angebundener
+`RealFilesystemAdapter`** · **kein versionierter Helper** · **kein Harness**.
+Es fehlt allein die **Erhebungsbrücke** von `os.lstat` zur bereits
+exportierten Validierungsfunktion.
+
+### D-067
+
+| Feld | Wert |
+| --- | --- |
+| Decision | **D-067** · `accepted` · **A0** · 2026-08-05 · Teile A–R |
+| Titel | **N14 Ephemeral Observation Bridge Classification** |
+| Ergebnis | **`N14_EPHEMERAL_LOCAL_OBSERVATION_BRIDGE_ALLOWED`** |
+| ADR-Gate | **`ADR_NOT_REQUIRED`** — keine Architektur-, Schnittstellen-, Adapter-, Helper- oder Produktionscodeänderung |
+| Gewählt | **Variante B** — flüchtige, einmalige, nicht versionierte lokale Bridge |
+| Verworfen | **A** (stillschweigend) · **C** (CLI/Adapter) · **D** (`paths.check_path`) · **E** (nur Shell) |
+
+### Zulässige Bridge — acht Tätigkeiten
+
+Run-gebundenen Linkpfad entgegennehmen · per **`os.lstat()`** beobachten ·
+**Objektart, Symlinkstatus und Modusbits aus `st_mode`** ableiten ·
+**`st_uid`/`st_gid`** übernehmen · beide **gegen die lokal bestätigte Bindung
+validieren** · die **vorhandenen** Dataclasses befüllen ·
+**`validate_observation`** aufrufen · das **vorhandene strukturierte**
+Ergebnis ausgeben.
+
+### Klassifikation und Grenzen
+
+**Lokales Operator-Ausführungsplumbing** — flüchtig, einmalig,
+run-spezifisch, nicht versioniert, nicht wiederverwendbar, nicht generisch.
+**Kein H1-Testhelper**, weil keine Repositorydatei, nicht installiert, nicht
+exportiert, keine CLI, kein generischer Fallumfang, nur im freigegebenen
+Block existent, danach kein Artefakt, **keine eigene fachliche Entscheidung**.
+**Kein Harness, keine Produktionsschnittstelle, keine Evidence- oder
+Gate-Komponente.**
+
+**Ausgeschlossen:** `paths.check_path` · `Path.resolve()` · `realpath()` ·
+Öffnen des Zielankers · Auflösen des Symlinks · Hartcodieren von
+`is_symlink`.
+
+**Zwölf Überschreitungsgrenzen** lösen eine erneute Decision- und ADR-Prüfung
+aus: Datei · Repositoryaufnahme · Wiederverwendung · Verallgemeinerung · CLI ·
+**Adapterexport** · Produktionscodeänderung · neue Schnittstelle · Evidence-,
+Gate- oder Control-Artefakte · Mutation oder Cleanup · Auflösen des Links ·
+eigene Security- oder Contractlogik.
+
+### Keine Ausführungsfreigabe
+
+**D-067 autorisiert nicht:** Run-ID · Startzeitfenster · lokale AUTH-Kopie ·
+AUTH-12 · AUTH-13 · AUTH-14-Wechsel · AUTH-20 · Fixture · Symlink ·
+Zielanker · Validatorlauf · Cleanup · **N14-Ausführung** · **NT-05** ·
+Evidence · Gatearbeit · Produktionscode · CLI · Adapterexport ·
+H1-Testhelper.
+
+### Offener technischer Stand und nächster Schritt
+
+Der Befehlsentwurf ist **noch nicht ausführungsbereit** — mindestens
+**`OPAQUE_OWNER_REF`**, **`OPAQUE_GROUP_REF`** und **`BINDING`** sind
+**unaufgelöste Platzhalter**. **Nach Commit, Push und
+Post-Commit-Reconciliation** ist **genau eine** read-only technische Notes
+Closure **`B2D-E-N14-PREP-N1`** erforderlich, die neun Punkte schließt:
+reale `IdentityBinding` · Owner- und Group-Referenzen · **Entfernung aller
+Platzhalter** · Ableitung von `ObjectKind` und `is_symlink` aus `st_mode` ·
+exakte Aufrufsignaturen · Ausgabeschema · erwartete Findingmenge beim
+späteren HEAD · **fail-closed** bei jeder Abweichung · Bindung des
+unveränderten Command Packages an die lokale Freigabe. **Erst danach** darf
+ein konkreter Einzellauf vorgeschlagen werden.
+
+### Stand nach B2D-E-N14-GOV
+
+**Zähler:** Decisions/A0/ADRs **67/63/14** · Risiken **35** (**20/14/1**),
+`offen` **13** · **R-33 19/22, offen** · Tests **1202 grün, 0 übersprungen** ·
+Traceability **45 / 37 / 2 / 6** · Capabilities **0 von 29**.
+
+**Unverändert:** **keine neue Datei** · **keine D-068** · **keine neue
+Risiko-ID** · **keine neue ADR** · **keine Produktionscodeänderung** ·
+**Risk Register und Compliance Check unberührt** (kein neuer
+R-33-Konsistenzvorgang) · **KB-04 `DOCUMENTED ONLY`** · beide Gates
+**`NOT EVALUATED`** · **`KB04-T-N14` und NT-05 nicht ausgeführt** · **NT-04
+nicht ausgeführt** · **`KB04-T-N07` zurückgestellt** · **SB-S04 nicht
+wirksam** · **R-20 und OD-37 offen** · **Contract §10.3 offen** ·
+**TOCTOU-Grenze bestehend** · **RT-2 nicht implementiert** · **ADR-0014, der
+Contract, das Autorisierungstemplate und D-001 bis D-066 unverändert** ·
+**CBP-WP-023 nicht registriert**.
+
+**Eine klassifizierte Ausführungsklammer ist noch kein ausführbarer Lauf.**
+
+---
+
 ## Aussageschutz
 
-Dieses Work Package belegt auch nach Phase B2D-E-N07-GOV **nicht**:
+Dieses Work Package belegt auch nach Phase B2D-E-N14-GOV **nicht**:
 
 | Nicht belegt | Tatsächlicher Stand |
 | --- | --- |
@@ -1987,6 +2109,10 @@ Dieses Work Package belegt auch nach Phase B2D-E-N07-GOV **nicht**:
 | Ein gewähltes Referenzumgebungsmodell sei eine ausgewählte Instanz | **nein** — **D-065 wählt das Modell, nicht die Instanz**; **keine konkrete VM wird im Repository benannt oder registriert** |
 | Eine lokale Per-Target-Freigabe sei eine kanonische Decision | **nein** — sie **bleibt lokal**, **wird nicht versioniert**, ist **nicht übertragbar** und erzeugt **keine Registerzeile** |
 | Das Referenzumgebungsmodell autorisiere eine Vorbereitung | **nein** — jede konkrete Auswahl und jede reale Vorbereitung verlangt eine **ausdrückliche Human-Maintainer-Freigabe**; **B2D-E bleibt zusätzlich separat freigabepflichtig** |
+| Die klassifizierte Observation Bridge sei eine Produktionsschnittstelle | **nein** — sie ist **flüchtiges lokales Ausführungsplumbing**, **kein H1-Testhelper, kein Harness, keine CLI, kein Adapterexport**; **kein Produktionscode wurde geändert oder ergänzt** |
+| D-067 autorisiere einen N14-Lauf | **nein** — **keine Run-ID, kein Startzeitfenster, keine AUTH-Kopie, keine Fixture, kein Validatorlauf**; **`KB04-T-N14` und NT-05 bleiben nicht ausgeführt** |
+| Der Befehlsentwurf sei ausführungsbereit | **nein** — **`OPAQUE_OWNER_REF`**, **`OPAQUE_GROUP_REF`** und **`BINDING`** sind **unaufgelöste Platzhalter**; **`B2D-E-N14-PREP-N1`** ist erst nach Commit und Reconciliation zulässig |
+| Ein beobachteter Symlinkbefund decke Hardlinks oder TOCTOU ab | **nein** — **N14 deckt weder Hardlinks noch TOCTOU noch Contract §10.3 ab**; die TOCTOU-Grenze aus LP-9 bleibt unverändert bestehen |
 
 **Die Registrierung eines Work Packages ist keine Implementierungsfreigabe.**
 

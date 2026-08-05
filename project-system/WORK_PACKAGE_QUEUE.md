@@ -1336,6 +1336,75 @@ Stand **66/62** gebracht.
 
 ---
 
+### Phase B2D-E-N14-GOV — D-067 N14 Ephemeral Observation Bridge Classification
+
+**B2D-E-N07-GOV ist `committed` (`c4b0426`)** und wurde in
+**B2D-E-N07-GOV-PCR** vollständig post-commit reconciliiert
+(`D066_POST_COMMIT_RECONCILED`) — damit ist die Bedingung aus **D-066 Teil J**
+erfüllt und **`KB04-T-N14` als separater read-only Planungskandidat**
+freigegeben.
+
+**B2D-E-N14-PREP** hat das Einzellaufpaket vollständig hergeleitet und endete
+mit **`N14_A0_DECISION_REQUIRED`**. Zwei Codebefunde tragen es: **für N14 ist
+ausschließlich `validate_observation` geeignet** — `_check_host` erzeugt
+**`KB04-LINK-SYMLINK-ESCAPE`** allein aus der **D-I**-Hostbeobachtung und
+**löst nicht auf** (LP-4 gewahrt) —, während **`paths.check_path` den Link
+über `Path.resolve()` verfolgt** und für einen bereichsverlassenden Link
+**vorzeitig `KB04-PATH-OUTSIDE-ROOT`** liefert; und **der Erwartungsbefund ist
+mehrteilig**: neben dem Zielbefund entstehen zwingend
+`KB04-OBJECT-KIND-INVALID`, `KB04-MODE-MISMATCH` und
+`KB04-MODE-WORLD-BITS` (Linux-Symlinks tragen stets `0777`), dazu **drei
+`INDETERMINATE`** für **D-II**, **D-III** und **D-IV**;
+**`operationally_verified` bleibt `False`**. **N14 benötigt weder Runtime noch
+Deployment**, und die Identitätsbindung ist **eindeutig**.
+
+**D-067** (`accepted`, **A0**, 2026-08-05, Ergebnis
+**`N14_EPHEMERAL_LOCAL_OBSERVATION_BRIDGE_ALLOWED`**,
+**`ADR_NOT_REQUIRED`**) klassifiziert daraufhin die Erhebungsbrücke.
+
+**Gewählte Variante B:** Eine **flüchtige, einmalige, run-spezifische und
+nicht versionierte lokale Observation Bridge** darf für einen später
+**separat autorisierten** N14-Einzellauf verwendet werden — beschränkt auf
+**acht** Tätigkeiten von der `os.lstat`-Beobachtung über die
+**`st_mode`**-Ableitung und die **UID/GID-Validierung gegen die lokal
+bestätigte Bindung** bis zum Aufruf der **vorhandenen exportierten**
+Funktion **`validate_observation`**.
+
+**Sie ist kein H1-Testhelper, kein Harness, keine CLI, kein Adapterexport,
+keine Produktionsschnittstelle und keine Evidence- oder Gate-Komponente.**
+**`paths.check_path`, `Path.resolve()` und `realpath()` bleiben
+ausgeschlossen**; der Zielanker wird **nicht geöffnet**, der Symlink **nicht
+aufgelöst**. **Zwölf Überschreitungsgrenzen** lösen eine **erneute Decision-
+und ADR-Prüfung** aus. Verworfen sind **Variante A** (stillschweigende
+Behandlung — D-063 reserviert die H1-Grenze), **Variante C** (CLI oder
+Adapteranbindung — **R-12**), **Variante D** (`paths.check_path`) und
+**Variante E** (nur Shell — kein ReasonCode).
+
+**D-067 autorisiert keinen Lauf.** Der Befehlsentwurf trägt weiterhin
+**unaufgelöste Platzhalter**; **nach Commit, Push und
+Post-Commit-Reconciliation** ist **genau eine** read-only technische Notes
+Closure **`B2D-E-N14-PREP-N1`** über **neun** Punkte erforderlich, bevor Nova
+einen konkreten N14-Einzellauf zur Human-Maintainer-Autorisierung vorschlagen
+darf.
+
+**Unverändert nach B2D-E-N14-GOV:** **KB-04 und alle zwölf Controls
+`DOCUMENTED ONLY`** · beide Gates **`NOT EVALUATED`** · Capabilities **0 von
+29** · **`KB04-T-N14` nicht ausgeführt** · **NT-05 nicht ausgeführt** ·
+**NT-04 nicht ausgeführt** · **`KB04-T-N07` zurückgestellt** · **SB-S04 nicht
+wirksam** · **R-20 offen** · **OD-37 offen** · **Contract §10.3 offen** ·
+**TOCTOU-Grenze bestehend — N14 deckt TOCTOU nicht ab** · Risiken **35**
+(**20/14/1**), `offen` **13** · **R-33 19/22 und offen** · Tests **1202** ·
+Traceability **45 / 37 / 2 / 6** · **keine neue Risiko-, Control- oder
+Security-Test-ID** · **keine Produktionscodeänderung** · **RT-2 nicht
+implementiert** · **ADR-0014, der Contract, das Autorisierungstemplate, das
+Risk Register, der Compliance Check und D-001 bis D-066 unverändert** ·
+**B2B-Apply, B2D-E, B2D-V, B2D-G und reale Infrastruktur nicht autorisiert** ·
+**CBP-WP-023 nicht registriert**.
+
+**Eine klassifizierte Ausführungsklammer ist noch kein ausführbarer Lauf.**
+
+---
+
 ### Phase B2D-E-N07-GOV-N1-R1 — R-33 Notes Closure
 
 **Der erste Versuch B2D-E-N07-GOV-N1 endete korrekt mit

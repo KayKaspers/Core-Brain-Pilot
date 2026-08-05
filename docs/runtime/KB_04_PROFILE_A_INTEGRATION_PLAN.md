@@ -1046,6 +1046,97 @@ Risiko-ID**.
 
 ---
 
+## Nachtrag B2D-E-N14-GOV — Ephemeral Observation Bridge
+
+**Rechtsgrundlage: D-067** (`accepted`, **A0**, 2026-08-05, Ergebnis
+**`N14_EPHEMERAL_LOCAL_OBSERVATION_BRIDGE_ALLOWED`**, **`ADR_NOT_REQUIRED`**).
+Dieser Nachtrag ist **rein dokumentarisch** und autorisiert **keinen Lauf**.
+
+### N5.1 — Anlass
+
+Der read-only Planungslauf **B2D-E-N14-PREP** endete mit
+**`N14_A0_DECISION_REQUIRED`**. Er stellte fest, dass die vorhandene,
+exportierte Produktionsfunktion **`validate_observation`** den Contractbefund
+für **`KB04-T-N14`** liefert, dass jedoch **kein Produktionspfad von einem
+realen Dateisystempfad zu dieser Funktion existiert**.
+
+### N5.2 — Zwei tragende Codebefunde
+
+| # | Befund |
+| ---: | --- |
+| 1 | **`validate_observation` ist die einzige geeignete Schnittstelle.** `_check_host` erzeugt **`KB04-LINK-SYMLINK-ESCAPE`** allein aus der **D-I**-Hostbeobachtung und **löst nicht auf** — **LP-4** bleibt gewahrt |
+| 2 | **`paths.check_path` ist ungeeignet.** Es ruft über `resolve_within_root` zuerst `Path.resolve()`, **folgt** dem Symlink und kehrt für einen bereichsverlassenden Link **vorzeitig mit `KB04-PATH-OUTSIDE-ROOT`** zurück |
+
+### N5.3 — Fehlende Erhebungsbrücke
+
+**Keine CLI** · **kein exportierter oder angebundener `RealFilesystemAdapter`**
+· **kein versionierter Helper** · **kein Harness**. Die Erhebung des realen
+`lstat`-Zustands und der Aufbau der Dataclasses bleiben damit
+**operatorseitig**.
+
+### N5.4 — Erlaubte Bridge
+
+Eine **flüchtige, einmalige, run-spezifische und nicht versionierte** lokale
+Observation Bridge darf für einen später **separat autorisierten**
+N14-Einzellauf **genau acht** Tätigkeiten ausführen: run-gebundenen Linkpfad
+entgegennehmen · per **`os.lstat()`** beobachten · **Objektart, Symlinkstatus
+und Modusbits aus `st_mode`** ableiten · **`st_uid`/`st_gid`** aus dem
+tatsächlichen Ergebnis übernehmen · beide **gegen die lokal bestätigte
+Bindung validieren** · die **vorhandenen** Dataclasses befüllen ·
+**`validate_observation`** aufrufen · das **vorhandene strukturierte**
+Ergebnis ausgeben.
+
+### N5.5 — Klassifikation
+
+**Lokales Operator-Ausführungsplumbing** — flüchtig, einmalig,
+run-spezifisch, nicht versioniert, nicht wiederverwendbar, nicht generisch.
+**Kein H1-Testhelper · kein Harness · kein Produktionsinterface · keine
+Produktfunktion · keine Evidence-Komponente · keine Gate-Komponente.**
+
+### N5.6 — Technische Grenzen
+
+Inline-Here-Document · vollständig im freigegebenen Command Package ·
+**verbleibt nach dem Lauf nicht als Datei** · `PYTHONDONTWRITEBYTECODE=1` ·
+**ausschließlich `os.lstat()`** · **`stat.S_ISLNK(st_mode)` tatsächlich
+auswerten** · **`is_symlink` nicht hart codieren** · **kein
+`paths.check_path`** · **kein `Path.resolve()`** · **kein `realpath()`** ·
+**Zielanker nicht öffnen** · **Symlink nicht auflösen** · Findings
+**ausschließlich** aus dem tatsächlichen Validatorergebnis · **fail-closed**
+bei jeder Abweichung.
+
+### N5.7 — Zwölf Überschreitungsgrenzen
+
+Speicherung als Datei · Repositoryaufnahme · Wiederverwendung über mehrere
+Läufe · Verallgemeinerung auf andere Fälle · CLI-Bereitstellung ·
+**Adapterexport oder Neuanbindung** · Produktionscodeänderung · neue
+öffentliche oder interne Produktschnittstelle · Evidence-, Gate- oder
+Control-Artefakte · Mutation, Cleanup oder Fixture-Erzeugung · **Auflösen des
+Symlinks oder Öffnen des Zielobjekts** · eigenständige Security- oder
+Contractlogik. **Jede löst eine erneute Decision- und ADR-Prüfung aus.**
+
+### N5.8 — Verworfene Varianten
+
+**A** stillschweigende Behandlung als gewöhnliche Operatorerhebung —
+**D-063** reserviert die H1-Grenze ausdrücklich, ein Präzedenzfall entstünde ·
+**C** jetzt CLI oder Adapteranbindung — Produktionscodeänderung, vorgezogene
+Implementierung, **R-12** · **D** `paths.check_path` — Auflösung, verfehlter
+Prüfgegenstand, **LP-4** nicht gewahrt · **E** nur Shell, `readlink`,
+`realpath`, `test -L` — **kein KB-04-ReasonCode**.
+
+### N5.9 — Status nach B2D-E-N14-GOV
+
+**Keine Bridge ausgeführt** · **keine Fixture, kein Symlink, kein
+Zielanker** · **keine lokale AUTH-Kopie, keine Run-ID, kein Startzeitfenster**
+· **kein Validatorlauf, kein Cleanup** · **`KB04-T-N14` nicht ausgeführt** ·
+**NT-05 nicht ausgeführt** · **keine Evidence, keine Gatearbeit** · **keine
+Produktionscodeänderung** · **keine neue Risiko-ID**. Der Befehlsentwurf
+trägt weiterhin **unaufgelöste Platzhalter**; **`B2D-E-N14-PREP-N1`** ist
+erst **nach Commit und Reconciliation** zulässig.
+
+**Eine klassifizierte Ausführungsklammer ist noch kein ausführbarer Lauf.**
+
+---
+
 ## Aussagegrenzen dieses Dokuments
 
 | Nicht belegt | Tatsächlicher Stand |
