@@ -214,7 +214,7 @@ ohne Durchsetzung), CBP-WP-020 (Profil-A-Bundle), CBP-WP-021 (Testinventar).
 
 **Die ADR-Erforderlichkeit wurde in B1A bewertet und in D-058 mit
 `ADR_REQUIRED` beantwortet; ADR-0014 ist in B1B angenommen; der
-implementierungsfähige Vertrag ist in B1C unter D-060 angenommen.
+implementierungsfähige Vertrag ist in B1C unter D-060 angenommen.**
 **B2 bleibt nicht autorisiert.**
 
 ## Acceptance Criteria für B0
