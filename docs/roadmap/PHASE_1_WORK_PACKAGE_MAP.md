@@ -8,7 +8,7 @@
 | Backlog-Grundlage | [PHASE_1_BACKLOG.md](PHASE_1_BACKLOG.md) (P1–P5) |
 | Erfasst in | CBP-WP-008 |
 | Autoritätsklasse | A3 |
-| Stand | 2026-08-03 — CBP-WP-022 Phase B2B-P |
+| Stand | 2026-08-06 — CBP-WP-022 Phase B2D-E-N14-GOV (`committed` `c662452`) |
 
 > **Diese Karte ist ein historisches Planungsartefakt.** Sie schnitt bewusst nur
 > **F1 bis F5** (CBP-WP-009 bis CBP-WP-014). Die **ursprüngliche
@@ -50,7 +50,7 @@ nur zur Statusvollständigkeit geführt:
 | **CBP-WP-019** | Deployment Readiness Intake and Profile-A Target Specification | **`committed`** — `3c437f2` |
 | **CBP-WP-020** | Controlled Profile-A Deployment Foundation | **`committed`** — `17057e2` (B0), `9c6c0fb` (B1/B2), `d6a1a3c` (C) |
 | **CBP-WP-021** | Canonical Security Test Inventory Reconciliation | **`committed`** — `0cb4ea9` (B0), `271acc7` (B1/B2), `0344774` (C) |
-| **CBP-WP-022** | KB-04 Enforcement Stage 1 | **`in-review`** (Phase B2D-P) — B0…B2C.2 committed, **B2C-T-R `committed` `9cde9de`**; D-057…**D-062**, **ADR-0014 `accepted`/A1**, **Enforcement Contract `accepted contract`**; **read-only Validator- und Initialisierungsplanungspaket implementiert**; **vollständige 45er-Traceability** (Split **37/2/6**, Gesamtsuite **1202**); **B2D.0, B2D.1, B2D-E0 und B2D-E1 read-only complete** (je `PASS WITH NOTES`); **B2D-P `committed` `b409d25`**, **B2D-GOV `committed` `7e8328a`**, **B2D-AUTH `committed` `1222ec0`**; **B2D-ENV-GOV `committed` `0cd21f5`**; **B2D-PREP-PLAN, B2D-PREP-PLAN-N1 und B2D-E-N07-PREP read-only complete**, letzterer mit **`N07_IDENTITY_MAPPING_INSUFFICIENT`**; **B2D-E-N07-GOV `committed` `c4b0426`** (D-066, `PROFILE_A_RETRIEVAL_NOT_INSTANTIATED_N07_DEFERRED`, Variante C) und in **B2D-E-N07-GOV-PCR** post-commit reconciliiert; **`KB04-T-N07` zurückgestellt**; **B2D-E-N14-PREP** read-only complete mit **`N14_A0_DECISION_REQUIRED`**; **B2D-E-N14-GOV registriert D-067** (`N14_EPHEMERAL_LOCAL_OBSERVATION_BRIDGE_ALLOWED`, Variante B), **uncommitted** — **flüchtige lokale Observation Bridge klassifiziert**, **kein Testhelper, keine CLI, kein Adapterexport**, **N14 weiterhin nicht ausgeführt**; **kein Evidence-Artefakt**, Contract §10.3 offen; **reale Infrastruktur, B2D-H/E/V/G und B2B-Apply nicht autorisiert** |
+| **CBP-WP-022** | KB-04 Enforcement Stage 1 | **`in-review`** (**Phase B2D-E-N14-GOV – D-067**, `committed` `c662452`) — B0…B2C.2 committed, **B2C-T-R `committed` `9cde9de`**; D-057…**D-062**, **ADR-0014 `accepted`/A1**, **Enforcement Contract `accepted contract`**; **read-only Validator- und Initialisierungsplanungspaket implementiert**; **vollständige 45er-Traceability** (Split **37/2/6**, Gesamtsuite **1202**); **B2D.0, B2D.1, B2D-E0 und B2D-E1 read-only complete** (je `PASS WITH NOTES`); **B2D-P `committed` `b409d25`**, **B2D-GOV `committed` `7e8328a`**, **B2D-AUTH `committed` `1222ec0`**; **B2D-ENV-GOV `committed` `0cd21f5`**; **B2D-PREP-PLAN, B2D-PREP-PLAN-N1 und B2D-E-N07-PREP read-only complete**, letzterer mit **`N07_IDENTITY_MAPPING_INSUFFICIENT`**; **B2D-E-N07-GOV `committed` `c4b0426`** (D-066, `PROFILE_A_RETRIEVAL_NOT_INSTANTIATED_N07_DEFERRED`, Variante C) und in **B2D-E-N07-GOV-PCR** post-commit reconciliiert; **`KB04-T-N07` zurückgestellt**; **B2D-E-N14-PREP** read-only complete mit **`N14_A0_DECISION_REQUIRED`**; **B2D-E-N14-GOV registriert D-067** (`N14_EPHEMERAL_LOCAL_OBSERVATION_BRIDGE_ALLOWED`, Variante B), **`committed` `c662452`** — **flüchtige lokale Observation Bridge klassifiziert**, **kein Testhelper, keine CLI, kein Adapterexport**, **N14 weiterhin nicht ausgeführt**; **kein Evidence-Artefakt**, Contract §10.3 offen; **reale Infrastruktur, B2D-H/E/V/G und B2B-Apply nicht autorisiert** |
 
 **CBP-WP-020 ist `committed` und `complete`** (D-055): Phase B0 `17057e2`,
 Phase B1/B2 `9c6c0fb`. Das **Profil-A-Bundle** liegt als Repository-Artefakt mit
@@ -72,17 +72,20 @@ Positivtest**, **33 Testfälle**; **NT-25 bleibt nach Regel TT-5 frei**, **NT-32
 und NT-33 sind gültig**, die Zahl **31** ist ein überholter, falsch
 etikettierter Ableitungswert. **Ausgeführt sind 0 von 32 und 0 von 1.** Die
 Reconciliation umfasste auch die **ausführbaren** Profil-A-Artefakte.
-**Kein Work Package ist aktiv, kein Folge-Work-Package autorisiert.**
+**Zum Abschluss von CBP-WP-021 war kein Work Package aktiv und kein
+Folge-Work-Package autorisiert.** **Seither ist CBP-WP-022 registriert**
+(D-057, Phase B0 `committed` `e4caa14`) und als aktuelles Work Package
+**`in-review`** — siehe unten.
 
 > **In CBP-WP-021 Phase B1 korrigiert.** Diese Karte führte zuvor „31
 > Negativtests"; der Wert ist auf den kanonischen Stand **32** gebracht.
 
 **CBP-WP-022 ist registriert** (D-057, `accepted`/A0, 2026-08-03) und steht auf
-**`in-review`** in **Phase B2B-P – New-target Initialization Plan and Safety Guard**. Titel:
+**`in-review`** in **Phase B2D-E-N14-GOV – D-067 N14 Ephemeral Observation Bridge Classification** (`committed` `c662452`). Titel:
 **KB-04 Enforcement Stage 1** — Stufe 1 der neunstufigen Durchsetzungsreihenfolge
 (**OS-Dateirechte**). **Phase B0 ist `committed` (`e4caa14`), Phase B1A ist `committed`
 (`1a7696d`), Phase B1B ist `committed` (`b86a35f`)**; **Phase B1C** ist abgeschlossen und
-**uncommitted**.
+**`committed` (`24de07e`)**.
 
 **D-058** hatte **`ADR_REQUIRED`** festgestellt. **D-059** (`accepted`, **A0**) nimmt
 daraufhin **ADR-0014** *KB-04 Stage 1 Filesystem Enforcement Architecture* an;
@@ -102,7 +105,7 @@ gebunden und **gesperrt**.
 
 **Phase B1C ist `committed` (`24de07e`), Phase B2A ist `committed`
 (`929d10b`); Phase B2B-P** ist abgeschlossen und
-**uncommitted**. B2A implementiert das interne, **read-only**
+**`committed` (`fff8227`)**. B2A implementiert das interne, **read-only**
 Enforcement-Paket `core/core_brain/enforcement/` — sechs Module, **21 additive
 `KB04-*`-ReasonCodes**, **206 neue Tests**, Gesamtsuite **930 grün**.
 **Keine CLI, keine Config-Datei, keine Deploymentänderung, kein neuer
@@ -127,7 +130,7 @@ Die zwei Lücken sind **`KB04-T-P10`** und **`KB04-T-N25`** — beide **Contract
 §10.3 Schreibzeitvalidierung**, weder als Produktionslogik noch als
 funktionaler Test vorhanden.
 
-**Phase B2C-T-R ist abgeschlossen und uncommitted.** Sie setzt die
+**Phase B2C-T-R ist abgeschlossen und `committed` (`9cde9de`).** Sie setzt die
 Traceability technisch um: drei neue Test- und Fixturedateien bilden **alle
 45** Contractkennungen ab, belegen **37** Zuordnungen auf vorhandene
 funktionale KB-04-Tests, dokumentieren die **zwei** Coverage Gaps
@@ -174,7 +177,7 @@ getrennt**. **Kein Evidence-Artefakt, keine Gate-Eingabe, keine
 Ausführungsfreigabe.**
 
 **Phase B2D-E1 ist read-only abgeschlossen** (`PASS WITH NOTES`) und
-**Phase B2D-ENV-GOV abgeschlossen und uncommitted**: **D-065** (`accepted`,
+**Phase B2D-ENV-GOV abgeschlossen und `committed` `0cd21f5`**: **D-065** (`accepted`,
 **A0**, `B2D_REFERENCE_ENVIRONMENT_PREPARATION_MODEL_SELECTED`,
 `ADR_NOT_REQUIRED`) wählt das Modell
 **`DEDICATED_NON_PRODUCTION_PROFILE_A_VM_WITH_LOCAL_PER_TARGET_APPROVAL`** —
@@ -367,14 +370,18 @@ ersten Nachweise vorliegen, wäre Planung ohne Rückkopplung.
 > `proposed`. Dieser Absatz beschreibt den damaligen Planungszustand und wird
 > **nicht rückwirkend umgedeutet**.
 
-**Aktueller Stand (nachgeführt in CBP-WP-020 Phase C, 2026-07-29):** **Alle**
+**Aktueller Stand (nachgeführt in CBP-WP-020 Phase C, 2026-07-29; Lebenszyklus
+im R-33 Active-Status Closure Fix am 2026-09-21 fortgeschrieben):** **Alle**
 Work Packages dieser Karte — **CBP-WP-009 bis CBP-WP-015** — sind
 **`committed`**. Ebenso committed sind die nach dem Kartenschnitt ergänzten
-**CBP-WP-016**, **CBP-WP-017**, **CBP-WP-018**, **CBP-WP-019** (`3c437f2`) und
-**CBP-WP-020** (`17057e2`, `9c6c0fb`). Die **Bundle-Artefakte existieren, sind
+**CBP-WP-016**, **CBP-WP-017**, **CBP-WP-018**, **CBP-WP-019** (`3c437f2`),
+**CBP-WP-020** (`17057e2`, `9c6c0fb`, `d6a1a3c`) und **CBP-WP-021** (`0cb4ea9`,
+`271acc7`, `0344774`). **CBP-WP-022** ist seit `e4caa14` registriert (D-057) und
+das **aktuelle Work Package** — **`in-review`**, Phase **B2D-E-N14-GOV – D-067**
+(`committed` `c662452`). Die **Bundle-Artefakte existieren, sind
 offline validiert und committed** — **aber es gibt weiterhin keine
-Bereitstellung**. **Kein Work Package ist aktiv; kein Folge-Work-Package über
-CBP-WP-020 hinaus ist autorisiert.**
+Bereitstellung**. **Zum Abschluss von CBP-WP-020 war kein Work Package aktiv
+und kein Folge-Work-Package über CBP-WP-020 hinaus autorisiert.**
 
 **Regeln A und B sind erfüllt:** Die Bereichsgrenze steht (009), die
 Mappingkonvention steht (010).

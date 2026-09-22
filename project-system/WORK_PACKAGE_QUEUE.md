@@ -3,11 +3,11 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Aktuelles Work Package | **CBP-WP-022** (`in-review`, **Phase B2D-ENV-GOV – D-065 Profile-A Reference Environment Preparation Model**) — **D-057** Registrierung, **D-058** ADR-Gate (**`ADR_REQUIRED`**), **D-059** Architekturannahme und **D-060** Enforcement Contract (alle `accepted`, **A0**, 2026-08-03); **ADR-0014 `accepted`, Autoritätsklasse A1** — **Host-authoritative Enforcement mit deklarativem Zielmodell und read-only Runtime-Validierung**; Vertrag [KB_04_STAGE_1_ENFORCEMENT_CONTRACT.md](../docs/security/KB_04_STAGE_1_ENFORCEMENT_CONTRACT.md) **`accepted contract`** (**`ADR_NOT_REQUIRED`** innerhalb ADR-0014); B0 `committed` (`e4caa14`), B1A `committed` (`1a7696d`), B1B `committed` (`b86a35f`), B1C `committed` (`24de07e`), B2A `committed` (`929d10b`), B2B-P `committed` (`fff8227`), **B2C.1 `committed` (`38eb33f`), B2C.2 `committed` (`117647f`), **B2C-T-R uncommitted**; **D-061** (`accepted`, **A0**) begrenzt **B2C** auf eine rein synthetische Test-, Fixture- und Traceabilityphase — **Variante E nicht autorisiert**; **D-062** (`accepted`, **A0**) setzt nach dem `BLOCKED` beendeten ersten B2C-T-Lauf den kanonischen Abdeckungssplit **37/2/6** über 45 Kennungen; **B2C-T-R implementiert diese Traceability** mit drei neuen Testdateien, **152 neuen Tests** und einer Gesamtsuite von **1202 grün** — **Contract §10.3 bleibt offen**; **B2B-P ergänzt eine Plan-only Initialisierungsplanung** (zwei Module, drei aktivierte Contract-ReasonCodes, **120 neue Tests**, Gesamtsuite **1050 grün**) — **kein `apply_plan`, kein `mkdir`, kein `chmod`, kein `chown`, keine Mutation**; zuvor **B2A: das interne, read-only Enforcement-Paket** `core/core_brain/enforcement/` (sechs Module, 21 additive `KB04-*`-ReasonCodes, **206 neue Tests**, Gesamtsuite **930 grün**) — **keine CLI, keine Config, kein Deployment, keine Mutation, keine operative Evidenz**; **KB-04 Enforcement Stage 1** bleibt `DOCUMENTED ONLY`; **B2C-T-Resume, B2B-Apply und B2D nicht autorisiert**. Zuletzt abgeschlossen **CBP-WP-021** (`committed`, `complete`, 2026-08-03; **D-056**, `ADR_NOT_REQUIRED`; kanonisch **32 Negativtests / 1 Positivtest / 33 Testfälle**, **0 von 32** und **0 von 1** ausgeführt; B0 `0cb4ea9`, B1/B2 `271acc7`). Zuvor abgeschlossen **CBP-WP-020** (`committed`, `complete`; B0 `17057e2`, B1/B2 `9c6c0fb`, C `d6a1a3c`). **CBP-WP-023 nicht registriert, nicht autorisiert.** |
+| Aktuelles Work Package | **CBP-WP-022** (`in-review`, **Phase B2D-E-N14-GOV – D-067 N14 Ephemeral Observation Bridge Classification**) — **D-057** Registrierung, **D-058** ADR-Gate (**`ADR_REQUIRED`**), **D-059** Architekturannahme und **D-060** Enforcement Contract (alle `accepted`, **A0**, 2026-08-03); **ADR-0014 `accepted`, Autoritätsklasse A1** — **Host-authoritative Enforcement mit deklarativem Zielmodell und read-only Runtime-Validierung**; Vertrag [KB_04_STAGE_1_ENFORCEMENT_CONTRACT.md](../docs/security/KB_04_STAGE_1_ENFORCEMENT_CONTRACT.md) **`accepted contract`** (**`ADR_NOT_REQUIRED`** innerhalb ADR-0014); B0 `committed` (`e4caa14`), B1A `committed` (`1a7696d`), B1B `committed` (`b86a35f`), B1C `committed` (`24de07e`), B2A `committed` (`929d10b`), B2B-P `committed` (`fff8227`), **B2C.1 `committed` (`38eb33f`), B2C.2 `committed` (`117647f`), B2C-T-R `committed` (`9cde9de`)**; **D-061** (`accepted`, **A0**) begrenzt **B2C** auf eine rein synthetische Test-, Fixture- und Traceabilityphase — **Variante E nicht autorisiert**; **D-062** (`accepted`, **A0**) setzt nach dem `BLOCKED` beendeten ersten B2C-T-Lauf den kanonischen Abdeckungssplit **37/2/6** über 45 Kennungen; **B2C-T-R implementiert diese Traceability** mit drei neuen Testdateien, **152 neuen Tests** und einer Gesamtsuite von **1202 grün** — **Contract §10.3 bleibt offen**; **B2B-P ergänzt eine Plan-only Initialisierungsplanung** (zwei Module, drei aktivierte Contract-ReasonCodes, **120 neue Tests**, Gesamtsuite **1050 grün**) — **kein `apply_plan`, kein `mkdir`, kein `chmod`, kein `chown`, keine Mutation**; zuvor **B2A: das interne, read-only Enforcement-Paket** `core/core_brain/enforcement/` (sechs Module, 21 additive `KB04-*`-ReasonCodes, **206 neue Tests**, Gesamtsuite **930 grün**) — **keine CLI, keine Config, kein Deployment, keine Mutation, keine operative Evidenz**; **KB-04 Enforcement Stage 1** bleibt `DOCUMENTED ONLY`; **B2C-T-Resume, B2B-Apply und B2D nicht autorisiert**. Zuletzt abgeschlossen **CBP-WP-021** (`committed`, `complete`, 2026-08-03; **D-056**, `ADR_NOT_REQUIRED`; kanonisch **32 Negativtests / 1 Positivtest / 33 Testfälle**, **0 von 32** und **0 von 1** ausgeführt; B0 `0cb4ea9`, B1/B2 `271acc7`). Zuvor abgeschlossen **CBP-WP-020** (`committed`, `complete`; B0 `17057e2`, B1/B2 `9c6c0fb`, C `d6a1a3c`). **CBP-WP-023 nicht registriert, nicht autorisiert.** |
 | Gate G0 | **PASSED WITH NOTES** — 2026-07-21 |
 | Überarbeitet in | **CBP-WP-016** |
 | Autoritätsklasse | A2 |
-| Stand | 2026-08-05 — CBP-WP-022 Phase B2D-ENV-GOV |
+| Stand | 2026-08-06 — CBP-WP-022 Phase B2D-E-N14-GOV (`committed` `c662452`) |
 
 Spalten nach `WORK_PACKAGE_QUEUE_TEMPLATE.md` (NDF v1.0.0).
 
@@ -48,10 +48,10 @@ Spalten nach `WORK_PACKAGE_QUEUE_TEMPLATE.md` (NDF v1.0.0).
 | CBP-WP-019 | **Deployment Readiness Intake and Profile-A Target Specification** | P1 | **`committed`** | [work-packages/CBP-WP-019.md](../work-packages/CBP-WP-019.md) |
 | CBP-WP-020 | **Controlled Profile-A Deployment Foundation** | P1 | **`committed`** (B0 `17057e2`, B1/B2 `9c6c0fb`) | [work-packages/CBP-WP-020.md](../work-packages/CBP-WP-020.md) |
 | CBP-WP-021 | **Canonical Security Test Inventory Reconciliation** | P1 | **`committed`** (B0 `0cb4ea9`, B1/B2 `271acc7`, C `0344774`) | [work-packages/CBP-WP-021.md](../work-packages/CBP-WP-021.md) |
-| CBP-WP-022 | **KB-04 Enforcement Stage 1** | P1 | **`in-review`** (Phase B2D-ENV-GOV; B0…B2D-GOV committed, **B2D-AUTH `committed` `1222ec0`**; **ADR-0014 `accepted`/A1**, **Contract `accepted`**, **D-061 B2C-Scope**, **D-062 Coverage-Split 37/2/6**, **D-063 B2D-Voraussetzungen**; 45er-Traceability implementiert, Gesamtsuite 1202; **B2D.0 und B2D.1 read-only complete**, **B2D-ENV-GOV uncommitted** — **D-065**, Referenzumgebungsmodell, **keine konkrete Instanz**; **reale Infrastruktur und B2D-H/E/V/G nicht autorisiert**) | [work-packages/CBP-WP-022.md](../work-packages/CBP-WP-022.md) |
+| CBP-WP-022 | **KB-04 Enforcement Stage 1** | P1 | **`in-review`** (Phase B2D-E-N14-GOV; B0…B2D-GOV committed, **B2D-AUTH `committed` `1222ec0`**; **ADR-0014 `accepted`/A1**, **Contract `accepted`**, **D-061 B2C-Scope**, **D-062 Coverage-Split 37/2/6**, **D-063 B2D-Voraussetzungen**; 45er-Traceability implementiert, Gesamtsuite 1202; **B2D.0 und B2D.1 read-only complete**, **B2D-ENV-GOV `committed` `0cd21f5`** — **D-065**, Referenzumgebungsmodell, **keine konkrete Instanz**; **reale Infrastruktur und B2D-H/E/V/G nicht autorisiert**) | [work-packages/CBP-WP-022.md](../work-packages/CBP-WP-022.md) |
 
 **Kein Work Package ist als `proposed` geführt.** **CBP-WP-019** (Deployment
-Readiness Intake and Profile-A Target Specification) steht auf **`in-review`** in
+Readiness Intake and Profile-A Target Specification) ist
 **`committed`** (`3c437f2`, A0-Freigabe **D-054**; **ADR_NOT_REQUIRED**) und mit
 `origin/main` synchron. Es war ein **docs-only, interaktives** Paket: die
 Deploymentangaben des Human Maintainers wurden dokumentiert, der DRC von 18 auf
@@ -83,8 +83,10 @@ Testausführung oder Gateauswertung. Die Reconciliation umfasste auch die
 **ausführbaren** Artefakte des Profil-A-Bundles.
 
 **CBP-WP-022** (KB-04 Enforcement Stage 1) ist unter **D-057** (`accepted`, **A0**,
-2026-08-03) **registriert** und steht auf **`in-review`** in **Phase B0 –
-Registration and Authority Baseline**. „Enforcement Stage 1“ bezeichnet
+2026-08-03) **registriert** (Phase B0 – Registration and Authority Baseline,
+`committed` `e4caa14`) und steht auf **`in-review`** in **Phase B2D-E-N14-GOV –
+D-067 N14 Ephemeral Observation Bridge Classification** (`committed` `c662452`).
+„Enforcement Stage 1“ bezeichnet
 **Stufe 1 der neunstufigen technischen Durchsetzungsreihenfolge** (**OS-Dateirechte**);
 **KB-04 ist die unterste tragende Ebene**. **KB-04 bleibt `DOCUMENTED ONLY`** — die
 Registrierung ist **keine Implementierungsfreigabe**; **B1 und B2 sind nicht
@@ -641,14 +643,14 @@ A0-Decisions und ADRs standen zum Abschluss von CBP-WP-020 auf
 | Titel | **Canonical Security Test Inventory Reconciliation** |
 | Typ | **governance-and-validation reconciliation** |
 | Prompt Mode | **Full** · Context Budget **B2 – Standard** |
-| Status | **`in-review`** |
-| Aktuelle Phase | **Phase C – Post-Commit Reconciliation** (vorbereitet) |
+| Status | **`committed`** · **`complete`** |
+| Aktuelle Phase | **Phase C – Post-Commit Reconciliation** (abgeschlossen) |
 | Abschlussdatum | **2026-08-03** |
 | A0-Entscheidung | **D-056** (konsolidiert, A–U) |
 | ADR | **not required** (`ADR_NOT_REQUIRED`) |
 | Kanonische Authority | **32** Negativtests · **1** Positivtest · **33** Testfälle |
 | Ausgeführt | **0 von 32** Negativtests · **0 von 1** Positivtest |
-| Commit | **nicht** ausgeführt (Commit-Autorität beim Human Maintainer) |
+| Commit | **B0 `committed` `0cb4ea9`** · **B1/B2 `committed` `271acc7`** · **C `committed` `0344774`** (Commit-Autorität beim Human Maintainer) |
 
 Phase A read-only abgeschlossen: vollständiges NT-ID-Inventar und
 Authority-Audit. Ergebnis: authoritativ ist die **A2-Acceptance-Matrix**, die
@@ -741,7 +743,7 @@ registriert noch autorisiert**.
 | Typ | **security-foundation enforcement** (Stufe 1) |
 | Prompt Mode | **Full** · Context Budget **B2 – Standard** |
 | Status | **`in-review`** |
-| Aktuelle Phase | **Phase B2D-ENV-GOV – D-065 Profile-A Reference Environment Preparation Model** |
+| Aktuelle Phase | **Phase B2D-E-N14-GOV – D-067 N14 Ephemeral Observation Bridge Classification** |
 | Registration Decision | **D-057** (konsolidiert, A–M), `accepted`, **A0**, 2026-08-03 |
 | ADR-Gate-Decision | **D-058** (konsolidiert, A–M), `accepted`, **A0**, 2026-08-03 — Ergebnis **`ADR_REQUIRED`** |
 | Architektur-Decision | **D-059** (konsolidiert, A–N), `accepted`, **A0**, 2026-08-03 — Ergebnis **`ADR-0014_ACCEPTED`** |
@@ -750,7 +752,7 @@ registriert noch autorisiert**.
 | Enforcement Contract | [KB_04_STAGE_1_ENFORCEMENT_CONTRACT.md](../docs/security/KB_04_STAGE_1_ENFORCEMENT_CONTRACT.md) — **`accepted contract`**, 2026-08-03 |
 | Human-Maintainer-Freigabe | **B1C Contract and Validation Plan authorized** |
 | Technische Implementierung | **nicht autorisiert** |
-| Commit | **B0 `committed` `e4caa14`** · **B1A `committed` `1a7696d`** · **B1B `committed` `b86a35f`** · **B1C `committed` `24de07e`** · **B2A `committed` `929d10b`** · **B2B-P `committed` `fff8227`** · **B2C.1 `committed` `38eb33f`** · **B2C.2 `committed` `117647f`** · **B2C-T-R `committed` `9cde9de`** · **B2D-P `committed` `b409d25`** · **B2D-GOV `committed` `7e8328a`** · **B2D-AUTH `committed` `1222ec0`** · **B2D-ENV-GOV nicht committed** (Commit-Autorität beim Human Maintainer) |
+| Commit | **B0 `committed` `e4caa14`** · **B1A `committed` `1a7696d`** · **B1B `committed` `b86a35f`** · **B1C `committed` `24de07e`** · **B2A `committed` `929d10b`** · **B2B-P `committed` `fff8227`** · **B2C.1 `committed` `38eb33f`** · **B2C.2 `committed` `117647f`** · **B2C-T-R `committed` `9cde9de`** · **B2D-P `committed` `b409d25`** · **B2D-GOV `committed` `7e8328a`** · **B2D-AUTH `committed` `1222ec0`** · **B2D-ENV-GOV `committed` `0cd21f5`** · **B2D-E-N07-GOV `committed` `c4b0426`** · **B2D-E-N14-GOV `committed` `c662452`** (Commit-Autorität beim Human Maintainer) |
 
 **KB-04 ist der Kontrollbereich „Dateisystemrechte“.** Ziel: **Deny-by-default
 auf Dateiebene**; Bedrohung: **Direktzugriff unter Umgehung der Anwendung**.
@@ -1437,6 +1439,114 @@ CBP-WP-021, die per-Decision-Notizen in `DECISION_REGISTER.md` sowie die
 
 **Eine Lesart ist keine Implementierung — und eine sichtbare Lücke ist keine
 Abdeckung.**
+
+### Phasen B2D-E-N14-HM-AUTH-PREP-R33-N1 bis -R33-N3 — R-33-Vorgänge 20 bis 23
+
+**Der read-only Bericht B2D-E-N14-HM-AUTH-PREP meldete am committeten HEAD
+`c662452` vorhandene aktive Statusinkonsistenzen.** In **`R33-N1`** wurde der
+**zwanzigste** Vorgang registriert und die Fundstelle in `CLAUDE.md` korrigiert;
+in **`R33-N2`** wurde derselbe Vorgang auf **alle** bestätigten Fundstellen
+derselben Fehlerursache erweitert und zwei weitere Vorgänge registriert; in
+**`R33-N3`** folgte der **dreiundzwanzigste** Vorgang über die verbliebenen
+aktiven **Current-Phase**-Spiegel. Alle vier sind **identisch** in
+[RISK_REGISTER.md](RISK_REGISTER.md) und
+[COMPLIANCE_CHECK.md](COMPLIANCE_CHECK.md) geführt und **zählen je nur einmal**.
+
+| # | Vorgang | Betroffene aktive Artefakte | Falsche Aussage | Korrekt | Zählwirkung |
+| ---: | --- | --- | --- | --- | --- |
+| 20 | **B2D-ENV-GOV Active Phase-status Mirrors Staleness** | `CLAUDE.md`, **diese Datei** (Kopf, Stand, Queue-Tabelle, Detailfelder *Aktuelle Phase* und *Commit*), `docs/roadmap/PHASE_1_WORK_PACKAGE_MAP.md` | B2D-ENV-GOV „uncommitted" bzw. als aktuelle Phase | **`committed` `0cd21f5`** | **19/22 → 20/22** |
+| 21 | **B2B-P Active Commit-status Mirror Staleness** | `README.md` | B2B-P „uncommitted" | **`committed` `fff8227`** | **20/22 → 21/22** |
+| 22 | **B2D-E-N07-GOV Active Commit-status Mirror Staleness** | `PROJECT_MANIFEST.md` | B2D-E-N07-GOV „uncommitted" | **`committed` `c4b0426`** | **21/22 → 22/22** |
+| 23 | **Active Current-phase Mirrors Staleness** | `README.md`, `docs/roadmap/PHASE_1_WORK_PACKAGE_MAP.md` (Kopffeld *Stand* und Work-Package-Tabellenzeile) | falsche **aktuelle Phase**: **B2B-P** bzw. **B2D-P** | **Phase B2D-E-N14-GOV · D-067 · `committed` `c662452`** | **22/22 → 23/22** |
+
+**Der Nenner bleibt bei allen vier Vorgängen unverändert `22`**, weil
+CBP-WP-022 seit dem **neunzehnten** Vorgang bereits erfasst ist. Nennerkonstanz
+ist **kein Erstfall** — sie trat bereits beim **fünfzehnten** Vorgang auf
+(`14/18 → 15/18`). Bei Vorgang **20** zählen **mehrere Fundstellen derselben
+Fehlerursache** als **genau ein** Vorgang: eine Phase, ein korrekter
+Commitstatus, ein Root Cause, eine Reconciliation. Bei Vorgang **23** gilt
+dasselbe für **zwei Artefakte desselben Spiegeltyps** mit **einem** gemeinsamen
+Zielzustand.
+
+**Stand nach `R33-N3`: R-33 `23/22`, offen, `gemindert, nicht geschlossen`,
+Kritikalität mittel** (*durch den abschließenden R-33 Active-Status Closure Fix
+unten auf `30/22` fortgeschrieben*). Progression
+**`18/21 → 19/22 → 20/22 → 21/22 → 22/22 → 23/22`**; Vorgang 23 war die
+damalige Basislinie. **`23/22` ist kein Erfüllungsgrad und keine
+Prozentkennzahl** — der Zähler zählt **Vorgänge**, der Nenner **Work Packages
+mit mindestens einem Vorgang**, und der Zähler **darf** den Nenner
+überschreiten; **`23/23` ist unzulässig**. Keine neue Risiko-ID, Risikoanzahl
+**35**, Severity **20/14/1**, `offen` **13** unverändert. Decisions/A0/ADRs
+**67/63/14**, Tests **1202**, Traceability **45 / 37 / 2 / 6** unverändert.
+**Keine technische N14-Arbeit, keine lokale Autorisierung, `KB04-T-N14` nicht
+ausgeführt, NT-05 nicht ausgeführt, KB-04 bleibt `DOCUMENTED ONLY`.**
+
+**Historische Momentaufnahmen bleiben unverändert** — insbesondere die
+phasendatierten „Unverändert nach …"-Blöcke, die „(dieser Stand,
+uncommitted)"-Angaben **in echten phasendatierten Abschnitten** (etwa den
+Phasenabsätzen der Detailblöcke dieser Datei und den Abschnitten *Stand nach …*
+der Work-Package-Dateien) und die Fortschreibungsaussage **18/21 → 19/22** des
+neunzehnten Vorgangs. **Nicht** dazu gehören aktive Statustabellen: Die
+Phasenmodelltabelle in `work-packages/CBP-WP-022.md` ist ein
+Live-Statusspiegel, auch wenn eine ihrer Zeilen den Vermerk „(dieser Stand,
+uncommitted)" trug; die Zeile B2D-E-N14-GOV ist im **vierundzwanzigsten**
+Vorgang reconciliiert.
+
+### R-33 Active-Status Closure Fix — Erweiterung der Vorgänge 21 und 23, R-33-Vorgänge 24 bis 30
+
+**Nach mehreren read-only Reviews und einem repositoryweiten read-only
+Vollständigkeitsaudit** waren am committeten HEAD `c662452` weitere aktive
+Statusinkonsistenzen bestätigt. Der abschließende Lauf **R-33 Active-Status
+Closure Fix** (2026-09-21) erweitert die Vorgänge **21** und **23**
+**zählneutral** und registriert **genau sieben** neue Vorgänge. Alle sind
+**identisch** in [RISK_REGISTER.md](RISK_REGISTER.md) und
+[COMPLIANCE_CHECK.md](COMPLIANCE_CHECK.md) geführt und **zählen je nur einmal**.
+
+| # | Vorgang | Betroffene aktive Artefakte | Falsche Aussage | Korrekt | Zählwirkung |
+| ---: | --- | --- | --- | --- | --- |
+| 21 | **Erweiterung** — B2B-P Active Commit-status Mirror Staleness | `project-brain/PROJECT_BRAIN.md` (Zeilen *Aktuelles Work Package* und *Geplante Work Packages*) | B2B-P „uncommitted" | **`committed` `fff8227`** | **zählneutral** |
+| 23 | **Erweiterung** — Active Current-phase Mirrors Staleness | `project-brain/PROJECT_BRAIN.md` (*Geplante Work Packages*), `project-system/HEALTH_SCORE.md` (*Vorgeschlagene Work Packages*), `project-system/PROJECT_PROFILE.md` (*Phase 1*), **diese Datei** (Übersichtsabsatz CBP-WP-022) | aktuelle Phase **B2B-P**, **B2C.2**, **B2C.1** bzw. **B0** | **Phase B2D-E-N14-GOV · D-067 · `committed` `c662452`** | **zählneutral** |
+| 24 | **B2D-E-N14-GOV Active Commit-status Mirrors Staleness** | `project-system/HEALTH_SCORE.md` (*Vorgeschlagene Work Packages*), `project-system/PROJECT_PROFILE.md` (*Phase 1*), `docs/roadmap/PHASE_1_WORK_PACKAGE_MAP.md` (Tabellenzeile CBP-WP-022), `work-packages/CBP-WP-022.md` (Phasenmodellzeile) | B2D-E-N14-GOV „uncommitted" bzw. „complete (dieser Stand, uncommitted)" | **`committed` `c662452`** | **23/22 → 24/22** |
+| 25 | **Active Commit-field Sequence Staleness** | `work-packages/CBP-WP-022.md` (Feld *Commit*) | Folge endete bei B2B-P; „B2C.1 nicht committed" | **B2C.1 `38eb33f` bis B2D-E-N14-GOV `c662452`**, sämtlich `committed` | **24/22 → 25/22** |
+| 26 | **B2C-T-R Active Commit-status Mirrors Staleness** | `docs/roadmap/PHASE_1_WORK_PACKAGE_MAP.md` (Fortschrittsaussage), **diese Datei** (Kopfzeile *Aktuelles Work Package*) | B2C-T-R „uncommitted" | **`committed` `9cde9de`** | **25/22 → 26/22** |
+| 27 | **B1C Active Commit-status Mirror Staleness** | `docs/roadmap/PHASE_1_WORK_PACKAGE_MAP.md` (Fortschrittsaussage) | B1C „abgeschlossen und uncommitted" | **`committed` `24de07e`** | **26/22 → 27/22** |
+| 28 | **CBP-WP-021 Queue Detail Block Staleness** | **diese Datei** (Detailblock CBP-WP-021: *Status*, *Aktuelle Phase*, *Commit*) | `in-review` · Phase C „(vorbereitet)" · Commit „nicht ausgeführt" | **`committed` · `complete`**, Phase C abgeschlossen, **`0cb4ea9` · `271acc7` · `0344774`** | **27/22 → 28/22** |
+| 29 | **CBP-WP-019 Residual Queue Summary Status Staleness** | **diese Datei** (Übersichtsabsatz CBP-WP-019) | „steht auf `in-review` in `committed`" | **`committed` `3c437f2`** | **28/22 → 29/22** |
+| 30 | **CBP-WP-022 Registration Lifecycle-state Mirrors Staleness** | `docs/roadmap/PHASE_1_WORK_PACKAGE_MAP.md` (Absatz CBP-WP-021, Abschnitt *Status*), `project-brain/PROJECT_BRAIN.md` (*Geplante Work Packages*) | „Kein Work Package ist aktiv" · an CBP-WP-020 verankerter *Aktueller Stand* · KB-04-Paket nur „möglicher Kandidat" | **CBP-WP-022 registriert (`e4caa14`), aktuelles Work Package, `in-review`** | **29/22 → 30/22** |
+
+**Der Nenner bleibt unverändert `22`:** Die Vorgänge 24 bis 27 und 30 betreffen
+das seit dem neunzehnten Vorgang erfasste CBP-WP-022, Vorgang 28 das seit dem
+achtzehnten Vorgang erfasste CBP-WP-021 und Vorgang 29 das seit dem sechzehnten
+Vorgang erfasste CBP-WP-019. **Mehrere Fundstellen derselben Fehlerursache
+bleiben je genau ein Vorgang.** **Vorgang 29** ist der Rest einer früheren,
+unvollständigen Reconciliation und als **eigener** Vorgang registriert; der
+**sechzehnte Vorgang wird weder wiedereröffnet noch rückwirkend neu gezählt**.
+
+**Bekannter, zurückgestellter Befund AF-6:** Die Angaben zum Git-Gesamtzähler
+und zum HEAD in `project-brain/PROJECT_BRAIN.md`,
+`project-system/HEALTH_SCORE.md` und `project-system/PROJECT_MANIFEST.md`
+(**Commits 29**, HEAD **`9c6c0fb`**) sind veraltet. **D-056 Teil T** nimmt die
+Commitzähler-Governance aus und verweist sie in eine separate Governance-Note;
+CBP-WP-022 schließt sie ausdrücklich aus (*keine Commitzähler-Governance*).
+**AF-6 ist deshalb bekannt und zurückgestellt, kein einunddreißigster Vorgang
+und ohne Zählwirkung; die drei Felder bleiben unverändert.**
+
+**Autorisierungsaussagen bleiben unverändert.** Trägt eine korrigierte aktive
+Zeile zusätzlich eine Aussage zum Autorisierungsstand, ist diese **wörtlich
+erhalten**; Aussagen, die an einen früheren Abschlusszeitpunkt gebunden waren,
+sind ausdrücklich auf diesen Zeitpunkt bezogen („Zum Abschluss von CBP-WP-020"
+bzw. „… von CBP-WP-021"). **Keine neue Governance-Entscheidung.**
+
+**Aktueller Stand: R-33 `30/22`, offen, `gemindert, nicht geschlossen`,
+Kritikalität mittel.** Progression
+**`23/22 → 24/22 → 25/22 → 26/22 → 27/22 → 28/22 → 29/22 → 30/22`**; **nur
+Vorgang 30** ist die aktuelle Basislinie. **`30/22` ist kein Erfüllungsgrad und
+keine Prozentkennzahl**; **`30/23` und `31/22` sind unzulässig**. Keine neue
+Risiko-ID, Risikoanzahl **35**, Severity **20/14/1**, `offen` **13**
+unverändert. Decisions/A0/ADRs **67/63/14**, Tests **1202**, Traceability
+**45 / 37 / 2 / 6** unverändert. **Keine technische Arbeit, keine lokale
+Autorisierung, `KB04-T-N14` und NT-05 nicht ausgeführt, KB-04 bleibt
+`DOCUMENTED ONLY`.**
 
 ---
 

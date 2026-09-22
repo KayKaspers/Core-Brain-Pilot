@@ -699,8 +699,10 @@ KB-Kontrollen `DOCUMENTED ONLY`; **R-20 bleibt offen**.
 
 **R-33 bleibt `gemindert, nicht geschlossen`** — Kritikalität unverändert
 **mittel**, kein Risiko geschlossen, **keine neue Risiko-ID**. **Achtzehn
-Konsistenzvorgänge in einundzwanzig Work Packages** sind dokumentiert (**neue
-aktuelle Basislinie**; löst „siebzehn" ab); die Zahl der Work Packages steigt
+Konsistenzvorgänge in einundzwanzig Work Packages** waren dokumentiert (*Stand
+nach dem achtzehnten Vorgang; durch den neunzehnten Vorgang unten auf
+**19/22** und durch die Vorgänge zwanzig bis zweiundzwanzig fortlaufend auf
+**22/22** aktualisiert*; löste „siebzehn" ab); die Zahl der Work Packages steigt
 auf **einundzwanzig**, weil dieser Vorgang **erstmals CBP-WP-021** betrifft, das
 durch `271acc7` Teil der committeten Menge wurde (**17/20 → 18/21**). **Das
 projektweite Konsistenzrisiko ist nicht beseitigt.** Dieser Vorgang ist mit dem
@@ -771,8 +773,10 @@ bleibt offen**.
 
 **R-33 bleibt `gemindert, nicht geschlossen`** — Kritikalität unverändert
 **mittel**, kein Risiko geschlossen, **keine neue Risiko-ID**. **Neunzehn
-Konsistenzvorgänge in zweiundzwanzig Work Packages** sind dokumentiert (**neue
-aktuelle Basislinie**; löst „achtzehn" ab); die Zahl der Work Packages steigt
+Konsistenzvorgänge in zweiundzwanzig Work Packages** waren dokumentiert (*Stand
+nach dem neunzehnten Vorgang; durch die Vorgänge zwanzig bis zweiundzwanzig
+unten fortlaufend auf **20/22**, **21/22** und **22/22** aktualisiert*; löste
+„achtzehn" ab); die Zahl der Work Packages steigt
 auf **zweiundzwanzig**, weil dieser Vorgang **erstmals CBP-WP-022** betrifft,
 das durch die Commits `e4caa14` bis `0cd21f5` Teil der committeten Menge ist
 (**18/21 → 19/22**). **Das projektweite Konsistenzrisiko ist nicht
@@ -780,6 +784,535 @@ beseitigt** — dieser Vorgang belegt es erneut. Dieser Vorgang ist mit dem
 Eintrag in [RISK_REGISTER.md](RISK_REGISTER.md) **identisch** und zählt **nur
 einmal**. Die dortige Darstellung folgt der **Tabellenform** des Risk
 Registers, während hier die **Prosaform** dieses Dokuments verwendet wird;
+**Fakten, Zahlen, Closure-Grenze und R-33-Wirkung sind identisch**.
+
+### Zwanzigster Konsistenzvorgang — CBP-WP-022 B2D-ENV-GOV Active Phase-status Mirrors Staleness (2026-08-06)
+
+**Gefunden im read-only Bericht CBP-WP-022 Phase B2D-E-N14-HM-AUTH-PREP,
+registriert in Phase B2D-E-N14-HM-AUTH-PREP-R33-N1 und in Phase
+B2D-E-N14-HM-AUTH-PREP-R33-N2 auf alle bestätigten Fundstellen erweitert.**
+**Mehrere aktive Statusspiegel** führten den Commitstatus **einer** Phase
+falsch. In `CLAUDE.md` stand die falsche Angabe sogar **zweimal
+widersprüchlich in einer Zelle**: die Phasenaufzählung wies **`B2D-ENV-GOV
+uncommitted`** aus, während wenige Sätze später **in derselben Zelle** korrekt
+**B2D-ENV-GOV ist `committed` (`0cd21f5`)** stand.
+
+**Fehlerklasse:** **Unterbliebene Fortschreibung aktiver
+Phasenstatusspiegel.** Alle Fundstellen entstanden im B2D-ENV-GOV-Lauf, als die
+Phase tatsächlich noch nicht committet war; die Post-Commit-Fortschreibung
+unterblieb, während spätere Läufe an anderer Stelle derselben Dokumente den
+korrekten Zustand ergänzten — daher der Widerspruch.
+
+**Betroffene aktive Artefakte — drei:**
+
+| Artefakt | Falsche aktive Aussagen |
+| --- | --- |
+| **`CLAUDE.md`** | **`B2D-ENV-GOV uncommitted`** in der Zeile des aktiven Work Packages (*Aktueller Zustand*) |
+| **`project-system/WORK_PACKAGE_QUEUE.md`** | **`B2D-ENV-GOV uncommitted`** in der Queue-Tabellenzeile · **`B2D-ENV-GOV nicht committed`** im Detailfeld *Commit* · **B2D-ENV-GOV als aktuelle Phase** in der Kopfzeile *Aktuelles Work Package*, im Feld *Stand* und im Detailfeld *Aktuelle Phase* |
+| **`docs/roadmap/PHASE_1_WORK_PACKAGE_MAP.md`** | **„Phase B2D-ENV-GOV abgeschlossen und uncommitted"** in der aktiven Fortschrittsaussage |
+
+**Warum genau ein Vorgang:** **eine** Phase · **ein** korrekter Commitstatus ·
+**ein** gemeinsamer Root Cause — die unterbliebene Post-Commit-Fortschreibung
+derselben Angabe · **eine** gemeinsame Reconciliation. Für einzelne
+B2D-ENV-GOV-Zeilen wird deshalb **kein** zusätzlicher Konsistenzvorgang
+angelegt.
+
+**Abgrenzung:** Keine der Fundstellen ist eine **zitierte historische
+Momentaufnahme** oder eine **bewusst markierte Darstellung eines früheren
+Zustands**; alle stehen unmarkiert in aktiven Statusdarstellungen. Die
+phasendatierten Momentaufnahmen — etwa die Phasenabsätze „(dieser Stand,
+uncommitted)" in den Detailblöcken von `WORK_PACKAGE_QUEUE.md` und die
+Abschnitte *Stand nach …* mit „complete (dieser Stand, uncommitted)" in
+`work-packages/CBP-WP-022.md` — sind **ausdrücklich markiert**, damals
+zutreffend und bleiben **unverändert**. *Präzisiert im R-33 Active-Status
+Closure Fix:* Diese Ausnahme gilt **nur** für echte phasendatierte Abschnitte;
+die **aktive Phasenmodelltabelle** in `work-packages/CBP-WP-022.md` ist ein
+Live-Statusspiegel und keine Momentaufnahme — ihre Zeile B2D-E-N14-GOV ist im
+**vierundzwanzigsten** Vorgang reconciliiert. Am committeten HEAD **`c662452`**
+bestand eine **tatsächliche aktive Statusinkonsistenz**. Der Sachverhalt war in den bisherigen
+**neunzehn** Vorgängen **nicht** als eigener Vorgang registriert.
+
+**Korrigiert:** Alle bestätigten aktiven Fundstellen wurden auf **B2D-ENV-GOV
+`committed` (`0cd21f5`)** und auf die tatsächliche aktuelle Phase
+**B2D-E-N14-GOV** gebracht. **Keine phasendatierte historische Momentaufnahme
+überschrieben.**
+
+**Wirkung:** **keine technische Implementierungsänderung**, **keine
+Decisionänderung**, **keine ADR-Änderung**, **keine Risikoänderung**, **keine
+neue Risiko-ID**, **keine Teständerung**, **keine Traceabilityänderung**,
+**keine Capabilityänderung**; **D-067 unverändert**; **KB-04 bleibt
+`DOCUMENTED ONLY`**; Mapping Activation Gate und Security Foundation Readiness
+Gate bleiben `NOT EVALUATED`; Capabilities **0 von 29**; **`KB04-T-N14` nicht
+ausgeführt und nicht lokal autorisiert**; **NT-04 und NT-05 nicht ausgeführt**;
+**OD-37 offen**; **Contract §10.3 offen**; **R-20 bleibt offen**.
+
+**R-33 bleibt `gemindert, nicht geschlossen`** — Kritikalität unverändert
+**mittel**, kein Risiko geschlossen, **keine neue Risiko-ID**. **Zwanzig
+Konsistenzvorgänge in zweiundzwanzig Work Packages** waren dokumentiert (*Stand
+nach dem zwanzigsten Vorgang; durch den einundzwanzigsten Vorgang unten auf
+**21/22** und durch den zweiundzwanzigsten auf **22/22** aktualisiert*; löste
+„neunzehn" ab); die Zahl der Work Packages bleibt **zweiundzwanzig**, weil
+CBP-WP-022 durch den neunzehnten Vorgang **bereits** Teil der erfassten Menge
+war — ein weiterer Vorgang im selben, bereits erfassten Work Package erhöht
+**nur** den Vorgangszähler (**19/22 → 20/22**). **Das projektweite
+Konsistenzrisiko ist nicht beseitigt** — der zwanzigste Vorgang belegt es
+unmittelbar nach dem neunzehnten. Dieser Vorgang ist mit dem Eintrag in
+[RISK_REGISTER.md](RISK_REGISTER.md) **identisch** und **zählt nur einmal**. Die
+dortige Darstellung folgt der **Tabellenform** des Risk Registers, während hier
+die **Prosaform** dieses Dokuments verwendet wird; **Fakten, Zahlen,
+Closure-Grenze und R-33-Wirkung sind identisch**.
+
+### Einundzwanzigster Konsistenzvorgang — CBP-WP-022 B2B-P Active Commit-status Mirror Staleness (2026-08-06)
+
+**Gefunden im read-only Bericht CBP-WP-022 Phase B2D-E-N14-HM-AUTH-PREP und
+dort als unregistrierte Nebenbeobachtung ausgewiesen; registriert in Phase
+B2D-E-N14-HM-AUTH-PREP-R33-N2.** Die **aktive** Statusdarstellung in
+`README.md` — die Zeile des aktuellen Work Packages im Abschnitt *Aktueller
+Stand* — führte in der Phasen-Commit-Aufzählung **`B2B-P uncommitted`**.
+
+**Fehlerklasse:** **Unterbliebene Fortschreibung eines aktiven
+Commitstatusspiegels** — dieselbe Klasse wie der zwanzigste Vorgang, jedoch
+**andere Phase**, **anderer Commit** und **anderes Artefakt**. Deshalb ein
+**eigener** Vorgang.
+
+**Betroffen — zwei aktive Artefakte:** **`README.md`** (eine aktive Statuszelle,
+Aufzählung **`B2B-P uncommitted`**) und
+**`docs/roadmap/PHASE_1_WORK_PACKAGE_MAP.md`** (aktive Fortschrittsaussage
+**„Phase B2B-P ist abgeschlossen und uncommitted"**). Die zweite Fundstelle
+wurde in Phase **B2D-E-N14-HM-AUTH-PREP-R33-N3** nachgetragen; **mehrere
+Fundstellen derselben Fehlerursache bleiben genau ein Vorgang** und erhöhen den
+Zähler **nicht** erneut.
+
+**Korrekter Zustand:** **B2B-P ist `committed`**, Commit **`fff8227`** —
+*„CBP-WP-022: add KB-04 initialization planning and safety guards"*.
+
+**Abgrenzung:** **Keine zitierte historische Momentaufnahme**, **keine bewusst
+markierte frühere Phase**; die Aussage steht unmarkiert in der aktiven
+Statusdarstellung. Im Gegensatz zum zwanzigsten Vorgang enthält `README.md`
+**keine** gegenläufige korrekte Angabe — der Fehler ist eine **reine
+Fortschreibungslücke**. In den bisherigen **zwanzig** Vorgängen **nicht** als
+eigener Vorgang registriert.
+
+**Korrigiert:** Beide Fundstellen wurden auf **B2B-P `committed` `fff8227`**
+gebracht. **Keine weitere Angabe dieser Dateien verändert** — insbesondere
+bleibt die ausdrücklich markierte Momentaufnahme
+`WORK_PACKAGE_QUEUE.md` „Phase B2B-P (dieser Stand, uncommitted)" und die
+Phasenüberschrift in `work-packages/CBP-WP-022.md` unverändert.
+
+**Erweiterung im R-33 Active-Status Closure Fix (2026-09-21):** Der
+repositoryweite read-only Vollständigkeitsaudit bestätigte **zwei weitere
+Fundstellen derselben Fehlerursache** in **`project-brain/PROJECT_BRAIN.md`** —
+die Phasen-Commit-Aufzählung der Zeile *Aktuelles Work Package* und die Zeile
+*Geplante Work Packages* führten jeweils **`B2B-P uncommitted`**. Beide wurden
+auf **B2B-P `committed` `fff8227`** gebracht. **Zählneutral** — dieselbe Phase,
+derselbe Commit, dieselbe Fehlerursache; **kein neuer Vorgang**, Zähler und
+Nenner unverändert.
+
+**Wirkung:** **keine technische Implementierungsänderung**, **keine
+Decisionänderung**, **keine ADR-Änderung**, **keine Risikoänderung**, **keine
+neue Risiko-ID**, **keine Teständerung**, **keine Traceabilityänderung**,
+**keine Capabilityänderung**.
+
+**R-33 bleibt `gemindert, nicht geschlossen`** — Kritikalität unverändert
+**mittel**. **Einundzwanzig Konsistenzvorgänge in zweiundzwanzig Work
+Packages** waren dokumentiert (*Stand nach dem einundzwanzigsten Vorgang; durch
+den zweiundzwanzigsten Vorgang unten auf **22/22** aktualisiert*; löste
+„zwanzig" ab); der Nenner bleibt **zweiundzwanzig** (**20/22 → 21/22**). Dieser
+Vorgang ist mit dem Eintrag in [RISK_REGISTER.md](RISK_REGISTER.md)
+**identisch** und **zählt nur einmal**; **Fakten, Zahlen, Closure-Grenze und
+R-33-Wirkung sind identisch**.
+
+### Zweiundzwanzigster Konsistenzvorgang — CBP-WP-022 B2D-E-N07-GOV Active Commit-status Mirror Staleness (2026-08-06)
+
+**Gefunden im read-only Bericht CBP-WP-022 Phase B2D-E-N14-HM-AUTH-PREP und
+dort als unregistrierte Nebenbeobachtung ausgewiesen; registriert in Phase
+B2D-E-N14-HM-AUTH-PREP-R33-N2.** Die **aktive** Statusdarstellung in
+`project-system/PROJECT_MANIFEST.md` — die Zeile des aktuellen Work Packages im
+Abschnitt *Status* — führte in der Phasen-Commit-Aufzählung
+**`B2D-E-N07-GOV uncommitted`**.
+
+**Fehlerklasse:** **Unterbliebene Fortschreibung eines aktiven
+Commitstatusspiegels** — dieselbe Klasse wie der zwanzigste und
+einundzwanzigste Vorgang, jedoch **andere Phase**, **anderer Commit** und
+**anderes Artefakt**. Deshalb ein **eigener** Vorgang.
+
+**Betroffen:** **`project-system/PROJECT_MANIFEST.md`** — genau eine aktive
+Statuszelle.
+
+**Korrekter Zustand:** **B2D-E-N07-GOV ist `committed`**, Commit **`c4b0426`** —
+*„CBP-WP-022: defer N07 retrieval and reconcile R-33"*.
+
+**Abgrenzung:** **Keine zitierte historische Momentaufnahme**, **keine bewusst
+markierte frühere Phase**. Die Zeile weist die aktuelle Phase
+**B2D-E-N14-GOV** korrekt aus, führte den unmittelbar davorliegenden
+Phasencommit aber weiter als offen; der Commit **`c4b0426`** war in dieser
+Datei **an keiner Stelle** genannt — eine **reine Fortschreibungslücke**. In
+den bisherigen **einundzwanzig** Vorgängen **nicht** als eigener Vorgang
+registriert.
+
+**Korrigiert:** **`B2D-E-N07-GOV uncommitted`** wurde durch **B2D-E-N07-GOV
+`committed` `c4b0426`** ersetzt. **Keine weitere Angabe dieser Datei
+verändert.**
+
+**Wirkung:** **keine technische Implementierungsänderung**, **keine
+Decisionänderung**, **keine ADR-Änderung**, **keine Risikoänderung**, **keine
+neue Risiko-ID**, **keine Teständerung**, **keine Traceabilityänderung**,
+**keine Capabilityänderung**; **D-067 unverändert**; **KB-04 bleibt
+`DOCUMENTED ONLY`**; Mapping Activation Gate und Security Foundation Readiness
+Gate bleiben `NOT EVALUATED`; Capabilities **0 von 29**; **`KB04-T-N14` nicht
+ausgeführt und nicht lokal autorisiert**; **NT-04 und NT-05 nicht ausgeführt**;
+**OD-37 offen**; **Contract §10.3 offen**; **R-20 bleibt offen**.
+
+**R-33 bleibt `gemindert, nicht geschlossen`** — Kritikalität unverändert
+**mittel**, kein Risiko geschlossen, **keine neue Risiko-ID**.
+**Zweiundzwanzig Konsistenzvorgänge in zweiundzwanzig Work Packages** waren
+dokumentiert (*Stand nach dem zweiundzwanzigsten Vorgang; durch den
+dreiundzwanzigsten Vorgang unten auf **23/22** aktualisiert*; löste
+„einundzwanzig" ab); die Zahl der Work Packages bleibt **zweiundzwanzig**, weil
+die Vorgänge **20**, **21** und **22** dasselbe, seit dem neunzehnten Vorgang
+bereits erfasste Work Package CBP-WP-022 betreffen und **ausschließlich** den
+Vorgangszähler erhöhen (**19/22 → 20/22 → 21/22 → 22/22**). Nennerkonstanz ist
+**kein Erstfall** — sie trat bereits beim **fünfzehnten** Vorgang auf
+(`14/18 → 15/18`). **Das projektweite Konsistenzrisiko ist nicht beseitigt** —
+drei Vorgänge derselben Klasse an einem Tag belegen es unmittelbar. Dieser
+Vorgang ist mit dem Eintrag in [RISK_REGISTER.md](RISK_REGISTER.md)
+**identisch** und **zählt nur einmal**. Die dortige Darstellung folgt der
+**Tabellenform** des Risk Registers, während hier die **Prosaform** dieses
+Dokuments verwendet wird; **Fakten, Zahlen, Closure-Grenze und R-33-Wirkung
+sind identisch**.
+
+### Dreiundzwanzigster Konsistenzvorgang — CBP-WP-022 Active Current-phase Mirrors Staleness (2026-08-06)
+
+**Im Bericht CBP-WP-022 Phase B2D-E-N14-HM-AUTH-PREP-R33-N2 als verbleibende,
+ausdrücklich nicht registrierte Beobachtung ausgewiesen; registriert in Phase
+B2D-E-N14-HM-AUTH-PREP-R33-N3.** **Zwei** aktive Current-Phase-Spiegel
+benannten eine **falsche aktuelle Phase**: `README.md` führte **`B2B-P`**, die
+Roadmapkarte **`B2B-P`** im Kopffeld *Stand* und **`B2D-P`** in der
+Work-Package-Tabellenzeile.
+
+**Fehlerklasse:** **Unterbliebene Fortschreibung aktiver
+Current-Phase-Spiegel.** Anders als bei den Vorgängen 20 bis 22 betrifft der
+Fehler **nicht** den Commitstatus einer einzelnen Phase, sondern die Angabe,
+**welche Phase gegenwärtig aktuell ist**. Beide Spiegel wurden über **mehrere**
+Phasen hinweg nicht fortgeschrieben, während die Phasenkette bis
+**B2D-E-N14-GOV** fortschritt.
+
+**Betroffene aktive Artefakte — zwei:**
+
+| Artefakt | Falscher aktiver Current-Phase-Wert |
+| --- | --- |
+| **`README.md`** | **`B2B-P`** in der Zeile *Aktuelles Work Package* (§ *Aktueller Stand*) |
+| **`docs/roadmap/PHASE_1_WORK_PACKAGE_MAP.md`** | **`B2B-P`** im Kopffeld *Stand* · **`B2D-P`** in der Work-Package-Tabellenzeile CBP-WP-022 |
+
+**Korrekter gemeinsamer Zustand:** Phase **`B2D-E-N14-GOV`** — *N14 Ephemeral
+Observation Bridge Classification*; Decision **D-067** (`accepted`, **A0**);
+Commit **`c662452`**.
+
+**Aktiv, nicht historisch:** Beide Fundstellen sind **Top-Level-Current-Phase-
+Spiegel** ihrer Dokumente, stehen **unmarkiert**, tragen **keine** Zitatform
+und **keinen** Hinweis auf einen früheren Zustand. Beide Dateien nennen **an
+anderer Stelle** bereits korrekt **B2D-E-N14-GOV** und **D-067** — der
+Widerspruch ist dateiintern belegt. In den bisherigen **zweiundzwanzig**
+Vorgängen **nicht** als eigener Vorgang registriert.
+
+**Warum genau ein Vorgang:** **derselbe Spiegeltyp** — aktiver
+Current-Phase-Spiegel · **derselbe Zielzustand** — `B2D-E-N14-GOV` / D-067 /
+`c662452` · **dieselbe Fortschreibungsfehlerklasse** · **eine** gemeinsame
+Reconciliation. Deshalb **keine** eigene Ereignisnummer je Datei.
+
+**Korrigiert:** Beide aktiven Current-Phase-Spiegel wurden auf **Phase
+`B2D-E-N14-GOV` – D-067, `committed` `c662452`** gebracht. **Keine historische
+Phasenangabe ersetzt** — insbesondere bleiben **B2D-P ist `committed`
+(`b409d25`)** und **B2B-P `committed` `fff8227`** unverändert, ebenso alle
+früheren Work-Package-Planungen und accepted Governancegrenzen.
+
+**Erweiterung im R-33 Active-Status Closure Fix (2026-09-21):** Der
+repositoryweite read-only Vollständigkeitsaudit bestätigte **vier weitere aktive
+Current-Phase-Spiegel desselben Spiegeltyps** mit **demselben Zielzustand**:
+**`project-brain/PROJECT_BRAIN.md`** (Zeile *Geplante Work Packages*:
+**`B2B-P`**) · **`project-system/HEALTH_SCORE.md`** (Zeile *Vorgeschlagene Work
+Packages*: **`B2C.2`**) · **`project-system/PROJECT_PROFILE.md`** (Zeile
+*Phase 1*: **`B2C.1 – Synthetic Evidence Scope Decision`**) ·
+**`project-system/WORK_PACKAGE_QUEUE.md`** (Übersichtsabsatz CBP-WP-022:
+**`Phase B0 – Registration and Authority Baseline`**). Alle wurden auf **Phase
+`B2D-E-N14-GOV` – D-067**, `committed` **`c662452`**, gebracht; im Queue-Absatz
+blieb die Registrierungsangabe als **Phase B0 `committed` `e4caa14`** erhalten.
+**Aussagen zum Autorisierungsstand in denselben Zeilen blieben wörtlich
+unverändert.** **Zählneutral** — derselbe Spiegeltyp, derselbe Zielzustand,
+dieselbe Fortschreibungsfehlerklasse; **kein neuer Vorgang**, Zähler und Nenner
+unverändert.
+
+**Wirkung:** **keine technische Implementierungsänderung**, **keine neue
+Decision**, **keine ADR**, **keine Risikoänderung**, **keine neue Risiko-ID**,
+**keine Teständerung**, **keine Traceabilityänderung**, **keine
+Capabilityänderung**; **D-067 unverändert**; **KB-04 bleibt `DOCUMENTED
+ONLY`**; Mapping Activation Gate und Security Foundation Readiness Gate bleiben
+`NOT EVALUATED`; Capabilities **0 von 29**; **`KB04-T-N14` nicht ausgeführt und
+nicht lokal autorisiert**; **NT-04 und NT-05 nicht ausgeführt**; **OD-37
+offen**; **Contract §10.3 offen**; **R-20 bleibt offen**.
+
+**R-33 bleibt `gemindert, nicht geschlossen`** — Kritikalität unverändert
+**mittel**, kein Risiko geschlossen, **keine neue Risiko-ID**.
+**Dreiundzwanzig Konsistenzvorgänge in zweiundzwanzig Work Packages** waren
+dokumentiert (*Stand nach dem dreiundzwanzigsten Vorgang; durch die Vorgänge
+vierundzwanzig bis dreißig unten fortlaufend auf **30/22** aktualisiert, die
+Erweiterung dieses Vorgangs ist zählneutral*; löste „zweiundzwanzig" ab); die Zahl
+der Work Packages bleibt **zweiundzwanzig**, weil Vorgang **23** — wie die
+Vorgänge 20 bis 22 — das seit dem neunzehnten Vorgang bereits erfasste Work
+Package CBP-WP-022 betrifft und **ausschließlich** den Vorgangszähler erhöht.
+Vollständige Progression: **19/22 → 20/22 → 21/22 → 22/22 → 23/22**.
+**`23/22` ist kein Erfüllungsgrad und keine Prozentkennzahl** — der Zähler
+zählt dokumentierte Vorgänge, der Nenner Work Packages mit mindestens einem
+Vorgang, und der Zähler **darf** den Nenner überschreiten; **`23/23` ist
+unzulässig**. **Das projektweite Konsistenzrisiko ist nicht beseitigt** — vier
+Vorgänge derselben Grundklasse an einem Tag belegen es unmittelbar. Dieser
+Vorgang ist mit dem Eintrag in [RISK_REGISTER.md](RISK_REGISTER.md)
+**identisch** und **zählt nur einmal**. Die dortige Darstellung folgt der
+**Tabellenform** des Risk Registers, während hier die **Prosaform** dieses
+Dokuments verwendet wird; **Fakten, Zahlen, Closure-Grenze und R-33-Wirkung
+sind identisch**.
+
+### Vierundzwanzigster Konsistenzvorgang — CBP-WP-022 B2D-E-N14-GOV Active Commit-status Mirrors Staleness (2026-09-21)
+
+**Nach mehreren read-only Reviews im repositoryweiten read-only
+Vollständigkeitsaudit bestätigt; registriert im abschließenden Lauf R-33
+Active-Status Closure Fix**, der die Vorgänge 21 und 23 zählneutral erweitert
+und genau sieben neue Vorgänge registriert. **Vier** aktive Spiegel führten den
+Commitstatus der Phase **B2D-E-N14-GOV** falsch.
+
+**Fehlerklasse:** **Unterbliebene Fortschreibung aktiver
+Commitstatusspiegel** — dieselbe Grundklasse wie die Vorgänge 20 bis 22, jedoch
+**andere Phase** und **anderer Commit**. Alle Fundstellen entstanden im
+B2D-E-N14-GOV-Lauf **vor** dem Commit `c662452`; die Post-Commit-Fortschreibung
+unterblieb.
+
+| Artefakt | Falsche aktive Aussage |
+| --- | --- |
+| **`project-system/HEALTH_SCORE.md`** | **`B2D-E-N14-GOV uncommitted`** in der Zeile *Vorgeschlagene Work Packages* |
+| **`project-system/PROJECT_PROFILE.md`** | **`B2D-E-N14-GOV uncommitted`** in der Zeile *Phase 1* |
+| **`docs/roadmap/PHASE_1_WORK_PACKAGE_MAP.md`** | **„B2D-E-N14-GOV registriert D-067 (…), uncommitted"** in der Work-Package-Tabellenzeile CBP-WP-022 |
+| **`work-packages/CBP-WP-022.md`** | **„complete (dieser Stand, uncommitted)"** in der Zeile B2D-E-N14-GOV der Phasenmodelltabelle |
+
+**Korrekter Zustand:** **B2D-E-N14-GOV ist `committed`**, Commit **`c662452`** —
+*„CBP-WP-022: classify N14 observation bridge"*.
+
+**Aktiv, nicht historisch:** Alle Fundstellen stehen in aktiven Statuszeilen
+beziehungsweise in der **aktiven Phasenmodelltabelle**. Der Vermerk „(dieser
+Stand, uncommitted)" macht die Zeile einer Live-Statustabelle **nicht** zu einer
+historischen Momentaufnahme — die Nachbarzeilen **B2D-ENV-GOV** und
+**B2D-E-N07-GOV** derselben Tabelle waren bereits auf `committed`
+fortgeschrieben. In den bisherigen **dreiundzwanzig** Vorgängen **nicht** als
+eigener Vorgang registriert.
+
+**Korrigiert:** Alle vier Fundstellen wurden auf **B2D-E-N14-GOV `committed`
+`c662452`** gebracht; die Phasenmodellzeile folgt der Form ihrer Nachbarzeilen.
+**Eine** Phase, **ein** Commit, **eine** Fehlerursache, **eine** Reconciliation
+— **genau ein** Vorgang trotz vier Fundstellen. **Zählwirkung: `23/22 → 24/22`**,
+Nenner unverändert.
+
+### Fünfundzwanzigster Konsistenzvorgang — CBP-WP-022 Active Commit-field Sequence Staleness (2026-09-21)
+
+**Im repositoryweiten read-only Vollständigkeitsaudit bestätigt; registriert im
+R-33 Active-Status Closure Fix.** Das Kopffeld *Commit* in
+**`work-packages/CBP-WP-022.md`** endete bei **B2B-P `committed` `fff8227`** und
+führte **„B2C.1 nicht committed"**; sämtliche Commits ab B2C.1 fehlten.
+
+**Fehlerklasse:** **Unterbliebene Fortschreibung eines aktiven Commitfelds** über
+**neun** Phasencommits hinweg. Der Eintrag entstand im B2C.1-Lauf **vor** dessen
+Commit `38eb33f`; keiner der folgenden Läufe schrieb das Feld fort, obwohl die
+Phasenmodelltabelle derselben Datei die Commits zeilenweise auswies. Ein
+**aktives Kopffeld**, keine Momentaufnahme — die Abschnitte *Stand nach …*
+derselben Datei bleiben unverändert. In den bisherigen **vierundzwanzig**
+Vorgängen **nicht** als eigener Vorgang registriert.
+
+**Korrigiert:** Die Folge wurde vervollständigt — **B2C.1 `38eb33f`** ·
+**B2C.2 `117647f`** · **B2C-T-R `9cde9de`** · **B2D-P `b409d25`** ·
+**B2D-GOV `7e8328a`** · **B2D-AUTH `1222ec0`** · **B2D-ENV-GOV `0cd21f5`** ·
+**B2D-E-N07-GOV `c4b0426`** · **B2D-E-N14-GOV `c662452`**, sämtlich
+`committed`; die Angaben B0 bis B2B-P und der Vermerk zur Commit-Autorität
+blieben unverändert. **Ein** Feld, **eine** Fehlerursache — **genau ein**
+Vorgang. **Zählwirkung: `24/22 → 25/22`**, Nenner unverändert.
+
+### Sechsundzwanzigster Konsistenzvorgang — CBP-WP-022 B2C-T-R Active Commit-status Mirrors Staleness (2026-09-21)
+
+**Im repositoryweiten read-only Vollständigkeitsaudit bestätigt; registriert im
+R-33 Active-Status Closure Fix.** **Zwei** aktive Spiegel führten B2C-T-R als
+nicht committet: **`docs/roadmap/PHASE_1_WORK_PACKAGE_MAP.md`** (**„Phase
+B2C-T-R ist abgeschlossen und uncommitted"**) und
+**`project-system/WORK_PACKAGE_QUEUE.md`** (Kopfzeile *Aktuelles Work Package*:
+**`B2C-T-R uncommitted`**, zusätzlich mit unausgeglichener Fettmarkierung).
+
+**Fehlerklasse:** **Unterbliebene Fortschreibung aktiver
+Commitstatusspiegel** — dieselbe Grundklasse wie der vierundzwanzigste Vorgang,
+jedoch **andere Phase** und **anderer Commit**. Beide Aussagen entstanden im
+B2C-T-R-Lauf **vor** dem Commit `9cde9de`. Beide Dateien weisen **an anderer
+Stelle** bereits korrekt **B2C-T-R `committed` `9cde9de`** aus — der Widerspruch
+ist dateiintern belegt. In den bisherigen **fünfundzwanzig** Vorgängen **nicht**
+als eigener Vorgang registriert.
+
+**Korrekter Zustand und Korrektur:** **B2C-T-R ist `committed`**, Commit
+**`9cde9de`** — *„CBP-WP-022: add KB-04 contract traceability and NT
+preparation"*. Beide Fundstellen wurden entsprechend gebracht, die
+Fettmarkierung der Queue-Aufzählung ist ausgeglichen; die Aussage zum
+Autorisierungsstand am Ende derselben Queue-Zeile blieb **wörtlich
+unverändert**. **Genau ein** Vorgang trotz zweier Artefakte. **Zählwirkung:
+`25/22 → 26/22`**, Nenner unverändert.
+
+### Siebenundzwanzigster Konsistenzvorgang — CBP-WP-022 B1C Active Commit-status Mirror Staleness (2026-09-21)
+
+**Im repositoryweiten read-only Vollständigkeitsaudit bestätigt; registriert im
+R-33 Active-Status Closure Fix.** Die aktive Fortschrittsaussage im Absatz zu
+CBP-WP-022 in **`docs/roadmap/PHASE_1_WORK_PACKAGE_MAP.md`** führte **„Phase
+B1C ist abgeschlossen und uncommitted"**.
+
+**Fehlerklasse:** **Unterbliebene Fortschreibung eines aktiven
+Commitstatusspiegels** — dieselbe Grundklasse, jedoch **andere Phase** und
+**anderer Commit**. Die Aussage entstand im B1C-Lauf **vor** dessen Commit
+`24de07e`; spätere Läufe ergänzten wenige Absätze darunter **„Phase B1C ist
+`committed` (`24de07e`)"**, schrieben die ursprüngliche Aussage aber nicht fort
+— der Widerspruch ist dateiintern belegt. In den bisherigen
+**sechsundzwanzig** Vorgängen **nicht** als eigener Vorgang registriert.
+
+**Korrekter Zustand und Korrektur:** **B1C ist `committed`**, Commit
+**`24de07e`** — *„CBP-WP-022: define KB-04 enforcement contract and validation
+plan"*; die Aussage lautet nun **„Phase B1C ist abgeschlossen und `committed`
+(`24de07e`)"**, keine weitere Angabe verändert. **Zählwirkung:
+`26/22 → 27/22`**, Nenner unverändert.
+
+### Achtundzwanzigster Konsistenzvorgang — CBP-WP-021 Queue Detail Block Staleness (2026-09-21)
+
+**Im repositoryweiten read-only Vollständigkeitsaudit bestätigt; registriert im
+R-33 Active-Status Closure Fix, im Rahmen von CBP-WP-022.** Im Detailblock
+CBP-WP-021 von **`project-system/WORK_PACKAGE_QUEUE.md`** standen *Status*
+**`in-review`**, *Aktuelle Phase* **„Phase C – Post-Commit Reconciliation
+(vorbereitet)"** und *Commit* **„nicht ausgeführt"**.
+
+**Fehlerklasse:** **Git-/Register-Statusabweichung in einem Detailblock** —
+dieselbe Klasse wie der **elfte** Vorgang. *Status* und *Commit* stammen aus der
+Registrierung (`0cb4ea9`) und aus B1/B2 (`271acc7`); der Phase-C-Lauf
+(`0344774`) setzte die Phase auf „vorbereitet", schrieb die drei Felder nach dem
+Commit aber nicht fort. Queue-Tabelle, Kopfzeile und Übersichtsabsatz führten
+CBP-WP-021 bereits korrekt als `committed`. Die Phasenabsätze **„Phase B1/B2
+(dieser Stand, uncommitted)"** und **„Phase C (dieser Stand, uncommitted)"**
+desselben Detailblocks sind echte phasendatierte Momentaufnahmen und bleiben
+unverändert. In den bisherigen **siebenundzwanzig** Vorgängen **nicht** als
+eigener Vorgang registriert.
+
+**Korrekter Zustand und Korrektur:** **CBP-WP-021 ist `committed` und
+`complete`**, Phase C abgeschlossen; die Felder lauten nun **`committed` ·
+`complete`**, **„Phase C – Post-Commit Reconciliation (abgeschlossen)"** und
+**B0 `committed` `0cb4ea9` · B1/B2 `committed` `271acc7` · C `committed`
+`0344774`** — in der etablierten Form der Detailblöcke CBP-WP-020 und
+CBP-WP-022. **Ein** Detailblock, **eine** Fehlerursache — **genau ein** Vorgang
+trotz dreier Felder. **Der Nenner bleibt unverändert**, weil CBP-WP-021 seit dem
+achtzehnten Vorgang bereits erfasst ist. **Zählwirkung: `27/22 → 28/22`.**
+
+### Neunundzwanzigster Konsistenzvorgang — CBP-WP-019 Residual Queue Summary Status Staleness (2026-09-21)
+
+**Im repositoryweiten read-only Vollständigkeitsaudit bestätigt, für diesen Lauf
+verbindlich als eigener Vorgang festgelegt und im R-33 Active-Status Closure Fix
+registriert, im Rahmen von CBP-WP-022.** Der Übersichtsabsatz unter der
+Queue-Tabelle in **`project-system/WORK_PACKAGE_QUEUE.md`** führte
+**„CBP-WP-019 (…) steht auf `in-review` in `committed` (`3c437f2`, …)"** — eine
+widersprüchliche Kombination aus `in-review` und `committed`.
+
+**Fehlerklasse:** **Residuum einer unvollständigen früheren Reconciliation.** Vor
+dem Commit lautete der Satz **„steht auf `in-review` in Phase B1.2 – Human DRC
+Approval Reconciliation"**; die Post-Commit-Reconciliation `387416b` ersetzte nur
+die Phasenangabe durch **`committed`** und ließ **„steht auf `in-review` in"**
+stehen. **Der sechzehnte Vorgang bleibt unverändert, wird nicht wiedereröffnet
+und nicht rückwirkend neu gezählt.** In den bisherigen **achtundzwanzig**
+Vorgängen **nicht** als eigener Vorgang registriert.
+
+**Korrekter Zustand und Korrektur:** **CBP-WP-019 ist `committed`**, Commit
+**`3c437f2`**; **„steht auf `in-review` in"** wurde durch **„ist"** ersetzt, alle
+weiteren Angaben des Absatzes blieben unverändert. **Der Nenner bleibt
+unverändert**, weil CBP-WP-019 seit dem sechzehnten Vorgang bereits erfasst ist.
+**Zählwirkung: `28/22 → 29/22`.**
+
+### Dreißigster Konsistenzvorgang — CBP-WP-022 Registration Lifecycle-state Mirrors Staleness (2026-09-21)
+
+**Im repositoryweiten read-only Vollständigkeitsaudit bestätigt; registriert im
+R-33 Active-Status Closure Fix.** Lebenszyklusaussagen, die nur bis zur
+Registrierung von CBP-WP-022 zutrafen, wurden mit dem Registrierungscommit
+**`e4caa14`** nicht fortgeschrieben.
+
+**Betroffene aktive Artefakte — zwei:**
+
+| Artefakt | Falsche aktive Aussage |
+| --- | --- |
+| **`docs/roadmap/PHASE_1_WORK_PACKAGE_MAP.md`** | **„Kein Work Package ist aktiv, kein Folge-Work-Package autorisiert."** im Absatz zu CBP-WP-021 · Block **„Aktueller Stand (nachgeführt in CBP-WP-020 Phase C …)"** mit **„Kein Work Package ist aktiv; kein Folge-Work-Package über CBP-WP-020 hinaus ist autorisiert."**, ohne CBP-WP-021 und CBP-WP-022 |
+| **`project-brain/PROJECT_BRAIN.md`** | **„das KB-04-Paket ist lediglich als möglicher Kandidat vorgemerkt"** in der Zeile *Geplante Work Packages* |
+
+**Fehlerklasse und Herkunft:** **Unterbliebene Fortschreibung von
+Lebenszyklusaussagen bei der Registrierung eines Work Packages.** Der Absatz
+entstand im Phase-C-Lauf von CBP-WP-021 (`0344774`), der Statusblock im
+Phase-C-Lauf von CBP-WP-020 (`d6a1a3c`); beide trafen zu ihrem Zeitpunkt zu. In
+`PROJECT_BRAIN.md` ersetzte der Registrierungslauf `e4caa14` in derselben Zeile
+**„CBP-WP-022 nicht registriert …"** durch **„CBP-WP-023 nicht registriert …"**,
+ließ den anschließenden Kandidatenhinweis aber stehen. Alle Fundstellen stehen
+unmarkiert in aktiven Statusdarstellungen; der Statusblock bezeichnet sich
+selbst als **Aktueller Stand**. In den bisherigen **neunundzwanzig** Vorgängen
+**nicht** als eigener Vorgang registriert.
+
+**Korrekter Zustand:** **CBP-WP-022 ist registriert** (D-057,
+Registrierungscommit **`e4caa14`**) und das **aktuelle Work Package**,
+`in-review`, Phase **B2D-E-N14-GOV – D-067**, `committed` **`c662452`**;
+**CBP-WP-021 ist `committed` und `complete`**.
+
+**Korrigiert:** Roadmapkarte: Absatz CBP-WP-021 und Statusblock auf den
+aktuellen Lebenszyklus gebracht; die früheren Aussagen zum Aktivitäts- und
+Autorisierungsstand blieben **inhaltlich erhalten** und sind ausdrücklich auf
+ihren Abschlusszeitpunkt bezogen („Zum Abschluss von CBP-WP-020" bzw. „… von
+CBP-WP-021"). `PROJECT_BRAIN.md`: Kandidatenhinweis durch die Registrierung als
+**CBP-WP-022** (D-057, `e4caa14`) und den Status `in-review` ersetzt;
+**„CBP-WP-023 nicht registriert, nicht begonnen, nicht autorisiert"** blieb
+**wörtlich** erhalten. **Ein** Ereignis, **ein** korrekter Lebenszyklusstand,
+**eine** Fehlerursache — **genau ein** Vorgang trotz dreier Fundstellen in zwei
+Dateien. **Zählwirkung: `29/22 → 30/22`**, Nenner unverändert.
+
+### Gemeinsame Wirkung der Vorgänge 24 bis 30 und Zurückstellung von AF-6
+
+**Wirkung:** **keine technische Implementierungsänderung**, **keine neue
+Decision**, **keine ADR**, **keine Risikoänderung**, **keine neue Risiko-ID**,
+**keine Teständerung**, **keine Traceabilityänderung**, **keine
+Capabilityänderung**, **keine Änderung einer Aussage zum Autorisierungsstand**;
+**D-056** und **D-067** unverändert; **KB-04 bleibt `DOCUMENTED ONLY`**; Mapping
+Activation Gate und Security Foundation Readiness Gate bleiben `NOT EVALUATED`;
+Capabilities **0 von 29**; **`KB04-T-N14`**, **NT-04** und **NT-05** nicht
+ausgeführt; **OD-37**, **Contract §10.3** und **R-20** bleiben offen.
+
+**Bekannter, zurückgestellter Befund AF-6 — kein Konsistenzvorgang dieser
+Chronologie:** Die Angaben zum Git-Gesamtzähler und zum HEAD in
+`project-brain/PROJECT_BRAIN.md`, `project-system/HEALTH_SCORE.md` und
+`project-system/PROJECT_MANIFEST.md` (**Commits 29**, HEAD **`9c6c0fb`**) sind
+veraltet. **D-056 Teil T** nimmt die Commitzähler-Governance aus und verweist
+sie in eine separate Governance-Note; CBP-WP-022 schließt sie ausdrücklich aus
+(Non-Goal *keine Commitzähler-Governance*). Gemäß **A0-Festlegung** für diesen
+Lauf (**keine neue Decision-ID**) ist AF-6 **bekannt und zurückgestellt**, **kein
+einunddreißigster Vorgang** und **ohne Zählwirkung**; die drei Felder bleiben
+**unverändert**.
+
+**R-33 bleibt `gemindert, nicht geschlossen`** — Kritikalität unverändert
+**mittel**, kein Risiko geschlossen, **keine neue Risiko-ID**. **Dreißig
+Konsistenzvorgänge in zweiundzwanzig Work Packages** sind dokumentiert (**neue
+aktuelle Basislinie**; löst „dreiundzwanzig" ab); die Zahl der Work Packages
+bleibt **zweiundzwanzig**, weil die Vorgänge 24 bis 27 und 30 das seit dem
+neunzehnten Vorgang erfasste CBP-WP-022, Vorgang 28 das seit dem achtzehnten
+Vorgang erfasste CBP-WP-021 und Vorgang 29 das seit dem sechzehnten Vorgang
+erfasste CBP-WP-019 betreffen und **ausschließlich** den Vorgangszähler
+erhöhen. Vollständige Progression seit dem neunzehnten Vorgang: **19/22 →
+20/22 → 21/22 → 22/22 → 23/22 → 24/22 → 25/22 → 26/22 → 27/22 → 28/22 → 29/22
+→ 30/22**. Die **Erweiterungen der Vorgänge 21 und 23 sind zählneutral**.
+**`30/22` ist kein Erfüllungsgrad und keine Prozentkennzahl** — der Zähler zählt
+dokumentierte Vorgänge, der Nenner Work Packages mit mindestens einem Vorgang,
+und der Zähler **darf** den Nenner überschreiten; **`30/23` und `31/22` sind
+unzulässig**. **Das projektweite Konsistenzrisiko ist nicht beseitigt** —
+sieben weitere Vorgänge derselben Grundklasse, gefunden erst durch einen
+repositoryweiten Vollständigkeitsaudit, belegen es unmittelbar. Diese Vorgänge
+sind mit den Einträgen in [RISK_REGISTER.md](RISK_REGISTER.md) **identisch** und
+**zählen je nur einmal**. Die dortige Darstellung folgt der **Tabellenform** des
+Risk Registers, während hier die **Prosaform** dieses Dokuments verwendet wird;
 **Fakten, Zahlen, Closure-Grenze und R-33-Wirkung sind identisch**.
 
 ---
