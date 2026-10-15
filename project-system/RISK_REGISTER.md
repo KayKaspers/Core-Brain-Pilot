@@ -59,7 +59,7 @@ Ein irreversibler Schaden ist mindestens **hoch**.
 | R-17 | Abweichungen vom NDF wachsen unkontrolliert | niedrig | AB-03 bis AB-08 nur vorläufig akzeptiert | gemindert |
 | R-24 | Verwechslung von NDF Prompt Mode und Context Budget | mittel | Ausdrückliche Abgrenzung; D-009 | gemindert |
 | R-28 | Ein zweites Governance-System wird eingeführt | mittel | Superpowers nur als Referenz | gemindert |
-| R-33 | Fehlerhafte Kennzahlen in Statusdokumenten führen zu falschen Gate-Einschätzungen | mittel | Fünfteilige **Zähl- und Statusregel** in COMPLIANCE_CHECK (CBP-WP-007); Summen gelten als `derived status data`. **Dokumentregel, keine technische Kontrolle.** Der **vierte** Zählfehler entstand in CBP-WP-007 und wurde in CBP-WP-008 gefunden; der **fünfte** in CBP-WP-010 — „neun Blocker" bei acht IDs; der **sechste** in CBP-WP-011 — Gate-Stufenverteilung 25 statt 24, ein Positivtest mit NT-ID, und **doppelt vergebene Test-IDs über Dokumentgrenzen hinweg**. Alle im jeweiligen REWORK-Lauf korrigiert. **Sechs Zählvorgänge in elf Work Packages; jeder durch Auszählung gefunden, keiner durch die Regel verhindert** — diese Aufzählung endet beim **sechsten** Vorgang (CBP-WP-011) und wird nicht rückwirkend umgeschrieben. **Aktueller Stand: 30 Konsistenzvorgänge in 22 Work Packages (`30/22`)** — der Zähler zählt Vorgänge, der Nenner Work Packages mit mindestens einem Vorgang; **kein Erfüllungsgrad**; die vollständige Chronologie steht unten | **gemindert, nicht geschlossen** |
+| R-33 | Fehlerhafte Kennzahlen in Statusdokumenten führen zu falschen Gate-Einschätzungen | mittel | Fünfteilige **Zähl- und Statusregel** in COMPLIANCE_CHECK (CBP-WP-007); Summen gelten als `derived status data`. **Dokumentregel, keine technische Kontrolle.** Der **vierte** Zählfehler entstand in CBP-WP-007 und wurde in CBP-WP-008 gefunden; der **fünfte** in CBP-WP-010 — „neun Blocker" bei acht IDs; der **sechste** in CBP-WP-011 — Gate-Stufenverteilung 25 statt 24, ein Positivtest mit NT-ID, und **doppelt vergebene Test-IDs über Dokumentgrenzen hinweg**. Alle im jeweiligen REWORK-Lauf korrigiert. **Sechs Zählvorgänge in elf Work Packages; jeder durch Auszählung gefunden, keiner durch die Regel verhindert** — diese Aufzählung endet beim **sechsten** Vorgang (CBP-WP-011) und wird nicht rückwirkend umgeschrieben. **Aktueller Stand: 31 Konsistenzvorgänge in 22 Work Packages (`31/22`)** — der Zähler zählt Vorgänge, der Nenner Work Packages mit mindestens einem Vorgang; **kein Erfüllungsgrad**; die vollständige Chronologie steht unten | **gemindert, nicht geschlossen** |
 | **R-34** | **Deployment-Required-Kriterien werden vertagt und dann vergessen** | **hoch** | Alle 16 bleiben als `open` erfasst; separates Deployment-Readiness-Gate zu definieren (OD-33). **Fail-closed:** ohne die Angaben wird nicht installiert | **neu, offen** |
 
 ## Betrieb
@@ -716,9 +716,10 @@ ausgeführt; **OD-37**, **Contract §10.3** und **R-20** bleiben offen.
 | Einmalzählung | **ein** Ereignis — die Registrierung von CBP-WP-022 — · **ein** korrekter Lebenszyklusstand · **eine** Fehlerursache — **genau ein** Vorgang trotz dreier Fundstellen in zwei Dateien |
 | Zählwirkung | Zähler **29 → 30**, Nenner **22 unverändert** (**`29/22 → 30/22`**) |
 
-Damit sind **dreißig Konsistenzvorgänge in zweiundzwanzig Work Packages**
-dokumentiert (**neue aktuelle Basislinie**; löst die vorige Angabe
-„dreiundzwanzig" ab). Die Zahl der Work Packages bleibt **zweiundzwanzig**: Die
+Damit waren **dreißig Konsistenzvorgänge in zweiundzwanzig Work Packages**
+dokumentiert (*Stand nach dem dreißigsten Vorgang; durch den
+einunddreißigsten Vorgang unten auf **31/22** aktualisiert*; löste die vorige
+Angabe „dreiundzwanzig" ab). Die Zahl der Work Packages bleibt **zweiundzwanzig**: Die
 Vorgänge 24 bis 27 und 30 betreffen das seit dem neunzehnten Vorgang erfasste
 CBP-WP-022, Vorgang 28 das seit dem achtzehnten Vorgang erfasste CBP-WP-021 und
 Vorgang 29 das seit dem sechzehnten Vorgang erfasste CBP-WP-019; sie erhöhen
@@ -748,6 +749,47 @@ Vollständigkeitsaudit, belegen es unmittelbar. Dieselben Vorgänge sind in
 einmal**. Die dortige Darstellung folgt der **Prosaform** jenes Dokuments,
 während hier die **Tabellenform** des Risk Registers verwendet wird; **Fakten,
 Zahlen, Closure-Grenze und R-33-Wirkung sind identisch**.
+
+---
+
+**R-33-Chronologie — einunddreißigster Konsistenzvorgang (CBP-WP-022 Active B2 Authorization Umbrella Staleness, 2026-10-15):**
+
+| Feld | Inhalt |
+| --- | --- |
+| Work Package | **CBP-WP-022** — **der Nenner bleibt unverändert**, weil CBP-WP-022 seit dem neunzehnten Vorgang **bereits** Teil der erfassten Menge ist |
+| Phase und Anlass | Im abgeschlossenen read-only **Finding-A/B Classification Review** als **Finding B** klassifiziert (`VALID_ACTIVE_STALENESS`, Primärklasse **R-33**); gemäß **A0-Festlegung** des Human Maintainers für diesen Lauf (2026-10-15, **keine neue Decision-ID**) als eigener Vorgang registriert in der **Finding-A/B-Reconciliation** |
+| Fehlerklasse | **Unterbliebene Fortschreibung einer aktiven Autorisierungs-Sammelaussage** — eine pauschale Aussage über die Gesamtphase B2 blieb stehen, nachdem B2 in granulare Teilphasen zerlegt und mehrere davon autorisiert, abgeschlossen und committet worden waren |
+| Betroffenes aktives Repository-Artefakt | **`work-packages/CBP-WP-022.md`** — Abschlussvermerk unmittelbar unter der Phasenmodelltabelle im Abschnitt *Phasenmodell* |
+| Falsche aktive Aussage | **„B2 bleibt nicht autorisiert."** |
+| Korrekter Zustand | Der Autorisierungsstand ist **je Teilphase** im Phasenmodell geführt: mehrere B2-Teilphasen — **B2A `929d10b`** bis **B2D-E-N14-GOV `c662452`** — sind abgeschlossen und `committed`; **B2D-H**, **B2D-E**, **B2D-V**, **B2D-G**, **B2B-Apply** sowie die Aggregatzeilen **B2C** und **B2D** bleiben **nicht autorisiert** |
+| Herkunft des Fehlers | Die Aussage entstand im **B1C**-Lauf (Commit **`24de07e`**, 2026-08-04), als B2 noch als **ungeteilte** Phase geführt wurde und tatsächlich nicht autorisiert war. Mit der Zerlegung in granulare Teilphasen ab **B2A** (`929d10b`) wurde sie **nicht fortgeschrieben** und widersprach seitdem der unmittelbar darüberstehenden Phasenmodelltabelle — der Widerspruch ist dateiintern belegt |
+| Aktiv, nicht historisch | Der Vermerk steht **unmarkiert** im aktiven Abschnitt *Phasenmodell* direkt unter der Live-Statustabelle, nicht in einem phasendatierten Abschnitt *Stand nach …*. Die phasengebundenen Aussagen **„B2-Kandidat — nicht autorisiert"** und **„B2 nicht autorisiert"** im Abschnitt *Phase B1C* (einschließlich *Stand nach B1C*) sind echte Momentaufnahmen und bleiben **unverändert** |
+| Erstmalige Registrierung | In den bisherigen **dreißig** Vorgängen **nicht** als eigener Vorgang registriert |
+| Korrektur | Die Sammelaussage wurde durch einen **nicht duplizierenden Verweis** ersetzt: **„Maßgeblich für den Autorisierungsstand der B2-Teilphasen ist ausschließlich das Phasenmodell; die dort als `nicht autorisiert` geführten Teilphasen und Aggregate bleiben nicht autorisiert."** Es entsteht **kein** weiterer manuell zu pflegender Sammelspiegel; **kein Phasenstatus verändert**, **keine neue Autorisierung** |
+| Abgrenzung | **Kein AF-6-Fall** und **keine zählneutrale Erweiterung** der Vorgänge 20 bis 30. Die Fortschreibung der Zählerspiegel auf `31/22` in weiteren Dateien ist **kein** eigener Befund und erzeugt **keinen** weiteren Vorgang. Der im selben Lauf behobene **Finding A** — der veraltete feste ADR-Bereich in der Quellentabelle von `CLAUDE.md` — ist ein **R-16**-Dokumentationspflegefall, **zählt nicht** zu R-33 und ist **nicht** Teil dieses Vorgangs; R-16 bleibt **offen** |
+| Einmalzählung | **eine** Aussage · **eine** Fehlerursache · **eine** Reconciliation — **genau ein** Vorgang; die Doppelabbildung in Risk Register und Compliance Check **zählt nur einmal** |
+| Zählwirkung | Zähler **30 → 31**, Nenner **22 unverändert** (**`30/22 → 31/22`**) |
+| Aussagegrenze | **Keine technische Implementierungsänderung**, **keine neue Decision**, **keine ADR**, **keine Risikoänderung**, **keine neue Risiko-ID**, **keine Teständerung**, **keine Traceabilityänderung**, **keine Capabilityänderung**, **kein Phasenstatus und keine Autorisierung verändert**; **D-067** unverändert; **KB-04 bleibt `DOCUMENTED ONLY`**; beide Gates bleiben `NOT EVALUATED`; **`KB04-T-N14`**, **NT-04** und **NT-05** nicht ausgeführt; **B2D-E**, **B2D-V**, **B2D-G** und **B2B-Apply** nicht autorisiert; **OD-37**, **Contract §10.3** und **R-20** bleiben offen; **CBP-WP-023** nicht registriert |
+
+Damit sind **einunddreißig Konsistenzvorgänge in zweiundzwanzig Work
+Packages** dokumentiert (**neue aktuelle Basislinie**; löst die vorige Angabe
+„dreißig" ab). Die Zahl der Work Packages bleibt **zweiundzwanzig**: Vorgang
+**31** betrifft das seit dem neunzehnten Vorgang erfasste CBP-WP-022 und erhöht
+**ausschließlich** den Vorgangszähler. Vollständige Progression seit dem
+neunzehnten Vorgang: **19/22 → 20/22 → 21/22 → 22/22 → 23/22 → 24/22 → 25/22 →
+26/22 → 27/22 → 28/22 → 29/22 → 30/22 → 31/22**. **`31/22` ist kein
+Erfüllungsgrad und keine Prozentkennzahl**; **`31/23` und `32/22` sind
+unzulässig**.
+
+**R-33 bleibt `gemindert, nicht geschlossen`**, Kritikalität unverändert
+**mittel**, kein Risiko geschlossen, **keine neue Risiko-ID**; **das
+projektweite Konsistenzrisiko ist nicht beseitigt** — eine seit B2A
+stehengebliebene Sammelaussage, die im R-33 Active-Status Closure Fix nicht
+registriert wurde, belegt es unmittelbar. Derselbe Vorgang ist in
+[COMPLIANCE_CHECK.md](COMPLIANCE_CHECK.md) gespiegelt und **zählt nur einmal**.
+Die dortige Darstellung folgt der **Prosaform** jenes Dokuments, während hier
+die **Tabellenform** des Risk Registers verwendet wird; **Fakten, Zahlen,
+Closure-Grenze und R-33-Wirkung sind identisch**.
 
 ---
 

@@ -1537,15 +1537,59 @@ erhalten**; Aussagen, die an einen früheren Abschlusszeitpunkt gebunden waren,
 sind ausdrücklich auf diesen Zeitpunkt bezogen („Zum Abschluss von CBP-WP-020"
 bzw. „… von CBP-WP-021"). **Keine neue Governance-Entscheidung.**
 
-**Aktueller Stand: R-33 `30/22`, offen, `gemindert, nicht geschlossen`,
-Kritikalität mittel.** Progression
-**`23/22 → 24/22 → 25/22 → 26/22 → 27/22 → 28/22 → 29/22 → 30/22`**; **nur
-Vorgang 30** ist die aktuelle Basislinie. **`30/22` ist kein Erfüllungsgrad und
+**Stand nach dem R-33 Active-Status Closure Fix: R-33 `30/22`, offen,
+`gemindert, nicht geschlossen`, Kritikalität mittel** (*durch den
+einunddreißigsten Vorgang unten auf `31/22` fortgeschrieben*). Progression
+**`23/22 → 24/22 → 25/22 → 26/22 → 27/22 → 28/22 → 29/22 → 30/22`**; Vorgang 30
+war die damalige Basislinie. **`30/22` ist kein Erfüllungsgrad und
 keine Prozentkennzahl**; **`30/23` und `31/22` sind unzulässig**. Keine neue
 Risiko-ID, Risikoanzahl **35**, Severity **20/14/1**, `offen` **13**
 unverändert. Decisions/A0/ADRs **67/63/14**, Tests **1202**, Traceability
 **45 / 37 / 2 / 6** unverändert. **Keine technische Arbeit, keine lokale
 Autorisierung, `KB04-T-N14` und NT-05 nicht ausgeführt, KB-04 bleibt
+`DOCUMENTED ONLY`.**
+
+### Finding-A/B-Reconciliation — R-33-Vorgang 31 (2026-10-15)
+
+Der abgeschlossene read-only **Finding-A/B Classification Review** klassifizierte
+zwei voneinander unabhängige aktive Veraltungen (`VALID_ACTIVE_STALENESS`).
+Gemäß **A0-Festlegung** des Human Maintainers für diesen Lauf (2026-10-15,
+**keine neue Decision-ID**) werden beide in einem eng begrenzten
+Dokumentationslauf behoben; **nur Finding B** ist ein R-33-Vorgang. Er ist
+**identisch** in [RISK_REGISTER.md](RISK_REGISTER.md) und
+[COMPLIANCE_CHECK.md](COMPLIANCE_CHECK.md) geführt und **zählt nur einmal**.
+
+| # | Vorgang | Betroffenes aktives Artefakt | Falsche Aussage | Korrekt | Zählwirkung |
+| ---: | --- | --- | --- | --- | --- |
+| 31 | **CBP-WP-022 Active B2 Authorization Umbrella Staleness** | `work-packages/CBP-WP-022.md` (Abschlussvermerk unter der Phasenmodelltabelle) | „B2 bleibt nicht autorisiert." | **Verweis auf das Phasenmodell als alleinige Quelle des Autorisierungsstands der B2-Teilphasen**; dort als `nicht autorisiert` geführte Teilphasen und Aggregate bleiben nicht autorisiert | **30/22 → 31/22** |
+
+**Der Nenner bleibt unverändert `22`:** Vorgang 31 betrifft das seit dem
+neunzehnten Vorgang erfasste CBP-WP-022. Vorgang 31 ist **kein AF-6-Fall** und
+**keine zählneutrale Erweiterung** der Vorgänge 20 bis 30; die Fortschreibung
+der Zählerspiegel auf `31/22` erzeugt **keinen** weiteren Vorgang.
+
+**Finding A — kein R-33-Vorgang:** Die Quellentabelle in `CLAUDE.md` nannte
+einen festen ADR-Bereich, der bei ADR-0009 endete, obwohl **14** ADRs
+`accepted` sind. Sie verweist nun regelbasiert auf `docs/decisions/ADR-*.md`;
+**ausschließlich `accepted` ADRs** sind angenommen und bindend (A1).
+**Primärklasse R-16** (Dokumentationspflege), **ohne R-33-Zählwirkung**; R-16
+bleibt **offen**.
+
+**Autorisierungsaussagen bleiben unverändert.** Kein Phasenstatus verändert,
+**keine neue Autorisierung**; **B2D-H**, **B2D-E**, **B2D-V**, **B2D-G** und
+**B2B-Apply** bleiben **nicht autorisiert**. Die phasengebundenen B2-Aussagen im
+Abschnitt *Phase B1C* von `CBP-WP-022.md` sind Momentaufnahmen und bleiben
+unverändert. **Keine neue Governance-Entscheidung.**
+
+**Aktueller Stand: R-33 `31/22`, offen, `gemindert, nicht geschlossen`,
+Kritikalität mittel.** Progression
+**`23/22 → 24/22 → 25/22 → 26/22 → 27/22 → 28/22 → 29/22 → 30/22 → 31/22`**;
+**nur Vorgang 31** ist die aktuelle Basislinie. **`31/22` ist kein
+Erfüllungsgrad und keine Prozentkennzahl**; **`31/23` und `32/22` sind
+unzulässig**. Keine neue Risiko-ID, Risikoanzahl **35**, Severity **20/14/1**,
+`offen` **13** unverändert. Decisions/A0/ADRs **67/63/14** unverändert.
+**Keine technische Arbeit, keine Teständerung, keine lokale Autorisierung,
+`KB04-T-N14`, NT-04 und NT-05 nicht ausgeführt, KB-04 bleibt
 `DOCUMENTED ONLY`.**
 
 ---

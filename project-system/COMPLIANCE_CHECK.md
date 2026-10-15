@@ -1295,8 +1295,9 @@ einunddreißigster Vorgang** und **ohne Zählwirkung**; die drei Felder bleiben
 
 **R-33 bleibt `gemindert, nicht geschlossen`** — Kritikalität unverändert
 **mittel**, kein Risiko geschlossen, **keine neue Risiko-ID**. **Dreißig
-Konsistenzvorgänge in zweiundzwanzig Work Packages** sind dokumentiert (**neue
-aktuelle Basislinie**; löst „dreiundzwanzig" ab); die Zahl der Work Packages
+Konsistenzvorgänge in zweiundzwanzig Work Packages** waren dokumentiert (*Stand
+nach dem dreißigsten Vorgang; durch den einunddreißigsten Vorgang unten auf
+**31/22** aktualisiert*; löste „dreiundzwanzig" ab); die Zahl der Work Packages
 bleibt **zweiundzwanzig**, weil die Vorgänge 24 bis 27 und 30 das seit dem
 neunzehnten Vorgang erfasste CBP-WP-022, Vorgang 28 das seit dem achtzehnten
 Vorgang erfasste CBP-WP-021 und Vorgang 29 das seit dem sechzehnten Vorgang
@@ -1314,6 +1315,89 @@ sind mit den Einträgen in [RISK_REGISTER.md](RISK_REGISTER.md) **identisch** un
 **zählen je nur einmal**. Die dortige Darstellung folgt der **Tabellenform** des
 Risk Registers, während hier die **Prosaform** dieses Dokuments verwendet wird;
 **Fakten, Zahlen, Closure-Grenze und R-33-Wirkung sind identisch**.
+
+### Einunddreißigster Konsistenzvorgang — CBP-WP-022 Active B2 Authorization Umbrella Staleness (2026-10-15)
+
+**Im abgeschlossenen read-only Finding-A/B Classification Review als Finding B
+klassifiziert (`VALID_ACTIVE_STALENESS`, Primärklasse R-33); gemäß
+A0-Festlegung des Human Maintainers für diesen Lauf (2026-10-15, keine neue
+Decision-ID) als eigener Vorgang registriert in der Finding-A/B-Reconciliation.**
+Der Abschlussvermerk unmittelbar unter der Phasenmodelltabelle im Abschnitt
+*Phasenmodell* von **`work-packages/CBP-WP-022.md`** führte **„B2 bleibt nicht
+autorisiert."**
+
+**Fehlerklasse:** **Unterbliebene Fortschreibung einer aktiven
+Autorisierungs-Sammelaussage** — eine pauschale Aussage über die Gesamtphase B2
+blieb stehen, nachdem B2 in granulare Teilphasen zerlegt und mehrere davon
+autorisiert, abgeschlossen und committet worden waren. Die Aussage entstand im
+**B1C**-Lauf (Commit **`24de07e`**, 2026-08-04), als B2 noch als **ungeteilte**
+Phase geführt wurde und tatsächlich nicht autorisiert war. Mit der Zerlegung in
+granulare Teilphasen ab **B2A** (`929d10b`) wurde sie **nicht fortgeschrieben**
+und widersprach seitdem der unmittelbar darüberstehenden Phasenmodelltabelle —
+der Widerspruch ist dateiintern belegt.
+
+**Aktiv, nicht historisch:** Der Vermerk steht **unmarkiert** im aktiven
+Abschnitt *Phasenmodell* direkt unter der Live-Statustabelle, nicht in einem
+phasendatierten Abschnitt *Stand nach …*. Die phasengebundenen Aussagen
+**„B2-Kandidat — nicht autorisiert"** und **„B2 nicht autorisiert"** im Abschnitt
+*Phase B1C* (einschließlich *Stand nach B1C*) sind echte Momentaufnahmen und
+bleiben **unverändert**. In den bisherigen **dreißig** Vorgängen **nicht** als
+eigener Vorgang registriert.
+
+**Korrekter Zustand:** Der Autorisierungsstand ist **je Teilphase** im
+Phasenmodell geführt: mehrere B2-Teilphasen — **B2A `929d10b`** bis
+**B2D-E-N14-GOV `c662452`** — sind abgeschlossen und `committed`; **B2D-H**,
+**B2D-E**, **B2D-V**, **B2D-G**, **B2B-Apply** sowie die Aggregatzeilen **B2C**
+und **B2D** bleiben **nicht autorisiert**.
+
+**Korrigiert:** Die Sammelaussage wurde durch einen **nicht duplizierenden
+Verweis** ersetzt: **„Maßgeblich für den Autorisierungsstand der B2-Teilphasen
+ist ausschließlich das Phasenmodell; die dort als `nicht autorisiert` geführten
+Teilphasen und Aggregate bleiben nicht autorisiert."** Es entsteht **kein**
+weiterer manuell zu pflegender Sammelspiegel; **kein Phasenstatus verändert**,
+**keine neue Autorisierung**. **Eine** Aussage, **eine** Fehlerursache, **eine**
+Reconciliation — **genau ein** Vorgang. **Der Nenner bleibt unverändert**, weil
+CBP-WP-022 seit dem neunzehnten Vorgang bereits erfasst ist. **Zählwirkung:
+`30/22 → 31/22`.**
+
+**Abgrenzung:** **Kein AF-6-Fall** und **keine zählneutrale Erweiterung** der
+Vorgänge 20 bis 30. Die Fortschreibung der Zählerspiegel auf `31/22` in weiteren
+Dateien ist **kein** eigener Befund und erzeugt **keinen** weiteren Vorgang. Der
+im selben Lauf behobene **Finding A** — der veraltete feste ADR-Bereich in der
+Quellentabelle von `CLAUDE.md` — ist ein **R-16**-Dokumentationspflegefall,
+**zählt nicht** zu R-33 und ist **nicht** Teil dieses Vorgangs; R-16 bleibt
+**offen**.
+
+**Wirkung:** **keine technische Implementierungsänderung**, **keine neue
+Decision**, **keine ADR**, **keine Risikoänderung**, **keine neue Risiko-ID**,
+**keine Teständerung**, **keine Traceabilityänderung**, **keine
+Capabilityänderung**, **kein Phasenstatus und keine Autorisierung verändert**;
+**D-067** unverändert; **KB-04 bleibt `DOCUMENTED ONLY`**; Mapping Activation
+Gate und Security Foundation Readiness Gate bleiben `NOT EVALUATED`;
+Capabilities **0 von 29**; **`KB04-T-N14`**, **NT-04** und **NT-05** nicht
+ausgeführt; **B2D-E**, **B2D-V**, **B2D-G** und **B2B-Apply** nicht autorisiert;
+**OD-37**, **Contract §10.3** und **R-20** bleiben offen; **CBP-WP-023** nicht
+registriert.
+
+**R-33 bleibt `gemindert, nicht geschlossen`** — Kritikalität unverändert
+**mittel**, kein Risiko geschlossen, **keine neue Risiko-ID**.
+**Einunddreißig Konsistenzvorgänge in zweiundzwanzig Work Packages** sind
+dokumentiert (**neue aktuelle Basislinie**; löst „dreißig" ab); die Zahl der
+Work Packages bleibt **zweiundzwanzig**, weil Vorgang **31** das seit dem
+neunzehnten Vorgang erfasste CBP-WP-022 betrifft und **ausschließlich** den
+Vorgangszähler erhöht. Vollständige Progression seit dem neunzehnten Vorgang:
+**19/22 → 20/22 → 21/22 → 22/22 → 23/22 → 24/22 → 25/22 → 26/22 → 27/22 → 28/22
+→ 29/22 → 30/22 → 31/22**. **`31/22` ist kein Erfüllungsgrad und keine
+Prozentkennzahl** — der Zähler zählt dokumentierte Vorgänge, der Nenner Work
+Packages mit mindestens einem Vorgang, und der Zähler **darf** den Nenner
+überschreiten; **`31/23` und `32/22` sind unzulässig**. **Das projektweite
+Konsistenzrisiko ist nicht beseitigt** — eine seit B2A stehengebliebene
+Sammelaussage, die im R-33 Active-Status Closure Fix nicht registriert wurde,
+belegt es unmittelbar. Dieser Vorgang ist mit dem Eintrag in
+[RISK_REGISTER.md](RISK_REGISTER.md) **identisch** und **zählt nur einmal**. Die
+dortige Darstellung folgt der **Tabellenform** des Risk Registers, während hier
+die **Prosaform** dieses Dokuments verwendet wird; **Fakten, Zahlen,
+Closure-Grenze und R-33-Wirkung sind identisch**.
 
 ---
 
