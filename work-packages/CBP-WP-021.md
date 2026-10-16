@@ -6,7 +6,7 @@
 | Typ | **governance-and-validation reconciliation** |
 | Prompt Mode | **Full** · Context Budget **B2 – Standard** |
 | Status | **`committed`** · **`complete`** |
-| Aktuelle Phase | **Phase C – Post-Commit Reconciliation** (vorbereitet) |
+| Aktuelle Phase | **Phase C – Post-Commit Reconciliation** (abgeschlossen) |
 | Abschlussdatum | **2026-08-03** |
 | A0-Entscheidung | **D-056** (konsolidiert, A–U) |
 | ADR | **not required** (`ADR_NOT_REQUIRED`) |
@@ -17,7 +17,7 @@
 | Security Controls | **12 `DOCUMENTED ONLY`** |
 | R-20 | **offen** |
 | R-33 | **18/21** — fortgeschrieben durch diese Post-Commit-Reconciliation (17/20 → 18/21) |
-| Commit | **B0 `committed` `0cb4ea9`** · **B1/B2 `committed` `271acc7`** — Phase C uncommitted, Commit-Autorität beim Human Maintainer |
+| Commit | **B0 `committed` `0cb4ea9`** · **B1/B2 `committed` `271acc7`** · **C `committed` `0344774`** — Commit-Autorität beim Human Maintainer |
 
 ---
 

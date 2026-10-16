@@ -18,7 +18,7 @@
 | R-20 | **offen** |
 | R-33 | **17 Konsistenzvorgänge in 20 Work Packages** (`17/20`) — fortgeschrieben durch diese Post-Commit-Reconciliation |
 | Tests | **724 – OK**, **0 übersprungen**; `compileall .` Exit 0, Offline-Validator Exit 0 |
-| Commit | **B0 `committed` `17057e2`** · **B1/B2 `committed` `9c6c0fb`** — Phase C uncommitted, Commit-Autorität beim Human Maintainer |
+| Commit | **B0 `committed` `17057e2`** · **B1/B2 `committed` `9c6c0fb`** · **C `committed` `d6a1a3c`** — Commit-Autorität beim Human Maintainer |
 
 ---
 

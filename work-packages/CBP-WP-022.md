@@ -13,22 +13,23 @@
 | Contract-Decision | **D-060** (konsolidiert, A–S) — Ergebnis **`KB-04_STAGE_1_CONTRACT_ACCEPTED`**, **`ADR_NOT_REQUIRED`** |
 | B2C-Scope-Decision | **D-061** (konsolidiert, A–R) — Ergebnis **`B2C_TRACEABILITY_AND_NT_PREPARATION_SELECTED`**, **`ADR_NOT_REQUIRED`** |
 | B2C-Split-Decision | **D-062** (konsolidiert, A–O) — Ergebnis **`B2C_TRACEABILITY_COVERAGE_SPLIT_RECONCILED`**, **`ADR_NOT_REQUIRED`**, 2026-08-04 |
-| Decision Class | **A0** — für D-057 bis D-065 |
+| Decision Class | **A0** — für D-057 bis D-068 |
 | ADR | **ADR-0014** — *KB-04 Stage 1 Filesystem Enforcement Architecture*, `accepted`, **Autoritätsklasse A1**, 2026-08-03. `ADR_NOT_REQUIRED` galt für D-057 und gilt für **D-060**, **solange der Vertrag vollständig innerhalb ADR-0014 bleibt** |
 | Enforcement Contract | [KB_04_STAGE_1_ENFORCEMENT_CONTRACT.md](../docs/security/KB_04_STAGE_1_ENFORCEMENT_CONTRACT.md) — **`accepted contract`**, 2026-08-03 |
 | Registrierungsdatum | **2026-08-03** |
 | B2D-Voraussetzungs-Decision | **D-063** (konsolidiert, A–O) — Ergebnis **`B2D_EXECUTION_PREREQUISITES_ESTABLISHED`**, **`ADR_NOT_REQUIRED`**, 2026-08-04 |
 | B2D-Autorisierungsform-Decision | **D-064** (konsolidiert, A–P) — Ergebnis **`B2D_E_RUN_AUTHORIZATION_ARTIFACT_FORM_SELECTED`**, **`ADR_NOT_REQUIRED`**, 2026-08-05 |
 | B2D-Referenzumgebungs-Decision | **D-065** (konsolidiert, A–N) — Ergebnis **`B2D_REFERENCE_ENVIRONMENT_PREPARATION_MODEL_SELECTED`**, **`ADR_NOT_REQUIRED`**, 2026-08-05 |
+| Closure-Boundary-Decision | **D-068** (konsolidiert, A–K) — Ergebnis **`WP022_CLOSURE_BOUNDARY_SELECTED_DEFERRED_EXECUTION_REBIND_REQUIRED`**, **`ADR_NOT_REQUIRED`**, 2026-10-15 — **Closure-Grenze gewählt, Closure nicht ausgeführt**; siehe Abschnitt *D-068 — Closure-Grenze und Rebinding* |
 | Neue kanonische Risiken | **R-35** und **R-36** — beide **hoch**, **offen**; Risiken gesamt **35** (Severity **20/14/1**) |
-| Human-Maintainer-Freigabe | **B2D-GOV Execution Prerequisites, Risk Canonicalization and Authorization Model authorized** |
+| Human-Maintainer-Freigabe | **granular je Teilphase** — maßgeblich sind das kanonische [Decision Register](../project-system/DECISION_REGISTER.md) mit den akzeptierten A0-Decisions **D-057 bis D-068** und der Phasenstatus im Abschnitt *Phasenmodell*; **keine pauschale B2-, B2B-Apply- oder B2D-E-Ausführungsfreigabe** |
 | Technische Implementierung | **B2A und B2B-P implementiert** (intern, read-only, **plan-only**) · **B2C-T-R implementiert** die vollständige 45er-Traceability (drei reine Testdateien, **152 neue Tests**, Gesamtsuite **1202**) · **B2D-P ist plan-only** — ein Dokument, **keine reale Infrastruktur** · **B2D-H, B2D-E, B2D-V, B2D-G und B2B-Apply nicht autorisiert** |
 | KB-04-Status | **`DOCUMENTED ONLY`** — unverändert |
 | Capabilities | **0 von 29** — unverändert |
 | Gates | Mapping Activation `NOT EVALUATED` · Security Foundation Readiness `NOT EVALUATED` |
 | Security Controls | **12 `DOCUMENTED ONLY`** |
 | R-20 | **offen** |
-| R-33 | **31/22** — Progression **`18/21 → 19/22 → 20/22 → 21/22 → 22/22 → 23/22 → 24/22 → 25/22 → 26/22 → 27/22 → 28/22 → 29/22 → 30/22 → 31/22`**, **Nenner unverändert 22**, weil alle betroffenen Work Packages bereits erfasst sind — CBP-WP-022 seit dem neunzehnten Vorgang, für die Vorgänge 28 und 29 CBP-WP-021 und CBP-WP-019; **kein Erfüllungsgrad**, der Zähler darf den Nenner überschreiten, **`31/23` unzulässig**; **31.** Vorgang (2026-10-15, **Finding-A/B-Reconciliation**): **CBP-WP-022 Active B2 Authorization Umbrella Staleness** (Sammelaussage „B2 bleibt nicht autorisiert." unter der Phasenmodelltabelle **dieser Datei**, ersetzt durch einen Verweis auf das Phasenmodell; **kein AF-6-Fall**, **keine zählneutrale Erweiterung**; der im selben Lauf behobene R-16-Fall in `CLAUDE.md` **zählt nicht**); **24.** bis **30.** Vorgang (2026-09-21, abschließender **R-33 Active-Status Closure Fix**): **24.** **B2D-E-N14-GOV Active Commit-status Mirrors Staleness** (`HEALTH_SCORE.md`, `PROJECT_PROFILE.md`, `PHASE_1_WORK_PACKAGE_MAP.md` und die Phasenmodellzeile **dieser Datei**, korrekt `committed` `c662452`), **25.** **Active Commit-field Sequence Staleness** (Feld *Commit* **dieser Datei**, ab B2C.1 bis `c662452` vervollständigt), **26.** **B2C-T-R Active Commit-status Mirrors Staleness** (korrekt `committed` `9cde9de`), **27.** **B1C Active Commit-status Mirror Staleness** (korrekt `committed` `24de07e`), **28.** **CBP-WP-021 Queue Detail Block Staleness**, **29.** **CBP-WP-019 Residual Queue Summary Status Staleness** (korrekt `committed` `3c437f2`), **30.** **CBP-WP-022 Registration Lifecycle-state Mirrors Staleness** (Registrierung `e4caa14`); **21.** und **23.** Vorgang **zählneutral erweitert**; **AF-6** (Git-Gesamtzähler und HEAD in drei Statusdokumenten) **bekannt und unter D-056 Teil T zurückgestellt** — gemäß Non-Goal *keine Commitzähler-Governance* **nicht gezählt**, **kein 31. Vorgang**; **23.** Vorgang **Active Current-phase Mirrors Staleness** (`README.md` und `PHASE_1_WORK_PACKAGE_MAP.md`, falsche aktuelle Phase **B2B-P** bzw. **B2D-P**, korrekt **B2D-E-N14-GOV** / **D-067** / `committed` `c662452`, **ein** Vorgang für alle Artefakte), **22.** Vorgang **B2D-E-N07-GOV Active Commit-status Mirror Staleness** (`PROJECT_MANIFEST.md`, korrekt `committed` `c4b0426`), **21.** Vorgang **B2B-P Active Commit-status Mirror Staleness** (`README.md`, korrekt `committed` `fff8227`), **20.** Vorgang **B2D-ENV-GOV Active Phase-status Mirrors Staleness** (drei aktive Spiegel, korrekt `committed` `0cd21f5`) — Vorgänge 20 bis 23 vom 2026-08-06; **19.** Vorgang **D-066-Zählerspiegel-Reconciliation** (**erstes** R-33-Erfassen von CBP-WP-022); **offen**, Severity unverändert |
+| R-33 | **40/22** — Progression **`18/21 → 19/22 → 20/22 → 21/22 → 22/22 → 23/22 → 24/22 → 25/22 → 26/22 → 27/22 → 28/22 → 29/22 → 30/22 → 31/22 → 32/22 → 33/22 → 34/22 → 35/22 → 36/22 → 37/22 → 38/22 → 39/22 → 40/22`**, **Nenner unverändert 22**, weil alle betroffenen Work Packages bereits erfasst sind — CBP-WP-022 seit dem neunzehnten Vorgang, für die Vorgänge 28, 29 und 39 CBP-WP-021 beziehungsweise CBP-WP-019, für Vorgang 40 CBP-WP-020 und CBP-WP-021; **kein Erfüllungsgrad**, der Zähler darf den Nenner überschreiten, **`40/23` unzulässig**; **32.** bis **40.** Vorgang (2026-10-15/16, **Pre-Closure Governance Reconciliation R4**, Scopefreigabe **Human-Maintainer A0, 2026-10-16**): **32.** **Active Authorization and Implementation Mirrors Staleness** (elf Befundgruppen, darunter *Voraussetzungen* und *Aussageschutz* **dieser Datei**) · **33.** **Active Decision/A0 Counter Mirrors Staleness** · **34.** **Active Risk Aggregate Mirrors Staleness** · **35.** **PROJECT_MANIFEST Active Test Count Mirror Staleness** · **36.** **Residual Registration Lifecycle-state Mirror Staleness** · **37.** **Decision Register ADR-Gate Summary Count Error** · **38.** **ADR Index Count and Entry Staleness** · **39.** **CBP-WP-019 Residual DRC Gate-status Mirror Staleness** · **40.** **CBP-WP-020/021 Residual Closure Header Commit-status Staleness**; der zurückgestellte Altdrift-Prüfbestand **D-1 bis D-10** ist **nicht gezählt, nicht klassifiziert und nicht bereinigt**; **31.** Vorgang (2026-10-15, **Finding-A/B-Reconciliation**): **CBP-WP-022 Active B2 Authorization Umbrella Staleness** (Sammelaussage „B2 bleibt nicht autorisiert." unter der Phasenmodelltabelle **dieser Datei**, ersetzt durch einen Verweis auf das Phasenmodell; **kein AF-6-Fall**, **keine zählneutrale Erweiterung**; der im selben Lauf behobene R-16-Fall in `CLAUDE.md` **zählt nicht**); **24.** bis **30.** Vorgang (2026-09-21, abschließender **R-33 Active-Status Closure Fix**): **24.** **B2D-E-N14-GOV Active Commit-status Mirrors Staleness** (`HEALTH_SCORE.md`, `PROJECT_PROFILE.md`, `PHASE_1_WORK_PACKAGE_MAP.md` und die Phasenmodellzeile **dieser Datei**, korrekt `committed` `c662452`), **25.** **Active Commit-field Sequence Staleness** (Feld *Commit* **dieser Datei**, ab B2C.1 bis `c662452` vervollständigt), **26.** **B2C-T-R Active Commit-status Mirrors Staleness** (korrekt `committed` `9cde9de`), **27.** **B1C Active Commit-status Mirror Staleness** (korrekt `committed` `24de07e`), **28.** **CBP-WP-021 Queue Detail Block Staleness**, **29.** **CBP-WP-019 Residual Queue Summary Status Staleness** (korrekt `committed` `3c437f2`), **30.** **CBP-WP-022 Registration Lifecycle-state Mirrors Staleness** (Registrierung `e4caa14`); **21.** und **23.** Vorgang **zählneutral erweitert**; **AF-6** (Git-Gesamtzähler und HEAD in drei Statusdokumenten) **bekannt und unter D-056 Teil T zurückgestellt** — gemäß Non-Goal *keine Commitzähler-Governance* **nicht gezählt**, **kein 31. Vorgang**; **23.** Vorgang **Active Current-phase Mirrors Staleness** (`README.md` und `PHASE_1_WORK_PACKAGE_MAP.md`, falsche aktuelle Phase **B2B-P** bzw. **B2D-P**, korrekt **B2D-E-N14-GOV** / **D-067** / `committed` `c662452`, **ein** Vorgang für alle Artefakte), **22.** Vorgang **B2D-E-N07-GOV Active Commit-status Mirror Staleness** (`PROJECT_MANIFEST.md`, korrekt `committed` `c4b0426`), **21.** Vorgang **B2B-P Active Commit-status Mirror Staleness** (`README.md`, korrekt `committed` `fff8227`), **20.** Vorgang **B2D-ENV-GOV Active Phase-status Mirrors Staleness** (drei aktive Spiegel, korrekt `committed` `0cd21f5`) — Vorgänge 20 bis 23 vom 2026-08-06; **19.** Vorgang **D-066-Zählerspiegel-Reconciliation** (**erstes** R-33-Erfassen von CBP-WP-022); **offen**, Severity unverändert |
 | Commit | **B0 `committed` `e4caa14`** · **B1A `committed` `1a7696d`** · **B1B `committed` `b86a35f`** · **B1C `committed` `24de07e`** · **B2A `committed` `929d10b`** · **B2B-P `committed` `fff8227`** · **B2C.1 `committed` `38eb33f`** · **B2C.2 `committed` `117647f`** · **B2C-T-R `committed` `9cde9de`** · **B2D-P `committed` `b409d25`** · **B2D-GOV `committed` `7e8328a`** · **B2D-AUTH `committed` `1222ec0`** · **B2D-ENV-GOV `committed` `0cd21f5`** · **B2D-E-N07-GOV `committed` `c4b0426`** · **B2D-E-N14-GOV `committed` `c662452`** — Commit-Autorität beim Human Maintainer |
 
 ---
@@ -133,7 +134,7 @@ B1-Freigabe**.
 | **KB-01** und **KB-02** | Foundation Plan: KB-04 „Voraussetzung KB-01, KB-02"; Umsetzungsreihenfolge Schritt 1 | beide **`DOCUMENTED ONLY`** |
 | Reale Profil-A-Instanz für Nachweisstufe 4 | NT-04 und NT-05 verlangen ein reales POSIX-Dateisystem | **existiert nicht** — keine Bereitstellung |
 | **OD-37** | Produktive Isolation auf der Ziel-VM (KB-03, KB-04), Deployment Required | **offen** |
-| Separate Human-Freigabe für B1/B2 | D-057 K | **nicht erteilt** |
+| Separate Human-Freigabe für B1/B2 | D-057 K | **zum Registrierungszeitpunkt (D-057/B0) nicht erteilt**; die späteren Teilphasen wurden **granular** durch den Human Maintainer autorisiert — Stand je Teilphase im Abschnitt *Phasenmodell*; **keine pauschale B2- oder B2D-E-Ausführungsfreigabe** |
 
 ## Abhängigkeiten
 
@@ -147,7 +148,8 @@ bauen darauf auf.
 Activation Gate Punkte **7, 8, 11**. **Beide Gates bleiben `NOT EVALUATED`.**
 **Tests:** **NT-04**, **NT-05** — **nicht ausgeführt** (0 von 32 Negativtests).
 **Stop-Bedingung:** **SB-S04**.
-**Risiken:** **R-06**, **R-25**, **R-26**; **R-20 offen**; **R-33 18/21**.
+**Risiken:** **R-06**, **R-25**, **R-26**; **R-20 offen**; **R-33 18/21**
+(*Registrierungsstand B0 / D-057; aktueller Stand im Kopffeld* R-33).
 **Contracts:** Security Foundation Readiness Contract (Bindungen 7, 8, 11);
 Profil-A-Bundle (`bundle.json` führt KB-04 `DOCUMENTED ONLY`).
 **Work Packages:** CBP-WP-011 (Registrierung von KB-04), CBP-WP-012 (Skeleton
@@ -2075,6 +2077,85 @@ Contract, das Autorisierungstemplate und D-001 bis D-066 unverändert** ·
 
 ---
 
+## D-068 — Closure-Grenze und Rebinding
+
+**Keine neue Phase.** D-068 ist eine Grenzentscheidung über den späteren
+Abschluss dieses Work Packages. **Der Phasenstatus bleibt unverändert:**
+CBP-WP-022 steht weiterhin auf **`in-review`** in **Phase B2D-E-N14-GOV –
+D-067**.
+
+| Feld | Wert |
+| --- | --- |
+| Decision | **D-068** · `accepted` · **A0** (Human Maintainer) · **2026-10-15** · Teile A–K |
+| Titel | **CBP-WP-022 Closure Boundary and Deferred Execution Rebinding** |
+| Ergebnis | **`WP022_CLOSURE_BOUNDARY_SELECTED_DEFERRED_EXECUTION_REBIND_REQUIRED`** |
+| ADR-Gate | **`ADR_NOT_REQUIRED`** — keine Architektur-, Komponenten-, Schnittstellen- oder Produktionscodeänderung; vollständig innerhalb **ADR-0014** |
+| Registrierung | **CBP-WP-022 Pre-Closure Governance Reconciliation R4**, Scopefreigabe **Human-Maintainer A0, 2026-10-16**; das Entscheidungsdatum **2026-10-15** bleibt unverändert |
+| Kanonischer Eintrag | [DECISION_REGISTER.md](../project-system/DECISION_REGISTER.md) — **D-068** |
+
+### Closure-Grenze
+
+CBP-WP-022 soll später an der **bereits gelieferten** Grenze abgeschlossen
+werden: (1) Registrierung und Authority Baseline (**B0**, D-057) ·
+(2) Architektur und **ADR-0014** (**B1A**, **B1B**; D-058, D-059) ·
+(3) Enforcement Contract (**B1C**, D-060) · (4) internes read-only
+Contract-Modell (**B2A**) · (5) read-only Validator (**B2A**) · (6) plan-only
+Initialisierung (**B2B-P**) · (7) synthetische Traceability (**B2C.1**,
+**B2C.2**, **B2C-T-R**; D-061, D-062) · (8) NT-Vorbereitung (**B2C-T-R**) ·
+(9) B2D-Integrationsplanung (**B2D-P**) · (10) Governance zu
+Ausführungsvoraussetzungen (**B2D-GOV**, D-063) · (11) Autorisierungsform
+(**B2D-AUTH**, D-064) · (12) Referenzumgebungsmodell (**B2D-ENV-GOV**, D-065) ·
+(13) N07-Rückstellung (**B2D-E-N07-GOV**, D-066) · (14)
+N14-Observation-Bridge-Klassifikation (**B2D-E-N14-GOV**, D-067).
+
+**D-068 wählt die Grenze, es schließt nicht ab.** Die Closure verlangt eine
+**separate Closure-Reconciliation nach ausdrücklichem Human-Maintainer-GO**;
+bis dahin gibt es **kein Abschlussdatum**, **keine Phase C** und **keinen
+Eintrag `complete`**.
+
+### Herausgenommen, nicht verworfen
+
+**B2D-H** · **B2D-E** · **B2D-V** · **B2D-G** · **B2B-Apply** · verbleibende
+**B2C Evidence Variante E** · verbleibende reale B2D-Arbeiten · realer
+**N07**-Lauf · realer **N14**-Lauf · **NT-04** und **NT-05** · **Contract
+§10.3** · **`KB04-T-P10`** und **`KB04-T-N25`** · operative Gate-Evaluation ·
+Control-Uplift · **OD-37**-Closure · reale Infrastrukturarbeiten. **Ohne
+separate Human-Maintainer-Freigabe bleiben sie nicht autorisiert.**
+
+### Rebinding-Regel
+
+Vorhandene Planung und Autorisierungsvorlagen mit Bindung an **`CBP-WP-022 /
+B2D-E`** — insbesondere der
+[Profile-A-Integrationsplan](../docs/runtime/KB_04_PROFILE_A_INTEGRATION_PLAN.md)
+und das
+[Autorisierungstemplate](../docs/runtime/KB_04_B2D_E_RUN_AUTHORIZATION_TEMPLATE.md)
+— sind nach einem späteren WP-022-Abschluss **nicht automatisch als
+Ausführungsfreigabe verwendbar**. Eine spätere Ausführung erfordert:
+(1) **ausdrückliche A0-Freigabe** · (2) eine **neue konkrete Execution- bzw.
+Work-Package-Bindung** · (3) eine **erneute Decision-Bedarfsprüfung** ·
+(4) **erforderlichenfalls eine erneute ADR-Prüfung** · (5) **weiterhin gültige
+Voraussetzungen aus D-063 bis D-067**. **Die bestehenden AUTH-Templates und
+Integrationspläne werden nicht verändert.**
+
+### `B2D-E-N14-PREP-N1`
+
+**Keine Voraussetzung der WP-022-Closure**, aber **vor einem künftigen
+konkreten N14-Run-Proposal weiterhin erforderlich**. **Nicht ausgeführt.**
+
+### Keine Reifeaussage
+
+D-068 bedeutet **nicht**: KB-04 enforced · operationally verified · Security
+Gate bestanden · Produktionsbereitschaft · OD-37 geschlossen ·
+Ausführungsfreigabe · CBP-WP-022 bereits `complete`.
+
+**Unverändert:** **D-063 bis D-067** · **ADR-0014** · der Enforcement Contract ·
+das Autorisierungstemplate · der Integrationsplan · **keine neue ADR** ·
+**kein CBP-WP-023** · **keine neue Risiko-ID** · **KB-04 `DOCUMENTED ONLY`** ·
+beide Gates **`NOT EVALUATED`**. Commit und Push verbleiben **ausschließlich
+beim Human Maintainer**.
+
+---
+
 ## Aussageschutz
 
 Dieses Work Package belegt auch nach Phase B2D-E-N14-GOV **nicht**:
@@ -2092,7 +2173,7 @@ Dieses Work Package belegt auch nach Phase B2D-E-N14-GOV **nicht**:
 | Ein implementierungsfähiger Vertrag sei eine Implementierung | **nein** — D-060 autorisiert **B2B/B2C/B2D nicht**; die ausführende Reparatur bleibt an **RT-2** gebunden und gesperrt |
 | Der implementierte Validator sei KB-04-Evidenz | **nein** — rein intern, read-only, **ausschließlich synthetisch nachgewiesen**; `operationally_verified` bleibt bei synthetischer oder deklarierter Herkunft **`False`** |
 | Ein anwendbarer Initialisierungsplan sei eine Initialisierung | **nein** — **Plan-only**; es existiert **keine** ausführende Funktion, `applicable=True` heißt nur *nach Contract ausführbar* |
-| Die B2C-Scopeentscheidung sei eine B2C-Implementierung | **nein** — **D-061 legt ausschließlich die Lesart fest**; **B2C-T ist nicht autorisiert**, es entstand kein Test-, Fixture- oder Produktionscode |
+| Die B2C-Scopeentscheidung sei eine B2C-Implementierung | **nein** — **D-061 legt ausschließlich die Lesart fest** und ist selbst keine Implementierung; **mit D-061 entstand kein Test-, Fixture- oder Produktionscode**. Später wurde **B2C-T-R** ausdrücklich autorisiert und abgeschlossen (`committed` `9cde9de`): **drei Testdateien**, **152 Tests** — **kein neues Produktionsmodul** und **keine operative KB-04-Evidenz** |
 | Ein vollständiger Abdeckungssplit sei eine vollständige Abdeckung | **nein** — **D-062** stellt lediglich fest, **welche** der 45 Kennungen abgedeckt sind (**37**), welche eine **dokumentierte Lücke** tragen (**2**) und welche **real** bleiben (**6**); **eine sichtbare Lücke ist keine Abdeckung und keine Bestehensaussage** |
 | Contract §10.3 sei umgesetzt | **nein** — es existiert **keine** Schreibzeitvalidierung, **keine** Prüfung atomarer Ersetzung und **kein** produktiver Verwendungsort von **`KB04-WRITE-CONTRACT-VIOLATION`**; eine Umsetzung verlangt eine **eigene Scopefreigabe** |
 | Eine vollständige Traceability-Matrix sei eine vollständige technische Abdeckung | **nein** — die Matrix bildet **45** Kennungen ab, davon sind **37** funktional zugeordnet, **2** ausdrücklich **nicht abgedeckt** und **6** ausschließlich real prüfbar und **nicht ausgeführt** |
@@ -2115,6 +2196,7 @@ Dieses Work Package belegt auch nach Phase B2D-E-N14-GOV **nicht**:
 | D-067 autorisiere einen N14-Lauf | **nein** — **keine Run-ID, kein Startzeitfenster, keine AUTH-Kopie, keine Fixture, kein Validatorlauf**; **`KB04-T-N14` und NT-05 bleiben nicht ausgeführt** |
 | Der Befehlsentwurf sei ausführungsbereit | **nein** — **`OPAQUE_OWNER_REF`**, **`OPAQUE_GROUP_REF`** und **`BINDING`** sind **unaufgelöste Platzhalter**; **`B2D-E-N14-PREP-N1`** ist erst nach Commit und Reconciliation zulässig |
 | Ein beobachteter Symlinkbefund decke Hardlinks oder TOCTOU ab | **nein** — **N14 deckt weder Hardlinks noch TOCTOU noch Contract §10.3 ab**; die TOCTOU-Grenze aus LP-9 bleibt unverändert bestehen |
+| Eine gewählte Closure-Grenze sei ein Abschluss | **nein** — **D-068 wählt die Grenze, es schließt nicht ab**; CBP-WP-022 bleibt **`in-review`**, und an `CBP-WP-022 / B2D-E` gebundene Pläne und Templates sind **keine automatische Ausführungsfreigabe** |
 
 **Die Registrierung eines Work Packages ist keine Implementierungsfreigabe.**
 

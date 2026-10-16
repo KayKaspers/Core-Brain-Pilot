@@ -3,26 +3,28 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Angenommene ADRs | **13** |
+| Angenommene ADRs | **14** |
 | Vorgeschlagene ADRs | 0 |
-| Überarbeitet in | **CBP-WP-018** |
-| Stand | 2026-07-28 |
+| Überarbeitet in | **CBP-WP-022** (Pre-Closure Governance Reconciliation R4) |
+| Stand | 2026-10-16 |
 
 Dieses Verzeichnis enthält Architecture Decision Records. Ein angenommener ADR
 hat Autoritätsklasse **A1** und bindet nachfolgende Arbeit.
 
 ## Aktueller Stand
 
-**Dreizehn angenommene ADRs.** Fünf aus CBP-WP-004, jeder durch eine ausdrückliche
+**Vierzehn angenommene ADRs.** Fünf aus CBP-WP-004, jeder durch eine ausdrückliche
 A0-Entscheidung oder eine A5-Originalquelle belegt; **ADR-0006** am 2026-07-21
 angenommen (D-028); **ADR-0007** am selben Tag (D-029, D-030); **ADR-0008**
 (D-031, D-032, D-033) und **ADR-0009** (D-034 bis D-037) ebenfalls; **ADR-0010**
 am 2026-07-22 (D-038 bis D-041, Ingest-Quarantäne-MVP); **ADR-0011** am selben
 Tag (D-042 bis D-045, Source-Registry-MVP); **ADR-0012** am 2026-07-27
 (D-046 bis D-049, Source-Mapping-Draft-Validator); **ADR-0013** am 2026-07-28
-(D-052, Evidence Schema 3.0 — Security-Control-Identität und Contract-Binding).
+(D-052, Evidence Schema 3.0 — Security-Control-Identität und Contract-Binding);
+**ADR-0014** am 2026-08-03 (D-059, KB-04 Stage 1 Filesystem Enforcement
+Architecture, CBP-WP-022).
 
-Alle dreizehn tragen **A1** und binden nachfolgende Arbeit. Es steht kein Vorschlag
+Alle vierzehn tragen **A1** und binden nachfolgende Arbeit. Es steht kein Vorschlag
 mehr offen.
 
 > **ADR-0006 trägt seit CBP-WP-010 einen Klarstellungsnachtrag** — *non-substantive
@@ -45,6 +47,7 @@ mehr offen.
 | [ADR-0011](ADR-0011-deterministische-source-registry.md) | Deterministische Source Registry und Catalog | **`accepted`** | **D-042 bis D-045 (A0), 2026-07-22** |
 | [ADR-0012](ADR-0012-source-mapping-draft-validator.md) | Deterministic Source Mapping Draft Validator | **`accepted`** | **D-046 bis D-049 (A0), 2026-07-27** |
 | [ADR-0013](ADR-0013-evidence-schema-3-0-security-control-identity.md) | Evidence Schema 3.0 — Security-Control Identity and Contract Binding | **`accepted`** | **D-052 (A0), 2026-07-28** |
+| [ADR-0014](ADR-0014-kb-04-stage-1-filesystem-enforcement.md) | KB-04 Stage 1 Filesystem Enforcement Architecture | **`accepted`** | **D-059 (A0), 2026-08-03** |
 
 Weitere Kandidaten sind in
 [project-system/DECISION_REGISTER.md](../../project-system/DECISION_REGISTER.md)

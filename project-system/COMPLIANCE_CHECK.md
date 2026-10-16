@@ -1381,8 +1381,10 @@ registriert.
 
 **R-33 bleibt `gemindert, nicht geschlossen`** — Kritikalität unverändert
 **mittel**, kein Risiko geschlossen, **keine neue Risiko-ID**.
-**Einunddreißig Konsistenzvorgänge in zweiundzwanzig Work Packages** sind
-dokumentiert (**neue aktuelle Basislinie**; löst „dreißig" ab); die Zahl der
+**Einunddreißig Konsistenzvorgänge in zweiundzwanzig Work Packages** waren
+dokumentiert (*Stand nach dem einunddreißigsten Vorgang: `31/22`; durch die
+Vorgänge zweiunddreißig bis vierzig unten auf **40/22** aktualisiert*; löste
+„dreißig" ab); die Zahl der
 Work Packages bleibt **zweiundzwanzig**, weil Vorgang **31** das seit dem
 neunzehnten Vorgang erfasste CBP-WP-022 betrifft und **ausschließlich** den
 Vorgangszähler erhöht. Vollständige Progression seit dem neunzehnten Vorgang:
@@ -1399,6 +1401,313 @@ dortige Darstellung folgt der **Tabellenform** des Risk Registers, während hier
 die **Prosaform** dieses Dokuments verwendet wird; **Fakten, Zahlen,
 Closure-Grenze und R-33-Wirkung sind identisch**.
 
+### Vorgänge zweiunddreißig bis vierzig — CBP-WP-022 Pre-Closure Governance Reconciliation R4 (2026-10-15/16)
+
+Vor einer späteren Closure von CBP-WP-022 stellte eine Pre-Closure-Diagnose am
+**2026-10-15** weitere veraltete aktive Spiegel fest; ein **vollständiger
+read-only Audit aller aktiven Statusspiegel** am **2026-10-16** ergänzte weitere
+Fundstellen. Gemäß **Human-Maintainer A0, 2026-10-16** (R4-Scopefreigabe)
+registriert die **CBP-WP-022 Pre-Closure Governance Reconciliation R4** genau
+**neun** neue Vorgänge. Die einzige neue Decision ist **D-068** (Closure-Grenze,
+`accepted`, **A0**, 2026-10-15) — sie **wählt die Grenze und führt keine Closure
+aus**. Der gesondert erfasste **Altdrift-Prüfbestand D-1 bis D-10** (Abschnitt
+*R4 Deferred Legacy-Drift Inventory* unten) ist **kein** Vorgang dieser
+Chronologie, **nicht klassifiziert**, **nicht bereinigt** und **ohne
+Zählwirkung**.
+
+### Zweiunddreißigster Konsistenzvorgang — CBP-WP-022 Active Authorization and Implementation Mirrors Staleness (2026-10-15; erweitert 2026-10-16)
+
+**Sechs Befundgruppen in der Pre-Closure-Diagnose vom 2026-10-15, fünf weitere
+(Z-1, Z-3, Z-4, Z-7, Z-8) im vollständigen Audit vom 2026-10-16; registriert
+gemäß Human-Maintainer A0, 2026-10-16.** Pauschale Aussagen über B1, B2, B2C-T
+oder die „technische Implementierung" blieben in aktiven Spiegeln stehen,
+nachdem B1A bis B1C, B2A, B2B-P und B2C-T-R **granular autorisiert, ausgeführt
+und committet** waren.
+
+| Gruppe | Fundstelle | Falsche aktive Aussage | Herkunft |
+| --- | --- | --- | --- |
+| **32-A** | `WORK_PACKAGE_QUEUE.md`, Kopfzeile *Aktuelles Work Package* | „B2C-T-Resume, B2B-Apply und B2D nicht autorisiert" | `117647f` |
+| **32-B** | `WORK_PACKAGE_QUEUE.md`, Übersichtsabsatz CBP-WP-022 | „B1 und B2 sind nicht autorisiert" | `e4caa14` |
+| **32-C** | `WORK_PACKAGE_QUEUE.md`, Detailblock CBP-WP-022, *Technische Implementierung* | „nicht autorisiert" | `e4caa14` |
+| **N-1a** | `PROJECT_MANIFEST.md`, *Aktuelles Work Package* | „technische B2C-T-Implementierung noch nicht begonnen und nicht autorisiert" | `38eb33f` |
+| **N-2** | `PROJECT_BRAIN.md`, *Geplante Work Packages* | „B2 nicht autorisiert" | `24de07e` |
+| **N-3** | `HEALTH_SCORE.md`, *Vorgeschlagene Work Packages* | „B2C-T/B2B-Apply/B2D nicht autorisiert" | `38eb33f` |
+| **Z-1** | `README.md`, *Nächster Schritt* | „Die technische Umsetzung von KB-04 ist nicht autorisiert; B1 und B2 sind nicht freigegeben" | `e4caa14` |
+| **Z-3** | `PROJECT_PROFILE.md`, Roadmapzeile *Phase 1* | „B2B-Apply/B2C-T/B2D nicht autorisiert" | `117647f` |
+| **Z-4** | `CBP-WP-022.md`, *Aussageschutz* | „B2C-T ist nicht autorisiert, es entstand kein Test-, Fixture- oder Produktionscode" als Gesamtaussage | `38eb33f` |
+| **Z-7** | `CBP-WP-022.md`, *Voraussetzungen* | „Separate Human-Freigabe für B1/B2 — nicht erteilt" als Dauerzustand | `e4caa14` |
+| **Z-8** | `PROJECT_BRAIN.md`, Phase-C-/Registrierungsnachtrag CBP-WP-021 | „die technische Umsetzung bleibt nicht autorisiert" | `e4caa14` |
+
+**Korrekter Zustand:** Die Autorisierung ist **je Teilphase** im Phasenmodell von
+CBP-WP-022 geführt; B1A bis **B2C-T-R `9cde9de`** sind autorisiert, abgeschlossen
+und `committed`; der **erste B2C-T-Lauf** endete `BLOCKED` ohne Dateiänderung;
+B2C-T-R lieferte **drei Testdateien** und **152 Tests**; **internes read-only
+Modell und Validator, plan-only Initialisierung und synthetische Traceability
+existieren**; **keine operative KB-04-Durchsetzung**, **keine
+B2D-E-Ausführung**; **B2B-Apply**, **B2D-H/E/V/G** sowie die Aggregate **B2C** und
+**B2D** bleiben **nicht autorisiert** — **keine pauschale B2-Freigabe**.
+
+**Aktiv, nicht historisch:** Alle Fundstellen stehen in aktiven Statusfeldern,
+Detailblockfeldern, der Voraussetzungstabelle beziehungsweise im aktiven
+*Aussageschutz*. Die phasengebundenen Abschnitte *Stand nach …*, die
+Entscheidungsnotizen zu D-057 bis D-062 und die phasengebundenen Teststände
+**930** und **1050** bleiben unverändert; die Aussage über **D-061** (Z-4) sowie
+die Registrierungsbedingung (Z-7, Z-8) bleiben **inhaltlich erhalten** und sind
+**zeitlich gekennzeichnet**. **N-4** und **N-5** („B2B-Apply und B2D nicht
+autorisiert" in `CLAUDE.md` und `PROJECT_BRAIN.md`) sind kanonisch korrekt, weil
+B2D dort das nicht autorisierte Aggregat bezeichnet, und **nicht** Teil dieses
+Vorgangs. In den bisherigen **einunddreißig** Vorgängen **nicht** als eigener
+Vorgang registriert.
+
+**Korrigiert:** 32-A, N-3 und Z-3 auf **erster B2C-T-Lauf `BLOCKED`, B2C-T-R
+`committed` (`9cde9de`), B2B-Apply und Aggregat B2D nicht autorisiert** · 32-B und
+N-2 auf **granularen Phasenstatus, keine pauschale B2-Freigabe** · 32-C auf
+**internes read-only Modell und Validator, plan-only Initialisierung und
+synthetische Traceability, keine operative KB-04-Durchsetzung** · N-1a auf
+**B2C-T-R abgeschlossen, drei Testdateien, 152 zusätzliche Tests** · Z-1 auf
+abgeschlossene B1-/B2-Teilphasen bei **weiterhin nicht autorisierter realer
+KB-04-Enforcement- und B2D-E-Ausführung** · Z-4 auf D-061 als Scopeentscheidung
+ohne Code und das **später autorisierte und abgeschlossene B2C-T-R** · Z-7 und Z-8
+auf den **zeitbezogenen Registrierungsstand** und die **granular autorisierten
+späteren Teilphasen**. **Eine** Fehlerursache, **eine** Reconciliation — **genau
+ein** Vorgang trotz **elf** Befundgruppen in sieben Dateien. **Der Nenner bleibt
+unverändert**, weil CBP-WP-022 seit dem neunzehnten Vorgang erfasst ist.
+**Zählwirkung: `31/22 → 32/22`.**
+
+### Dreiunddreißigster Konsistenzvorgang — CBP-WP-022 Active Decision/A0 Counter Mirrors Staleness (2026-10-15)
+
+**Pre-Closure-Diagnose vom 2026-10-15; registriert gemäß Human-Maintainer A0,
+2026-10-16.** **Drei Befundgruppen:** **A** — `HEALTH_SCORE.md`, *Dimensionen*,
+Zeile *Entscheidungslage*: „56 Entscheidungen (52 mit A0), 13 angenommene ADRs"
+(entstanden in `0cb4ea9`, D-056; veraltet seit D-057) · **B** — dieselbe Datei,
+*Kennzahlen*: *Getroffene Entscheidungen* **61**, *davon A0* **57** (zuletzt
+fortgeschrieben in `38eb33f`, D-061) · **C** — `PROJECT_MANIFEST.md`, *Aktuelles
+Work Package*, Schlussklausel **N-1c** „Zähler unverändert 60/56/14" (entstanden
+in `929d10b`, B2A), im selben Feld widersprochen durch den aktuelleren Zähler
+67/63/14.
+
+**Fehlerklasse:** **Unterbliebene Fortschreibung aktiver Decision-, A0- und
+ADR-Zählerspiegel** bei neuen Decisions. **Korrekter Zustand:** vor D-068
+**67/63/14**, nach D-068 **68 Decisions, 64 mit A0, 14 angenommene ADRs**.
+**Abgrenzung:** Der **neunzehnte** Vorgang korrigierte denselben Rückstand nur in
+`CLAUDE.md` und `PROJECT_BRAIN.md`; er bleibt **byte-identisch** und wird **weder
+wiedereröffnet noch erweitert**. In den bisherigen **zweiunddreißig** Vorgängen
+**nicht** als eigener Vorgang registriert.
+
+**Korrigiert:** A auf **„68 Entscheidungen (64 mit A0), 14 angenommene ADRs"** ·
+B auf **68** und **64** · C durch Entfernen der redundanten Schlussklausel; die
+Zähler stehen kanonisch in den Feldern *Getroffene Entscheidungen* und
+*Angenommene ADRs* desselben Dokuments, der D-067-Stand 67/63/14 ist dort als
+phasengebunden gekennzeichnet. **Ein** Spiegeltyp, **eine** Fehlerursache —
+**genau ein** Vorgang. **Zählwirkung: `32/22 → 33/22`.**
+
+### Vierunddreißigster Konsistenzvorgang — CBP-WP-022 Active Risk Aggregate Mirrors Staleness (2026-10-15; erweitert 2026-10-16)
+
+**Zwei Befunde in `HEALTH_SCORE.md` in der Pre-Closure-Diagnose vom 2026-10-15,
+Z-9 und Z-10 desselben Spiegeltyps im vollständigen Audit vom 2026-10-16;
+registriert gemäß Human-Maintainer A0, 2026-10-16.** **Vier falsche aktive
+Spiegel** führten **32** erfasste Risiken und **17** hoch: `HEALTH_SCORE.md`
+(*Kennzahlen*, *Erfasste Risiken* und *davon hoch*), `PROJECT_BRAIN.md`
+(Abschnitt *Risiken*, **Z-9**) und `PROJECT_PROFILE.md` (Abschnitt *Risiken*,
+**Z-10**).
+
+**Kanonisch:** **35** Risiken · hoch **20** · mittel **14** · niedrig **1** ·
+gemindert **14** · offen **13**; die HEALTH_SCORE-Zeile *davon gemindert* **14**
+war bereits korrekt und bleibt unverändert. **Herkunft:** Die Werte stammen aus
+`b1a6c2f` (CBP-WP-003) und spiegelten die kanonische Zusammenfassung, bis
+**B2D-GOV** (`7e8328a`, D-063) diese vollständig neu auszählte und auf **35/20**
+reconciliierte; die Spiegel wurden nicht nachgeführt. **Abgrenzung:** Die
+**kanonische Aggregatreconciliation aus B2D-GOV/D-063 bleibt unangetastet**,
+**keine Änderung an Risikodatensätzen**; die Listen *Weiterhin kritisch* gehören
+zum zurückgestellten Prüfbestand **D-3** und bleiben unverändert. In den
+bisherigen **dreiunddreißig** Vorgängen **nicht** als eigener Vorgang
+registriert.
+
+**Korrigiert:** alle vier Spiegel auf **35** beziehungsweise **20 hoch**. **Ein**
+Spiegeltyp, **eine** Fehlerursache — **genau ein** Vorgang. **Zählwirkung:
+`33/22 → 34/22`.**
+
+### Fünfunddreißigster Konsistenzvorgang — CBP-WP-022 PROJECT_MANIFEST Active Test Count Mirror Staleness (2026-10-16)
+
+**Befund N-1b; registriert gemäß Human-Maintainer A0, 2026-10-16.** Das Feld
+*Aktuelles Work Package* von **`project-system/PROJECT_MANIFEST.md`** führte in
+seiner Schlussklausel zum Implementierungspfad **„Gesamtsuite 1050"** —
+entstanden in `fff8227` (B2B-P), mit B2C-T-R nicht fortgeschrieben; dasselbe
+Feld führt an anderer Stelle bereits **1202**. **Korrekter Zustand:** zuletzt
+dokumentierte bestandene Gesamtsuite **1202** seit **B2C-T-R** (`9cde9de`).
+
+**Korrigiert:** Die Klausel ist als **B2B-P-Stand** gekennzeichnet und nennt die
+**zuletzt dokumentierte Gesamtsuite 1202**. **Abgrenzung:** historische,
+eindeutig phasengebundene Teststände — **724** im WP-020-Eintrag (**Z-16**),
+**930** nach B2A, **1050** nach B2B-P in phasengebundenen Sätzen — bleiben
+erhalten. **R4 hat keine Tests ausgeführt**; die 1202 sind der zuletzt
+dokumentierte Stand, **keine neue Messung**; **keine Testdatei verändert**. In
+den bisherigen **vierunddreißig** Vorgängen **nicht** als eigener Vorgang
+registriert. **Zählwirkung: `34/22 → 35/22`.**
+
+### Sechsunddreißigster Konsistenzvorgang — CBP-WP-022 Residual Registration Lifecycle-state Mirror Staleness (2026-10-16)
+
+**Befund Z-5; registriert gemäß Human-Maintainer A0, 2026-10-16.** Das Feld
+*Zuletzt abgeschlossen* von **`project-system/PROJECT_MANIFEST.md`** führte
+**„Kein Folge-Work-Package autorisiert."** — entstanden im Phase-C-Lauf von
+CBP-WP-021 (`0344774`) und damals zutreffend, mit der Registrierung `e4caa14`
+aber **nicht zeitlich abgegrenzt**. **Korrekter Zustand:** CBP-WP-021 ist zuletzt
+abgeschlossen; **CBP-WP-022** ist registriert (D-057, `e4caa14`) und aktuell
+**`in-review`**; **CBP-WP-023** ist nicht registriert und nicht autorisiert.
+
+**Fehlerklasse:** dieselbe Grundklasse wie der **dreißigste** Vorgang, jedoch eine
+dort **nicht erfasste** Fundstelle; der dreißigste Vorgang wird **nicht
+rückwirkend erweitert**, die Restfundstelle ist nach der Präzedenz des
+neunundzwanzigsten Vorgangs ein **eigener** Vorgang. **Korrigiert:** **„Zum
+Abschluss von CBP-WP-021 war kein Folge-Work-Package autorisiert; seitdem ist
+CBP-WP-022 registriert (D-057, `e4caa14`) und aktuell `in-review`."** **Keine
+neue Work-Package-Registrierung.** In den bisherigen **fünfunddreißig**
+Vorgängen **nicht** als eigener Vorgang registriert. **Zählwirkung: `35/22 →
+36/22`.**
+
+### Siebenunddreißigster Konsistenzvorgang — CBP-WP-022 Decision Register ADR-Gate Summary Count Error (2026-10-16)
+
+**Befund Z-6; registriert gemäß Human-Maintainer A0, 2026-10-16.** Die Zeile
+*Neu in CBP-WP-022* der *Zusammenfassung* von
+**`project-system/DECISION_REGISTER.md`** führte beim Stand D-067 **„die letzten
+neun je `ADR_NOT_REQUIRED` innerhalb ADR-0014"**. **Korrekt waren acht:**
+**D-057** `ADR_NOT_REQUIRED` ausschließlich für die Registrierung · **D-058**
+`ADR_REQUIRED` · **D-059** `ADR-0014_ACCEPTED` · **D-060 bis D-067** acht
+Entscheidungen `ADR_NOT_REQUIRED` innerhalb ADR-0014. **Nach D-068 sind es neun**
+(**D-060 bis D-068**).
+
+**Fehlerklasse:** **fortgeschriebene relative Zählformel** in einer kanonischen
+Zusammenfassung — entgegen Zähl- und Statusregel 1 bis 3. Die Formel entstand
+in `38eb33f` (D-061) mit „drei" statt korrekt **zwei** und wurde mit jeder
+folgenden Decision um eins erhöht („vier" `117647f` bis „neun" `c662452`);
+**D-059** wurde stets mitgezählt. **Der Fehler bestand vor D-068.** **Die alte
+Summenbehauptung wird nicht als nun zufällig zutreffend weitergeführt.**
+**Korrigiert:** durch den **expliziten Bereich** „**D-060 bis D-068** je
+`ADR_NOT_REQUIRED`, innerhalb ADR-0014" mit Hinweis auf die frühere Abweichung.
+**Die einzelnen Decisions D-057 bis D-067 bleiben unverändert; keine ADR.** In den
+bisherigen **sechsunddreißig** Vorgängen **nicht** als eigener Vorgang
+registriert. **Zählwirkung: `36/22 → 37/22`.**
+
+### Achtunddreißigster Konsistenzvorgang — CBP-WP-022 ADR Index Count and Entry Staleness (2026-10-16)
+
+**Befund Z-11; registriert gemäß Human-Maintainer A0, 2026-10-16.** Der ADR-Index
+**`docs/decisions/README.md`** führte im Kopffeld **13** angenommene ADRs, im
+Fließtext „**Dreizehn** angenommene ADRs" und „Alle **dreizehn** tragen A1", und
+seine Tabelle endete bei **ADR-0013**. **Korrekter Zustand:** **14** angenommene
+ADRs; **ADR-0014** *KB-04 Stage 1 Filesystem Enforcement Architecture*,
+`accepted`, **A1**, 2026-08-03, belegt durch **D-059** (A0). **Herkunft:** ADR-0014
+wurde in **B1B** (`b86a35f`) angelegt und angenommen; der Index (zuletzt
+`4dec921`, CBP-WP-018 Phase B0) wurde dabei nicht nachgeführt.
+
+**Fehlerklasse:** dieselbe wie der **vierzehnte** Vorgang (*CBP-WP-018
+ADR-Index-Zählkorrektur*); dieser bleibt unverändert und wird **nicht
+wiedereröffnet**. **Korrigiert:** Kopffeld auf **14**, Fließtext auf
+**vierzehn** einschließlich ADR-0014, Tabelleneintrag **ADR-0014** ergänzt; die
+Indexmetadaten *Überarbeitet in* und *Stand* sind auf diesen Lauf nachgeführt.
+**Keine ADR-Datei verändert, keine weitere ADR.** In den bisherigen
+**siebenunddreißig** Vorgängen **nicht** als eigener Vorgang registriert.
+**Zählwirkung: `37/22 → 38/22`.**
+
+### Neununddreißigster Konsistenzvorgang — CBP-WP-019 Residual DRC Gate-status Mirror Staleness (2026-10-16)
+
+**Befund Z-12; registriert gemäß Human-Maintainer A0, 2026-10-16.** Die Tabelle
+*Offene Punkte* dieses Dokuments führte **„DRC definiert, aber NOT
+EVALUATED"** — entstanden in `4cddc28` (CBP-WP-004), zutreffend bis CBP-WP-019,
+mit `3c437f2` (D-054) nicht fortgeschrieben. **Korrekter Zustand:** Der
+Deployment Readiness Check ist für **Profil A** bewertet und **`APPROVED BY
+HUMAN MAINTAINER`** (CBP-WP-019, **D-054**, 2026-07-29) — **19 Prüfpunkte, 19
+`ready`, 0 `blocked`**.
+
+**Abgrenzung:** **Die DRC-Genehmigung ist rein dokumentarisch** — **keine**
+Installations-, Betriebs- oder produktive Sicherheitsfreigabe, **keine**
+Mapping-Activation-Gate- und **keine** Security-Foundation-Readiness-Gate-
+Evaluation; **beide Gates bleiben `NOT EVALUATED`**, **R-34 bleibt offen**,
+**kein Deployment**. **CBP-WP-019** ist seit dem sechzehnten Vorgang erfasst —
+**der Nenner bleibt unverändert**; der sechzehnte und der neunundzwanzigste
+Vorgang werden nicht wiedereröffnet. **Korrigiert:** Die Zeile gibt den
+genehmigten DRC-Stand mit dieser Abgrenzung wieder. In den bisherigen
+**achtunddreißig** Vorgängen **nicht** als eigener Vorgang registriert.
+**Zählwirkung: `38/22 → 39/22`.**
+
+### Vierzigster Konsistenzvorgang — CBP-WP-020/021 Residual Closure Header Commit-status Staleness (2026-10-16)
+
+**Befund Z-13; registriert gemäß Human-Maintainer A0, 2026-10-16.** In
+**`work-packages/CBP-WP-020.md`** führte das Kopffeld *Commit* „— Phase C
+uncommitted"; in **`work-packages/CBP-WP-021.md`** führten das Kopffeld
+*Aktuelle Phase* „Phase C – Post-Commit Reconciliation (vorbereitet)" und das
+Kopffeld *Commit* „— Phase C uncommitted". **Korrekter Zustand:**
+**CBP-WP-020** `committed` · `complete`, Phase C **`committed` `d6a1a3c`**;
+**CBP-WP-021** `committed` · `complete`, Phase C abgeschlossen und
+**`committed` `0344774`**.
+
+**Fehlerklasse:** **unterbliebene Post-Commit-Fortschreibung der Phase-C-Kopf-
+und Commitstatusspiegel** — die Fundstellen entstanden in den Phase-C-Läufen vor
+den Commits `d6a1a3c` beziehungsweise `0344774`, obwohl die Kopffelder *Status*
+bereits `committed` · `complete` führten. **Aktiv, nicht historisch:** die
+Kopffelder *Aktuelle Phase* und *Commit* sind aktive Statusspiegel.
+**Historische Abgrenzung:** die Phasenmodellzeilen **C** — WP-020 „abgeschlossen
+(dieser Stand, uncommitted)" und WP-021 „vorbereitet (dieser Stand,
+uncommitted)" — sind gemäß **Human-Maintainer A0, 2026-10-16** historische
+Phase-C-Momentaufnahmen, keine aktiven Falschaussagen, und bleiben im Wortlaut
+**unverändert**; sie beschreiben einen anderen Zeitpunkt als die Kopffelder. Die
+Präzedenz des **vierundzwanzigsten** Vorgangs (Live-Phasenmodelltabelle des
+laufenden CBP-WP-022) wird auf sie **nicht** übertragen; der vierundzwanzigste
+Vorgang bleibt unverändert. Phasengebundene Vor-Commit-Berichte derselben
+Dateien — darunter die Abschnitte *Human Gates* — bleiben ebenfalls
+**unverändert**. CBP-WP-020 ist seit dem siebzehnten, CBP-WP-021 seit dem
+achtzehnten Vorgang erfasst — **der Nenner bleibt unverändert**; der
+**achtundzwanzigste** Vorgang (Queue-Detailblock CBP-WP-021) wird nicht
+wiedereröffnet.
+
+**Korrigiert:** WP-020 — Commitfolge um **C `committed` `d6a1a3c`** ergänzt ·
+WP-021 — *Aktuelle Phase* auf **(abgeschlossen)**, Commitfolge um
+**C `committed` `0344774`** ergänzt; die Statuswerte **`complete`** bleiben
+erhalten, die historischen Phasenmodellzeilen **C** beider Dateien bleiben
+unverändert. **Kein neues Work Package, keine neue Phase.** **Eine**
+Fehlerursache — **genau ein** Vorgang trotz drei Fundstellen in zwei Dateien. In
+den bisherigen **neununddreißig** Vorgängen **nicht** als eigener Vorgang
+registriert. **Zählwirkung: `39/22 → 40/22`.**
+
+### Gemeinsame Wirkung der Vorgänge 32 bis 40
+
+**Wirkung:** **keine technische Implementierungsänderung**, **keine ADR**, **keine
+Änderung von Risikodatensätzen, Severity oder Risikostatus**, **keine neue
+Risiko-ID**, **keine Teständerung und keine neue Testausführung**, **keine
+Traceabilityänderung**, **keine Capabilityänderung**, **kein Phasenstatus und
+keine Autorisierung verändert**; die einzige neue Decision **D-068** führt
+**keine Closure** aus; **D-001 bis D-067** unverändert; **CBP-WP-022 bleibt
+`in-review`**; **KB-04 bleibt `DOCUMENTED ONLY`**; Mapping Activation Gate und
+Security Foundation Readiness Gate bleiben `NOT EVALUATED`; Capabilities **0 von
+29**; **`KB04-T-N14`**, **NT-04** und **NT-05** nicht ausgeführt; **B2D-H**,
+**B2D-E**, **B2D-V**, **B2D-G** und **B2B-Apply** nicht autorisiert; **OD-37**,
+**Contract §10.3** und **R-20** bleiben offen; **CBP-WP-023** nicht registriert.
+**AF-6** bleibt **zurückgestellt** (D-056 Teil T), ohne Zählwirkung.
+
+**R-33 bleibt `gemindert, nicht geschlossen`** — Kritikalität unverändert
+**mittel**, kein Risiko geschlossen, **keine neue Risiko-ID**. **Vierzig
+Konsistenzvorgänge in zweiundzwanzig Work Packages** sind dokumentiert (**neue
+aktuelle Basislinie**; löst „einunddreißig" ab); die Zahl der Work Packages
+bleibt **zweiundzwanzig**, weil die Vorgänge 32 bis 38 das seit dem neunzehnten
+Vorgang erfasste CBP-WP-022, Vorgang 39 das seit dem sechzehnten Vorgang
+erfasste CBP-WP-019 und Vorgang 40 die seit dem siebzehnten beziehungsweise
+achtzehnten Vorgang erfassten CBP-WP-020 und CBP-WP-021 betreffen und
+**ausschließlich** den Vorgangszähler erhöhen. Vollständige Progression seit dem
+neunzehnten Vorgang: **19/22 → 20/22 → 21/22 → 22/22 → 23/22 → 24/22 → 25/22 →
+26/22 → 27/22 → 28/22 → 29/22 → 30/22 → 31/22 → 32/22 → 33/22 → 34/22 → 35/22 →
+36/22 → 37/22 → 38/22 → 39/22 → 40/22**. **`40/22` ist kein Erfüllungsgrad und
+keine Prozentkennzahl** — der Zähler zählt dokumentierte Vorgänge, der Nenner
+Work Packages mit mindestens einem Vorgang, und der Zähler **darf** den Nenner
+überschreiten; **`40/23`** ist unzulässig, ebenso **`41/22`** ohne einen
+zusätzlich registrierten Vorgang. **Das projektweite Konsistenzrisiko ist nicht
+beseitigt** — neun weitere Vorgänge derselben Grundklasse belegen es
+unmittelbar. **Die Registrierung bedeutet nicht, dass sämtliche aktiven Spiegel
+konsistent sind:** der Altdrift-Prüfbestand **D-1 bis D-10** ist **nicht
+klassifiziert und nicht bereinigt**. Diese Vorgänge sind mit den Einträgen in
+[RISK_REGISTER.md](RISK_REGISTER.md) **identisch** und **zählen je nur einmal**.
+Die dortige Darstellung folgt der **Tabellenform** des Risk Registers, während
+hier die **Prosaform** dieses Dokuments verwendet wird; **Fakten, Zahlen,
+Closure-Grenze und R-33-Wirkung sind identisch**.
+
 ---
 
 ## Offene Punkte
@@ -1409,7 +1718,7 @@ Closure-Grenze und R-33-Wirkung sind identisch**.
 | Secret-Erkennung und technische Unterstützung fehlen | R-01 |
 | Benchmark entworfen, **nicht ausgeführt** — keine Messung | R-21 |
 | Konkreter produktiver Quellenbestand — Slot-Ebene entschieden, Mapping offen | OD-05, OD-06 |
-| DRC definiert, aber **NOT EVALUATED** | R-34 |
+| DRC für Profil A **`APPROVED BY HUMAN MAINTAINER`** (D-054, 2026-07-29; 19 Prüfpunkte, **19 `ready` / 0 `blocked`**) — **rein dokumentarisch**: keine Installations-, Betriebs- oder produktive Sicherheitsfreigabe; Mapping Activation Gate und Security Foundation Readiness Gate bleiben **`NOT EVALUATED`** | R-34, D-054 |
 | Repository-Zielstruktur entschieden, **Migration nicht geplant und nicht autorisiert** | D-029, ADR-0007 |
 | Operator-Workspace beschlossen, **nicht angelegt** | D-030, ADR-0007 |
 | Mappingkonvention entschieden, **kein Mapping, kein Validator** | D-031…D-033, ADR-0008 |
@@ -1419,6 +1728,49 @@ Closure-Grenze und R-33-Wirkung sind identisch**.
 
 > **Erledigt seit CBP-WP-007:** Die G0-Entscheidung des Human Maintainers liegt
 > vor — **PASSED WITH NOTES**, 2026-07-21, A0.
+
+## R4 Deferred Legacy-Drift Inventory — D-1 bis D-10
+
+*Erfasst in der CBP-WP-022 Pre-Closure Governance Reconciliation R4 gemäß
+Human-Maintainer A0, 2026-10-16.* **Rein dokumentarische Abgrenzung — keine
+Decision, kein Work Package, kein R-33-Vorgang.**
+
+Der vollständige read-only Audit aller aktiven Statusspiegel vom **2026-10-16**
+(Ergebnis `DISCOVERY_COMPLETE_A0_DECISION_REQUIRED`) fand neben den in den
+Vorgängen 32 bis 40 und den R-16-Korrekturen behandelten Befunden einen
+**weiteren Altdrift-Bestand**. Der Human Maintainer hat entschieden, ihn
+**gesondert zu erfassen, aber nicht in R4 zu bereinigen**. Die Kennungen
+**D-1 bis D-10** gelten **nur in diesem Abschnitt** — sie sind **keine
+Decision-IDs** (diese tragen die Form D-0NN) und **nicht** die G0-Kriterien
+D-1 bis D-7.
+
+| ID | Datei bzw. Dateigruppe | Befund | Quelle | Status | Remediation | Zählwirkung | Weiterer Bedarf |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| **D-1** | `project-system/COMPLIANCE_CHECK.md` (*Offene Punkte*) | ältere Aussage „kein Mapping, kein Validator", obwohl später ein Mapping-Draft-Validator entstand (CBP-WP-015) | Audit 2026-10-16 | `UNRESOLVED_CLASSIFICATION` | `NOT_AUTHORIZED_IN_R4` | `NOT_DETERMINED` | separates Human-Maintainer-A0 vor jeder Änderung |
+| **D-2** | `project-system/COMPLIANCE_CHECK.md` (*Offene Punkte*) | ältere F3-Blockadeaussage („ohne F3-Strang nicht durchlaufbar") trotz inzwischen fortgeschrittenem beziehungsweise ausgeführtem Entwicklungsstrang | Audit 2026-10-16 | `UNRESOLVED_CLASSIFICATION` | `NOT_AUTHORIZED_IN_R4` | `NOT_DETERMINED` | separates Human-Maintainer-A0 vor jeder Änderung |
+| **D-3** | `project-system/RISK_REGISTER.md`, `project-brain/PROJECT_BRAIN.md` (*Weiterhin kritisch*) | möglicherweise veraltete Begründungen, insbesondere zu **R-34** | Audit 2026-10-16 | `UNRESOLVED_CLASSIFICATION` | `NOT_AUTHORIZED_IN_R4` | `NOT_DETERMINED` | separates Human-Maintainer-A0 vor jeder Änderung |
+| **D-4** | `project-system/PROJECT_PROFILE.md` | ältere Infrastruktur-, Repository- und Programmiersprachen-Statusaussagen | Audit 2026-10-16 | `UNRESOLVED_CLASSIFICATION` | `NOT_AUTHORIZED_IN_R4` | `NOT_DETERMINED` | separates Human-Maintainer-A0 vor jeder Änderung |
+| **D-5** | `project-system/HEALTH_SCORE.md` (*Dimensionen*, *Implementierung*) | qualitative Implementierungsdimension endet beim alten technischen Ausbaustand | Audit 2026-10-16 | `UNRESOLVED_CLASSIFICATION` | `NOT_AUTHORIZED_IN_R4` | `NOT_DETERMINED` | separates Human-Maintainer-A0 vor jeder Änderung |
+| **D-6** | `CLAUDE.md` (*Technische Implementierung*) | unvollständige Aufzählung technischer Implementierungsartefakte | Audit 2026-10-16 | `UNRESOLVED_CLASSIFICATION` | `NOT_AUTHORIZED_IN_R4` | `NOT_DETERMINED` | separates Human-Maintainer-A0 vor jeder Änderung |
+| **D-7** | `project-system/CAPABILITY_MATRIX.md` | Tests als `not-started` mit „Kein Code vorhanden" | Audit 2026-10-16 | `UNRESOLVED_CLASSIFICATION` | `NOT_AUTHORIZED_IN_R4` | `NOT_DETERMINED` | separates Human-Maintainer-A0 vor jeder Änderung |
+| **D-8** | Offene Entscheidungen und ADR-Bereiche, darunter **OD-03**, **OD-05**, **OD-06** | veraltete offene Entscheidungstexte und ADR-Bereiche | Audit 2026-10-16 | `UNRESOLVED_CLASSIFICATION` | `NOT_AUTHORIZED_IN_R4` | `NOT_DETERMINED` | separates Human-Maintainer-A0 vor jeder Änderung |
+| **D-9** | Metadatenfelder mehrerer Dokumente | veraltete oder uneinheitliche Angaben zu „Stand", „Überarbeitet in" und „Letzte Prüfung" | Audit 2026-10-16 | `UNRESOLVED_CLASSIFICATION` | `NOT_AUTHORIZED_IN_R4` | `NOT_DETERMINED` | separates Human-Maintainer-A0 vor jeder Änderung |
+| **D-10** | Manifest, Queue, `CBP-WP-022.md`, Roadmap | unvollständige, nicht zwingend falsche Aufzählungen | Audit 2026-10-16 | `UNRESOLVED_CLASSIFICATION` | `NOT_AUTHORIZED_IN_R4` | `NOT_DETERMINED` | separates Human-Maintainer-A0 vor jeder Änderung |
+
+**Aussagegrenzen:** Die Liste ist **nicht abschließend fachlich klassifiziert**.
+**Keine** Gruppe ist pauschal als R-16- oder R-33-Fall eingestuft, **keine** gilt
+durch ihre Erfassung als repariert, **keine Eventnummer** ist vergeben, und das
+R-33-Ziel **40/22** verschiebt sich **nicht** automatisch. Die genannten
+Artefakte wurden in R4 **nicht** verändert, soweit sie nicht unabhängig davon
+durch den ausdrücklich autorisierten R4-Scope betroffen waren. **Die Erfassung
+bedeutet nicht, dass sämtliche aktuell falschen Statusaussagen korrigiert
+sind.**
+
+**Spätere Behandlung:** Ein **separater Human-Maintainer-Entscheid** legt fest,
+welche Aussagen historisch und welche aktiv sind, welche echte R-16-Fälle sind,
+ob weitere R-33-Vorgänge vorliegen, welche Remediation-Allowlist gilt und ob
+eine Gruppe für die Closure von CBP-WP-022 relevant ist. **Aus dieser
+Inventarisierung allein folgt keine positive Closure-Readiness-Aussage.**
 
 ## Pflege
 
