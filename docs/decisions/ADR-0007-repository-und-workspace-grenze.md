@@ -9,6 +9,7 @@
 | Autorität | **A0** — direkte Human-Maintainer-Entscheidung |
 | Supersedes | — |
 | Superseded by | — |
+| Teilweise abgelöst durch | [ADR-0015](ADR-0015-repository-sichtbarkeit-und-publikationsstatus.md) (`accepted`, **A1**, 2026-10-17) — **ausschließlich** die Sichtbarkeitsaussagen (Repository-Sichtbarkeit, OD-11); **keine vollständige Ablösung**, siehe *Teilablösungsvermerk 2026-10-17* |
 | Vorbereitet in | CBP-WP-008 · entschieden in **CBP-WP-009** |
 | Belegt durch | ADR-0006 (A1), ADR-0003, ADR-0001, Übergabe §13 (A5), REPOSITORY_LAYOUT_OPTIONS (A3), REPOSITORY_AND_WORKSPACE_PLAN (A3) |
 | Schließt | **OD-26** |
@@ -324,6 +325,77 @@ schreibt, wird durch W-3 in keiner Weise erkannt oder verhindert.
 
 **B3 setzt OD-11 nicht voraus.** Das war der Grund, W-3 vor W-2 zu wählen: W-2
 hätte eine Aussage über Sichtbarkeit und Ablageort implizit vorweggenommen.
+
+### Governance-Vermerk 2026-10-17 — Repository-Sichtbarkeit
+
+*Stand Phase G1 — als G1-Nachweis unverändert erhalten; durch den
+Teilablösungsvermerk unten (Phase G2) fortgeschrieben.*
+
+| Feld | Wert |
+| --- | --- |
+| Art | **Datierter Governance-Vermerk** — keine Änderung von Entscheidung, Status oder Wortlaut |
+| Datum | 2026-10-17 |
+| Ergänzt in | **CBP-WP-023**, Phase G1 (uncommitted Review-Diff) |
+| Bezug | **D-069** (A0) · [ADR-0015](ADR-0015-repository-sichtbarkeit-und-publikationsstatus.md) (`proposed`) |
+| Wirkung auf Entscheidung und Status | **keine** |
+
+Die Sichtbarkeitsaussagen dieses ADR — *„Das Repository bleibt zunächst
+privat."* im Abschnitt *Core Repository — Zielstruktur*, die Zeilen *Aktuelle
+Sichtbarkeit* und *OD-11* der Tabelle oben sowie die OD-11-Zeilen unter
+*Offene Folgefragen* — geben den **Governance-Stand vom 2026-07-21** wieder und
+bleiben **im Wortlaut unverändert**.
+
+- **D-069** (`accepted`, **A0**, 2026-10-17) hat die Repository-Sichtbarkeit
+  **PUBLIC** bestätigt und **OD-11** inhaltlich beantwortet: Development State
+  **PRIVATE DEVELOPMENT**, Product Publication **NOT AUTHORIZED**, Lizenz offen
+  (OD-23), Produktname offen (OD-28), Branding gesperrt. Für die
+  Repository-Sichtbarkeit ist D-069 als A0 **bereits verbindlich**.
+- **ADR-0015** ist zur Architekturpräzisierung **`proposed`**. Er soll nach
+  seiner Annahme **ausschließlich** diese Sichtbarkeitsaussagen teilweise
+  ablösen.
+- **Die formale A1-Teilablösung ist nicht erfolgt.** Sie verlangt die Annahme
+  von ADR-0015 in Phase **G2** nach erneutem ausdrücklichem
+  Human-Maintainer-GO; bis dahin bleibt *Superseded by* unverändert.
+- **Unverändert gültig** bleiben Monorepo-Zielstruktur, Bereichsmodell W-3,
+  RT-1/RT-2/RT-3, die Grenzen **G1 bis G10**, die historische
+  Autoritätsbegründung und die Anforderung, dass eine **Produktveröffentlichung**
+  eine separate A0-Entscheidung benötigt. Öffentliche Sichtbarkeit erhöht die
+  Bedeutung von **G1**, **G2** und **G6**.
+- D-069 legitimiert die frühere, zeitlich nicht belegte Abweichung zwischen
+  Dokumentation und tatsächlicher Sichtbarkeit **nicht rückwirkend**.
+
+### Teilablösungsvermerk 2026-10-17 — ADR-0015 (Phase G2)
+
+| Feld | Wert |
+| --- | --- |
+| Art | **Datierter Teilablösungsvermerk** — partielle Ablösung durch einen späteren ADR, **keine** vollständige Ablösung |
+| Datum | 2026-10-17 |
+| Ergänzt in | **CBP-WP-023**, Phase G2 (uncommitted Review-Diff) |
+| Grundlage | **Human-Maintainer-A0** vom 2026-10-17 — Annahme von ADR-0015 (A0-G2-2) und partielle Ablösung (A0-G2-3) |
+| Abgelöst durch | [ADR-0015](ADR-0015-repository-sichtbarkeit-und-publikationsstatus.md) — `accepted`, **A1** |
+| Status dieses ADR | **`accepted`** — unverändert; *Superseded by* bleibt **—** |
+
+**Abgelöster Umfang — ausschließlich:**
+
+| Stelle | Aussage |
+| --- | --- |
+| Abschnitt *Core Repository — Zielstruktur* | „Das Repository bleibt zunächst privat." sowie „OD-11 ist offen" |
+| *Git- und Veröffentlichungswirkung* | *Aktuelle Sichtbarkeit*: privat · *OD-11*: bleibt offen |
+| *Offene Folgefragen* | Zeilen zu OD-11 (Repository-Sichtbarkeit) |
+
+- Für die **Repository-Sichtbarkeit** gilt seit dem 2026-10-17 ADR-0015 (A1)
+  auf Grundlage von **D-069** (A0): Repository Visibility **PUBLIC** ·
+  Development State **PRIVATE DEVELOPMENT** · Product Publication **NOT
+  AUTHORIZED** · License **UNDECIDED** · Public Branding **gesperrt**. **OD-11**
+  ist durch D-069 inhaltlich beantwortet.
+- Die abgelösten Aussagen bleiben **im Wortlaut erhalten** und dokumentieren den
+  Governance-Stand vom 2026-07-21; für die Repository-Sichtbarkeit sind sie
+  **nicht mehr maßgeblich**.
+- **Nicht abgelöst** und unverändert bindend sind Entscheidung und Status
+  dieses ADR, Monorepo-Zielstruktur, Bereichsmodell W-3, RT-1/RT-2/RT-3, die
+  Grenzen **G1 bis G10**, die historische Autoritätsbegründung und die
+  Anforderung, dass eine **Produktveröffentlichung** eine separate
+  A0-Entscheidung benötigt.
 
 ## Backupwirkung
 

@@ -9,6 +9,7 @@
 | Autorität | **A0** — direkte Human-Maintainer-Entscheidung |
 | Supersedes | — |
 | Superseded by | — |
+| Teilweise abgelöst durch | [ADR-0015](ADR-0015-repository-sichtbarkeit-und-publikationsstatus.md) (`accepted`, **A1**, 2026-10-17) — **ausschließlich** Klarstellungsnachtrag, Verbindliche Folgerung 2 (Repository-Sichtbarkeit); **keine vollständige Ablösung**, siehe *Teilablösungsvermerk 2026-10-17* |
 | Vorgeschlagen in | CBP-WP-006 · angenommen in CBP-WP-007 |
 | Belegt durch | Übergabe §13 (A5), D-019, D-025 (A0), ADR-0001, ADR-0003 |
 
@@ -229,6 +230,63 @@ Vollständige Ausformulierung des Begriffs in
 Repository — Zielstruktur".
 
 **Dieser ADR schließt OD-05, OD-06 und OD-26 nicht** und darf das nicht.
+
+## Governance-Vermerk 2026-10-17 — Repository-Sichtbarkeit
+
+*Stand Phase G1 — als G1-Nachweis unverändert erhalten; durch den
+Teilablösungsvermerk unten (Phase G2) fortgeschrieben.*
+
+| Feld | Wert |
+| --- | --- |
+| Art | **Datierter Governance-Vermerk** — keine Änderung von Entscheidung, Status oder Wortlaut |
+| Datum | 2026-10-17 |
+| Ergänzt in | **CBP-WP-023**, Phase G1 (uncommitted Review-Diff) |
+| Bezug | **D-069** (A0) · [ADR-0015](ADR-0015-repository-sichtbarkeit-und-publikationsstatus.md) (`proposed`) |
+| Wirkung auf Entscheidung und Status | **keine** |
+
+Die **Verbindliche Folgerung 2** des Klarstellungsnachtrags — *„Die
+Repository-Sichtbarkeit bleibt privat."* — gibt den **Governance-Stand vom
+2026-07-21** wieder und bleibt **im Wortlaut unverändert**.
+
+- **D-069** (`accepted`, **A0**, 2026-10-17) hat die Repository-Sichtbarkeit
+  **PUBLIC** bestätigt: Development State **PRIVATE DEVELOPMENT**, Product
+  Publication **NOT AUTHORIZED**, Lizenz offen (OD-23), Branding gesperrt. Für
+  die Repository-Sichtbarkeit ist D-069 als A0 **bereits verbindlich**.
+- **ADR-0015** ist zur Architekturpräzisierung **`proposed`**. Er soll nach
+  seiner Annahme **ausschließlich** die Sichtbarkeitsaussage der Folgerung 2
+  teilweise ablösen.
+- **Die formale A1-Teilablösung ist nicht erfolgt.** Sie verlangt die Annahme
+  von ADR-0015 in Phase **G2** nach erneutem ausdrücklichem
+  Human-Maintainer-GO; bis dahin bleibt *Superseded by* unverändert.
+- **Unverändert gültig** bleiben das Source-Slot-Modell sowie die Folgerungen
+  1, 3, 4 und 5 — eine **Produktveröffentlichung**, eine Lizenz, ein Branding
+  und ein Release benötigen weiterhin je eine separate A0-Entscheidung.
+- D-069 legitimiert die frühere, zeitlich nicht belegte Abweichung zwischen
+  Dokumentation und tatsächlicher Sichtbarkeit **nicht rückwirkend**.
+
+## Teilablösungsvermerk 2026-10-17 — ADR-0015 (Phase G2)
+
+| Feld | Wert |
+| --- | --- |
+| Art | **Datierter Teilablösungsvermerk** — partielle Ablösung durch einen späteren ADR, **keine** vollständige Ablösung |
+| Datum | 2026-10-17 |
+| Ergänzt in | **CBP-WP-023**, Phase G2 (uncommitted Review-Diff) |
+| Grundlage | **Human-Maintainer-A0** vom 2026-10-17 — Annahme von ADR-0015 (A0-G2-2) und partielle Ablösung (A0-G2-3) |
+| Abgelöst durch | [ADR-0015](ADR-0015-repository-sichtbarkeit-und-publikationsstatus.md) — `accepted`, **A1** |
+| Abgelöster Umfang | **ausschließlich** Klarstellungsnachtrag, Verbindliche Folgerung 2: *„Die Repository-Sichtbarkeit bleibt privat."* |
+| Status dieses ADR | **`accepted`** — unverändert; *Superseded by* bleibt **—** |
+
+- Für die **Repository-Sichtbarkeit** gilt seit dem 2026-10-17 ADR-0015 (A1)
+  auf Grundlage von **D-069** (A0): Repository Visibility **PUBLIC** ·
+  Development State **PRIVATE DEVELOPMENT** · Product Publication **NOT
+  AUTHORIZED** · License **UNDECIDED** · Public Branding **gesperrt**.
+- Die Folgerung 2 bleibt **im Wortlaut erhalten** und dokumentiert den
+  Governance-Stand vom 2026-07-21; für die Repository-Sichtbarkeit ist sie
+  **nicht mehr maßgeblich**.
+- **Nicht abgelöst** und unverändert bindend sind Entscheidung und Status
+  dieses ADR, das Source-Slot-Modell sowie die Folgerungen 1, 3, 4 und 5 — eine
+  **Produktveröffentlichung**, eine Lizenz, ein Branding und ein Release
+  benötigen weiterhin je eine separate A0-Entscheidung.
 
 ## Bezug
 

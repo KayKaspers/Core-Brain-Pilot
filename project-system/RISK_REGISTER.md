@@ -118,6 +118,38 @@ Ein irreversibler Schaden ist mindestens **hoch**.
 > inhaltlich unverändert**, **R-18 bleibt eine nicht wiederverwendete
 > Nummernlücke**, und es wurde **keine R-37** vergeben.
 
+**Neu in CBP-WP-023 (Phase G1, uncommitted Review-Diff):** keine.
+
+**Verändert in CBP-WP-023 (Phase G1) — rein dokumentarisch, ohne Schwere- oder
+Statusänderung:**
+
+| ID | Änderung | Auslöser |
+| --- | --- | --- |
+| **R-01** | **Neubewertung des öffentlichen Repositorybetriebs (2026-10-17).** Das Repository ist **öffentlich sichtbar** (D-069); jeder Push des Human Maintainers macht Commits samt Historie **unmittelbar öffentlich einsehbar**. Der in der Gegenmaßnahme genannte Pfad *Core-Push → unbeabsichtigte Veröffentlichung* ist damit **tatsächlich aktiv** und kein hypothetischer Folgeschritt mehr; W-3 mindert weiterhin nur den **Eintrittspfad** (privater Bestand gelangt nicht in das Core-Repository), nicht die Folge eines Fehlers. Zu berücksichtigen sind insbesondere: **versehentliche Commits** sensibler Inhalte · **automatisiert erzeugte oder importierte Dateien** im Worktree · **GitHub-Schutzfunktionen** (etwa Secret Scanning, Push Protection), die **nicht als aktiviert nachgewiesen** sind · die **verpflichtende Vertraulichkeitsprüfung des Diffs vor jedem Human-Maintainer-Push** (D-069 Teil I). Diese Prüfung ist eine **dokumentierte Anforderung, keine implementierte Kontrolle**; **keine Schutzmaßnahme wird als umgesetzt behauptet**. Der read-only Audit vom 2026-10-17 fand keine kritischen Befunde (CF-01, CF-02 als niedrige Hinweise akzeptiert) — **ein negativer Audit ist keine Sicherheitsgarantie**. Schwere **hoch** und Status-Wortlaut **unverändert** (`offen — nur hinsichtlich des Veröffentlichungspfads teilweise gemindert`; in der Statusauszählung unverändert unter `teilweise gemindert`) | D-069, ADR-0015 (`proposed`) |
+| **R-16** | **Zählneutrale Notiz zur Sichtbarkeits-Governance-Abweichung.** Zu unterscheiden sind: (1) der **historische Governance-Stand** — ADR-0006 (Klarstellungsnachtrag, Folgerung 2), ADR-0007 und aktive Statusspiegel führten das Repository als „privat", OD-11 war offen; (2) der **frühere faktische Zustand** — GitHub wies das Repository als öffentlich aus, der **Zeitpunkt des Wechsels ist nicht belegt**; (3) die **Human-Maintainer-A0 vom 2026-10-17** (A0-1); (4) **D-069**, die PUBLIC als künftigen Sollzustand bestätigt, **ohne** die frühere Abweichung rückwirkend zu legitimieren; (5) **ADR-0015 `proposed`** (Annahme erst in G2); (6) die **Nachführung der aktiven Statusspiegel** im G1-Review-Diff. Historische Aussagen bleiben unverändert. Gemäß Human-Maintainer-Klassifikation ist dies ein **R-16-Fall** und **kein R-33-Vorgang**; Schwere **mittel** und Status **offen** unverändert | D-069 |
+
+**Kein Risiko wurde in CBP-WP-023 G1 geschlossen**, keine Schwere und kein
+Status verändert, **keine neue Risiko-ID** vergeben. Risiken **35** (hoch
+**20** · mittel **14** · niedrig **1**), `offen` **13**, gemindert **14** —
+unverändert. **R-33 bleibt `40/22`**; ein Vorgang 41 ist **nicht**
+registriert. Der Altdrift-Prüfbestand **D-1 bis D-10** bleibt unverändert
+**ungelöst**.
+
+**Fortschreibung in CBP-WP-023 Phase G2 (uncommitted Review-Diff) — keine
+Risikoänderung:** **ADR-0015** ist durch ausdrückliche Human-Maintainer-A0 vom
+2026-10-17 **`accepted`** (A1); die Sichtbarkeitsaussagen in ADR-0006 und
+ADR-0007 sind **partiell abgelöst**, beide bleiben im Übrigen `accepted`. Die
+Angaben „ADR-0015 (`proposed`)" in der Zeile **R-01** (*Auslöser*) und
+„ADR-0015 `proposed` (Annahme erst in G2)" in der Zeile **R-16** (Punkt 5) geben
+den **Stand G1** wieder und bleiben als G1-Nachweis unverändert. **R-01** bleibt
+**hoch**, Status-Wortlaut unverändert (`offen — nur hinsichtlich des
+Veröffentlichungspfads teilweise gemindert`; in der Statusauszählung unter
+`teilweise gemindert`); **R-16** bleibt **mittel** und **offen**; die
+R-16-Fallnotiz gilt unverändert. Risiken
+**35**, **keine neue Risiko-ID**, **R-33 bleibt `40/22`**, **kein Vorgang 41**:
+die Nachführung des ADR-Status ist Teil der G2-Annahme selbst und **kein**
+Konsistenzvorgang.
+
 **Neu in CBP-WP-012:** keine.
 
 **Neu in CBP-WP-015:** keine.

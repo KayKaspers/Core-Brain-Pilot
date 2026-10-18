@@ -291,6 +291,53 @@
 | Git-Diff enthält keine Secret-Werte | erfüllt |
 | Kein Commit, kein Push | erfüllt |
 
+## Sichtbarkeits-Governance-Compliance (CBP-WP-023, Phase G1)
+
+*Geprüft am 2026-10-17 im uncommitteten G1-Review-Diff. Die historischen
+R-33-Vorgänge 1 bis 40 — einschließlich des neunzehnten Vorgangs — bleiben
+unverändert.*
+
+| Prüfung | Ergebnis |
+| --- | --- |
+| Human-Maintainer-A0 vom 2026-10-17 (**A0-1**, **WB-1 Option A**, 18-Dateien-Allowlist) liegt vor | erfüllt |
+| **D-069** genau einmal registriert, `accepted`, **A0**, Ergebnis `REPOSITORY_VISIBILITY_PUBLIC_CONFIRMED_PUBLICATION_NOT_AUTHORIZED` | erfüllt |
+| Registrierung von **CBP-WP-023** als **Teil P** von D-069 — **keine D-070** | erfüllt |
+| CBP-WP-023 einziges `active` Work Package; **CBP-WP-022 bleibt `in-review`**; zuletzt abgeschlossen bleibt **CBP-WP-021** | erfüllt |
+| ADR-Gate **`ADR_REQUIRED`**; **ADR-0015 `proposed`**, nicht angenommen | erfüllt |
+| **G2-Review ausstehend** — Annahme von ADR-0015 verlangt neues Human-Maintainer-GO | offen, gewollt |
+| ADR-0006 und ADR-0007 nur durch datierte Governance-Vermerke ergänzt; Entscheidung, Status und Wortlaut unverändert | erfüllt |
+| Repository Visibility **PUBLIC** · Development State **PRIVATE DEVELOPMENT** | dokumentiert |
+| Product Publication **NOT AUTHORIZED** · License **UNDECIDED** (OD-23 offen) · OD-28 offen | erfüllt |
+| DO_NOT_START **#11**, **#12**, **#13** unverändert gesperrt; nur datierte A0-Klarstellung ergänzt | erfüllt |
+| **CF-01** und **CF-02** durch den Human Maintainer als niedrige Hinweise akzeptiert; keine neuen sensiblen Inhalte | erfüllt |
+| **R-01** neu bewertet, Schwere **hoch** und Status unverändert; keine Schutzmaßnahme als umgesetzt behauptet | erfüllt |
+| **R-16** zählneutral dokumentiert; **kein R-33-Vorgang** | erfüllt |
+| **R-33 bleibt `40/22`**; kein Vorgang 41; Risiken **35**, keine neue Risiko-ID | erfüllt |
+| Altdrift-Prüfbestand **D-1 bis D-10** unverändert ungelöst | erfüllt |
+| **Keine neue technische Reife** — 0 von 29 Capabilities, 12 Kontrollen `DOCUMENTED ONLY`, KB-04 `DOCUMENTED ONLY`, beide Gates `NOT EVALUATED` | erfüllt |
+| **Kein GitHub-Transfer**, keine Umbenennung, kein Remote-Wechsel, keine Lizenz, kein Branding, kein Release | erfüllt |
+| Kein Commit, kein Push — Commit-Autorität beim Human Maintainer (Phase G3) | erfüllt |
+
+## Sichtbarkeits-Governance-Compliance (CBP-WP-023, Phase G2)
+
+*Geprüft am 2026-10-17 im uncommitteten G2-Review-Diff. Die G1-Tabelle oben
+bleibt als G1-Nachweis unverändert; ihre Zeile „G2-Review ausstehend" ist durch
+diese Tabelle fortgeschrieben.*
+
+| Prüfung | Ergebnis |
+| --- | --- |
+| G1-Kandidat nach Nova-Review mit `GO WITH NOTES` vom Human Maintainer angenommen; lokaler G1-Stand vor G2 byte-genau gegen das freigegebene Reviewpaket geprüft | erfüllt |
+| Ausdrückliche Human-Maintainer-A0 vom 2026-10-17 zur Annahme von **ADR-0015** und zur partiellen Ablösung liegt vor | erfüllt |
+| **ADR-0015 `accepted`**, Autoritätsklasse **A1**; Entscheidungssubstanz und fünf Dimensionen unverändert | erfüllt |
+| **ADR-0006** und **ADR-0007** bleiben `accepted`; **partielle** Ablösung **ausschließlich** ihrer Sichtbarkeitsaussagen; *Superseded by* unverändert **—**; historischer Wortlaut erhalten | erfüllt |
+| ADR-Index und Statusspiegel: **15** angenommene, **0** vorgeschlagene ADRs | erfüllt |
+| **D-069** unverändert (`accepted`, **A0**, 2026-10-17, Ergebnis-Token, Teil P); **keine D-070**, keine neue Decision; Decisions/A0 **69/65** | erfüllt |
+| OD-11 geschlossen; **OD-23** und **OD-28** offen; offene Entscheidungen **22**, davon **4** P0 | erfüllt |
+| **CBP-WP-023 bleibt `active`**; CBP-WP-022 bleibt `in-review`; zuletzt abgeschlossen bleibt CBP-WP-021 | erfüllt |
+| Risiken **35**, keine neue Risiko-ID; **R-33 bleibt `40/22`**, kein Vorgang 41 | erfüllt |
+| **Keine neue technische Reife**, kein Transfer, keine Lizenz, kein Branding, kein Release | erfüllt |
+| **G3** — Commit, Push und Post-Commit Truth Check ausschließlich durch den Human Maintainer | offen, gewollt |
+
 ## Zähl- und Statusregel
 
 *Ergänzt in CBP-WP-007, nach dem dritten Zählfehler des Projekts.*

@@ -280,6 +280,12 @@ Aus `CAPABILITY_MATRIX_TEMPLATE.md` (NDF v1.0.0):
 | Prompt Workflow | **P0** | `planned` | NDF-Lifecycle übernommen, WP-Queue geführt |
 | Release Process | P2 | `not-started` | Ohne Implementierung und Lizenz nicht definierbar (AB-07) |
 
+> **Klarstellung (D-069, A0, 2026-10-17; CBP-WP-023 Phase G1):** Repository
+> Visibility **PUBLIC** ist **keine Produktveröffentlichung und keine
+> Release-Autorisierung**. *Release Process* bleibt `not-started`; die Matrix
+> bleibt bei **0 von 29** implementierten Capabilities, es entsteht **keine**
+> zusätzliche Capability.
+
 ## Pflege
 
 Ein Statuswechsel erfolgt ausschließlich im Rahmen eines freigegebenen Work

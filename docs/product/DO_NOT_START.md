@@ -70,6 +70,24 @@ Alle elf sind durch A0-Quellen gedeckt und in der Sperrliste oben enthalten.
 > bleibt, ist eine Sichtbarkeitsentscheidung und keine Nicht-Ziel-Festlegung.
 > Sie wird gesondert als **OD-11** geführt und bleibt offen.
 
+> **A0-Klarstellung vom 2026-10-17 (D-069, CBP-WP-023 Phase G1).** Der Absatz
+> oben gibt den Stand vor D-069 wieder und bleibt unverändert. **OD-11 ist durch
+> D-069 inhaltlich beantwortet:** Repository Visibility **PUBLIC**, Development
+> State **PRIVATE DEVELOPMENT**, Product Publication **NOT AUTHORIZED**. Für
+> diese Sperrliste gilt:
+>
+> - **#11** Öffentliches Branding, **#12** Öffentliche Produktveröffentlichung
+>   und **#13** Endgültiges Branding bleiben **gesperrt**. **Kein Punkt wird
+>   aufgehoben**; das Verfahren unter *Aufhebung* ist **nicht** ausgelöst.
+> - Die öffentliche Lesbarkeit **bereits bestehender** Repositorydokumentation
+>   ist **keine neue Branding-Freigabe** und keine Produktveröffentlichung.
+> - Neue Marketingtexte, Logos, Wortmarken, Claims, Social Previews und jede
+>   öffentliche Produktpositionierung bleiben **gesperrt**.
+> - Ein GitHub-Transfer bleibt **separat freigabepflichtig** (A0-2).
+> - Der Ausschluss „ein Git-Remote-Wechsel oder Push" unter *Was das konkret
+>   ausschließt* wird hier **nicht neu geregelt**. **D-003 bleibt bindend:**
+>   Commit und Push erfolgen ausschließlich durch den Human Maintainer.
+
 ## Zweites Governance-System
 
 Superpowers **darf als Referenz untersucht werden**, aber **nicht parallel als

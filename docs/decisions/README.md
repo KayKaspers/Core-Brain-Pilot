@@ -3,17 +3,17 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Angenommene ADRs | **14** |
-| Vorgeschlagene ADRs | 0 |
-| Überarbeitet in | **CBP-WP-022** (Pre-Closure Governance Reconciliation R4) |
-| Stand | 2026-10-16 |
+| Angenommene ADRs | **15** |
+| Vorgeschlagene ADRs | **0** |
+| Überarbeitet in | **CBP-WP-023** (Phasen G1 bis G3) |
+| Stand | 2026-10-17 |
 
 Dieses Verzeichnis enthält Architecture Decision Records. Ein angenommener ADR
 hat Autoritätsklasse **A1** und bindet nachfolgende Arbeit.
 
 ## Aktueller Stand
 
-**Vierzehn angenommene ADRs.** Fünf aus CBP-WP-004, jeder durch eine ausdrückliche
+**Fünfzehn angenommene ADRs.** Fünf aus CBP-WP-004, jeder durch eine ausdrückliche
 A0-Entscheidung oder eine A5-Originalquelle belegt; **ADR-0006** am 2026-07-21
 angenommen (D-028); **ADR-0007** am selben Tag (D-029, D-030); **ADR-0008**
 (D-031, D-032, D-033) und **ADR-0009** (D-034 bis D-037) ebenfalls; **ADR-0010**
@@ -22,15 +22,28 @@ Tag (D-042 bis D-045, Source-Registry-MVP); **ADR-0012** am 2026-07-27
 (D-046 bis D-049, Source-Mapping-Draft-Validator); **ADR-0013** am 2026-07-28
 (D-052, Evidence Schema 3.0 — Security-Control-Identität und Contract-Binding);
 **ADR-0014** am 2026-08-03 (D-059, KB-04 Stage 1 Filesystem Enforcement
-Architecture, CBP-WP-022).
+Architecture, CBP-WP-022); **ADR-0015** am 2026-10-17 (Human-Maintainer-A0 auf
+Grundlage von D-069, Repository-Sichtbarkeit, Entwicklungsstatus und
+Publikationsstatus, CBP-WP-023).
 
-Alle vierzehn tragen **A1** und binden nachfolgende Arbeit. Es steht kein Vorschlag
-mehr offen.
+Alle fünfzehn tragen **A1** und binden nachfolgende Arbeit. **Kein Vorschlag
+steht offen.** **ADR-0015** wurde in CBP-WP-023 Phase G1 als `proposed`
+angelegt und in Phase **G2** durch den Human Maintainer angenommen; die
+A0-Entscheidung **D-069** bleibt seine Grundlage.
 
 > **ADR-0006 trägt seit CBP-WP-010 einen Klarstellungsnachtrag** — *non-substantive
 > clarification*, A1. Entscheidung und Status sind unverändert; der Nachtrag
 > stellt klar, dass „veröffentlichbar" eine Architekturabsicht beschreibt und
 > **keine öffentliche Freigabe**.
+>
+> **ADR-0006 und ADR-0007 sind seit dem 2026-10-17 durch ADR-0015 teilweise
+> abgelöst** — **ausschließlich** in ihren Sichtbarkeitsaussagen (ADR-0006:
+> Klarstellungsnachtrag, Folgerung 2; ADR-0007: Repository-Sichtbarkeit und
+> OD-11). Beide bleiben **`accepted`** (A1); Entscheidung und übrige
+> Festlegungen sind unverändert, der historische Wortlaut bleibt erhalten. Die
+> Teilablösung setzt beide **nicht** auf `superseded`; sie ist in jedem der
+> beiden ADRs durch einen datierten Teilablösungsvermerk (G2) neben dem
+> Governance-Vermerk aus G1 ausgewiesen.
 
 | ADR | Titel | Status | Belegt durch |
 | --- | --- | --- | --- |
@@ -39,8 +52,8 @@ mehr offen.
 | [ADR-0003](ADR-0003-canonical-derived-trennung.md) | Strikte Trennung von kanonischen und abgeleiteten Daten | `accepted` | Übergabe §5, D-005 |
 | [ADR-0004](ADR-0004-technisches-permission-enforcement.md) | Technische Durchsetzung von Berechtigungen | `accepted` | Übergabe §10, D-023 |
 | [ADR-0005](ADR-0005-deployment-readiness-check.md) | Deployment Readiness Check als eigenes Prüfmodell | `accepted` | D-026 |
-| [ADR-0006](ADR-0006-logische-source-slots.md) | Logische Source Slots statt eingebetteter Wissensbestände | **`accepted`** | **D-028 (A0), 2026-07-21** |
-| [ADR-0007](ADR-0007-repository-und-workspace-grenze.md) | Repository-Zielstruktur und Workspace-Grenze | **`accepted`** | **D-029, D-030 (A0), 2026-07-21** |
+| [ADR-0006](ADR-0006-logische-source-slots.md) | Logische Source Slots statt eingebetteter Wissensbestände | **`accepted`** — Sichtbarkeitsaussage (Folgerung 2) teilweise abgelöst durch ADR-0015 | **D-028 (A0), 2026-07-21** |
+| [ADR-0007](ADR-0007-repository-und-workspace-grenze.md) | Repository-Zielstruktur und Workspace-Grenze | **`accepted`** — Sichtbarkeitsaussagen teilweise abgelöst durch ADR-0015 | **D-029, D-030 (A0), 2026-07-21** |
 | [ADR-0008](ADR-0008-pilot-source-mapping-konvention.md) | Pilot Source Mapping Konvention | **`accepted`** | **D-031, D-032, D-033 (A0), 2026-07-21** |
 | [ADR-0009](ADR-0009-technische-sicherheitsgrundlage.md) | Technische Sicherheitsgrundlage | **`accepted`** | **D-034 bis D-037 (A0), 2026-07-21** |
 | [ADR-0010](ADR-0010-ingest-quarantaene-mvp.md) | Ingest-Quarantäne MVP | **`accepted`** | **D-038 bis D-041 (A0), 2026-07-22** |
@@ -48,6 +61,7 @@ mehr offen.
 | [ADR-0012](ADR-0012-source-mapping-draft-validator.md) | Deterministic Source Mapping Draft Validator | **`accepted`** | **D-046 bis D-049 (A0), 2026-07-27** |
 | [ADR-0013](ADR-0013-evidence-schema-3-0-security-control-identity.md) | Evidence Schema 3.0 — Security-Control Identity and Contract Binding | **`accepted`** | **D-052 (A0), 2026-07-28** |
 | [ADR-0014](ADR-0014-kb-04-stage-1-filesystem-enforcement.md) | KB-04 Stage 1 Filesystem Enforcement Architecture | **`accepted`** | **D-059 (A0), 2026-08-03** |
+| [ADR-0015](ADR-0015-repository-sichtbarkeit-und-publikationsstatus.md) | Repository-Sichtbarkeit, Entwicklungsstatus und Publikationsstatus | **`accepted`** | **D-069 (A0), 2026-10-17** — angenommen durch Human-Maintainer-A0 am 2026-10-17 (CBP-WP-023, Phase G2) |
 
 Weitere Kandidaten sind in
 [project-system/DECISION_REGISTER.md](../../project-system/DECISION_REGISTER.md)
