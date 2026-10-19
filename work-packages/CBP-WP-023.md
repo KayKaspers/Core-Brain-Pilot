@@ -6,15 +6,17 @@
 | Typ | **Documentation / Governance** |
 | Priorität | **P0** |
 | Prompt Mode | **Full** · Context Budget **B2 – Standard** (Maximum **B3**) |
-| Status | **`active`** |
-| Aktuelle Phase | **G3 – Maintainer Commit and Post-Commit Reconciliation** (Commit-Vorbereitung autorisiert durch Human-Maintainer-A0 vom 2026-10-17) |
+| Status | **`committed`** · **`complete`** |
+| Aktuelle Phase | **G3 – Maintainer Commit and Post-Commit Reconciliation** (abgeschlossen) |
 | Registration Decision | **D-069**, Teil **P** (konsolidiert, A–P) — `accepted`, **A0**, 2026-10-17 — Ergebnis **`REPOSITORY_VISIBILITY_PUBLIC_CONFIRMED_PUBLICATION_NOT_AUTHORIZED`** |
 | Human-Maintainer-Authority | **A0**, 2026-10-17 — **A0-1** (Sichtbarkeit), **WB-1 Option A** (eigenständiges Work Package), G1-Scopefreigabe mit **18-Dateien-Allowlist** · **G2-A0** vom 2026-10-17 (**A0-G2-1** bis **A0-G2-7**: Annahme des G1-Reviews, Annahme von ADR-0015, partielle Ablösung, Zählerziel, Work-Package-Status, Scope- und Git-Grenze) |
 | ADR-Gate | **`ADR_REQUIRED`** |
 | ADR | **ADR-0015** — *Repository-Sichtbarkeit, Entwicklungsstatus und Publikationsstatus* — **`accepted`**, **A1** (in G1 `proposed`; in G2 durch Human-Maintainer-A0 vom 2026-10-17 angenommen); ADR-0006 und ADR-0007 **partiell abgelöst**, im Übrigen `accepted` |
 | Registrierungsdatum | **2026-10-17** |
-| Parallele Work Packages | **CBP-WP-022** bleibt **`in-review`** (Closure-Grenze **D-068** unverändert) · zuletzt abgeschlossen bleibt **CBP-WP-021** |
-| Commit | Commit und Push ausschließlich durch den Human Maintainer nach separatem GO (Phase G3); die Commit-Referenz wird erst nach dem Commit nachgeführt |
+| Abschlussdatum | **2026-10-19** |
+| Closure-Authority | **A0** — Human-Maintainer-Closure-Freigabe vom **2026-10-19**; **keine neue Decision-ID** |
+| Parallele Work Packages | **CBP-WP-022** bleibt **`in-review`** (Closure-Grenze **D-068** unverändert) · zuvor abgeschlossen **CBP-WP-021** |
+| Commit | **G1 bis G3 `committed` `ca63b0a`** — Parent `93f9969`; 18 Dateien (16 geändert, 2 neu), 870 Einfügungen, 65 Löschungen; Commit und Push durch den Human Maintainer am 2026-10-18 · Post-Commit-Reconciliation: Commit und Push ausschließlich durch den Human Maintainer (D-003) |
 | KB-04-Status | **`DOCUMENTED ONLY`** — unverändert |
 | Capabilities | **0 von 29** — unverändert |
 | Gates | Mapping Activation `NOT EVALUATED` · Security Foundation Readiness `NOT EVALUATED` |
@@ -42,7 +44,7 @@ G1 folgt **keine** Ausführungsfreigabe für G2 oder G3.
 | --- | --- | --- |
 | **G1 — Governance Candidate Preparation** | Registrierung von CBP-WP-023 · Registrierung von **D-069** · **ADR-0015 `proposed`** · OD-11-Reconciliation · aktive Sichtbarkeitsspiegel · R-16-/R-01-Dokumentation · statische Prüfung · Nova-Review | **reviewt** — Nova-Review `GO WITH NOTES`, vom Human Maintainer angenommen (A0-G2-1) |
 | **G2 — Human-Maintainer ADR Acceptance** | **ADR-0015 `accepted`** · definitive A1-Teilablösungsvermerke in ADR-0006 und ADR-0007 · abschließender Review | **abgeschlossen und reviewt** — autorisiert durch Human-Maintainer-A0 vom 2026-10-17; Nova-Review `GO WITH NOTES`, vom Human Maintainer angenommen (G3-A1) |
-| **G3 — Maintainer Commit and Post-Commit Reconciliation** | Commit und Push **ausschließlich durch den Human Maintainer** · Post-Commit Truth Check | **Commit-Vorbereitung autorisiert** durch Human-Maintainer-A0 vom 2026-10-17 (G3-A1 bis G3-A5) — Commit und Push ausschließlich durch den Human Maintainer nach **separatem** GO |
+| **G3 — Maintainer Commit and Post-Commit Reconciliation** | Commit und Push **ausschließlich durch den Human Maintainer** · Post-Commit Truth Check | **abgeschlossen** — Commit-Vorbereitung autorisiert durch Human-Maintainer-A0 vom 2026-10-17 (G3-A1 bis G3-A5), einschließlich der redaktionellen Korrektur **G3-C1** an ADR-0015; Commit und Push durch den Human Maintainer nach separatem GO (`ca63b0a`, 2026-10-18); read-only Post-Commit Truth Check bestanden; Closure durch Human-Maintainer-A0 vom 2026-10-19 |
 
 ## Autorisierter G1-Scope
 
@@ -201,6 +203,37 @@ D-070).
 durch den Human Maintainer — ist **nicht autorisiert**. CBP-WP-023 bleibt
 **`active`**; ein Abschluss verlangt eine **separate** Entscheidung.
 
+## Stand G3 und Closure
+
+*Stand Phase G3 und Closure — fortgeschrieben durch Kopf und Phasenmodell;
+die Abschnitte* Stand G1 *und* Stand G2 *bleiben als Nachweise unverändert.*
+
+**Commit-Evidenz:** Der Human Maintainer hat den Stand der Phasen G1 bis G3
+nach separatem GO als `ca63b0a` committet und auf `main` gepusht — Parent
+`93f9969`; **18 Dateien** (16 geändert, 2 neu: ADR-0015 und dieses Work
+Package), **870 Einfügungen**, **65 Löschungen**. Der read-only Post-Commit
+Truth Check vom **2026-10-18** bestätigte HEAD, `origin/main` und den
+Remote-Branch auf `ca63b0a`, einen sauberen Arbeitsbaum und die öffentliche
+Sichtbarkeit; **kein Tag, kein Release, kein Transfer**.
+
+**Closure:** Mit Human-Maintainer-A0 vom **2026-10-19** ist CBP-WP-023
+**`committed`** und **`complete`**. Die Closure ist **keine neue Decision**
+(keine D-070) und **kein neuer ADR**; **D-069** und **ADR-0015** bleiben
+unverändert. Die Nachführung der Statusspiegel ist planmäßiger Bestandteil
+von Phase G3 und **kein** R-33-Vorgang — **kein Vorgang 41**.
+
+**Zähler — unverändert:** **69** Entscheidungen, davon **65** mit A0 ·
+**15** angenommene ADRs · **0** vorgeschlagene ADRs · offene Entscheidungen
+**22**, davon **4** mit P0 · geschlossene offene Entscheidungen **13** ·
+Risiken **35** (Schwere **20/14/1**) · R-33 **40/22**.
+
+**Abgrenzung:** **CBP-WP-022 bleibt `in-review`**, die Closure-Grenze aus
+**D-068** bleibt unverändert. **Kein Work Package ist `active`**; ein
+Folge-Work-Package ist **nicht** autorisiert. Kein GitHub-Transfer (A0-2),
+keine Lizenz, kein Branding, kein Release, keine Produktveröffentlichung und
+**keine technische Reife** — **0 von 29** Capabilities, KB-04
+**`DOCUMENTED ONLY`**, beide Gates **`NOT EVALUATED`**.
+
 ## Aussageschutz
 
 | Behauptung | Zutreffend? |
@@ -215,6 +248,7 @@ durch den Human Maintainer — ist **nicht autorisiert**. CBP-WP-023 bleibt
 | Die Registrierung ändere den Status von CBP-WP-022 | **nein** — CBP-WP-022 bleibt `in-review`, D-068 unverändert |
 | G1 autorisiere G2, G3, einen Transfer oder einen Commit | **nein** |
 | G2 autorisiere G3, einen Commit, einen Push, einen Transfer oder den Abschluss von CBP-WP-023 | **nein** |
+| Die Closure von CBP-WP-023 sei eine Produktveröffentlichung, eine Lizenz-, Branding- oder Transferfreigabe oder eine Gate-Wirkung | **nein** — fünf Dimensionen, OD-23, OD-28 und A0-2 unverändert |
 | Ein negativer Vertraulichkeitsaudit sei eine Sicherheitsgarantie | **nein** |
 
 **Die Registrierung eines Work Packages ist keine Implementierungsfreigabe.**
