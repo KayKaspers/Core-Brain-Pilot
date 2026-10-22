@@ -338,6 +338,31 @@ diese Tabelle fortgeschrieben.*
 | **Keine neue technische Reife**, kein Transfer, keine Lizenz, kein Branding, kein Release | erfüllt |
 | **G3** — Commit, Push und Post-Commit Truth Check ausschließlich durch den Human Maintainer | offen, gewollt |
 
+## Closure-Compliance (CBP-WP-022, Phase C — dokumentarische Closure)
+
+*Vorbereitet am 2026-10-19 als Closure-Kandidat C1 unter Human-Maintainer-A0 vom 2026-10-19. Zeilen
+mit dem Ergebnis „Voraussetzung der Wirksamkeit" werden erst durch das
+unabhängige Nova-Diffreview, das gesonderte Closure-GO und den Commit des
+Human Maintainers erfüllt.*
+
+Zeitlicher Geltungsbereich: Die folgende Closure-Compliance-Tabelle dokumentiert den Vor-Commit-Prüfstand des C2-R1-Kandidaten. Angaben zu noch ausstehenden C3-Freigaben und zum Human-Commit gelten ausschließlich für diesen Vorbereitungsstand. Nach erfolgter Freigabe beziehungsweise nach Wirksamkeit des Human-Commits sind diese Angaben historische Nachweise und keine aktuellen Statusspiegel. Maßgeblich für den jeweils aktuellen Abschlussstatus sind der tatsächliche Git-Commit und die aktiven Work-Package- und Queue-Statusfelder. Ein Push bleibt separat freigabepflichtig und ist keine zusätzliche Voraussetzung für die Wirksamkeit der Closure.
+
+| Prüfung | Ergebnis |
+| --- | --- |
+| Human-Maintainer-A0 vom 2026-10-19 liegt vor — Annahme beider Audits, Entscheidungen **E-1 bis E-5** | erfüllt |
+| Closure ausschließlich an der **D-068**-Grenze — **14/14** gelieferte Gegenstände belegt (Artefakte, Commits, D-057 bis D-067 `accepted`/A0) | erfüllt |
+| Herausgenommene Ausführungen (B2D-H/E/V/G, B2B-Apply, reale N07-/N14-Läufe, NT-04/NT-05, §10.3, P10/N25, Gate-Evaluation, Control-Uplift, OD-37-Closure, reale Infrastruktur) bleiben **nicht autorisiert**; **Rebinding** nach D-068 Teil E dokumentiert | erfüllt |
+| Integrationsplan, AUTH-Template, Contract, Produktionscode, Tests und Deployment-Artefakte **byteidentisch** | erfüllt |
+| **R-33-Vorgang 41** identisch in Risk Register und Compliance Check; **`40/22 → 41/23`**; Vorgang 32 nicht erweitert | erfüllt |
+| Risiken **35** (Severity **20/14/1**), `offen` **13**; **keine neue Risiko-ID** | erfüllt |
+| Decisions/A0 **69/65**, **keine D-070**; ADRs **15** angenommen, **0** vorgeschlagen; **`ADR_NOT_REQUIRED`** | erfüllt |
+| KB-04 **`DOCUMENTED ONLY`** · beide Gates **`NOT EVALUATED`** · Capabilities **0 von 29** · **keine** Testausführung | erfüllt |
+| Begrenzte Auslegung von Queue-Regel 4 (Ruhezustand ohne `active` und `in-review`) dokumentiert, Regel 4 im Wortlaut unverändert | erfüllt |
+| Historische Abschnitte und datierte Stände erhalten; Abschnitt D-068 als Entscheidungsstand gekennzeichnet | erfüllt |
+| Unabhängiges Nova-Diffreview des Kandidaten | Voraussetzung der Wirksamkeit |
+| Human-Maintainer-C2-Datums-GO erteilt; Abschlussdatum **2026-10-20** finalisiert; gesonderte C3-Commit-Freigabe ausstehend | C2-GO erfüllt; C3-GO und Human-Commit ausstehend |
+| Der Commit durch den Human Maintainer macht die dokumentarische Closure wirksam; der Push ist eine separate, gesondert freigabepflichtige Remote-Synchronisierung und **keine** zusätzliche Closure-Voraussetzung — Commit und Push verbleiben ausschließlich unter Human-Maintainer-Autorität | Commit: Voraussetzung der Wirksamkeit · Push: separate Freigabe, keine Closure-Voraussetzung |
+
 ## Zähl- und Statusregel
 
 *Ergänzt in CBP-WP-007, nach dem dritten Zählfehler des Projekts.*
@@ -1732,8 +1757,9 @@ Security Foundation Readiness Gate bleiben `NOT EVALUATED`; Capabilities **0 von
 
 **R-33 bleibt `gemindert, nicht geschlossen`** — Kritikalität unverändert
 **mittel**, kein Risiko geschlossen, **keine neue Risiko-ID**. **Vierzig
-Konsistenzvorgänge in zweiundzwanzig Work Packages** sind dokumentiert (**neue
-aktuelle Basislinie**; löst „einunddreißig" ab); die Zahl der Work Packages
+Konsistenzvorgänge in zweiundzwanzig Work Packages** waren dokumentiert (*Stand
+nach dem vierzigsten Vorgang: `40/22`; durch den einundvierzigsten Vorgang
+unten auf **41/23** aktualisiert*; löste „einunddreißig" ab); die Zahl der Work Packages
 bleibt **zweiundzwanzig**, weil die Vorgänge 32 bis 38 das seit dem neunzehnten
 Vorgang erfasste CBP-WP-022, Vorgang 39 das seit dem sechzehnten Vorgang
 erfasste CBP-WP-019 und Vorgang 40 die seit dem siebzehnten beziehungsweise
@@ -1754,6 +1780,48 @@ klassifiziert und nicht bereinigt**. Diese Vorgänge sind mit den Einträgen in
 Die dortige Darstellung folgt der **Tabellenform** des Risk Registers, während
 hier die **Prosaform** dieses Dokuments verwendet wird; **Fakten, Zahlen,
 Closure-Grenze und R-33-Wirkung sind identisch**.
+
+### Einundvierzigster Konsistenzvorgang — CBP-WP-023 Residual WP-023 Registration Lifecycle Statement Staleness (2026-10-19)
+
+**Befund E-1; klassifiziert als K-3 und registriert gemäß Human-Maintainer-A0 vom 2026-10-19.**
+Die Schlusszeile des fortlaufend gepflegten Abschnitts *Aussageschutz* in
+**`work-packages/CBP-WP-022.md`** lautete „CBP-WP-023 ist nicht registriert und
+nicht autorisiert." — entstanden in B0 (**`e4caa14`**, 2026-08-03) und damals
+zutreffend. Mit der Registrierung von **CBP-WP-023** durch **D-069 Teil P** (A0,
+2026-10-17; kanonische Zustandsänderung **`ca63b0a`**, ohne Änderung von
+`CBP-WP-022.md`; abschließender WP-023-Commit **`1dad9a8`**) wurde sie **nicht
+zeitlich abgegrenzt**. **Korrekter Zustand:** CBP-WP-023 ist seit D-069 Teil P
+registriert und seit 2026-10-19 `committed` und `complete`.
+
+**Fehlerklasse:** **Residual WP-023 Registration Lifecycle Statement Staleness** — dieselbe Grundklasse wie die
+Vorgänge **30** und **36** (Lebenszyklusaussage bei der Registrierung eines Work
+Packages nicht fortgeschrieben beziehungsweise nicht zeitlich abgegrenzt).
+**Aktiv, nicht historisch:** der *Aussageschutz* wurde in jeder Phase
+fortgeschrieben und in R4 als aktiv eingestuft (Befund **Z-4**); die Schlusszeile
+stand ohne zeitliche Rahmung. Die Abschnitte *Stand nach …*, die B0-*Non-Goals*
+und die Entscheidungstexte (D-068 Teil H) bleiben historisch und unverändert.
+**Abgrenzung:** der **zweiunddreißigste** Vorgang wird **nicht** rückwirkend
+erweitert — andere Fehlerursache, und die Aussage war am 2026-10-15/16
+zutreffend; die Vorgänge 30 und 36 bleiben unverändert. Die frühere
+WP-023-Feststellung „kein Vorgang 41" beschreibt den damaligen Abschlussstand und
+ist **kein** fortgeltendes Zählverbot.
+
+**Korrigiert:** die Schlusszeile ist **datiert qualifiziert** — „Zum Zeitpunkt von B0 (2026-08-03) war CBP-WP-023 nicht registriert und nicht autorisiert; seit D-069 Teil P (2026-10-17) ist CBP-WP-023 registriert und seit 2026-10-19 `committed` und `complete`." —; die
+historische Aussage bleibt erhalten. **Eine** Aussage · **eine** Fehlerursache —
+**genau ein** Vorgang. **CBP-WP-023** wird **erstmals** erfasst — **der Nenner
+steigt von 22 auf 23**. In den bisherigen **vierzig** Vorgängen **nicht** als
+eigener Vorgang registriert. **Zählwirkung: `40/22 → 41/23`.**
+
+**R-33 bleibt `gemindert, nicht geschlossen`** — Kritikalität unverändert
+**mittel**, kein Risiko geschlossen, **keine neue Risiko-ID**. **Einundvierzig
+Konsistenzvorgänge in dreiundzwanzig Work Packages** sind dokumentiert (**neue
+aktuelle Basislinie**; löst „vierzig" ab). Vollständige Progression seit dem
+neunzehnten Vorgang: **19/22 → 20/22 → 21/22 → 22/22 → 23/22 → 24/22 → 25/22 → 26/22 → 27/22 → 28/22 → 29/22 → 30/22 → 31/22 → 32/22 → 33/22 → 34/22 → 35/22 → 36/22 → 37/22 → 38/22 → 39/22 → 40/22 → 41/23**. **`41/23` ist kein
+Erfüllungsgrad und keine Prozentkennzahl** — der Zähler zählt dokumentierte
+Vorgänge, der Nenner Work Packages mit mindestens einem Vorgang, und der Zähler
+**darf** den Nenner überschreiten; **`41/24`** ist unzulässig, ebenso **`42/23`**
+ohne einen zusätzlich registrierten Vorgang. Dieser Vorgang ist mit dem Eintrag
+in [RISK_REGISTER.md](RISK_REGISTER.md) **identisch** und **zählt nur einmal**.
 
 ---
 

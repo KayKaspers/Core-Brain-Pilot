@@ -50,7 +50,7 @@ nur zur Statusvollständigkeit geführt:
 | **CBP-WP-019** | Deployment Readiness Intake and Profile-A Target Specification | **`committed`** — `3c437f2` |
 | **CBP-WP-020** | Controlled Profile-A Deployment Foundation | **`committed`** — `17057e2` (B0), `9c6c0fb` (B1/B2), `d6a1a3c` (C) |
 | **CBP-WP-021** | Canonical Security Test Inventory Reconciliation | **`committed`** — `0cb4ea9` (B0), `271acc7` (B1/B2), `0344774` (C) |
-| **CBP-WP-022** | KB-04 Enforcement Stage 1 | **`in-review`** (**Phase B2D-E-N14-GOV – D-067**, `committed` `c662452`) — B0…B2C.2 committed, **B2C-T-R `committed` `9cde9de`**; D-057…**D-062**, **ADR-0014 `accepted`/A1**, **Enforcement Contract `accepted contract`**; **read-only Validator- und Initialisierungsplanungspaket implementiert**; **vollständige 45er-Traceability** (Split **37/2/6**, Gesamtsuite **1202**); **B2D.0, B2D.1, B2D-E0 und B2D-E1 read-only complete** (je `PASS WITH NOTES`); **B2D-P `committed` `b409d25`**, **B2D-GOV `committed` `7e8328a`**, **B2D-AUTH `committed` `1222ec0`**; **B2D-ENV-GOV `committed` `0cd21f5`**; **B2D-PREP-PLAN, B2D-PREP-PLAN-N1 und B2D-E-N07-PREP read-only complete**, letzterer mit **`N07_IDENTITY_MAPPING_INSUFFICIENT`**; **B2D-E-N07-GOV `committed` `c4b0426`** (D-066, `PROFILE_A_RETRIEVAL_NOT_INSTANTIATED_N07_DEFERRED`, Variante C) und in **B2D-E-N07-GOV-PCR** post-commit reconciliiert; **`KB04-T-N07` zurückgestellt**; **B2D-E-N14-PREP** read-only complete mit **`N14_A0_DECISION_REQUIRED`**; **B2D-E-N14-GOV registriert D-067** (`N14_EPHEMERAL_LOCAL_OBSERVATION_BRIDGE_ALLOWED`, Variante B), **`committed` `c662452`** — **flüchtige lokale Observation Bridge klassifiziert**, **kein Testhelper, keine CLI, kein Adapterexport**, **N14 weiterhin nicht ausgeführt**; **kein Evidence-Artefakt**, Contract §10.3 offen; **reale Infrastruktur, B2D-H/E/V/G und B2B-Apply nicht autorisiert** |
+| **CBP-WP-022** | KB-04 Enforcement Stage 1 | **`committed`** · **`complete`** (Phase **C** — dokumentarische Closure an der **D-068**-Grenze, 2026-10-20; letzte Ausführungsphase **B2D-E-N14-GOV – D-067**, `committed` `c662452`) — B0…B2C.2 committed, **B2C-T-R `committed` `9cde9de`**; D-057…**D-062**, **ADR-0014 `accepted`/A1**, **Enforcement Contract `accepted contract`**; **read-only Validator- und Initialisierungsplanungspaket implementiert**; **vollständige 45er-Traceability** (Split **37/2/6**, Gesamtsuite **1202**); **B2D.0, B2D.1, B2D-E0 und B2D-E1 read-only complete** (je `PASS WITH NOTES`); **B2D-P `committed` `b409d25`**, **B2D-GOV `committed` `7e8328a`**, **B2D-AUTH `committed` `1222ec0`**; **B2D-ENV-GOV `committed` `0cd21f5`**; **B2D-PREP-PLAN, B2D-PREP-PLAN-N1 und B2D-E-N07-PREP read-only complete**, letzterer mit **`N07_IDENTITY_MAPPING_INSUFFICIENT`**; **B2D-E-N07-GOV `committed` `c4b0426`** (D-066, `PROFILE_A_RETRIEVAL_NOT_INSTANTIATED_N07_DEFERRED`, Variante C) und in **B2D-E-N07-GOV-PCR** post-commit reconciliiert; **`KB04-T-N07` zurückgestellt**; **B2D-E-N14-PREP** read-only complete mit **`N14_A0_DECISION_REQUIRED`**; **B2D-E-N14-GOV registriert D-067** (`N14_EPHEMERAL_LOCAL_OBSERVATION_BRIDGE_ALLOWED`, Variante B), **`committed` `c662452`** — **flüchtige lokale Observation Bridge klassifiziert**, **kein Testhelper, keine CLI, kein Adapterexport**, **N14 weiterhin nicht ausgeführt**; **kein Evidence-Artefakt**, Contract §10.3 offen; **reale Infrastruktur, B2D-H/E/V/G und B2B-Apply nicht autorisiert** |
 | **CBP-WP-023** | Repository Visibility Governance Reconciliation | **`committed`** · **`complete`** (G1 bis G3 `ca63b0a`; Commit und Push durch den Human Maintainer; Closure 2026-10-19) — reine Governance (Documentation/Governance, **P0**); **D-069** Teil P (`accepted`/A0, 2026-10-17); **ADR-0015 `accepted`**/A1 (Human-Maintainer-A0 vom 2026-10-17); **keine technische Phase, keine Capability, keine Migration** |
 
 **CBP-WP-020 ist `committed` und `complete`** (D-055): Phase B0 `17057e2`,
@@ -74,17 +74,18 @@ und NT-33 sind gültig**, die Zahl **31** ist ein überholter, falsch
 etikettierter Ableitungswert. **Ausgeführt sind 0 von 32 und 0 von 1.** Die
 Reconciliation umfasste auch die **ausführbaren** Profil-A-Artefakte.
 **Zum Abschluss von CBP-WP-021 war kein Work Package aktiv und kein
-Folge-Work-Package autorisiert.** **Seither ist CBP-WP-022 registriert**
-(D-057, Phase B0 `committed` `e4caa14`) und **`in-review`** — siehe unten;
-am **2026-10-17** wurde parallel das Governance-Work-Package
+Folge-Work-Package autorisiert.** **Seither wurde CBP-WP-022 registriert**
+(D-057, Phase B0 `committed` `e4caa14`) und an der **D-068**-Grenze
+dokumentarisch abgeschlossen (`committed` und `complete`, 2026-10-20) — siehe
+unten; am **2026-10-17** wurde parallel das Governance-Work-Package
 **CBP-WP-023** registriert (D-069 Teil P); es ist `committed` und `complete`
-(`ca63b0a`), **kein** Work Package ist `active`.
+(`ca63b0a`). **Kein** Work Package ist `active` oder `in-review`.
 
 > **In CBP-WP-021 Phase B1 korrigiert.** Diese Karte führte zuvor „31
 > Negativtests"; der Wert ist auf den kanonischen Stand **32** gebracht.
 
-**CBP-WP-022 ist registriert** (D-057, `accepted`/A0, 2026-08-03) und steht auf
-**`in-review`** in **Phase B2D-E-N14-GOV – D-067 N14 Ephemeral Observation Bridge Classification** (`committed` `c662452`). Titel:
+**CBP-WP-022 ist registriert** (D-057, `accepted`/A0, 2026-08-03) und
+**`committed`** und **`complete`** — dokumentarische Closure in **Phase C** an der **D-068**-Grenze (2026-10-20); letzte Ausführungsphase **Phase B2D-E-N14-GOV – D-067 N14 Ephemeral Observation Bridge Classification** (`committed` `c662452`). Titel:
 **KB-04 Enforcement Stage 1** — Stufe 1 der neunstufigen Durchsetzungsreihenfolge
 (**OS-Dateirechte**). **Phase B0 ist `committed` (`e4caa14`), Phase B1A ist `committed`
 (`1a7696d`), Phase B1B ist `committed` (`b86a35f`)**; **Phase B1C** ist abgeschlossen und
@@ -190,9 +191,10 @@ Instanz im Repository**. **Eine lokale Templatekopie darf erst nach dem
 D-065-Commit entstehen**, weil `AUTH-03` an den Repository-HEAD bindet.
 **Reale Vorbereitung und B2D-E bleiben nicht autorisiert.**
 
-**Nächste mögliche Phasen: B2D-H, B2D-E, B2D-V, B2D-G und B2B-Apply —
-sämtlich nicht begonnen und nicht autorisiert; reale Infrastruktur ist nicht
-autorisiert.** **KB-04 bleibt `DOCUMENTED ONLY`; es gibt keine
+**Aus der Closure herausgenommen, nicht verworfen (D-068): B2D-H, B2D-E,
+B2D-V, B2D-G und B2B-Apply — sämtlich nicht begonnen und nicht autorisiert;
+eine spätere Ausführung verlangt eine neue Bindung (Rebinding); reale
+Infrastruktur ist nicht autorisiert.** **KB-04 bleibt `DOCUMENTED ONLY`; es gibt keine
 Gate- und keine Control-Hochstufung.** **CBP-WP-023** ist seit dem 2026-10-17
 unter **D-069** Teil P als **eigenständiges Governance-Work-Package**
 registriert und `committed` und `complete` (`ca63b0a`) — es gehört **nicht**
@@ -383,11 +385,12 @@ Work Packages dieser Karte — **CBP-WP-009 bis CBP-WP-015** — sind
 **CBP-WP-016**, **CBP-WP-017**, **CBP-WP-018**, **CBP-WP-019** (`3c437f2`),
 **CBP-WP-020** (`17057e2`, `9c6c0fb`, `d6a1a3c`) und **CBP-WP-021** (`0cb4ea9`,
 `271acc7`, `0344774`). **CBP-WP-022** ist seit `e4caa14` registriert (D-057) und
-**`in-review`**, Phase **B2D-E-N14-GOV – D-067** (`committed` `c662452`); seine
-Closure an der Grenze aus **D-068** ist **zurückgestellt**. **Abgeschlossene
+**`committed`** und **`complete`**: dokumentarische Closure an der Grenze aus
+**D-068** in Phase **C** (2026-10-20; letzte Ausführungsphase **B2D-E-N14-GOV – D-067**,
+`committed` `c662452`). **Abgeschlossene
 Governance:** **CBP-WP-023** (Repository Visibility Governance Reconciliation,
 D-069 Teil P) ist `committed` und `complete` — G1 bis G3 `ca63b0a`,
-**ADR-0015 `accepted`** (A1); **kein** Work Package ist `active`. Eine spätere
+**ADR-0015 `accepted`** (A1); **kein** Work Package ist `active` oder `in-review`. Eine spätere
 **Repositorymigration** bleibt ein eigenes, nicht geschnittenes Work Package
 (siehe unten). Die **Bundle-Artefakte existieren, sind
 offline validiert und committed** — **aber es gibt weiterhin keine

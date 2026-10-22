@@ -59,7 +59,7 @@ Ein irreversibler Schaden ist mindestens **hoch**.
 | R-17 | Abweichungen vom NDF wachsen unkontrolliert | niedrig | AB-03 bis AB-08 nur vorläufig akzeptiert | gemindert |
 | R-24 | Verwechslung von NDF Prompt Mode und Context Budget | mittel | Ausdrückliche Abgrenzung; D-009 | gemindert |
 | R-28 | Ein zweites Governance-System wird eingeführt | mittel | Superpowers nur als Referenz | gemindert |
-| R-33 | Fehlerhafte Kennzahlen in Statusdokumenten führen zu falschen Gate-Einschätzungen | mittel | Fünfteilige **Zähl- und Statusregel** in COMPLIANCE_CHECK (CBP-WP-007); Summen gelten als `derived status data`. **Dokumentregel, keine technische Kontrolle.** Der **vierte** Zählfehler entstand in CBP-WP-007 und wurde in CBP-WP-008 gefunden; der **fünfte** in CBP-WP-010 — „neun Blocker" bei acht IDs; der **sechste** in CBP-WP-011 — Gate-Stufenverteilung 25 statt 24, ein Positivtest mit NT-ID, und **doppelt vergebene Test-IDs über Dokumentgrenzen hinweg**. Alle im jeweiligen REWORK-Lauf korrigiert. **Sechs Zählvorgänge in elf Work Packages; jeder durch Auszählung gefunden, keiner durch die Regel verhindert** — diese Aufzählung endet beim **sechsten** Vorgang (CBP-WP-011) und wird nicht rückwirkend umgeschrieben. **Aktueller Stand: 40 Konsistenzvorgänge in 22 Work Packages (`40/22`)** — der Zähler zählt Vorgänge, der Nenner Work Packages mit mindestens einem Vorgang; **kein Erfüllungsgrad**; die vollständige Chronologie steht unten | **gemindert, nicht geschlossen** |
+| R-33 | Fehlerhafte Kennzahlen in Statusdokumenten führen zu falschen Gate-Einschätzungen | mittel | Fünfteilige **Zähl- und Statusregel** in COMPLIANCE_CHECK (CBP-WP-007); Summen gelten als `derived status data`. **Dokumentregel, keine technische Kontrolle.** Der **vierte** Zählfehler entstand in CBP-WP-007 und wurde in CBP-WP-008 gefunden; der **fünfte** in CBP-WP-010 — „neun Blocker" bei acht IDs; der **sechste** in CBP-WP-011 — Gate-Stufenverteilung 25 statt 24, ein Positivtest mit NT-ID, und **doppelt vergebene Test-IDs über Dokumentgrenzen hinweg**. Alle im jeweiligen REWORK-Lauf korrigiert. **Sechs Zählvorgänge in elf Work Packages; jeder durch Auszählung gefunden, keiner durch die Regel verhindert** — diese Aufzählung endet beim **sechsten** Vorgang (CBP-WP-011) und wird nicht rückwirkend umgeschrieben. **Aktueller Stand: 41 Konsistenzvorgänge in 23 Work Packages (`41/23`)** — der Zähler zählt Vorgänge, der Nenner Work Packages mit mindestens einem Vorgang; **kein Erfüllungsgrad**; die vollständige Chronologie steht unten | **gemindert, nicht geschlossen** |
 | **R-34** | **Deployment-Required-Kriterien werden vertagt und dann vergessen** | **hoch** | Alle 16 bleiben als `open` erfasst; separates Deployment-Readiness-Gate zu definieren (OD-33). **Fail-closed:** ohne die Angaben wird nicht installiert | **neu, offen** |
 
 ## Betrieb
@@ -117,6 +117,22 @@ Ein irreversibler Schaden ist mindestens **hoch**.
 > Fehlerklasse, keine Behebung ihrer Ursache. **R-01 bis R-34 sind
 > inhaltlich unverändert**, **R-18 bleibt eine nicht wiederverwendete
 > Nummernlücke**, und es wurde **keine R-37** vergeben.
+
+**Neu in CBP-WP-022 (Phase C — dokumentarische Closure):** keine.
+
+**Verändert in CBP-WP-022 Phase C — rein dokumentarisch, ohne Schwere- oder
+Statusänderung:**
+
+| ID | Änderung | Auslöser |
+| --- | --- | --- |
+| **R-33** | **Einundvierzigster Konsistenzvorgang** — **Residual WP-023 Registration Lifecycle Statement Staleness** (siehe Chronologie unten); Zuordnung **CBP-WP-023**, erstes R-33-Erfassen; **`40/22 → 41/23`**; Status `gemindert, nicht geschlossen` und Kritikalität **mittel** unverändert | Human-Maintainer-A0 vom 2026-10-19 (E-1, Klassifikation K-3) |
+
+**Kein Risiko wurde in CBP-WP-022 Phase C geschlossen**, keine Schwere und kein
+Status verändert, **keine neue Risiko-ID** vergeben. Risiken **35** (hoch
+**20** · mittel **14** · niedrig **1**), `offen` **13**, gemindert **14** —
+unverändert. **R-01**, **R-16**, **R-20**, **R-35** und **R-36** bleiben
+unverändert; die reale KB-04-Ausführung, auf die sich **R-35** und **R-36**
+beziehen, bleibt nach **D-068** herausgenommen und nicht autorisiert.
 
 **Neu in CBP-WP-023 (Phase G1, uncommitted Review-Diff):** keine.
 
@@ -1019,9 +1035,10 @@ offen; **CBP-WP-023** nicht registriert. Der gesondert erfasste
 | Einmalzählung | **eine** Fehlerursache · **eine** gemeinsame Reconciliation — **genau ein** Vorgang trotz drei Fundstellen in zwei Dateien |
 | Zählwirkung | Zähler **39 → 40**, Nenner **22 unverändert** (**`39/22 → 40/22`**) |
 
-Damit sind **vierzig Konsistenzvorgänge in zweiundzwanzig Work Packages**
-dokumentiert (**neue aktuelle Basislinie**; löst die vorige Angabe
-„einunddreißig" ab). Die Zahl der Work Packages bleibt **zweiundzwanzig**: Die
+Damit waren **vierzig Konsistenzvorgänge in zweiundzwanzig Work Packages**
+dokumentiert (*Stand nach dem vierzigsten Vorgang: `40/22`; durch den
+einundvierzigsten Vorgang unten auf **41/23** aktualisiert*; löste die vorige
+Angabe „einunddreißig" ab). Die Zahl der Work Packages bleibt **zweiundzwanzig**: Die
 Vorgänge 32 bis 38 betreffen das seit dem neunzehnten Vorgang erfasste
 CBP-WP-022, Vorgang 39 das seit dem sechzehnten Vorgang erfasste CBP-WP-019 und
 Vorgang 40 die seit dem siebzehnten beziehungsweise achtzehnten Vorgang
@@ -1045,6 +1062,40 @@ bereinigt**, und **AF-6** bleibt **zurückgestellt**. Dieselben Vorgänge sind i
 einmal**. Die dortige Darstellung folgt der **Prosaform** jenes Dokuments,
 während hier die **Tabellenform** des Risk Registers verwendet wird; **Fakten,
 Zahlen, Closure-Grenze und R-33-Wirkung sind identisch**.
+
+---
+
+**R-33-Chronologie — einundvierzigster Konsistenzvorgang (CBP-WP-023 Residual WP-023 Registration Lifecycle Statement Staleness, 2026-10-19):**
+
+| Feld | Inhalt |
+| --- | --- |
+| Work Package | **CBP-WP-023** — **erstes** R-33-Erfassen; **der Nenner steigt von 22 auf 23**; registriert im Rahmen der dokumentarischen Closure von CBP-WP-022 (Phase C) |
+| Phase und Anlass | Befund **E-1** des Pre-Closure Readiness Audit von CBP-WP-022, klassifiziert im E-1/R-33 Classification Audit (beide 2026-10-19); registriert gemäß **Human-Maintainer-A0 vom 2026-10-19** (Klassifikation **K-3**) |
+| Fehlerklasse | **Residual WP-023 Registration Lifecycle Statement Staleness** — eine Lebenszyklusaussage wurde bei der Registrierung von CBP-WP-023 **nicht zeitlich abgegrenzt** (Grundklasse der Vorgänge **30** und **36**) |
+| Auslöser | Registrierung von **CBP-WP-023** durch **D-069 Teil P** (A0, 2026-10-17) |
+| Betroffenes aktives Repository-Artefakt | **`work-packages/CBP-WP-022.md`** — Schlusszeile des fortlaufend gepflegten Abschnitts *Aussageschutz* |
+| Falsche aktive Aussage | „CBP-WP-023 ist nicht registriert und nicht autorisiert." |
+| Korrekter Zustand | CBP-WP-023 ist seit **D-069 Teil P** (2026-10-17) registriert und seit **2026-10-19** `committed` und `complete` |
+| Herkunft des Fehlers | Historischer Ursprung **`e4caa14`** (B0 von CBP-WP-022, 2026-08-03; damals zutreffend) · kanonische Zustandsänderung **`ca63b0a`** (Registrierung von CBP-WP-023 im Repository, ohne Änderung von `CBP-WP-022.md`) · abschließender WP-023-Commit **`1dad9a8`** |
+| Aktiv, nicht historisch | Der Abschnitt *Aussageschutz* wurde in jeder Phase fortgeschrieben und in R4 als **aktiv** eingestuft (Befund **Z-4** des zweiunddreißigsten Vorgangs); die Schlusszeile stand **ohne** zeitliche Rahmung. Die Abschnitte *Stand nach …*, die B0-*Non-Goals* und die Entscheidungstexte (D-068 Teil H) bleiben **historisch** und unverändert |
+| Abgrenzung | Der **zweiunddreißigste** Vorgang wird **nicht** rückwirkend erweitert — andere Fehlerursache, und die Aussage war am 2026-10-15/16 zutreffend; die Vorgänge **30** und **36** bleiben unverändert. Die frühere WP-023-Feststellung „kein Vorgang 41" beschreibt den **damaligen Abschlussstand** und ist **kein** fortgeltendes Zählverbot |
+| Erstmalige Registrierung | In den bisherigen **vierzig** Vorgängen **nicht** als eigener Vorgang registriert |
+| Korrektur | Die Schlusszeile ist **datiert qualifiziert**: „Zum Zeitpunkt von B0 (2026-08-03) war CBP-WP-023 nicht registriert und nicht autorisiert; seit D-069 Teil P (2026-10-17) ist CBP-WP-023 registriert und seit 2026-10-19 `committed` und `complete`." — die historische Aussage bleibt erhalten |
+| Einmalzählung | **eine** Aussage · **eine** Fehlerursache — **genau ein** Vorgang; die Doppelabbildung in Risk Register und Compliance Check **zählt nur einmal** |
+| Zählwirkung | Zähler **40 → 41**, Nenner **22 → 23** (**`40/22 → 41/23`**) |
+| Aussagegrenze | **Keine neue Risiko-ID**, keine Schwere- oder Statusänderung, **keine neue Decision**, **keine ADR**; **D-068** und **D-069** unverändert; **KB-04 bleibt `DOCUMENTED ONLY`**; beide Gates bleiben `NOT EVALUATED` |
+
+Damit sind **einundvierzig Konsistenzvorgänge in dreiundzwanzig Work Packages**
+dokumentiert (**neue aktuelle Basislinie**; löst die vorige Angabe „vierzig"
+ab). Die Zahl der Work Packages steigt auf **dreiundzwanzig**, weil der
+einundvierzigste Vorgang **erstmals CBP-WP-023** erfasst. Vollständige
+Progression seit dem neunzehnten Vorgang: **19/22 → 20/22 → 21/22 → 22/22 → 23/22 → 24/22 → 25/22 → 26/22 → 27/22 → 28/22 → 29/22 → 30/22 → 31/22 → 32/22 → 33/22 → 34/22 → 35/22 → 36/22 → 37/22 → 38/22 → 39/22 → 40/22 → 41/23**.
+**`41/23` ist kein Erfüllungsgrad und keine Prozentkennzahl**; **`41/24`** ist
+unzulässig, ebenso **`42/23`** ohne einen zusätzlich registrierten Vorgang.
+**R-33 bleibt `gemindert, nicht geschlossen`**, Kritikalität unverändert
+**mittel**, kein Risiko geschlossen, **keine neue Risiko-ID**. Derselbe Vorgang
+ist in [COMPLIANCE_CHECK.md](COMPLIANCE_CHECK.md) gespiegelt und **zählt nur
+einmal**; Fakten, Zahlen und R-33-Wirkung sind identisch.
 
 ---
 
