@@ -363,6 +363,30 @@ Zeitlicher Geltungsbereich: Die folgende Closure-Compliance-Tabelle dokumentiert
 | Human-Maintainer-C2-Datums-GO erteilt; Abschlussdatum **2026-10-20** finalisiert; gesonderte C3-Commit-Freigabe ausstehend | C2-GO erfüllt; C3-GO und Human-Commit ausstehend |
 | Der Commit durch den Human Maintainer macht die dokumentarische Closure wirksam; der Push ist eine separate, gesondert freigabepflichtige Remote-Synchronisierung und **keine** zusätzliche Closure-Voraussetzung — Commit und Push verbleiben ausschließlich unter Human-Maintainer-Autorität | Commit: Voraussetzung der Wirksamkeit · Push: separate Freigabe, keine Closure-Voraussetzung |
 
+## Registrierungs-Compliance (CBP-WP-024, Phase B0)
+
+*Geprüft am 2026-10-22 im uncommitteten B0-Review-Diff. Zeitlicher
+Geltungsbereich: Die folgende Tabelle dokumentiert den Vor-Commit-Prüfstand von
+Phase B0; Angaben zu ausstehendem Review, ausstehenden Freigaben und zum
+Human-Commit sind nach deren Erledigung historische Nachweise und keine
+aktuellen Statusspiegel.*
+
+| Prüfung | Ergebnis |
+| --- | --- |
+| Human-Maintainer-A0 vom 2026-10-22 liegt vor — ausschließlich B0 | erfüllt |
+| **D-070** auf den Registrierungsumfang begrenzt (A–M); keine fachliche B1- oder B2-Entscheidung | erfüllt |
+| Genau **ein** Work Package registriert (CBP-WP-024); Status `in-review`, kein Work Package `active` | erfüllt |
+| Decisions/A0 **70/66** ausgezählt, höchste **D-070**; ADRs **15** angenommen, **0** vorgeschlagen; **kein** neuer ADR | erfüllt |
+| Risiken **35** (Severity **20/14/1**); **keine neue Risiko-ID**; R-33 **`42/24`** — genau **ein** neuer Vorgang (**42**, `B0-R1-F01`, Human-Maintainer-A0 HD-8/Z-1), kein weiterer | erfüllt |
+| DO_NOT_START #4 unverändert; D-066 unverändert; `KB04-T-N07` zurückgestellt | erfüllt |
+| OD-04, OD-15, OD-18 und OD-19 offen; nur Vorlagen in CBP-WP-024 | erfüllt |
+| Keine technische Datei, keine Tests, kein Build; Dataset und Benchmark unverändert | erfüllt |
+| Driftkandidaten DK-1 bis DK-7 nur klassifiziert, Fundstellen unverändert | erfüllt |
+| **B0-R1/B0-R2:** Befund `B0-R1-F01` (A0-Zähler in `HEALTH_SCORE.md` **65 → 66**) korrigiert und als R-33-Vorgang **42** identisch in Risk Register und Compliance Check registriert; **`41/23 → 42/24`**; DK-3 und Vorgang 39 unverändert | erfüllt |
+| KB-04 `DOCUMENTED ONLY` · beide Gates `NOT EVALUATED` · Capabilities **0 von 29** | erfüllt |
+| Nova-Review des B0-Review-Diffs | ausstehend |
+| Commit und Push ausschließlich durch den Human Maintainer (D-003) | ausstehend |
+
 ## Zähl- und Statusregel
 
 *Ergänzt in CBP-WP-007, nach dem dritten Zählfehler des Projekts.*
@@ -1814,14 +1838,63 @@ eigener Vorgang registriert. **Zählwirkung: `40/22 → 41/23`.**
 
 **R-33 bleibt `gemindert, nicht geschlossen`** — Kritikalität unverändert
 **mittel**, kein Risiko geschlossen, **keine neue Risiko-ID**. **Einundvierzig
-Konsistenzvorgänge in dreiundzwanzig Work Packages** sind dokumentiert (**neue
-aktuelle Basislinie**; löst „vierzig" ab). Vollständige Progression seit dem
+Konsistenzvorgänge in dreiundzwanzig Work Packages** waren dokumentiert (*Stand
+nach dem einundvierzigsten Vorgang: `41/23`; durch den zweiundvierzigsten Vorgang
+unten auf **42/24** aktualisiert*; löste „vierzig" ab). Vollständige Progression seit dem
 neunzehnten Vorgang: **19/22 → 20/22 → 21/22 → 22/22 → 23/22 → 24/22 → 25/22 → 26/22 → 27/22 → 28/22 → 29/22 → 30/22 → 31/22 → 32/22 → 33/22 → 34/22 → 35/22 → 36/22 → 37/22 → 38/22 → 39/22 → 40/22 → 41/23**. **`41/23` ist kein
 Erfüllungsgrad und keine Prozentkennzahl** — der Zähler zählt dokumentierte
 Vorgänge, der Nenner Work Packages mit mindestens einem Vorgang, und der Zähler
 **darf** den Nenner überschreiten; **`41/24`** ist unzulässig, ebenso **`42/23`**
 ohne einen zusätzlich registrierten Vorgang. Dieser Vorgang ist mit dem Eintrag
 in [RISK_REGISTER.md](RISK_REGISTER.md) **identisch** und **zählt nur einmal**.
+
+### Zweiundvierzigster Konsistenzvorgang — CBP-WP-024 Active A0 Counter Mirror Staleness (2026-10-22)
+
+**Befund `B0-R1-F01` der unabhängigen Nova-Prüfung des B0-Reviewarchivs
+(Reviewentscheidung REWORK); korrigiert in B0-R1; klassifiziert und registriert
+gemäß Human-Maintainer-A0 vom 2026-10-22 (HD-8, Klassifikation **Z-1**).** In **`project-system/HEALTH_SCORE.md`**, Tabelle
+*Kennzahlen*, lautete die Zeile *davon A0* nach der Registrierung von **D-070**
+weiterhin `| davon A0 | 8 | **65** |`, während die unmittelbar benachbarte Zeile
+*Getroffene Entscheidungen* bereits auf **70** fortgeschrieben war. **Korrekter
+Zustand:** **66** A0-Decisions — **70** Decisions, davon **66** mit A0.
+
+**Herkunft:** Am Ausgangscommit **`61e2f3a`** war **65** korrekt (69/65). Das
+B0-Fragment schrieb nur die Decision-Zeile fort; die B0-Prüfung arbeitete mit
+einer Liste bekannter Formulierungen und erfasste die Tabellenform nicht. Der
+Fehler bestand **ausschließlich im uncommitteten B0-Review-Diff**.
+**Fehlerklasse:** **Active A0 Counter Mirror Staleness** (`B0-R1-F01`) — unvollständige Aktualisierung getrennter
+Kennzahlentabellenzeilen. **Aktiv, nicht historisch:** die Tabelle *Kennzahlen*
+ist ein aktiver Kennzahlenspiegel.
+
+**Abgrenzung:** **kein Bestandteil von Vorgang 39** und **keine zählneutrale
+Erweiterung** eines früheren Vorgangs — auch nicht von Vorgang **33** (gleiche
+Fehlerart, aber andere Ursache, anderer Zeitpunkt, anderes Work Package). Der
+Driftkandidat **DK-3** (`SECURITY_FOUNDATION_READINESS_GATE.md`, DRC-Gatestatus)
+bleibt **getrennt** und ohne Zählwirkung; Vorgang 39 wird **nicht**
+umklassifiziert; dasselbe gilt für die übrigen Driftkandidaten aus B0.
+**Präzedenz:** gezählt werden auch im Nova-REWORK gefundene und vor dem Commit
+korrigierte Fehler — **CBP-WP-012** („Nova-REWORK-Korrekturlauf"), ebenso
+Korrekturen „im selben Lauf" (**CBP-WP-003**, **CBP-WP-006**; *Historie der
+Zählfehler* oben).
+
+**Korrigiert in B0-R1:** `| davon A0 | 8 | **65** |` → `| davon A0 | 8 | **66** |`
+(genau ein Byte); anschließend repositoryweiter wertbasierter Scan aller A0- und
+Decision-Zähler ohne weiteren Befund. **Eine** Zeile · **eine** Fehlerursache —
+**genau ein** Vorgang. **CBP-WP-024** wird **erstmals** erfasst — **der Nenner
+steigt von 23 auf 24**. In den bisherigen **einundvierzig** Vorgängen **nicht**
+als eigener Vorgang registriert. **Zählwirkung: `41/23 → 42/24`.**
+
+**R-33 bleibt `gemindert, nicht geschlossen`** — Kritikalität unverändert
+**mittel**, kein Risiko geschlossen, **keine neue Risiko-ID**, **keine neue
+Decision-ID**, **keine ADR**. **Zweiundvierzig Konsistenzvorgänge in
+vierundzwanzig Work Packages** sind dokumentiert (**neue aktuelle Basislinie**;
+löst „einundvierzig" ab). Vollständige Progression seit dem neunzehnten Vorgang:
+**19/22 → 20/22 → 21/22 → 22/22 → 23/22 → 24/22 → 25/22 → 26/22 → 27/22 → 28/22 → 29/22 → 30/22 → 31/22 → 32/22 → 33/22 → 34/22 → 35/22 → 36/22 → 37/22 → 38/22 → 39/22 → 40/22 → 41/23 → 42/24**. **`42/24` ist kein Erfüllungsgrad und keine
+Prozentkennzahl** — der Zähler zählt dokumentierte Vorgänge, der Nenner Work
+Packages mit mindestens einem Vorgang, und der Zähler **darf** den Nenner
+überschreiten; **`42/25`** ist unzulässig, ebenso **`43/24`** ohne einen
+zusätzlich registrierten Vorgang. Dieser Vorgang ist mit dem Eintrag in
+[RISK_REGISTER.md](RISK_REGISTER.md) **identisch** und **zählt nur einmal**.
 
 ---
 
