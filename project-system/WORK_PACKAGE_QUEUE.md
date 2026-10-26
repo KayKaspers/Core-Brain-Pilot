@@ -3,7 +3,7 @@
 | Feld | Wert |
 | --- | --- |
 | Phase | **Phase 0 COMPLETE** · Phase 1 AUTHORIZED FOR PLANNING |
-| Aktuelles Work Package | **CBP-WP-024** — *Synthetic Brain-First Lexical Retrieval Slice (V1 Foundation)*, P1 — registriert durch **D-070** (`accepted`, **A0**, 2026-10-22); **Phase B0 – Registration & Governance Preparation** `committed` (`dd72c3f`, Human-Commit und -Push 2026-10-23), Gesamt-Work-Package `in-review`; **B1, B2, B3 und C nicht autorisiert** — keine technische Implementierung, keine Suchintegration (DO_NOT_START #4 unverändert), `KB04-T-N07` bleibt zurückgestellt (D-066); [CBP-WP-024.md](../work-packages/CBP-WP-024.md). Der vorherige Ruhezustand nach der dokumentarischen Closure von CBP-WP-022 (begrenzte Auslegung von Queue-Regel 4, Human-Maintainer-A0 vom 2026-10-19) endete mit dieser Registrierung. Zuletzt abgeschlossen: **CBP-WP-022** (`committed`, `complete`, 2026-10-20; dokumentarische Closure in **Phase C** an der **D-068**-Grenze; letzte Ausführungsphase **B2D-E-N14-GOV – D-067 N14 Ephemeral Observation Bridge Classification**) — **D-057** Registrierung, **D-058** ADR-Gate (**`ADR_REQUIRED`**), **D-059** Architekturannahme und **D-060** Enforcement Contract (alle `accepted`, **A0**, 2026-08-03); **ADR-0014 `accepted`, Autoritätsklasse A1** — **Host-authoritative Enforcement mit deklarativem Zielmodell und read-only Runtime-Validierung**; Vertrag [KB_04_STAGE_1_ENFORCEMENT_CONTRACT.md](../docs/security/KB_04_STAGE_1_ENFORCEMENT_CONTRACT.md) **`accepted contract`** (**`ADR_NOT_REQUIRED`** innerhalb ADR-0014); B0 `committed` (`e4caa14`), B1A `committed` (`1a7696d`), B1B `committed` (`b86a35f`), B1C `committed` (`24de07e`), B2A `committed` (`929d10b`), B2B-P `committed` (`fff8227`), **B2C.1 `committed` (`38eb33f`), B2C.2 `committed` (`117647f`), B2C-T-R `committed` (`9cde9de`)**; **D-061** (`accepted`, **A0**) begrenzt **B2C** auf eine rein synthetische Test-, Fixture- und Traceabilityphase — **Variante E nicht autorisiert**; **D-062** (`accepted`, **A0**) setzt nach dem `BLOCKED` beendeten ersten B2C-T-Lauf den kanonischen Abdeckungssplit **37/2/6** über 45 Kennungen; **B2C-T-R implementiert diese Traceability** mit drei neuen Testdateien, **152 neuen Tests** und einer Gesamtsuite von **1202 grün** — **Contract §10.3 bleibt offen**; **B2B-P ergänzt eine Plan-only Initialisierungsplanung** (zwei Module, drei aktivierte Contract-ReasonCodes, **120 neue Tests**, Gesamtsuite **1050 grün**) — **kein `apply_plan`, kein `mkdir`, kein `chmod`, kein `chown`, keine Mutation**; zuvor **B2A: das interne, read-only Enforcement-Paket** `core/core_brain/enforcement/` (sechs Module, 21 additive `KB04-*`-ReasonCodes, **206 neue Tests**, Gesamtsuite **930 grün**) — **keine CLI, keine Config, kein Deployment, keine Mutation, keine operative Evidenz**; **KB-04 Enforcement Stage 1** bleibt `DOCUMENTED ONLY`; der **erste B2C-T-Lauf** endete `BLOCKED`, **B2C-T-R** ist `committed` (`9cde9de`); **B2B-Apply** und das **Aggregat B2D** sind **nicht autorisiert**. **D-068** (`accepted`, **A0**, 2026-10-15, `WP022_CLOSURE_BOUNDARY_SELECTED_DEFERRED_EXECUTION_REBIND_REQUIRED`, `ADR_NOT_REQUIRED`) wählt die Closure-Grenze — die **dokumentarische Closure an dieser Grenze ist in Phase C vollzogen** (Human-Maintainer-A0 vom 2026-10-19; Abschluss 2026-10-20); an `CBP-WP-022 / B2D-E` gebundene Pläne sind **keine automatische Ausführungsfreigabe**. Zuvor abgeschlossen **CBP-WP-023** (`committed`, `complete`, 2026-10-19; *Repository Visibility Governance Reconciliation*; **D-069** Teil P, A0; **ADR-0015 `accepted`**, A1; G1 bis G3 `ca63b0a`). Davor abgeschlossen **CBP-WP-021** (`committed`, `complete`, 2026-08-03; **D-056**, `ADR_NOT_REQUIRED`; kanonisch **32 Negativtests / 1 Positivtest / 33 Testfälle**, **0 von 32** und **0 von 1** ausgeführt; B0 `0cb4ea9`, B1/B2 `271acc7`) und **CBP-WP-020** (`committed`, `complete`; B0 `17057e2`, B1/B2 `9c6c0fb`, C `d6a1a3c`). **CBP-WP-024 ist `in-review` (Phase B0 `committed` `dd72c3f`; B1, B2, B3 und C nicht autorisiert); kein Work Package ist `active`.** |
+| Aktuelles Work Package | **CBP-WP-025** — *GitHub Repository Ownership Transfer & Rename Governance*, **P0** — registriert durch **D-071** (`accepted`, **A0**, 2026-10-26); **Phase X1** ausgeführt, `in-review`, **nicht committed**; **X2 bis X6 und X4b nicht autorisiert** — kein Transfer, keine Umbenennung, kein Remote-Wechsel; [CBP-WP-025.md](../work-packages/CBP-WP-025.md). Unabhängig davon **CBP-WP-024** — *Synthetic Brain-First Lexical Retrieval Slice (V1 Foundation)*, P1 — registriert durch **D-070** (`accepted`, **A0**, 2026-10-22); **Phase B0 – Registration & Governance Preparation** `committed` (`dd72c3f`, Human-Commit und -Push 2026-10-23), Gesamt-Work-Package `in-review`; **B1, B2, B3 und C nicht autorisiert** — keine technische Implementierung, keine Suchintegration (DO_NOT_START #4 unverändert), `KB04-T-N07` bleibt zurückgestellt (D-066); [CBP-WP-024.md](../work-packages/CBP-WP-024.md). Der vorherige Ruhezustand nach der dokumentarischen Closure von CBP-WP-022 (begrenzte Auslegung von Queue-Regel 4, Human-Maintainer-A0 vom 2026-10-19) endete mit dieser Registrierung. Zuletzt abgeschlossen: **CBP-WP-022** (`committed`, `complete`, 2026-10-20; dokumentarische Closure in **Phase C** an der **D-068**-Grenze; letzte Ausführungsphase **B2D-E-N14-GOV – D-067 N14 Ephemeral Observation Bridge Classification**) — **D-057** Registrierung, **D-058** ADR-Gate (**`ADR_REQUIRED`**), **D-059** Architekturannahme und **D-060** Enforcement Contract (alle `accepted`, **A0**, 2026-08-03); **ADR-0014 `accepted`, Autoritätsklasse A1** — **Host-authoritative Enforcement mit deklarativem Zielmodell und read-only Runtime-Validierung**; Vertrag [KB_04_STAGE_1_ENFORCEMENT_CONTRACT.md](../docs/security/KB_04_STAGE_1_ENFORCEMENT_CONTRACT.md) **`accepted contract`** (**`ADR_NOT_REQUIRED`** innerhalb ADR-0014); B0 `committed` (`e4caa14`), B1A `committed` (`1a7696d`), B1B `committed` (`b86a35f`), B1C `committed` (`24de07e`), B2A `committed` (`929d10b`), B2B-P `committed` (`fff8227`), **B2C.1 `committed` (`38eb33f`), B2C.2 `committed` (`117647f`), B2C-T-R `committed` (`9cde9de`)**; **D-061** (`accepted`, **A0**) begrenzt **B2C** auf eine rein synthetische Test-, Fixture- und Traceabilityphase — **Variante E nicht autorisiert**; **D-062** (`accepted`, **A0**) setzt nach dem `BLOCKED` beendeten ersten B2C-T-Lauf den kanonischen Abdeckungssplit **37/2/6** über 45 Kennungen; **B2C-T-R implementiert diese Traceability** mit drei neuen Testdateien, **152 neuen Tests** und einer Gesamtsuite von **1202 grün** — **Contract §10.3 bleibt offen**; **B2B-P ergänzt eine Plan-only Initialisierungsplanung** (zwei Module, drei aktivierte Contract-ReasonCodes, **120 neue Tests**, Gesamtsuite **1050 grün**) — **kein `apply_plan`, kein `mkdir`, kein `chmod`, kein `chown`, keine Mutation**; zuvor **B2A: das interne, read-only Enforcement-Paket** `core/core_brain/enforcement/` (sechs Module, 21 additive `KB04-*`-ReasonCodes, **206 neue Tests**, Gesamtsuite **930 grün**) — **keine CLI, keine Config, kein Deployment, keine Mutation, keine operative Evidenz**; **KB-04 Enforcement Stage 1** bleibt `DOCUMENTED ONLY`; der **erste B2C-T-Lauf** endete `BLOCKED`, **B2C-T-R** ist `committed` (`9cde9de`); **B2B-Apply** und das **Aggregat B2D** sind **nicht autorisiert**. **D-068** (`accepted`, **A0**, 2026-10-15, `WP022_CLOSURE_BOUNDARY_SELECTED_DEFERRED_EXECUTION_REBIND_REQUIRED`, `ADR_NOT_REQUIRED`) wählt die Closure-Grenze — die **dokumentarische Closure an dieser Grenze ist in Phase C vollzogen** (Human-Maintainer-A0 vom 2026-10-19; Abschluss 2026-10-20); an `CBP-WP-022 / B2D-E` gebundene Pläne sind **keine automatische Ausführungsfreigabe**. Zuvor abgeschlossen **CBP-WP-023** (`committed`, `complete`, 2026-10-19; *Repository Visibility Governance Reconciliation*; **D-069** Teil P, A0; **ADR-0015 `accepted`**, A1; G1 bis G3 `ca63b0a`). Davor abgeschlossen **CBP-WP-021** (`committed`, `complete`, 2026-08-03; **D-056**, `ADR_NOT_REQUIRED`; kanonisch **32 Negativtests / 1 Positivtest / 33 Testfälle**, **0 von 32** und **0 von 1** ausgeführt; B0 `0cb4ea9`, B1/B2 `271acc7`) und **CBP-WP-020** (`committed`, `complete`; B0 `17057e2`, B1/B2 `9c6c0fb`, C `d6a1a3c`). **CBP-WP-024 ist `in-review` (Phase B0 `committed` `dd72c3f`; B1, B2, B3 und C nicht autorisiert); CBP-WP-025 ist `in-review` (Phase X1, nicht committed; X2 bis X6 und X4b nicht autorisiert); kein Work Package ist `active`.** |
 | Gate G0 | **PASSED WITH NOTES** — 2026-07-21 |
 | Überarbeitet in | **CBP-WP-016** |
 | Autoritätsklasse | A2 |
@@ -51,6 +51,7 @@ Spalten nach `WORK_PACKAGE_QUEUE_TEMPLATE.md` (NDF v1.0.0).
 | CBP-WP-022 | **KB-04 Enforcement Stage 1** | P1 | **`committed`** · **`complete`** (Phase **C** — dokumentarische Closure an der **D-068**-Grenze, 2026-10-20; zuvor Phase B2D-E-N14-GOV; B0…B2D-GOV committed, **B2D-AUTH `committed` `1222ec0`**; **ADR-0014 `accepted`/A1**, **Contract `accepted`**, **D-061 B2C-Scope**, **D-062 Coverage-Split 37/2/6**, **D-063 B2D-Voraussetzungen**; 45er-Traceability implementiert, Gesamtsuite 1202; **B2D.0 und B2D.1 read-only complete**, **B2D-ENV-GOV `committed` `0cd21f5`** — **D-065**, Referenzumgebungsmodell, **keine konkrete Instanz**; **reale Infrastruktur und B2D-H/E/V/G nicht autorisiert**) | [work-packages/CBP-WP-022.md](../work-packages/CBP-WP-022.md) |
 | CBP-WP-023 | **Repository Visibility Governance Reconciliation** | P0 | **`committed`** · **`complete`** (G1 bis G3 `ca63b0a`; **D-069** Teil P, `accepted`/A0, 2026-10-17; **`ADR_REQUIRED`**, **ADR-0015 `accepted`**/A1; Closure durch Human-Maintainer-A0 vom 2026-10-19) | [work-packages/CBP-WP-023.md](../work-packages/CBP-WP-023.md) |
 | CBP-WP-024 | **Synthetic Brain-First Lexical Retrieval Slice (V1 Foundation)** | P1 | **`in-review`** (Phase **B0** – Registration & Governance Preparation `committed` `dd72c3f`; **D-070** `accepted`/A0, 2026-10-22; **B1, B2, B3 und C nicht autorisiert**) | [work-packages/CBP-WP-024.md](../work-packages/CBP-WP-024.md) |
+| CBP-WP-025 | **GitHub Repository Ownership Transfer & Rename Governance** | P0 | **`in-review`** (Phase **X1** – Governance, D-071 und WP-Registrierung, **nicht committed**; **D-071** `accepted`/A0, 2026-10-26; **X2 bis X6 und X4b nicht autorisiert**) | [work-packages/CBP-WP-025.md](../work-packages/CBP-WP-025.md) |
 
 **Kein Work Package ist als `proposed` geführt.** **CBP-WP-019** (Deployment
 Readiness Intake and Profile-A Target Specification) ist
@@ -124,6 +125,15 @@ und C sind nicht autorisiert**: keine technische Implementierung, keine
 Suchintegration (DO_NOT_START #4 unverändert), kein ADR, keine N07-Ausführung
 (D-066 unverändert). Mit der Registrierung endet der Ruhezustand; **kein** Work
 Package ist `active`.
+
+**CBP-WP-025** (GitHub Repository Ownership Transfer & Rename Governance,
+Governance/Repository Operations, **P0**) ist unter **D-071** (`accepted`,
+**A0**, 2026-10-26) registriert. Autorisiert ist **ausschließlich Phase X1**
+(Governance, D-071 und WP-Registrierung); sie ist ausgeführt und steht auf
+**`in-review`**, **nicht committed**. **X2 bis X6 und X4b sind nicht
+autorisiert**: kein Transfer, keine Umbenennung, kein Remote-Wechsel, kein
+Backup. CBP-WP-024 bleibt **unabhängig `in-review`**; zwei Work Packages auf
+`in-review` verletzen Regel 4 nicht, **kein** Work Package ist `active`.
 
 > **Titelkorrektur in CBP-WP-009.** Diese Übersichtstabelle trug bis dahin die
 > Titel eines verworfenen Entwurfs der Work-Package-Karte (009 „Repository and
@@ -1808,6 +1818,39 @@ und Vorgang 39 bleiben unverändert.
 Kritikalität mittel.** **`42/24` ist kein Erfüllungsgrad**; **`42/25`** ist
 unzulässig, ebenso **`43/24`** ohne zusätzlich registrierten Vorgang. Keine neue
 Risiko-ID; Risiken **35**, Severity **20/14/1** unverändert.
+
+---
+
+## CBP-WP-025
+
+| Feld | Wert |
+| --- | --- |
+| Titel | **GitHub Repository Ownership Transfer & Rename Governance** |
+| Typ | **Mehrphasig** — Governance-/Repository-Operations-Work-Package |
+| Priorität | **P0** |
+| Prompt Mode | **Full** · Context Budget **B2 – Standard** (begründet **B3**) |
+| Status | **`in-review`** (Phase X1) |
+| Aktuelle Phase | **X1 – Governance, D-071 und Work-Package-Registrierung** |
+| Registration Decision | **D-071** (konsolidiert, A–P; TR-G1 bis TR-G8 als Teile D bis K), `accepted`, **A0**, 2026-10-26 — Ergebnis **`CBP_TRANSFER_GOVERNANCE_MODEL_SELECTED_EXECUTION_NOT_AUTHORIZED`** |
+| ADR-Gate | **`ADR_NOT_REQUIRED`** — ausschließlich innerhalb der Bedingungen von D-071 Teil K |
+| Commit | **X1 nicht committed** — Commit und Push ausschließlich durch den Human Maintainer (D-003) |
+
+**Phasenmodell:** **X1** Governance, D-071 und WP-Registrierung (autorisiert
+durch Human-Maintainer-A0 vom 2026-10-26; ausgeführt, `in-review`) · **X2**
+Berechtigungen, Policies, Vollbackup und Readiness · **X3** Ownership-Transfer
+nach `blackhole-dynamics/Core-Brain-Pilot` · **X4** unabhängige Verifikation des
+Zwischenzustands · **X4b** Umbenennung zu `blackhole-dynamics/Core-Brain` mit
+erneuter Verifikation · **X5** lokale Remote- und Dokumentations-Reconciliation
+· **X6** Review und Closure — **X2 bis X6 und X4b nicht autorisiert**, je eigene
+A0. Vollständig in [CBP-WP-025.md](../work-packages/CBP-WP-025.md).
+
+**Abgrenzung:** kein Transfer, keine Umbenennung, kein Remote-Wechsel, kein
+Backup, keine Lizenz (OD-23 offen), kein Produktname (OD-28 offen), keine
+Änderung von Sichtbarkeit oder Publikationsstatus, keine technische Arbeit.
+D-069 Teil O bleibt unverändert; jede ausführende Operation braucht eine eigene
+A0. Zähler im X1-Review-Diff: Decisions/A0 **71/67**, höchste **D-071**,
+angenommene ADRs **15**, vorgeschlagene ADRs **0**, Risiken **35** (Severity
+**20/14/1**), R-33 **`42/24`** unverändert.
 
 ---
 
