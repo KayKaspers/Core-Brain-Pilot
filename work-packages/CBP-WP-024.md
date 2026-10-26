@@ -6,7 +6,7 @@
 | Typ | **Mehrphasiges Work Package** — Governance (B0, B1) und gegebenenfalls synthetische Implementierung und Nachweise (B2, B3); **derzeit ausschließlich Governance** |
 | Priorität | **P1** |
 | Prompt Mode | **Full** · Context Budget **B2 – Standard** (begründet höchstens **B3**) |
-| Status | **`in-review`** — Phase **B0** ausgeführt, wartet auf Nova-Review und Human-Maintainer-Entscheidung |
+| Status | **`in-review`** (Gesamt-Work-Package) — Phase **B0** **`committed`** (`dd72c3f`, Human-Commit und -Push 2026-10-23); **B1, B2, B3 und C nicht autorisiert** |
 | Aktuelle Phase | **B0 – Registration & Governance Preparation** |
 | Registration Decision | **D-070** — `accepted`, **A0**, 2026-10-22 — Ergebnis **`CBP_WP_024_REGISTERED_B0_GOVERNANCE_ONLY`** |
 | Human-Maintainer-Authority | **A0** vom **2026-10-22**: „GO CBP-WP-024 B0 – Registration & Governance Preparation Only“ |
@@ -15,7 +15,7 @@
 | ADR | **keiner** |
 | Registrierungsdatum | **2026-10-22** |
 | Planungsgrundlage | read-only Intake **CBP-WP-024-PRE** vom 2026-10-22 (`READY_WITH_NOTES`); **kein** registriertes Work Package, **keine** Authority |
-| Commit | **nicht committed** — Commit und Push ausschließlich durch den Human Maintainer (D-003); keine Selbstreferenz auf einen künftigen Commit |
+| Commit | **B0 `committed`** — `dd72c3f` (Parent `61e2f3a`; Commit und Push am 2026-10-23 ausschließlich durch den Human Maintainer, D-003); B1 bis C nicht autorisiert; keine Selbstreferenz auf einen künftigen Commit |
 | KB-04-Status | **`DOCUMENTED ONLY`** — unverändert |
 | Capabilities | **0 von 29** — unverändert |
 | Gates | Mapping Activation `NOT EVALUATED` · Security Foundation Readiness `NOT EVALUATED` |
@@ -45,7 +45,7 @@ Phase folgt **keine** Freigabe der nächsten.
 
 | Phase | Gegenstand | Autorisierung | Status |
 | --- | --- | --- | --- |
-| **B0** | Registrierung, Governance, Scope Lock, Entscheidungsvorbereitung | **autorisiert** — Human-Maintainer-A0 vom 2026-10-22 | ausgeführt, **`in-review`** |
+| **B0** | Registrierung, Governance, Scope Lock, Entscheidungsvorbereitung | **autorisiert** — Human-Maintainer-A0 vom 2026-10-22 | ausgeführt, **`committed`** (`dd72c3f`) |
 | **B1** | Architektur- und ADR-Entscheidung | **nicht autorisiert** | — |
 | **B2** | Synthetische Retrieval-Implementierung | **nicht autorisiert** | — |
 | **B3** | Tests und technische Nachweise | **nicht autorisiert** | — |
@@ -481,6 +481,35 @@ angenommen und **0** vorgeschlagen, Risiken **35** (**20/14/1**), R-33
 **`42/24`** (`gemindert, nicht geschlossen`). **B1, B2, B3 und C bleiben nicht
 autorisiert.**
 
+## Stand B0 committed – 2026-10-23
+
+Phase **B0** ist **`committed`**: Commit
+`dd72c3f92563082d628de93cab6ee6820ff82357` (Parent
+`61e2f3a0d5d86a629b62ce4563fe7ca7c25fb153`, *docs(cbp): register WP-024 B0 and
+reconcile R-33 event 42*). Commit und Push hat am **2026-10-23** ausschließlich
+der Human Maintainer ausgeführt (D-003).
+
+- Nova hat **B0-C3** und **B0-C4** abgenommen; die Remote-Baseline `dd72c3f`
+  ist nach Human-Commit und Human-Push unabhängig bestätigt.
+- **B0-C5** — read-only Post-Commit Reconciliation Intake
+  (`READ_ONLY_COMPLETE_WITH_NOTES`), von Nova geprüft.
+- Human-Maintainer-A0 vom 2026-10-23: **L-1** bestätigt — Phase B0
+  `committed`, Gesamt-Work-Package `in-review`, **keine** separate
+  B0-Closure-Decision — sowie **R-1 Option N** (kein zusätzlicher
+  R-33-Vorgang).
+- **B0-C6** — minimale Post-Commit-Status-Reconciliation der aktiven
+  Statusspiegel; liegt als uncommitteter Review-Diff vor. Nova-Review, Commit
+  und Push stehen aus.
+
+Das Gesamt-Work-Package bleibt **`in-review`**; **B1, B2, B3 und C** bleiben
+**nicht autorisiert**; **kein** Work Package ist `active`. Der
+Post-Commit-Nachlauf der Statusspiegel — ein Commit kann seinen eigenen Hash
+nicht vorwegnehmen — begründet **keinen** R-33-Vorgang: R-33 bleibt
+**`42/24`**. Zähler unverändert: Decisions/A0 **70/66**, höchste **D-070**,
+ADRs **15** angenommen und **0** vorgeschlagen, Risiken **35**. Die
+historischen Abschnitte *Stand B0* und *Stand B0-R1 und B0-R2* sowie D-070
+bleiben unverändert.
+
 ## Aussageschutz
 
 | Behauptung | Zutreffend? |
@@ -495,6 +524,7 @@ autorisiert.**
 | Eine Capability sei hochgestuft, eine Control wirksam oder ein Gate ausgewertet | **nein** — 0 von 29, `DOCUMENTED ONLY`, `NOT EVALUATED` |
 | Die Driftklassifikation registriere einen R-33-Vorgang | **nein** — die Driftkandidaten bleiben ohne Zählwirkung; der einzige neue Vorgang **42** betrifft `B0-R1-F01` (`42/24`) |
 | Vorgang 42 sei mit DK-3 oder Vorgang 39 zusammengefasst | **nein** — getrennt; DK-3 ohne Zählwirkung, Vorgang 39 unverändert |
-| CBP-WP-024 sei `committed` | **nein** — `in-review`; `committed` erst nach einem tatsächlichen Human-Commit |
+| CBP-WP-024 sei insgesamt `committed` oder `complete` | **nein** — Gesamt-Work-Package `in-review`; B1, B2, B3 und C nicht autorisiert |
+| Phase B0 sei `committed` | **ja** — `dd72c3f`, Human-Commit und -Push 2026-10-23 |
 
 **Die Registrierung eines Work Packages ist keine Implementierungsfreigabe.**
