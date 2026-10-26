@@ -1887,12 +1887,69 @@ als eigener Vorgang registriert. **Zählwirkung: `41/23 → 42/24`.**
 **R-33 bleibt `gemindert, nicht geschlossen`** — Kritikalität unverändert
 **mittel**, kein Risiko geschlossen, **keine neue Risiko-ID**, **keine neue
 Decision-ID**, **keine ADR**. **Zweiundvierzig Konsistenzvorgänge in
-vierundzwanzig Work Packages** sind dokumentiert (**neue aktuelle Basislinie**;
-löst „einundvierzig" ab). Vollständige Progression seit dem neunzehnten Vorgang:
+vierundzwanzig Work Packages** waren dokumentiert (*Stand nach dem
+zweiundvierzigsten Vorgang: `42/24`; durch den dreiundvierzigsten Vorgang unten
+auf **43/25** aktualisiert*; löste „einundvierzig" ab). Vollständige Progression seit dem neunzehnten Vorgang:
 **19/22 → 20/22 → 21/22 → 22/22 → 23/22 → 24/22 → 25/22 → 26/22 → 27/22 → 28/22 → 29/22 → 30/22 → 31/22 → 32/22 → 33/22 → 34/22 → 35/22 → 36/22 → 37/22 → 38/22 → 39/22 → 40/22 → 41/23 → 42/24**. **`42/24` ist kein Erfüllungsgrad und keine
 Prozentkennzahl** — der Zähler zählt dokumentierte Vorgänge, der Nenner Work
 Packages mit mindestens einem Vorgang, und der Zähler **darf** den Nenner
 überschreiten; **`42/25`** ist unzulässig, ebenso **`43/24`** ohne einen
+zusätzlich registrierten Vorgang. Dieser Vorgang ist mit dem Eintrag in
+[RISK_REGISTER.md](RISK_REGISTER.md) **identisch** und **zählt nur einmal**.
+
+### Dreiundvierzigster Konsistenzvorgang — CBP-WP-025 Active X1 Commit-status Mirrors Staleness (2026-10-26)
+
+**Befund `X1-PCR-F01` der Post-Commit-Prüfung nach Human-Commit und Human-Push
+von Phase X1; klassifiziert und registriert gemäß Human-Maintainer-A0 vom
+2026-10-26** („GO CBP-WP-025 X1-C3 – POST-COMMIT STATUS RECONCILIATION");
+Kennung `R33_EVENT_43_WP025_X1_POST_COMMIT_MIRROR_STALENESS`. Nach dem Commit
+**`97cc85fe1531f49a5ad407ee30a1102a7d8bd446`** (Parent `b3100ef`, 2026-10-26)
+führten die acht aktiven Statusspiegel `work-packages/CBP-WP-025.md`,
+`project-system/WORK_PACKAGE_QUEUE.md`, `project-brain/PROJECT_BRAIN.md`,
+`project-system/PROJECT_MANIFEST.md`, `project-system/HEALTH_SCORE.md`,
+`README.md`, `CLAUDE.md` und `docs/roadmap/PHASE_1_WORK_PACKAGE_MAP.md` weiterhin
+„Phase X1 `in-review` / **nicht committed**". **Korrekter Zustand:** Phase X1
+**`committed`** (`97cc85f`); **CBP-WP-025 insgesamt weiterhin `in-review`**; X2
+bis X6 und X4b nicht autorisiert.
+
+**Ursache:** Ein Commit kann seinen eigenen Hash nicht vorwegnehmen; die
+X1-Statusspiegel beschrieben korrekt den Vor-Commit-Stand und wurden nach Commit
+und Push nicht unmittelbar nachgeführt. **Fehlerklasse:** Git-/Register-
+Statusabweichung nach Commit und Push. **Aktiv, nicht historisch:** die
+korrigierten Felder sind fortgeltende Statusangaben; **D-071 Teil O**
+(`42/24`), die X1-Abnahmekriterien (datiert qualifiziert), der Satz „Zähler im
+X1-Review-Diff" in der Queue und die Registrierungsnotiz „uncommitteter
+X1-Review-Diff" im Decision Register beschreiben den Stand **vor** dem Commit und
+bleiben unverändert.
+
+**Abgrenzung:** **keine zählneutrale Erweiterung** eines früheren Vorgangs — auch
+nicht von **30**, **36**, **40**, **41** oder **42** (andere Ursache, anderer
+Zeitpunkt, anderes Work Package). Die Post-Commit-Reconciliation von CBP-WP-024
+B0 (B0-C6) wurde nach dortiger Human-Maintainer-A0 (R-1 Option N) **nicht**
+gezählt; dieser Befund ist durch eigene A0 ausdrücklich als Vorgang angenommen.
+**N-1a**, **N-1b**, **DK-3**, **AF-6** und **D-1 bis D-10** bleiben getrennt und
+ohne Zählwirkung.
+
+**Korrigiert in X1-C3:** aktive Statusfelder in den acht Dateien minimal
+nachgeführt („X1 `committed` `97cc85f`", Gesamt-Work-Package `in-review`);
+historische Aussagen erhalten oder datiert qualifiziert; keine globale
+Ersetzung. **Acht** Spiegel · **eine** Fehlerursache · **eine**
+Zustandsänderung — **genau ein** Vorgang. **CBP-WP-025** wird **erstmals**
+erfasst — **der Nenner steigt von 24 auf 25**. In den bisherigen
+**zweiundvierzig** Vorgängen **nicht** als eigener Vorgang registriert.
+**Zählwirkung: `42/24 → 43/25`.**
+
+**R-33 bleibt `gemindert, nicht geschlossen`** — Kritikalität unverändert
+**mittel**, kein Risiko geschlossen, **keine neue Risiko-ID**, **keine neue
+Decision-ID**, **keine ADR**; **D-071**, **D-069** und **ADR-0015** unverändert;
+KB-04 bleibt **`DOCUMENTED ONLY`**, beide Gates `NOT EVALUATED`; **keine
+Änderung an Sicherheits-, Gate-, Capability- oder Publikationsgrenzen**, kein
+Transfer. **Dreiundvierzig Konsistenzvorgänge in fünfundzwanzig Work Packages**
+sind dokumentiert (**neue aktuelle Basislinie**; löst „zweiundvierzig" ab).
+Vollständige Progression seit dem neunzehnten Vorgang: **19/22 → 20/22 → 21/22 → 22/22 → 23/22 → 24/22 → 25/22 → 26/22 → 27/22 → 28/22 → 29/22 → 30/22 → 31/22 → 32/22 → 33/22 → 34/22 → 35/22 → 36/22 → 37/22 → 38/22 → 39/22 → 40/22 → 41/23 → 42/24 → 43/25**. **`43/25` ist kein Erfüllungsgrad und keine
+Prozentkennzahl** — der Zähler zählt dokumentierte Vorgänge, der Nenner Work
+Packages mit mindestens einem Vorgang, und der Zähler **darf** den Nenner
+überschreiten; **`43/26`** ist unzulässig, ebenso **`44/25`** ohne einen
 zusätzlich registrierten Vorgang. Dieser Vorgang ist mit dem Eintrag in
 [RISK_REGISTER.md](RISK_REGISTER.md) **identisch** und **zählt nur einmal**.
 

@@ -53,7 +53,7 @@ nur zur Statusvollständigkeit geführt:
 | **CBP-WP-022** | KB-04 Enforcement Stage 1 | **`committed`** · **`complete`** (Phase **C** — dokumentarische Closure an der **D-068**-Grenze, 2026-10-20; letzte Ausführungsphase **B2D-E-N14-GOV – D-067**, `committed` `c662452`) — B0…B2C.2 committed, **B2C-T-R `committed` `9cde9de`**; D-057…**D-062**, **ADR-0014 `accepted`/A1**, **Enforcement Contract `accepted contract`**; **read-only Validator- und Initialisierungsplanungspaket implementiert**; **vollständige 45er-Traceability** (Split **37/2/6**, Gesamtsuite **1202**); **B2D.0, B2D.1, B2D-E0 und B2D-E1 read-only complete** (je `PASS WITH NOTES`); **B2D-P `committed` `b409d25`**, **B2D-GOV `committed` `7e8328a`**, **B2D-AUTH `committed` `1222ec0`**; **B2D-ENV-GOV `committed` `0cd21f5`**; **B2D-PREP-PLAN, B2D-PREP-PLAN-N1 und B2D-E-N07-PREP read-only complete**, letzterer mit **`N07_IDENTITY_MAPPING_INSUFFICIENT`**; **B2D-E-N07-GOV `committed` `c4b0426`** (D-066, `PROFILE_A_RETRIEVAL_NOT_INSTANTIATED_N07_DEFERRED`, Variante C) und in **B2D-E-N07-GOV-PCR** post-commit reconciliiert; **`KB04-T-N07` zurückgestellt**; **B2D-E-N14-PREP** read-only complete mit **`N14_A0_DECISION_REQUIRED`**; **B2D-E-N14-GOV registriert D-067** (`N14_EPHEMERAL_LOCAL_OBSERVATION_BRIDGE_ALLOWED`, Variante B), **`committed` `c662452`** — **flüchtige lokale Observation Bridge klassifiziert**, **kein Testhelper, keine CLI, kein Adapterexport**, **N14 weiterhin nicht ausgeführt**; **kein Evidence-Artefakt**, Contract §10.3 offen; **reale Infrastruktur, B2D-H/E/V/G und B2B-Apply nicht autorisiert** |
 | **CBP-WP-023** | Repository Visibility Governance Reconciliation | **`committed`** · **`complete`** (G1 bis G3 `ca63b0a`; Commit und Push durch den Human Maintainer; Closure 2026-10-19) — reine Governance (Documentation/Governance, **P0**); **D-069** Teil P (`accepted`/A0, 2026-10-17); **ADR-0015 `accepted`**/A1 (Human-Maintainer-A0 vom 2026-10-17); **keine technische Phase, keine Capability, keine Migration** |
 | **CBP-WP-024** | Synthetic Brain-First Lexical Retrieval Slice (V1 Foundation) | **`in-review`** — Phase **B0** `committed` `dd72c3f` (Registration & Governance Preparation; **D-070** `accepted`/A0, 2026-10-22); **B1, B2, B3 und C nicht autorisiert**; keine Implementierung, keine Suchintegration |
-| **CBP-WP-025** | GitHub Repository Ownership Transfer & Rename Governance | **`in-review`** — Phase **X1** (Governance, D-071 und WP-Registrierung; **D-071** `accepted`/A0, 2026-10-26), **nicht committed**; **X2 bis X6 und X4b nicht autorisiert**; kein Transfer, keine Umbenennung — Repository-Governance, **keine** Strukturmigration nach D-029 |
+| **CBP-WP-025** | GitHub Repository Ownership Transfer & Rename Governance | **`in-review`** — Phase **X1** (Governance, D-071 und WP-Registrierung; **D-071** `accepted`/A0, 2026-10-26), `committed` `97cc85f`; **X2 bis X6 und X4b nicht autorisiert**; kein Transfer, keine Umbenennung — Repository-Governance, **keine** Strukturmigration nach D-029 |
 
 **CBP-WP-020 ist `committed` und `complete`** (D-055): Phase B0 `17057e2`,
 Phase B1/B2 `9c6c0fb`. Das **Profil-A-Bundle** liegt als Repository-Artefakt mit
@@ -85,7 +85,7 @@ unten; am **2026-10-17** wurde parallel das Governance-Work-Package
 **Phase B0** ist `committed` (`dd72c3f`), das Work Package `in-review`; **kein** Work Package ist `active`.
 Am **2026-10-26** wurde das Governance-Work-Package **CBP-WP-025** (GitHub
 Repository Ownership Transfer & Rename Governance) registriert (**D-071**);
-**Phase X1** ist `in-review`, nicht committed — kein Transfer ausgeführt.
+**Phase X1** ist `committed` (`97cc85f`), das Work Package `in-review` — kein Transfer ausgeführt.
 
 > **In CBP-WP-021 Phase B1 korrigiert.** Diese Karte führte zuvor „31
 > Negativtests"; der Wert ist auf den kanonischen Stand **32** gebracht.
@@ -399,7 +399,7 @@ D-069 Teil P) ist `committed` und `complete` — G1 bis G3 `ca63b0a`,
 **ADR-0015 `accepted`** (A1). **CBP-WP-024** ist registriert (**D-070**,
 2026-10-22) und steht auf `in-review` (**Phase B0** `committed` `dd72c3f`);
 **CBP-WP-025** ist registriert (**D-071**, 2026-10-26) und steht auf
-`in-review` (**Phase X1**, nicht committed); **kein** Work Package ist
+`in-review` (**Phase X1** `committed` `97cc85f`); **kein** Work Package ist
 `active`. Eine spätere
 **Repositorymigration** bleibt ein eigenes, nicht geschnittenes Work Package
 (siehe unten). Die **Bundle-Artefakte existieren, sind

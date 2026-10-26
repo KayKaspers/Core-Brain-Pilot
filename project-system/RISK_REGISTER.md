@@ -59,7 +59,7 @@ Ein irreversibler Schaden ist mindestens **hoch**.
 | R-17 | Abweichungen vom NDF wachsen unkontrolliert | niedrig | AB-03 bis AB-08 nur vorläufig akzeptiert | gemindert |
 | R-24 | Verwechslung von NDF Prompt Mode und Context Budget | mittel | Ausdrückliche Abgrenzung; D-009 | gemindert |
 | R-28 | Ein zweites Governance-System wird eingeführt | mittel | Superpowers nur als Referenz | gemindert |
-| R-33 | Fehlerhafte Kennzahlen in Statusdokumenten führen zu falschen Gate-Einschätzungen | mittel | Fünfteilige **Zähl- und Statusregel** in COMPLIANCE_CHECK (CBP-WP-007); Summen gelten als `derived status data`. **Dokumentregel, keine technische Kontrolle.** Der **vierte** Zählfehler entstand in CBP-WP-007 und wurde in CBP-WP-008 gefunden; der **fünfte** in CBP-WP-010 — „neun Blocker" bei acht IDs; der **sechste** in CBP-WP-011 — Gate-Stufenverteilung 25 statt 24, ein Positivtest mit NT-ID, und **doppelt vergebene Test-IDs über Dokumentgrenzen hinweg**. Alle im jeweiligen REWORK-Lauf korrigiert. **Sechs Zählvorgänge in elf Work Packages; jeder durch Auszählung gefunden, keiner durch die Regel verhindert** — diese Aufzählung endet beim **sechsten** Vorgang (CBP-WP-011) und wird nicht rückwirkend umgeschrieben. **Aktueller Stand: 42 Konsistenzvorgänge in 24 Work Packages (`42/24`)** — der Zähler zählt Vorgänge, der Nenner Work Packages mit mindestens einem Vorgang; **kein Erfüllungsgrad**; die vollständige Chronologie steht unten | **gemindert, nicht geschlossen** |
+| R-33 | Fehlerhafte Kennzahlen in Statusdokumenten führen zu falschen Gate-Einschätzungen | mittel | Fünfteilige **Zähl- und Statusregel** in COMPLIANCE_CHECK (CBP-WP-007); Summen gelten als `derived status data`. **Dokumentregel, keine technische Kontrolle.** Der **vierte** Zählfehler entstand in CBP-WP-007 und wurde in CBP-WP-008 gefunden; der **fünfte** in CBP-WP-010 — „neun Blocker" bei acht IDs; der **sechste** in CBP-WP-011 — Gate-Stufenverteilung 25 statt 24, ein Positivtest mit NT-ID, und **doppelt vergebene Test-IDs über Dokumentgrenzen hinweg**. Alle im jeweiligen REWORK-Lauf korrigiert. **Sechs Zählvorgänge in elf Work Packages; jeder durch Auszählung gefunden, keiner durch die Regel verhindert** — diese Aufzählung endet beim **sechsten** Vorgang (CBP-WP-011) und wird nicht rückwirkend umgeschrieben. **Aktueller Stand: 43 Konsistenzvorgänge in 25 Work Packages (`43/25`)** — der Zähler zählt Vorgänge, der Nenner Work Packages mit mindestens einem Vorgang; **kein Erfüllungsgrad**; die vollständige Chronologie steht unten | **gemindert, nicht geschlossen** |
 | **R-34** | **Deployment-Required-Kriterien werden vertagt und dann vergessen** | **hoch** | Alle 16 bleiben als `open` erfasst; separates Deployment-Readiness-Gate zu definieren (OD-33). **Fail-closed:** ohne die Angaben wird nicht installiert | **neu, offen** |
 
 ## Betrieb
@@ -117,6 +117,19 @@ Ein irreversibler Schaden ist mindestens **hoch**.
 > Fehlerklasse, keine Behebung ihrer Ursache. **R-01 bis R-34 sind
 > inhaltlich unverändert**, **R-18 bleibt eine nicht wiederverwendete
 > Nummernlücke**, und es wurde **keine R-37** vergeben.
+
+**Neu in CBP-WP-025 (Phase X1-C3 — R-33-Vorgang 43):** keine.
+
+**Verändert in CBP-WP-025 Phase X1-C3 — rein dokumentarisch, ohne Schwere- oder
+Statusänderung:**
+
+| ID | Änderung | Auslöser |
+| --- | --- | --- |
+| **R-33** | **Dreiundvierzigster Konsistenzvorgang** — **CBP-WP-025 Active X1 Commit-status Mirrors Staleness** (`X1-PCR-F01`) (siehe Chronologie unten); Zuordnung **CBP-WP-025**, erstes R-33-Erfassen; **`42/24 → 43/25`**; Status `gemindert, nicht geschlossen` und Kritikalität **mittel** unverändert | Human-Maintainer-A0 vom 2026-10-26 („GO CBP-WP-025 X1-C3 – POST-COMMIT STATUS RECONCILIATION") |
+
+**Kein Risiko wurde in CBP-WP-025 Phase X1-C3 geschlossen**, keine Schwere und
+kein Status geändert, **keine neue Risiko-ID** vergeben: Risiken **35**, Severity
+**20/14/1**.
 
 **Neu in CBP-WP-024 (Phase B0-R2 — R-33-Vorgang 42):** keine.
 
@@ -1137,13 +1150,49 @@ einmal**; Fakten, Zahlen und R-33-Wirkung sind identisch.
 | Zählwirkung | Zähler **41 → 42**, Nenner **23 → 24** (**`41/23 → 42/24`**) — CBP-WP-024 wird **erstmals** erfasst |
 | Aussagegrenze | **Keine neue Risiko-ID**, keine Schwere- oder Statusänderung, **keine neue Decision-ID** (HD-8 ist eine Klassifikationsentscheidung), **keine ADR**; **D-070** unverändert; **KB-04 bleibt `DOCUMENTED ONLY`**; beide Gates bleiben `NOT EVALUATED` |
 
-Damit sind **zweiundvierzig Konsistenzvorgänge in vierundzwanzig Work Packages**
-dokumentiert (**neue aktuelle Basislinie**; löst die vorige Angabe
-„einundvierzig" ab). Die Zahl der Work Packages steigt auf **vierundzwanzig**,
+Damit waren **zweiundvierzig Konsistenzvorgänge in vierundzwanzig Work Packages**
+dokumentiert (*Stand nach dem zweiundvierzigsten Vorgang: `42/24`; durch den
+dreiundvierzigsten Vorgang unten auf **43/25** aktualisiert*; löste die vorige
+Angabe „einundvierzig" ab). Die Zahl der Work Packages steigt auf **vierundzwanzig**,
 weil der zweiundvierzigste Vorgang **erstmals CBP-WP-024** erfasst. Vollständige
 Progression seit dem neunzehnten Vorgang: **19/22 → 20/22 → 21/22 → 22/22 → 23/22 → 24/22 → 25/22 → 26/22 → 27/22 → 28/22 → 29/22 → 30/22 → 31/22 → 32/22 → 33/22 → 34/22 → 35/22 → 36/22 → 37/22 → 38/22 → 39/22 → 40/22 → 41/23 → 42/24**.
 **`42/24` ist kein Erfüllungsgrad und keine Prozentkennzahl**; **`42/25`** ist
 unzulässig, ebenso **`43/24`** ohne einen zusätzlich registrierten Vorgang.
+**R-33 bleibt `gemindert, nicht geschlossen`**, Kritikalität unverändert
+**mittel**, kein Risiko geschlossen, **keine neue Risiko-ID**. Derselbe Vorgang
+ist in [COMPLIANCE_CHECK.md](COMPLIANCE_CHECK.md) gespiegelt und **zählt nur
+einmal**; Fakten, Zahlen und R-33-Wirkung sind identisch.
+
+---
+
+**R-33-Chronologie — dreiundvierzigster Konsistenzvorgang (CBP-WP-025 Active X1 Commit-status Mirrors Staleness, 2026-10-26):**
+
+| Feld | Inhalt |
+| --- | --- |
+| Work Package | **CBP-WP-025** — **erstes** R-33-Erfassen; **der Nenner steigt von 24 auf 25**; registriert in **Phase X1-C3** |
+| Kennung | **`X1-PCR-F01`** · `R33_EVENT_43_WP025_X1_POST_COMMIT_MIRROR_STALENESS` |
+| Phase und Anlass | Post-Commit-Prüfung nach Human-Commit und Human-Push von Phase X1; klassifiziert und zur Korrektur freigegeben durch **Human-Maintainer-A0 vom 2026-10-26** („GO CBP-WP-025 X1-C3 – POST-COMMIT STATUS RECONCILIATION") |
+| Fehlerklasse | **Git-/Register-Statusabweichung nach Commit und Push** — **CBP-WP-025 Active X1 Commit-status Mirrors Staleness** |
+| Auslöser | Human-Commit und Human-Push von Phase X1: **`97cc85fe1531f49a5ad407ee30a1102a7d8bd446`** (Parent `b3100ef`, 2026-10-26) |
+| Betroffene aktive Repository-Artefakte | `work-packages/CBP-WP-025.md` · `project-system/WORK_PACKAGE_QUEUE.md` · `project-brain/PROJECT_BRAIN.md` · `project-system/PROJECT_MANIFEST.md` · `project-system/HEALTH_SCORE.md` · `README.md` · `CLAUDE.md` · `docs/roadmap/PHASE_1_WORK_PACKAGE_MAP.md` |
+| Falsche aktive Aussage | „Phase X1 `in-review` / **nicht committed**" |
+| Korrekter Zustand | „Phase X1 **`committed`** (`97cc85f`)"; **CBP-WP-025 insgesamt weiterhin `in-review`**; X2 bis X6 und X4b nicht autorisiert |
+| Abgrenzung zu historischen Aussagen | D-071 Teil O (`42/24`), die X1-Abnahmekriterien (datiert qualifiziert), der Satz „Zähler im X1-Review-Diff" in der Queue und die Registrierungsnotiz „uncommitteter X1-Review-Diff" im Decision Register beschreiben den **Stand vor dem Commit** und bleiben unverändert |
+| Ursache | Ein Commit kann seinen eigenen Hash nicht vorwegnehmen; die X1-Statusspiegel beschrieben korrekt den Vor-Commit-Stand und wurden nach Commit und Push nicht unmittelbar nachgeführt |
+| Abgrenzung zu früheren Vorgängen | **Keine zählneutrale Erweiterung** eines früheren Vorgangs — auch nicht von **30**, **36**, **40**, **41** oder **42** (andere Ursache, anderer Zeitpunkt, anderes Work Package). Die Post-Commit-Reconciliation von CBP-WP-024 B0 (B0-C6) wurde nach dortiger Human-Maintainer-A0 (R-1 Option N) **nicht** gezählt; dieser Befund ist durch eigene A0 ausdrücklich als Vorgang angenommen. **N-1a**, **N-1b**, **DK-3**, **AF-6** und **D-1 bis D-10** bleiben getrennt und ohne Zählwirkung |
+| Erstmalige Registrierung | In den bisherigen **zweiundvierzig** Vorgängen **nicht** als eigener Vorgang registriert |
+| Korrektur | **X1-C3**: aktive Statusfelder in den acht Dateien minimal nachgeführt („X1 `committed` `97cc85f`", Gesamt-Work-Package `in-review`); historische Aussagen erhalten oder datiert qualifiziert; keine globale Ersetzung |
+| Einmalzählung | **acht** Spiegel · **eine** Fehlerursache · **eine** Zustandsänderung — **genau ein** Vorgang; die Doppelabbildung in Risk Register und Compliance Check **zählt nur einmal** |
+| Zählwirkung | Zähler **42 → 43**, Nenner **24 → 25** (**`42/24 → 43/25`**) — CBP-WP-025 wird **erstmals** erfasst |
+| Aussagegrenze | **Keine neue Risiko-ID**, keine Schwere- oder Statusänderung, **keine neue Decision**, **keine ADR**; **D-071**, **D-069** und **ADR-0015** unverändert; **KB-04 bleibt `DOCUMENTED ONLY`**; beide Gates bleiben `NOT EVALUATED`; **keine technische, operative oder Publikationswirkung**; kein Transfer |
+
+Damit sind **dreiundvierzig Konsistenzvorgänge in fünfundzwanzig Work Packages**
+dokumentiert (**neue aktuelle Basislinie**; löst die vorige Angabe
+„zweiundvierzig" ab). Die Zahl der Work Packages steigt auf **fünfundzwanzig**,
+weil der dreiundvierzigste Vorgang **erstmals CBP-WP-025** erfasst. Vollständige
+Progression seit dem neunzehnten Vorgang: **19/22 → 20/22 → 21/22 → 22/22 → 23/22 → 24/22 → 25/22 → 26/22 → 27/22 → 28/22 → 29/22 → 30/22 → 31/22 → 32/22 → 33/22 → 34/22 → 35/22 → 36/22 → 37/22 → 38/22 → 39/22 → 40/22 → 41/23 → 42/24 → 43/25**.
+**`43/25` ist kein Erfüllungsgrad und keine Prozentkennzahl**; **`43/26`** ist
+unzulässig, ebenso **`44/25`** ohne einen zusätzlich registrierten Vorgang.
 **R-33 bleibt `gemindert, nicht geschlossen`**, Kritikalität unverändert
 **mittel**, kein Risiko geschlossen, **keine neue Risiko-ID**. Derselbe Vorgang
 ist in [COMPLIANCE_CHECK.md](COMPLIANCE_CHECK.md) gespiegelt und **zählt nur

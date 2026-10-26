@@ -8,8 +8,8 @@
 | Typ | **Mehrphasiges Governance-/Repository-Operations-Work-Package** |
 | Priorität | **P0** — kontrollierte Repository-Governance vor weiteren geplanten Implementierungsschritten |
 | Prompt Mode | **Full** · Context Budget **B2 – Standard** (begründet **B3**) |
-| Status | **`in-review`** — Phase **X1** ausgeführt, wartet auf Nova-Review und Human-Maintainer-Entscheidung |
-| Aktuelle Phase | **X1 – Governance, D-071 und Work-Package-Registrierung** |
+| Status | **`in-review`** (Gesamt-Work-Package) — Phase **X1** **`committed`** (`97cc85f`, Human-Commit und -Push 2026-10-26); Post-Commit-Reconciliation **X1-C3** als separat autorisierte dokumentarische Reconciliation ausgeführt — ihr Commitstatus ist ausschließlich anhand des jeweiligen Git-Stands nachzuweisen; X2 bis X6 und X4b nicht autorisiert |
+| Aktuelle Phase | **X1 – Governance, D-071 und Work-Package-Registrierung** (`committed` `97cc85f`) · Post-Commit-Reconciliation **X1-C3** |
 | Registration Decision | **D-071** — `accepted`, **A0**, 2026-10-26 — Ergebnis **`CBP_TRANSFER_GOVERNANCE_MODEL_SELECTED_EXECUTION_NOT_AUTHORIZED`** |
 | Human-Maintainer-Authority | **A0** vom **2026-10-26**: „GO CBP-TRANSFER-X1 – GOVERNANCE AND WORK PACKAGE REGISTRATION ONLY“; TR-G1 bis TR-G8 ausdrücklich angenommen |
 | Review Authority | **Nova** |
@@ -17,13 +17,13 @@
 | ADR | **keiner** |
 | Registrierungsdatum | **2026-10-26** |
 | Planungsgrundlage | read-only Intake **CBP-TRANSFER-PRE** vom 2026-10-26 (`DECISION_REQUIRED`); **kein** registriertes Work Package, **keine** Authority |
-| Commit | **X1 nicht committed** — Commit und Push ausschließlich durch den Human Maintainer (D-003); keine Selbstreferenz auf einen künftigen Commit |
+| Commit | **X1 `committed`** — `97cc85f` (Parent `b3100ef`; Commit und Push am 2026-10-26 ausschließlich durch den Human Maintainer, D-003); Commitstatus von X1-C3 ausschließlich anhand des jeweiligen Git-Stands nachzuweisen; X2 bis X6 und X4b nicht autorisiert; keine Selbstreferenz auf einen künftigen Commit |
 | Transferstatus | **kein Transfer, keine Umbenennung, kein Remote-Wechsel ausgeführt** |
 | CBP-WP-024 | **unabhängig `in-review`** (Phase B0 `committed` `dd72c3f`; B1, B2, B3 und C nicht autorisiert) |
 | KB-04-Status | **`DOCUMENTED ONLY`** — unverändert |
 | Capabilities | **0 von 29** — unverändert |
 | Gates | Mapping Activation `NOT EVALUATED` · Security Foundation Readiness `NOT EVALUATED` |
-| R-33 | **`42/24`** — unverändert; kein neuer Vorgang |
+| R-33 | **`43/25`** — Vorgang **43** (`X1-PCR-F01`, CBP-WP-025 Active X1 Commit-status Mirrors Staleness), registriert in **X1-C3** durch Human-Maintainer-A0 vom 2026-10-26; X1 selbst erzeugte keinen Vorgang (Stand X1: `42/24`) |
 
 ## 2. Ausgangslage
 
@@ -125,7 +125,8 @@ freigegeben und unabhängig verifiziert.
 
 | Phase | Gegenstand | Autorität | Status |
 | --- | --- | --- | --- |
-| **X1** | Governance, D-071 und WP-Registrierung | **autorisiert** — Human-Maintainer-A0 vom 2026-10-26 | ausgeführt, **`in-review`**, **nicht committed** |
+| **X1** | Governance, D-071 und WP-Registrierung | **autorisiert** — Human-Maintainer-A0 vom 2026-10-26 | ausgeführt, **`committed`** (`97cc85f`) |
+| **X1-C3** | Post-Commit Status & R-33 Reconciliation von X1 | **autorisiert** — Human-Maintainer-A0 vom 2026-10-26 | dokumentarisch ausgeführt; Commitstatus ausschließlich anhand des jeweiligen Git-Stands nachzuweisen (bei Kandidatenerstellung am 2026-10-26: nicht committed) |
 | **X2** | Berechtigungen, Policies, Vollbackup und Readiness | **nicht autorisiert** | — |
 | **X3** | Ownership-Transfer zum Org-Zwischennamen `blackhole-dynamics/Core-Brain-Pilot` | **nicht autorisiert** — eigene A0 (A0-2) | — |
 | **X4** | Unabhängige Verifikation des Eigentümerwechsels (Zwischenzustand) | erst nach X3, **gesonderte Freigabe** | — |
@@ -270,7 +271,8 @@ Scope-A0:
 
 ## 16. Abnahmekriterien
 
-**X1:**
+**X1** (Abnahmekriterien zum Zeitpunkt der X1-Ausführung, 2026-10-26, vor dem
+Human-Commit `97cc85f`):
 
 - D-071 genau einmal registriert, `accepted`, A0, mit Teilen A bis P;
   Entscheidungsblock und Register-Zeile inhaltlich identisch.
@@ -281,6 +283,17 @@ Scope-A0:
 - CBP-WP-024 unverändert `in-review`; kein Work Package `active`.
 - Nur Dateien der X1-Allowlist geändert; kein Transfer, keine Umbenennung,
   kein Remote-Wechsel, kein Backup, kein Commit, kein Push.
+
+**X1-C3** (Post-Commit-Reconciliation, 2026-10-26):
+
+- Aktive Statusspiegel führen Phase X1 als `committed` (`97cc85f`), das
+  Gesamt-Work-Package weiterhin als `in-review`.
+- `X1-PCR-F01` genau einmal als R-33-Vorgang **43** registriert, identisch in
+  Risk Register und Compliance Check; R-33 **`42/24 → 43/25`**.
+- D-071 einschließlich Teil O (`42/24`) unverändert; historische
+  X1-Aussagen erhalten oder datiert qualifiziert.
+- Nur Dateien der X1-C3-Allowlist geändert; kein Commit und kein Push durch
+  den Lauf selbst.
 
 **Gesamtpaket (Closure in X6):** Endzustand `blackhole-dynamics/Core-Brain` mit
 unveränderter Repository-ID, Historie und Governance nachgewiesen; aktive
@@ -304,7 +317,7 @@ Referenzen nachgeführt; historische Aussagen unverändert.
 | --- | --- | --- |
 | Secret im öffentlichen Repository; Secret Scanning und Push Protection laut CBP-TRANSFER-PRE deaktiviert | **R-01** | offen — Prüfung in X2 und X4 |
 | Dokumentationsdrift nach Transfer und Umbenennung | **R-16** | offen — X5 |
-| Kennzahlen- und Statusspiegel | **R-33** | `42/24`, unverändert |
+| Kennzahlen- und Statusspiegel | **R-33** | `43/25` — Vorgang 43 (`X1-PCR-F01`) in X1-C3; Stand X1: `42/24` |
 | Fehlende Restore-Evidenz | **R-20** | Backup in X2 nachzuweisen; Restore nicht geprobt |
 | Implizites Veröffentlichungs- oder Open-Source-Signal durch die Organisationseinbettung bei offener Lizenz | Hinweis ohne Registrierung | durch D-071 Teil G und E begrenzt |
 | Organisations-Policies nicht lesbar (Rulesets, Actions, Security-Konfigurationen, Webhooks, Secrets) | offener Nachweis | X2 |
@@ -317,9 +330,31 @@ Es wird **keine** neue Risiko-ID registriert.
 | Feld | Wert |
 | --- | --- |
 | Gesamtstatus | **`in-review`** |
-| Phase X1 | ausgeführt, **`in-review`**, **nicht committed** |
+| Phase X1 | **`committed`** (`97cc85f`, Human-Commit und -Push 2026-10-26) |
+| X1-C3 | Post-Commit-Reconciliation, als separat autorisierte dokumentarische Reconciliation ausgeführt; Commitstatus ausschließlich anhand des jeweiligen Git-Stands nachzuweisen |
 | X2 bis X6, X4b | **nicht autorisiert** |
-| Next-Gate | Nova-Review von X1, danach Human-Maintainer-Entscheidung über Commit und Push von X1 sowie — gesondert — über eine X2-Freigabe |
+| Next-Gate | Jede weitere Phase (X2 bis X6, X4b) erfordert ein eigenes Nova-Review und eine eigene Human-Maintainer-A0; Commit und Push ausschließlich durch den Human Maintainer (D-003) |
+
+### Stand X1 committed und X1-C3 — Momentaufnahme bei Kandidatenerstellung, 2026-10-26
+
+Phase **X1** wurde lokal als uncommitteter Review-Kandidat ausgeführt und
+anschließend vom Human Maintainer committed und gepusht: Commit
+`97cc85fe1531f49a5ad407ee30a1102a7d8bd446` (Parent
+`b3100efcc124915597cc43bd10386de34ea0e7d7`, *docs(cbp): register WP-025 transfer
+governance and D-071*). Die Abschnitte und Kennzahlen, die den Stand **vor**
+diesem Commit beschreiben (D-071 Teil O, die X1-Abnahmekriterien), bleiben
+unverändert.
+
+Die aktiven Statusspiegel führten danach weiterhin „X1 nicht committed". Dieser
+Befund **`X1-PCR-F01`** ist durch Human-Maintainer-A0 vom 2026-10-26 als
+**R-33-Vorgang 43** (*CBP-WP-025 Active X1 Commit-status Mirrors Staleness*)
+angenommen und in **X1-C3** korrigiert und registriert: R-33 **`42/24 → 43/25`**.
+Zum Zeitpunkt der Kandidatenerstellung (2026-10-26) lag X1-C3 als
+**uncommitteter Review-Diff** vor; Nova-Review, Commit und Push standen aus. Der
+spätere Commitstatus von X1-C3 ist ausschließlich anhand des jeweiligen
+Git-Stands nachzuweisen. Das Gesamt-Work-Package bleibt **`in-review`**; **X2 bis X6 und X4b**
+bleiben **nicht autorisiert**; kein Transfer, keine Umbenennung, kein
+Remote-Wechsel.
 
 ## 20. Aussageschutz
 
@@ -333,8 +368,11 @@ Es wird **keine** neue Risiko-ID registriert.
 | Eine Lizenz sei entschieden | **nein** — OD-23 offen |
 | Ein ADR sei angelegt | **nein** — `ADR_NOT_REQUIRED` innerhalb der Bedingungen aus Teil K |
 | Ein Backup sei erstellt | **nein** — Voraussetzung für X2/X3 |
-| CBP-WP-025 sei `committed` oder `complete` | **nein** — `in-review`; X1 nicht committed |
+| CBP-WP-025 sei insgesamt `committed` oder `complete` | **nein** — Gesamt-Work-Package `in-review`; X2 bis X6 und X4b nicht autorisiert |
+| Phase X1 sei `committed` | **ja** — `97cc85f`, Human-Commit und -Push 2026-10-26 |
+| Der Commitstatus von X1-C3 ergebe sich aus diesem Dokument | **nein** — ausschließlich aus dem jeweiligen Git-Stand |
 | CBP-WP-024 sei verändert oder B1 freigegeben | **nein** — unabhängig `in-review`, B1 bis C nicht autorisiert |
-| Ein R-33-Vorgang oder eine neue Risiko-ID sei registriert | **nein** — R-33 `42/24`, Risiken 35 |
+| X1 habe einen R-33-Vorgang oder eine neue Risiko-ID registriert | **nein** — Stand X1: R-33 `42/24`, Risiken 35 |
+| X1-C3 habe eine neue Risiko-ID registriert | **nein** — Vorgang 43 unter der bestehenden ID R-33; R-33 `43/25`, Risiken 35 |
 
 **Die Registrierung dieses Work Packages ist keine Transferfreigabe.**
